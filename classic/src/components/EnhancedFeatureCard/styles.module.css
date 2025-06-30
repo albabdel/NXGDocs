@@ -1,0 +1,138 @@
+.featureCardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.featureCard {
+  background: var(--ifm-background-surface-color);
+  border: 1px solid rgba(255, 136, 0, 0.15);
+  border-radius: 20px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  backdrop-filter: blur(10px);
+}
+
+.featureCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ff8800, #ffbb66, #ffd699);
+  opacity: 0.8;
+}
+
+.featureCard.hovered {
+  transform: translateY(-16px) rotateX(8deg) scale(1.03);
+  box-shadow: 
+    0 25px 50px rgba(255, 136, 0, 0.2),
+    0 10px 20px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-color: var(--ifm-color-primary);
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, rgba(255, 136, 0, 0.1), rgba(255, 136, 0, 0.2));
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(255, 136, 0, 0.3);
+}
+
+.icon {
+  font-size: 2rem;
+  background: linear-gradient(135deg, #ff8800, #ffbb66);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+}
+
+.title {
+  margin: 0 0 1rem 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--ifm-color-primary), #ffbb66);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.description {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--ifm-color-content-secondary);
+  line-height: 1.6;
+}
+
+.comingSoonBadge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(135deg, #ff8800, #ffbb66);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hoverGlow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 136, 0, 0.1) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.featureCard.hovered .hoverGlow {
+  opacity: 1;
+}
+
+.comingSoon {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.comingSoon .featureCard:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .featureCard {
+    padding: 1.5rem;
+  }
+  
+  .iconContainer {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 1rem;
+  }
+  
+  .icon {
+    font-size: 1.5rem;
+  }
+  
+  .title {
+    font-size: 1.2rem;
+  }
+} 

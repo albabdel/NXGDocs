@@ -1,0 +1,10 @@
+.scrollIndicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ff8800, #ffbb66, #ffd699);
+  z-index: 9999;
+  transition: width 0.1s ease;
+  box-shadow: 0 0 10px rgba(255, 136, 0, 0.5);
+} 
