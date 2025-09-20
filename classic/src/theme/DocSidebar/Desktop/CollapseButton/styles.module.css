@@ -1,0 +1,7 @@
+.collapseSidebarButton {
+  display: none;
+}
+
+.collapseSidebarButtonIcon {
+  transform: rotate(180deg);
+}

@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Genesis GCX-ONE',
+  title: 'GCXONE',
   tagline: '10 Breakthroughs. One Platform. Twice the Output. Zero Extra Hires.',
   favicon: 'img/favicon.ico',
 
@@ -20,7 +20,7 @@ const config: Config = {
       tagName: 'meta',
       attributes: {
         name: 'theme-color',
-        content: '#ff8800',
+        content: '#e7a63f',
       },
     },
     {
@@ -70,6 +70,8 @@ const config: Config = {
           routeBasePath: '/', // Docs-only mode
           showLastUpdateTime: true,
           showLastUpdateAuthor: false,
+          sidebarCollapsible: true,
+          sidebarCollapsed: false,
         },
         blog: false, // Disable blog
         theme: {
@@ -103,12 +105,7 @@ const config: Config = {
     navbar: {
       hideOnScroll: false,
       style: 'primary',
-      items: [
-        {
-          type: 'search',
-          position: 'right',
-        },
-      ], // Search in navbar when visible
+      items: [],
     },
     footer: {
       style: 'light',

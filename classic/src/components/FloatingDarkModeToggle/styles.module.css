@@ -1,0 +1,123 @@
+/* Floating Dark Mode Toggle - positioned in top-right */
+.floatingToggle {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(231, 166, 63, 0.2);
+}
+
+[data-theme='dark'] .floatingToggle {
+  background: rgba(28, 28, 30, 0.8);
+  border-color: rgba(231, 166, 63, 0.3);
+}
+
+.floatingToggle:hover {
+  background: rgba(231, 166, 63, 0.1);
+  transform: scale(1.05);
+  border-color: var(--ifm-color-primary);
+}
+
+.floatingToggle:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.toggleTrack {
+  width: 44px;
+  height: 24px;
+  background: var(--ifm-color-emphasis-300);
+  border-radius: 16px;
+  position: relative;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+}
+
+.floatingToggle:hover .toggleTrack {
+  background: var(--ifm-color-emphasis-400);
+}
+
+.toggleThumb {
+  width: 20px;
+  height: 20px;
+  background: var(--ifm-background-surface-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  color: var(--ifm-color-content-secondary);
+  position: relative;
+  z-index: 1;
+}
+
+.toggleThumbDark {
+  transform: translateX(20px);
+  background: var(--ifm-color-primary);
+  color: white;
+}
+
+[data-theme='dark'] .toggleTrack {
+  background: var(--ifm-color-primary-dark);
+}
+
+[data-theme='dark'] .floatingToggle:hover .toggleTrack {
+  background: var(--ifm-color-primary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 996px) {
+  .floatingToggle {
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .floatingToggle {
+    top: 1rem;
+    right: 1rem;
+    padding: 6px;
+  }
+  
+  .toggleTrack {
+    width: 36px;
+    height: 20px;
+  }
+  
+  .toggleThumb {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .toggleThumbDark {
+    transform: translateX(16px);
+  }
+  
+  .toggleThumb svg {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .floatingToggle {
+    border: 2px solid var(--ifm-color-primary);
+    background: var(--ifm-background-surface-color);
+  }
+}
