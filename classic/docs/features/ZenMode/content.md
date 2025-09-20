@@ -3,7 +3,7 @@ sidebar_position: 3
 image: ./logo.svg
 ---
 
-# Zen Mode
+# ZenMode
 
 **Less Distraction. More Action.**
 
