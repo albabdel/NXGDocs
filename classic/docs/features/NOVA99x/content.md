@@ -3,7 +3,7 @@ sidebar_position: 1
 image: ./logo.svg
 ---
 
-# Nova99x
+# NOVA99x
 
 **Silence the Noise. Focus on What's Real.**
 
@@ -11,7 +11,7 @@ Advanced AI-powered threat detection that eliminates false alarms and highlights
 
 ## Overview
 
-Nova99x revolutionizes security monitoring by using machine learning algorithms to distinguish between real threats and false positives. Say goodbye to alarm fatigue and hello to precision monitoring.
+NOVA99x revolutionizes security monitoring by using machine learning algorithms to distinguish between real threats and false positives. Say goodbye to alarm fatigue and hello to precision monitoring.
 
 ## Key Features
 
