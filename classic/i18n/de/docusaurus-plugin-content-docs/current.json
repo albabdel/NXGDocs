@@ -1,0 +1,14 @@
+{
+    "sidebar.tutorialSidebar.category.Features": {
+        "message": "Funktionen",
+        "description": "The label for category Features in sidebar tutorialSidebar"
+    },
+    "sidebar.tutorialSidebar.category.Device Manuals": {
+        "message": "Gerätehandbücher",
+        "description": "The label for category Device Manuals in sidebar tutorialSidebar"
+    },
+    "sidebar.tutorialSidebar.category.Release Notes": {
+        "message": "Versionshinweise",
+        "description": "The label for category Release Notes in sidebar tutorialSidebar"
+    }
+}

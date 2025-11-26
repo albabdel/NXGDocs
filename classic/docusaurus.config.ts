@@ -1,5 +1,5 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
@@ -21,13 +21,6 @@ const config: Config = {
       attributes: {
         name: 'theme-color',
         content: '#e7a63f',
-      },
-    },
-    {
-      tagName: 'meta',
-      attributes: {
-        name: 'apple-mobile-web-app-capable',
-        content: 'yes',
       },
     },
     {
@@ -58,7 +51,19 @@ const config: Config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'de'],
+    localeConfigs: {
+      en: {
+        label: 'English',
+        direction: 'ltr',
+        htmlLang: 'en-US',
+      },
+      de: {
+        label: 'Deutsch',
+        direction: 'ltr',
+        htmlLang: 'de-DE',
+      },
+    },
   },
 
   presets: [
@@ -67,7 +72,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          routeBasePath: '/', // Docs-only mode
+          routeBasePath: 'docs', // Serve docs at /docs
           showLastUpdateTime: true,
           showLastUpdateAuthor: false,
           sidebarCollapsible: true,
@@ -105,7 +110,14 @@ const config: Config = {
     navbar: {
       hideOnScroll: false,
       style: 'primary',
-      items: [],
+      items: [
+        {
+          type: 'docSidebar',
+          sidebarId: 'tutorialSidebar',
+          position: 'left',
+          label: 'Documentation',
+        },
+      ],
     },
     footer: {
       style: 'light',

@@ -1,0 +1,3839 @@
+[
+  {
+    "id": "/docs/api/index#0",
+    "url": "/docs/api/index",
+    "type": "API_ENDPOINT",
+    "title": "API Reference",
+    "sectionTitle": "Introduction",
+    "content": "API Reference\r \r The GCXONE API allows developers to integrate third-party applications with the platform. It is a RESTful API that uses JSON for request and response bodies.",
+    "tags": [
+      "api",
+      "developer",
+      "integration"
+    ],
+    "hierarchy": [
+      "API Reference"
+    ]
+  },
+  {
+    "id": "/docs/api/index#1",
+    "url": "/docs/api/index#base-url",
+    "type": "API_ENDPOINT",
+    "title": "API Reference",
+    "sectionTitle": "Base URL",
+    "content": "All API requests should be made to:",
+    "tags": [
+      "api",
+      "developer",
+      "integration"
+    ],
+    "hierarchy": [
+      "API Reference"
+    ]
+  },
+  {
+    "id": "/docs/api/index#2",
+    "url": "/docs/api/index#authentication",
+    "type": "API_ENDPOINT",
+    "title": "API Reference",
+    "sectionTitle": "Authentication",
+    "content": "The API uses Bearer Token authentication. You must include your API Key in the Authorization header of each request.\r \r \r \r Generating an API Key\r 1.  Log in to the Console as an Admin.\r 2.  Go to Settings > API Keys.\r 3.  Click Generate New Key.",
+    "tags": [
+      "api",
+      "developer",
+      "integration"
+    ],
+    "hierarchy": [
+      "API Reference"
+    ]
+  },
+  {
+    "id": "/docs/api/index#3",
+    "url": "/docs/api/index#endpoints",
+    "type": "API_ENDPOINT",
+    "title": "API Reference",
+    "sectionTitle": "Endpoints",
+    "content": "Devices\r \r GET /devices\r Returns a list of all devices assigned to your organization.\r \r Response:\r \r \r GET /devices/{id}\r Returns details for a specific device.\r \r Alarms\r \r GET /alarms\r Returns a list of active alarms.\r \r POST /alarms/{id}/acknowledge\r Acknowledges an alarm.\r \r Request Body:",
+    "tags": [
+      "api",
+      "developer",
+      "integration"
+    ],
+    "hierarchy": [
+      "API Reference"
+    ]
+  },
+  {
+    "id": "/docs/api/index#4",
+    "url": "/docs/api/index#rate-limiting",
+    "type": "API_ENDPOINT",
+    "title": "API Reference",
+    "sectionTitle": "Rate Limiting",
+    "content": "The API is rate-limited to 100 requests per minute per IP address. Exceeding this limit will result in a 429 Too Many Requests response.",
+    "tags": [
+      "api",
+      "developer",
+      "integration"
+    ],
+    "hierarchy": [
+      "API Reference"
+    ]
+  },
+  {
+    "id": "/docs/devices/ADPRO/ADPRO#0",
+    "url": "/docs/devices/ADPRO/ADPRO",
+    "type": "DOC_PAGE",
+    "title": "ADPRO",
+    "sectionTitle": "Introduction",
+    "content": "ADPRO\r \r Device Information:\r - Device: ADPRO (Device Model)\r - Vendor: ADPRO (Honeywell)\r - Model: Various\r - Firmware: Compatible versions\r - Platform: GC-X-ONE\r - Doc Version: 1.0.0\r \r \r Summary\r \r - Purpose: Configure ADPRO devices to successfully transmit alarms into the GC-X-ONE platform.\r - O",
+    "tags": [
+      "ADPRO",
+      "Honeywell",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "ADPRO"
+    ]
+  },
+  {
+    "id": "/docs/devices/ADPRO/ADPRO#1",
+    "url": "/docs/devices/ADPRO/ADPRO#step-1-—-network-configuration",
+    "type": "DOC_PAGE",
+    "title": "ADPRO",
+    "sectionTitle": "Step 1 — Network Configuration",
+    "content": "- Network Options\r   - Public Network: Use public IP address of receiver and associated ports\r   - VPN: Connect through network tunnel using private IP addressing\r   - Whitelisting: Request NXG tech support for dedicated receiver IP address\r \r - Important Notes\r   - For ADPRO devices there is a dedi",
+    "tags": [
+      "ADPRO",
+      "Honeywell",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "ADPRO"
+    ]
+  },
+  {
+    "id": "/docs/devices/ADPRO/ADPRO#2",
+    "url": "/docs/devices/ADPRO/ADPRO#step-2-—-cms-alarm-transmission",
+    "type": "DOC_PAGE",
+    "title": "ADPRO",
+    "sectionTitle": "Step 2 — CMS Alarm Transmission",
+    "content": "- UI path: ADPRO XO Client → CMS Alarm Transmission\r \r !ADPRO CMS Alarm Transmission\r \r - Configure General Settings\r   - On \"General\" provide your Server unit ID\r   - Keep in mind that each device should have a unique server ID, which means you can't use the same value twice\r   \r   !ADPRO General S",
+    "tags": [
+      "ADPRO",
+      "Honeywell",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "ADPRO"
+    ]
+  },
+  {
+    "id": "/docs/devices/ADPRO/ADPRO#3",
+    "url": "/docs/devices/ADPRO/ADPRO#step-3-—-parallel-alarm-transmission-(optional)",
+    "type": "DOC_PAGE",
+    "title": "ADPRO",
+    "sectionTitle": "Step 3 — Parallel Alarm Transmission (Optional)",
+    "content": "- UI path: ADPRO XO Client → Parallel Alarm Transmission\r \r - Do\r   - In the 'Parallel Alarm' section, you have the option to add an additional IP address for alarm transmission\r   - This can be useful for other purposes, such as integrating with a different alarm management system or generating rep",
+    "tags": [
+      "ADPRO",
+      "Honeywell",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "ADPRO"
+    ]
+  },
+  {
+    "id": "/docs/devices/ADPRO/ADPRO#4",
+    "url": "/docs/devices/ADPRO/ADPRO#step-4-—-analytics-configuration",
+    "type": "DOC_PAGE",
+    "title": "ADPRO",
+    "sectionTitle": "Step 4 — Analytics Configuration",
+    "content": "- UI path: ADPRO XO Client → Analytics\r \r - Available Analytics Features\r   - Intrusion Trace: Define specific areas within camera's field of view for unauthorized entry monitoring\r   - Loiter Trace: Configure detection for prolonged presence in restricted areas\r   - Motion Sabotage: Set up detectio",
+    "tags": [
+      "ADPRO",
+      "Honeywell",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "ADPRO"
+    ]
+  },
+  {
+    "id": "/docs/devices/ADPRO/ADPRO#5",
+    "url": "/docs/devices/ADPRO/ADPRO#step-5-—-arm-and-disarm-schedule",
+    "type": "DOC_PAGE",
+    "title": "ADPRO",
+    "sectionTitle": "Step 5 — Arm and Disarm Schedule",
+    "content": "- UI path: ADPRO XO Client → Arm/Disarm Schedule\r \r - Do\r   - Set the system to either armed or disarmed mode by selecting your desired times\r   - Use the right side of the screen to configure scheduling\r   - Define when the system should be automatically armed or disarmed\r \r !ADPRO Arm/Disarm Sched",
+    "tags": [
+      "ADPRO",
+      "Honeywell",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "ADPRO"
+    ]
+  },
+  {
+    "id": "/docs/devices/ADPRO/ADPRO#6",
+    "url": "/docs/devices/ADPRO/ADPRO#step-6-—-alarms-profile",
+    "type": "DOC_PAGE",
+    "title": "ADPRO",
+    "sectionTitle": "Step 6 — Alarms Profile",
+    "content": "- UI path: ADPRO XO Client → Alarms Profile\r \r - Configure Alarm Profiles\r   - Alarm Profiles are customizable settings that determine how the system responds to various alarm events\r   - Specify different parameters such as the type of alarm, conditions for triggering, and subsequent actions\r   \r  ",
+    "tags": [
+      "ADPRO",
+      "Honeywell",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "ADPRO"
+    ]
+  },
+  {
+    "id": "/docs/devices/ADPRO/ADPRO#7",
+    "url": "/docs/devices/ADPRO/ADPRO#step-7-—-input/output-behaviour",
+    "type": "DOC_PAGE",
+    "title": "ADPRO",
+    "sectionTitle": "Step 7 — Input/Output Behaviour",
+    "content": "- UI path: ADPRO XO Client → Input/Output Behaviour\r \r - Configure Event Responses\r   - The configuration screen lets users manage system event responses\r   - Left panel has navigation tree\r   - Middle panel lists events like \"SYSTEM STARTUP\" and \"SYSTEM ARMED\"\r   - Right panel allows detailed setti",
+    "tags": [
+      "ADPRO",
+      "Honeywell",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "ADPRO"
+    ]
+  },
+  {
+    "id": "/docs/devices/ADPRO/ADPRO#8",
+    "url": "/docs/devices/ADPRO/ADPRO#step-8-—-time-zone-configuration",
+    "type": "DOC_PAGE",
+    "title": "ADPRO",
+    "sectionTitle": "Step 8 — Time Zone Configuration",
+    "content": "- UI path: ADPRO XO Client → General → Date/Time\r \r - Do\r   - Configure the time zone as the customer's device time zone\r   - We recommend you sync the NTP server, in this case you don't need to configure it manually\r   - The device will read the server day-time\r \r !ADPRO Time Zone Configuration\r \r ",
+    "tags": [
+      "ADPRO",
+      "Honeywell",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "ADPRO"
+    ]
+  },
+  {
+    "id": "/docs/devices/ADPRO/ADPRO#9",
+    "url": "/docs/devices/ADPRO/ADPRO#step-9-—-configure-nxg-users",
+    "type": "DOC_PAGE",
+    "title": "ADPRO",
+    "sectionTitle": "Step 9 — Configure NXG Users",
+    "content": "- UI path: ADPRO XO Client → Users\r \r - Do\r   - In the \"Users\" section, identify NXG users of the system and define their access rights\r   - We recommend granting Administrative rights; however, if that's not possible, User rights will also suffice\r \r !ADPRO Users Configuration\r \r - Expected result:",
+    "tags": [
+      "ADPRO",
+      "Honeywell",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "ADPRO"
+    ]
+  },
+  {
+    "id": "/docs/devices/ADPRO/ADPRO#10",
+    "url": "/docs/devices/ADPRO/ADPRO#step-10-—-configure-ift-gateway-(if-applicable)",
+    "type": "DOC_PAGE",
+    "title": "ADPRO",
+    "sectionTitle": "Step 10 — Configure iFT Gateway (If Applicable)",
+    "content": "- UI path: GC-X-ONE → Device → Edit → Additional Settings → Custom Property\r \r - Do (for ADPRO device sub-type [iFT] Gateway)\r   - Login into GC-X-ONE using your credentials\r   \r   !GC-X-ONE Login\r   - Navigate to your device then click on \"edit\"\r   - Go to \"Additional Settings\" then \"Custom propert",
+    "tags": [
+      "ADPRO",
+      "Honeywell",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "ADPRO"
+    ]
+  },
+  {
+    "id": "/docs/devices/ADPRO/ADPRO#11",
+    "url": "/docs/devices/ADPRO/ADPRO#step-11-—-add-device-in-gc-x-one",
+    "type": "DOC_PAGE",
+    "title": "ADPRO",
+    "sectionTitle": "Step 11 — Add device in GC-X-ONE",
+    "content": "- UI path: GC-X-ONE → Customer → Site → Devices → Add Device\r - Do\r   - Select ADPRO.\r   - Fill: Host/Serial, Username, Password, Ports, Time Zone.\r   - Click Discover. Review discovered sensors and I/O.\r   - Click Save.\r - Expected result: GC-X-ONE lists sensors under the Camect device.\r   \r   !Add",
+    "tags": [
+      "ADPRO",
+      "Honeywell",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "ADPRO"
+    ]
+  },
+  {
+    "id": "/docs/devices/ADPRO/ADPRO#12",
+    "url": "/docs/devices/ADPRO/ADPRO#step-12-—-verify-integration",
+    "type": "DOC_PAGE",
+    "title": "ADPRO",
+    "sectionTitle": "Step 12 — Verify Integration",
+    "content": "- Checks\r   - Verify alarm transmission is working (primary and secondary)\r   - Test site pulse/lifecheck functionality\r   - Confirm analytics are generating appropriate events\r   - Test arm/disarm schedule functionality\r   - Verify user access and permissions\r   - Check time synchronization\r \r - Ex",
+    "tags": [
+      "ADPRO",
+      "Honeywell",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "ADPRO"
+    ]
+  },
+  {
+    "id": "/docs/devices/Ajax/Ajax#0",
+    "url": "/docs/devices/Ajax/Ajax",
+    "type": "DOC_PAGE",
+    "title": "Ajax",
+    "sectionTitle": "Introduction",
+    "content": "Ajax\r \r Device Information:\r - Device: Ajax Hub/NVR Model\r - Vendor: Ajax\r - Model: Various\r - Firmware: Compatible versions\r - Platform: GC-X-ONE\r - Doc Version: 1.0.0\r \r \r Summary\r \r - Purpose: Integrate Ajax security devices with GC-X-ONE platform for alarm monitoring and effective false alarm fi",
+    "tags": [
+      "Ajax",
+      "Security Hub",
+      "NVR",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "Ajax"
+    ]
+  },
+  {
+    "id": "/docs/devices/Ajax/Ajax#1",
+    "url": "/docs/devices/Ajax/Ajax#step-1-—-invite-nxgen-technologies-to-your-hub",
+    "type": "DOC_PAGE",
+    "title": "Ajax",
+    "sectionTitle": "Step 1 — Invite NXGEN Technologies to Your Hub",
+    "content": "- UI path: AJAX PRO Desktop → Space Setting → Security Companies → Invite via Email\r \r - Do\r   - Open AJAX PRO Desktop\r   - Navigate to: Space Setting → Security Companies → Invite via Email\r   - Enter the following email address for the invitation: ajax@nxgen.io\r   - Send the invitation and ensure ",
+    "tags": [
+      "Ajax",
+      "Security Hub",
+      "NVR",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "Ajax"
+    ]
+  },
+  {
+    "id": "/docs/devices/Ajax/Ajax#2",
+    "url": "/docs/devices/Ajax/Ajax#step-2-—-add-ajax-device-in-gc-x-one-platform",
+    "type": "DOC_PAGE",
+    "title": "Ajax",
+    "sectionTitle": "Step 2 — Add Ajax Device in GC-X-ONE Platform",
+    "content": "- UI path: GC-X-ONE → Devices → Add Device\r \r - Do\r   - Login to the GC-X-ONE platform with your credentials\r   - Navigate to Devices and choose Add Device\r   - In the configuration form:\r     - Type: Select either Ajax Hub or Ajax NVR from the dropdown\r     - Hub ID / Device ID:\r       - If you sel",
+    "tags": [
+      "Ajax",
+      "Security Hub",
+      "NVR",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "Ajax"
+    ]
+  },
+  {
+    "id": "/docs/devices/Ajax/Ajax#3",
+    "url": "/docs/devices/Ajax/Ajax#step-3-—-find-sia-dc09-receiver-details-on-gc-x-one",
+    "type": "DOC_PAGE",
+    "title": "Ajax",
+    "sectionTitle": "Step 3 — Find SIA-DC09 Receiver Details on GC-X-ONE",
+    "content": "- UI path: GC-X-ONE → Devices → View Device\r \r - Do\r   - After adding the device:\r     - Locate your newly registered AJAX device in the device list\r     - Click the View button beside the device\r     - On the device overview page, you will find the SIA-DC09 receiver information including:\r       - ",
+    "tags": [
+      "Ajax",
+      "Security Hub",
+      "NVR",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "Ajax"
+    ]
+  },
+  {
+    "id": "/docs/devices/Ajax/Ajax#4",
+    "url": "/docs/devices/Ajax/Ajax#step-4-—-configure-the-receiver-in-ajax-pro-desktop",
+    "type": "DOC_PAGE",
+    "title": "Ajax",
+    "sectionTitle": "Step 4 — Configure the Receiver in AJAX PRO Desktop",
+    "content": "- UI path: AJAX PRO Desktop → Company → CMS connection → Add Receiver\r \r - Do\r   - Open AJAX PRO Desktop\r   - Navigate to: Company → CMS connection → Add Receiver\r   - Input the receiver details from the GC-X-ONE platform's device details page:\r     - Use the receiver IP/hostname, port, and the encr",
+    "tags": [
+      "Ajax",
+      "Security Hub",
+      "NVR",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "Ajax"
+    ]
+  },
+  {
+    "id": "/docs/devices/Ajax/Ajax#5",
+    "url": "/docs/devices/Ajax/Ajax#step-5-—-enable-the-receiver-&-map-account-numbers",
+    "type": "DOC_PAGE",
+    "title": "Ajax",
+    "sectionTitle": "Step 5 — Enable the Receiver & Map Account Numbers",
+    "content": "- UI path: AJAX PRO Desktop → Objects → Object → Maintenance → Monitoring via [Receiver Name]\r \r - Do\r   - Go to the Objects section in AJAX PRO Desktop\r   - Click the Object from which you'd like to monitor events\r   - Open the Maintenance tab\r   - Find the Monitoring via [Receiver Name] option (wh",
+    "tags": [
+      "Ajax",
+      "Security Hub",
+      "NVR",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "Ajax"
+    ]
+  },
+  {
+    "id": "/docs/devices/Ajax/Ajax#6",
+    "url": "/docs/devices/Ajax/Ajax#step-6-—-verify-integration",
+    "type": "DOC_PAGE",
+    "title": "Ajax",
+    "sectionTitle": "Step 6 — Verify Integration",
+    "content": "- Checks\r   - Ensure the receiver status in AJAX PRO Desktop is active\r   - Trigger a test event on your AJAX device to verify that alerts populate in GC-X-ONE\r \r !Ajax Integration Verification\r \r - Expected result: Live AJAX device events received within GC-X-ONE platform with integrated reporting ",
+    "tags": [
+      "Ajax",
+      "Security Hub",
+      "NVR",
+      "GC-X-ONE",
+      "Integration"
+    ],
+    "hierarchy": [
+      "Ajax"
+    ]
+  },
+  {
+    "id": "/docs/devices/Avigilon/Avigilon#0",
+    "url": "/docs/devices/Avigilon/Avigilon",
+    "type": "DOC_PAGE",
+    "title": "Avigilon",
+    "sectionTitle": "Introduction",
+    "content": "Avigilon\r \r Device Information:\r - Device: Avigilon Device Model\r - Vendor: Avigilon\r - Model: Various\r - Firmware: Compatible versions\r - Platform: GC-X-ONE\r - Doc Version: 1.0.0\r \r \r Summary\r \r - Purpose: Configure Avigilon Video Management System (VMS) to integrate seamlessly with GC-X-ONE platfo",
+    "tags": [
+      "Avigilon",
+      "VMS",
+      "Video Management",
+      "Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Avigilon"
+    ]
+  },
+  {
+    "id": "/docs/devices/Avigilon/Avigilon#1",
+    "url": "/docs/devices/Avigilon/Avigilon#step-1-—-install-essential-software-components",
+    "type": "DOC_PAGE",
+    "title": "Avigilon",
+    "sectionTitle": "Step 1 — Install Essential Software Components",
+    "content": "- Install WebAPI Endpoint\r   - In case of having Avigilon VMS install WebAPI Endpoint\r   - Install the Avigilon WebAPI endpoint by following the instructions provided in the Avigilon WebAPI Endpoint Quick Start Guide\r   - This endpoint facilitates communication between the VMS and external applicati",
+    "tags": [
+      "Avigilon",
+      "VMS",
+      "Video Management",
+      "Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Avigilon"
+    ]
+  },
+  {
+    "id": "/docs/devices/Avigilon/Avigilon#2",
+    "url": "/docs/devices/Avigilon/Avigilon#step-2-—-login-to-avigilon-acc-client",
+    "type": "DOC_PAGE",
+    "title": "Avigilon",
+    "sectionTitle": "Step 2 — Login to Avigilon ACC Client",
+    "content": "- UI path: ACC Client → Login\r \r - Access ACC Client\r   - In the ACC client login screen, locate the field to enter the device's IP address in the search bar\r   - Enter your username and password for the ACC client\r   \r   !Avigilon Image\r \r - Expected result: Successfully logged into ACC client",
+    "tags": [
+      "Avigilon",
+      "VMS",
+      "Video Management",
+      "Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Avigilon"
+    ]
+  },
+  {
+    "id": "/docs/devices/Avigilon/Avigilon#3",
+    "url": "/docs/devices/Avigilon/Avigilon#step-3-—-navigate-to-camera-configuration",
+    "type": "DOC_PAGE",
+    "title": "Avigilon",
+    "sectionTitle": "Step 3 — Navigate to Camera Configuration",
+    "content": "- UI path: ACC Client → Camera Selection\r \r - Access Camera Interface\r   - Once logged in, use the client interface to navigate to the specific camera or device you need to configure\r   - !Avigilon Image\r \r - Expected result: Camera interface accessible for configuration",
+    "tags": [
+      "Avigilon",
+      "VMS",
+      "Video Management",
+      "Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Avigilon"
+    ]
+  },
+  {
+    "id": "/docs/devices/Avigilon/Avigilon#4",
+    "url": "/docs/devices/Avigilon/Avigilon#step-4-—-access-camera-setup",
+    "type": "DOC_PAGE",
+    "title": "Avigilon",
+    "sectionTitle": "Step 4 — Access Camera Setup",
+    "content": "- UI path: Camera → Right-Click → Setup\r \r - Open Camera Configuration\r   - Right-Click on the Camera you want to configure\r   - In the context menu that appears, click on \"Setup\"\r   - This will open the camera's configuration page\r   - !Avigilon Image\r   - !Avigilon Image\r \r - Expected result: Came",
+    "tags": [
+      "Avigilon",
+      "VMS",
+      "Video Management",
+      "Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Avigilon"
+    ]
+  },
+  {
+    "id": "/docs/devices/Avigilon/Avigilon#5",
+    "url": "/docs/devices/Avigilon/Avigilon#step-5-—-configure-motion-detection-analytics",
+    "type": "DOC_PAGE",
+    "title": "Avigilon",
+    "sectionTitle": "Step 5 — Configure Motion Detection Analytics",
+    "content": "- UI path: Camera Setup → Analytics → Motion Detection\r \r - Setup Motion Detection\r   - Choose and Configure the Type of Analytics\r   - After selecting the desired analytics type, you will be able to adjust various settings and parameters specific to that type\r   - Configure Motion Detection paramet",
+    "tags": [
+      "Avigilon",
+      "VMS",
+      "Video Management",
+      "Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Avigilon"
+    ]
+  },
+  {
+    "id": "/docs/devices/Avigilon/Avigilon#6",
+    "url": "/docs/devices/Avigilon/Avigilon#step-6-—-configure-analytic-events",
+    "type": "DOC_PAGE",
+    "title": "Avigilon",
+    "sectionTitle": "Step 6 — Configure Analytic Events",
+    "content": "- UI path: Camera Setup → Analytics → Analytic Events\r \r - Setup Analytic Events\r   - Analytics process the video feed in real-time to detect and respond to specific activities or conditions\r   - Click on the button \"Add\"\r   - Define your Area of interest by clicking the icon on the top left of the ",
+    "tags": [
+      "Avigilon",
+      "VMS",
+      "Video Management",
+      "Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Avigilon"
+    ]
+  },
+  {
+    "id": "/docs/devices/Avigilon/Avigilon#7",
+    "url": "/docs/devices/Avigilon/Avigilon#step-7-—-setup-user-group-for-gc-x-one",
+    "type": "DOC_PAGE",
+    "title": "Avigilon",
+    "sectionTitle": "Step 7 — Setup User Group for GC-X-ONE",
+    "content": "- UI path: Site → Right-Click → Setup → User and Groups\r \r - Access Site Configuration\r   - Right-Click on the Site you want to configure\r   - In the context menu that appears, click on \"Setup\"\r   - This will open the Site's configuration page\r   - !Avigilon Image\r   - Navigate to \"User and groups\"\r",
+    "tags": [
+      "Avigilon",
+      "VMS",
+      "Video Management",
+      "Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Avigilon"
+    ]
+  },
+  {
+    "id": "/docs/devices/Avigilon/Avigilon#8",
+    "url": "/docs/devices/Avigilon/Avigilon#step-8-—-create-user-group",
+    "type": "DOC_PAGE",
+    "title": "Avigilon",
+    "sectionTitle": "Step 8 — Create User Group",
+    "content": "- UI path: Groups → Add\r \r - Add New Group\r   - Navigate to \"Groups\" and then click \"Add\"\r   - !Avigilon Image\r   - Add a copy permission, \"Restricted Users\" for NXGEN\r   - !Avigilon Image\r \r - Expected result: New user group created",
+    "tags": [
+      "Avigilon",
+      "VMS",
+      "Video Management",
+      "Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Avigilon"
+    ]
+  },
+  {
+    "id": "/docs/devices/Avigilon/Avigilon#9",
+    "url": "/docs/devices/Avigilon/Avigilon#step-9-—-configure-group-settings",
+    "type": "DOC_PAGE",
+    "title": "Avigilon",
+    "sectionTitle": "Step 9 — Configure Group Settings",
+    "content": "- Configure Group Details\r   - Add the \"Name\" of the user, recommended to use \"NXGEN\" or \"NXG\" in the Name field\r   - Add the privileges listed below in \"Group Privileges\":\r     - View Live Images:\r       - Use PTZ controls\r       - Lock PTZ controls\r       - Trigger Digital Outputs\r       - Broadca",
+    "tags": [
+      "Avigilon",
+      "VMS",
+      "Video Management",
+      "Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Avigilon"
+    ]
+  },
+  {
+    "id": "/docs/devices/Avigilon/Avigilon#10",
+    "url": "/docs/devices/Avigilon/Avigilon#step-10-—-add-cameras-to-group",
+    "type": "DOC_PAGE",
+    "title": "Avigilon",
+    "sectionTitle": "Step 10 — Add Cameras to Group",
+    "content": "- Add Camera Access\r   - Add the cameras you want to appear on GC-X-ONE platform\r   - !Avigilon Image\r   - !Avigilon Image\r   - !Avigilon Image\r   - Click \"Ok\" to save the changes\r \r - Expected result: Cameras assigned to user group",
+    "tags": [
+      "Avigilon",
+      "VMS",
+      "Video Management",
+      "Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Avigilon"
+    ]
+  },
+  {
+    "id": "/docs/devices/Avigilon/Avigilon#11",
+    "url": "/docs/devices/Avigilon/Avigilon#step-11-—-configure-alarms",
+    "type": "DOC_PAGE",
+    "title": "Avigilon",
+    "sectionTitle": "Step 11 — Configure Alarms",
+    "content": "- UI path: Setup → Alarms\r \r - Access Alarm Configuration\r   - Back to the Setup page from previous step, Navigate to \"Alarms\"\r   - !Avigilon Image\r   - Click \"Add\"\r   - !Avigilon Image\r \r - Expected result: Alarm configuration page accessed",
+    "tags": [
+      "Avigilon",
+      "VMS",
+      "Video Management",
+      "Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Avigilon"
+    ]
+  },
+  {
+    "id": "/docs/devices/Avigilon/Avigilon#12",
+    "url": "/docs/devices/Avigilon/Avigilon#step-12-—-set-alarm-trigger-source",
+    "type": "DOC_PAGE",
+    "title": "Avigilon",
+    "sectionTitle": "Step 12 — Set Alarm Trigger Source",
+    "content": "- Configure Alarm Triggers\r   - Set the alarm trigger source, and select the cameras you are interested in\r   - Then click \"Next\"\r   - !Avigilon Image\r \r - Expected result: Alarm trigger source configured",
+    "tags": [
+      "Avigilon",
+      "VMS",
+      "Video Management",
+      "Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Avigilon"
+    ]
+  },
+  {
+    "id": "/docs/devices/Avigilon/Avigilon#13",
+    "url": "/docs/devices/Avigilon/Avigilon#step-13-—-configure-alarm-recording-settings",
+    "type": "DOC_PAGE",
+    "title": "Avigilon",
+    "sectionTitle": "Step 13 — Configure Alarm Recording Settings",
+    "content": "- Setup Recording Parameters\r   - Select the devices you want to associate the type of alarm with\r   - Setup the \"Pre-alarm recording time\" (recommended 10 seconds)\r   - Setup the recording duration below\r   - Then click \"Next\"\r   - !Avigilon Image\r \r - Expected result: Alarm recording settings conf",
+    "tags": [
+      "Avigilon",
+      "VMS",
+      "Video Management",
+      "Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Avigilon"
+    ]
+  },
+  {
+    "id": "/docs/devices/Avigilon/Avigilon#14",
+    "url": "/docs/devices/Avigilon/Avigilon#step-14-—-configure-alarm-recipients",
+    "type": "DOC_PAGE",
+    "title": "Avigilon",
+    "sectionTitle": "Step 14 — Configure Alarm Recipients",
+    "content": "- UI path: Alarm Recipients → Add Recipients\r \r - Setup Recipients\r   - Select alarm recipients\r   - Click on \"Add Recipients\" and ensure to select the group you configured earlier\r   - !Avigilon Image\r   - Click \"Next\"\r \r - Expected result: Alarm recipients configured",
+    "tags": [
+      "Avigilon",
+      "VMS",
+      "Video Management",
+      "Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Avigilon"
+    ]
+  },
+  {
+    "id": "/docs/devices/Avigilon/Avigilon#15",
+    "url": "/docs/devices/Avigilon/Avigilon#step-15-—-finalize-alarm-configuration",
+    "type": "DOC_PAGE",
+    "title": "Avigilon",
+    "sectionTitle": "Step 15 — Finalize Alarm Configuration",
+    "content": "- Complete Alarm Setup\r   - Select the user as configured\r   - Then click \"Add\"\r   - Select the duration needed to notify the recipient when an alarm is triggered\r   - !Avigilon Image\r   - Don't forget to Save the changes\r \r - Expected result: Alarm configuration completed and saved",
+    "tags": [
+      "Avigilon",
+      "VMS",
+      "Video Management",
+      "Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Avigilon"
+    ]
+  },
+  {
+    "id": "/docs/devices/Avigilon/Avigilon#16",
+    "url": "/docs/devices/Avigilon/Avigilon#step-16-—-configure-device-in-gc-x-one",
+    "type": "DOC_PAGE",
+    "title": "Avigilon",
+    "sectionTitle": "Step 16 — Configure Device in GC-X-ONE",
+    "content": "- UI path: GC-X-ONE → Site → Configuration App → Devices\r \r - Do\r   - Go into the Site that you want to add the device to in GC-X-ONE Configuration App\r   - Choose Avigilon as your device, and Fill in the Serial Number, UserName, and Password of the device\r !Avigilon Image\r \r - Do\r   - Once the deta",
+    "tags": [
+      "Avigilon",
+      "VMS",
+      "Video Management",
+      "Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Avigilon"
+    ]
+  },
+  {
+    "id": "/docs/devices/Avigilon/Avigilon#17",
+    "url": "/docs/devices/Avigilon/Avigilon#step-17-—-verify-integration",
+    "type": "DOC_PAGE",
+    "title": "Avigilon",
+    "sectionTitle": "Step 17 — Verify Integration",
+    "content": "- Checks\r   - Verify WebAPI endpoint is functional\r   - Test user group access and permissions\r   - Confirm analytics are generating appropriate events\r   - Test alarm notifications\r   - Verify camera access through configured user group\r \r - Expected result: Complete Avigilon integration with GC-X-",
+    "tags": [
+      "Avigilon",
+      "VMS",
+      "Video Management",
+      "Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Avigilon"
+    ]
+  },
+  {
+    "id": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#0",
+    "url": "/docs/devices/AxisCameraStation/Axis Camera Station Pro",
+    "type": "DOC_PAGE",
+    "title": "Axis Camera Station Pro",
+    "sectionTitle": "Introduction",
+    "content": "Axis Camera Station Pro\r \r Device Information:\r - Device: Axis Camera Station Pro Device Model\r - Vendor: Axis\r - Model: Various\r - Firmware: Compatible versions\r - Platform: GC-X-ONE\r - Doc Version: 1.0.0\r \r \r Summary\r \r - Purpose: Configure Axis Camera Station Pro to integrate seamlessly with GC-X",
+    "tags": [
+      "Axis",
+      "Camera Station Pro",
+      "VMS",
+      "Video Management",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Axis Camera Station Pro"
+    ]
+  },
+  {
+    "id": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#1",
+    "url": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#step-1-—-install-axis-camera-station-pro-software",
+    "type": "DOC_PAGE",
+    "title": "Axis Camera Station Pro",
+    "sectionTitle": "Step 1 — Install Axis Camera Station Pro Software",
+    "content": "- Download Installer\r   - Download Axis Camera Station Pro installer from the official website: AXIS Camera Station Pro - Update for server and client\r \r - Run the Installer\r   - Double-click the downloaded .msi file\r   - Proceed with default options unless specified by IT policies\r   - Finish insta",
+    "tags": [
+      "Axis",
+      "Camera Station Pro",
+      "VMS",
+      "Video Management",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Axis Camera Station Pro"
+    ]
+  },
+  {
+    "id": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#2",
+    "url": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#step-2-—-device-discovery-and-connection",
+    "type": "DOC_PAGE",
+    "title": "Axis Camera Station Pro",
+    "sectionTitle": "Step 2 — Device Discovery and Connection",
+    "content": "- UI path: Axis Camera Station Pro Client → Manual Search\r \r - Manual Device Search\r   - Click \"Manual Search\" to open popup\r   - Enter the IP Address of the target device\r   - !AXIS Image\r   - !AXIS Image\r   - !AXIS Image\r \r - Device Authentication\r   - Enter the Username and Password for the devic",
+    "tags": [
+      "Axis",
+      "Camera Station Pro",
+      "VMS",
+      "Video Management",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Axis Camera Station Pro"
+    ]
+  },
+  {
+    "id": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#3",
+    "url": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#step-3-—-add-camera-devices",
+    "type": "DOC_PAGE",
+    "title": "Axis Camera Station Pro",
+    "sectionTitle": "Step 3 — Add Camera Devices",
+    "content": "- UI path: Axis Camera Station Pro Client → Devices → Add\r \r - Add Camera Process\r   - Click the \"Devices\" section and select \"Add\"\r   - !AXIS Image\r   - Click \"Next\" to proceed with device addition\r   - !AXIS Image\r   - Click \"Install the devices\" to complete the process\r   - !AXIS Image\r \r - Verif",
+    "tags": [
+      "Axis",
+      "Camera Station Pro",
+      "VMS",
+      "Video Management",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Axis Camera Station Pro"
+    ]
+  },
+  {
+    "id": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#4",
+    "url": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#step-4-—-configure-live-view",
+    "type": "DOC_PAGE",
+    "title": "Axis Camera Station Pro",
+    "sectionTitle": "Step 4 — Configure Live View",
+    "content": "- UI path: Axis Camera Station Pro Client → Live View\r \r - Setup Live View\r   - Click the \"+ plus button\" and select \"Live View\"\r   - !AXIS Image\r   - Open the Live View interface\r   - !AXIS Image\r \r - Expected result: Live video feed accessible and working",
+    "tags": [
+      "Axis",
+      "Camera Station Pro",
+      "VMS",
+      "Video Management",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Axis Camera Station Pro"
+    ]
+  },
+  {
+    "id": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#5",
+    "url": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#step-5-—-enable-recording",
+    "type": "DOC_PAGE",
+    "title": "Axis Camera Station Pro",
+    "sectionTitle": "Step 5 — Enable Recording",
+    "content": "- UI path: Axis Camera Station Pro Client → Recording and Events → Recording Methods\r \r - Configure Recording\r   - To make playback work, enable recording at the device level\r   - Click \"Recording and Events\" and open \"Recording Methods\"\r   - !AXIS Image\r   - Click the \"+ plus button\" and select \"Re",
+    "tags": [
+      "Axis",
+      "Camera Station Pro",
+      "VMS",
+      "Video Management",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Axis Camera Station Pro"
+    ]
+  },
+  {
+    "id": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#6",
+    "url": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#step-6-—-verify-streaming-and-events",
+    "type": "DOC_PAGE",
+    "title": "Axis Camera Station Pro",
+    "sectionTitle": "Step 6 — Verify Streaming and Events",
+    "content": "- Launch Application\r   - Open the installed Axis Camera Station Pro client from your desktop or start menu\r \r - Connect to Device\r   - Enter the IP address, username, and password of the Axis Camera Station Pro unit\r   - Click Connect\r \r - Verify Live Stream\r   - Navigate to the Live View tab\r   - ",
+    "tags": [
+      "Axis",
+      "Camera Station Pro",
+      "VMS",
+      "Video Management",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Axis Camera Station Pro"
+    ]
+  },
+  {
+    "id": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#7",
+    "url": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#step-7-—-add-axis-camera-station-pro-parameters-to-gc-x-one",
+    "type": "DOC_PAGE",
+    "title": "Axis Camera Station Pro",
+    "sectionTitle": "Step 7 — Add Axis Camera Station Pro Parameters to GC-X-ONE",
+    "content": "- UI path: GC-X-ONE → Configuration App → Service Provider → Overview → Edit → Additional Settings → Custom Property\r \r - Configure Custom Property\r   - Login to GC-X-ONE\r   - Navigate to configuration app\r   - At service provider level, click on edit button under overview tab\r   - ![senstar 6.png)\r",
+    "tags": [
+      "Axis",
+      "Camera Station Pro",
+      "VMS",
+      "Video Management",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Axis Camera Station Pro"
+    ]
+  },
+  {
+    "id": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#8",
+    "url": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#step-8-—-add-axis-camera-station-pro-device-under-required-site",
+    "type": "DOC_PAGE",
+    "title": "Axis Camera Station Pro",
+    "sectionTitle": "Step 8 — Add Axis Camera Station Pro Device Under Required Site",
+    "content": "- UI path: GC-X-ONE → Configuration → Site → Devices → Add New Device\r \r - Add Device Process\r   - Go to the Configuration section in GC-X-ONE\r   - Select the target site under which the Axis Camera Station Pro device should be registered\r !AXIS Device Configuration\r   - Navigate to Devices → Add Ne",
+    "tags": [
+      "Axis",
+      "Camera Station Pro",
+      "VMS",
+      "Video Management",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Axis Camera Station Pro"
+    ]
+  },
+  {
+    "id": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#9",
+    "url": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#step-9-—-configure-device-events",
+    "type": "DOC_PAGE",
+    "title": "Axis Camera Station Pro",
+    "sectionTitle": "Step 9 — Configure Device Events",
+    "content": "- UI path: Axis Camera Station Pro Client → Device Events\r \r - Setup Device Events\r   - Click the \"Device Events\" and click \"OK\"\r   - !AXIS Image\r   - Open the popup \"Configure device events trigger\" and click \"OK\"\r   - !AXIS Image\r \r - Configure Event Parameters\r   - Events: MotionAlarm\r   - State:",
+    "tags": [
+      "Axis",
+      "Camera Station Pro",
+      "VMS",
+      "Video Management",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Axis Camera Station Pro"
+    ]
+  },
+  {
+    "id": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#10",
+    "url": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#step-10-—-create-webhook-for-event-integration",
+    "type": "DOC_PAGE",
+    "title": "Axis Camera Station Pro",
+    "sectionTitle": "Step 10 — Create Webhook for Event Integration",
+    "content": "- UI path: Axis Camera Station Pro Client → HTTP Notification\r \r - Setup HTTP Notification\r   - In the device event rule, configure an Action: Send HTTP Notification (Webhook)\r   - !AXIS Image\r   - Open the popup, click \"Send HTTP Notification\" and click \"OK\"\r   - !AXIS Image\r \r - Configure Webhook ",
+    "tags": [
+      "Axis",
+      "Camera Station Pro",
+      "VMS",
+      "Video Management",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Axis Camera Station Pro"
+    ]
+  },
+  {
+    "id": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#11",
+    "url": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#step-11-—-finalize-event-rules",
+    "type": "DOC_PAGE",
+    "title": "Axis Camera Station Pro",
+    "sectionTitle": "Step 11 — Finalize Event Rules",
+    "content": "- UI path: Axis Camera Station Pro Client → Edit Rules\r \r - Complete Rule Configuration\r   - Open the popup \"Edit rules\" and click \"Next\"\r   - !AXIS Image\r   - Open the popup \"Edit rules\" and click \"Finish\"\r   - !AXIS Image\r \r - Expected result: Event rules finalized and active",
+    "tags": [
+      "Axis",
+      "Camera Station Pro",
+      "VMS",
+      "Video Management",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Axis Camera Station Pro"
+    ]
+  },
+  {
+    "id": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#12",
+    "url": "/docs/devices/AxisCameraStation/Axis Camera Station Pro#step-12-—-verify-integration",
+    "type": "DOC_PAGE",
+    "title": "Axis Camera Station Pro",
+    "sectionTitle": "Step 12 — Verify Integration",
+    "content": "- Live Stream Verification\r   - Confirm live video feed appears in GC-X-ONE\r \r - Event Verification\r   - Verify events appear in Video Activity Search and Device Dashboard\r \r - Expected result: Complete Axis Camera Station Pro integration with GC-X-ONE platform\r \r Troubleshooting\r \r - Installation i",
+    "tags": [
+      "Axis",
+      "Camera Station Pro",
+      "VMS",
+      "Video Management",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Axis Camera Station Pro"
+    ]
+  },
+  {
+    "id": "/docs/devices/Camect/Camect#0",
+    "url": "/docs/devices/Camect/Camect",
+    "type": "DOC_PAGE",
+    "title": "Camect",
+    "sectionTitle": "Introduction",
+    "content": "Camect\r \r Device Information:\r - Device: Camect Hub Model\r - Vendor: Camect\r - Model: Various\r - Firmware: Compatible versions\r - Platform: GC-X-ONE\r - Doc Version: 1.0.0  \r \r \r Summary\r - Purpose: Configure Camect to stream and send events to GC-X-ONE.\r - Outcome: Live view and alerts show in GC-X-",
+    "tags": [
+      "Camect",
+      "Hub",
+      "NVR",
+      "AI Detection",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Camect"
+    ]
+  },
+  {
+    "id": "/docs/devices/Camect/Camect#1",
+    "url": "/docs/devices/Camect/Camect#step-1-—-prepare-camect-(users,-time,-rtsp)",
+    "type": "DOC_PAGE",
+    "title": "Camect",
+    "sectionTitle": "Step 1 — Prepare Camect (users, time, RTSP)",
+    "content": "- UI path: Users\r - Do\r   - Create a local user (e.g., NXG) with password.\r   - Grant: Live view, Query Cameras, Pan/Tilt Cameras, View alerts, View footage, Share cameras, Change operating modes.\r - Time/NTP\r   - Set time zone. Enable NTP. Save.\r - RTSP\r   - Ensure RTSP is enabled on the hub.\r - Ex",
+    "tags": [
+      "Camect",
+      "Hub",
+      "NVR",
+      "AI Detection",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Camect"
+    ]
+  },
+  {
+    "id": "/docs/devices/Camect/Camect#2",
+    "url": "/docs/devices/Camect/Camect#step-2-—-configure-alerts-and-monitoring",
+    "type": "DOC_PAGE",
+    "title": "Camect",
+    "sectionTitle": "Step 2 — Configure alerts and monitoring",
+    "content": "- UI path: Hub Settings → Alert\r - Do\r   - Check Detect alerts.\r   - Choose objects under Detect objects in alerts.\r   - Select required alert types.\r - Make events available to GC-X-ONE\r   - Click Add Monitoring → choose NXGEN.\r   - On the NXGEN page set:\r     - Site ID = 1 (or as provided).\r     -",
+    "tags": [
+      "Camect",
+      "Hub",
+      "NVR",
+      "AI Detection",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Camect"
+    ]
+  },
+  {
+    "id": "/docs/devices/Camect/Camect#3",
+    "url": "/docs/devices/Camect/Camect#step-2c-—-enable-secondary-stream-(recommended)",
+    "type": "DOC_PAGE",
+    "title": "Camect",
+    "sectionTitle": "Step 2c — Enable Secondary Stream (recommended)",
+    "content": "- UI path: Camera → Settings → Information → Edit Substream\r - Do\r   - Change Substream from 0 to 1. Save.\r - Purpose\r   - Expose a smooth substream for Live view.\r !Camect Substream Configuration",
+    "tags": [
+      "Camect",
+      "Hub",
+      "NVR",
+      "AI Detection",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Camect"
+    ]
+  },
+  {
+    "id": "/docs/devices/Camect/Camect#4",
+    "url": "/docs/devices/Camect/Camect#step-3-—-add-device-in-gc-x-one",
+    "type": "DOC_PAGE",
+    "title": "Camect",
+    "sectionTitle": "Step 3 — Add device in GC-X-ONE",
+    "content": "- UI path: GC-X-ONE → Customer → Site → Devices → Add Device\r - Do\r   - Select Camect.\r   - Fill: Host/Serial, Username, Password, Ports, Time Zone.\r   - Click Discover. Review discovered sensors and I/O.\r   - Click Save.\r - Expected result: GC-X-ONE lists sensors under the Camect device.\r !Camect D",
+    "tags": [
+      "Camect",
+      "Hub",
+      "NVR",
+      "AI Detection",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Camect"
+    ]
+  },
+  {
+    "id": "/docs/devices/Camect/Camect#5",
+    "url": "/docs/devices/Camect/Camect#step-4-—-verify",
+    "type": "DOC_PAGE",
+    "title": "Camect",
+    "sectionTitle": "Step 4 — Verify",
+    "content": "- Checks\r   - Send a test alert. It appears in Video Activity.\r   - Live opens without stutter.\r   - PTZ presets move if enabled.\r \r \r Troubleshooting\r - No events in Video Activity\r   - Ensure Detect alerts is on.\r   - Confirm Monitoring → NXGEN is configured with the correct TCP address and Site I",
+    "tags": [
+      "Camect",
+      "Hub",
+      "NVR",
+      "AI Detection",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Camect"
+    ]
+  },
+  {
+    "id": "/docs/devices/Dahua/Dahua#0",
+    "url": "/docs/devices/Dahua/Dahua",
+    "type": "DOC_PAGE",
+    "title": "Dahua",
+    "sectionTitle": "Introduction",
+    "content": "Dahua\r \r Device Information:\r - Device: Dahua Camera/NVR Model\r - Vendor: Dahua\r - Model: Various\r - Firmware: Compatible versions\r - Platform: GC-X-ONE\r - Doc Version: 1.0.0  \r \r \r Summary\r \r - Purpose: Configure Dahua to stream and send events to GC-X-ONE.\r     \r - Outcome: Live view and alarms sh",
+    "tags": [
+      "Dahua",
+      "Camera",
+      "NVR",
+      "IVS Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Dahua"
+    ]
+  },
+  {
+    "id": "/docs/devices/Dahua/Dahua#1",
+    "url": "/docs/devices/Dahua/Dahua#step-1-—-prepare-dahua-(users,-time,-streams)",
+    "type": "DOC_PAGE",
+    "title": "Dahua",
+    "sectionTitle": "Step 1 — Prepare Dahua (users, time, streams)",
+    "content": "- UI path: Home → Accounts\r     \r - Do\r     \r     - Click Add. Create a user (e.g., NXG) with password.\r         \r     - Grant permissions: Manual control, System, Camera, System info, Event.\r         \r     - For Search and Live, select the cameras you will use in GC-X-ONE.\r         \r - Time/NTP\r   ",
+    "tags": [
+      "Dahua",
+      "Camera",
+      "NVR",
+      "IVS Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Dahua"
+    ]
+  },
+  {
+    "id": "/docs/devices/Dahua/Dahua#2",
+    "url": "/docs/devices/Dahua/Dahua#step-2-—-configure-alerts-(ai/ivs)-and-enable-reporting",
+    "type": "DOC_PAGE",
+    "title": "Dahua",
+    "sectionTitle": "Step 2 — Configure alerts (AI/IVS) and enable reporting",
+    "content": "- UI path: AI → Parameters → IVS (or Alarm → Video Detection for basic motion)\r     \r - Do (IVS recommended)\r     \r     - Select camera. Click + to add a rule.\r         \r     - Choose Tripwire or Intrusion.\r         \r     - Draw rule/region.\r         \r     - Set Action: Appear or Cross.\r         \r  ",
+    "tags": [
+      "Dahua",
+      "Camera",
+      "NVR",
+      "IVS Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Dahua"
+    ]
+  },
+  {
+    "id": "/docs/devices/Dahua/Dahua#3",
+    "url": "/docs/devices/Dahua/Dahua#step-2b-—-alarm-configuration-(optional)",
+    "type": "DOC_PAGE",
+    "title": "Dahua",
+    "sectionTitle": "Step 2b — Alarm configuration (Optional)",
+    "content": "- Note: Avoid Motion Detection when possible; it can flood alerts on legacy Genesis. Prefer IVS.\r     \r - UI path: Alarm → Video Detection\r     \r - Applies to: Motion Detection, Video Tampering, Video Loss, and similar.\r     \r - Do\r     \r     - Choose the camera.\r         \r     - Click Setting to th",
+    "tags": [
+      "Dahua",
+      "Camera",
+      "NVR",
+      "IVS Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Dahua"
+    ]
+  },
+  {
+    "id": "/docs/devices/Dahua/Dahua#4",
+    "url": "/docs/devices/Dahua/Dahua#step-3-—-add-device-in-gc-x-one",
+    "type": "DOC_PAGE",
+    "title": "Dahua",
+    "sectionTitle": "Step 3 — Add device in GC-X-ONE",
+    "content": "- UI path: GC-X-ONE → Customer → Site → Devices → Add Device\r     \r - Do\r     \r     - Select Dahua.\r         \r     - Fill: Serial Number, Username, Password, Ports, Time Zone.\r         \r     - For NVR: pick Channel for each sensor you add.\r         \r     - Click Discover. Review discovered sensors a",
+    "tags": [
+      "Dahua",
+      "Camera",
+      "NVR",
+      "IVS Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Dahua"
+    ]
+  },
+  {
+    "id": "/docs/devices/Dahua/Dahua#5",
+    "url": "/docs/devices/Dahua/Dahua#step-4-—-verify",
+    "type": "DOC_PAGE",
+    "title": "Dahua",
+    "sectionTitle": "Step 4 — Verify",
+    "content": "- Checks\r     \r     - Live opens without stutter.\r         \r     - Recent IVS events appear in Video Activity with clips.\r         \r     - PTZ moves to presets if supported.\r         \r !Adding Device Step 1\r \r !Adding Device Step 2\r \r !Adding Device Step 3\r     \r \r Troubleshooting\r \r - No events in ",
+    "tags": [
+      "Dahua",
+      "Camera",
+      "NVR",
+      "IVS Analytics",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Dahua"
+    ]
+  },
+  {
+    "id": "/docs/devices/Dahua Dolynk/Dahua Dolynk#0",
+    "url": "/docs/devices/Dahua Dolynk/Dahua Dolynk",
+    "type": "DOC_PAGE",
+    "title": "Dahua Dolynk",
+    "sectionTitle": "Introduction",
+    "content": "Dahua Dolynk\r \r Device Information:\r - Device: Dahua Dolynk Device Model\r - Vendor: Dahua\r - Model: Various\r - Firmware: Compatible versions\r - Platform: GC-X-ONE\r - Doc Version: 1.0.0\r \r \r Summary\r \r - Purpose: Configure Dahua Dolynk devices to integrate with GC-X-ONE platform through Dolynk Care c",
+    "tags": [
+      "Dahua",
+      "Dolynk",
+      "Cloud Service",
+      "ARC",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Dahua Dolynk"
+    ]
+  },
+  {
+    "id": "/docs/devices/Dahua Dolynk/Dahua Dolynk#1",
+    "url": "/docs/devices/Dahua Dolynk/Dahua Dolynk#step-1-—-log-in-to-dolynk-care-account",
+    "type": "DOC_PAGE",
+    "title": "Dahua Dolynk",
+    "sectionTitle": "Step 1 — Log in to Dolynk Care Account",
+    "content": "- Do\r   - Log in to your Dolynk Care account through this URL: https://care.dolynkcloud.com/\r \r - Expected result: Successfully logged into Dolynk Care portal",
+    "tags": [
+      "Dahua",
+      "Dolynk",
+      "Cloud Service",
+      "ARC",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Dahua Dolynk"
+    ]
+  },
+  {
+    "id": "/docs/devices/Dahua Dolynk/Dahua Dolynk#2",
+    "url": "/docs/devices/Dahua Dolynk/Dahua Dolynk#step-2-—-add-site",
+    "type": "DOC_PAGE",
+    "title": "Dahua Dolynk",
+    "sectionTitle": "Step 2 — Add Site",
+    "content": "- UI path: Site → Add\r \r - Do\r   - Go to Site and click on Add\r   \r   !Dolynk Site Addition\r \r - Expected result: Site creation page opened",
+    "tags": [
+      "Dahua",
+      "Dolynk",
+      "Cloud Service",
+      "ARC",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Dahua Dolynk"
+    ]
+  },
+  {
+    "id": "/docs/devices/Dahua Dolynk/Dahua Dolynk#3",
+    "url": "/docs/devices/Dahua Dolynk/Dahua Dolynk#step-3-—-fill-site-details",
+    "type": "DOC_PAGE",
+    "title": "Dahua Dolynk",
+    "sectionTitle": "Step 3 — Fill Site Details",
+    "content": "- Do\r   - Fill in the details of the site such as Timezone and Name\r \r - Expected result: Site created in Dolynk Care",
+    "tags": [
+      "Dahua",
+      "Dolynk",
+      "Cloud Service",
+      "ARC",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Dahua Dolynk"
+    ]
+  },
+  {
+    "id": "/docs/devices/Dahua Dolynk/Dahua Dolynk#4",
+    "url": "/docs/devices/Dahua Dolynk/Dahua Dolynk#step-4-—-add-device-to-site",
+    "type": "DOC_PAGE",
+    "title": "Dahua Dolynk",
+    "sectionTitle": "Step 4 — Add Device to Site",
+    "content": "- UI path: Site → Add Device → Serial Number (SN)\r \r - Do\r   - Click on the Site that was created, then click on Add Device through Serial Number (SN)\r   - Fill in the details of the device\r   \r   !Dolynk Device Addition\r \r - Important Note\r   - P.S. Please ensure that the device is online\r \r - Expe",
+    "tags": [
+      "Dahua",
+      "Dolynk",
+      "Cloud Service",
+      "ARC",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Dahua Dolynk"
+    ]
+  },
+  {
+    "id": "/docs/devices/Dahua Dolynk/Dahua Dolynk#5",
+    "url": "/docs/devices/Dahua Dolynk/Dahua Dolynk#step-5-—-set-up-arc-(alarm-receiving-center)-and-share-device-with-nxgen",
+    "type": "DOC_PAGE",
+    "title": "Dahua Dolynk",
+    "sectionTitle": "Step 5 — Set up ARC (Alarm Receiving Center) and Share Device with NXGEN",
+    "content": "- UI path: Security Service\r \r - Do\r   - Now that the device is added to your Dolynk Care account, we need to set up GC-X-ONE as your ARC (Alarm Receiving Center) for that device by selecting the Security Service option\r   \r   !Dolynk Security Service\r \r - Do\r   - In the menu that shows, select the ",
+    "tags": [
+      "Dahua",
+      "Dolynk",
+      "Cloud Service",
+      "ARC",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Dahua Dolynk"
+    ]
+  },
+  {
+    "id": "/docs/devices/Dahua Dolynk/Dahua Dolynk#6",
+    "url": "/docs/devices/Dahua Dolynk/Dahua Dolynk#step-7-—-apply-and-save-configuration",
+    "type": "DOC_PAGE",
+    "title": "Dahua Dolynk",
+    "sectionTitle": "Step 7 — Apply and Save Configuration",
+    "content": "- Do\r   - Click on Apply to save and notify your ARC\r \r \r - Expected result: ARC configuration saved and NXGEN notified",
+    "tags": [
+      "Dahua",
+      "Dolynk",
+      "Cloud Service",
+      "ARC",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Dahua Dolynk"
+    ]
+  },
+  {
+    "id": "/docs/devices/Dahua Dolynk/Dahua Dolynk#7",
+    "url": "/docs/devices/Dahua Dolynk/Dahua Dolynk#step-8-—-configure-device-in-gc-x-one",
+    "type": "DOC_PAGE",
+    "title": "Dahua Dolynk",
+    "sectionTitle": "Step 8 — Configure Device in GC-X-ONE",
+    "content": "- UI path: GC-X-ONE → Site → Configuration App → Devices\r \r - Do\r   - Go into the Site that you want to add the device to in GC-X-ONE Configuration App\r   - Choose Dahua Cloud as your device, and Fill in the Serial Number, UserName, and Password of the device\r !Dolynk GC-X-ONE Configuration\r \r - Do\r",
+    "tags": [
+      "Dahua",
+      "Dolynk",
+      "Cloud Service",
+      "ARC",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Dahua Dolynk"
+    ]
+  },
+  {
+    "id": "/docs/devices/EagleEye/EagleEye#0",
+    "url": "/docs/devices/EagleEye/EagleEye",
+    "type": "DOC_PAGE",
+    "title": "EagleEye",
+    "sectionTitle": "Introduction",
+    "content": "EagleEye\r \r Device Information:\r - Device: EagleEye Device Model\r - Vendor: EagleEye\r - Model: Various\r - Firmware: Compatible versions\r - Platform: GC-X-ONE\r - Doc Version: 1.0.0\r \r \r Summary\r \r - Purpose: Configure EagleEye Bridge to integrate with GC-X-ONE platform for video surveillance and came",
+    "tags": [
+      "EagleEye",
+      "Bridge",
+      "Camera Management",
+      "ESN",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "EagleEye"
+    ]
+  },
+  {
+    "id": "/docs/devices/EagleEye/EagleEye#1",
+    "url": "/docs/devices/EagleEye/EagleEye#step-1-—-obtain-bridge-information",
+    "type": "DOC_PAGE",
+    "title": "EagleEye",
+    "sectionTitle": "Step 1 — Obtain Bridge Information",
+    "content": "- UI path: EagleEye Bridge → Bridge Settings\r \r - Collect Bridge Details\r   - Access EagleEye Bridge configuration interface\r   - Navigate to Bridge Settings section\r   - Record the following hardware and network information:\r     - SSN: Serial number of the bridge\r     - IP Address: Local IP addres",
+    "tags": [
+      "EagleEye",
+      "Bridge",
+      "Camera Management",
+      "ESN",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "EagleEye"
+    ]
+  },
+  {
+    "id": "/docs/devices/EagleEye/EagleEye#2",
+    "url": "/docs/devices/EagleEye/EagleEye#step-2-—-configure-user-settings",
+    "type": "DOC_PAGE",
+    "title": "EagleEye",
+    "sectionTitle": "Step 2 — Configure User Settings",
+    "content": "- UI path: EagleEye Bridge → User Settings\r \r - Set User Configuration\r   - Navigate to User Settings section in bridge interface\r   - Configure user accounts and permissions as required\r   - Set up authentication parameters\r   - Configure access levels and security settings\r   - Ensure proper user ",
+    "tags": [
+      "EagleEye",
+      "Bridge",
+      "Camera Management",
+      "ESN",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "EagleEye"
+    ]
+  },
+  {
+    "id": "/docs/devices/EagleEye/EagleEye#3",
+    "url": "/docs/devices/EagleEye/EagleEye#step-3-—-add-device-in-gc-x-one",
+    "type": "DOC_PAGE",
+    "title": "EagleEye",
+    "sectionTitle": "Step 3 — Add Device in GC-X-ONE",
+    "content": "- UI path: GC-X-ONE → Configuration App → Site → Devices → Add → EagleEye\r \r - Register EagleEye Device\r   - Login to GC-X-ONE platform\r   - Navigate to configuration app\r   - Go to Site → Devices → Add → EagleEye\r   - Provide the mandatory details:\r     - Device Name: Descriptive name for the bridg",
+    "tags": [
+      "EagleEye",
+      "Bridge",
+      "Camera Management",
+      "ESN",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "EagleEye"
+    ]
+  },
+  {
+    "id": "/docs/devices/EagleEye/EagleEye#4",
+    "url": "/docs/devices/EagleEye/EagleEye#step-4-—-verify-integration",
+    "type": "DOC_PAGE",
+    "title": "EagleEye",
+    "sectionTitle": "Step 4 — Verify Integration",
+    "content": "- Checks\r   - Verify bridge appears in GC-X-ONE device list\r   - Confirm network connectivity is established\r   - Test camera network functionality (CamLan)\r   - Verify WAN connection is operational\r   - Check GUID registration in cloud system\r   - Confirm user authentication is working\r   - Test hi",
+    "tags": [
+      "EagleEye",
+      "Bridge",
+      "Camera Management",
+      "ESN",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "EagleEye"
+    ]
+  },
+  {
+    "id": "/docs/devices/Ganz/Ganz#0",
+    "url": "/docs/devices/Ganz/Ganz",
+    "type": "DOC_PAGE",
+    "title": "Ganz",
+    "sectionTitle": "Introduction",
+    "content": "Ganz\r \r Device Information:\r - Device: Ganz Device Model\r - Vendor: Ganz\r - Model: Various\r - Firmware: Compatible versions\r - Platform: GC-X-ONE\r - Doc Version: 1.0.0\r \r \r Summary\r \r - Purpose: Configure Ganz devices to integrate seamlessly with GC-X-ONE platform for video surveillance and event ma",
+    "tags": [
+      "Ganz",
+      "IP Camera",
+      "ONVIF",
+      "Video Surveillance",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Ganz"
+    ]
+  },
+  {
+    "id": "/docs/devices/Ganz/Ganz#1",
+    "url": "/docs/devices/Ganz/Ganz#step-1-—-network-configuration",
+    "type": "DOC_PAGE",
+    "title": "Ganz",
+    "sectionTitle": "Step 1 — Network Configuration",
+    "content": "- UI path: Ganz Device → Network Settings\r \r - Configure Network Settings\r   - Assign a Static IP or use DHCP\r   - Configure:\r     - IP Address\r     - Subnet Mask\r     - Default Gateway\r     - DNS Server\r   - Ensure port forwarding is set up if accessing the device over the internet\r   - Make sure f",
+    "tags": [
+      "Ganz",
+      "IP Camera",
+      "ONVIF",
+      "Video Surveillance",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Ganz"
+    ]
+  },
+  {
+    "id": "/docs/devices/Ganz/Ganz#2",
+    "url": "/docs/devices/Ganz/Ganz#step-2-—-time-settings-configuration",
+    "type": "DOC_PAGE",
+    "title": "Ganz",
+    "sectionTitle": "Step 2 — Time Settings Configuration",
+    "content": "- UI path: Ganz Device → Time Settings\r \r - Configure Time Synchronization\r   - Set the time zone correctly\r   - Enable NTP (Network Time Protocol) to sync time with a reliable time server (e.g., pool.ntp.org)\r   - Ensure both the camera and VMS server are time-synced\r   - !Ganz Time Settings\r \r - E",
+    "tags": [
+      "Ganz",
+      "IP Camera",
+      "ONVIF",
+      "Video Surveillance",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Ganz"
+    ]
+  },
+  {
+    "id": "/docs/devices/Ganz/Ganz#3",
+    "url": "/docs/devices/Ganz/Ganz#step-3-—-alarm/event-configuration",
+    "type": "DOC_PAGE",
+    "title": "Ganz",
+    "sectionTitle": "Step 3 — Alarm/Event Configuration",
+    "content": "- UI path: Ganz Device → Alarm/Event Settings\r \r - Configure Event Detection\r   - Configure motion detection zones in the camera settings\r   - Set up alarm input/output (if the device has I/O ports)\r   - Enable event triggers such as:\r     - Motion detection\r     - Tampering\r     - Line crossing\r   ",
+    "tags": [
+      "Ganz",
+      "IP Camera",
+      "ONVIF",
+      "Video Surveillance",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Ganz"
+    ]
+  },
+  {
+    "id": "/docs/devices/Ganz/Ganz#4",
+    "url": "/docs/devices/Ganz/Ganz#step-4-—-live-view-settings",
+    "type": "DOC_PAGE",
+    "title": "Ganz",
+    "sectionTitle": "Step 4 — Live View Settings",
+    "content": "- UI path: Ganz Device → Live View/Stream Settings\r \r - Configure Stream Settings\r   - Select stream type (main stream/sub-stream)\r   - Set resolution, frame rate, and compression (H.264/H.265) for performance optimization\r   - Enable ONVIF if using with third-party platforms\r   - ![Ganz 7.png)\r   -",
+    "tags": [
+      "Ganz",
+      "IP Camera",
+      "ONVIF",
+      "Video Surveillance",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Ganz"
+    ]
+  },
+  {
+    "id": "/docs/devices/Ganz/Ganz#5",
+    "url": "/docs/devices/Ganz/Ganz#step-5-—-add-device-in-gc-x-one",
+    "type": "DOC_PAGE",
+    "title": "Ganz",
+    "sectionTitle": "Step 5 — Add Device in GC-X-ONE",
+    "content": "- UI path: GC-X-ONE → Configuration App → Site → Devices → Add → GanzAI\r \r - Configure Device in GC-X-ONE\r   - Login to GC-X-ONE\r   - Navigate to configuration app\r   - Navigate to Site → Devices → Add → GanzAI\r   - Provide the mandatory details:\r     - Device Name\r     - IP Address\r     - Username ",
+    "tags": [
+      "Ganz",
+      "IP Camera",
+      "ONVIF",
+      "Video Surveillance",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Ganz"
+    ]
+  },
+  {
+    "id": "/docs/devices/Ganz/Ganz#6",
+    "url": "/docs/devices/Ganz/Ganz#step-6-—-verify-integration",
+    "type": "DOC_PAGE",
+    "title": "Ganz",
+    "sectionTitle": "Step 6 — Verify Integration",
+    "content": "- Checks\r   - Verify live stream appears in GC-X-ONE\r   - Test event detection and alarm notifications\r   - Confirm time synchronization is working\r   - Check ONVIF compatibility\r   - Verify all configured event triggers are functioning\r \r - Expected result: Complete Ganz integration with GC-X-ONE p",
+    "tags": [
+      "Ganz",
+      "IP Camera",
+      "ONVIF",
+      "Video Surveillance",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Ganz"
+    ]
+  },
+  {
+    "id": "/docs/devices/HikVision/Hikvision#0",
+    "url": "/docs/devices/HikVision/Hikvision",
+    "type": "DOC_PAGE",
+    "title": "Hikvision",
+    "sectionTitle": "Introduction",
+    "content": "Hikvision\r \r Device Information:\r - Device: Hikvision Device Model\r - Vendor: Hikvision\r - Model: Various\r - Firmware: Compatible versions\r - Platform: GC-X-ONE\r - Doc Version: 1.0.0\r \r \r Summary\r \r - Purpose: Configure Hikvision device to integrate seamlessly with GC-X-ONE platform for video survei",
+    "tags": [
+      "Hikvision",
+      "IP Camera",
+      "NVR",
+      "ISAPI",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Hikvision"
+    ]
+  },
+  {
+    "id": "/docs/devices/HikVision/Hikvision#1",
+    "url": "/docs/devices/HikVision/Hikvision#step-1-—-system-configuration-(time-management)",
+    "type": "DOC_PAGE",
+    "title": "Hikvision",
+    "sectionTitle": "Step 1 — System Configuration (Time Management)",
+    "content": "- UI path: Configuration → System → System Settings → Time Settings\r \r - Do\r   - Login into your HikVision portal by providing the credentials needed\r   - Navigate to the configuration page, then select System\r   - Proceed to System Settings and choose Time Settings\r   - Choose the time zone of your",
+    "tags": [
+      "Hikvision",
+      "IP Camera",
+      "NVR",
+      "ISAPI",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Hikvision"
+    ]
+  },
+  {
+    "id": "/docs/devices/HikVision/Hikvision#2",
+    "url": "/docs/devices/HikVision/Hikvision#step-2-—-user-management",
+    "type": "DOC_PAGE",
+    "title": "Hikvision",
+    "sectionTitle": "Step 2 — User Management",
+    "content": "- UI path: Configuration → System → User management → Add\r \r - Do\r   - Navigate to the configuration page, then select System\r   - Proceed to User management then click on \"Add\"\r   - Enter the username and password for NXGEN\r   - We recommend setting the username to \"NXG\" with the specified permissi",
+    "tags": [
+      "Hikvision",
+      "IP Camera",
+      "NVR",
+      "ISAPI",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Hikvision"
+    ]
+  },
+  {
+    "id": "/docs/devices/HikVision/Hikvision#3",
+    "url": "/docs/devices/HikVision/Hikvision#step-3-—-security-configuration",
+    "type": "DOC_PAGE",
+    "title": "Hikvision",
+    "sectionTitle": "Step 3 — Security Configuration",
+    "content": "- UI path: Configuration → System → Security\r \r - Do\r   - Configure both RTSP and WEB authentication as Digest\r   - This enhances security by ensuring that your credentials are protected with stronger encryption, reducing the risk of unauthorized access\r \r - Expected result: Authentication set to Di",
+    "tags": [
+      "Hikvision",
+      "IP Camera",
+      "NVR",
+      "ISAPI",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Hikvision"
+    ]
+  },
+  {
+    "id": "/docs/devices/HikVision/Hikvision#4",
+    "url": "/docs/devices/HikVision/Hikvision#step-4-—-network-configuration-(integration-protocol)",
+    "type": "DOC_PAGE",
+    "title": "Hikvision",
+    "sectionTitle": "Step 4 — Network Configuration (Integration Protocol)",
+    "content": "- UI path: Configuration → Network → Advanced Settings → Integration Protocol\r \r - Do\r   - Under \"Network,\" go to \"Advanced Settings,\" and then select \"Integration Protocol\"\r   - Enable the ISAPI by simply clicking on the check box\r \r - Expected result: ISAPI protocol enabled\r !Hikvision Image",
+    "tags": [
+      "Hikvision",
+      "IP Camera",
+      "NVR",
+      "ISAPI",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Hikvision"
+    ]
+  },
+  {
+    "id": "/docs/devices/HikVision/Hikvision#5",
+    "url": "/docs/devices/HikVision/Hikvision#step-5-—-basic-events-configuration",
+    "type": "DOC_PAGE",
+    "title": "Hikvision",
+    "sectionTitle": "Step 5 — Basic Events Configuration",
+    "content": "- UI path: Configuration → Event → Basic Event\r \r - Do\r   - On the \"Configuration\" page, under the \"Event\" application, click on \"Basic Event\"\r   - Choose the camera you want to configure\r   - Draw your area of interest\r   - Choose the Arming Schedule under the \"Arming Schedule\" tab\r   - In the \"Lin",
+    "tags": [
+      "Hikvision",
+      "IP Camera",
+      "NVR",
+      "ISAPI",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Hikvision"
+    ]
+  },
+  {
+    "id": "/docs/devices/HikVision/Hikvision#6",
+    "url": "/docs/devices/HikVision/Hikvision#step-6-—-smart-events-configuration",
+    "type": "DOC_PAGE",
+    "title": "Hikvision",
+    "sectionTitle": "Step 6 — Smart Events Configuration",
+    "content": "- UI path: Configuration → Event → Smart Event\r \r - Available Smart Events:\r   - Line Crossing Detection: This feature identifies when an object crosses a predefined virtual line, useful for monitoring entry and exit points\r   - Intrusion Detection: It detects when an object enters or moves within a",
+    "tags": [
+      "Hikvision",
+      "IP Camera",
+      "NVR",
+      "ISAPI",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Hikvision"
+    ]
+  },
+  {
+    "id": "/docs/devices/HikVision/Hikvision#7",
+    "url": "/docs/devices/HikVision/Hikvision#step-7-—-add-device-in-gc-x-one",
+    "type": "DOC_PAGE",
+    "title": "Hikvision",
+    "sectionTitle": "Step 7 — Add device in GC-X-ONE",
+    "content": "- UI path: GC-X-ONE → Customer → Site → Devices → Add Device\r - Do\r   - Select Camect.\r   - Fill: Host/Serial, Username, Password, Ports, Time Zone.\r   - Click Discover. Review discovered sensors and I/O.\r   - Click Save.\r - Expected result: GC-X-ONE lists sensors under the Camect device.\r !Hikvisio",
+    "tags": [
+      "Hikvision",
+      "IP Camera",
+      "NVR",
+      "ISAPI",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Hikvision"
+    ]
+  },
+  {
+    "id": "/docs/devices/HikVision/Hikvision#8",
+    "url": "/docs/devices/HikVision/Hikvision#step-8-—-verify-integration",
+    "type": "DOC_PAGE",
+    "title": "Hikvision",
+    "sectionTitle": "Step 8 — Verify Integration",
+    "content": "- Checks\r   - Verify time synchronization is working\r   - Test NXG user login and permissions\r   - Confirm ISAPI protocol is active\r   - Test basic and smart events are triggering properly\r   - Verify \"Notify Surveillance Center\" is working\r \r - Expected result: Complete Hikvision integration with G",
+    "tags": [
+      "Hikvision",
+      "IP Camera",
+      "NVR",
+      "ISAPI",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Hikvision"
+    ]
+  },
+  {
+    "id": "/docs/devices/Reconeyez/Reconeyez#0",
+    "url": "/docs/devices/Reconeyez/Reconeyez",
+    "type": "DOC_PAGE",
+    "title": "Reconeyez",
+    "sectionTitle": "Introduction",
+    "content": "Reconeyez\r \r Device Information:\r - Device: Reconeyez Device Model\r - Vendor: Reconeyez\r - Model: Various\r - Firmware: Compatible versions\r - Platform: GC-X-ONE\r - Doc Version: 1.0.0\r \r \r Summary\r \r - Purpose: Configure Reconeyez devices to integrate with GC-X-ONE platform for event-driven video sur",
+    "tags": [
+      "Reconeyez",
+      "Event Camera",
+      "Battery Powered",
+      "Mobile Connectivity",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Reconeyez"
+    ]
+  },
+  {
+    "id": "/docs/devices/Reconeyez/Reconeyez#1",
+    "url": "/docs/devices/Reconeyez/Reconeyez#step-1-—-network-configuration",
+    "type": "DOC_PAGE",
+    "title": "Reconeyez",
+    "sectionTitle": "Step 1 — Network Configuration",
+    "content": "- UI path: Reconeyez Device → Network Settings\r \r - Configure Connectivity Options\r   - For LTE/4G Connection:\r     - Insert SIM card with valid data plan\r     - Ensure adequate signal strength for mobile data\r   - For Wi-Fi Connection:\r     - Configure network settings through mobile app or cloud p",
+    "tags": [
+      "Reconeyez",
+      "Event Camera",
+      "Battery Powered",
+      "Mobile Connectivity",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Reconeyez"
+    ]
+  },
+  {
+    "id": "/docs/devices/Reconeyez/Reconeyez#2",
+    "url": "/docs/devices/Reconeyez/Reconeyez#step-2-—-event-configuration",
+    "type": "DOC_PAGE",
+    "title": "Reconeyez",
+    "sectionTitle": "Step 2 — Event Configuration",
+    "content": "- UI path: Reconeyez Cloud Portal/Mobile App → Event Settings\r \r - Configure Event-Driven Capture\r   - Access Reconeyez cloud portal or mobile app\r   - Configure event triggers for video capture\r   - Set up snapshots or video clips (typically 10-15 seconds) upon event trigger\r   - Configure number o",
+    "tags": [
+      "Reconeyez",
+      "Event Camera",
+      "Battery Powered",
+      "Mobile Connectivity",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Reconeyez"
+    ]
+  },
+  {
+    "id": "/docs/devices/Reconeyez/Reconeyez#3",
+    "url": "/docs/devices/Reconeyez/Reconeyez#step-3-—-platform-integration-setup",
+    "type": "DOC_PAGE",
+    "title": "Reconeyez",
+    "sectionTitle": "Step 3 — Platform Integration Setup",
+    "content": "- UI path: Reconeyez Platform → Integration Settings\r \r - Configure Third-Party Integration\r   - Set up API access for event forwarding and video access\r   - Configure email/FTP notifications to external systems\r   - Set up central monitoring station integration using protocols like SIA or Contact I",
+    "tags": [
+      "Reconeyez",
+      "Event Camera",
+      "Battery Powered",
+      "Mobile Connectivity",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Reconeyez"
+    ]
+  },
+  {
+    "id": "/docs/devices/Reconeyez/Reconeyez#4",
+    "url": "/docs/devices/Reconeyez/Reconeyez#step-4-—-add-device-in-gc-x-one",
+    "type": "DOC_PAGE",
+    "title": "Reconeyez",
+    "sectionTitle": "Step 4 — Add Device in GC-X-ONE",
+    "content": "- UI path: GC-X-ONE → Configuration App → Site → Devices → Add → Reconeyez\r \r - Register Reconeyez Device\r   - Login to GC-X-ONE platform\r   - Navigate to configuration app\r   - Go to Site → Devices → Add → Reconeyez\r   - Provide the mandatory details:\r     - Device Name: Descriptive name for the de",
+    "tags": [
+      "Reconeyez",
+      "Event Camera",
+      "Battery Powered",
+      "Mobile Connectivity",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Reconeyez"
+    ]
+  },
+  {
+    "id": "/docs/devices/Reconeyez/Reconeyez#5",
+    "url": "/docs/devices/Reconeyez/Reconeyez#step-5-—-verify-integration",
+    "type": "DOC_PAGE",
+    "title": "Reconeyez",
+    "sectionTitle": "Step 5 — Verify Integration",
+    "content": "- Checks\r   - Verify network connectivity (LTE/4G or Wi-Fi) is operational\r   - Test event-driven video capture functionality\r   - Confirm snapshots are being captured at configured intervals\r   - Verify cloud platform integration is working\r   - Test webhook notifications to GC-X-ONE\r   - Check API",
+    "tags": [
+      "Reconeyez",
+      "Event Camera",
+      "Battery Powered",
+      "Mobile Connectivity",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Reconeyez"
+    ]
+  },
+  {
+    "id": "/docs/devices/Senstar/Senstar#0",
+    "url": "/docs/devices/Senstar/Senstar",
+    "type": "DOC_PAGE",
+    "title": "Senstar",
+    "sectionTitle": "Introduction",
+    "content": "Senstar\r \r Device Information:\r - Device: Senstar Device Model\r - Vendor: Senstar\r - Model: Various\r - Firmware: Compatible versions\r - Platform: GC-X-ONE\r - Doc Version: 1.0.0\r \r Summary\r \r - Purpose: Configure Senstar to stream and send events to GC-X-ONE.\r - Outcome: Live view and events show in ",
+    "tags": [
+      "Senstar",
+      "Perimeter Security",
+      "Symphony Server",
+      "RTSP",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Senstar"
+    ]
+  },
+  {
+    "id": "/docs/devices/Senstar/Senstar#1",
+    "url": "/docs/devices/Senstar/Senstar#step-1-—-install-senstar-software",
+    "type": "DOC_PAGE",
+    "title": "Senstar",
+    "sectionTitle": "Step 1 — Install Senstar Software",
+    "content": "- Download Installer\r   - Download Senstar Installer (senstar server) from the official website\r \r - Run the Installer\r   - Double-click the downloaded .exe file\r   - Proceed with default options unless specified by IT policies\r   - Finish installation and launch the application\r \r - Installation No",
+    "tags": [
+      "Senstar",
+      "Perimeter Security",
+      "Symphony Server",
+      "RTSP",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Senstar"
+    ]
+  },
+  {
+    "id": "/docs/devices/Senstar/Senstar#2",
+    "url": "/docs/devices/Senstar/Senstar#step-2-—-verify-streaming-and-events-in-senstar-client",
+    "type": "DOC_PAGE",
+    "title": "Senstar",
+    "sectionTitle": "Step 2 — Verify Streaming and Events in Senstar client",
+    "content": "- UI path: Senstar Client\r \r - Launch Application\r   - Open the installed Senstar client from your desktop or start menu\r \r - Connect to Device\r   - Enter the IP address, username, and password of the Senstar unit\r   - Click Connect\r \r - Verify Live Stream\r   - Navigate to the Live View tab\r   - Con",
+    "tags": [
+      "Senstar",
+      "Perimeter Security",
+      "Symphony Server",
+      "RTSP",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Senstar"
+    ]
+  },
+  {
+    "id": "/docs/devices/Senstar/Senstar#3",
+    "url": "/docs/devices/Senstar/Senstar#step-3-—-add-senstar-parameters-to-gc-x-one",
+    "type": "DOC_PAGE",
+    "title": "Senstar",
+    "sectionTitle": "Step 3 — Add Senstar Parameters to GC-X-ONE",
+    "content": "- Overall summary:\r - !Senstar Image\r \r - UI path: GC-X-ONE → Configuration App → Service Provider → Overview → Edit → Additional Settings → Custom Property\r \r - Do\r   - Login to GC-X-ONE\r   - Navigate to configuration app\r   - At service provider level, click on edit button under overview tab\r   - ",
+    "tags": [
+      "Senstar",
+      "Perimeter Security",
+      "Symphony Server",
+      "RTSP",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Senstar"
+    ]
+  },
+  {
+    "id": "/docs/devices/Senstar/Senstar#4",
+    "url": "/docs/devices/Senstar/Senstar#step-4-—-add-senstar-device-under-the-required-site",
+    "type": "DOC_PAGE",
+    "title": "Senstar",
+    "sectionTitle": "Step 4 — Add Senstar Device Under the Required Site",
+    "content": "- UI path: GC-X-ONE → Configuration → Site → Devices → Add New Device\r \r - Do\r   - Go to the Configuration section in GC-X-ONE\r   - Select the target site under which the Senstar device should be registered\r   - !Senstar Image\r   - Navigate to Devices → Add New Device\r   - !Senstar Image\r   - Fill i",
+    "tags": [
+      "Senstar",
+      "Perimeter Security",
+      "Symphony Server",
+      "RTSP",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Senstar"
+    ]
+  },
+  {
+    "id": "/docs/devices/Senstar/Senstar#5",
+    "url": "/docs/devices/Senstar/Senstar#step-5-—-generate-streaming-password",
+    "type": "DOC_PAGE",
+    "title": "Senstar",
+    "sectionTitle": "Step 5 — Generate Streaming Password",
+    "content": "- The Senstar device requires an encoded password to access the RTSP-based live stream\r \r - Steps to Get Encoded password:\r   - User can encode the password using the PasswordEncoder.exe\r   - Note: The encoder cannot be downloaded and installed directly. User needs to install the Senstar server exe ",
+    "tags": [
+      "Senstar",
+      "Perimeter Security",
+      "Symphony Server",
+      "RTSP",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Senstar"
+    ]
+  },
+  {
+    "id": "/docs/devices/Senstar/Senstar#6",
+    "url": "/docs/devices/Senstar/Senstar#step-6-—-configuring-senstar-for-alarms",
+    "type": "DOC_PAGE",
+    "title": "Senstar",
+    "sectionTitle": "Step 6 — Configuring Senstar for Alarms",
+    "content": "- Background Information\r   - The Senstar Symphony Server can generate alarms from rules. Rules include events, action sets, and schedules\r   - You create rules in the Senstar Symphony Server configuration interface. When you create a rule, you either associate existing events, action sets, and a sc",
+    "tags": [
+      "Senstar",
+      "Perimeter Security",
+      "Symphony Server",
+      "RTSP",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Senstar"
+    ]
+  },
+  {
+    "id": "/docs/devices/Senstar/Senstar#7",
+    "url": "/docs/devices/Senstar/Senstar#step-7-—-verify",
+    "type": "DOC_PAGE",
+    "title": "Senstar",
+    "sectionTitle": "Step 7 — Verify",
+    "content": "- Checks\r   - Live Stream appears in GC-X-ONE\r   - Events appear in Video Activity Search and Device Dashboard\r   - Make sure rtsp url work in vlc media player\r \r - Expected result: Full integration working with live stream and events\r \r Troubleshooting Tools\r \r - Senstar SDK Mobile: Mobile Bridge a",
+    "tags": [
+      "Senstar",
+      "Perimeter Security",
+      "Symphony Server",
+      "RTSP",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Senstar"
+    ]
+  },
+  {
+    "id": "/docs/devices/Teltonika Router/Teltonkia Router#0",
+    "url": "/docs/devices/Teltonika Router/Teltonkia Router",
+    "type": "DOC_PAGE",
+    "title": "Teltonika Router",
+    "sectionTitle": "Introduction",
+    "content": "Teltonika Router\r \r Device Information:\r - Device: Teltonika Router Device Model\r - Vendor: Teltonika\r - Model: Various\r - Firmware: Compatible versions\r - Platform: GC-X-ONE\r - Doc Version: 1.0.0\r \r \r Summary\r \r - Purpose: Configure Teltonika Router to integrate with GC-X-ONE platform for GPS track",
+    "tags": [
+      "Teltonika",
+      "Router",
+      "GPS Tracking",
+      "HTTPS",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Teltonika Router"
+    ]
+  },
+  {
+    "id": "/docs/devices/Teltonika Router/Teltonkia Router#1",
+    "url": "/docs/devices/Teltonika Router/Teltonkia Router#step-1-—-obtain-device-serial-number",
+    "type": "DOC_PAGE",
+    "title": "Teltonika Router",
+    "sectionTitle": "Step 1 — Obtain Device Serial Number",
+    "content": "- UI path: Teltonika Router → Status → Device\r \r - Get Device Serial Number\r   - Login to Teltonika Device web interface\r   - Navigate to Status menu\r   - Click on Device option\r   - Copy the serial number displayed\r   - This serial number will be required for device registration in GC-X-ONE\r   - !T",
+    "tags": [
+      "Teltonika",
+      "Router",
+      "GPS Tracking",
+      "HTTPS",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Teltonika Router"
+    ]
+  },
+  {
+    "id": "/docs/devices/Teltonika Router/Teltonkia Router#2",
+    "url": "/docs/devices/Teltonika Router/Teltonkia Router#step-2-—-add-device-in-gc-x-one",
+    "type": "DOC_PAGE",
+    "title": "Teltonika Router",
+    "sectionTitle": "Step 2 — Add Device in GC-X-ONE",
+    "content": "- UI path: GC-X-ONE → Configuration App → Site → Devices → Add\r \r - Register Teltonika Device\r   - Login to GC-X-ONE platform\r   - Navigate to configuration app\r   - Go to device addition section\r   - Select device type as \"Teltonika\"\r   - Enter the serial number copied from Step 1\r   - Complete the",
+    "tags": [
+      "Teltonika",
+      "Router",
+      "GPS Tracking",
+      "HTTPS",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Teltonika Router"
+    ]
+  },
+  {
+    "id": "/docs/devices/Teltonika Router/Teltonkia Router#3",
+    "url": "/docs/devices/Teltonika Router/Teltonkia Router#step-3-—-view-device-information",
+    "type": "DOC_PAGE",
+    "title": "Teltonika Router",
+    "sectionTitle": "Step 3 — View Device Information",
+    "content": "- UI path: GC-X-ONE → Device List → View\r \r - Verify Device Registration\r   - After device registration, click on the \"View\" button\r   - Verify device information is correctly displayed\r   - Confirm device status and configuration details\r   - !Teltonika Router Image\r \r - Expected result: Device inf",
+    "tags": [
+      "Teltonika",
+      "Router",
+      "GPS Tracking",
+      "HTTPS",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Teltonika Router"
+    ]
+  },
+  {
+    "id": "/docs/devices/Teltonika Router/Teltonkia Router#4",
+    "url": "/docs/devices/Teltonika Router/Teltonkia Router#step-4-—-obtain-custom-receiver-url",
+    "type": "DOC_PAGE",
+    "title": "Teltonika Router",
+    "sectionTitle": "Step 4 — Obtain Custom Receiver URL",
+    "content": "- UI path: GC-X-ONE → Device Configuration → Edit\r \r - Get Teltonika Custom URL\r   - Click the \"Edit\" button in device configuration\r   - Locate the \"Teltonika Custom Receiver URL\" field\r   - Copy the complete URL provided\r   - This URL will be used to configure the router for data transmission\r   -",
+    "tags": [
+      "Teltonika",
+      "Router",
+      "GPS Tracking",
+      "HTTPS",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Teltonika Router"
+    ]
+  },
+  {
+    "id": "/docs/devices/Teltonika Router/Teltonkia Router#5",
+    "url": "/docs/devices/Teltonika Router/Teltonkia Router#step-5-—-configure-gps-service-on-router",
+    "type": "DOC_PAGE",
+    "title": "Teltonika Router",
+    "sectionTitle": "Step 5 — Configure GPS Service on Router",
+    "content": "- UI path: Teltonika Router → Service → GPS\r \r - Configure GPS Settings\r   - Return to Teltonika Router web interface\r   - Navigate to Service menu\r   - Select GPS submenu\r   - Access GPS configuration options\r   - !Teltonika Router Image\r \r - Expected result: GPS service configuration page accessed",
+    "tags": [
+      "Teltonika",
+      "Router",
+      "GPS Tracking",
+      "HTTPS",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Teltonika Router"
+    ]
+  },
+  {
+    "id": "/docs/devices/Teltonika Router/Teltonkia Router#6",
+    "url": "/docs/devices/Teltonika Router/Teltonkia Router#step-6-—-configure-https-url",
+    "type": "DOC_PAGE",
+    "title": "Teltonika Router",
+    "sectionTitle": "Step 6 — Configure HTTPS URL",
+    "content": "- UI path: Teltonika Router → Service → GPS → HTTPS Tab\r \r - Set Custom Receiver URL\r   - Navigate to the HTTPS tab in GPS settings\r   - Enter the URL copied from Step 4 into the HTTPS URL field\r   - Ensure URL is correctly formatted and complete\r   - Save the configuration settings\r   - !Teltonika ",
+    "tags": [
+      "Teltonika",
+      "Router",
+      "GPS Tracking",
+      "HTTPS",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Teltonika Router"
+    ]
+  },
+  {
+    "id": "/docs/devices/Teltonika Router/Teltonkia Router#7",
+    "url": "/docs/devices/Teltonika Router/Teltonkia Router#step-7-—-verify-integration",
+    "type": "DOC_PAGE",
+    "title": "Teltonika Router",
+    "sectionTitle": "Step 7 — Verify Integration",
+    "content": "- Checks\r   - Verify GPS service is enabled and active\r   - Confirm HTTPS URL is properly configured\r   - Check device status in GC-X-ONE shows online\r   - Verify GPS location data is being received\r   - Test data transmission functionality\r \r - Expected result: Complete Teltonika Router integration",
+    "tags": [
+      "Teltonika",
+      "Router",
+      "GPS Tracking",
+      "HTTPS",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Teltonika Router"
+    ]
+  },
+  {
+    "id": "/docs/devices/Uniview/Uniview#0",
+    "url": "/docs/devices/Uniview/Uniview",
+    "type": "DOC_PAGE",
+    "title": "Uniview",
+    "sectionTitle": "Introduction",
+    "content": "Uniview\r \r Device Information:\r - Device: Uniview Device Model\r - Vendor: Uniview\r - Model: Various\r - Firmware: Compatible versions\r - Platform: GC-X-ONE\r - Doc Version: 1.0.0\r \r Summary\r \r - Purpose: Configure Uniview devices to integrate seamlessly with GC-X-ONE platform for video surveillance an",
+    "tags": [
+      "Uniview",
+      "IP Camera",
+      "Video Surveillance",
+      "ONVIF",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Uniview"
+    ]
+  },
+  {
+    "id": "/docs/devices/Uniview/Uniview#1",
+    "url": "/docs/devices/Uniview/Uniview#step-1-—-network-configuration",
+    "type": "DOC_PAGE",
+    "title": "Uniview",
+    "sectionTitle": "Step 1 — Network Configuration",
+    "content": "- UI path: Uniview Device → Network Settings\r \r - Configure Network Settings\r   - Set up the client's network settings so it can communicate with other devices or servers\r   - Configure IP address (static or DHCP), subnet mask, default gateway, DNS servers, and possibly proxy settings\r   - Proper ne",
+    "tags": [
+      "Uniview",
+      "IP Camera",
+      "Video Surveillance",
+      "ONVIF",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Uniview"
+    ]
+  },
+  {
+    "id": "/docs/devices/Uniview/Uniview#2",
+    "url": "/docs/devices/Uniview/Uniview#step-2-—-time-configuration",
+    "type": "DOC_PAGE",
+    "title": "Uniview",
+    "sectionTitle": "Step 2 — Time Configuration",
+    "content": "- UI path: Uniview Device → Time Settings\r \r - Configure Time Settings\r   - Set the correct time, date, and time zone on the client device\r   - Time synchronization is often handled via NTP (Network Time Protocol) servers\r   - Accurate time configuration is crucial for logging, security protocols (l",
+    "tags": [
+      "Uniview",
+      "IP Camera",
+      "Video Surveillance",
+      "ONVIF",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Uniview"
+    ]
+  },
+  {
+    "id": "/docs/devices/Uniview/Uniview#3",
+    "url": "/docs/devices/Uniview/Uniview#step-3-—-alarm-configuration",
+    "type": "DOC_PAGE",
+    "title": "Uniview",
+    "sectionTitle": "Step 3 — Alarm Configuration",
+    "content": "- UI path: Uniview Device → Alarm Settings\r \r - Configure Alarm Settings\r   - Alarm configuration allows the client device to generate alerts or notifications based on certain events or conditions, such as system failures, high resource usage, or connectivity issues\r   - These alarms can be set to t",
+    "tags": [
+      "Uniview",
+      "IP Camera",
+      "Video Surveillance",
+      "ONVIF",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Uniview"
+    ]
+  },
+  {
+    "id": "/docs/devices/Uniview/Uniview#4",
+    "url": "/docs/devices/Uniview/Uniview#step-4-—-basic-setup",
+    "type": "DOC_PAGE",
+    "title": "Uniview",
+    "sectionTitle": "Step 4 — Basic Setup",
+    "content": "- UI path: Uniview Device → Basic Settings\r \r - Configure Basic Settings\r   - Basic setup refers to the initial configuration of the client device to prepare it for operation\r   - This can include language and region settings, setting up user accounts, installing essential software, configuring inpu",
+    "tags": [
+      "Uniview",
+      "IP Camera",
+      "Video Surveillance",
+      "ONVIF",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Uniview"
+    ]
+  },
+  {
+    "id": "/docs/devices/Uniview/Uniview#5",
+    "url": "/docs/devices/Uniview/Uniview#step-5-—-configure-device-in-gc-x-one",
+    "type": "DOC_PAGE",
+    "title": "Uniview",
+    "sectionTitle": "Step 5 — Configure Device in GC-X-ONE",
+    "content": "- UI path: GC-X-ONE → Configuration App → Site → Devices → Add\r \r - Add Device in GC-X-ONE\r   - Login to GC-X-ONE\r   - Navigate to configuration app\r   - Navigate to Site → Devices → Add\r   - Provide the mandatory details\r   - Click on Discover\r   - Click Save\r   - !Uniview Image\r \r - Expected resul",
+    "tags": [
+      "Uniview",
+      "IP Camera",
+      "Video Surveillance",
+      "ONVIF",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Uniview"
+    ]
+  },
+  {
+    "id": "/docs/devices/Uniview/Uniview#6",
+    "url": "/docs/devices/Uniview/Uniview#step-6-—-verify-integration",
+    "type": "DOC_PAGE",
+    "title": "Uniview",
+    "sectionTitle": "Step 6 — Verify Integration",
+    "content": "- Checks\r   - Verify network connectivity is working\r   - Test time synchronization with NTP servers\r   - Confirm alarm notifications are functioning\r   - Check basic settings are properly applied\r   - Verify device discovery in GC-X-ONE\r \r - Expected result: Complete Uniview integration with GC-X-O",
+    "tags": [
+      "Uniview",
+      "IP Camera",
+      "Video Surveillance",
+      "ONVIF",
+      "GC-X-ONE"
+    ],
+    "hierarchy": [
+      "Uniview"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content-german#0",
+    "url": "/docs/features/BulkImport/content-german",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "Introduction",
+    "content": "BulkImport  Importieren Sie viele Geräte mit wenigen Klicks.   BulkImport ermöglicht es Ihnen, eine Excel-Vorlagendatei hochzuladen, die Datensätze in der Vorschau anzuzeigen und Geräte in einem geführten Ablauf zu erstellen.  <video   controls   style={{     maxWidth: '100%',     borderRadius: '8px",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content-german#1",
+    "url": "/docs/features/BulkImport/content-german#wo-sich-bulkimport-befindet",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "Wo sich BulkImport befindet",
+    "content": "Öffnen Sie GCXONE, gehen Sie zu Geräte und wählen Sie dann Importieren.  !Geräteseite mit Import-Schaltfläche  Das System öffnet einen dreistufigen Assistenten:  1. Hochladen   2. Vorschau   3. Abschluss    Sie bleiben die ganze Zeit auf der Geräteseite.",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content-german#2",
+    "url": "/docs/features/BulkImport/content-german#wann-bulkimport-verwendet-werden-sollte",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "Wann BulkImport verwendet werden sollte",
+    "content": "Verwenden Sie BulkImport, wenn Sie:  - Viele Geräte für einen Kunden oder Standort hinzufügen möchten.   - Geräte von einer älteren Plattform migrieren.   - Neue Hardware gleichzeitig an mehreren Standorten ausrollen.   - Die Gerätekonfiguration konsistent halten möchten, indem Sie mit einer Vorlage",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content-german#3",
+    "url": "/docs/features/BulkImport/content-german#schritt-1---vorlagendatei-hochladen",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "Schritt 1 - Vorlagendatei hochladen",
+    "content": "!Upload-Schritt - Excel-Datei auswählen  Der Upload-Schritt bietet zwei Schaltflächen:  - Vorlagendatei herunterladen     Lädt eine leere Excel-Datei mit allen erforderlichen Spalten herunter.  - Dateien durchsuchen     Öffnet eine Dateiauswahl, in der Sie Ihre ausgefüllte .xlsx- oder .xls-Datei aus",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content-german#4",
+    "url": "/docs/features/BulkImport/content-german#schritt-2---importdaten-in-der-vorschau-anzeigen",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "Schritt 2 - Importdaten in der Vorschau anzeigen",
+    "content": "!Vorschau-Schritt - Zeilen überprüfen  Der Vorschau-Schritt zeigt:  - Den Kunden oder Standort oben.   - Eine Tabelle aller Zeilen, die BulkImport in der Datei erkannt hat.   - Die Gesamtzahl der Zeilen auf der rechten Seite.    Überprüfen Sie mindestens:  - Standortname.   - Gerätetyp und Modell.  ",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content-german#5",
+    "url": "/docs/features/BulkImport/content-german#schritt-3---abschluss",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "Schritt 3 - Abschluss",
+    "content": "!Abschluss-Schritt - Erfolg  Nachdem der Import abgeschlossen ist, sehen Sie einen Abschlussbildschirm.  Sie erhalten:  - Eine klare Erfolgsmeldung.   - Die Anzahl der Datensätze, die BulkImport importiert hat.    Wenn das System Probleme mit einigen Zeilen gefunden hat, zeigt es auch:  - Die Anzahl",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content-german#6",
+    "url": "/docs/features/BulkImport/content-german#excel-vorlagendatei",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "Excel-Vorlagendatei",
+    "content": "Sie erhalten immer die neueste Vorlage, indem Sie im Upload-Schritt auf Vorlagendatei herunterladen klicken.  !Beispiel für Excel-Vorlage  Die Vorlage enthält diese Spalten:  | Spaltenname                  | Beschreibung                                                                                ",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content-german#7",
+    "url": "/docs/features/BulkImport/content-german#validierung-und-fehler",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "Validierung und Fehler",
+    "content": "BulkImport validiert Daten während der Vorschau und während des eigentlichen Imports.  Vorschau-Prüfungen  Während der Vorschau prüft BulkImport auf:  - Fehlende Pflichtangaben.   - Ungültige Portnummern.   - Grundlegende Formatprobleme bei IP-Adressen oder Hostnamen.   - Offensichtliche Duplikate i",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content-german#8",
+    "url": "/docs/features/BulkImport/content-german#best-practices",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "Best Practices",
+    "content": "- Beginnen Sie mit einer kleinen Testdatei, zum Beispiel mit fünf Geräten, um das Format zu bestätigen.   - Verwenden Sie eine Datei pro Kunde oder Region, damit die Vorschau lesbar bleibt.   - Bewahren Sie eine Kopie jeder importierten Datei auf, falls Sie später Änderungen nachvollziehen müssen.  ",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content-german#9",
+    "url": "/docs/features/BulkImport/content-german#faq",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "FAQ",
+    "content": "Kann ich BulkImport mit derselben Datei erneut ausführen?   Ja. Dies kann Duplikate erstellen, wenn Ihre Umgebung diese nicht blockiert. Überprüfen Sie daher die Vorschau sorgfältig.   Im Zweifelsfall bewahren Sie eine Kopie der Originaldatei auf und verwenden Sie kleinere Dateien für Wiederholungsv",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content#0",
+    "url": "/docs/features/BulkImport/content",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "Introduction",
+    "content": "BulkImport\r \r Import many devices in a few clicks.  \r BulkImport lets you upload a template Excel file, preview the records, and create devices in one guided flow.\r \r <video\r   controls\r   style={{\r     maxWidth: '100%',\r     borderRadius: '8px',\r     boxShadow: '0 4px 12px rgba(0,0,0,0.25)',\r     m",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content#1",
+    "url": "/docs/features/BulkImport/content#where-bulkimport-lives",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "Where BulkImport lives",
+    "content": "Open GCXONE, go to Devices, then select Import.\r \r !Devices page with Import button\r \r The system opens a three step wizard:\r \r 1. Upload  \r 2. Preview  \r 3. Complete  \r \r You stay on the Devices page the whole time.",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content#2",
+    "url": "/docs/features/BulkImport/content#when-to-use-bulkimport",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "When to use BulkImport",
+    "content": "Use BulkImport when you want to:\r \r - Add many devices for a customer or site.  \r - Move devices from an older platform.  \r - Roll out new hardware to several locations at once.  \r - Keep device configuration consistent by starting from one template file.  \r \r For a single device, use the normal dev",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content#3",
+    "url": "/docs/features/BulkImport/content#step-1---upload-template-file",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "Step 1 - Upload template file",
+    "content": "!Upload step - select Excel file\r \r The Upload step gives two buttons:\r \r - Download Template File  \r   Downloads an empty Excel file with all required columns.\r \r - Browse Files  \r   Opens a file picker where you choose your filled .xlsx or .xls file.\r \r The wizard accepts one Excel file per run.  ",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content#4",
+    "url": "/docs/features/BulkImport/content#step-2---preview-import-data",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "Step 2 - Preview import data",
+    "content": "!Preview step - review rows\r \r The Preview step shows:\r \r - The customer or site at the top.  \r - A table of all rows that BulkImport detected in the file.  \r - The total number of rows on the right.  \r \r Check at least:\r \r - Site name.  \r - Device type and model.  \r - Serial numbers and IP addresse",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content#5",
+    "url": "/docs/features/BulkImport/content#step-3---completion",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "Step 3 - Completion",
+    "content": "!Complete step - success\r \r After the import finishes you see a completion screen.\r \r You get:\r \r - A clear success message.  \r - The number of records that BulkImport imported.  \r \r If the system found issues with some rows, it also shows:\r \r - The count of failed records.  \r - A link to download a",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content#6",
+    "url": "/docs/features/BulkImport/content#template-excel-file",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "Template Excel file",
+    "content": "You always get the latest template by clicking Download Template File in the Upload step.\r \r !Template Excel example\r \r The template contains these columns:\r \r | Column name                  | Description                                                                   |\r | ------------------------",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content#7",
+    "url": "/docs/features/BulkImport/content#validation-and-errors",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "Validation and errors",
+    "content": "BulkImport validates data during preview and during the actual import.\r \r Preview checks\r \r During preview BulkImport checks for:\r \r - Missing required values.  \r - Invalid port numbers.  \r - Basic IP or hostname format problems.  \r - Obvious duplicates in the same file.  \r \r If BulkImport finds cri",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content#8",
+    "url": "/docs/features/BulkImport/content#best-practices",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "Best practices",
+    "content": "- Start with a small test file, for example five devices, to confirm the format.  \r - Use one file per customer or region so previews stay readable.  \r - Keep a copy of every file you import in case you need to audit changes later.  \r - After a large import, open a few devices in the UI and confirm ",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/BulkImport/content#9",
+    "url": "/docs/features/BulkImport/content#faq",
+    "type": "DOC_PAGE",
+    "title": "BulkImport",
+    "sectionTitle": "FAQ",
+    "content": "Can I rerun BulkImport with the same file?  \r Yes. This can create duplicates if your environment does not block them, so check the preview carefully.  \r When in doubt, keep a copy of the original file and use smaller files for retries.\r \r What happens to rows that fail?  \r Failed rows do not create",
+    "tags": [],
+    "hierarchy": [
+      "BulkImport"
+    ]
+  },
+  {
+    "id": "/docs/features/CustomView/content#0",
+    "url": "/docs/features/CustomView/content",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Introduction",
+    "content": "CustomView\r \r See What Matters. Filter Out What Doesn't.\r \r Personalized interface customization that allows operators to create tailored views of their security data, showing only relevant information and hiding unnecessary details for optimal workflow efficiency.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/CustomView/content#1",
+    "url": "/docs/features/CustomView/content#overview",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Overview",
+    "content": "CustomView empowers users to build personalized dashboards and data views that match their specific roles, responsibilities, and workflow requirements, ensuring they see exactly what they need when they need it.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/CustomView/content#2",
+    "url": "/docs/features/CustomView/content#key-features",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Key Features",
+    "content": "- Drag-and-Drop Builder: Intuitive interface customization\r - Role-Based Views: Tailored interfaces for different user types\r - Dynamic Filtering: Real-time data filtering and sorting\r - Widget Library: Extensive collection of customizable components\r - Save and Share: Export custom views for team c",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/CustomView/content#4",
+    "url": "/docs/features/CustomView/content#available-widgets",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Available Widgets",
+    "content": "Monitoring Widgets\r - Live alarm feeds\r - Site status grids\r - Device health matrices\r - Video wall displays\r - Map visualizations\r \r Analytics Widgets\r - Performance charts\r - Trend analysis graphs\r - Statistical summaries\r - KPI indicators\r - Report snapshots\r \r Control Widgets\r - Quick action but",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/CustomView/content#6",
+    "url": "/docs/features/CustomView/content#role-based-templates",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Role-Based Templates",
+    "content": "Security Manager\r - High-level site overview\r - Critical alarm summary\r - Performance indicators\r - Team activity monitor\r \r Security Operator\r - Detailed alarm feed\r - Live video feeds\r - Device control panels\r - Incident response tools\r \r System Administrator\r - System health dashboard\r - Configur",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/CustomView/content#7",
+    "url": "/docs/features/CustomView/content#benefits",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Benefits",
+    "content": "Improved Efficiency\r - 60% faster information access\r - Reduced cognitive load\r - Streamlined workflows\r - Enhanced decision-making\r \r Better Focus\r - Relevant information only\r - Reduced distractions\r - Priority-based display\r - Context-aware interface\r \r Enhanced Productivity\r - Faster response ti",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/CustomView/content#9",
+    "url": "/docs/features/CustomView/content#use-cases",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Use Cases",
+    "content": "Multi-Site Operations\r - Regional site monitoring\r - Centralized alarm management\r - Resource allocation views\r - Performance comparisons\r \r Shift Handovers\r - Role-specific briefings\r - Priority status updates\r - Outstanding issues tracking\r - Scheduled activities\r \r Incident Response\r - Emergency ",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/CustomView/content#10",
+    "url": "/docs/features/CustomView/content#getting-started",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Getting Started",
+    "content": "Begin with pre-built templates for your role, then customize widgets, filters, and layouts to match your specific needs. Save multiple views for different scenarios and share best practices with your team.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/Genie/content#0",
+    "url": "/docs/features/Genie/content",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Introduction",
+    "content": "Genie\r \r See What Matters. Filter Out What Doesn't.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/HealthCheck/content#0",
+    "url": "/docs/features/HealthCheck/content",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Introduction",
+    "content": "HealthCheck\r \r Catch Failures Before They Cost You.\r \r Proactive system monitoring that identifies potential issues before they become critical failures, ensuring your security infrastructure remains reliable and operational when you need it most.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/HealthCheck/content#1",
+    "url": "/docs/features/HealthCheck/content#overview",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Overview",
+    "content": "HealthCheck continuously monitors the health and performance of your entire security ecosystem, from devices and network connections to software services and data flows, providing early warning of potential problems.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/HealthCheck/content#2",
+    "url": "/docs/features/HealthCheck/content#key-features",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Key Features",
+    "content": "- Predictive Monitoring: AI-powered failure prediction algorithms\r - Real-Time Diagnostics: Continuous system health assessment\r - Automated Alerts: Instant notifications when issues are detected\r - Performance Trending: Historical analysis of system performance\r - Self-Healing: Automatic remediatio",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/HealthCheck/content#4",
+    "url": "/docs/features/HealthCheck/content#health-metrics",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Health Metrics",
+    "content": "Device Health\r - Connectivity status\r - CPU and memory usage\r - Storage capacity\r - Temperature readings\r - Power supply status\r \r Network Health\r - Bandwidth utilization\r - Latency measurements\r - Packet loss rates\r - Connection stability\r - VPN tunnel status\r \r Service Health\r - Application respon",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/HealthCheck/content#6",
+    "url": "/docs/features/HealthCheck/content#benefits",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Benefits",
+    "content": "Prevent Downtime\r - 95% reduction in unexpected failures\r - Proactive maintenance scheduling\r - Minimized service interruptions\r - Enhanced system reliability\r \r Cost Savings\r - Reduced emergency repairs\r - Optimized maintenance cycles\r - Extended equipment lifespan\r - Lower operational costs\r \r Imp",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/HealthCheck/content#7",
+    "url": "/docs/features/HealthCheck/content#alert-types",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Alert Types",
+    "content": "Critical Alerts\r - Immediate failure imminent\r - System component down\r - Security breach detected\r - Data corruption identified\r \r Warning Alerts\r - Performance degradation\r - Resource utilization high\r - Potential issue developing\r - Maintenance due soon\r \r Informational Alerts\r - System status up",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/HealthCheck/content#8",
+    "url": "/docs/features/HealthCheck/content#use-cases",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Use Cases",
+    "content": "Data Centers\r - Server health monitoring\r - Environmental controls\r - Power management\r - Network infrastructure\r \r Remote Sites\r - Communication link status\r - Device connectivity\r - Environmental sensors\r - Backup power systems\r \r Cloud Services\r - Application performance\r - Database health\r - API",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/HealthCheck/content#9",
+    "url": "/docs/features/HealthCheck/content#dashboard-integration",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Dashboard Integration",
+    "content": "Real-time health status display with:\r - System overview widgets\r - Performance trend charts\r - Alert summaries\r - Predictive analysis results\r - Maintenance recommendations",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/HealthCheck/content#10",
+    "url": "/docs/features/HealthCheck/content#getting-started",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Getting Started",
+    "content": "HealthCheck begins monitoring immediately upon activation, learning your system's normal operating patterns and establishing baselines for predictive analysis. Configure your alert preferences and let HealthCheck protect your infrastructure.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/index#0",
+    "url": "/docs/features/index",
+    "type": "DOC_PAGE",
+    "title": "GCXONE",
+    "sectionTitle": "Introduction",
+    "content": "import FeaturesGrid from '@site/src/components/FeaturesGrid';\r \r GCXONE\r \r 10 Breakthroughs. One Platform. Twice the Output. Zero Extra Hires.\r \r Discover our comprehensive suite of features designed to revolutionize security operations, streamline site management, enhance monitoring capabilities, a",
+    "tags": [],
+    "hierarchy": [
+      "GCXONE"
+    ]
+  },
+  {
+    "id": "/docs/features/index#1",
+    "url": "/docs/features/index#platform-overview",
+    "type": "DOC_PAGE",
+    "title": "GCXONE",
+    "sectionTitle": "Platform Overview",
+    "content": "<FeaturesGrid />",
+    "tags": [],
+    "hierarchy": [
+      "GCXONE"
+    ]
+  },
+  {
+    "id": "/docs/features/MarketPlace/content#0",
+    "url": "/docs/features/MarketPlace/content",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Introduction",
+    "content": "Marketplace\r \r Launch New Client Services Instantly. Expand Revenue. Zero Hassle.\r \r Comprehensive service marketplace that enables security providers to rapidly deploy new client offerings, expand revenue streams, and deliver value-added services without complex development or infrastructure invest",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/MarketPlace/content#1",
+    "url": "/docs/features/MarketPlace/content#overview",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Overview",
+    "content": "The Marketplace transforms your security business into a full-service provider by offering ready-to-deploy solutions that your clients want. From basic monitoring to advanced analytics, launch new services instantly and start generating revenue immediately.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/MarketPlace/content#2",
+    "url": "/docs/features/MarketPlace/content#key-features",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Key Features",
+    "content": "- Ready-to-Deploy Services: Pre-built solutions for immediate launch\r - White-Label Branding: Services branded with your company identity\r - Instant Provisioning: Deploy services in minutes, not months\r - Flexible Pricing: Configurable pricing models and packages\r - Automated Billing: Integrated rev",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/MarketPlace/content#4",
+    "url": "/docs/features/MarketPlace/content#service-categories",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Service Categories",
+    "content": "Monitoring Services\r - 24/7 alarm monitoring\r - Video verification\r - Mobile patrol coordination\r - Emergency response\r - Wellness checks\r \r Analytics Services\r - Video analytics\r - Behavior analysis\r - Traffic counting\r - Occupancy monitoring\r - Business intelligence\r \r Compliance Services\r - Audit",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/MarketPlace/content#6",
+    "url": "/docs/features/MarketPlace/content#client-portal",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Client Portal",
+    "content": "Self-Service Features\r - Service activation/deactivation\r - Usage monitoring\r - Billing management\r - Support ticket creation\r - Documentation access\r \r Administrative Tools\r - User management\r - Permission controls\r - Service configuration\r - Reporting dashboards\r - Account settings",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/MarketPlace/content#7",
+    "url": "/docs/features/MarketPlace/content#benefits",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Benefits",
+    "content": "Rapid Service Launch\r - Deploy new services in minutes\r - No development required\r - Instant revenue generation\r - Market-tested solutions\r \r Revenue Growth\r - Multiple income streams\r - Recurring subscription models\r - Upselling opportunities\r - Client retention improvement\r \r Competitive Advantage",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/MarketPlace/content#9",
+    "url": "/docs/features/MarketPlace/content#white-label-branding",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "White-Label Branding",
+    "content": "Visual Customization\r - Company logo integration\r - Brand color schemes\r - Custom styling\r - Professional presentation\r - Consistent branding\r \r Content Customization\r - Service descriptions\r - Pricing presentations\r - Terms and conditions\r - Support documentation\r - Marketing materials",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/MarketPlace/content#10",
+    "url": "/docs/features/MarketPlace/content#use-cases",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Use Cases",
+    "content": "Security Companies\r - Expand service offerings\r - Increase monthly recurring revenue\r - Reduce client churn\r - Compete with larger providers\r \r System Integrators\r - Add managed services\r - Create recurring revenue\r - Enhance client relationships\r - Differentiate from competitors\r \r Technology Provi",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/MarketPlace/content#11",
+    "url": "/docs/features/MarketPlace/content#success-metrics",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Success Metrics",
+    "content": "Key Performance Indicators\r - Service adoption rates\r - Revenue per client\r - Client satisfaction scores\r - Market penetration\r - Service utilization",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/MarketPlace/content#12",
+    "url": "/docs/features/MarketPlace/content#getting-started",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Getting Started",
+    "content": "Browse the marketplace catalog, select services that align with your business strategy, configure pricing and branding, then launch to your client base. The marketplace handles all technical implementation while you focus on sales and client relationships.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/NOVA99x/content#0",
+    "url": "/docs/features/NOVA99x/content",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Introduction",
+    "content": "NOVA99x\r \r Silence the Noise. Focus on What's Real.\r \r Advanced AI-powered threat detection that eliminates false alarms and highlights genuine security incidents, allowing your team to focus on what truly matters.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/NOVA99x/content#1",
+    "url": "/docs/features/NOVA99x/content#overview",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Overview",
+    "content": "NOVA99x revolutionizes security monitoring by using machine learning algorithms to distinguish between real threats and false positives. Say goodbye to alarm fatigue and hello to precision monitoring.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/NOVA99x/content#2",
+    "url": "/docs/features/NOVA99x/content#key-features",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Key Features",
+    "content": "- AI-Powered Filtering: Advanced algorithms reduce false alarms by up to 99%\r - Smart Threat Classification: Automatically categorizes incidents by severity and type\r - Learning Engine: Continuously improves accuracy based on your environment\r - Real-Time Processing: Instant analysis of security eve",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/NOVA99x/content#4",
+    "url": "/docs/features/NOVA99x/content#benefits",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Benefits",
+    "content": "Reduced Operator Fatigue\r - 99% reduction in false alarms\r - Focus on genuine security threats\r - Improved response times\r \r Enhanced Accuracy\r - Machine learning improves over time\r - Environment-specific optimization\r - Contextual threat analysis\r \r Cost Savings\r - Reduced need for manual verifica",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/NOVA99x/content#5",
+    "url": "/docs/features/NOVA99x/content#use-cases",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Use Cases",
+    "content": "- Perimeter Security: Distinguish between wildlife and intruders\r - Access Control: Identify unauthorized access attempts\r - Video Analytics: Focus on relevant motion events\r - Alarm Management: Prioritize critical incidents",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/NOVA99x/content#6",
+    "url": "/docs/features/NOVA99x/content#getting-started",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Getting Started",
+    "content": "Nova99x integrates seamlessly with your existing security infrastructure and begins learning your environment patterns immediately upon deployment.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/PulseView/content#0",
+    "url": "/docs/features/PulseView/content",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Introduction",
+    "content": "PulseView\r \r Turn Any Camera Into a Time Machine.\r \r Advanced video analytics platform that transforms standard security cameras into intelligent time-aware devices capable of instant historical playback, motion tracking, and forensic analysis.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/PulseView/content#1",
+    "url": "/docs/features/PulseView/content#overview",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Overview",
+    "content": "PulseView revolutionizes video surveillance by adding temporal intelligence to your camera infrastructure. Navigate through time effortlessly, track objects across multiple cameras, and uncover insights that traditional playback systems simply cannot provide.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/PulseView/content#2",
+    "url": "/docs/features/PulseView/content#key-features",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Key Features",
+    "content": "- Time Navigation: Instant jump to any moment in recorded history\r - Motion Tracking: Follow objects across multiple camera views\r - Smart Search: Find specific events using AI-powered analysis\r - Forensic Tools: Advanced investigation capabilities\r - Multi-Camera Sync: Synchronized playback across ",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/PulseView/content#5",
+    "url": "/docs/features/PulseView/content#smart-search-capabilities",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Smart Search Capabilities",
+    "content": "Event-Based Search\r - Motion detection events\r - Person/vehicle appearance\r - Area entry/exit\r - Object left/removed\r - Loitering detection\r \r Time-Based Analysis\r - Specific time periods\r - Recurring patterns\r - Comparative analysis\r - Trend identification\r - Anomaly detection\r \r Visual Search\r - S",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/PulseView/content#7",
+    "url": "/docs/features/PulseView/content#multi-camera-synchronization",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Multi-Camera Synchronization",
+    "content": "- Automatic Sync: Time-based alignment across all cameras\r - Manual Adjustment: Fine-tune synchronization offsets\r - Event Correlation: Link related events across cameras\r - Timeline View: Unified timeline showing all camera activity\r - Cross-Reference: Instant switching between synchronized views",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/PulseView/content#8",
+    "url": "/docs/features/PulseView/content#benefits",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Benefits",
+    "content": "Enhanced Investigation Speed\r - 10x faster incident analysis\r - Instant time navigation\r - Automated event correlation\r - Smart search capabilities\r \r Improved Evidence Quality\r - Court-ready exports\r - Tamper-proof recordings\r - Chain of custody tracking\r - Comprehensive metadata\r \r Better Situatio",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/PulseView/content#9",
+    "url": "/docs/features/PulseView/content#use-cases",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Use Cases",
+    "content": "Incident Investigation\r - Security breach analysis\r - Accident reconstruction\r - Theft investigations\r - Vandalism tracking\r \r Behavioral Analysis\r - Traffic pattern studies\r - Crowd movement analysis\r - Operational efficiency\r - Safety compliance monitoring\r \r Forensic Evidence\r - Legal proceedings",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/PulseView/content#11",
+    "url": "/docs/features/PulseView/content#getting-started",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Getting Started",
+    "content": "PulseView begins indexing your video data immediately upon deployment. The system learns your environment's patterns and optimizes search capabilities for your specific use case. Start with simple time navigation and gradually explore advanced forensic features.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/TimeSync/content#0",
+    "url": "/docs/features/TimeSync/content",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Introduction",
+    "content": "TimeSync\r \r Every Camera. Perfectly Aligned.\r \r Precision time synchronization system that ensures all cameras, devices, and systems in your security network operate with microsecond-accurate timing for seamless forensic analysis and event correlation.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/TimeSync/content#1",
+    "url": "/docs/features/TimeSync/content#overview",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Overview",
+    "content": "TimeSync eliminates timing discrepancies across your entire security infrastructure, ensuring that every device operates with perfect temporal alignment. Critical for forensic analysis, event correlation, and multi-camera investigations.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/TimeSync/content#2",
+    "url": "/docs/features/TimeSync/content#key-features",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Key Features",
+    "content": "- Microsecond Precision: Sub-millisecond timing accuracy\r - Network-Wide Sync: Synchronize unlimited devices\r - Automatic Drift Correction: Continuous time adjustment\r - GPS Time Reference: Satellite-based time authority\r - Fault Tolerance: Redundant time sources\r - Real-Time Monitoring: Sync status",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/TimeSync/content#4",
+    "url": "/docs/features/TimeSync/content#time-reference-sources",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Time Reference Sources",
+    "content": "Primary Sources\r - GPS satellites\r - Atomic clock references\r - Network Time Protocol (NTP)\r - Local time servers\r - Precision Time Protocol (PTP)\r \r Automatic Failover\r - Source availability monitoring\r - Seamless source switching\r - Quality assessment\r - Redundancy management\r - Error detection",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/TimeSync/content#6",
+    "url": "/docs/features/TimeSync/content#benefits",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Benefits",
+    "content": "Forensic Accuracy\r - Precise event timing\r - Multi-camera correlation\r - Legal evidence integrity\r - Timeline reconstruction\r \r Operational Efficiency\r - Automated synchronization\r - Reduced manual intervention\r - Consistent timestamps\r - Simplified investigation\r \r System Reliability\r - Fault toler",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/TimeSync/content#8",
+    "url": "/docs/features/TimeSync/content#monitoring-dashboard",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Monitoring Dashboard",
+    "content": "Real-Time Status\r - Device sync status\r - Offset measurements\r - Quality indicators\r - Alert notifications\r \r Historical Analysis\r - Sync performance trends\r - Drift patterns\r - Error frequency\r - Quality metrics\r \r Device Management\r - Sync configuration\r - Manual corrections\r - Status overrides\r -",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/TimeSync/content#9",
+    "url": "/docs/features/TimeSync/content#use-cases",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Use Cases",
+    "content": "Multi-Camera Investigations\r - Synchronized playback\r - Event sequence analysis\r - Cross-camera tracking\r - Timeline reconstruction\r \r Forensic Analysis\r - Legal evidence preparation\r - Incident reconstruction\r - Time-critical investigations\r - Court presentations\r \r System Integration\r - Alarm corr",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/TimeSync/content#11",
+    "url": "/docs/features/TimeSync/content#troubleshooting",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Troubleshooting",
+    "content": "Common Issues\r - Network latency variations\r - Device clock drift\r - Reference source failures\r - Configuration errors\r \r Automatic Resolution\r - Drift compensation\r - Source failover\r - Network optimization\r - Error correction\r \r Manual Intervention\r - Force synchronization\r - Reference source over",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/TimeSync/content#12",
+    "url": "/docs/features/TimeSync/content#getting-started",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Getting Started",
+    "content": "TimeSync automatically discovers devices on your network and begins synchronization immediately. Configure your preferred time reference sources and let the system maintain perfect timing across your entire security infrastructure.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/TowerGuard/content#0",
+    "url": "/docs/features/TowerGuard/content",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Introduction",
+    "content": "TowerGuard\r \r Deploy Towers 3x Faster. With Zero Site Downtime.\r \r Revolutionary tower deployment system that dramatically accelerates security infrastructure installation while maintaining continuous site protection throughout the deployment process.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/TowerGuard/content#1",
+    "url": "/docs/features/TowerGuard/content#overview",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Overview",
+    "content": "TowerGuard transforms security tower deployment from a lengthy, disruptive process into a streamlined, zero-downtime operation. Deploy temporary protection instantly while permanent infrastructure is installed seamlessly in the background.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/TowerGuard/content#2",
+    "url": "/docs/features/TowerGuard/content#key-features",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Key Features",
+    "content": "- Rapid Deployment: 3x faster installation times\r - Zero Downtime: Continuous site protection during deployment\r - Temporary Bridging: Instant mobile protection while building permanent\r - Smart Staging: Automated deployment sequencing\r - Live Migration: Seamless transition between temporary and per",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/TowerGuard/content#4",
+    "url": "/docs/features/TowerGuard/content#temporary-protection",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Temporary Protection",
+    "content": "Mobile Units\r - Rapid deployment vehicles\r - Solar-powered systems\r - Wireless connectivity\r - All-weather operation\r - Remote monitoring\r \r Instant Coverage\r - 360-degree surveillance\r - Thermal imaging\r - Motion detection\r - Audio monitoring\r - Live streaming",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/TowerGuard/content#6",
+    "url": "/docs/features/TowerGuard/content#smart-staging",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Smart Staging",
+    "content": "Phase 1: Immediate Protection\r - Deploy mobile units within 2 hours\r - Establish perimeter coverage\r - Activate monitoring protocols\r - Connect to central command\r \r Phase 2: Infrastructure Setup\r - Install permanent foundations\r - Run power and network cables\r - Mount tower structures\r - Position f",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/TowerGuard/content#7",
+    "url": "/docs/features/TowerGuard/content#benefits",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Benefits",
+    "content": "Reduced Deployment Time\r - 70% faster installation\r - Parallel processing approach\r - Optimized workflows\r - Automated coordination\r \r Zero Service Interruption\r - Continuous site protection\r - Seamless coverage transition\r - No security gaps\r - Business continuity\r \r Cost Optimization\r - Reduced la",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/TowerGuard/content#9",
+    "url": "/docs/features/TowerGuard/content#use-cases",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Use Cases",
+    "content": "Construction Sites\r - Immediate protection for new projects\r - Equipment theft prevention\r - Worker safety monitoring\r - Progress documentation\r \r Temporary Events\r - Festival security\r - Sporting events\r - Political gatherings\r - Emergency situations\r \r Infrastructure Upgrades\r - System modernizati",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/TowerGuard/content#11",
+    "url": "/docs/features/TowerGuard/content#quality-assurance",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Quality Assurance",
+    "content": "Automated Testing\r - Camera functionality\r - Network performance\r - Power reliability\r - Alert responsiveness\r - System integration\r \r Performance Validation\r - Coverage verification\r - Detection accuracy\r - Response times\r - Image quality\r - Audio clarity\r \r Compliance Checks\r - Safety standards\r -",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/TowerGuard/content#12",
+    "url": "/docs/features/TowerGuard/content#getting-started",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Getting Started",
+    "content": "TowerGuard begins with a site assessment to determine optimal temporary and permanent placement strategies. Once approved, temporary units deploy immediately while permanent installation proceeds in parallel, ensuring your site never loses protection during the transition process.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/ZenMode/content#0",
+    "url": "/docs/features/ZenMode/content",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Introduction",
+    "content": "ZenMode\r \r Less Distraction. More Action.\r \r A focused, distraction-free interface designed for security operators who need to concentrate on critical tasks without unnecessary visual clutter or interruptions.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/ZenMode/content#1",
+    "url": "/docs/features/ZenMode/content#overview",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Overview",
+    "content": "Zen Mode transforms your security monitoring experience by removing non-essential interface elements, reducing visual noise, and creating a clean, focused environment that enhances operator concentration and decision-making.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/ZenMode/content#2",
+    "url": "/docs/features/ZenMode/content#key-features",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Key Features",
+    "content": "- Minimalist Interface: Clean, uncluttered workspace design\r - Priority Filtering: Show only high-priority alerts and events\r - Distraction Blocking: Hide non-critical notifications and widgets\r - Customizable Layout: Tailor the interface to your workflow\r - One-Click Toggle: Instantly switch betwee",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/ZenMode/content#4",
+    "url": "/docs/features/ZenMode/content#customization-options",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Customization Options",
+    "content": "Visual Elements\r - Simplified color schemes\r - Reduced animations\r - Essential buttons only\r - Clean typography\r \r Content Filtering\r - Critical alerts only\r - Priority-based display\r - Relevant information focus\r - Noise reduction\r \r Workspace Layouts\r - Single-screen focus\r - Multi-monitor optimiz",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/ZenMode/content#5",
+    "url": "/docs/features/ZenMode/content#benefits",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Benefits",
+    "content": "Enhanced Focus\r - 40% improvement in task completion\r - Reduced cognitive load\r - Better decision-making\r - Increased accuracy\r \r Reduced Fatigue\r - Less visual strain\r - Minimized distractions\r - Improved concentration\r - Extended productive periods\r \r Operational Efficiency\r - Faster response time",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/ZenMode/content#6",
+    "url": "/docs/features/ZenMode/content#use-cases",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Use Cases",
+    "content": "Night Shift Operations\r - Reduced screen brightness\r - Essential information only\r - Fatigue management\r \r High-Stress Situations\r - Incident response focus\r - Critical alerts priority\r - Simplified decision paths\r \r Training Environments\r - Beginner-friendly interface\r - Progressive complexity\r - L",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/ZenMode/content#7",
+    "url": "/docs/features/ZenMode/content#focus-techniques",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Focus Techniques",
+    "content": "- Pomodoro Integration: Built-in 25-minute focus sessions\r - Progressive Disclosure: Show information as needed\r - Context Switching: Smooth transitions between tasks\r - Alert Prioritization: Smart filtering of notifications",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/features/ZenMode/content#8",
+    "url": "/docs/features/ZenMode/content#getting-started",
+    "type": "DOC_PAGE",
+    "title": "content",
+    "sectionTitle": "Getting Started",
+    "content": "Enable Zen Mode with a single click, customize your preferred layout, and experience the difference that focused, distraction-free monitoring can make to your security operations.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/getting-started/account-setup#0",
+    "url": "/docs/getting-started/account-setup",
+    "type": "DOC_PAGE",
+    "title": "Account Setup",
+    "sectionTitle": "Introduction",
+    "content": "Account Setup\r \r Follow these steps to set up your GCXONE account.",
+    "tags": [],
+    "hierarchy": [
+      "Account Setup"
+    ]
+  },
+  {
+    "id": "/docs/getting-started/account-setup#1",
+    "url": "/docs/getting-started/account-setup#creating-an-account",
+    "type": "DOC_PAGE",
+    "title": "Account Setup",
+    "sectionTitle": "Creating an Account",
+    "content": "1.  Navigate to the GCXONE login page.\r 2.  Click Register.\r 3.  Fill in your organization details and administrator contact information.\r 4.  Verify your email address.",
+    "tags": [],
+    "hierarchy": [
+      "Account Setup"
+    ]
+  },
+  {
+    "id": "/docs/getting-started/account-setup#2",
+    "url": "/docs/getting-started/account-setup#initial-configuration",
+    "type": "DOC_PAGE",
+    "title": "Account Setup",
+    "sectionTitle": "Initial Configuration",
+    "content": "Once logged in, you will be guided through the initial setup wizard to:\r - Add your first site.\r - Connect devices.\r - Invite team members.",
+    "tags": [],
+    "hierarchy": [
+      "Account Setup"
+    ]
+  },
+  {
+    "id": "/docs/getting-started/index#0",
+    "url": "/docs/getting-started/index",
+    "type": "DOC_PAGE",
+    "title": "Getting Started",
+    "sectionTitle": "Introduction",
+    "content": "Getting Started with GCXONE\r \r Welcome to the GCXONE documentation. GCXONE is a fully managed alarm management platform designed to automate repetitive tasks, ensure reliable alarm transmission, and provide seamless integration with IoT devices.",
+    "tags": [
+      "getting-started",
+      "introduction",
+      "setup"
+    ],
+    "hierarchy": [
+      "Getting Started"
+    ]
+  },
+  {
+    "id": "/docs/getting-started/index#1",
+    "url": "/docs/getting-started/index#what-is-gcxone?",
+    "type": "DOC_PAGE",
+    "title": "Getting Started",
+    "sectionTitle": "What is GCXONE?",
+    "content": "GCXONE acts as the central nervous system for your security and building automation infrastructure. It connects devices, processes alarms using intelligent workflows, and notifies the right people at the right time.\r \r Key Features\r \r    Universal Connectivity: Connect any device via standard protoc",
+    "tags": [
+      "getting-started",
+      "introduction",
+      "setup"
+    ],
+    "hierarchy": [
+      "Getting Started"
+    ]
+  },
+  {
+    "id": "/docs/getting-started/index#2",
+    "url": "/docs/getting-started/index#prerequisites",
+    "type": "DOC_PAGE",
+    "title": "Getting Started",
+    "sectionTitle": "Prerequisites",
+    "content": "Before you begin, ensure you have the following:\r \r 1.  GCXONE Account: You should have received an invitation email to activate your account.\r 2.  Supported Browser: Chrome, Firefox, Safari, or Edge (latest versions).\r 3.  Network Access: Ensure your firewall allows outbound connections to .gcxone.",
+    "tags": [
+      "getting-started",
+      "introduction",
+      "setup"
+    ],
+    "hierarchy": [
+      "Getting Started"
+    ]
+  },
+  {
+    "id": "/docs/getting-started/index#3",
+    "url": "/docs/getting-started/index#first-steps",
+    "type": "DOC_PAGE",
+    "title": "Getting Started",
+    "sectionTitle": "First Steps",
+    "content": "1. Log in to the Console\r Navigate to https://console.gcxone.com and log in with your credentials.\r \r 2. Configure your Profile\r Go to Settings > Profile to set your time zone and notification preferences.\r \r 3. Connect your First Device\r Follow the Installer Guide to provision your first gateway or",
+    "tags": [
+      "getting-started",
+      "introduction",
+      "setup"
+    ],
+    "hierarchy": [
+      "Getting Started"
+    ]
+  },
+  {
+    "id": "/docs/getting-started/index#4",
+    "url": "/docs/getting-started/index#next-steps",
+    "type": "DOC_PAGE",
+    "title": "Getting Started",
+    "sectionTitle": "Next Steps",
+    "content": "For Admins: Configure Users and Permissions\r    For Operators: Learn how to Process Alarms\r    For Developers: Explore the API",
+    "tags": [
+      "getting-started",
+      "introduction",
+      "setup"
+    ],
+    "hierarchy": [
+      "Getting Started"
+    ]
+  },
+  {
+    "id": "/docs/release-notes/v2.0.0#0",
+    "url": "/docs/release-notes/v2.0.0",
+    "type": "RELEASE_NOTE",
+    "title": "v2.0.0",
+    "sectionTitle": "Introduction",
+    "content": "Version 2.0.0\r \r Released: October 30, 2023",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/release-notes/v2.0.0#1",
+    "url": "/docs/release-notes/v2.0.0#🎉-major-release---genesis-gcx-one-platform",
+    "type": "RELEASE_NOTE",
+    "title": "v2.0.0",
+    "sectionTitle": "🎉 Major Release - Genesis GCX-ONE Platform",
+    "content": "This major release introduces significant architectural improvements and new capabilities that redefine security operations management.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/release-notes/v2.0.0#2",
+    "url": "/docs/release-notes/v2.0.0#🚀-new-features",
+    "type": "RELEASE_NOTE",
+    "title": "v2.0.0",
+    "sectionTitle": "🚀 New Features",
+    "content": "Zen Mode\r - Distraction-free interface - Focus on critical alerts without UI clutter\r - Intelligent notification filtering - Only see what requires immediate attention\r - Customizable focus profiles - Save different modes for different scenarios\r \r Enhanced Bulk Import\r - Support for 10,000+ sites -",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/release-notes/v2.0.0#3",
+    "url": "/docs/release-notes/v2.0.0#✨-major-improvements",
+    "type": "RELEASE_NOTE",
+    "title": "v2.0.0",
+    "sectionTitle": "✨ Major Improvements",
+    "content": "Nova99x AI Engine\r - Complete algorithm rewrite - 70% more accurate threat detection\r - Reduced processing time - 3x faster analysis of video feeds\r - Enhanced learning capabilities - Continuous improvement from user feedback\r \r User Interface Overhaul\r - Modern design system - Consistent, accessibl",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/release-notes/v2.0.0#4",
+    "url": "/docs/release-notes/v2.0.0#🔄-breaking-changes",
+    "type": "RELEASE_NOTE",
+    "title": "v2.0.0",
+    "sectionTitle": "🔄 Breaking Changes",
+    "content": "⚠️ Important: This release contains breaking changes. Please review the migration guide.\r \r - API v1 deprecated - Migrate to API v2 (v1 support ends in March 2024)\r - Configuration format updated - Automatic migration tool provided\r - Database schema changes - Backup required before upgrade",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/release-notes/v2.0.0#5",
+    "url": "/docs/release-notes/v2.0.0#🐛-bug-fixes",
+    "type": "RELEASE_NOTE",
+    "title": "v2.0.0",
+    "sectionTitle": "🐛 Bug Fixes",
+    "content": "- Fixed over 150 reported issues from previous versions\r - Resolved all known memory leaks\r - Fixed cross-browser compatibility issues\r - Corrected timezone handling across different regions",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/release-notes/v2.0.0#6",
+    "url": "/docs/release-notes/v2.0.0#📚-documentation-updates",
+    "type": "RELEASE_NOTE",
+    "title": "v2.0.0",
+    "sectionTitle": "📚 Documentation Updates",
+    "content": "- Complete API documentation rewrite - Interactive examples and better organization\r - New deployment guides - Step-by-step instructions for different environments\r - Video tutorials - Visual guides for common workflows\r - Migration documentation - Detailed upgrade instructions\r \r ---\r \r ⚠️ Upgrade ",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/release-notes/v2.0.5#0",
+    "url": "/docs/release-notes/v2.0.5",
+    "type": "RELEASE_NOTE",
+    "title": "v2.0.5",
+    "sectionTitle": "Introduction",
+    "content": "Version 2.0.5\r \r Released: December 8, 2023",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/release-notes/v2.0.5#1",
+    "url": "/docs/release-notes/v2.0.5#🐛-bug-fixes",
+    "type": "RELEASE_NOTE",
+    "title": "v2.0.5",
+    "sectionTitle": "🐛 Bug Fixes",
+    "content": "Critical Fixes\r - Fixed memory leak in PulseView during extended playback sessions\r - Resolved authentication timeout issues affecting users with long sessions\r - Corrected bulk import failures for CSV files containing special characters\r \r Security Patches\r - Enhanced input validation to prevent po",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/release-notes/v2.0.5#2",
+    "url": "/docs/release-notes/v2.0.5#✨-minor-improvements",
+    "type": "RELEASE_NOTE",
+    "title": "v2.0.5",
+    "sectionTitle": "✨ Minor Improvements",
+    "content": "- Improved error messages for failed camera connections\r - Enhanced logging for troubleshooting deployment issues\r - Optimized database queries for HealthCheck reporting\r - Updated user interface translations for better localization",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/release-notes/v2.0.5#3",
+    "url": "/docs/release-notes/v2.0.5#🔧-performance-optimizations",
+    "type": "RELEASE_NOTE",
+    "title": "v2.0.5",
+    "sectionTitle": "🔧 Performance Optimizations",
+    "content": "- Reduced memory usage by 15% during peak load operations\r - Improved video codec handling for better streaming performance\r - Optimized CustomView filter processing for large datasets\r \r ---\r \r This is a maintenance release recommended for all users.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/release-notes/v2.1.0#0",
+    "url": "/docs/release-notes/v2.1.0",
+    "type": "RELEASE_NOTE",
+    "title": "v2.1.0",
+    "sectionTitle": "Introduction",
+    "content": "Version 2.1.0\r \r Released: January 15, 2024",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/release-notes/v2.1.0#1",
+    "url": "/docs/release-notes/v2.1.0#🚀-new-features",
+    "type": "RELEASE_NOTE",
+    "title": "v2.1.0",
+    "sectionTitle": "🚀 New Features",
+    "content": "Nova99x Enhanced AI Engine\r - Improved false positive detection - Reduced false alarms by 45% using advanced machine learning algorithms\r - Real-time threat scoring - Dynamic risk assessment for more accurate incident prioritization\r - Custom detection zones - Define specific areas for enhanced moni",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/release-notes/v2.1.0#2",
+    "url": "/docs/release-notes/v2.1.0#✨-improvements",
+    "type": "RELEASE_NOTE",
+    "title": "v2.1.0",
+    "sectionTitle": "✨ Improvements",
+    "content": "Performance Enhancements\r - Faster video loading - 40% improvement in video stream initialization\r - Optimized dashboard rendering - Reduced page load times by 25%\r - Enhanced mobile responsiveness - Improved experience on tablets and smartphones\r \r User Experience\r - Redesigned navigation - More in",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/release-notes/v2.1.0#3",
+    "url": "/docs/release-notes/v2.1.0#🐛-bug-fixes",
+    "type": "RELEASE_NOTE",
+    "title": "v2.1.0",
+    "sectionTitle": "🐛 Bug Fixes",
+    "content": "- Fixed issue with TimeSync causing timestamp drift on certain camera models\r - Resolved CustomView filter persistence across browser sessions\r - Fixed PulseView playback controls not responding on Firefox\r - Corrected HealthCheck notification delivery delays\r - Fixed Zen Mode toggle state not savin",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/release-notes/v2.1.0#4",
+    "url": "/docs/release-notes/v2.1.0#🔧-technical-updates",
+    "type": "RELEASE_NOTE",
+    "title": "v2.1.0",
+    "sectionTitle": "🔧 Technical Updates",
+    "content": "- Upgraded to latest security protocols (TLS 1.3)\r - Enhanced database performance with optimized indexing\r - Improved API rate limiting and error handling\r - Updated third-party dependencies for better stability",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/release-notes/v2.1.0#5",
+    "url": "/docs/release-notes/v2.1.0#📋-known-issues",
+    "type": "RELEASE_NOTE",
+    "title": "v2.1.0",
+    "sectionTitle": "📋 Known Issues",
+    "content": "- Safari users may experience slight delays in video thumbnail generation\r - Import operations for sites with 10,000+ cameras may take longer than expected\r \r ---\r \r Upgrade Notes: This release requires a brief maintenance window. Please schedule downtime during low-traffic hours.",
+    "tags": [],
+    "hierarchy": [
+      "Docs"
+    ]
+  },
+  {
+    "id": "/docs/roles/admin#0",
+    "url": "/docs/roles/admin",
+    "type": "DOC_PAGE",
+    "title": "Admin Guide",
+    "sectionTitle": "Introduction",
+    "content": "Admin Guide\r \r As a System Administrator, you have full control over the GCXONE organization. This guide covers the essential tasks for managing your environment.",
+    "tags": [
+      "admin",
+      "configuration",
+      "user-management"
+    ],
+    "hierarchy": [
+      "Admin Guide"
+    ]
+  },
+  {
+    "id": "/docs/roles/admin#1",
+    "url": "/docs/roles/admin#user-management",
+    "type": "DOC_PAGE",
+    "title": "Admin Guide",
+    "sectionTitle": "User Management",
+    "content": "Inviting Users\r 1.  Navigate to Settings > Users.\r 2.  Click Invite User.\r 3.  Enter the email address and select a Role (Admin, Operator, Installer).\r 4.  Click Send Invitation.\r \r Managing Roles & Permissions\r GCXONE uses a Role-Based Access Control (RBAC) model:\r \r | Role          | Description  ",
+    "tags": [
+      "admin",
+      "configuration",
+      "user-management"
+    ],
+    "hierarchy": [
+      "Admin Guide"
+    ]
+  },
+  {
+    "id": "/docs/roles/admin#2",
+    "url": "/docs/roles/admin#site-configuration",
+    "type": "DOC_PAGE",
+    "title": "Admin Guide",
+    "sectionTitle": "Site Configuration",
+    "content": "Creating a Site\r A \"Site\" represents a physical location (e.g., \"Main Office\", \"Warehouse A\").\r 1.  Go to Sites > Create New.\r 2.  Enter the Site Name and Address.\r 3.  Assign a Time Zone.\r \r Global Settings\r    Security Policies: Enforce 2FA for all users under Settings > Security.\r    Audit Logs: ",
+    "tags": [
+      "admin",
+      "configuration",
+      "user-management"
+    ],
+    "hierarchy": [
+      "Admin Guide"
+    ]
+  },
+  {
+    "id": "/docs/roles/admin#3",
+    "url": "/docs/roles/admin#billing-&-subscriptions",
+    "type": "DOC_PAGE",
+    "title": "Admin Guide",
+    "sectionTitle": "Billing & Subscriptions",
+    "content": "Manage your subscription plan and view invoices in the Billing portal. You can upgrade your plan to add more devices or retention storage at any time.",
+    "tags": [
+      "admin",
+      "configuration",
+      "user-management"
+    ],
+    "hierarchy": [
+      "Admin Guide"
+    ]
+  },
+  {
+    "id": "/docs/roles/installer#0",
+    "url": "/docs/roles/installer",
+    "type": "DOC_PAGE",
+    "title": "Installer Guide",
+    "sectionTitle": "Introduction",
+    "content": "Installer Guide\r \r This guide is for Installers and Technicians responsible for setting up the physical hardware and connecting it to the GCXONE platform.",
+    "tags": [
+      "installer",
+      "provisioning",
+      "hardware"
+    ],
+    "hierarchy": [
+      "Installer Guide"
+    ]
+  },
+  {
+    "id": "/docs/roles/installer#1",
+    "url": "/docs/roles/installer#device-provisioning",
+    "type": "DOC_PAGE",
+    "title": "Installer Guide",
+    "sectionTitle": "Device Provisioning",
+    "content": "Step 1: Unbox and Power On\r Connect the GCXONE Gateway to power and Ethernet. Ensure the Power and Network LEDs are solid green.\r \r Step 2: Register the Device\r 1.  Log in to the Installer App on your mobile device.\r 2.  Scan the QR code on the bottom of the gateway.\r 3.  Assign the device to a Site",
+    "tags": [
+      "installer",
+      "provisioning",
+      "hardware"
+    ],
+    "hierarchy": [
+      "Installer Guide"
+    ]
+  },
+  {
+    "id": "/docs/roles/installer#2",
+    "url": "/docs/roles/installer#site-setup",
+    "type": "DOC_PAGE",
+    "title": "Installer Guide",
+    "sectionTitle": "Site Setup",
+    "content": "Adding Sensors\r 1.  Put the gateway into Pairing Mode via the app.\r 2.  Trigger the sensor (e.g., open the door contact).\r 3.  Name the sensor (e.g., \"Front Door\") and assign a Zone Type.\r \r Testing\r Perform a Walk Test to verify all sensors are communicating correctly.\r    Go to Diagnostics > Walk ",
+    "tags": [
+      "installer",
+      "provisioning",
+      "hardware"
+    ],
+    "hierarchy": [
+      "Installer Guide"
+    ]
+  },
+  {
+    "id": "/docs/roles/installer#3",
+    "url": "/docs/roles/installer#troubleshooting",
+    "type": "DOC_PAGE",
+    "title": "Installer Guide",
+    "sectionTitle": "Troubleshooting",
+    "content": "| Issue                  | Possible Cause         | Solution                                                 |\r | :--------------------- | :--------------------- | :------------------------------------------------------- |\r | Gateway Offline    | No Internet connection | Check Ethernet cable and fir",
+    "tags": [
+      "installer",
+      "provisioning",
+      "hardware"
+    ],
+    "hierarchy": [
+      "Installer Guide"
+    ]
+  },
+  {
+    "id": "/docs/roles/operator#0",
+    "url": "/docs/roles/operator",
+    "type": "DOC_PAGE",
+    "title": "Operator Guide",
+    "sectionTitle": "Introduction",
+    "content": "Operator Guide\r \r As an Operator, your primary responsibility is to monitor the system for alarms and take appropriate action. The GCXONE Dashboard is your command center.",
+    "tags": [
+      "operator",
+      "alarms",
+      "monitoring"
+    ],
+    "hierarchy": [
+      "Operator Guide"
+    ]
+  },
+  {
+    "id": "/docs/roles/operator#1",
+    "url": "/docs/roles/operator#the-dashboard",
+    "type": "DOC_PAGE",
+    "title": "Operator Guide",
+    "sectionTitle": "The Dashboard",
+    "content": "The Dashboard provides a real-time overview of all connected sites and devices.\r    Active Alarms: High-priority events requiring immediate attention.\r    Device Status: Health check of all gateways and sensors.\r    Recent Activity: A live feed of system events.",
+    "tags": [
+      "operator",
+      "alarms",
+      "monitoring"
+    ],
+    "hierarchy": [
+      "Operator Guide"
+    ]
+  },
+  {
+    "id": "/docs/roles/operator#2",
+    "url": "/docs/roles/operator#handling-alarms",
+    "type": "DOC_PAGE",
+    "title": "Operator Guide",
+    "sectionTitle": "Handling Alarms",
+    "content": "When an alarm is triggered (e.g., \"Motion Detected\" or \"Door Forced Open\"):\r \r 1.  Notification: You will hear an audible alert and see a pop-up on the dashboard.\r 2.  Acknowledge: Click the alarm to Acknowledge it. This lets other operators know you are handling it.\r 3.  Investigate: Review the eve",
+    "tags": [
+      "operator",
+      "alarms",
+      "monitoring"
+    ],
+    "hierarchy": [
+      "Operator Guide"
+    ]
+  },
+  {
+    "id": "/docs/roles/operator#3",
+    "url": "/docs/roles/operator#reports",
+    "type": "DOC_PAGE",
+    "title": "Operator Guide",
+    "sectionTitle": "Reports",
+    "content": "You can generate reports to analyze system activity over time.\r 1.  Navigate to the Reports tab.\r 2.  Select a Report Type (e.g., \"Alarm Summary\", \"User Access\").\r 3.  Choose a Date Range.\r 4.  Click Generate PDF or Export CSV.",
+    "tags": [
+      "operator",
+      "alarms",
+      "monitoring"
+    ],
+    "hierarchy": [
+      "Operator Guide"
+    ]
+  }
+]
