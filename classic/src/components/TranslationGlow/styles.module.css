@@ -1,0 +1,158 @@
+/* Animated border effects around entire page */
+
+.borderTop,
+.borderRight,
+.borderBottom,
+.borderLeft {
+  position: fixed;
+  z-index: 9999;
+  background: linear-gradient(90deg, transparent, #e7a63f, transparent);
+}
+
+/* Top border - animates left to right */
+.borderTop {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-position: 0% center;
+  animation: slideHorizontal 2.5s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(231, 166, 63, 0.6);
+}
+
+/* Right border - animates top to bottom */
+.borderRight {
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 100vh;
+  background: linear-gradient(180deg, transparent, #e7a63f, transparent);
+  animation: slideVertical 2.5s ease-in-out infinite;
+  box-shadow: -5px 0 15px rgba(231, 166, 63, 0.4);
+}
+
+/* Bottom border - animates right to left */
+.borderBottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(270deg, transparent, #e7a63f, transparent);
+  animation: slideHorizontalReverse 2.5s ease-in-out infinite;
+  box-shadow: 0 -5px 15px rgba(231, 166, 63, 0.4);
+}
+
+/* Left border - animates bottom to top */
+.borderLeft {
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100vh;
+  background: linear-gradient(360deg, transparent, #e7a63f, transparent);
+  animation: slideVerticalReverse 2.5s ease-in-out infinite;
+  box-shadow: 5px 0 15px rgba(231, 166, 63, 0.4);
+}
+
+/* Subtle glow overlay that pulses */
+.glowOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(231, 166, 63, 0.03) 0%,
+    transparent 70%
+  );
+  animation: glowPulse 2.5s ease-in-out infinite;
+  box-shadow: inset 0 0 40px rgba(231, 166, 63, 0.08);
+}
+
+/* Animations */
+@keyframes slideHorizontal {
+  0% {
+    background-position: -100% center;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    background-position: 100% center;
+    opacity: 0;
+  }
+}
+
+@keyframes slideHorizontalReverse {
+  0% {
+    background-position: 100% center;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    background-position: -100% center;
+    opacity: 0;
+  }
+}
+
+@keyframes slideVertical {
+  0% {
+    background-position: center -100%;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    background-position: center 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes slideVerticalReverse {
+  0% {
+    background-position: center 100%;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    background-position: center -100%;
+    opacity: 0;
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: inset 0 0 40px rgba(231, 166, 63, 0.08);
+  }
+  50% {
+    box-shadow: inset 0 0 60px rgba(231, 166, 63, 0.15);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .borderTop,
+  .borderRight,
+  .borderBottom,
+  .borderLeft {
+    opacity: 0.8;
+  }
+
+  .borderTop,
+  .borderBottom {
+    height: 2px;
+  }
+
+  .borderRight,
+  .borderLeft {
+    width: 2px;
+  }
+}

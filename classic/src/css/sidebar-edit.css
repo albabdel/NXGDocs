@@ -1,0 +1,77 @@
+/* Sidebar edit mode styles */
+[data-cms-mode="true"] .menu__link {
+  position: relative;
+}
+
+[data-cms-mode="true"] .menu__link::after {
+  content: '';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 24px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+[data-cms-mode="true"] .menu__link:hover::after {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+[data-cms-mode="true"] .menu__link:hover {
+  padding-right: 70px;
+}
+
+/* Edit buttons on sidebar items */
+[data-cms-mode="true"] .menu__list-item {
+  position: relative;
+}
+
+[data-cms-mode="true"] .menu__list-item:hover .sidebar-edit-buttons {
+  display: flex;
+}
+
+.sidebar-edit-buttons {
+  display: none;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  gap: 4px;
+  z-index: 10;
+}
+
+.sidebar-edit-btn {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 1px solid #d2d2d7;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #6e6e73;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.sidebar-edit-btn:hover {
+  background: #e7a63f;
+  color: white;
+  border-color: #e7a63f;
+}
+
+[data-theme="dark"] .sidebar-edit-btn {
+  background: #2c2c2e;
+  border-color: #48484a;
+  color: #98989d;
+}
+
+[data-theme="dark"] .sidebar-edit-btn:hover {
+  background: #e7a63f;
+  color: white;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './styles.module.css';
 
 interface Feature {
@@ -23,63 +24,63 @@ function importLogo(featureName: string): string | null {
 const features: Feature[] = [
   {
     name: 'NOVA99x',
-    slug: '/features/NOVA99x/content',
+    slug: '/docs/features/NOVA99x/content',
     title: 'Nova99x',
     description: 'Silence the Noise. Focus on What\'s Real.',
     logoPath: importLogo('NOVA99x'),
   },
   {
     name: 'BulkImport',
-    slug: '/features/BulkImport/content',
+    slug: '/docs/features/BulkImport/content',
     title: 'Bulk Import',
     description: 'Thousands of Sites. Imported in Minutes.',
     logoPath: importLogo('BulkImport'),
   },
   {
     name: 'CustomView',
-    slug: '/features/CustomView/content',
+    slug: '/docs/features/CustomView/content',
     title: 'Custom View',
     description: 'See What Matters. Filter Out What Doesn\'t.',
     logoPath: importLogo('CustomView'),
   },
   {
     name: 'HealthCheck',
-    slug: '/features/HealthCheck/content',
+    slug: '/docs/features/HealthCheck/content',
     title: 'Health Check',
     description: 'Catch Failures Before They Cost You.',
     logoPath: importLogo('HealthCheck'),
   },
   {
     name: 'MarketPlace',
-    slug: '/features/MarketPlace/content',
+    slug: '/docs/features/MarketPlace/content',
     title: 'Marketplace',
     description: 'Launch New Client Services Instantly. Expand Revenue. Zero Hassle.',
     logoPath: importLogo('MarketPlace'),
   },
   {
     name: 'PulseView',
-    slug: '/features/PulseView/content',
+    slug: '/docs/features/PulseView/content',
     title: 'PulseView',
     description: 'Turn Any Camera Into a Time Machine.',
     logoPath: importLogo('PulseView'),
   },
   {
     name: 'TimeSync',
-    slug: '/features/TimeSync/content',
+    slug: '/docs/features/TimeSync/content',
     title: 'TimeSync',
     description: 'Every Camera. Perfectly Aligned.',
     logoPath: importLogo('TimeSync'),
   },
   {
     name: 'TowerGuard',
-    slug: '/features/TowerGuard/content',
+    slug: '/docs/features/TowerGuard/content',
     title: 'TowerGuard',
     description: 'Deploy Towers 3x Faster. With Zero Site Downtime.',
     logoPath: importLogo('TowerGuard'),
   },
   {
     name: 'ZenMode',
-    slug: '/features/ZenMode/content',
+    slug: '/docs/features/ZenMode/content',
     title: 'Zen Mode',
     description: 'Less Distraction. More Action.',
     logoPath: importLogo('ZenMode'),
@@ -87,9 +88,10 @@ const features: Feature[] = [
 ];
 
 function FeatureCard({ feature }: { feature: Feature }) {
+  const href = useBaseUrl(feature.slug);
   return (
     <div className={styles.featureCard}>
-      <Link to={feature.slug} className={styles.featureLink}>
+      <Link to={href} className={styles.featureLink}>
         {feature.logoPath && (
           <div className={styles.featureIcon}>
             <img src={feature.logoPath} alt={`${feature.title} logo`} />

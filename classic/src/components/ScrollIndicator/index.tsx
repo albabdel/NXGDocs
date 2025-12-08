@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './styles.module.css';
 
-export default function ScrollIndicator(): JSX.Element {
+export default function ScrollIndicator(): React.JSX.Element {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {

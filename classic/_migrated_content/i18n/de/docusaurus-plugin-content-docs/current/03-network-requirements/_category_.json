@@ -1,0 +1,10 @@
+{
+    "label": "3. Network Requirements",
+    "position": 3,
+    "collapsible": true,
+    "collapsed": true,
+    "link": {
+        "type": "generated-index",
+        "description": "Firewall rules, VPN setup, and connectivity prerequisites."
+    }
+}

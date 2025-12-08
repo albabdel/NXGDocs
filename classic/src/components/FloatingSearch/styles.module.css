@@ -7,9 +7,10 @@
   background: linear-gradient(135deg, var(--ifm-color-primary), var(--ifm-color-primary-light));
   border: none;
   border-radius: 50%;
-  color: white;
+  color: #000000;
+  /* Black text for contrast */
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(231, 166, 63, 0.3), 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(232, 176, 88, 0.3), 0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   transition: all 0.3s ease;
   display: flex;
@@ -19,7 +20,7 @@
 
 .floatingSearchButton:hover {
   transform: scale(1.1);
-  box-shadow: 0 6px 25px rgba(231, 166, 63, 0.4), 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 25px rgba(232, 176, 88, 0.4), 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .floatingSearchButton:active {
@@ -45,7 +46,7 @@
 .searchModal {
   background: var(--ifm-background-surface-color);
   border-radius: 16px;
-  border: 1px solid rgba(231, 166, 63, 0.2);
+  border: 1px solid rgba(232, 176, 88, 0.2);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
   width: 90%;
   max-width: 600px;
@@ -63,7 +64,7 @@
   display: flex;
   align-items: center;
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid rgba(231, 166, 63, 0.1);
+  border-bottom: 1px solid rgba(232, 176, 88, 0.1);
   gap: 1rem;
 }
 
@@ -98,7 +99,7 @@
 }
 
 .closeButton:hover {
-  background: rgba(231, 166, 63, 0.1);
+  background: rgba(232, 176, 88, 0.1);
   color: var(--ifm-color-primary);
 }
 
@@ -141,7 +142,7 @@
 .spinner {
   width: 20px;
   height: 20px;
-  border: 2px solid rgba(231, 166, 63, 0.2);
+  border: 2px solid rgba(232, 176, 88, 0.2);
   border-top: 2px solid var(--ifm-color-primary);
   border-radius: 50%;
   animation: spin 1s linear infinite;
@@ -166,7 +167,7 @@
 
 .resultItem {
   padding: 1rem;
-  border-bottom: 1px solid rgba(231, 166, 63, 0.1);
+  border-bottom: 1px solid rgba(232, 176, 88, 0.1);
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -179,7 +180,7 @@
 }
 
 .resultItem.selected {
-  background: rgba(231, 166, 63, 0.1);
+  background: rgba(232, 176, 88, 0.1);
 }
 
 .resultItem:last-child {
@@ -278,12 +279,12 @@
 
 /* Dark mode adjustments */
 [data-theme='dark'] .floatingSearchButton {
-  box-shadow: 0 4px 20px rgba(231, 166, 63, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(232, 176, 88, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme='dark'] .searchModal {
   background: var(--ifm-background-surface-color);
-  border-color: rgba(255, 136, 0, 0.3);
+  border-color: rgba(232, 176, 88, 0.3);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 

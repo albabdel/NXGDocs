@@ -64,12 +64,13 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(231, 166, 63, 0.1);
+  background: color-mix(in srgb, var(--ifm-color-primary) 10%, transparent);
   transition: all var(--ifm-transition-slow);
+  color: var(--ifm-color-primary);
 }
 
 .featureCard:hover .featureIcon {
-  background: rgba(231, 166, 63, 0.2);
+  background: color-mix(in srgb, var(--ifm-color-primary) 20%, transparent);
   transform: scale(1.1);
 }
 

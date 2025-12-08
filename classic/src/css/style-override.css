@@ -1,0 +1,89 @@
+/* 
+ * AGGRESSIVE STYLE OVERRIDES FOR NEW DESIGN
+ * This file ensures the new luxury dark theme is applied with high specificity
+ * Add this import to your main CSS file or docusaurus config if needed
+ */
+
+/* Light Mode Styles */
+html:not([data-theme='dark']),
+html:not([data-theme='dark']) body {
+  background-color: var(--ifm-background-color) !important;
+}
+
+html:not([data-theme='dark']) .modal,
+html:not([data-theme='dark']) .modal-content,
+html:not([data-theme='dark']) .editorModalContent,
+html:not([data-theme='dark']) .card {
+  background: var(--ifm-background-surface-color) !important;
+  border: 1px solid var(--ifm-color-emphasis-200) !important;
+  border-radius: 20px !important;
+}
+
+html:not([data-theme='dark']) .feature-card,
+html:not([data-theme='dark']) .featureCard,
+html:not([data-theme='dark']) article.margin-bottom--lg {
+  background: var(--ifm-background-surface-color) !important;
+  border: 1px solid var(--ifm-color-emphasis-200) !important;
+}
+
+html:not([data-theme='dark']) .searchContainer {
+  background: var(--ifm-background-surface-color) !important;
+  border: 1px solid var(--ifm-color-emphasis-200) !important;
+}
+
+html:not([data-theme='dark']) .theme-doc-sidebar-container {
+  background: var(--ifm-background-color) !important;
+  border-right: 1px solid var(--ifm-color-emphasis-200) !important;
+}
+
+html:not([data-theme='dark']) .main-wrapper,
+html:not([data-theme='dark']) .main-wrapper.docs-wrapper {
+  background: var(--ifm-background-color) !important;
+}
+
+/* Dark Mode Styles - matching landing page theme */
+[data-theme='dark'] html,
+[data-theme='dark'] body {
+  background-color: #000000 !important;
+  /* Pure black matching landing page */
+}
+
+[data-theme='dark'] .modal,
+[data-theme='dark'] .modal-content,
+[data-theme='dark'] .editorModalContent,
+[data-theme='dark'] .card {
+  background: #202020 !important;
+  /* Card background matching landing page */
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  /* Subtle border matching landing page */
+  border-radius: 20px !important;
+}
+
+[data-theme='dark'] .feature-card,
+[data-theme='dark'] .featureCard,
+[data-theme='dark'] article.margin-bottom--lg {
+  background: #202020 !important;
+  /* Card background matching landing page */
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  /* Subtle border matching landing page */
+}
+
+[data-theme='dark'] .searchContainer {
+  background: #202020 !important;
+  /* Card background matching landing page */
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  /* Subtle border matching landing page */
+}
+
+[data-theme='dark'] .theme-doc-sidebar-container {
+  background: #000000 !important;
+  /* Pure black matching landing page */
+  border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+  /* Subtle border matching landing page */
+}
+
+[data-theme='dark'] .main-wrapper,
+[data-theme='dark'] .main-wrapper.docs-wrapper {
+  background: #000000 !important;
+  /* Pure black matching landing page */
+}

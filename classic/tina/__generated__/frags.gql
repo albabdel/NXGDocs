@@ -1,0 +1,35 @@
+fragment DevicesParts on Devices {
+  __typename
+  title
+  sidebar_label
+  sidebar_position
+  description
+  tags
+  body
+}
+
+fragment FeaturesParts on Features {
+  __typename
+  title
+  sidebar_label
+  sidebar_position
+  description
+  tags
+  body
+}
+
+fragment PlatformParts on Platform {
+  __typename
+  title
+  sidebar_label
+  sidebar_position
+  body
+}
+
+fragment InternalParts on Internal {
+  __typename
+  title
+  sidebar_label
+  sidebar_position
+  body
+}

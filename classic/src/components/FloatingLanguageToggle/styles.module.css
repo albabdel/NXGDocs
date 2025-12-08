@@ -1,135 +1,361 @@
-/* Floating Language Toggle - Matches Dark Mode Toggle Style */
-
+/* Floating Language Toggle - positioned below dark mode toggle */
 .floatingToggle {
     position: fixed;
-    bottom: 6.5rem;
-    /* Position below the dark mode toggle */
+    top: 5.5rem;
     right: 2rem;
-    /* Align with dark mode toggle */
-    z-index: 9999;
-    background: var(--ifm-background-surface-color);
-    border: 1px solid var(--ifm-color-emphasis-200);
-    border-radius: 22px;
-    padding: 0.5rem 0.75rem;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.toggleButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: none;
+    border: none;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.floatingToggle:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-    border-color: var(--ifm-color-primary);
-}
-
-.floatingToggle:active {
-    transform: translateY(0);
-}
-
-[data-theme='dark'] .floatingToggle {
-    background: var(--ifm-background-surface-color);
-    border-color: var(--ifm-color-emphasis-300);
-}
-
-[data-theme='dark'] .floatingToggle:hover {
-    border-color: var(--ifm-color-primary);
-}
-
-.toggleTrack {
-    width: 40px;
-    height: 24px;
-    background: var(--ifm-color-emphasis-200);
     border-radius: 12px;
-    position: relative;
-    transition: background 0.3s ease;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background-color: color-mix(in srgb,
+            var(--ifm-background-surface-color) 80%,
+            transparent);
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(0, 0, 0, 0.04);
+    color: var(--ifm-color-content);
+    font-weight: 600;
+    font-size: 13px;
 }
 
-.floatingToggle:hover .toggleTrack {
-    background: rgba(231, 166, 63, 0.2);
+.toggleButton:hover {
+    transform: translateY(-1px);
+    box-shadow:
+        0 14px 40px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
-.toggleThumb {
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 20px;
-    height: 20px;
-    background: white;
-    border-radius: 50%;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+.toggleButton:active {
+    transform: translateY(0);
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.12),
+        0 0 0 1px rgba(0, 0, 0, 0.04);
 }
 
-.toggleThumbGerman {
-    transform: translateX(16px);
-}
-
-.toggleThumb svg {
-    width: 16px;
-    height: 16px;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
-}
-
-/* Responsive */
-@media (max-width: 996px) {
-    .floatingToggle {
-        bottom: 6rem;
-        right: 1.5rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .floatingToggle {
-        bottom: 5.5rem;
-        right: 1rem;
-        padding: 0.4rem 0.6rem;
-    }
-
-    .toggleTrack {
-        width: 36px;
-        height: 20px;
-    }
-
-    .toggleThumb {
-        width: 16px;
-        height: 16px;
-    }
-
-    .toggleThumbGerman {
-        transform: translateX(16px);
-    }
-
-    .toggleThumb svg {
-        width: 12px;
-        height: 12px;
-    }
-}
-
-/* Accessibility */
-.floatingToggle:focus-visible {
+.toggleButton:focus-visible {
     outline: 2px solid var(--ifm-color-primary);
     outline-offset: 2px;
 }
 
-/* Animation for smooth appearance */
-@keyframes slideIn {
+.toggleButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.languageIcon {
+    color: var(--ifm-color-content-secondary);
+    transition: transform 0.3s ease;
+}
+
+.languageIcon.iconOpen {
+    transform: rotate(180deg);
+}
+
+.currentLang {
+    min-width: 24px;
+    text-align: center;
+}
+
+.loadingSpinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinning {
+    animation: spin 0.8s linear infinite;
+    color: var(--ifm-color-primary);
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Dropdown Menu */
+.dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: var(--ifm-background-surface-color);
+    border-radius: 10px;
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    min-width: 180px;
+    animation: slideDown 0.2s ease-out;
+    z-index: 1001;
+}
+
+@keyframes slideDown {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(-8px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-.floatingToggle {
-    animation: slideIn 0.4s ease-out;
+.dropdownItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: var(--ifm-color-content);
+    transition: all 0.15s ease;
+    border-bottom: 1px solid color-mix(in srgb,
+            var(--ifm-color-emphasis-200) 50%,
+            transparent);
+    font-size: 14px;
+}
+
+.dropdownItem:last-child {
+    border-bottom: none;
+}
+
+.dropdownItem:hover {
+    background-color: var(--ifm-color-emphasis-100);
+}
+
+.dropdownItem:focus-visible {
+    outline: 2px solid var(--ifm-color-primary);
+    outline-offset: -2px;
+}
+
+.dropdownItem.active {
+    background-color: color-mix(in srgb,
+            var(--ifm-color-primary) 15%,
+            transparent);
+    color: var(--ifm-color-primary);
+    font-weight: 600;
+}
+
+.langCode {
+    min-width: 32px;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+}
+
+.langName {
+    flex: 1;
+    font-size: 14px;
+}
+
+.checkmark {
+    color: var(--ifm-color-primary);
+    flex-shrink: 0;
+    animation: scaleIn 0.2s ease-out;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.tooltip {
+    position: absolute;
+    right: calc(100% + 12px);
+    background: var(--ifm-color-emphasis-900);
+    color: var(--ifm-color-white);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 1002;
+    bottom: 0;
+}
+
+.tooltip::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid var(--ifm-color-emphasis-900);
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+}
+
+.tooltip small {
+    display: block;
+    font-size: 11px;
+    opacity: 0.8;
+    margin-top: 2px;
+    font-weight: 400;
+}
+
+.switching {
+    pointer-events: none;
+}
+
+/* Mobile Responsive */
+@media (max-width: 996px) {
+    .floatingToggle {
+        top: auto;
+        right: 1rem;
+        bottom: 5rem;
+    }
+
+    .toggleButton {
+        padding: 8px 10px;
+        background-color: color-mix(in srgb,
+                var(--ifm-background-surface-color) 90%,
+                transparent);
+    }
+
+    .tooltip {
+        display: none;
+    }
+
+    .dropdown {
+        min-width: 160px;
+    }
+
+    .dropdownItem {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    .langCode {
+        min-width: 28px;
+        font-size: 11px;
+    }
+
+    .langName {
+        font-size: 13px;
+    }
+
+    .languageIcon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .currentLang {
+        min-width: 20px;
+        font-size: 12px;
+    }
+
+    .checkmark {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .floatingToggle {
+        right: 0.5rem;
+        bottom: 4.5rem;
+    }
+
+    .toggleButton {
+        padding: 7px 9px;
+        font-size: 11px;
+    }
+
+    .dropdown {
+        min-width: 140px;
+    }
+
+    .dropdownItem {
+        padding: 7px 10px;
+        gap: 6px;
+    }
+
+    .langCode {
+        font-size: 10px;
+    }
+
+    .langName {
+        font-size: 12px;
+    }
+
+    .currentLang {
+        min-width: 18px;
+        font-size: 11px;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .toggleButton {
+        border: 2px solid var(--ifm-color-primary);
+        background: var(--ifm-background-surface-color);
+    }
+
+    .dropdown {
+        border: 2px solid var(--ifm-color-primary);
+    }
+
+    .dropdownItem {
+        border-bottom: 1px solid var(--ifm-color-emphasis-300);
+    }
+}
+
+/* Dark mode adjustments */
+[data-theme='dark'] .tooltip {
+    background: var(--ifm-color-emphasis-200);
+    color: var(--ifm-color-emphasis-900);
+}
+
+[data-theme='dark'] .tooltip::after {
+    border-left-color: var(--ifm-color-emphasis-200);
+}
+
+/* Accessibility: Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .toggleButton,
+    .languageIcon,
+    .dropdownItem {
+        transition: none;
+    }
+
+    .dropdown {
+        animation: none;
+    }
+
+    .spinning,
+    .checkmark {
+        animation: none;
+    }
 }

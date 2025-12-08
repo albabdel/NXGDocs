@@ -90,14 +90,14 @@ const defaultConfig: CMSConfig = {
         id: 'core-1',
         title: 'Get Started',
         description: 'A collection of tutorials to help you with your first steps in GCXONE.',
-        link: '/docs/platform-fundamentals/what-is-gcxone-genesis',
+        link: '/docs/platform-fundamentals/what-is-gcxone-GCXONE',
         icon: 'Rocket',
       },
       {
         id: 'core-2',
         title: 'GCXONE Platform',
         description: 'The fully managed alarm management platform you can use to automate repetitive tasks.',
-        link: '/docs/platform-fundamentals/what-is-gcxone-genesis',
+        link: '/docs/platform-fundamentals/what-is-gcxone-GCXONE',
         icon: 'LayoutDashboard',
       },
       {
@@ -120,7 +120,7 @@ const defaultConfig: CMSConfig = {
         id: 'featured-1',
         title: 'Platform Overview',
         description: 'Learn about the core concepts and architecture of the GCXONE platform.',
-        link: '/docs/platform-fundamentals/what-is-gcxone-genesis',
+        link: '/docs/platform-fundamentals/what-is-gcxone-GCXONE',
         icon: 'BookOpen',
       },
       {
@@ -180,14 +180,14 @@ const defaultConfig: CMSConfig = {
         id: 'learn-2',
         title: 'Tutorials',
         description: 'How-to videos for all levels of users.',
-        link: '/docs/platform-fundamentals/what-is-gcxone-genesis',
+        link: '/docs/platform-fundamentals/what-is-gcxone-GCXONE',
         icon: 'PlayCircle',
       },
       {
         id: 'learn-3',
         title: 'Release Notes',
         description: 'All things about alarm management updates and GCXONE releases.',
-        link: '/docs/platform-fundamentals/what-is-gcxone-genesis',
+        link: '/docs/platform-fundamentals/what-is-gcxone-GCXONE',
         icon: 'FileText',
       },
     ],
@@ -334,13 +334,19 @@ export function CMSProvider({ children }: { children: ReactNode }) {
 
   const addResource = useCallback(
     (section: keyof CMSConfig['landingPage'], resource: Resource) => {
-      setConfig((prev) => ({
-        ...prev,
-        landingPage: {
-          ...prev.landingPage,
-          [section]: [...prev.landingPage[section], resource],
-        },
-      }));
+      setConfig((prev) => {
+        const sectionData = prev.landingPage[section];
+        if (Array.isArray(sectionData)) {
+          return {
+            ...prev,
+            landingPage: {
+              ...prev.landingPage,
+              [section]: [...sectionData, resource],
+            },
+          };
+        }
+        return prev;
+      });
       markDirty();
     },
     [markDirty]
@@ -348,13 +354,19 @@ export function CMSProvider({ children }: { children: ReactNode }) {
 
   const removeResource = useCallback(
     (section: keyof CMSConfig['landingPage'], id: string) => {
-      setConfig((prev) => ({
-        ...prev,
-        landingPage: {
-          ...prev.landingPage,
-          [section]: prev.landingPage[section].filter((r) => r.id !== id),
-        },
-      }));
+      setConfig((prev) => {
+        const sectionData = prev.landingPage[section];
+        if (Array.isArray(sectionData)) {
+          return {
+            ...prev,
+            landingPage: {
+              ...prev.landingPage,
+              [section]: sectionData.filter((r) => r.id !== id),
+            },
+          };
+        }
+        return prev;
+      });
       markDirty();
     },
     [markDirty]

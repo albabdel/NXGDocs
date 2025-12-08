@@ -1,0 +1,25 @@
+{
+  "name": "nxgen-docs",
+  "version": "1.0.0",
+  "description": "> **10 Breakthroughs. One Platform. Twice the Output. Zero Extra Hires.**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/yazanabutaa/nxgen-docs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/yazanabutaa/nxgen-docs/issues"
+  },
+  "homepage": "https://gitlab.com/yazanabutaa/nxgen-docs#readme",
+  "dependencies": {
+    "axios": "^1.13.2",
+    "dotenv": "^17.2.3",
+    "gray-matter": "^4.0.3"
+  }
+}

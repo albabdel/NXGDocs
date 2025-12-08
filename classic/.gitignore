@@ -18,3 +18,12 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+<<<<<<< Current (Your changes)
+# Playwright test results
+=======
+# Test artifacts
+>>>>>>> Incoming (Background Agent changes)
+/test-results/
+/playwright-report/
+/playwright/.cache/

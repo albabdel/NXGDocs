@@ -1,10 +1,10 @@
-export type ContentType = "DOC_PAGE" | "API_ENDPOINT" | "FAQ" | "RELEASE_NOTE";
+export type ContentType = "DOC" | "API" | "BLOG" | "GUIDE";
 
 export const WEIGHTS: Record<ContentType, number> = {
-    DOC_PAGE: 1.0,
-    API_ENDPOINT: 1.2,
-    FAQ: 1.1,
-    RELEASE_NOTE: 0.8
+    DOC: 1.0,
+    API: 1.2,
+    BLOG: 0.9,
+    GUIDE: 1.1
 };
 
 export type SearchRecord = {
@@ -13,7 +13,8 @@ export type SearchRecord = {
     type: ContentType;
     title: string;
     sectionTitle?: string;
-    content: string; // Plain text snippet
+    content: string;
     tags: string[];
     hierarchy: string[];
+    weight?: number;
 };

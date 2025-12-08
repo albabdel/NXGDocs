@@ -5,13 +5,13 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'GCXONE',
-  tagline: '10 Breakthroughs. One Platform. Twice the Output. Zero Extra Hires.',
+  title: 'NXGEN GCXONE Documentation',
+  tagline: 'Complete documentation for NXGEN GCXONE platform',
   favicon: 'img/favicon.ico',
 
-  // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
+  // Future flags
   future: {
-    v4: true, // Improve compatibility with the upcoming Docusaurus v4
+    v4: true,
   },
 
   // Enhanced metadata
@@ -20,7 +20,7 @@ const config: Config = {
       tagName: 'meta',
       attributes: {
         name: 'theme-color',
-        content: '#e7a63f',
+        content: '#E8B058',
       },
     },
     {
@@ -30,28 +30,38 @@ const config: Config = {
         content: 'black-translucent',
       },
     },
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'keywords',
+        content: 'NXGEN, GCXONE, Talos, Evalink, documentation, security, alarm management, video management',
+      },
+    },
   ],
 
-  // Set the production url of your site here
-  url: 'https://nxg.example.com',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
+  // Load API config
+  scripts: [
+    {
+      src: '/api-config.js',
+      async: false,
+    },
+  ],
+
+  // Production URL
+  url: 'https://docs.nxgen.cloud',
   baseUrl: '/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'nxg', // Your GitHub org/user name.
-  projectName: 'nxgen-docs', // Your repo name.
+  // GitHub config
+  organizationName: 'nxgen',
+  projectName: 'nxgen-docs',
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
+  // Multilingual support
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'de'],
+    locales: ['en', 'de', 'fr'],
     localeConfigs: {
       en: {
         label: 'English',
@@ -62,6 +72,11 @@ const config: Config = {
         label: 'Deutsch',
         direction: 'ltr',
         htmlLang: 'de-DE',
+      },
+      fr: {
+        label: 'Français',
+        direction: 'ltr',
+        htmlLang: 'fr-FR',
       },
     },
   },
@@ -75,8 +90,10 @@ const config: Config = {
           routeBasePath: 'docs', // Serve docs at /docs
           showLastUpdateTime: true,
           showLastUpdateAuthor: false,
+          editUrl: undefined, // Disable "Edit this page" to avoid git dependency
           sidebarCollapsible: true,
-          sidebarCollapsed: false,
+          sidebarCollapsed: true,
+          breadcrumbs: true,
         },
         blog: false, // Disable blog
         theme: {
@@ -91,38 +108,214 @@ const config: Config = {
   ],
 
   plugins: [
+    './plugins/docusaurus-plugin-last-update',
+    // Internal docs plugin (keeping for now)
     [
-      '@easyops-cn/docusaurus-search-local',
+      '@docusaurus/plugin-content-docs',
       {
-        hashed: true,
-        language: ['en'],
-        highlightSearchTermsOnTargetPage: true,
-        explicitSearchResultPath: true,
-        searchBarShortcut: true,
-        searchBarShortcutHint: true,
-        searchBarPosition: 'auto',
+        id: 'internal',
+        path: 'docs-internal',
+        routeBasePath: 'internal',
+        sidebarPath: './sidebars-internal.ts',
+        showLastUpdateTime: true,
+        showLastUpdateAuthor: false,
+        editUrl: undefined,
+      },
+    ],
+    // Role-based documentation instances
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'admin',
+        path: 'docs-admin',
+        routeBasePath: 'role-admin',
+        sidebarPath: './sidebars-admin.ts',
+        showLastUpdateTime: true,
+        showLastUpdateAuthor: false,
+        editUrl: undefined,
+        sidebarCollapsible: true,
+        sidebarCollapsed: true,
+        breadcrumbs: true,
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'manager',
+        path: 'docs-manager',
+        routeBasePath: 'manager',
+        sidebarPath: './sidebars-manager.ts',
+        showLastUpdateTime: true,
+        showLastUpdateAuthor: false,
+        editUrl: undefined,
+        sidebarCollapsible: true,
+        sidebarCollapsed: true,
+        breadcrumbs: true,
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'operator',
+        path: 'docs-operator',
+        routeBasePath: 'operator',
+        sidebarPath: './sidebars-operator.ts',
+        showLastUpdateTime: true,
+        showLastUpdateAuthor: false,
+        editUrl: undefined,
+        sidebarCollapsible: true,
+        sidebarCollapsed: true,
+        breadcrumbs: true,
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'operator-minimal',
+        path: 'docs-operator-minimal',
+        routeBasePath: 'operator-minimal',
+        sidebarPath: './sidebars-operator-minimal.ts',
+        showLastUpdateTime: true,
+        showLastUpdateAuthor: false,
+        editUrl: undefined,
+        sidebarCollapsible: true,
+        sidebarCollapsed: true,
+        breadcrumbs: true,
       },
     ],
   ],
 
   themeConfig: {
-    image: undefined, // Remove Docusaurus social card
+    image: 'img/nxgen-social-card.jpg',
+
+    // Algolia DocSearch Configuration
+    // NOTE: Waiting for Algolia approval - these are placeholder values
+    algolia: {
+      appId: process.env.ALGOLIA_APP_ID || 'YOUR_APP_ID',
+      apiKey: process.env.ALGOLIA_API_KEY || 'YOUR_SEARCH_API_KEY',
+      indexName: process.env.ALGOLIA_INDEX_NAME || 'nxgen_docs',
+      contextualSearch: true,
+      searchParameters: {
+        facetFilters: [],
+      },
+      searchPagePath: 'search',
+      insights: false,
+    },
+
     navbar: {
+      title: 'NXGEN GCXONE',
+      logo: {
+        alt: 'NXGEN GCXONE Logo',
+        src: 'img/logo.svg',
+        srcDark: 'img/logo-dark.svg',
+        href: '/',
+        width: 32,
+        height: 32,
+      },
       hideOnScroll: false,
       style: 'primary',
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'docs',
           position: 'left',
           label: 'Documentation',
+        },
+        {
+          type: 'custom-RoleSwitcher',
+          position: 'left',
+        },
+        {
+          type: 'dropdown',
+          label: 'Quick Links',
+          position: 'left',
+          items: [
+            {
+              label: 'Getting Started',
+              to: '/docs/getting-started',
+            },
+            {
+              label: 'Devices',
+              to: '/docs/devices',
+            },
+            {
+              label: 'Features',
+              to: '/docs/features',
+            },
+            {
+              label: 'Troubleshooting',
+              to: '/docs/troubleshooting',
+            },
+          ],
+        },
+        {
+          type: 'localeDropdown',
+          position: 'right',
+        },
+        {
+          href: 'https://github.com/nxgen/nxgen-docs',
+          position: 'right',
+          className: 'header-github-link',
+          'aria-label': 'GitHub repository',
         },
       ],
     },
     footer: {
-      style: 'light',
-      links: [],
-      copyright: undefined, // Remove footer for iframe
+      style: 'dark',
+      links: [
+        {
+          title: 'Documentation',
+          items: [
+            {
+              label: 'Getting Started',
+              to: '/docs/getting-started',
+            },
+            {
+              label: 'Devices',
+              to: '/docs/devices',
+            },
+            {
+              label: 'Features',
+              to: '/docs/features',
+            },
+            {
+              label: 'Troubleshooting',
+              to: '/docs/troubleshooting',
+            },
+          ],
+        },
+        {
+          title: 'Community',
+          items: [
+            {
+              label: 'Support',
+              to: '/docs/support',
+            },
+            {
+              label: 'GitHub',
+              href: 'https://github.com/nxgen/nxgen-docs',
+            },
+          ],
+        },
+        {
+          title: 'More',
+          items: [
+            {
+              label: 'NXGEN Website',
+              href: 'https://nxgen.cloud',
+            },
+            {
+              label: 'Release Notes',
+              to: '/docs/release-notes',
+            },
+            {
+              label: 'Privacy Policy',
+              href: 'https://nxgen.cloud/privacy',
+            },
+          ],
+        },
+      ],
+      copyright: `Copyright © ${new Date().getFullYear()} NXGEN. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
@@ -141,15 +334,7 @@ const config: Config = {
         },
       ],
     },
-    algolia: {
-      // Replace with your Algolia credentials when available
-      appId: 'YOUR_APP_ID',
-      apiKey: 'YOUR_SEARCH_API_KEY',
-      indexName: 'nxgen-docs',
-      contextualSearch: true,
-      searchParameters: {},
-      searchPagePath: false, // Disable separate search page for iframe
-    },
+
     colorMode: {
       defaultMode: 'light',
       disableSwitch: false,

@@ -3,5 +3,5 @@
 }
 
 .collapseSidebarButtonIcon {
-  transform: rotate(180deg);
+  display: none;
 }

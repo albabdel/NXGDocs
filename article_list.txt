@@ -1,0 +1,454 @@
+GCXONE Knowledge Base Complete Article List
+ 
+ PART 1: EXTERNAL KNOWLEDGE BASE (Customer Enablement) 
+1. PLATFORM FUNDAMENTALS
+Article Name
+Contains
+Scope
+What is GCXONE Genesis?
+Platform definition, cloud SaaS model, USMS concept, key capabilities
+Overview
+Genesis vs Talos: How They Work Together
+Genesis = video/analytics, Talos = alarm workflows, data flow between them
+Overview
+Understanding the Platform Hierarchy
+Tenant → Customer → Site → Device → Sensor structure with examples
+Onboarding
+Key Benefits: False Alarm Reduction
+AI analytics, 80% reduction claim, 60-90 second response times
+Value Prop
+Multi-Tenant Architecture Explained
+Subdomains, inexchange.cloud, nxgen.cloud, customer isolation
+Technical
+Glossary of Terms
+Definitions: Tenant, Site, Sensor, Workflow, ARM/DISARM, Isolate, etc.
+Reference
+2. ACCOUNT MANAGEMENT
+Article Name
+Contains
+Scope
+How to Add a Customer
+Step-by-step customer creation in Configuration App
+Setup
+How to Create Customer Groups
+Grouping customers, use cases for alarm routing
+Setup
+How to Add a Site
+Site creation, automatic Talos sync, required fields
+Setup
+Managing Users and Roles
+Admin, Customer Admin, Operator roles, permissions matrix
+Admin
+Workspace Configuration
+Restricting operator access to specific sites/alarms
+Admin
+3. NETWORK REQUIREMENTS
+Article Name
+Contains
+Scope
+Network Readiness Checklist
+Pre-installation requirements, connectivity options (VPN/Public IP/Whitelist)
+Pre-Setup
+Gateway IPs to Whitelist
+Primary/Secondary IPs: 18.185.17.113, 3.124.50.242, streaming IPs
+Config
+Device-Specific Port Requirements
+Port list per device: ADPRO, Dahua, Hikvision, Milestone, etc.
+Config
+Device Receiver IPs
+Hikvision: 35.156.60.98, Milestone: 3.66.98.181, Hanwha: 18.184.110.24
+Config
+VPN Setup Guide
+IPsec and OpenVPN configuration for site-to-site connections
+Advanced
+4. DEVICE INTEGRATION
+Article Name
+Contains
+Scope
+Standard Device Onboarding Process
+Universal steps: Login → Config App → Add Device → Discover → Save
+Universal
+Required Device Information Checklist
+Fields needed per device type: IP, ports, credentials, unique IDs
+Universal
+Hikvision Setup Guide
+ISAPI subscription, "Notify Surveillance Center", NTP sync, Server Unit ID
+Device
+HikProConnect Cloud Setup
+Base URL (ieu.hik-partner.com), encryption key, cloud mode config
+Device
+Dahua Setup Guide
+Control port 37777, P2P streaming, NTP configuration
+Device
+Dahua DoLynk Cloud Setup
+Serial number, share with dev@nxgen.info, DoLynk Care account
+Device
+Milestone VMS Setup
+Ports 443/7563/8081/22331, admin privileges, .NET requirements
+Device
+ADPRO Setup Guide
+TCP events, Port 10000, Server Unit ID, XO Client configuration
+Device
+Axis IP Camera Setup
+Webhook URL format, nxgenDeviceId as credentials, RTSP port
+Device
+Hanwha NVR Setup
+Webhook to hanvoproxy.nxgen.cloud, Camera ID in payload
+Device
+Axxon VMS Setup
+Websocket subscription (automatic), operator permissions
+Device
+Camect Setup
+HLS URL for live video, event acknowledgement
+Device
+Reconeyez PIR Camera Setup
+DC-09 to Talos, FTP for images, workflow conversion
+Device
+Teltonika IoT Setup
+Dashboard data, custom alarm rules, voltage thresholds
+Device
+Genesis Audio (SIP) Setup
+SIP URL, username, password, two-way audio config
+Device
+Heitel Legacy Device Setup
+HTConnect, Port 3333, manual ticket requirement
+Device
+5. FEATURES & OPERATIONS
+Article Name
+Contains
+Scope
+Dashboard Navigation Guide
+Main dashboard, device dashboard, alarm logs, analytics view
+Daily Ops
+Live Video Streaming
+Cloud vs Local mode, supported formats, troubleshooting
+Daily Ops
+Playback & Timeline
+Accessing recordings, timeline navigation, export options
+Daily Ops
+PTZ Control & Presets
+Pan-tilt-zoom controls, saving presets, device support matrix
+Daily Ops
+I/O Management
+Input/Output configuration, supported devices, use cases
+Daily Ops
+Device Health Monitoring
+Basic, Basic+, Advanced levels, what each monitors
+Monitoring
+Site Pulse & Lifecheck
+Heartbeat configuration, timeout alarms, intervals (10/30/60 min)
+Monitoring
+Understanding ARM/DISARM
+What happens when armed vs disarmed, continuous state
+Operations
+Understanding Device Isolation
+Time-limited suppression, no AI/forwarding during isolation
+Operations
+Event Clip Recording
+Pre/post alarm clips, eventClipRecord configuration
+Advanced
+6. AI & FALSE ALARM FILTERING
+Article Name
+Contains
+Scope
+How AI Reduces False Alarms
+Two-phase process: Identification → Decision, supported objects
+Overview
+Enabling False Alarm Filtering
+Device-level activation steps, prerequisites
+Setup
+Configuring the Priority List
+Objects that are ALWAYS real alarms, syntax, examples
+Config
+Configuring the Whitelist
+Objects with potential to be real alarms
+Config
+Configuring the Blacklist
+Objects to suppress as false alarms
+Config
+Reject Unknown Setting
+Handling unidentified objects (wind, reflections)
+Config
+AI Supported Object List
+Complete list of detectable objects by AI version
+Reference
+7. WORKFLOWS & AUTOMATION
+Article Name
+Contains
+Scope
+Introduction to Workflows
+What workflows are, manual vs automated, benefits
+Overview
+Workflow Levels Explained
+Global, Group, Site-Specific, Managed workflows
+Concepts
+Creating a Workflow
+Incoming conditions, steps, actions configuration
+Setup
+Workflow Customization Tips
+Removing audio for no-speaker sites, test mode automation
+Advanced
+Setting Up ARM/DISARM Schedules
+Automated scheduling configuration
+Setup
+Using Genesis Audio for Announcements
+Remote audio broadcasts, two-way communication
+Operations
+8. TROUBLESHOOTING & SUPPORT
+Article Name
+Contains
+Scope
+Alarms Not Being Received
+Check disarm/isolate, port verification, IP whitelist
+Self-Service
+Video/Live View Not Working
+Port checks, encoding (H.265→H.264), cloud mode switch
+Self-Service
+Time Synchronization Issues
+NTP server (timel.nxgen.cloud), timezone matching
+Self-Service
+Device Discovery Failures
+Credential verification, mandatory field checklist
+Self-Service
+Alarms Being Blocked
+Overflow threshold (25/5min), IVS alarm recommendation
+Self-Service
+How to Submit a Support Ticket
+Required info: site name, device name, screenshots
+Support
+Understanding Ticket Priority Levels
+Priority definitions, response time expectations
+Support
+Using Salvo Links
+How to share playback access with support team
+Support
+PART 2: INTERNAL KNOWLEDGE BASE (CSM & Support) 
+1. SUPPORT OPERATIONS
+Article Name
+Contains
+Scope
+L1 First Check Protocol
+Verify Title + Description + Screenshot before starting work
+L1
+24-Hour Analysis Rule
+Resolution timeline expectations, when analysis phase ends
+L1
+Information Gathering Protocol
+Go back to customer immediately if details missing
+L1
+Ticket Ownership Guidelines
+CSM owns communication through to closure
+L1/CSM
+Consolidated Resolution Approach
+Solve completely, not in isolated "pockets"
+L1
+L1 to L2 Escalation Criteria
+>30 min troubleshooting, complex issues, bandwidth constraints
+L1/L2
+When NOT to Escalate
+Device problems, customer config issues, missing info
+L1
+CSM Queue Management
+Proactively picking up tickets, cross-coverage
+CSM
+Jump Server Access Protocol
+Shared VM usage, session management, communication
+L1/L2
+2. TECHNICAL ARCHITECTURE
+Article Name
+Contains
+Scope
+Microservices & Proxy Architecture
+One proxy per device type, standardized JSON/HTTP responses
+L2/Tech
+Communication Flow Deep Dive
+UI → API → Proxy → Device complete path
+L2/Tech
+Protocol Flavors Reference
+HTTP/REST, SDK, TCP, Webhooks, Websocket, SIA DC-09
+L2/Tech
+CVIDR AI Engine Overview
+Image processing, event detection, autoscaling
+L2/Tech
+Kubernetes Infrastructure
+HPA scaling, 75% CPU threshold, node initialization
+Tech
+3. DEVICE TECHNICAL REFERENCE (INTERNAL ONLY)
+Article Name
+Contains
+Scope
+ADPRO Technical Reference
+Server Unit ID issues, no P2P/O-key, unencrypted only
+L1/L2
+Hikvision Technical Reference
+5-min live view limit, Server Unit ID uniqueness
+L1/L2
+Dahua Technical Reference
+P2P ports 10000-10500, Local Mode prerequisites
+L1/L2
+Milestone Technical Reference
+.NET requirements, TCP JPEG (no RTSP), no Advanced Health
+L1/L2
+Axxon Technical Reference
+Password issues (@/#), I/O not supported, unreliable polling
+L1/L2
+Hanwha Technical Reference
+NO Local Mode, NO PTZ/Presets in cloud
+L1/L2
+Heitel Technical Reference
+Legacy, manual ticket per device, HTConnect
+L1/L2
+True Vision Technical Reference
+Polling-based, IO→analytics.intrusion, NOT in Alarm Log
+L1/L2
+Camect Technical Reference
+HLS only, no playback support
+L1/L2
+Senstar Technical Reference
+Event polling, no I/O, no Local Mode
+L1/L2
+Reconeyez Technical Reference
+Dual-path flow, no live video (battery)
+L1/L2
+4. CUSTOM PROPERTIES REFERENCE (INTERNAL ONLY)
+Article Name
+Contains
+Scope
+Master Custom Properties Sheet
+ALL custom properties by device type
+L1/L2/CSM
+eventClipRecord Configuration
+Pre/post recording for ADPRO, Dahua, Hikvision, Milestone
+L1/L2
+Milestone Custom Properties
+baseUrl, WebSocket endpoints, isLowBandwidthDevice
+L1/L2
+Teltonika Custom Alarm Rules
+Voltage thresholds, filtering frequent data changes
+L1/L2
+False Alarm Filter Properties
+Priority list, whitelist, blacklist, rejectUnknown syntax
+L1/L2
+Alarm Overflow Threshold
+Default 25, how to customize, custom property name
+L1/L2
+5. TROUBLESHOOTING PLAYBOOKS
+Article Name
+Contains
+Scope
+Playbook: No Alarms Received
+Dashboard → Alarm Receiver Log → Device UI → Notify Surveillance Center
+L1
+Playbook: Alarms Blocked/Overflow
+Overflow logs → Threshold property → IVS recommendation
+L1
+Playbook: Incorrect AI Classification
+Analytics dashboard → 4 custom properties → Masking → Data team
+L1/L2
+Playbook: Alarm Multiplicity
+Device log vs Genesis vs Receiver Log → SDK test client
+L2
+Playbook: No Live Video
+Video Activity → Device UI → Encoding → Cloud Only mode
+L1
+Playbook: Discovery Failure
+Credentials → Ports → Mandatory fields → Connectivity
+L1
+Playbook: Time Sync Issues
+NTP server → Timezone → DST setting
+L1
+Playbook: SDK/EXE Not Running
+Executable status → Port monitoring
+L2
+Using Dahua SDK Test Client
+Installation, IP/Port input, count comparison methodology
+L2
+6. ALARM ROUTING & WORKFLOWS
+Article Name
+Contains
+Scope
+Two-Level Alarm Routing Setup
+Genesis Customer Groups + Talos Org Units + Alarm Channels
+L2/CSM
+Workspace Configuration Deep Dive
+Bundling alarm channels, restricting site access
+L2/CSM
+Old AJAX Implementation Guide
+Talos→Genesis→Talos flow, BA alarm, extreme complexity
+L2 Only
+AJAX Migration Recommendation
+Moving from workflow to Genesis AJAX implementation
+CSM/L2
+ARM/DISARM vs Isolate Technical
+Continuous state vs time-limited, image fetch behavior
+L1/L2
+Talos Alarm Blocking Logic
+Site-level blocking (not device), 25/5min threshold
+L1/L2
+Event Polling vs Push
+When to use: Teltonika, True Vision, Avigilon
+L1/L2
+7. NETWORK & SECURITY (INTERNAL)
+Article Name
+Contains
+Scope
+Master Gateway IP List
+All primary/secondary service, streaming, messaging IPs
+L1/L2/CSM
+Device Receiver IP Quick Reference
+Hikvision, Milestone, Hanwha, Heitel-specific IPs
+L1/L2
+VPN vs Whitelist vs Public IP
+Decision tree for when to use each approach
+L1/CSM
+Port-to-Feature Mapping
+What fails when each port is blocked
+L1/L2
+8. AI & ANALYTICS (INTERNAL)
+Article Name
+Contains
+Scope
+AI Identification vs Decision
+Two-phase process, configuration independence
+L1/L2
+Complete AI Object Tag List
+All tags returned by V4 and Nova (person/human/pedestrian?)
+L1/L2
+Troubleshooting AI Misclassification
+Check properties → Masking → Escalate to data team
+L1/L2
+Data Team Escalation Process
+When and how to escalate to Nazem/Asan
+L2
+9. DOCUMENTATION & VENDOR MANAGEMENT
+Article Name
+Contains
+Scope
+Adding New Findings to Docs
+Process for documenting undiscovered custom properties
+All
+Documentation Style Guide
+Precise, small, screenshots, flowcharts
+All
+Feeding the Genie
+What needs to be documented for AI knowledge base
+All
+When to Contact Device Vendor
+After confirming issue is not Genesis-related
+L2
+Vendor Escalation Templates
+Standard format for Dahua, Hikvision, etc.
+L2
+SUMMARY
+Knowledge Base
+Categories
+Total Articles
+External (Customer)
+8
+60
+Internal (CSM/Support)
+9
+57
+TOTAL
+17
+117

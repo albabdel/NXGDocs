@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useHistory } from '@docusaurus/router';
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
+import { useUniversalSearch } from '../../hooks/useUniversalSearch';
+import { SkeletonList } from '../Skeleton';
 import styles from './styles.module.css';
 
 interface SearchResult {
@@ -9,7 +10,7 @@ interface SearchResult {
   content: string;
 }
 
-export default function FloatingSearch(): JSX.Element {
+export default function FloatingSearch(): React.JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
@@ -17,6 +18,7 @@ export default function FloatingSearch(): JSX.Element {
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const history = useHistory();
+  const { search } = useUniversalSearch();
 
   // Enable keyboard shortcuts (Ctrl+K or Cmd+K)
   useEffect(() => {
@@ -37,124 +39,25 @@ export default function FloatingSearch(): JSX.Element {
     }
   }, [isOpen]);
 
-  // Perform search using the local search plugin
   const performSearch = async (query: string) => {
-    if (!query.trim()) {
+    const trimmed = query.trim();
+    if (!trimmed) {
       setSearchResults([]);
       return;
     }
 
     setIsLoading(true);
-    
+
     try {
-      // Access the search index from the local search plugin
-      if (ExecutionEnvironment.canUseDOM && (window as any).__DOCUSAURUS_SEARCH_INDEX__) {
-        const searchIndex = (window as any).__DOCUSAURUS_SEARCH_INDEX__;
-        const results: SearchResult[] = [];
-        
-        // Simple search implementation
-        for (const doc of searchIndex) {
-          const titleMatch = doc.title?.toLowerCase().includes(query.toLowerCase());
-          const contentMatch = doc.content?.toLowerCase().includes(query.toLowerCase());
-          
-          if (titleMatch || contentMatch) {
-            results.push({
-              title: doc.title || 'Untitled',
-              url: doc.url || '#',
-              content: doc.content ? doc.content.substring(0, 150) + '...' : 'No content available'
-            });
-          }
-          
-          if (results.length >= 8) break; // Limit results
-        }
-        
-        setSearchResults(results);
-      } else {
-        // Fallback: Simple content search if search index isn't available
-        const mockResults: SearchResult[] = [];
-        
-        if (query.toLowerCase().includes('nova')) {
-          mockResults.push({
-            title: 'Nova99x',
-            url: '/features/nova99x',
-            content: 'Silence the Noise. Focus on What\'s Real. Advanced AI-powered threat detection...'
-          });
-        }
-        
-        if (query.toLowerCase().includes('bulk')) {
-          mockResults.push({
-            title: 'Bulk Import',
-            url: '/features/bulkimport',
-            content: 'Thousands of Sites. Imported in Minutes. Streamline your site onboarding...'
-          });
-        }
-        
-        if (query.toLowerCase().includes('zen')) {
-          mockResults.push({
-            title: 'Zen Mode',
-            url: '/features/zenmode',
-            content: 'Less Distraction. More Action. A focused, distraction-free interface...'
-          });
-        }
-        
-        if (query.toLowerCase().includes('health')) {
-          mockResults.push({
-            title: 'HealthCheck',
-            url: '/features/healthcheck',
-            content: 'Catch Failures Before They Cost You. Proactive system monitoring...'
-          });
-        }
-        
-        if (query.toLowerCase().includes('custom')) {
-          mockResults.push({
-            title: 'CustomView',
-            url: '/features/customview',
-            content: 'See What Matters. Filter Out What Doesn\'t. Personalized interface...'
-          });
-        }
-        
-        if (query.toLowerCase().includes('pulse')) {
-          mockResults.push({
-            title: 'PulseView',
-            url: '/features/pulseview',
-            content: 'Turn Any Camera Into a Time Machine. Advanced video analytics...'
-          });
-        }
-        
-        if (query.toLowerCase().includes('time')) {
-          mockResults.push({
-            title: 'TimeSync',
-            url: '/features/timesync',
-            content: 'Every Camera. Perfectly Aligned. Precision time synchronization...'
-          });
-        }
-        
-        if (query.toLowerCase().includes('market')) {
-          mockResults.push({
-            title: 'Marketplace',
-            url: '/features/marketplace',
-            content: 'Launch New Client Services Instantly. Expand Revenue. Zero Hassle...'
-          });
-        }
-        
-        if (query.toLowerCase().includes('tower')) {
-          mockResults.push({
-            title: 'TowerGuard',
-            url: '/features/towerguard',
-            content: 'Deploy Towers 3x Faster. With Zero Site Downtime...'
-          });
-        }
-        
-        if (query.toLowerCase().includes('device') || query.toLowerCase().includes('adpro')) {
-          mockResults.push({
-            title: 'ADPRO Device Configuration',
-            url: '/devices/ADPRO',
-            content: 'Complete guide for ADPRO device setup and configuration...'
-          });
-        }
-        
-        setSearchResults(mockResults);
-      }
+      const records = search(trimmed);
+      const mapped = records.map((record) => ({
+        title: record.sectionTitle && record.sectionTitle !== 'Introduction'
+          ? `${record.title} — ${record.sectionTitle}`
+          : record.title,
+        url: record.url,
+        content: record.content || '',
+      }));
+      setSearchResults(mapped.slice(0, 8));
     } catch (error) {
       console.error('Search error:', error);
       setSearchResults([]);
@@ -258,13 +161,15 @@ export default function FloatingSearch(): JSX.Element {
             
             <div className={styles.searchResults}>
               <div className={styles.searchHint}>
-                <kbd>↑</kbd><kbd>↓</kbd> to navigate • <kbd>↵</kbd> to select • <kbd>esc</kbd> to close
+                <kbd>↑</kbd><kbd>↓</kbd> to navigate · <kbd>Enter</kbd> to select · <kbd>Esc</kbd> to close
               </div>
               
               {isLoading && (
                 <div className={styles.loadingState}>
-                  <div className={styles.spinner}></div>
-                  <span>Searching...</span>
+                  <SkeletonList items={3} />
+                  <span style={{ textAlign: 'center', marginTop: '1rem', color: 'var(--ifm-color-content-secondary)' }}>
+                    Searching...
+                  </span>
                 </div>
               )}
               

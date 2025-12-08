@@ -1,0 +1,8 @@
+{
+  "label": "Alarm Management (Talos)",
+  "position": 35,
+  "link": {
+    "type": "generated-index",
+    "description": "Complete documentation for Alarm Management (Talos)"
+  }
+}

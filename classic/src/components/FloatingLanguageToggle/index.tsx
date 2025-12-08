@@ -1,86 +1,168 @@
-import React from 'react';
-import { useHistory, useLocation } from '@docusaurus/router';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './styles.module.css';
+import { useLanguage } from '@site/src/contexts/LanguageContext';
 
-// Manual language mapping for each feature
-const LANGUAGE_MAP = {
-    // BulkImport
-    '/features/BulkImport/content': '/features/BulkImport/content-german',
-    '/features/BulkImport/content-german': '/features/BulkImport/content',
+interface Language {
+  code: string;
+  name: string;
+  shortCode: string;
+}
 
-    // Add more features as they get German translations
-    // '/features/CustomView/content': '/features/CustomView/content-german',
-    // '/features/CustomView/content-german': '/features/CustomView/content',
+const LANGUAGES: Language[] = [
+  { code: 'en', name: 'English', shortCode: 'EN' },
+  { code: 'de', name: 'Deutsch', shortCode: 'DE' },
+  { code: 'pl', name: 'Polski', shortCode: 'PL' },
+  { code: 'es', name: 'Español', shortCode: 'ES' },
+];
+
+const KEYBOARD_SHORTCUTS: Record<string, string> = {
+  '1': 'en',
+  '2': 'de',
+  '3': 'pl',
+  '4': 'es',
 };
 
 export default function FloatingLanguageToggle(): React.JSX.Element {
-    const history = useHistory();
-    const location = useLocation();
-    const [mounted, setMounted] = React.useState(false);
+  const { currentLanguage: currentLangCode, switchLanguage, isTranslating } = useLanguage();
+  const [isOpen, setIsOpen] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-    React.useEffect(() => {
-        setMounted(true);
-    }, []);
+  const currentLanguage = LANGUAGES.find((lang) => lang.code === currentLangCode) || LANGUAGES[0];
 
-    // Determine current language based on path
-    const isGerman = location.pathname.includes('-german');
-
-    const toggleLanguage = () => {
-        const currentPath = location.pathname;
-
-        // Check if we have a translation for this page
-        const targetPath = LANGUAGE_MAP[currentPath];
-
-        if (targetPath) {
-            // Navigate to the translated version
-            history.push(targetPath);
-        } else {
-            // Fallback: try to toggle -german suffix
-            if (isGerman) {
-                // Remove -german suffix
-                const englishPath = currentPath.replace('-german', '');
-                history.push(englishPath);
-            } else {
-                // Add -german suffix before the extension
-                const germanPath = currentPath.replace('/content', '/content-german');
-                history.push(germanPath);
-            }
-        }
+  // Handle keyboard shortcuts and close on escape
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      // Alt+1/2/3/4 for language selection
+      if (e.altKey && KEYBOARD_SHORTCUTS[e.key]) {
+        e.preventDefault();
+        const targetLanguage = KEYBOARD_SHORTCUTS[e.key];
+        switchLanguage(targetLanguage);
+      }
+      // Escape to close dropdown
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
     };
 
-    // Don't render until mounted to prevent hydration mismatch
-    if (!mounted) {
-        return null;
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [currentLangCode, isOpen, switchLanguage]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [isOpen]);
+
+  const handleLanguageSwitch = async (targetLanguage: string) => {
+    if (targetLanguage === currentLangCode) {
+      setIsOpen(false);
+      return;
     }
 
-    return (
-        <button
-            className={styles.floatingToggle}
-            onClick={toggleLanguage}
-            aria-label={`Switch to ${isGerman ? 'English' : 'Deutsch'}`}
-            title={`Switch to ${isGerman ? 'English' : 'Deutsch'}`}
+    await switchLanguage(targetLanguage);
+    setIsOpen(false);
+  };
+
+  return (
+    <div
+      ref={dropdownRef}
+      className={`${styles.floatingToggle} ${isTranslating ? styles.switching : ''}`}
+      onMouseEnter={() => !isTranslating && setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+    >
+      {showTooltip && (
+        <div className={styles.tooltip}>
+          <span>
+            {currentLanguage.name}
+            <br />
+            <small>Alt+1/2/3/4 to switch</small>
+          </span>
+        </div>
+      )}
+
+      <button
+        className={styles.toggleButton}
+        onClick={() => !isTranslating && setIsOpen(!isOpen)}
+        aria-label={`Change language. Currently ${currentLanguage.name}`}
+        aria-expanded={isOpen}
+        aria-haspopup="menu"
+        disabled={isTranslating}
+      >
+        <svg
+          className={`${styles.languageIcon} ${isOpen ? styles.iconOpen : ''}`}
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-            <div className={styles.toggleTrack}>
-                <div className={`${styles.toggleThumb} ${isGerman ? styles.toggleThumbGerman : ''}`}>
-                    {isGerman ? (
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="3" y="5" width="18" height="4.67" fill="#000000" />
-                            <rect x="3" y="9.67" width="18" height="4.67" fill="#DD0000" />
-                            <rect x="3" y="14.33" width="18" height="4.67" fill="#FFCE00" />
-                        </svg>
-                    ) : (
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="3" y="6" width="7" height="6" fill="#012169" />
-                            <path d="M3 6 L10 12 M10 6 L3 12" stroke="white" strokeWidth="1.5" />
-                            <path d="M3 6 L10 12 M10 6 L3 12" stroke="#C8102E" strokeWidth="0.8" />
-                            <rect x="3" y="12" width="18" height="2.67" fill="white" />
-                            <rect x="3" y="12" width="18" height="2.67" fill="#C8102E" />
-                            <rect x="10" y="6" width="2.67" height="12" fill="white" />
-                            <rect x="10" y="6" width="2.67" height="12" fill="#C8102E" />
-                        </svg>
-                    )}
-                </div>
-            </div>
-        </button>
-    );
+          <circle cx="12" cy="12" r="10" />
+          <path d="M2 12h20" />
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+        </svg>
+        <span className={styles.currentLang}>{currentLanguage.shortCode}</span>
+        {isTranslating && (
+          <div className={styles.loadingSpinner}>
+            <svg
+              className={styles.spinning}
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <circle cx="12" cy="12" r="10" />
+            </svg>
+          </div>
+        )}
+      </button>
+
+      {isOpen && (
+        <div className={styles.dropdown} role="menu">
+          {LANGUAGES.map((lang) => (
+            <button
+              key={lang.code}
+              className={`${styles.dropdownItem} ${
+                lang.code === currentLangCode ? styles.active : ''
+              }`}
+              onClick={() => handleLanguageSwitch(lang.code)}
+              role="menuitem"
+              aria-label={`Switch to ${lang.name}`}
+              title={`Alt+${Object.entries(KEYBOARD_SHORTCUTS).find(([_, code]) => code === lang.code)?.[0]}`}
+            >
+              <span className={styles.langCode}>{lang.shortCode}</span>
+              <span className={styles.langName}>{lang.name}</span>
+              {lang.code === currentLangCode && (
+                <svg
+                  className={styles.checkmark}
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              )}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
