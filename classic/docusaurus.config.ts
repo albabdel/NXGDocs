@@ -57,6 +57,7 @@ const config: Config = {
 
   onBrokenLinks: 'ignore',
   onBrokenMarkdownLinks: 'ignore',
+  onBrokenAnchors: 'ignore',
 
   // Multilingual support
   i18n: {
