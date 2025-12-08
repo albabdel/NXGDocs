@@ -1,93 +1,310 @@
-# nxgen-docs
+# GCXONE Documentation
 
+> **10 Breakthroughs. One Platform. Twice the Output. Zero Extra Hires.**
 
+A comprehensive documentation site for GCXONE, built with [Docusaurus 3.8.1](https://docusaurus.io/), featuring a modern, responsive interface with advanced search capabilities and multi-language support.
 
-## Getting started
+## 🚀 Current Build Status
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+- **Build System**: Docusaurus 3.8.1
+- **Framework**: React 18.3.1 with TypeScript
+- **Node Version**: >=18.0
+- **Production Build**: Available in `classic/build/`
+- **Dev Server**: Running at `http://localhost:3000` (when started)
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+## 📁 Project Structure
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/yazanabutaa/nxgen-docs.git
-git branch -M main
-git push -uf origin main
+nxgen-docs/
+├── classic/                        # Main documentation project
+│   ├── docs/                      # Documentation content
+│   │   ├── 01-platform-overview/
+│   │   ├── 02-account-management/
+│   │   ├── 03-network-requirements/
+│   │   ├── 04-device-integration/
+│   │   ├── 05-operational-features/
+│   │   ├── 06-advanced-configuration/
+│   │   ├── 07-support-maintenance/
+│   │   ├── api/
+│   │   ├── devices/               # Device-specific documentation
+│   │   ├── features/              # Feature guides
+│   │   ├── getting-started/
+│   │   ├── release-notes/
+│   │   └── roles/
+│   ├── src/                       # Custom React components
+│   │   ├── components/
+│   │   ├── css/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   ├── theme/
+│   │   └── utils/
+│   ├── static/                    # Static assets
+│   ├── build/                     # Production build output
+│   ├── i18n/                      # Internationalization files
+│   ├── scripts/                   # Build scripts
+│   ├── docusaurus.config.ts       # Docusaurus configuration
+│   ├── sidebars.ts                # Sidebar configuration
+│   └── package.json
+└── README.md                      # This file
 ```
 
-## Integrate with your tools
+## ✨ Features
 
-- [ ] [Set up project integrations](https://gitlab.com/yazanabutaa/nxgen-docs/-/settings/integrations)
+### Core Capabilities
+- **📚 Comprehensive Documentation**: Structured content across 7 main sections covering platform overview, account management, network requirements, device integration, operational features, advanced configuration, and support & maintenance
+- **🔍 Advanced Search**: Powered by `@easyops-cn/docusaurus-search-local` with keyboard shortcuts and search term highlighting
+- **🌐 Multi-language Support**: Available in English and German (Deutsch)
+- **🎨 Dark Mode**: Automatic theme switching with user preference persistence
+- **📱 Responsive Design**: Mobile-first approach with optimized layouts
+- **🔗 Deep Linking**: Direct linking to specific sections and headings
+- **📊 Table of Contents**: Auto-generated navigation for long documentation pages
 
-## Collaborate with your team
+### Technical Features
+- **TypeScript Support**: Full TypeScript integration for type safety
+- **Custom Components**: Reusable React components for enhanced documentation
+- **Syntax Highlighting**: Prism integration with support for bash, diff, json, typescript, and javascript
+- **Sitemap Generation**: Automatic sitemap.xml generation for SEO
+- **Hot Reload**: Instant preview of changes during development
+- **Search Index**: Pre-generated search index (`search-index.json`) for fast client-side search
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+## 🛠️ Installation
 
-## Test and Deploy
+### Prerequisites
+- Node.js >= 18.0
+- npm or yarn
 
-Use the built-in continuous integration in GitLab.
+### Setup
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+```bash
+# Clone the repository
+git clone <repository-url>
+cd nxgen-docs/classic
 
-***
+# Install dependencies
+npm install
+# or
+yarn install
+```
 
-# Editing this README
+## 💻 Development
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+### Start Development Server
 
-## Suggestions for a good README
+```bash
+npm run start
+# or
+yarn start
+```
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+The development server will start at `http://0.0.0.0:3000` (accessible from any network interface).
 
-## Name
-Choose a self-explaining name for your project.
+### Available Scripts
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+| Script        | Command               | Description                              |
+| ------------- | --------------------- | ---------------------------------------- |
+| `start`       | `npm run start`       | Start development server with hot reload |
+| `build`       | `npm run build`       | Build production-ready static site       |
+| `serve`       | `npm run serve`       | Serve the production build locally       |
+| `clear`       | `npm run clear`       | Clear Docusaurus cache                   |
+| `typecheck`   | `npm run typecheck`   | Run TypeScript type checking             |
+| `build-index` | `npm run build-index` | Generate search index                    |
+| `swizzle`     | `npm run swizzle`     | Customize Docusaurus theme components    |
+| `deploy`      | `npm run deploy`      | Deploy to GitHub Pages                   |
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+### Development Workflow
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+1. **Start the dev server**: `npm run start`
+2. **Edit content**: Make changes to markdown files in `docs/` or React components in `src/`
+3. **Preview changes**: Changes are reflected instantly in the browser
+4. **Type check**: Run `npm run typecheck` to ensure no TypeScript errors
+5. **Build**: Run `npm run build` to create production build
+6. **Test build**: Run `npm run serve` to preview the production build locally
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+## 🏗️ Building for Production
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+```bash
+# Build the static site
+npm run build
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+# The output will be in the build/ directory
+# Preview the production build
+npm run serve
+```
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+The production build includes:
+- Optimized and minified JavaScript/CSS bundles
+- Pre-rendered HTML pages for all routes
+- Search index for offline search
+- Sitemap for SEO
+- Asset optimizations (images, fonts, etc.)
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+## 📦 Dependencies
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+### Core Dependencies
+- **@docusaurus/core**: 3.8.1
+- **@docusaurus/preset-classic**: 3.8.1
+- **react**: 18.3.1
+- **react-dom**: 18.3.1
+- **typescript**: ~5.6.2
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+### UI & Styling
+- **@mui/material**: 7.3.5
+- **@emotion/react**: 11.14.0
+- **@emotion/styled**: 11.14.1
+- **lucide-react**: 0.554.0
+- **clsx**: 2.0.0
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+### Search & Utilities
+- **@easyops-cn/docusaurus-search-local**: 0.51.1
+- **fuse.js**: 7.1.0
+- **gray-matter**: 4.0.3
 
-## License
-For open source projects, say how it is licensed.
+### Syntax Highlighting
+- **prism-react-renderer**: 2.3.0
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## 🌍 Internationalization
+
+The site supports multiple locales:
+- **English (en-US)**: Default locale
+- **German (de-DE)**: Secondary locale
+
+To add or modify translations:
+1. Edit files in `i18n/<locale>/` directory
+2. Run `npm run write-translations` to extract translatable strings
+3. Rebuild the site to see changes
+
+## 🎨 Customization
+
+### Theme Configuration
+Edit `docusaurus.config.ts` to modify:
+- Site metadata (title, tagline, favicon)
+- Theme colors and branding
+- Navbar and footer
+- Plugins and integrations
+
+### Custom CSS
+Global styles are defined in `src/css/custom.css`
+
+### Custom Components
+Add reusable components in `src/components/` and import them in your markdown files.
+
+### Sidebar Structure
+Modify `sidebars.ts` to customize the documentation sidebar navigation.
+
+## 🚢 Deployment
+
+### GitHub Pages
+
+```bash
+# Using SSH
+GIT_USER=<Your GitHub username> USE_SSH=true npm run deploy
+
+# Using HTTPS
+GIT_USER=<Your GitHub username> npm run deploy
+```
+
+### Docker
+
+A Docker setup is available:
+
+```bash
+# Build the Docker image
+docker-compose build
+
+# Run the container
+docker-compose up
+```
+
+See `Dockerfile` and `docker-compose.yml` for configuration details.
+
+### Static Hosting
+The `build/` directory can be deployed to any static hosting service:
+- Vercel
+- Netlify
+- AWS S3 + CloudFront
+- Azure Static Web Apps
+- Google Cloud Storage
+- Any other static hosting provider
+
+## 📝 Documentation Guidelines
+
+### Adding New Documentation
+
+1. Create a new `.md` or `.mdx` file in the appropriate `docs/` subdirectory
+2. Add frontmatter with metadata:
+```markdown
+---
+id: unique-id
+title: Page Title
+sidebar_label: Sidebar Label
+sidebar_position: 1
+---
+
+Your content here...
+```
+
+3. Update `sidebars.ts` if needed to control sidebar navigation
+4. The page will automatically appear in the navigation
+
+### Markdown Features
+
+Docusaurus supports extended markdown features:
+- **Admonitions**: `:::note`, `:::tip`, `:::info`, `:::warning`, `:::danger`
+- **Code blocks**: With syntax highlighting and line numbers
+- **Tabs**: Group related content
+- **MDX**: Import and use React components in markdown
+
+## 🔧 Troubleshooting
+
+### Clear Cache
+If you encounter build issues, clear the cache:
+```bash
+npm run clear
+```
+
+### Port Already in Use
+If port 3000 is occupied, specify a different port:
+```bash
+npm run start -- --port 3001
+```
+
+### TypeScript Errors
+Run type checking to identify issues:
+```bash
+npm run typecheck
+```
+
+### Build Failures
+Check the build logs in:
+- `build_log.txt`
+- `build_log_2.txt`
+- `build_log_3.txt`
+- `error.log`
+
+## 📊 Project Statistics
+
+- **Documentation Pages**: 100+ articles
+- **Main Sections**: 7 core categories
+- **Device Guides**: 16 device-specific docs
+- **Feature Guides**: 24 feature articles
+- **Supported Languages**: 2 (English, German)
+- **Search Index Size**: ~944 KB
+
+## 🔗 Useful Links
+
+- [Docusaurus Documentation](https://docusaurus.io/)
+- [Markdown Guide](https://www.markdownguide.org/)
+- [React Documentation](https://react.dev/)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
+
+## 📄 License
+
+Copyright © 2025 GCXONE. All rights reserved.
+
+---
+
+**Last Updated**: November 28, 2025  
+**Build Version**: 0.0.0  
+**Docusaurus Version**: 3.8.1
+#   N X G - D o c s  
+ 
