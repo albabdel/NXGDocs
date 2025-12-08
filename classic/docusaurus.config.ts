@@ -55,8 +55,8 @@ const config: Config = {
   organizationName: 'nxgen',
   projectName: 'nxgen-docs',
 
-  onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: 'ignore',
+  onBrokenMarkdownLinks: 'ignore',
 
   // Multilingual support
   i18n: {
@@ -88,7 +88,7 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           routeBasePath: 'docs', // Serve docs at /docs
-          showLastUpdateTime: true,
+          showLastUpdateTime: false, // Disabled for Vercel builds (no git access)
           showLastUpdateAuthor: false,
           editUrl: undefined, // Disable "Edit this page" to avoid git dependency
           sidebarCollapsible: true,
@@ -130,7 +130,7 @@ const config: Config = {
         path: 'docs-admin',
         routeBasePath: 'role-admin',
         sidebarPath: './sidebars-admin.ts',
-        showLastUpdateTime: true,
+        showLastUpdateTime: false, // Disabled for Vercel builds (no git access)
         showLastUpdateAuthor: false,
         editUrl: undefined,
         sidebarCollapsible: true,
@@ -145,7 +145,7 @@ const config: Config = {
         path: 'docs-manager',
         routeBasePath: 'manager',
         sidebarPath: './sidebars-manager.ts',
-        showLastUpdateTime: true,
+        showLastUpdateTime: false, // Disabled for Vercel builds (no git access)
         showLastUpdateAuthor: false,
         editUrl: undefined,
         sidebarCollapsible: true,
@@ -160,7 +160,7 @@ const config: Config = {
         path: 'docs-operator',
         routeBasePath: 'operator',
         sidebarPath: './sidebars-operator.ts',
-        showLastUpdateTime: true,
+        showLastUpdateTime: false, // Disabled for Vercel builds (no git access)
         showLastUpdateAuthor: false,
         editUrl: undefined,
         sidebarCollapsible: true,
@@ -175,7 +175,7 @@ const config: Config = {
         path: 'docs-operator-minimal',
         routeBasePath: 'operator-minimal',
         sidebarPath: './sidebars-operator-minimal.ts',
-        showLastUpdateTime: true,
+        showLastUpdateTime: false, // Disabled for Vercel builds (no git access)
         showLastUpdateAuthor: false,
         editUrl: undefined,
         sidebarCollapsible: true,

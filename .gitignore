@@ -38,3 +38,5 @@ yarn-error.log*
 # Claude/Cursor
 .claude/
 .cursor/
+
+.vercel

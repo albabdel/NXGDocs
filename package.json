@@ -4,7 +4,10 @@
   "description": "> **10 Breakthroughs. One Platform. Twice the Output. Zero Extra Hires.**",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd classic && npm run build",
+    "start": "cd classic && npm start",
+    "serve": "cd classic && npm run serve"
   },
   "repository": {
     "type": "git",
