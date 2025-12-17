@@ -1,7 +1,6 @@
 [build]
-  base = "classic"
-  command = "npm run build"
-  publish = "build"
+  command = "cd classic && npm run build"
+  publish = "classic/build"
 
 [[redirects]]
   from = "/*"
