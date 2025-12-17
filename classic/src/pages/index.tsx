@@ -34,6 +34,7 @@ import Badge from '../components/Badge';
 import ParticleBackground from '../components/ParticleBackground';
 import TypingAnimation from '../components/TypingAnimation';
 import FloatingDarkModeToggle from '../components/FloatingDarkModeToggle';
+import NXGENSphereHero from '../components/NXGENSphereHero';
 
 // Header Theme Toggle Component
 function HeaderThemeToggle() {
@@ -282,84 +283,9 @@ export default function Home(): React.JSX.Element {
                     </motion.div>
                 </div>
 
-                {/* Hero Section */}
-                <section className="relative py-20 px-6 overflow-hidden" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
-                    {/* Particle Background */}
-                    <div className="absolute inset-0 opacity-30 dark:opacity-20">
-                        <ParticleBackground />
-                    </div>
-                    
-                    <div className="relative z-10 max-w-6xl mx-auto text-center">
-                        {/* Elegant "By NXGEN" Badge */}
-                        <motion.div
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.05 }}
-                            className="mb-6"
-                        >
-                            <div className="inline-flex items-center gap-3">
-                                <div className="h-px w-12 bg-gradient-to-r from-transparent via-[#E8B058]/40 to-[#E8B058]/40"></div>
-                                <span className="text-xs font-light tracking-[0.2em] uppercase text-[#E8B058]/70">
-                                    By NXGEN
-                                </span>
-                                <div className="h-px w-12 bg-gradient-to-l from-transparent via-[#E8B058]/40 to-[#E8B058]/40"></div>
-                            </div>
-                        </motion.div>
 
-                        <motion.h1
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
-                            className="mt-6 text-5xl md:text-6xl font-bold text-[#E8B058]"
-                        >
-                            GCXONE Documentation
-                        </motion.h1>
-
-                        <motion.div
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.15 }}
-                            className="mt-4 text-xl max-w-2xl mx-auto min-h-[32px]"
-                            style={{ color: 'var(--ifm-color-content-secondary)' }}
-                        >
-                            <TypingAnimation
-                                phrases={[
-                                    'Comprehensive guides and references',
-                                    'Device integration made simple',
-                                    'Platform features explained',
-                                    'Troubleshooting help when you need it'
-                                ]}
-                                speed={80}
-                            />
-                        </motion.div>
-
-                        <div className="mt-8">
-                            <HeroSearch onOpen={() => setIsSearchOpen(true)} />
-                        </div>
-
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.5, delay: 0.3 }}
-                            className="mt-8 flex items-center justify-center gap-4 flex-wrap"
-                        >
-                            <Link
-                                to="/getting-started"
-                                className="inline-flex items-center gap-2 px-6 py-3 bg-primary-500 hover:bg-primary-600 text-black rounded-full font-medium transition-all hover:shadow-lg no-underline"
-                            >
-                                <Rocket className="w-5 h-5" />
-                                Get Started
-                            </Link>
-                            <Link
-                                to="/integration-hub"
-                                className="inline-flex items-center gap-2 px-6 py-3 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 text-gray-700 dark:text-gray-300 rounded-full font-medium transition-all hover:shadow-lg no-underline"
-                            >
-                                <Plug className="w-5 h-5" />
-                                Integration Hub
-                            </Link>
-                        </motion.div>
-                    </div>
-                </section>
+                {/* NXGEN Sphere Hero Section */}
+                <NXGENSphereHero onOpenSearch={() => setIsSearchOpen(true)} />
 
                 <div className="max-w-7xl mx-auto px-6 pb-20">
 
@@ -525,7 +451,7 @@ export default function Home(): React.JSX.Element {
                         viewport={{ once: true }}
                         className="mt-32 mb-16"
                     >
-                        <div className="relative overflow-hidden rounded-2xl backdrop-blur-xl border p-12 shadow-2xl" style={{ 
+                        <div className="relative overflow-hidden rounded-2xl backdrop-blur-xl border p-12 shadow-2xl" style={{
                             background: 'var(--ifm-background-surface-color)',
                             borderColor: 'var(--ifm-color-emphasis-200)'
                         }}>

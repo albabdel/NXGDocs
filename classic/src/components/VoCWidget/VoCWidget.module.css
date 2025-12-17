@@ -1,0 +1,6 @@
+/* VoCWidget.module.css */
+/* Styles handled in global custom.css as per plan, but keeping this for component-level specific needs or isolation if desired later. 
+   For now, we will rely on global class names injected via clsx or simply add the styles here if scoped is better. 
+   
+   Actually, let's put the FAB styles here to keep it modular.
+*/

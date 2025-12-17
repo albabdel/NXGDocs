@@ -3,19 +3,53 @@
 @tailwind components;
 @tailwind utilities;
 
-/** * Modern NXG Documentation Design System * Primary Color: #E8B058 (Gold/Amber) * Luxury Dark Theme - Pure Black & Gold * Optimized and refactored version */
+/* Import NXGEN Sphere Background Styles */
+@import './sphere-background.css';
+
+/** 
+ * NXGEN GCXONE Documentation Design System 
+ * Primary Color: #C89446 (NXGEN Gold)
+ * Authentic NXGEN Dark Theme with Gold Accents
+ * Premium aesthetic with curved lines and glow effects
+ */
+
 /* Import Apple's SF Pro font family and Inter as fallback */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
 
 :root {
-  /* === PRIMARY BRAND COLORS === */
-  --ifm-color-primary: #E8B058;
-  --ifm-color-primary-dark: #D4A047;
-  --ifm-color-primary-darker: #C09036;
-  --ifm-color-primary-darkest: #AC8025;
-  --ifm-color-primary-light: #F5C26B;
-  --ifm-color-primary-lighter: #F9D48A;
-  --ifm-color-primary-lightest: #FCE5B8;
+  /* === NXGEN PRIMARY BRAND COLORS (Gold) === */
+  --ifm-color-primary: #C89446;
+  --nxgen-gold: #C89446;
+  --ifm-color-primary-dark: #B58237;
+  --ifm-color-primary-darker: #A37028;
+  --ifm-color-primary-darkest: #915E19;
+  --ifm-color-primary-light: #D4A574;
+  --nxgen-gold-light: #D4A574;
+  --ifm-color-primary-lighter: #E0B688;
+  --nxgen-gold-lighter: #E0B688;
+  --ifm-color-primary-lightest: #F0CDA5;
+
+  /* === NXGEN DARK PALETTE === */
+  --nxgen-black: #000000;
+  --nxgen-dark-100: #0A0A0A;
+  --nxgen-dark-200: #121212;
+  --nxgen-dark-300: #1A1A1A;
+  --nxgen-dark-400: #2A2A2A;
+
+  /* === NXGEN TEXT COLORS === */
+  --nxgen-white: #FFFFFF;
+  --nxgen-gray-100: #EEEEEE;
+  --nxgen-gray-200: #DDDDDD;
+  --nxgen-gray-300: #CCCCCC;
+  --nxgen-gray-400: #AAAAAA;
+  --nxgen-gray-500: #888888;
+  --nxgen-gray-600: #666666;
+
+  /* === NXGEN GLOW EFFECTS === */
+  --nxgen-glow-sm: 0 0 10px rgba(200, 148, 70, 0.2);
+  --nxgen-glow-md: 0 0 20px rgba(200, 148, 70, 0.3);
+  --nxgen-glow-lg: 0 0 30px rgba(200, 148, 70, 0.4);
+  --nxgen-glow-xl: 0 0 40px rgba(200, 148, 70, 0.5);
   /* === APPLE-INSPIRED TYPOGRAPHY === */
   --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', sans-serif;
   --ifm-font-family-monospace: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
@@ -88,35 +122,26 @@
   --breakpoint-desktop: 996px;
 }
 
-/* === DARK MODE - PURE BLACK & GOLD THEME (Matching Landing Page) === */
+/* === DARK MODE - NXGEN AUTHENTIC DARK THEME === */
 [data-theme='dark'] {
   /* Core Backgrounds */
-  --ifm-background-color: #000000;
-  /* Pure Black */
-  --ifm-background-surface-color: #202020;
-  /* Card background - matches landing page */
-  --ifm-card-background: #202020;
-  /* Explicit card background variable */
+  --ifm-background-color: var(--nxgen-dark-100);
+  --ifm-background-surface-color: var(--nxgen-dark-200);
+  --ifm-card-background: var(--nxgen-dark-200);
 
   /* Text Colors */
-  --ifm-color-content: #FFFFFF;
-  /* White - High contrast text */
-  --ifm-color-content-secondary: rgba(255, 255, 255, 0.7);
-  /* Semi-transparent white for descriptions - matches landing page */
+  --ifm-color-content: var(--nxgen-white);
+  --ifm-color-content-secondary: rgba(204, 204, 204, 0.9);
 
   /* UI/Borders */
-  --ifm-color-emphasis-100: #0F0F0F;
-  /* Rich Black */
-  --ifm-color-emphasis-200: rgba(255, 255, 255, 0.1);
-  /* Card borders - matches landing page */
-  --ifm-color-emphasis-300: #2A2A2A;
-  /* Medium Gray */
+  --ifm-color-emphasis-100: var(--nxgen-dark-200);
+  --ifm-color-emphasis-200: rgba(200, 148, 70, 0.15);
+  --ifm-color-emphasis-300: var(--nxgen-dark-400);
   --ifm-color-emphasis-400: #3A3A3A;
   --ifm-color-emphasis-500: #4A4A4A;
 
-  --ifm-code-background: #0F0F0F;
-  --docusaurus-highlighted-code-line-bg: rgba(232, 176, 88, 0.1);
-  /* Gold tint */
+  --ifm-code-background: var(--nxgen-dark-200);
+  --docusaurus-highlighted-code-line-bg: rgba(200, 148, 70, 0.15);
 }
 
 /* === GLOBAL RESET & BASE STYLES === */
@@ -422,12 +447,12 @@ html:not([data-theme='dark']) .theme-doc-sidebar-container {
     background: var(--ifm-background-color);
   }
 
-[data-theme='dark'] .main-wrapper.docs-wrapper {
+  [data-theme='dark'] .main-wrapper.docs-wrapper {
     background: #000000;
     /* Pure black matching landing page */
   }
 
-html:not([data-theme='dark']) .main-wrapper.docs-wrapper {
+  html:not([data-theme='dark']) .main-wrapper.docs-wrapper {
     background: var(--ifm-background-color);
   }
 
@@ -448,7 +473,7 @@ html:not([data-theme='dark']) .main-wrapper.docs-wrapper {
 }
 
 /* PDF Export Button Integration */
-.theme-doc-markdown > .pdfButtonContainer {
+.theme-doc-markdown>.pdfButtonContainer {
   position: sticky;
   top: 1rem;
   z-index: 100;
@@ -1571,9 +1596,11 @@ a.tag::before {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -1596,10 +1623,556 @@ html {
     animation: none;
     background: linear-gradient(-45deg, #E8B058, #F5C26B);
   }
-  
+
   * {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* === VOC WIDGET STYLES (NXGEN LUXURY) === */
+
+/* Floating Action Button */
+.voc-fab {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  height: 60px;
+  min-width: 60px;
+  background: rgba(20, 20, 20, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(200, 148, 70, 0.5);
+  /* Thinner, more elegant gold border */
+  border-radius: 30px;
+  color: var(--nxgen-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  z-index: 9999;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Bouncy spring transition */
+  overflow: hidden;
+  padding: 0;
+
+  /* Subtle float animation */
+  animation: vocFloat 6s ease-in-out infinite;
+}
+
+/* Glow Pulse Effect */
+.voc-fab::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(200, 148, 70, 0.4) 0%, transparent 70%);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.voc-fab:hover::before {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.5);
+  animation: vocPulse 2s infinite;
+}
+
+.voc-fab img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  margin: 0 12px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.voc-fab-label {
+  max-width: 0;
+  opacity: 0;
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #fff;
+  letter-spacing: 0.5px;
+  transition: all 0.4s ease;
+  transform: translateX(20px);
+  text-transform: uppercase;
+}
+
+/* Hover State - Expand */
+.voc-fab:hover {
+  padding-right: 24px;
+  padding-left: 4px;
+  /* Balance the image margin */
+  background: rgba(10, 10, 10, 0.85);
+  border-color: var(--nxgen-gold);
+  box-shadow: 0 0 25px rgba(200, 148, 70, 0.3), inset 0 0 20px rgba(200, 148, 70, 0.05);
+  /* Outer and Inner glow */
+  width: auto;
+}
+
+.voc-fab:hover .voc-fab-label {
+  max-width: 100px;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.voc-fab:hover img {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.voc-fab:active {
+  transform: scale(0.95);
+}
+
+.voc-fab--hidden {
+  transform: scale(0) rotate(180deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Modal Overlay */
+.voc-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: vocFadeIn 0.3s ease-out;
+}
+
+/* Glassmorphism Modal */
+.voc-modal {
+  width: 90%;
+  max-width: 600px;
+  background: rgba(18, 18, 18, 0.95);
+  border-radius: 24px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 50px 100px -20px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: vocSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 85vh;
+  position: relative;
+}
+
+/* Golden Top Border/Glow line */
+.voc-modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--nxgen-gold), transparent);
+  opacity: 0.8;
+}
+
+.voc-glass {
+  /* Handled in main class now for simplicity */
+}
+
+.voc-modal-header {
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(to bottom, rgba(200, 148, 70, 0.08), transparent);
+}
+
+.voc-modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.voc-close-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  line-height: 1;
+}
+
+.voc-close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  transform: rotate(90deg);
+}
+
+/* Form Styles */
+.voc-form {
+  padding: 2rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Tabs */
+.voc-tabs {
+  display: flex;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px;
+  border-radius: 12px;
+  gap: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.voc-tab {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.voc-tab--active {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--nxgen-gold);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.voc-tab:hover:not(.voc-tab--active) {
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+}
+
+/* Inputs */
+.voc-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.voc-form-group label {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.required {
+  color: #ff6b6b;
+}
+
+.optional {
+  color: rgba(255, 255, 255, 0.3);
+  text-transform: none;
+  font-weight: 400;
+  font-size: 0.8em;
+}
+
+.voc-input {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 0.9rem;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: all 0.3s;
+}
+
+.voc-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.voc-input:focus {
+  outline: none;
+  border-color: var(--nxgen-gold);
+  background: rgba(200, 148, 70, 0.05);
+  box-shadow: 0 0 0 4px rgba(200, 148, 70, 0.1);
+  /* Gold glow ring */
+}
+
+/* Dropzone */
+.voc-dropzone {
+  border: 2px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.02), transparent);
+}
+
+.voc-dropzone:hover {
+  border-color: var(--nxgen-gold);
+  background: rgba(200, 148, 70, 0.05);
+  transform: translateY(-2px);
+}
+
+.voc-dropzone--has-file {
+  border-style: solid;
+  border-color: var(--nxgen-gold);
+  padding: 0.75rem;
+}
+
+.voc-dropzone-prompt {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.voc-dropzone-prompt::before {
+  content: '📎';
+  font-size: 1.5rem;
+  opacity: 0.7;
+}
+
+.voc-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.voc-preview img {
+  height: 40px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.voc-remove-img {
+  background: transparent;
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.voc-remove-img:hover {
+  background: rgba(255, 107, 107, 0.1);
+  border-color: #ff6b6b;
+}
+
+.hidden-input {
+  display: none;
+}
+
+/* Submit Button */
+.voc-submit-btn {
+  background: linear-gradient(135deg, var(--nxgen-gold), #b8860b);
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(200, 148, 70, 0.3);
+}
+
+.voc-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(200, 148, 70, 0.5);
+  filter: brightness(1.1);
+}
+
+.voc-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  filter: grayscale(1);
+}
+
+/* Row Layout */
+.voc-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* Error Banner */
+.voc-error-banner {
+  background: rgba(255, 107, 107, 0.1);
+  color: #ff6b6b;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  border: 1px solid rgba(255, 107, 107, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: vocShake 0.4s ease-in-out;
+}
+
+/* Success State */
+.voc-success-message {
+  padding: 4rem 2rem;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.voc-check-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(76, 175, 80, 0.1);
+  color: #4CAF50;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  border: 2px solid #4CAF50;
+  animation: vocSuccessScale 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.voc-success-message h3 {
+  font-size: 1.8rem;
+  color: var(--nxgen-gold);
+  margin: 0;
+}
+
+.voc-success-message p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 80%;
+}
+
+/* Animations */
+@keyframes vocFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes vocSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes vocShake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-5px);
+  }
+
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes vocFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes vocSuccessScale {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes vocPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.95);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+  .voc-modal {
+    width: 100%;
+    height: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .voc-fab {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .voc-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PDFExportButton from '../components/PDFExportButton';
 import ScrollProgress from '../components/ScrollProgress';
+import VoCWidget from '../components/VoCWidget/VoCWidget';
 
 // Default implementation, that you can customize
 export default function Root({ children }: { children: React.ReactNode }) {
@@ -9,6 +10,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
       <ScrollProgress />
       {children}
       <PDFExportButton />
+      <VoCWidget />
     </>
   );
 }
