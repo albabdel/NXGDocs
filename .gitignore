@@ -40,3 +40,10 @@ yarn-error.log*
 .cursor/
 
 .vercel
+
+# Local Netlify folder
+.netlify
+
+# Temporary reference files
+api_methods.txt
+netlify_status.txt
