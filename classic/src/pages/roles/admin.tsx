@@ -1,223 +1,441 @@
 import React from 'react';
-import RoleLandingPage, { RoleSection, ArticleGroup, RoleFeature, TimelineItem, SmartTool } from '../../components/RoleLandingPage';
+import Layout from '@theme/Layout';
+import { motion } from 'framer-motion';
+import Link from '@docusaurus/Link';
+import PageHeader from '../../components/PageHeader';
 import {
-    Users,
-    Settings,
-    Shield,
-    Database,
-    Activity,
-    Globe,
-    Lock,
-    FileText
+    Users, Settings, Shield, Database, Activity, Globe, Lock, FileText, 
+    BarChart3, CheckCircle, Clock, Target, Zap,
+    Building, UserCheck, Key, AlertTriangle, TrendingUp, Eye, Cpu,
+    Network, Cloud, Smartphone, Calendar, Download, Headphones
 } from 'lucide-react';
 
-const adminSections: RoleSection[] = [
-    {
-        title: 'Configure Your Account',
-        description: 'Set up your organization, users, and security policies.',
-        cards: [
-            {
-                title: 'User Management',
-                description: 'Invite users, assign roles, and manage permissions.',
-                icon: <Users className="w-6 h-6 text-primary-600 dark:text-primary-400" />,
-                link: '/docs/account-management/managing-users-and-roles',
-                badge: 'Essential'
-            },
-            {
-                title: 'Global Settings',
-                description: 'Configure system-wide preferences and defaults.',
-                icon: <Settings className="w-6 h-6 text-primary-600 dark:text-primary-400" />,
-                link: '/docs/platform-fundamentals/what-is-gcxone-GCXONE',
-            },
-            {
-                title: 'Security Policies',
-                description: 'Manage password requirements and 2FA settings.',
-                icon: <Shield className="w-6 h-6 text-primary-600 dark:text-primary-400" />,
-                link: '/docs/knowledge-base/security-best-practices',
-            }
-        ]
-    },
-    {
-        title: 'Build Your Operations',
-        description: 'Define sites, groups, and operational workflows.',
-        cards: [
-            {
-                title: 'Site Management',
-                description: 'Organize your physical locations and sites.',
-                icon: <Globe className="w-6 h-6 text-primary-600 dark:text-primary-400" />,
-                link: '/docs/platform-fundamentals/site-synchronization',
-            },
-            {
-                title: 'Workflow Engine',
-                description: 'Design automated response procedures for alarms.',
-                icon: <Activity className="w-6 h-6 text-primary-600 dark:text-primary-400" />,
-                link: '/docs/platform-fundamentals/alarm-flow-device-to-GCXONE-to-talos',
-                badge: 'Advanced'
-            },
-            {
-                title: 'Data Retention',
-                description: 'Configure log storage and video retention policies.',
-                icon: <Database className="w-6 h-6 text-primary-600 dark:text-primary-400" />,
-                link: '/docs/installer-guide/storage-requirements',
-            }
-        ]
-    },
-    {
-        title: 'Enhance Your System',
-        cards: [
-            {
-                title: 'Audit Logs',
-                description: 'Review system access and change logs.',
-                icon: <FileText className="w-6 h-6 text-primary-600 dark:text-primary-400" />,
-                link: '/docs/reporting-analytics/user-activity-reports',
-            },
-            {
-                title: 'API Access',
-                description: 'Generate tokens for third-party integrations.',
-                icon: <Lock className="w-6 h-6 text-primary-600 dark:text-primary-400" />,
-                link: '/docs/knowledge-base/api-documentation',
-                badge: 'Developer'
-            }
-        ]
-    }
-];
-
-const adminVideos = [
-    {
-        title: 'Admin Dashboard Walkthrough',
-        description: 'A 5-minute tour of the main administrative functions.',
-        link: '/docs/knowledge-base/video-tutorials',
-    },
-    {
-        title: 'User Roles Explained',
-        description: 'Understanding the permission system in depth.',
-        link: '/docs/knowledge-base/video-tutorials',
-    }
-];
-
-const adminArticles: ArticleGroup[] = [
-    {
-        title: 'Account Security',
-        articles: [
-            { title: 'Enforcing 2FA for all users', link: '/docs/knowledge-base/security-best-practices' },
-            { title: 'Setting password complexity rules', link: '/docs/knowledge-base/security-best-practices' },
-            { title: 'IP whitelisting for admin access', link: '/docs/knowledge-base/security-best-practices' },
-        ]
-    },
-    {
-        title: ' Billing & Licenses',
-        articles: [
-            { title: 'Understanding license tiers', link: '/docs/account-management/managing-users-and-roles' },
-            { title: 'Viewing usage history', link: '/docs/reporting-analytics/user-activity-reports' },
-            { title: 'Managing subscription renewals', link: '/docs/account-management/managing-users-and-roles' },
-        ]
-    },
-    {
-        title: 'Integrations',
-        articles: [
-            { title: 'Connecting to AD/LDAP', link: '/docs/knowledge-base/api-documentation' },
-            { title: 'Setting up SSO', link: '/docs/knowledge-base/security-best-practices' },
-            { title: 'Webhooks configuration', link: '/docs/knowledge-base/api-documentation' },
-        ]
-    }
-];
-
-const adminFeatures: RoleFeature[] = [
-    {
-        title: 'Granular Access Control',
-        description: 'Define precise permissions for every user and resource in your organization.',
-        benefit: 'Eliminate security risks by ensuring users only access what they need.',
-        value: 'Compliance & Security'
-    },
-    {
-        title: 'Centralized Site Management',
-        description: 'Manage thousands of sites from a single pane of glass.',
-        benefit: 'Reduce administrative overhead by 60% with bulk operations.',
-        value: 'Operational Efficiency'
-    }
-];
-
-const adminWhatsNew: TimelineItem[] = [
-    {
-        title: 'New Audit Log Filters',
-        description: 'Filter logs by specific user actions and date ranges.',
-        date: 'Oct 2025',
-        status: 'released'
-    },
-    {
-        title: 'Bulk User Invite',
-        description: 'Invite up to 50 users at once via CSV upload.',
-        date: 'Sep 2025',
-        status: 'released'
-    }
-];
-
-const adminRoadmap: TimelineItem[] = [
-    {
-        title: 'Custom Roles Builder',
-        description: 'Create completely custom permission sets beyond the default roles.',
-        date: 'Q1 2026',
-        status: 'planned'
-    },
-    {
-        title: 'AI-Powered Anomaly Detection',
-        description: 'Alerts for unusual user login patterns.',
-        date: 'Q2 2026',
-        status: 'planned'
-    }
-];
-
-const adminSmartTools: SmartTool[] = [
-    {
-        title: 'Nova99x Filter',
-        description: 'AI-powered false alarm reduction engine.',
-        metric: '99%',
-        footer: 'Reduction in false alarms',
-        link: '/docs/knowledge-base/video-tutorials', // Placeholder as per logic
-        visualType: 'radial',
-        accentColor: '#8b5cf6' // Violet
-    },
-    {
-        title: 'System Health',
-        description: 'Real-time uptime and service status.',
-        metric: '100%',
-        footer: 'System uptime last 30 days',
-        link: '/docs/reporting/dashboard-widgets',
-        visualType: 'bar',
-        accentColor: '#10b981' // Green
-    },
-    {
-        title: 'Audit Compliance',
-        description: 'Automated user activity tracking score.',
-        metric: '94/100',
-        footer: 'Security compliance score',
-        link: '/docs/reporting/user-activity-reports',
-        visualType: 'activity',
-        accentColor: '#f59e0b' // Amber
-    },
-    {
-        title: 'License Usage',
-        description: 'Real-time seat and device utilization.',
-        metric: '450/500',
-        footer: 'Active licenses used',
-        link: '/docs/account-management/managing-users-and-roles',
-        visualType: 'grid',
-        accentColor: '#3b82f6' // Blue
-    }
-];
-
-export default function AdminLandingPage(): React.JSX.Element {
+export default function AdminLandingPage() {
     return (
-        <RoleLandingPage
+        <Layout
             title="Admin Workspace"
-            description="Manage your organization, users, and system configuration from a central command center."
-            sections={adminSections}
-            videos={adminVideos}
-            articleGroups={adminArticles}
-            features={adminFeatures}
-            whatsNew={adminWhatsNew}
-            roadmap={adminRoadmap}
-            smartTools={adminSmartTools}
-        />
+            description="Complete administrative control center for GCXONE platform management"
+        >
+            <main className="min-h-screen bg-black">
+                <PageHeader 
+                    breadcrumbs={[
+                        { label: 'Home', href: '/' },
+                        { label: 'Learn by Role', href: '/#learn-by-role' },
+                        { label: 'Admin' }
+                    ]}
+                />
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                    {/* Hero Section */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="text-center mb-20"
+                    >
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#E8B058]/10 border border-[#E8B058]/20 rounded-full mb-6">
+                            <Shield className="w-4 h-4 text-[#E8B058]" />
+                            <span className="text-sm font-medium text-[#E8B058]">System Administrator</span>
+                        </div>
+                        <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+                            Admin Workspace
+                        </h1>
+                        <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed mb-8">
+                            Complete control center for managing your GCXONE organization, users, security policies, 
+                            and system-wide configurations. Enterprise-grade administration tools at your fingertips.
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                            {[
+                                { 
+                                    title: 'User Management', 
+                                    description: 'Create and manage users, roles, and permissions',
+                                    icon: <Users className="w-6 h-6" />,
+                                    link: '/docs/admin-guide/user-management'
+                                },
+                                { 
+                                    title: 'System Configuration', 
+                                    description: 'Configure system-wide settings and preferences',
+                                    icon: <Settings className="w-6 h-6" />,
+                                    link: '/docs/admin-guide/dashboard-overview'
+                                },
+                                { 
+                                    title: 'Security & Access', 
+                                    description: 'Manage security policies and access controls',
+                                    icon: <Shield className="w-6 h-6" />,
+                                    link: '/docs/admin-guide/rbac'
+                                }
+                            ].map((feature, idx) => (
+                                <Link
+                                    key={idx}
+                                    to={feature.link}
+                                    className="group p-6 bg-white/5 rounded-xl border border-white/10 hover:border-[#E8B058]/50 transition-all text-center no-underline"
+                                >
+                                    <div className="flex justify-center mb-3 text-[#E8B058]">
+                                        {feature.icon}
+                                    </div>
+                                    <div className="text-lg font-semibold text-white mb-2 group-hover:text-[#E8B058] transition-colors">{feature.title}</div>
+                                    <div className="text-xs text-white/70">{feature.description}</div>
+                                </Link>
+                            ))}
+                        </div>
+                    </motion.div>
+
+                    {/* Core Administration */}
+                    <motion.section
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
+                        className="mb-32"
+                    >
+                        <div className="text-center mb-12">
+                            <h2 className="text-3xl font-bold text-white mb-4">Core Administration</h2>
+                            <p className="text-white/70 text-lg max-w-3xl mx-auto">
+                                Essential tools for managing your GCXONE organization and security infrastructure
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {[
+                                {
+                                    title: 'User Management',
+                                    description: 'Create, manage, and assign roles to users across your organization',
+                                    icon: <Users className="w-8 h-8" />,
+                                    link: '/docs/admin-guide/user-management',
+                                    badge: 'Essential',
+                                    color: '#10B981'
+                                },
+                                {
+                                    title: 'Security Policies',
+                                    description: 'Configure 2FA, password requirements, and access controls',
+                                    icon: <Shield className="w-8 h-8" />,
+                                    link: '/docs/getting-started/user-management/roles-and-access-levels',
+                                    badge: 'Critical',
+                                    color: '#EF4444'
+                                },
+                                {
+                                    title: 'System Configuration',
+                                    description: 'Global settings, preferences, and platform-wide defaults',
+                                    icon: <Settings className="w-8 h-8" />,
+                                    link: '/docs/admin-guide/dashboard-overview',
+                                    color: '#3B82F6'
+                                },
+                                {
+                                    title: 'Site Management',
+                                    description: 'Organize locations, hierarchies, and geographical structures',
+                                    icon: <Globe className="w-8 h-8" />,
+                                    link: '/docs/admin-guide/creating-sites',
+                                    color: '#8B5CF6'
+                                },
+                                {
+                                    title: 'Audit & Compliance',
+                                    description: 'Access logs, user activity reports, and compliance tracking',
+                                    icon: <FileText className="w-8 h-8" />,
+                                    link: '/docs/admin-guide/dashboard-overview',
+                                    color: '#F59E0B'
+                                },
+                                {
+                                    title: 'API Management',
+                                    description: 'Learn about API authentication, tokens, and integration access',
+                                    icon: <Lock className="w-8 h-8" />,
+                                    link: '/docs/api/index',
+                                    badge: 'Developer',
+                                    color: '#06B6D4'
+                                }
+                            ].map((item, idx) => (
+                                <motion.div
+                                    key={item.title}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4, delay: idx * 0.1 }}
+                                    viewport={{ once: true }}
+                                >
+                                    <Link
+                                        to={item.link}
+                                        className="group block h-full p-6 bg-[#202020] rounded-xl border border-white/10 hover:border-[#E8B058]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#E8B058]/10 no-underline"
+                                    >
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <div 
+                                                className="p-3 rounded-lg"
+                                                style={{ backgroundColor: `${item.color}20`, color: item.color }}
+                                            >
+                                                {item.icon}
+                                            </div>
+                                            {item.badge && (
+                                                <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                                                    item.badge === 'Critical' ? 'bg-red-500/20 text-red-400' :
+                                                    item.badge === 'Essential' ? 'bg-green-500/20 text-green-400' :
+                                                    'bg-blue-500/20 text-blue-400'
+                                                }`}>
+                                                    {item.badge}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-[#E8B058] transition-colors">
+                                            {item.title}
+                                        </h3>
+                                        <p className="text-sm text-white/70 leading-relaxed">{item.description}</p>
+                                    </Link>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </motion.section>
+
+                    {/* Advanced Features */}
+                    <motion.section
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
+                        className="mb-32"
+                    >
+                        <div className="text-center mb-12">
+                            <h2 className="text-3xl font-bold text-white mb-4">Advanced Administration</h2>
+                            <p className="text-white/70 text-lg max-w-3xl mx-auto">
+                                Enterprise-grade tools for large-scale deployments and complex organizational structures
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {[
+                                {
+                                    title: 'Customer & Site Management',
+                                    description: 'Manage customers, sites, and organizational hierarchies',
+                                    features: ['Creating customers', 'Site configuration', 'Site groups', 'Hierarchy management'],
+                                    icon: <Database className="w-8 h-8" />,
+                                    link: '/docs/admin-guide/creating-customers'
+                                },
+                                {
+                                    title: 'Role-Based Access Control',
+                                    description: 'Configure roles, permissions, and access levels for your organization',
+                                    features: ['Role creation', 'Permission matrix', 'Access levels', 'User privileges'],
+                                    icon: <Network className="w-8 h-8" />,
+                                    link: '/docs/admin-guide/rbac'
+                                },
+                                {
+                                    title: 'Analytics & Reporting',
+                                    description: 'Monitor system performance, alarm volumes, and operational metrics',
+                                    features: ['Dashboard overview', 'Alarm analytics', 'Device health', 'Performance metrics'],
+                                    icon: <BarChart3 className="w-8 h-8" />,
+                                    link: '/docs/admin-guide/dashboard-overview'
+                                },
+                                {
+                                    title: 'System Configuration',
+                                    description: 'Configure system-wide settings, timezones, and custom properties',
+                                    features: ['Timezone management', 'Custom properties', 'Event clip configuration', 'System preferences'],
+                                    icon: <CheckCircle className="w-8 h-8" />,
+                                    link: '/docs/admin-guide/timezone-management'
+                                }
+                            ].map((feature, idx) => (
+                                <motion.div
+                                    key={feature.title}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4, delay: idx * 0.1 }}
+                                    viewport={{ once: true }}
+                                >
+                                    <Link
+                                        to={feature.link}
+                                        className="group block h-full p-8 bg-gradient-to-br from-[#202020] to-[#1a1a1a] rounded-xl border border-white/10 hover:border-[#E8B058]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#E8B058]/10 no-underline"
+                                    >
+                                        <div className="flex items-center gap-4 mb-6">
+                                            <div className="p-4 bg-[#E8B058]/10 rounded-lg text-[#E8B058]">
+                                                {feature.icon}
+                                            </div>
+                                            <div>
+                                                <h3 className="text-xl font-semibold text-white group-hover:text-[#E8B058] transition-colors">
+                                                    {feature.title}
+                                                </h3>
+                                            </div>
+                                        </div>
+                                        <p className="text-white/70 mb-6">{feature.description}</p>
+                                        <div className="space-y-2">
+                                            {feature.features.map((item, i) => (
+                                                <div key={i} className="flex items-center gap-2 text-sm text-white/60">
+                                                    <CheckCircle className="w-4 h-4 text-green-400" />
+                                                    {item}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </Link>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </motion.section>
+
+                    {/* Quick Actions */}
+                    <motion.section
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
+                        className="mb-32"
+                    >
+                        <div className="text-center mb-12">
+                            <h2 className="text-3xl font-bold text-white mb-4">Quick Actions</h2>
+                            <p className="text-white/70 text-lg max-w-3xl mx-auto">
+                                Common administrative tasks and frequently accessed tools
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {[
+                                {
+                                    title: 'Creating Users',
+                                    description: 'Learn how to invite and configure new team members',
+                                    icon: <UserCheck className="w-6 h-6" />,
+                                    link: '/docs/admin-guide/creating-users'
+                                },
+                                {
+                                    title: 'API Authentication',
+                                    description: 'Understand API tokens and integration access',
+                                    icon: <Key className="w-6 h-6" />,
+                                    link: '/docs/api/index'
+                                },
+                                {
+                                    title: 'System Monitoring',
+                                    description: 'Monitor platform status and device health',
+                                    icon: <Activity className="w-6 h-6" />,
+                                    link: '/docs/admin-guide/device-health-status'
+                                },
+                                {
+                                    title: 'Security Configuration',
+                                    description: 'Configure security policies and access controls',
+                                    icon: <AlertTriangle className="w-6 h-6" />,
+                                    link: '/docs/admin-guide/rbac'
+                                }
+                            ].map((action, idx) => (
+                                <motion.div
+                                    key={action.title}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4, delay: idx * 0.1 }}
+                                    viewport={{ once: true }}
+                                >
+                                    <Link
+                                        to={action.link}
+                                        className="group block p-6 bg-[#202020] rounded-xl border border-white/10 hover:border-[#E8B058]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#E8B058]/10 no-underline"
+                                    >
+                                        <div className="p-3 bg-[#E8B058]/10 rounded-lg text-[#E8B058] inline-block mb-4">
+                                            {action.icon}
+                                        </div>
+                                        <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#E8B058] transition-colors">
+                                            {action.title}
+                                        </h3>
+                                        <p className="text-sm text-white/70">{action.description}</p>
+                                    </Link>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </motion.section>
+
+                    {/* Resources & Support */}
+                    <motion.section
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
+                        className="mb-16"
+                    >
+                        <div className="text-center mb-12">
+                            <h2 className="text-3xl font-bold text-white mb-4">Resources & Support</h2>
+                            <p className="text-white/70 text-lg max-w-3xl mx-auto">
+                                Documentation, training materials, and support channels for administrators
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {[
+                                {
+                                    title: 'Admin Documentation',
+                                    description: 'Comprehensive guides for all administrative functions',
+                                    icon: <FileText className="w-6 h-6" />,
+                                    link: '/docs/admin-guide/dashboard-overview',
+                                    items: ['User management guides', 'Security configuration', 'System administration', 'Troubleshooting']
+                                },
+                                {
+                                    title: 'Training Resources',
+                                    description: 'Video tutorials and certification programs',
+                                    icon: <Eye className="w-6 h-6" />,
+                                    link: '/docs/getting-started',
+                                    items: ['Video walkthroughs', 'Best practices', 'Certification courses', 'Webinar recordings']
+                                },
+                                {
+                                    title: 'Support Channels',
+                                    description: 'Get help when you need it most',
+                                    icon: <Headphones className="w-6 h-6" />,
+                                    link: '/docs/troubleshooting-support/how-to-submit-a-support-ticket',
+                                    items: ['24/7 technical support', 'Priority admin queue', 'Implementation assistance', 'Emergency escalation']
+                                }
+                            ].map((resource, idx) => (
+                                <motion.div
+                                    key={resource.title}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4, delay: idx * 0.1 }}
+                                    viewport={{ once: true }}
+                                >
+                                    <Link
+                                        to={resource.link}
+                                        className="group block h-full p-6 bg-[#202020] rounded-xl border border-white/10 hover:border-[#E8B058]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#E8B058]/10 no-underline"
+                                    >
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <div className="p-3 bg-[#E8B058]/10 rounded-lg text-[#E8B058]">
+                                                {resource.icon}
+                                            </div>
+                                            <h3 className="text-lg font-semibold text-white group-hover:text-[#E8B058] transition-colors">
+                                                {resource.title}
+                                            </h3>
+                                        </div>
+                                        <p className="text-sm text-white/70 mb-4">{resource.description}</p>
+                                        <div className="space-y-2">
+                                            {resource.items.map((item, i) => (
+                                                <div key={i} className="flex items-center gap-2 text-xs text-white/60">
+                                                    <CheckCircle className="w-3 h-3 text-green-400" />
+                                                    {item}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </Link>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </motion.section>
+
+                    {/* CTA Section */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        viewport={{ once: true }}
+                        className="text-center"
+                    >
+                        <div className="p-8 bg-[#202020] border border-white/10 rounded-2xl">
+                            <Shield className="w-12 h-12 text-[#E8B058] mx-auto mb-4" />
+                            <h2 className="text-2xl font-bold text-white mb-4">Need Administrative Assistance?</h2>
+                            <p className="text-white/70 mb-8 max-w-xl mx-auto">
+                                Our expert support team is available to help with complex configurations and enterprise deployments
+                            </p>
+                            <div className="inline-flex gap-4 flex-wrap justify-center">
+                                <Link
+                                    to="/docs/troubleshooting-support/how-to-submit-a-support-ticket"
+                                    className="inline-flex items-center gap-2 px-8 py-4 bg-[#E8B058] hover:bg-[#D4A047] text-black font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-[#E8B058]/25 no-underline"
+                                >
+                                    <Headphones className="w-5 h-5" />
+                                    Contact Support
+                                </Link>
+                                <Link
+                                    to="/docs/admin-guide/dashboard-overview"
+                                    className="inline-flex items-center gap-2 px-8 py-4 bg-[#202020] hover:bg-[#2a2a2a] border border-white/10 rounded-xl text-white hover:text-[#E8B058] transition-all no-underline"
+                                >
+                                    <FileText className="w-5 h-5" />
+                                    View Documentation
+                                </Link>
+                            </div>
+                        </div>
+                    </motion.div>
+                </div>
+            </main>
+        </Layout>
     );
 }
