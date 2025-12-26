@@ -10,50 +10,36 @@ sidebar_position: 7
 last_updated: 2025-12-04
 ---
 
-# Site Groups Management
+# Site Groups & Hierarchy Management
 
-## Overview
+GCXONE uses a hierarchical approach to organize customer locations, allowing for efficient management of large-scale deployments across multiple regions and organizational departments.
 
-[Placeholder: Brief overview of Site Groups Management]
+## The GCXONE Hierarchy
 
-## Prerequisites
+Organization within the platform follows a structured path:
+1.  **Tenant / Service Provider**: The top-level entity managing all downstream hardware and users.
+2.  **Organizational Unit (OU)**: High-level grouping for major clients or divisions (e.g., "Supermarket Chain HQ").
+3.  **Site Group**: Regional or functional groupings within an OU (e.g., "North Holland Stores").
+4.  **Site**: The individual physical location generating alarms and video streams.
+5.  **Device**: Hardware connected to the site (NVR, Camera, I/O).
+6.  **Sensor/Channel**: The specific data source (e.g., Camera 01, Motion Sensor A).
 
-[Placeholder: List any prerequisites]
+## Using Site Groups
 
-## Key Concepts
+Site Groups are not mandatory but are highly recommended for sites with high camera counts or regional management needs.
 
-[Placeholder: Explain key concepts]
+### Benefits of Grouping
+-   **Simplified Reporting**: Generate an alarm list or health report for an entire group at once.
+-   **Workflow Application**: Apply a specific holiday schedule or escalation scenario to all sites in a group (e.g., all stores in a city undergoing local festivities).
+-   **Technical Categorization**: Group sites by the type of hardware deployed (e.g., "Teltonika Router Sites") to simplify maintenance workflows.
 
-## Step-by-Step Guide
+### Inheritance Logic
+When GCXONE searches for a setting (like a "Guard" contact or a "Business Hours" schedule), it starts at the **Site** level and works its way up the hierarchy.
+-   If a site-specific contact is not found, the system checks the **Site Group**.
+-   If still not found, it checks the **Organizational Unit**.
+-   Finally, it falls back to the **Global (Tenant)** settings.
 
-### Step 1: [First Step]
+---
 
-[Placeholder: Detailed instructions]
-
-### Step 2: [Second Step]
-
-[Placeholder: Detailed instructions]
-
-### Step 3: [Third Step]
-
-[Placeholder: Detailed instructions]
-
-## Common Issues
-
-[Placeholder: List common issues and solutions]
-
-## Best Practices
-
-[Placeholder: List best practices]
-
-## Related Articles
-
-[Placeholder: Link to related articles]
-
-- [Related Article 1](#)
-- [Related Article 2](#)
-- [Related Article 3](#)
-
-## Need Help?
-
-If you're experiencing issues, check our [Troubleshooting Guide](/docs/troubleshooting) or [contact support](/docs/support).
+> [!TIP]
+> Use **Service Companies** to link independent maintenance teams (e.g., "Local Electrician") to multiple site groups regardless of their customer affiliation.

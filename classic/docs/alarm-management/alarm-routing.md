@@ -12,47 +12,35 @@ last_updated: 2025-12-04
 
 # Alarm Routing Configuration
 
+Direct alarms to the right responder using logic-based routing in Talos.
+
 ## Overview
 
-[Placeholder: Brief overview of Alarm Routing Configuration]
+Alarm Routing ensures that every security event is forwarded to the appropriate operator terminal, mobile device, or central station based on predefined conditions.
 
-## Prerequisites
+## Routing Levels
 
-[Placeholder: List any prerequisites]
+- **Global Routing**: Applies to all sites in the organization.
+- **Group Routing**: Directs alarms from specific site groups (e.g., "North Region" or "Premium Customers").
+- **Site-Specific Routing**: Tailored rules for individual high-security locations.
 
-## Key Concepts
+## Configuration Steps
 
-[Placeholder: Explain key concepts]
+### 1. Define Conditions
+Routing is based on "Incoming Conditions" such as:
+- **Alarm Code**: (e.g., Burglary, Fire, Panic).
+- **Zone/Partition**: Specific areas within a site.
+- **Time/Schedule**: Routing differently after hours or during weekends.
 
-## Step-by-Step Guide
+### 2. Assign Workflows
+Each routing rule points to a specific **Workflow**. The workflow dictates the sequence of actions (Email, SMS, PTZ move, Operator prompt) once the alarm reaches its destination.
 
-### Step 1: [First Step]
-
-[Placeholder: Detailed instructions]
-
-### Step 2: [Second Step]
-
-[Placeholder: Detailed instructions]
-
-### Step 3: [Third Step]
-
-[Placeholder: Detailed instructions]
-
-## Common Issues
-
-[Placeholder: List common issues and solutions]
+### 3. Automated Routing
+Use automated workflows for low-priority alerts or system notifications that don't require human intervention, such as "Test Mode" heartbeats.
 
 ## Best Practices
-
-[Placeholder: List best practices]
-
-## Related Articles
-
-[Placeholder: Link to related articles]
-
-- [Related Article 1](#)
-- [Related Article 2](#)
-- [Related Article 3](#)
+- **Managed Workflows**: Create a single "Managed" workflow and assign it to multiple routing rules to simplify maintenance.
+- **Redundancy**: Always configure a fallback routing rule in case the primary destination is unavailable.
 
 ## Need Help?
 

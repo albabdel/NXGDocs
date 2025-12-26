@@ -1,0 +1,66 @@
+NXGEN Technology AG
+Network Time Protocol (NTP) Client Configuration
+Guide
+NTP client configuration ensures accurate time synchronization with NXGEN NTP Servers on devices like
+Teltonika routers and Hikvision NVR devices. The NTP Server connects only with devices connected via VPN to
+Nxgen. This guide outlines the steps to configure NTP clients on these devices with a specified NTP server
+address.
+Teltonika Router NTP Client Configuration:
+By default, the Teltonika router blocks DNS resolution. If we intend to use DNS as the NTP server, we need to
+allow DNS resolution by disabling "Rebind protection" in the DNS options. Follow these steps:
+1. Access Router Web Interface:
+Open a web browser and enter the router's IP address. Log in with your credentials.
+2. Navigate to Network > DNS.
+Turn off "Rebind protection"
+Save and apply the changes.
+NXGEN NTP Server Private DNS Address (for VPN Customers):
+1. time1.nxgen.cloud
+2. time2.nxgen.cloud
+NXGEN NTP Server Public DNS Address ( for non VPN connections):
+1. timeext1.nxgen.cloud
+https://helpdesk.nxgen.io/portal/en/kb/articles/network-time-protocol-ntp-client-configuration-guide
+Configure NTP:
+1. Navigate to NTP Settings:
+2. Find the "System" or "Services" section in the router's web interface.
+Look for NTP settings or a similar option.
+3. Configure NTP Server:
+Enter the multiple NTP server address sections:
+Hostname: time1.nxgen.cloud
+Hostname: time2.nxgen.cloud
+Specify the synchronization interval if available (e.g., every 3600 seconds or 60 mins for hourly
+synchronization).
+Save or Apply changes.
+Hikvision NVR NTP Client Configuration:
+1. Access NVR Web Interface:
+Launch a web browser and enter the NVR's IP address. Log in using your credentials.
+2. Navigate to System Settings:
+https://helpdesk.nxgen.io/portal/en/kb/articles/network-time-protocol-ntp-client-configuration-guide
+Look for the "Configuration" or "System Settings" option.
+3. Configure NTP Settings:
+Locate the NTP settings on “Time Settings” section.
+Enter the NTP server address: time1.nxgen.cloud
+Specify the synchronization interval if available (e.g., every 3600 seconds for hourly
+synchronization).
+Save or Apply changes.
+ 
+ 
+Dahua Device NTP Client Configuration:
+1. Access NVR Web Interface:
+Launch a web browser and enter the NVR's IP address. Log in using your credentials.
+2. Navigate to System Settings:
+Look for the "Configuration" or "System" option.
+3. Configure NTP Settings:
+Locate the NTP settings on “Date&Time” section.
+Enter the NTP server address: time1.nxgen.cloud
+Specify the synchronization interval if available (e.g., every 3600 seconds for hourly
+synchronization).
+Save or Apply changes.
+https://helpdesk.nxgen.io/portal/en/kb/articles/network-time-protocol-ntp-client-configuration-guide
+Additional Considerations:
+1. Firewall Settings:
+Ensure that there are no firewall rules blocking NTP traffic to and from the specified NTP server
+(time1.nxgen.cloud, time2.nxgen.cloud).
+2. Time Zone Settings:
+Verify and configure the correct time zone settings on the devices to ensure accurate time
+synchronization.
+https://helpdesk.nxgen.io/portal/en/kb/articles/network-time-protocol-ntp-client-configuration-guide

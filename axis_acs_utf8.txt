@@ -1,0 +1,375 @@
+﻿NXGEN Technology AG
+NXGEN Platform ΓÇô Axis Communications Family
+Integration Guide
+ Table of contents
+Introduction
+System Overview
+System Architecture
+Communication Flows
+Configuration Overview
+Pre-Integration Requirements
+Device Configuration in the Genesis (GCX) Platform
+Axis Family devices Configuration
+Events and Rules Configuration
+Testing and Verification
+Best Practices
+Alarm Processing Overview
+1. Workflow Application (Alarm Handling)
+2. Video Viewer Application (Alarm Verification)
+3. Map View (Geospatial Awareness & Output Control)
+Multi-Monitor Operator Workflow
+Integrations Features Overview
+Summary
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+Introduction
+This document describes the end-to-end integration between the┬áNXGEN Monitoring Platform┬áand the┬áAxis
+Communications family of devices, including:
+Axis Network Cameras (IP Cameras)
+Axis Network Audio Systems (Horn Speakers)
+Axis I/O Relay Modules
+Axis Camera Station Pro (ACS)
+The purpose of this integration is to enable unified monitoring, event ingestion, device control, audio actions, and
+simplified configuration of Axis devices from within the NXGEN ecosystem.
+This ensures:
+Consistent alarm delivery
+Automated workflows
+Seamless video access
+Unified I/O and audio control
+Scalable device management
+System Overview
+Axis devices communicate using a combination of industry-standard and Axis-native protocols:
+Axis Device Type
+Supported Protocols
+Purpose
+Network IP Cameras
+VAPIX, RTSP/HTTPS, Webhook
+Video, events, command and control
+Network Audio such as Horn Speakers
+VAPIX Audio, Action Rules, SIP
+Announcements, alarms
+Network┬áI/O Relay Modules
+VAPIX I/O, Event Framework
+Sensors, relays
+ACS Pro
+REST API (internal ACS facade APIs),
+RTSP
+NVR services, video search, playback,
+Videos, events, command and control
+NXGEN consumes Axis data for:
+Live video streaming
+Event/alarm notifications
+I/O status changes
+Audio announcements
+ACS stored video playback
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+System Architecture
+Axis cameras, audio devices, ACS Pro, and I/O Modules connect locally to the site router, which securely links to the cloud via
+VPN (preferred) or non-VPN. NXGEN receives all video streams, alarms, and device telemetry from the cloud endpoint and
+presents them to monitoring operators across various applications. The architecture enables:
+Centralized management
+Unified event handling
+Real-time audio and I/O controls
+Scalable multi-site monitoring
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+Communication Flows
+Flow
+Protocol
+Direction
+Notes
+Live/Playback
+Stream
+RTSP/HTTPS
+CS Pro or IP
+Camera to
+NXGEN
+Genesis supports both cloud re-directed
+streaming as well as┬álocal mode (bypassing
+cloud).
+Events
+Action Rules/Webhooks (HTTPS
+Push)
+Axis Devices to
+NXGEN
+Motion, Tamper, I/O, System alerts
+Audio
+Announcements
+SIP / Genesis Audio
+NXGEN to Axis live announcements
+I/O Control
+Axis HTTPS Digital I/O
+NXGEN to Axis Trigger Relays/Virtual Inputs
+Command and
+Controls
+ACS Internal API
+NXGEN to Axis Queries, Command and Controls
+Configuration Overview
+Pre-Integration Requirements
+Axis device updated to latest firmware.
+HTTP enabled.
+API access user with necessary privileges.
+For ACS Pro:
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+ΓÇ£Web ClientΓÇ¥ enabled
+Ports┬á29202┬á(TCP),┬á29204┬á(API), and┬á29205┬á(streaming) are open (depending on version),80 and 443.
+Ensure network connectivity (either public network access or through VPN) between the Site network and the monitoring
+platform (Genesis).
+For IP Cameras:
+Enable┬áVAPIX API┬á(default enabled).
+API Port is open and accessible.
+Enable┬áEvent Service.
+Configure┬áRTSP┬áparameters if needed (codec, bitrate) to match your network bandwidth.
+Device Configuration in the Genesis (GCX) Platform
+Please find the steps below to add┬áAxis Camera Station (ACS) Pro,┬áAxis I/O Modules, and┬áAxis Network Horn Speakers┬áinto
+the┬áGCX Environment.
+Axis Family devices Configuration
+Step 1: Login to GCX Platform
+Open the GCX (Genesis Cloud Experience) URL in a browser.
+Sign in using your administrator or integrator credentials.
+After successful login, the system initializes your session and loads the environment associated with your tenant.
+Step 2: Select Your Organization
+If your tenant is configured with┬ámultiple organizations, GCX will prompt you to select the organization you want to manage.
+If multiple organizations exist:┬áYou will see an organization selector screen. Choose the correct organization to proceed.
+If only one organization exists:┬áGCX automatically logs you into the┬ádefault organization┬áand directly loads the
+dashboard.
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+Step 3: Navigate to the Configuration App
+From the left-hand┬áApps┬ápanel, locate the┬áConfiguration┬áicon.
+Click┬áConfiguration┬áto open the configuration workspace.
+The system will load the unified configuration screen, where all customer profiles, sites, and devices are managed.
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+Step 4: Understanding the Configuration Hierarchy
+GCX follows a strict, intuitive hierarchy to ensure clear device ownership and maintain clean data structure:┬áCustomer┬á ΓåÆ┬á Site┬á
+ΓåÆ┬á Device ΓåÆ Cameras/Sensors.
+How this hierarchy works
+Customer:┬áRepresents the top-level organizational entity (e.g., a company, enterprise, or client). Each customer contains
+one or more physical or logical sites.
+Site:┬áRepresents a physical location or deployment area (office, warehouse, tower site, retail store, etc.). Devices deployed
+at the location are associated with the site for clarity and operational control.
+Device:┬áRepresents the actual hardware endpoints such as:
+Axis IP Cameras
+ACS Pro Recorders
+Axis I/O Modules
+Axis Horn Speakers
+This hierarchy ensures:
+Clean configuration management
+Accurate alarm routing
+Multi-tenant separation
+Site-wise reporting and visibility
+Scalable onboarding for larger enterprise fleets
+Step 5: Select or Create a Customer/Site
+Once in the Configuration app:
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+Choose an existing customer/Site from the list,┬áor┬áClick┬áAdd New┬áto create a new top-level customer and site profile.
+Step 6: Add Devices to the Site
+Once the site is created and selected:
+Open the┬áDevices┬átab under the site.
+Click┬áAdd New.
+Choose the type of Axis device you want to add:
+Axis Camera Station (for ACS Pro devices)
+Axis (for I/) Module and IP Cameras)
+Genesis Audio (for Axis Horn Speakers)
+The system will open the device configuration wizard.
+Step 7: Provide Device details
+GCX will prompt for:
+Name
+IP Address / Hostname
+Control Port
+Username & Password
+Device Time zone
+Once entered, click┬áDiscover.
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+Step 8: Camera list discovery
+GCX automatically retrieves:
+Camera list (for ACS Pro or IP Camera - if it has multiple profile/view)
+I/O ports (for I/O modules)
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+Click Save and complete the device addition.
+Device overview would be shown once the save is complete.
+Similarly for Axis IO Modules, you can select Device Type as "Axis" and control port as the Vapix API port.
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+This will get all the list of available inputs and outputs and add it into the device IO list.
+For Axis Horn Speaker, you can select the Device type as "Genesis Audio" and give a valid name and hit discover.
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+After the horn speaker is discovered and added, GCX automatically generates the SIP username, password, and domain
+details. These credentials must be configured on the horn speaker so it can register with the SIP endpoint and enable
+audio communication.
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+Make sure the above SIP details are configured in the horn speaker by entering the generated username, password, and
+domain into the deviceΓÇÖs SIP settings page and saving the configuration. This ensures the speaker successfully registers
+with the GCX SIP endpoint for audio communication.
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+To verify that the camera is streaming correctly, open any camera from the configured device list. You should be able to
+view the live video stream without interruptions.
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+In the Video Viewer application, you can perform additional video operations such as multi-camera streaming, PTZ control, preset
+management, playback of recorded footage, and more. Simply drag and drop the device into the play area, and the system will
+begin displaying the live multi-camera stream.
+Events and Rules Configuration
+GCX supports alarm forwarding from ACS pro through┬áAction Rules. To configure this:
+Login to the┬áACS Client.
+Navigate to the┬áEvents┬ásection and open┬áAction Rules.
+Click┬áNew Action Rule┬áto start the configuration wizard.
+Choose the desired┬áalarm trigger, such as:
+Motion detection
+Device events
+Input/Output events
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+After selecting the trigger, set the┬áAction┬áto┬áΓÇ£Send HTTP NotificationΓÇ¥.
+Proceed with the wizard to define notification details.┬á
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+Configure┬áthe following parameters in the HTP Notification:
+Parameter
+Value
+Description
+URL
+https://acsproxy.nxgen.cloud/eventIngest
+genesis webhook endpoint
+Method
+POST
+HTTP method
+Content Type
+application/json
+Payload format
+To configure the Request Body, Use the following JSON template. Replace the placeholder values
+(<<DEVICE_ID_FROM_GENESIS>>, <<CAMERA_ID_FROM_GENESIS>>) with the actual device id and
+camera id which you can get it from the GCX Configuration URL.
+1. {
+2. ┬á "initialRequest": {
+3. ┬á ┬á "payload": {
+4. ┬á ┬á ┬á "type": "NOTIFICATION",
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+5. ┬á ┬á ┬á "authenticationToken": "<<DEVICE_ID_FROM_GENESIS>>",
+6. ┬á ┬á ┬á "notifications": [
+7. ┬á ┬á ┬á ┬á {
+8. ┬á ┬á ┬á ┬á ┬á "event": {
+9. ┬á ┬á ┬á ┬á ┬á ┬á "type": "ALARM_TRIGGERED",
+10. ┬á ┬á ┬á ┬á ┬á ┬á "genesisCamId": "<<CAMERA_ID_FROM_GENESIS>>",
+11. ┬á ┬á ┬á ┬á ┬á ┬á "cameraId": "$(TriggerData.SourceId)",
+12. ┬á ┬á ┬á ┬á ┬á ┬á "timestamp": "$(TriggerData.TimeUtc)"
+13. ┬á ┬á ┬á ┬á ┬á }
+14. ┬á ┬á ┬á ┬á }
+15. ┬á ┬á ┬á ]
+16. ┬á ┬á }
+17. ┬á }
+18. }
+You can get the place holder values straight from the url from the configuration window
+Here is how you can interpret the URL to extract the placeholder values for the Device ID and Camera ID.
+Testing and Verification
+Trigger a known rule in acs pro (e.g., motion or analytics alert).
+In Genesis, verify that the corresponding event appears in Video activity search or device level alarm dashboard.
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+If no events appear, confirm network reachability to┬áhttps://acsproxy.nxgen.cloud/eventIngest┬áand verify that the Action Set
+is active.
+Best Practices
+Always test connectivity with https://acsproxy.nxgen.cloud/eventIngest┬ábefore saving.
+Ensure firewall or outbound network policies allow TCP traffic to the Genesis endpoint.
+Avoid modifying placeholder syntax ΓÇö any incorrect character will break JSON parsing.
+Alarm Processing Overview
+GCX provides a multi-application alarm handling workflow designed for professional monitoring centers. When an alarm is
+received from an Axis device, three key applications work together to give operators complete situational awareness and rapid
+response capability.
+1. Workflow Application (Alarm Handling)
+The Workflow app (typically the Talos alarm management view) acts as the operatorΓÇÖs primary alarm console.
+Alarms are listed with full details including device, site, customer, timestamps, trigger type, and severity.
+Operators open an alarm to begin investigation, acknowledge it, add notes, assign it, or escalate it as required.
+This application serves as the central control point for managing the entire alarm lifecycle.
+2. Video Viewer Application (Alarm Verification)
+When an alarm is opened in the Workflow app, the Video Viewer automatically switches to the corresponding alarm
+context. It displays:
+Pre-alarm image
+Current-alarm image
+Post-alarm image.
+Operators also have access to a full suite of video tools:
+Live Video
+Playback Timeline
+PTZ Control
+Preset Navigation
+Audio Announcement/Talk-down
+Muti-camera layouts
+This gives operators immediate visual confirmation and the ability to verify the event in real time.
+3. Map View (Geospatial Awareness & Output Control)
+The Map application displays all devices and outputs positioned on an interactive site map.
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+When an alarm is selected in the Workflow app, the Map view automatically centers on the alarm location.
+Operators can interact with devices on the map and trigger outputs such as:
+Sirens
+Strobes
+I/O Relays
+Recorder audio clip trigger through Horn Speaker.
+This gives operators fast access to response actions directly on the site layout.
+Multi-Monitor Operator Workflow
+In professional control room setups, operators typically use three or more monitors. GCX is designed to support this environment:
+Monitor 1: Workflow application
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+Monitor 2: Video Viewer
+Monitor 3: Map View
+When the operator opens an alarm in the Workflow application:
+The Video Viewer on its dedicated monitor automatically switches to the alarmΓÇÖs video source(s).
+The Map View simultaneously updates to highlight the alarmΓÇÖs site and device location.
+This synchronized context switching ensures that:
+The operator has a holistic, 360┬░ view of the alarm.
+All relevant tools (video, PTZ, audio, maps, outputs) are instantly accessible.
+Response time is minimized, and situational understanding is maximized.
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+Integrations Features Overview
+The Genesis platform integrates with Axis Camera Station Pro through a combination of RESTful APIs, RTSP streaming, and
+webhook-based event forwarding. This integration enables unified management, monitoring, and analytics for all connected
+cameras.
+Feature
+Description
+API/Protocol
+Used
+Genesis Integration
+Status
+Device Discovery
+Automatically retrieves the list of configured cameras from the
+ACS Pro VMS.
+API
+Γ£à Integrated
+Live Stream
+Provides real-time video streaming from cameras connected to
+the ACS Pro VMS for live monitoring.
+RTSP
+Γ£à Integrated
+Playback Stream
+Enables access to recorded or historical footage from axisΓÇÖs
+video archive.
+RTSP
+Γ£à Integrated
+Timeline Control
+Displays the recorded video timeline for each camera, allowing
+smooth scrubbing and playback control.
+API
+Γ£à Integrated
+PTZ and Preset
+Control
+Allow pan, tilt, and zoom control of supported cameras, and the
+ability to trigger predefined PTZ presets.
+API
+Γ£à Integrated
+Alarms
+Forwards real-time event notifications (analytics, system, or
+rule-based alarms) to Genesis using Action Sets
+HTTP Webhook
+Γ£à Integrated
+Audio
+Real time audio announcement through Axis Horn Speaker
+SIP
+Γ£à Integrated
+Output and Rely
+Trigger
+Trigger outputs and relays to control external peripherals
+VAPIX
+Γ£à Integrated
+Summary
+By following this guide, you can integrate┬áAxis Camera Station Pro┬áand the full Axis ecosystem into your┬áNXGEN monitoring
+platform.
+This integration unifies:
+Live and recorded video
+Alarm ingestion
+Audio announcements
+I/O control
+Multi-application operator workflows
+Resulting in┬ácomprehensive, scalable, and efficient monitoring operations.
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000024290653/en
+

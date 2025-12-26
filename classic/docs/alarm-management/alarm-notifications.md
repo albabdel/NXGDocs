@@ -12,47 +12,28 @@ last_updated: 2025-12-04
 
 # Alarm Notifications
 
+Configure how and when users receive alerts about security events.
+
 ## Overview
 
-[Placeholder: Brief overview of Alarm Notifications]
+Notifications provide immediate awareness of alarms via Email, SMS, or Push Notifications, ensuring that even users away from the operator terminal remain informed.
 
-## Prerequisites
+## Notification Channels
 
-[Placeholder: List any prerequisites]
+- **Email**: Detailed reports including snapshots, site info, and timestamps.
+- **SMS**: Concise alerts for immediate action.
+- **Push (Mobile App)**: Direct interaction with the alarm, allowing users to view live video or snapshots.
+- **Voice Calls**: Automated voice announcements for high-priority alerts.
 
-## Key Concepts
+## Configuration Steps
 
-[Placeholder: Explain key concepts]
-
-## Step-by-Step Guide
-
-### Step 1: [First Step]
-
-[Placeholder: Detailed instructions]
-
-### Step 2: [Second Step]
-
-[Placeholder: Detailed instructions]
-
-### Step 3: [Third Step]
-
-[Placeholder: Detailed instructions]
-
-## Common Issues
-
-[Placeholder: List common issues and solutions]
+1. **User Profile**: Ensure the user's contact information (email/phone) is correctly configured in Talos.
+2. **Workflow Integration**: Add a "Send Notification" step in the relevant Alarm Workflow.
+3. **Condition Filtering**: Set filters so users only receive notifications for the sites and alarm types they are responsible for.
 
 ## Best Practices
-
-[Placeholder: List best practices]
-
-## Related Articles
-
-[Placeholder: Link to related articles]
-
-- [Related Article 1](#)
-- [Related Article 2](#)
-- [Related Article 3](#)
+- **Notification Throttle**: Avoid "alert fatigue" by setting frequency limits or only sending notifications for critical alarms.
+- **Rich Content**: Always include a link to the snapshot or live stream in the notification to allow for instant verification.
 
 ## Need Help?
 

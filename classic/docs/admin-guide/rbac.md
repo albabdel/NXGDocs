@@ -12,48 +12,40 @@ last_updated: 2025-12-04
 
 # Role-Based Access Control (RBAC)
 
-## Overview
+RBAC in GCXONE ensures that users have the precise level of access required for their operational duties, from tenant-wide administration to site-specific monitoring.
 
-[Placeholder: Brief overview of Role-Based Access Control (RBAC)]
+## Understanding Roles
 
-## Prerequisites
+Roles define what users can see and do within the platform. Each role contains a set of privileges (permissions) categorized by Application, Category, and Action (View, Create, Edit, Delete).
 
-[Placeholder: List any prerequisites]
+### Common Role Types
+-   **Company Admin**: Full access to all features, including system-wide configuration and user management.
+-   **Manager**: Supervises operations with broad view permissions but limited access to core settings.
+-   **Operator**: Optimized for day-to-day alarm processing and live monitoring.
+-   **End User**: Highly restricted role allowing customers to view and control only their own sites.
 
-## Key Concepts
+## Access Levels
 
-[Placeholder: Explain key concepts]
+Every role operates at one of three access levels, defining the boundary of visibility within the system hierarchy:
 
-## Step-by-Step Guide
+| Access Level         | Description               | Scope                                      |
+| -------------------- | ------------------------- | ------------------------------------------ |
+| **Service Provider** | Tenant-wide access.       | All Customers and all Sites.               |
+| **Customer**         | Account-specific access.  | Only assigned Customer(s) and their sites. |
+| **Site**             | Location-specific access. | Only assigned physical locations.          |
 
-### Step 1: [First Step]
+## Session Management
 
-[Placeholder: Detailed instructions]
+Session timeouts are configured at the **Role level**, ensuring consistent security policies across user types.
+-   **Range**: 30 to 1440 minutes (up to 24 hours).
+-   **Behavior**: If the GCXONE interface is unattended for the set duration, the user is automatically logged out.
 
-### Step 2: [Second Step]
+## Configuration Steps
 
-[Placeholder: Detailed instructions]
+1.  **Define Role**: Give the role a descriptive name (e.g., "Installer") and set the scope (Access Level).
+2.  **Assign Privileges**: Select the specific app categories (e.g., "Configuration", "Dashboard") and permitted actions.
+3.  **Set Timeout**: Define the session expiration for all users assigned to this role.
+4.  **Assigned to Users**: Map the role to individual accounts via the **Users** tab.
 
-### Step 3: [Third Step]
-
-[Placeholder: Detailed instructions]
-
-## Common Issues
-
-[Placeholder: List common issues and solutions]
-
-## Best Practices
-
-[Placeholder: List best practices]
-
-## Related Articles
-
-[Placeholder: Link to related articles]
-
-- [Related Article 1](#)
-- [Related Article 2](#)
-- [Related Article 3](#)
-
-## Need Help?
-
-If you're experiencing issues, check our [Troubleshooting Guide](/docs/troubleshooting) or [contact support](/docs/support).
+> [!IMPORTANT]
+> Changes to a role's permissions or access levels take effect immediately for all users assigned to that role.

@@ -34,7 +34,7 @@ function setStoredState(label: string, collapsed: boolean): void {
   }
 }
 
-export default function DocSidebarItemCategoryWrapper(props: CategoryProps): React.JSX.Element {
+export default function DocSidebarItemCategoryWrapper(props: CategoryProps): JSX.Element {
   const location = useLocation();
   const [collapsed, setCollapsed] = React.useState(() => {
     const stored = getStoredState(props.item.label);

@@ -16,7 +16,7 @@ export default function EnhancedFeatureCard({
   href, 
   icon,
   comingSoon = false 
-}: FeatureCardProps): React.JSX.Element {
+}: FeatureCardProps): JSX.Element {
   const [isHovered, setIsHovered] = useState(false);
 
   return (

@@ -1,0 +1,53 @@
+NXGEN Technology AG
+Redundancy
+ Table of contents
+Redundancy Filter in Genesis: What It Does and Why It Matters
+ What is the Redundancy Filter?
+🎯 Why is this useful?
+🔍 How does it work?
+🧠 Example
+⚠️ Important Notes for Device Configuration
+📷 Visual: Redundancy Filter in Simple Terms
+🔁 Redundancy Filter Illustration
+🛠️ Can the timer be changed?
+Redundancy Filter in Genesis: What It Does and Why
+It Matters
+ What is the Redundancy Filter?
+The Redundancy Filter is a built-in feature in Genesis that helps prevent a flood of similar alarms from the same
+camera or sensor being sent repeatedly to the cloud. It ensures that only one alarm is sent within a specific time
+window — by default, 30 seconds.
+This feature helps operators focus on meaningful alerts without being overwhelmed, and reduces unnecessary
+cloud traffic, bandwidth, and storage usage.
+🎯 Why is this useful?
+https://helpdesk.nxgen.io/portal/en/kb/articles/redundancy
+✅ Avoids alert fatigue for operators
+✅ Prevents cloud overload with duplicate alarms
+✅ Ensures alarms sent are actionable and meaningful
+✅ Helps maintain system performance and bandwidth
+🔍 How does it work?
+Let’s say the redundancy filter is set to 30 seconds:
+1. A camera or sensor sends a video alarm to Genesis.
+2. Genesis accepts the first alarm.
+3. If another alarm from the same camera with the same alarm code is received within 30 seconds, it will be
+automatically rejected.
+4. After the 30-second window ends, a new alarm from that camera will again be accepted.
+This logic is applied per camera, so each stream is handled independently.
+🧠 Example
+12:00:00 → Camera A sends motion alarm → ✅ Accepted
+12:00:20 → Camera A sends another motion alarm → ❌ Rejected
+12:00:31 → Camera A sends another motion alarm → ✅ Accepted
+⚠️ Important Notes for Device Configuration
+Devices should be configured to not send alarms too frequently, especially if the alarm logic is sensitive
+(e.g., movement, line crossing).
+Genesis does not block alarms at the device — only at the cloud ingest stage — so local device logs may
+still show all events.
+📷 Visual: Redundancy Filter in Simple Terms
+We’ll add a diagram like this for user understanding (replace with the actual uploaded graphic or illustration):
+🔁 Redundancy Filter Illustration
+https://helpdesk.nxgen.io/portal/en/kb/articles/redundancy
+Only 1 alarm per camera every 30 seconds is forwarded to the operator or ARC team.
+🛠️ Can the timer be changed?
+Yes. The redundancy timer is configurable per integration or device type. If you believe the default 30 seconds
+is too long or too short, contact support to review your setup.
+Modify the custom property of the service provider setting 
+https://helpdesk.nxgen.io/portal/en/kb/articles/redundancy

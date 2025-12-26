@@ -1,0 +1,31 @@
+﻿NXGEN Technology AG
+Hikvision IP Speaker configuration
+Check for internet connection of the speaker. This configuration required active internet connection.
+Step 1:┬áEnter the IP in the browser with the port and hit enter.
+Step 2:┬á Enter the Username and Password
+Confirm if the DNS and gateway are configured correctly.
+Navigate to Configure-->Network-->Network Configuration
+Primary: 8.8.8.8
+Alternate: 8.8.4.4┬á
+https://helpdesk.nxgen.io/portal/en/kb/articles/hikvision-ip-speaker
+Step 3:┬á Post login navigate to "SIP'' from the left menu.
+https://helpdesk.nxgen.io/portal/en/kb/articles/hikvision-ip-speaker
+Navigate to Configure-->SIP
+Step 4:┬áEnter the following credentials and click 'Save'
+Enable: (Set the toggle to 'ON)
+SIP ACCOUNT:
+User Account: (Genesis Audio Username)
+Password: (Genesis Audio Password)
+Display Name: (Desired Speaker Name)
+SIP SERVER:
+SIP Server Address: genesisaudio.sip.twilio.com (Genesis Audio SIP Domain)
+SIP Server Port: 5060 (Or enter the default port)
+Registration Expiration: (Desired expiry time)
+Registration Status: Should be┬á
+. Click refresh once. Even after clicking refresh, if the device is not
+registered then restart (Navigate to Maintenance and Security--> Restart) the speaker.
+Step 5:┬áThe Registration status will be updated to "Registered". Now, initiate a call from genesis by clicking the
+mic icon as mentioned below and test the configured speaker.
+https://helpdesk.nxgen.io/portal/en/kb/articles/hikvision-ip-speaker
+https://helpdesk.nxgen.io/portal/en/kb/articles/hikvision-ip-speaker
+

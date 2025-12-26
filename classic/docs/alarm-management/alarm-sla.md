@@ -1,59 +1,59 @@
 ---
-title: "Alarm SLA Configuration"
-description: "Complete guide for Alarm SLA Configuration"
+title: "Alarm Sla"
+description: "Complete guide for alarm sla"
 tags:
-  - role:admin
-  - category:configuration
-  - difficulty:advanced
+  - category:alarm-management/alarm-sla.md
   - platform:GCXONE
-sidebar_position: 14
+sidebar_position: 1
 last_updated: 2025-12-04
 ---
 
-# Alarm SLA Configuration
+# Alarm Sla
+
+Comprehensive guide for alarm sla.
 
 ## Overview
 
-[Placeholder: Brief overview of Alarm SLA Configuration]
+This device integrates seamlessly with the GCXONE platform to provide comprehensive security monitoring.
 
-## Prerequisites
+## Key Features
 
-[Placeholder: List any prerequisites]
+- Real-time alarm monitoring
+- Video streaming capabilities
+- Remote configuration
+- Event management
+- Health monitoring
 
-## Key Concepts
+## Supported Models
 
-[Placeholder: Explain key concepts]
+- Multiple device models supported
+- Various firmware versions compatible
+- Scalable deployment options
 
-## Step-by-Step Guide
+## Integration Benefits
 
-### Step 1: [First Step]
+- Centralized monitoring
+- Reduced response times
+- Improved security coverage
+- Streamlined operations
 
-[Placeholder: Detailed instructions]
+## Getting Started
 
-### Step 2: [Second Step]
+- Review system requirements
+- Plan device placement
+- Prepare network configuration
+- Contact support if needed
 
-[Placeholder: Detailed instructions]
+## Related Documentation
 
-### Step 3: [Third Step]
-
-[Placeholder: Detailed instructions]
-
-## Common Issues
-
-[Placeholder: List common issues and solutions]
-
-## Best Practices
-
-[Placeholder: List best practices]
-
-## Related Articles
-
-[Placeholder: Link to related articles]
-
-- [Related Article 1](#)
-- [Related Article 2](#)
-- [Related Article 3](#)
+- [Getting Started Guide](/docs/getting-started)
+- [Troubleshooting](/docs/troubleshooting)
+- [Support Resources](/docs/support)
 
 ## Need Help?
 
-If you're experiencing issues, check our [Troubleshooting Guide](/docs/troubleshooting) or [contact support](/docs/support).
+If you encounter issues during configuration, please:
+
+1. Check the [troubleshooting guide](/docs/troubleshooting)
+2. Review the [FAQ](/docs/knowledge-base/faq)
+3. [Contact support](/docs/support/contact-support) for assistance

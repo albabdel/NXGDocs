@@ -1,0 +1,80 @@
+﻿NXGEN Technology AG
+Axis Horn Speaker Configuration
+Step 1:┬áConfigure Genesis Audio device as mentioned in the below mentioned link┬á
+Genesis Audio Configuration
+Step 2: Login using the root (ADMIN) credentials and click 'Sign in' button.
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000011873022/en
+Step 3:┬áPost login navigate to System-->SIP-->SIP accounts and click on '+ Account' button
+Step 4:┬áEnter ONLY the following credentials of the Genesis Audio Device which was configured in "Step 1".┬á┬á
+Active - Enable
+Make default - Enable
+Name
+User ID
+Select Regeistred
+Domain
+Password
+Caller ID
+Transport Mode - TCP
+Answer Automatically - Enable
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000011873022/en
+Description of fields in above screen:
+All current SIP accounts are listed under┬áSIP accounts. For registered accounts, the colored circle lets you know
+the status.
+The┬ápeer to peer (default)┬áaccount is an automatically created account. You can delete it if you create at least one
+other account and set that account as default. The default account is always used when a VAPIX┬« Application
+Programming Interface (API) call is made without specifying which SIP account to call from.
+┬áThe account is successfully registered with the SIP server.
+┬áThere is a problem with the account. Possible reasons can be authorization failure, that the account credentials
+are wrong, or that the SIP server canΓÇÖt find the account.
+Account: Click to create a new SIP account.
+Active: Select to be able to use the account.
+Make default: Select to make this the default account. There must be a default account, and there can only
+be one default account.
+Name: Enter a descriptive name. This can, for example, be a first and last name, a role, or a location. The
+name is not unique.
+User ID: Enter the unique extension or phone number assigned to the device.
+Peer-to-peer: Use for direct calls to another SIP device on the local network.
+Registered: Use for calls to SIP devices outside the local network, through a SIP server.
+Domain: If available, enter the public domain name. It will be shown as part of the SIP address when
+calling other accounts.
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000011873022/en
+Password: Enter the password associated with the SIP account for authenticating against the SIP server.
+Authentication ID: Enter the authentication ID used for authenticating against the SIP server. If it is the
+same as the user ID, you donΓÇÖt need to enter the authentication ID.
+Caller ID: The name which is presented to the recipient of calls from the device.
+Registrar: Enter the IP address for the registrar.
+Transport mode: Select the SIP transport mode for the account: UPD, TCP, or TLS. When you select TLS,
+you get the option to use media encryption.
+Media encryption┬á(only with transport mode TLS): Select the type of encryption for media (audio and
+video) in SIP calls.
+Certificate┬á(only with transport mode TLS): Select a certificate.
+Verify server certificate┬á(only with transport mode TLS): Check to verify the server certificate.
+Secondary SIP server: Turn on if you want the device to try to register on a secondary SIP server if
+registration on the primary SIP server fails.
+Answer automatically: Select to automatically answer an incoming call.
+SIP secure: Select to use Secure Session Initiation Protocol (SIPS). SIPS uses the TLS transport mode to
+encrypt traffic.
+Proxies
+Proxy: Click to add a proxy.
+Prioritize: If you have added two or more proxies, click to prioritize them.
+Server address: Enter the IP address of the SIP proxy server.
+Username: If required, enter the username for the SIP proxy server.
+Password: If required, enter the password for the SIP proxy server.
+Video
+View area: Select the view area to use for video calls. If you select none, the native view is used.
+Resolution: Select the resolution to use for video calls. The resolution affects the required bandwidth.
+Frame rate: Select the number of frames per second for video calls. The frame rate affects the required
+bandwidth.
+H.264 profile: Select the profile to use for video calls.
+DTMF
+Use RTP (RFC2833): Select to allow dual-tone multifrequency (DTMF) signaling, other tone signals
+and telephony events in RTP packets.
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000011873022/en
+Use SIP INFO (RFC2976): Select to include the INFO method to the SIP protocol. The INFO method
+adds optional application layer information, generally related to the session.
+DTMF sequence: Click to add an action rule triggered by touch-tone. You must activate the action rule
+in the┬áEvents┬átab.
+Sequence: Enter the characters to trigger the action rule. Allowed characters: 0ΓÇô9, A-D, #, and *.
+Description: Enter a description of the action to be triggered.
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000011873022/en
+

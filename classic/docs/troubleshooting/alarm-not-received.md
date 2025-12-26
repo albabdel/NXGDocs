@@ -10,50 +10,41 @@ sidebar_position: 6
 last_updated: 2025-12-04
 ---
 
-# Alarm Not Received
+# Alarm Not Received (Overflow & Blocking)
 
-## Overview
+If a device is sending signals but they are not appearing in the operator's alarm queue, the system may be automatically suppressing them due to an **Alarm Overflow**.
 
-[Placeholder: Brief overview of Alarm Not Received]
+## Understanding Overflow Thresholds
 
-## Prerequisites
+GCXONE and Talos implement safety thresholds to prevent "system flooding" from malfunctioning devices.
 
-[Placeholder: List any prerequisites]
+| Platform    | Scope        | Threshold                  | Indicator                                  |
+| ----------- | ------------ | -------------------------- | ------------------------------------------ |
+| **Genesis** | Device Level | >25 video alarms in 5 mins | Status: "Blocked" in Device Dashboard      |
+| **Talos**   | Site Level   | >25 alarms in 5 mins       | Code: "Alarm limit exceeded" in Talos Logs |
 
-## Key Concepts
+## Troubleshooting Steps
 
-[Placeholder: Explain key concepts]
+### 1. Check Genesis Block Status
+- **Navigate**: Open the **Device Dashboard**.
+- **Filter**: Look for alarm types like `analytics.something` or `motion.something`.
+- **Status Check**: If alarms are marked as **Blocked**, the threshold has been reached.
+- **Event Overflow**: Look for a system-generated alarm titled **Event Overflow**; this is the definitive indicator of a Genesis block.
 
-## Step-by-Step Guide
+### 2. Check Talos Logs
+If Genesis shows alarms as "Accepted" but they don't reach the operator, check the site logs in Talos.
+- **Search**: Look for the exact, case-sensitive code: `Alarm limit exceeded`.
+- **Scope**: Note that Talos blocks are aggregate (all devices on a site combined).
 
-### Step 1: [First Step]
+### 3. Identify the Root Cause
+- **Redundancy**: An alarm is ignored because an identical code was received from the same sensor within 30 seconds.
+- **Flood**: Basic "Motion" alarms are highly prone to flooding during environmental changes (rain, shadows).
 
-[Placeholder: Detailed instructions]
+## Resolutions & Best Practices
 
-### Step 2: [Second Step]
+-   **Disable Motion Alarms**: It is highly recommended to disable basic motion detection.
+-   **Use IVS/Analytics**: Use **Intelligent Video Processing (IVS)** alarms (e.g., Line Crossing, Intrusion). These are pre-filtered by the device hardware, significantly reducing the event volume.
+-   **Adjust Thresholds**: If a high-activity site legitimately requires higher volume, contact support to adjust the `tile overflow threshold` custom property for that specific site.
 
-[Placeholder: Detailed instructions]
-
-### Step 3: [Third Step]
-
-[Placeholder: Detailed instructions]
-
-## Common Issues
-
-[Placeholder: List common issues and solutions]
-
-## Best Practices
-
-[Placeholder: List best practices]
-
-## Related Articles
-
-[Placeholder: Link to related articles]
-
-- [Related Article 1](#)
-- [Related Article 2](#)
-- [Related Article 3](#)
-
-## Need Help?
-
-If you're experiencing issues, check our [Troubleshooting Guide](/docs/troubleshooting) or [contact support](/docs/support).
+> [!CAUTION]
+> If a customer insists on basic motion alarms that frequently trigger blocks, inform them of the operational risk, as the system cannot guarantee alarm delivery during a flood.

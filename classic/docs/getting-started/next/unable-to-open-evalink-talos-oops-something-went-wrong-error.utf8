@@ -1,0 +1,11 @@
+NXGEN Technology AG
+Unable to open Evalink Talos - Oops something went
+wrong Error
+1. Login to Genesis and you are able to access the applications like dashboard, Video Viewer. 
+2. Try to access Evalink/Talos ( Alarm Management or Manage Workflows)  and you get the following error -
+Oops something went wrong 
+3. Check if the Cookies are Turned off
+https://helpdesk.nxgen.io/portal/en/kb/articles/unable-to-open-evalink-talos-oops-something-went-wrong-error
+4. If yes - Please ensure that the browser settings allows 3rd party cookies by clicking on the Eye icon on the
+image above and Turn on Third party Cookies
+https://helpdesk.nxgen.io/portal/en/kb/articles/unable-to-open-evalink-talos-oops-something-went-wrong-error

@@ -1,0 +1,10 @@
+{
+  "label": "Talos",
+  "position": 10,
+  "link": {
+    "type": "generated-index",
+    "description": "Complete documentation for Evalink Talos alarm management platform"
+  },
+  "collapsed": false
+}
+

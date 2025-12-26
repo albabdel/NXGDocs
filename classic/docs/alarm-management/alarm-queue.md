@@ -12,47 +12,35 @@ last_updated: 2025-12-04
 
 # Alarm Queue Management
 
+Efficiently handle incoming alarms through the structured queue system in Talos and GCXONE.
+
 ## Overview
 
-[Placeholder: Brief overview of Alarm Queue Management]
-
-## Prerequisites
-
-[Placeholder: List any prerequisites]
+The Alarm Queue is the primary interface for operators to receive, claim, and process security events. Efficient queue management ensures that no alarm is left unaddressed and that response times meet SLA requirements.
 
 ## Key Concepts
 
-[Placeholder: Explain key concepts]
+- **Queue Priority**: Alarms are prioritized based on their type, severity, and customer tier.
+- **L1 Support Queue**: The first point of entry for technical alarms where basic troubleshooting occurs (checking site/device info).
+- **L2 Escalation**: Alarms that require specialist intervention are escalated to senior technical teams.
 
-## Step-by-Step Guide
+## Queue Handling Procedures
 
-### Step 1: [First Step]
+### 1. Initial Claim
+When an alarm arrives in the queue, an operator must "Claim" it. This locks the alarm to that operator, preventing duplicate effort.
 
-[Placeholder: Detailed instructions]
+### 2. Information Verification
+The operator should immediately verify:
+- **Site Name and Location**: Is the context clear?
+- **Device Details**: Is the specific sensor or camera identified?
+- **Alarm Type**: Is it a burglary, fire, technical fault, or health check?
 
-### Step 2: [Second Step]
-
-[Placeholder: Detailed instructions]
-
-### Step 3: [Third Step]
-
-[Placeholder: Detailed instructions]
-
-## Common Issues
-
-[Placeholder: List common issues and solutions]
+### 3. Queue Resolution
+If the alarm is a false trigger or a resolved technical issue, it can be "Closed" with the appropriate resolution code. If intervention is needed, the operator follows the site-specific workflow.
 
 ## Best Practices
-
-[Placeholder: List best practices]
-
-## Related Articles
-
-[Placeholder: Link to related articles]
-
-- [Related Article 1](#)
-- [Related Article 2](#)
-- [Related Article 3](#)
+- **Never wait for incomplete info**: If critical details are missing from a ticket, immediately contact the customer rather than let the alarm sit in the queue.
+- **Consolidated Resolution**: Address groups of related alarms together to solve the root cause rather than treating them as isolated incidents.
 
 ## Need Help?
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
 import { motion } from 'framer-motion';
@@ -10,7 +10,6 @@ import {
     ArrowRight,
     FileQuestion
 } from 'lucide-react';
-import { UniversalSearchModal } from '../components/UniversalSearch';
 import QuickLink from '../components/QuickLink';
 
 const popularPages = [
@@ -35,21 +34,6 @@ const popularPages = [
 ];
 
 export default function NotFound(): React.JSX.Element {
-    const [isSearchOpen, setIsSearchOpen] = useState(false);
-
-    // Keyboard shortcut for search
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                e.preventDefault();
-                setIsSearchOpen(true);
-            }
-        };
-
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [isSearchOpen]);
-
     return (
         <Layout title="Page Not Found">
             <main className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center px-6">
@@ -89,33 +73,22 @@ export default function NotFound(): React.JSX.Element {
                         We couldn't find the page you're looking for. It may have been moved or doesn't exist.
                     </motion.p>
 
-                    {/* Search Bar */}
+                    {/* Search Bar - Triggers Algolia DocSearch */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.3 }}
-                        onClick={() => setIsSearchOpen(true)}
-                        className="mb-8 cursor-pointer"
+                        className="mb-8"
                     >
-                        <div className="flex items-center gap-3 px-6 py-4 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-full shadow-lg hover:border-primary-500 dark:hover:border-primary-500 transition-all hover:shadow-xl">
+                        <div className="flex items-center gap-3 px-6 py-4 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-full shadow-lg">
                             <Search className="w-5 h-5 text-gray-400" />
-                            <input
-                                type="text"
-                                className="flex-1 bg-transparent border-none outline-none text-gray-700 dark:text-gray-300 placeholder-gray-400"
-                                placeholder="Search documentation..."
-                                readOnly
-                            />
-                            <div className="flex items-center gap-1 px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-md text-xs text-gray-600 dark:text-gray-400">
-                                <span>Ctrl</span>
-                                <span>/</span>
-                                <span>⌘</span>
-                                <span>+</span>
-                                <span>K</span>
-                            </div>
+                            <span className="flex-1 text-gray-500 dark:text-gray-400">
+                                Press <kbd className="px-2 py-1 mx-1 bg-gray-100 dark:bg-gray-700 rounded text-xs font-medium">Ctrl+K</kbd> or <kbd className="px-2 py-1 mx-1 bg-gray-100 dark:bg-gray-700 rounded text-xs font-medium">⌘K</kbd> to search
+                            </span>
                         </div>
                     </motion.div>
 
-                    {/* Action Buttons */}
+                    {/* Action Button */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -129,13 +102,6 @@ export default function NotFound(): React.JSX.Element {
                             <Home className="w-5 h-5" />
                             Go Home
                         </Link>
-                        <button
-                            onClick={() => setIsSearchOpen(true)}
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 text-gray-700 dark:text-gray-300 rounded-full font-medium transition-all hover:shadow-lg"
-                        >
-                            <Search className="w-5 h-5" />
-                            Search Docs
-                        </button>
                     </motion.div>
 
                     {/* Popular Pages */}
@@ -182,11 +148,6 @@ export default function NotFound(): React.JSX.Element {
                         </Link>
                     </motion.p>
                 </div>
-
-                <UniversalSearchModal
-                    isOpen={isSearchOpen}
-                    onClose={() => setIsSearchOpen(false)}
-                />
             </main>
         </Layout>
     );

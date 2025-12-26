@@ -138,11 +138,11 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-opacity duration-500"
         style={{
           backgroundImage: 'url("/img/Background.jpg")',
-          opacity: isDark ? 1 : 0.15 // Lower opacity in light mode to keep text readable
+          opacity: isDark ? 0.8 : 0.3
         }}
       >
         {/* Adaptive Overlay for Text Readability */}
-        <div className={`absolute inset-0 backdrop-blur-sm transition-colors duration-500 ${isDark ? 'bg-black/30' : 'bg-white/40'}`} />
+        <div className={`absolute inset-0 backdrop-blur-sm transition-colors duration-500 ${isDark ? 'bg-black/40' : 'bg-white/60'}`} />
       </div>
 
       {/* 2. "Fade to Bottom" Linear Gradient Blending */}
@@ -181,6 +181,16 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
               src="/img/xo-logo.png"
               alt="GCXONE"
               className="w-24 md:w-32 relative z-10 drop-shadow-2xl hover:scale-105 transition-transform duration-300"
+              onError={(e) => {
+                const target = e.currentTarget;
+                if (target.src.includes('xo-logo.png')) {
+                  target.src = '/img/Xo.png';
+                } else if (target.src.includes('Xo.png')) {
+                  target.src = '/img/XoLogo.png';
+                } else {
+                  target.style.display = 'none';
+                }
+              }}
             />
             <div className="mt-4 flex items-center justify-center gap-1.5 text-[#E8B058] text-[10px] md:text-xs tracking-[0.4em] font-bold uppercase opacity-80 group-hover:opacity-100 transition-opacity">
               <span>By NXGEN</span>

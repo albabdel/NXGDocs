@@ -1,73 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from '@docusaurus/Link';
-import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
-import { useColorMode } from '@docusaurus/theme-common';
 import { motion } from 'framer-motion';
 import {
-    Rocket,
     LayoutDashboard,
     Server,
-    Code2,
     Shield,
     Activity,
     Wrench,
     HelpCircle,
     PlayCircle,
     FileText,
-    Search,
-    BookOpen,
     ShieldCheck,
     Cpu,
     Camera,
     Wifi,
     Bell,
-    ArrowRight,
     Zap,
-    Plug,
-    Users,
     Radio
 } from 'lucide-react';
-import { UniversalSearchModal } from '../components/UniversalSearch';
+// Using Algolia DocSearch for search functionality
 import FeatureCard from '../components/FeatureCard';
 import QuickLink from '../components/QuickLink';
-import Badge from '../components/Badge';
-import ParticleBackground from '../components/ParticleBackground';
-import TypingAnimation from '../components/TypingAnimation';
-import FloatingDarkModeToggle from '../components/FloatingDarkModeToggle';
 import NXGENSphereHero from '../components/NXGENSphereHero';
-import PageHeader from '../components/PageHeader';
-
-// --- Components ---
-
-function HeroSearch({ onOpen }) {
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            onClick={onOpen}
-            className="w-full max-w-2xl mx-auto cursor-pointer"
-        >
-            <div className="flex items-center gap-3 px-6 py-4 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-full shadow-lg hover:border-primary-500 dark:hover:border-primary-500 transition-all hover:shadow-xl">
-                <Search className="w-5 h-5 text-gray-400" />
-                <input
-                    type="text"
-                    className="flex-1 bg-transparent border-none outline-none text-gray-700 dark:text-gray-300 placeholder-gray-400"
-                    placeholder="Search documentation..."
-                    readOnly
-                />
-                <div className="flex items-center gap-1 px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-md text-xs text-gray-600 dark:text-gray-400">
-                    <span>Ctrl</span>
-                    <span>/</span>
-                    <span>⌘</span>
-                    <span>+</span>
-                    <span>K</span>
-                </div>
-            </div>
-        </motion.div>
-    );
-}
 
 // --- Data ---
 
@@ -207,24 +162,19 @@ const helpResources: Resource[] = [
 
 // --- Main Page ---
 
-export default function Home(): JSX.Element {
-    const [isSearchOpen, setIsSearchOpen] = useState(false);
-
-    // Keyboard shortcut for search
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                e.preventDefault();
-                setIsSearchOpen(true);
-            } else if (e.key === '/' && !isSearchOpen && document.activeElement?.tagName !== 'INPUT') {
-                e.preventDefault();
-                setIsSearchOpen(true);
-            }
-        };
-
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [isSearchOpen]);
+export default function Home(): React.JSX.Element {
+    // Function to trigger Algolia DocSearch
+    const handleSearchOpen = () => {
+        // Trigger Algolia DocSearch by simulating Ctrl+K
+        const event = new KeyboardEvent('keydown', {
+            key: 'k',
+            code: 'KeyK',
+            ctrlKey: true,
+            bubbles: true,
+            cancelable: true
+        });
+        document.dispatchEvent(event);
+    };
 
     return (
         <Layout
@@ -233,12 +183,8 @@ export default function Home(): JSX.Element {
 
             <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
 
-                {/* Header with Breadcrumb and Theme Toggle */}
-                <PageHeader />
-
-
                 {/* NXGEN Sphere Hero Section */}
-                <NXGENSphereHero onOpenSearch={() => setIsSearchOpen(true)} />
+                <NXGENSphereHero onOpenSearch={handleSearchOpen} />
 
                 <div className="max-w-7xl mx-auto px-6 pb-20">
 
@@ -439,11 +385,6 @@ export default function Home(): JSX.Element {
                         </div>
                     </motion.div>
                 </div>
-
-                <UniversalSearchModal
-                    isOpen={isSearchOpen}
-                    onClose={() => setIsSearchOpen(false)}
-                />
             </main>
         </Layout>
     );

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Algolia Search Test</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+</head>
+<body>
+    <h1>Algolia Search Test</h1>
+    <div id="docsearch"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+    <script type="text/javascript">
+        docsearch({
+            appId: '0QV3FAFAD5',
+            apiKey: 'e152916a3f5684772ff4bc5ca42bde7e',
+            indexName: 'nxgen_docs',
+            container: '#docsearch',
+            debug: true
+        });
+    </script>
+
+    <script>
+        console.log('Algolia Test Page Loaded');
+        console.log('Press Ctrl+K or click the search box to test');
+    </script>
+</body>
+</html>
