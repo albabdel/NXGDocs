@@ -1,5 +1,5 @@
 [build]
-  command = "npm run sync:storyblok && npm run build"
+  command = "npm run sync:storyblok:safe && npm run build"
   publish = "build"
 
 [build.environment]
