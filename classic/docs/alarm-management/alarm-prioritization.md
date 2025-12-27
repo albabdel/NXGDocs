@@ -12,47 +12,28 @@ last_updated: 2025-12-04
 
 # Alarm Prioritization
 
+Ensure critical events receive immediate attention through tiered prioritization.
+
 ## Overview
 
-[Placeholder: Brief overview of Alarm Prioritization]
+Not all alarms are created equal. Prioritization ensures that life-safety events (Fire, Panic) always appear at the top of the operator queue, ahead of low-priority events like technical faults or scheduled heartbeats.
 
-## Prerequisites
+## Priority Tiers
 
-[Placeholder: List any prerequisites]
+- **Priority 1 (Critical)**: Fire, Panic, Burglary in progress. Immediate operator intervention required.
+- **Priority 2 (High)**: Line crossing in restricted areas, known trespassers.
+- **Priority 3 (Medium)**: Motion detection in standard areas, suspicious activity.
+- **Priority 4 (Low)**: Technical faults, battery alerts, communication heartbeats.
 
-## Key Concepts
+## Configuration In Talos
 
-[Placeholder: Explain key concepts]
-
-## Step-by-Step Guide
-
-### Step 1: [First Step]
-
-[Placeholder: Detailed instructions]
-
-### Step 2: [Second Step]
-
-[Placeholder: Detailed instructions]
-
-### Step 3: [Third Step]
-
-[Placeholder: Detailed instructions]
-
-## Common Issues
-
-[Placeholder: List common issues and solutions]
+1. **Alarm Codes**: Assign a priority level to each unique alarm code in the Talos configuration.
+2. **Dynamic Prioritization**: Alarms can be dynamically re-prioritized based on the site status (e.g., a "Motion" alarm becomes Priority 1 if the site is in "Armed" mode).
+3. **Queue Sorting**: The Talos Alarm Queue is automatically sorted by priority level and then by urgency (time since arrival).
 
 ## Best Practices
-
-[Placeholder: List best practices]
-
-## Related Articles
-
-[Placeholder: Link to related articles]
-
-- [Related Article 1](#)
-- [Related Article 2](#)
-- [Related Article 3](#)
+- **Periodic Review**: Regularly review your priority mappings to ensure they reflect the evolving security needs of the customer.
+- **Avoid Over-Prioritization**: If too many events are marked as "Critical," the queue becomes cluttered, defeating the purpose of prioritization.
 
 ## Need Help?
 

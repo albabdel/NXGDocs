@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from 'react';
+import { useColorMode } from '@docusaurus/theme-common';
 import styles from './styles.module.css';
 
 export default function FloatingDarkModeToggle(): React.JSX.Element {
-  const [colorMode, setColorModeState] = useState<'light' | 'dark'>('light');
+  const { colorMode, setColorMode } = useColorMode();
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
-    // Get the current color mode from document or localStorage
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark'
-      || localStorage.getItem('theme') === 'dark';
-    setColorModeState(isDark ? 'dark' : 'light');
   }, []);
+
+  // Listen for theme changes from other components
+  useEffect(() => {
+    const handleThemeChange = (event: CustomEvent) => {
+      if (event.detail?.theme && event.detail.theme !== colorMode) {
+        setColorMode(event.detail.theme);
+      }
+    };
+
+    window.addEventListener('themeChange', handleThemeChange as EventListener);
+    return () => {
+      window.removeEventListener('themeChange', handleThemeChange as EventListener);
+    };
+  }, [colorMode, setColorMode]);
 
   const toggleColorMode = () => {
     const newMode = colorMode === 'dark' ? 'light' : 'dark';
-    setColorModeState(newMode);
-    document.documentElement.setAttribute('data-theme', newMode);
-    localStorage.setItem('theme', newMode);
+    setColorMode(newMode);
     // Dispatch event for other components to listen to
     window.dispatchEvent(new CustomEvent('themeChange', { detail: { theme: newMode } }));
   };

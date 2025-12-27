@@ -1,60 +1,62 @@
 ---
-title: "ADPRO Operator View"
-description: "Complete guide for ADPRO Operator View"
+title: "Operator View"
+description: "Complete guide for operator view"
 tags:
-  - role:operator
-  - category:configuration
-  - difficulty:beginner
+  - category:devices/adpro/operator-view.md
   - platform:GCXONE
-  - device:adpro
-sidebar_position: 4
+  - role:operator
+sidebar_position: 1
 last_updated: 2025-12-04
 ---
 
-# ADPRO Operator View
+# Operator View
+
+Comprehensive guide for operator view.
 
 ## Overview
 
-[Placeholder: Brief overview of ADPRO Operator View]
+This guide covers the operator interface and daily monitoring tasks.
 
-## Prerequisites
+## Dashboard Access
 
-[Placeholder: List any prerequisites]
+- Access the operator dashboard from the main GCXONE interface.
+- Review active alarms and device status.
 
-## Key Concepts
+## Key Features
 
-[Placeholder: Explain key concepts]
+- Live video monitoring
+- Alarm acknowledgment
+- Event history review
+- Basic device control
 
-## Step-by-Step Guide
+## Daily Operations
 
-### Step 1: [First Step]
+- Monitor incoming alarms
+- Verify alarm conditions
+- Take appropriate actions
+- Document incidents
 
-[Placeholder: Detailed instructions]
+## Monitoring Tasks
 
-### Step 2: [Second Step]
+- Check device health status
+- Review system notifications
+- Monitor video feeds
+- Track response times
 
-[Placeholder: Detailed instructions]
+## Quick Actions
 
-### Step 3: [Third Step]
+Content for this section is being developed.
 
-[Placeholder: Detailed instructions]
+## Related Documentation
 
-## Common Issues
-
-[Placeholder: List common issues and solutions]
-
-## Best Practices
-
-[Placeholder: List best practices]
-
-## Related Articles
-
-[Placeholder: Link to related articles]
-
-- [Related Article 1](#)
-- [Related Article 2](#)
-- [Related Article 3](#)
+- [Getting Started Guide](/docs/getting-started)
+- [Troubleshooting](/docs/troubleshooting)
+- [Support Resources](/docs/support)
 
 ## Need Help?
 
-If you're experiencing issues, check our [Troubleshooting Guide](/docs/troubleshooting) or [contact support](/docs/support).
+If you encounter issues during configuration, please:
+
+1. Check the [troubleshooting guide](/docs/troubleshooting)
+2. Review the [FAQ](/docs/knowledge-base/faq)
+3. [Contact support](/docs/support/contact-support) for assistance

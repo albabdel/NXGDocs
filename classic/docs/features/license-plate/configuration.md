@@ -1,60 +1,63 @@
 ---
-title: "License Plate Recognition Configuration"
-description: "Complete guide for License Plate Recognition Configuration"
+title: "Configuration"
+description: "Complete guide for configuration"
 tags:
-  - role:admin
-  - category:configuration
-  - difficulty:intermediate
+  - category:features/license-plate/configuration.md
   - platform:GCXONE
-  - feature:license-plate
-sidebar_position: 2
+  - role:admin
+sidebar_position: 1
 last_updated: 2025-12-04
 ---
 
-# License Plate Recognition Configuration
+# Configuration
+
+Comprehensive guide for configuration.
 
 ## Overview
 
-[Placeholder: Brief overview of License Plate Recognition Configuration]
-
-## Prerequisites
-
-[Placeholder: List any prerequisites]
-
-## Key Concepts
-
-[Placeholder: Explain key concepts]
+This guide provides essential information and procedures.
 
 ## Step-by-Step Guide
 
-### Step 1: [First Step]
+- Access the device web interface.
+- Navigate to configuration settings.
+- Configure required parameters.
+- Save and apply settings.
 
-[Placeholder: Detailed instructions]
+## Configuration Settings
 
-### Step 2: [Second Step]
+- Verify device appears in GCXONE dashboard.
+- Check device status indicators.
+- Test basic functionality.
 
-[Placeholder: Detailed instructions]
+## Verification
 
-### Step 3: [Third Step]
-
-[Placeholder: Detailed instructions]
-
-## Common Issues
-
-[Placeholder: List common issues and solutions]
+- Verify device appears in GCXONE dashboard.
+- Check device status indicators.
+- Test basic functionality.
 
 ## Best Practices
 
-[Placeholder: List best practices]
+- Check network connectivity if device is offline.
+- Verify credentials if authentication fails.
+- Review device logs for error messages.
 
-## Related Articles
+## Troubleshooting
 
-[Placeholder: Link to related articles]
+- Check network connectivity if device is offline.
+- Verify credentials if authentication fails.
+- Review device logs for error messages.
 
-- [Related Article 1](#)
-- [Related Article 2](#)
-- [Related Article 3](#)
+## Related Documentation
+
+- [Getting Started Guide](/docs/getting-started)
+- [Troubleshooting](/docs/troubleshooting)
+- [Support Resources](/docs/support)
 
 ## Need Help?
 
-If you're experiencing issues, check our [Troubleshooting Guide](/docs/troubleshooting) or [contact support](/docs/support).
+If you encounter issues during configuration, please:
+
+1. Check the [troubleshooting guide](/docs/troubleshooting)
+2. Review the [FAQ](/docs/knowledge-base/faq)
+3. [Contact support](/docs/support/contact-support) for assistance

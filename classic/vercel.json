@@ -1,5 +1,13 @@
 {
+  "buildCommand": "npm run build",
+  "outputDirectory": "build",
+  "installCommand": "npm install",
+  "framework": "docusaurus-2",
   "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
@@ -15,5 +23,15 @@
         }
       ]
     }
-  ]
+  ],
+  "env": {
+    "HYGRAPH_ENDPOINT": "@hygraph_endpoint",
+    "HYGRAPH_TOKEN": "@hygraph_token"
+  },
+  "build": {
+    "env": {
+      "HYGRAPH_ENDPOINT": "@hygraph_endpoint",
+      "HYGRAPH_TOKEN": "@hygraph_token"
+    }
+  }
 }

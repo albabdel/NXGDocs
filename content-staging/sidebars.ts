@@ -247,6 +247,34 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
+          label: 'Ajax',
+          items: [
+            'devices/ajax/overview',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'EagleEye',
+          items: [
+            'devices/eagleeye/overview',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Ganz',
+          items: [
+            'devices/ganz/overview',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Uniview',
+          items: [
+            'devices/uniview/overview',
+          ],
+        },
+        {
+          type: 'category',
           label: 'Generic Devices',
           items: [
             'devices/generic/onvif-integration',

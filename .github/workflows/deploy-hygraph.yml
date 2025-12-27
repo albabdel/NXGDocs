@@ -1,0 +1,49 @@
+name: Deploy Docusaurus with Hygraph Content
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  repository_dispatch:
+    types: [hygraph-content-update]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: classic/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd classic
+          npm ci
+
+      - name: Fetch Hygraph content
+        env:
+          HYGRAPH_ENDPOINT: ${{ secrets.HYGRAPH_ENDPOINT }}
+          HYGRAPH_TOKEN: ${{ secrets.HYGRAPH_TOKEN }}
+        run: |
+          cd classic
+          npm run fetch-content
+
+      - name: Build Docusaurus
+        run: |
+          cd classic
+          npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./classic/build
+          cname: docs.yourdomain.com  # Optional: Replace with your custom domain

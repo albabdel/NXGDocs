@@ -13,47 +13,34 @@ last_updated: 2025-12-04
 
 # Reconeyez Troubleshooting
 
-## Overview
-
-[Placeholder: Brief overview of Reconeyez Troubleshooting]
-
-## Prerequisites
-
-[Placeholder: List any prerequisites]
-
-## Key Concepts
-
-[Placeholder: Explain key concepts]
-
-## Step-by-Step Guide
-
-### Step 1: [First Step]
-
-[Placeholder: Detailed instructions]
-
-### Step 2: [Second Step]
-
-[Placeholder: Detailed instructions]
-
-### Step 3: [Third Step]
-
-[Placeholder: Detailed instructions]
+Solutions for common Reconeyez integration challenges.
 
 ## Common Issues
 
-[Placeholder: List common issues and solutions]
+### Network & Connectivity
+- **Issue**: Device is offline in the portal.
+- **Solution**: 
+    - Check if the SIM card is properly inserted and active.
+    - Verify signal strength for LTE/4G deployments.
+    - Ensure Wi-Fi credentials are correct if using local wireless.
+    - Check firewall rules for outbound traffic to the Reconeyez Cloud.
+
+### Event Capture Failures
+- **Issue**: No video clips or snapshots are being generated.
+- **Solution**: 
+    - Verify event triggers and detection sensitivity in the cloud portal.
+    - Check battery levels; low power may limit capture performance.
+    - Ensure the camera view is not obstructed and there is enough light for motion detection.
+
+### Integration Problems
+- **Issue**: Events are not appearing in GCXONE.
+- **Solution**: 
+    - Confirm the **Device ID** is correctly entered as the **Serial Number** in GCXONE.
+    - Verify the **Webhook URL** and API credentials in both platforms.
+    - Check the GCXONE workflow associated with Reconeyez events.
 
 ## Best Practices
-
-[Placeholder: List best practices]
-
-## Related Articles
-
-[Placeholder: Link to related articles]
-
-- [Related Article 1](#)
-- [Related Article 2](#)
-- [Related Article 3](#)
+To optimize battery life, balance event-trigger sensitivity and capture frequency. Review periodic heartbeat signals to ensure system health in remote locations.
 
 ## Need Help?
 

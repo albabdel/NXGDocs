@@ -1,0 +1,8 @@
+[build]
+  command = "cd classic && npm run build"
+  publish = "classic/build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

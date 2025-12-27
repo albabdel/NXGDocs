@@ -1,0 +1,8 @@
+{
+    "label": "Local Mode",
+    "position": 20,
+    "link": {
+        "type": "generated-index",
+        "description": "Configuration and use of Local Mode for P2P streaming and local SDK features."
+    }
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import type {Props} from '@theme/Icon/Arrow';
 
-export default function IconArrow({className, ...restProps}: Props): React.JSX.Element {
+export default function IconArrow({className, ...restProps}: Props): JSX.Element {
   return (
     <svg
       viewBox="0 0 24 24"

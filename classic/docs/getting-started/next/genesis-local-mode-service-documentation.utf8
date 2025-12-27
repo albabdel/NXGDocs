@@ -1,0 +1,62 @@
+NXGEN Technology AG
+Local Mode
+1. Overview and Purpose of Local Mode  
+Local Mode allows the operator workstation to establish a direct, peer-to-peer connection (P2P streaming) to the
+Network Video Recorder (NVR) or device, typically bypassing the central Genesis cloud streaming gateway for
+these specific high-bandwidth functions.
+1.1 Key Functionalities Enabled by Local Mode  
+When fully supported by a device type, Local Mode enables the following features directly on the operator's
+workstation:
+Feature
+Description
+ 
+P2P
+Streaming
+Enables fast, direct video streaming access.
+ 
+Live Video
+Real-time video monitoring.
+ 
+Playback
+Review of archived footage.
+ 
+Local SDK
+Audio
+Audio functionalities (including two-way audio and
+audio announcements) directly through the local device
+Software Development Kit (SDK).
+ 
+Encrypted
+Streams
+Handling of encrypted communication streams from
+the device.
+ 
+Local PTZ
+Pan-Tilt-Zoom control locally.
+ 
+Local IO
+Input/Output operations locally.
+ 
+Timeline
+Chronological navigation and viewing of events.
+ 
+ 
+1.2 Device Types Where Local Mode is Not Applicable  
+Local Mode operation is not supported or required for certain device types, as their integration is exclusively
+cloud-based or their native functionality does not permit it:
+Hanwha-Techwin NVRs: All features are explicitly noted as NOT supported in Local Mode.
+Genesis Audio (SIP/Twilio): Not required; the device is designed for cloud integration.
+InnoVi AI Cloud: Not applicable, as InnoVi is a cloud-based SaaS solution.
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000023910287/en
+Senstar: Local Mode operations are not supported for Senstar devices.
+Viasys Cloud NVRs: Do not support Local Mode operations.
+2. Installation and Technical Prerequisites  
+Local Mode components must be installed on every operator workstation intending to use the enhanced P2P and
+SDK features.
+2.2 Installation Steps (Customer & Internal)  
+1. Download the Installer: https://sharebinary.s3.eu-central-1.amazonaws.com/Genesis-Installer-main-
+v.2.8.2.msi%20a
+2. Run as Administrator: The Genesis-Installer.exe must be run with Administrator privileges and follow on
+screen instructions.
+ 
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000023910287/en

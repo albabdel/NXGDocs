@@ -21,6 +21,12 @@
   },
   "homepage": "https://gitlab.com/yazanabutaa/nxgen-docs#readme",
   "dependencies": {
+    "@docusaurus/core": "^3.9.2",
+    "@docusaurus/module-type-aliases": "^3.9.2",
+    "@docusaurus/preset-classic": "^3.9.2",
+    "@docusaurus/theme-mermaid": "^3.9.2",
+    "@docusaurus/tsconfig": "^3.9.2",
+    "@docusaurus/types": "^3.9.2",
     "axios": "^1.13.2",
     "dotenv": "^17.2.3",
     "gray-matter": "^4.0.3"

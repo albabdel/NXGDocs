@@ -12,47 +12,22 @@ last_updated: 2025-12-04
 
 # Event Clip Recording Configuration
 
-## Overview
+Custom parameters provide a free-flow configuration enabled on the fly for different features at various hierarchical levels (Tenant/Customer/Site/Device/Cameras). They are added under "Additional Settings" > "Custom property" after selecting "edit" for the relevant level.
 
-[Placeholder: Brief overview of Event Clip Recording Configuration]
+### Key Uses of Custom Properties:
 
-## Prerequisites
+**Event Clip Recording**: Used for ADPRO, Dahua, Hikvision, and Milestone to enable automatic recording of pre- and post-alarm video clips (e.g., -5 to +5 seconds) for specific real alarms, providing rich context for operators.
+- Parameter name: `eventClipRecord` (Value: `True`)
+- Parameter name: `eventClipRecordAlarmCode` (Value: e.g., `motion.perimeter`)
 
-[Placeholder: List any prerequisites]
+**iFT Gateway (ADPRO)**: Required for ADPRO device subtype `[iFT] Gateway`.
 
-## Key Concepts
+**Milestone Optimization**: Used to set base URLs, WebSocket endpoints, optimize for low bandwidth, and control alarm/event subscriptions.
+- `MilestoneNVR_Device_Custom_isLowBandwidthDevice` (Value: `True`)
 
-[Placeholder: Explain key concepts]
+**Teltonika Event Filtering**: Used to define Custom Alarm Rules with thresholds (e.g., voltage high/low limits) to filter frequent data changes and ensure only meaningful events trigger alarms.
 
-## Step-by-Step Guide
-
-### Step 1: [First Step]
-
-[Placeholder: Detailed instructions]
-
-### Step 2: [Second Step]
-
-[Placeholder: Detailed instructions]
-
-### Step 3: [Third Step]
-
-[Placeholder: Detailed instructions]
-
-## Common Issues
-
-[Placeholder: List common issues and solutions]
-
-## Best Practices
-
-[Placeholder: List best practices]
-
-## Related Articles
-
-[Placeholder: Link to related articles]
-
-- [Related Article 1](#)
-- [Related Article 2](#)
-- [Related Article 3](#)
+**HoneywellS35**: Requires `HoneywellS35_Device_Custom_baseUrl` at the service provider level.
 
 ## Need Help?
 

@@ -1,60 +1,105 @@
 ---
-title: "Hanwha Overview"
-description: "Complete guide for Hanwha Overview"
+title: "HANWHA Overview"
+description: "Integration guide for HANWHA with GCXONE"
 tags:
-  - role:all
+  - role:installer
   - category:configuration
-  - difficulty:beginner
+  - difficulty:intermediate
   - platform:GCXONE
   - device:hanwha
 sidebar_position: 1
-last_updated: 2025-12-04
+last_updated: 2025-12-20
 ---
 
-# Hanwha Overview
+# HANWHA
 
-## Overview
+**Device Information:**
+- **Device**: VMS
+- **Vendor**: Hanwha
+- **Model**: [Specific Model or "Various"]
+- **Firmware**: [Compatible firmware versions or "Compatible versions"]
+- **Platform**: GCXONE
+- **Doc Version**: 1.0.0
 
-[Placeholder: Brief overview of Hanwha Overview]
+## Summary
+
+- **Purpose**: [Brief description of what this integration enables - 1-2 sentences]
+- **Outcome**: [Expected result after successful configuration - 1 sentence]
+- **Audience**: Technical Installers / Field Engineers / Support
 
 ## Prerequisites
 
-[Placeholder: List any prerequisites]
+Before you begin, ensure you have:
 
-## Key Concepts
+- [ ] [Device-specific software/client installed, if required]
+- [ ] [Device or system with compatible firmware]
+- [ ] Network connectivity between HANWHA and GCXONE platform
+- [ ] Administrative access to [device interface/management software]
+- [ ] GCXONE account with appropriate permissions
+- [ ] [Any specific network configuration - VPN, whitelisting, etc.]
 
-[Placeholder: Explain key concepts]
+## Device Profile
 
-## Step-by-Step Guide
+- **Type**: [NVR / VMS / IP Camera / AI Box / Router / IOT / Cloud VMS / Security Hub / Other]
+- **Discovery Protocol**: [ONVIF / SDK / SIA-DC09 / Custom / Manual / etc.]
+- **Event Types**: [List supported event types: intrusion, motion, analytics, alarms, etc.]
+- **Network Requirements**:
+  - **Ports**: [Required ports and protocols]
+  - **Connectivity**: [Direct IP / Cloud / P2P / etc.]
+  - **Bandwidth**: [Typical bandwidth requirements, if applicable]
+- **Known Considerations**: [Any quirks, limitations, special requirements, or important notes installers should know]
 
-### Step 1: [First Step]
+## Supported Features
 
-[Placeholder: Detailed instructions]
+### Core Functions
 
-### Step 2: [Second Step]
+| Feature Category | Feature | Status | Notes |
+|-----------------|---------|--------|-------|
+| **Discovery & Setup** | Auto-Discovery | [✓ / ✗ / Partial] | [Optional notes] |
+| | Manual Configuration | [✓ / ✗] | |
+| **Cloud Capabilities** | Live Streaming (Cloud) | [✓ / ✗] | |
+| | Playback (Cloud) | [✓ / ✗] | |
+| | Timeline (Cloud) | [✓ / ✗] | |
+| **Local Capabilities** | Live Streaming (Local) | [✓ / ✗] | |
+| | Playback (Local) | [✓ / ✗] | |
+| | Local SDK Audio | [✓ / ✗] | |
+| **Events & Alarms** | Event Detection | [✓ / ✗] | |
+| | Arm/Disarm | [✓ / ✗] | |
+| | Event Acknowledgement | [✓ / ✗] | |
+| **Advanced Features** | PTZ/Presets | [✓ / ✗] | |
+| | I/O Control | [✓ / ✗] | |
+| | Genesis Audio (SIP) | [✓ / ✗] | |
+| | 4K/High Resolution | [✓ / ✗] | |
+| | Timelapse | [✓ / ✗ / Partial] | |
+| | Mobile App Support | [✓ / ✗] | |
 
-[Placeholder: Detailed instructions]
+**Note**: Add or remove features based on device capabilities. Minimum 15 features recommended.
 
-### Step 3: [Third Step]
+## Quick Start
 
-[Placeholder: Detailed instructions]
+To configure HANWHA with GCXONE, follow these main steps:
 
-## Common Issues
+1. **[High-level step 1]** - [Brief description]
+2. **[High-level step 2]** - [Brief description]
+3. **[High-level step 3]** - [Brief description]
+4. **[High-level step 4]** - [Brief description]
 
-[Placeholder: List common issues and solutions]
-
-## Best Practices
-
-[Placeholder: List best practices]
+For detailed step-by-step instructions, see the [Configuration Guide](./configuration.md).
 
 ## Related Articles
 
-[Placeholder: Link to related articles]
+- [HANWHA Configuration](./configuration.md)
+- [HANWHA Troubleshooting](./troubleshooting.md)
+- [Firewall Configuration](/docs/getting-started/firewall-configuration)
+- [Required Ports](/docs/getting-started/required-ports)
+- [Standard Device Onboarding Process](/docs/device-integration/standard-device-onboarding-process)
 
-- [Related Article 1](#)
-- [Related Article 2](#)
-- [Related Article 3](#)
+## Change Log
 
-## Need Help?
+- 2025-12-20 v1.0.0 - Initial GCXONE documentation
 
-If you're experiencing issues, check our [Troubleshooting Guide](/docs/troubleshooting) or [contact support](/docs/support).
+---
+
+**Need Help?**
+
+If you need assistance with HANWHA integration, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).

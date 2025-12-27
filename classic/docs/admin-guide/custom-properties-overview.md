@@ -10,50 +10,34 @@ sidebar_position: 11
 last_updated: 2025-12-04
 ---
 
-# Understanding Custom Properties
+# Understanding Custom Properties & Groups
 
-## Overview
+GCXONE provides a flexible mechanism to categorize sites and restrict user visibility using **Customer Groups** and **Custom Fields**.
 
-[Placeholder: Brief overview of Understanding Custom Properties]
+## Customer Groups (Visibility Filtering)
 
-## Prerequisites
+Customer Groups allow you to control which specific customers a user can access without creating unique roles for every client. This is essential for segregating data in multi-tenant environments.
 
-[Placeholder: List any prerequisites]
+### Key Benefits
+-   **Data Segregation**: Prevent users (e.g., an installer for Company A) from seeing sites belonging to Company B.
+-   **Environment Separation**: Isolate production sites from test/trial sites to avoid operator confusion during maintenance.
+-   **Scalability**: Assign a single "Operator" role to multiple users, then filter their view simply by changing their Customer Group assignment.
 
-## Key Concepts
+> [!IMPORTANT]
+> GCXONE uses a **Positive Definition** policy. Users at the Service Provider level see everything by default unless explicitly restricted by a Customer Group.
 
-[Placeholder: Explain key concepts]
+## Custom Fields
 
-## Step-by-Step Guide
+Custom Fields are user-defined variables that store site-specific metadata used in workflows and reporting.
 
-### Step 1: [First Step]
+### Supported Field Types
+-   **Text**: Any character sequence (e.g., "License Plate", "Gate Code").
+-   **Number**: Positive or negative integers.
+-   **Select One / Multiple**: Dropdown lists for standardized inputs (e.g., "Customer Tier", "Security Level").
 
-[Placeholder: Detailed instructions]
+### Configuration Scope
+-   **Sites**: The field appears on the settings page of every individual site.
+-   **Site Groups**: The field is set at the group level and inherited by or displayed for all sites in that group.
 
-### Step 2: [Second Step]
-
-[Placeholder: Detailed instructions]
-
-### Step 3: [Third Step]
-
-[Placeholder: Detailed instructions]
-
-## Common Issues
-
-[Placeholder: List common issues and solutions]
-
-## Best Practices
-
-[Placeholder: List best practices]
-
-## Related Articles
-
-[Placeholder: Link to related articles]
-
-- [Related Article 1](#)
-- [Related Article 2](#)
-- [Related Article 3](#)
-
-## Need Help?
-
-If you're experiencing issues, check our [Troubleshooting Guide](/docs/troubleshooting) or [contact support](/docs/support).
+## Audit and Public Display
+A custom field can be marked as **Public** to include it in PDF/Email reports, or as **Hidden** to store sensitive information (like master override codes) that is only visible to specific administrative roles.

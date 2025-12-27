@@ -13,47 +13,26 @@ last_updated: 2025-12-04
 
 # Avigilon Supported Features
 
-## Overview
+The following features are supported through the GCXONE integration with Avigilon VMS.
 
-[Placeholder: Brief overview of Avigilon Supported Features]
+## Core Video Functions
+- **Live Video**: View real-time streams from connected Avigilon cameras.
+- **Playback**: Access recorded footage stored on the Avigilon ACC server.
+- **PTZ Controls**: Control pan, tilt, and zoom for supported cameras directly from the interface.
 
-## Prerequisites
+## AI & Analytics
+- **Motion Detection**: Receive and process motion events triggered by Avigilon devices.
+- **Object Detection**: Support for person and vehicle classification.
+- **Analytic Events**: Integration with custom defined analytic events in Avigilon ACC.
 
-[Placeholder: List any prerequisites]
+## Alarm Management
+- **Alarm Triggers**: Receive alarms based on motion or custom analytic events.
+- **Pre/Post-Alarm Recording**: Automatically capture video clips before and after an alarm event (typically 10 seconds).
+- **User Group Integration**: Link Avigilon user groups to GCXONE for granular access control.
 
-## Key Concepts
-
-[Placeholder: Explain key concepts]
-
-## Step-by-Step Guide
-
-### Step 1: [First Step]
-
-[Placeholder: Detailed instructions]
-
-### Step 2: [Second Step]
-
-[Placeholder: Detailed instructions]
-
-### Step 3: [Third Step]
-
-[Placeholder: Detailed instructions]
-
-## Common Issues
-
-[Placeholder: List common issues and solutions]
-
-## Best Practices
-
-[Placeholder: List best practices]
-
-## Related Articles
-
-[Placeholder: Link to related articles]
-
-- [Related Article 1](#)
-- [Related Article 2](#)
-- [Related Article 3](#)
+## System Management
+- **Device Discovery**: Automatically identify cameras and sensors connected to the Avigilon VMS.
+- **Health Monitoring**: Real-time status tracking of the VMS and its connected hardware.
 
 ## Need Help?
 

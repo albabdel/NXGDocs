@@ -1,59 +1,56 @@
 ---
-title: "Poor Video Quality"
-description: "Complete guide for Poor Video Quality"
+title: "Video Quality"
+description: "Complete guide for video quality"
 tags:
-  - role:all
-  - category:configuration
-  - difficulty:intermediate
+  - category:troubleshooting/video-quality.md
   - platform:GCXONE
-sidebar_position: 7
+sidebar_position: 1
 last_updated: 2025-12-04
 ---
 
-# Poor Video Quality
+# Video Quality
+
+Comprehensive guide for video quality.
 
 ## Overview
 
-[Placeholder: Brief overview of Poor Video Quality]
+This guide provides essential information and procedures.
 
-## Prerequisites
+## Diagnostic Steps
 
-[Placeholder: List any prerequisites]
+- Check network connectivity
+- Verify device status
+- Review system logs
+- Test basic functions
 
-## Key Concepts
+## Solutions
 
-[Placeholder: Explain key concepts]
+- Restart affected services
+- Update configuration
+- Check firewall settings
+- Verify credentials
 
-## Step-by-Step Guide
+## Prevention
 
-### Step 1: [First Step]
+- Regular system maintenance
+- Monitor system health
+- Keep firmware updated
+- Document known issues
 
-[Placeholder: Detailed instructions]
+## When to Escalate
 
-### Step 2: [Second Step]
+Content for this section is being developed.
 
-[Placeholder: Detailed instructions]
+## Related Documentation
 
-### Step 3: [Third Step]
-
-[Placeholder: Detailed instructions]
-
-## Common Issues
-
-[Placeholder: List common issues and solutions]
-
-## Best Practices
-
-[Placeholder: List best practices]
-
-## Related Articles
-
-[Placeholder: Link to related articles]
-
-- [Related Article 1](#)
-- [Related Article 2](#)
-- [Related Article 3](#)
+- [Getting Started Guide](/docs/getting-started)
+- [Troubleshooting](/docs/troubleshooting)
+- [Support Resources](/docs/support)
 
 ## Need Help?
 
-If you're experiencing issues, check our [Troubleshooting Guide](/docs/troubleshooting) or [contact support](/docs/support).
+If you encounter issues during configuration, please:
+
+1. Check the [troubleshooting guide](/docs/troubleshooting)
+2. Review the [FAQ](/docs/knowledge-base/faq)
+3. [Contact support](/docs/support/contact-support) for assistance

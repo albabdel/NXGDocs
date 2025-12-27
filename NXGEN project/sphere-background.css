@@ -1,0 +1,518 @@
+/**
+ * NXGEN Animated Sphere Background - Pure CSS Solution
+ * 
+ * This creates the iconic NXGEN homepage sphere effect using only CSS
+ * No dependencies, lightweight, performant
+ * 
+ * Usage: Add this CSS to your custom.css and use the HTML structure below
+ */
+
+/* ==================== SPHERE BACKGROUND CONTAINER ==================== */
+
+.nxgen-sphere-background {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #000000 0%, #0A0A0A 50%, #1A1A1A 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Starfield/Particle Background */
+.nxgen-sphere-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 60px 70px, rgba(255, 255, 255, 0.2), transparent),
+    radial-gradient(1px 1px at 130px 100px, rgba(255, 255, 255, 0.25), transparent),
+    radial-gradient(1px 1px at 70px 150px, rgba(255, 255, 255, 0.15), transparent),
+    radial-gradient(1px 1px at 200px 50px, rgba(255, 255, 255, 0.2), transparent),
+    radial-gradient(1px 1px at 300px 200px, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 400px 100px, rgba(255, 255, 255, 0.2), transparent),
+    radial-gradient(1px 1px at 250px 300px, rgba(255, 255, 255, 0.25), transparent);
+  background-size: 500px 500px;
+  background-repeat: repeat;
+  animation: starfieldMove 100s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes starfieldMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-500px, -500px); }
+}
+
+/* Animated Grid Background */
+.nxgen-sphere-background::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(200, 148, 70, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200, 148, 70, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridMove 30s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+/* ==================== THE SPHERE ==================== */
+
+.nxgen-sphere {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  z-index: 2;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* Main Sphere Body */
+.sphere-body {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(50, 50, 50, 0.8) 0%,
+    rgba(20, 20, 20, 0.9) 40%,
+    rgba(10, 10, 10, 0.95) 100%
+  );
+  box-shadow: 
+    inset 40px -40px 80px rgba(0, 0, 0, 0.9),
+    inset -40px 40px 80px rgba(80, 80, 80, 0.2),
+    0 0 100px rgba(0, 0, 0, 0.8),
+    0 0 200px rgba(0, 0, 0, 0.5);
+  animation: sphereRotate 60s linear infinite;
+}
+
+@keyframes sphereRotate {
+  0% { transform: rotate3d(0, 1, 0, 0deg); }
+  100% { transform: rotate3d(0, 1, 0, 360deg); }
+}
+
+/* Sphere Glow Effect */
+.sphere-glow {
+  position: absolute;
+  width: 110%;
+  height: 110%;
+  top: -5%;
+  left: -5%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(200, 148, 70, 0.15) 0%,
+    rgba(200, 148, 70, 0.08) 30%,
+    transparent 70%
+  );
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+/* Grid Pattern Overlay on Sphere */
+.sphere-grid {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-image: 
+    linear-gradient(rgba(200, 148, 70, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200, 148, 70, 0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+  mask-image: radial-gradient(circle, black 40%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle, black 40%, transparent 70%);
+  animation: gridRotate 20s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes gridRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ==================== SPHERE CONTENT (XO LOGO) ==================== */
+
+.sphere-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  text-align: center;
+}
+
+/* XO Logo Circle */
+.xo-logo {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  border: 3px solid rgba(200, 148, 70, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    circle at center,
+    rgba(200, 148, 70, 0.15) 0%,
+    rgba(200, 148, 70, 0.05) 50%,
+    transparent 100%
+  );
+  box-shadow: 
+    0 0 40px rgba(200, 148, 70, 0.4),
+    inset 0 0 40px rgba(200, 148, 70, 0.1);
+  animation: logoFloat 6s ease-in-out infinite;
+  position: relative;
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Sparkle effect on logo */
+.xo-logo::before {
+  content: '✨';
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  font-size: 1.5rem;
+  animation: sparkle 3s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(180deg); }
+}
+
+/* Inner circle with XO text */
+.xo-inner {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid #C89446;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #C89446;
+  text-shadow: 0 0 20px rgba(200, 148, 70, 0.6);
+  background: rgba(10, 10, 10, 0.8);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  letter-spacing: -2px;
+}
+
+/* BY NXGEN text */
+.by-nxgen {
+  font-size: 0.75rem;
+  color: #C89446;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  margin-top: -1rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+/* Tagline */
+.sphere-tagline {
+  font-size: 1.1rem;
+  color: #C89446;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  opacity: 0.85;
+}
+
+/* ==================== CTA BUTTON IN SPHERE ==================== */
+
+.sphere-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(90deg, rgba(40, 40, 40, 0.9) 0%, rgba(30, 30, 30, 0.9) 100%);
+  border: 1px solid rgba(200, 148, 70, 0.4);
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  color: #DDDDDD;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.sphere-cta:hover {
+  border-color: #C89446;
+  box-shadow: 0 0 30px rgba(200, 148, 70, 0.4);
+  transform: translateY(-2px);
+}
+
+.cta-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #C89446 0%, #B58237 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.cta-arrow {
+  font-size: 1.5rem;
+  color: #C89446;
+}
+
+/* ==================== EXPLORE BY BUTTONS ==================== */
+
+.explore-by-section {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.explore-label {
+  font-size: 0.8rem;
+  color: #888888;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  position: relative;
+}
+
+.explore-label::before,
+.explore-label::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(200, 148, 70, 0.3), transparent);
+}
+
+.explore-label::before {
+  right: 100%;
+  margin-right: 1rem;
+}
+
+.explore-label::after {
+  left: 100%;
+  margin-left: 1rem;
+}
+
+.explore-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.explore-button {
+  background: linear-gradient(135deg, rgba(40, 40, 40, 0.8) 0%, rgba(30, 30, 30, 0.8) 100%);
+  border: 1px solid rgba(200, 148, 70, 0.3);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  color: #DDDDDD;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  min-width: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  backdrop-filter: blur(10px);
+}
+
+.explore-button:hover {
+  border-color: #C89446;
+  background: linear-gradient(135deg, rgba(200, 148, 70, 0.15) 0%, rgba(40, 40, 40, 0.8) 100%);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 20px rgba(200, 148, 70, 0.3);
+}
+
+.explore-icon {
+  font-size: 2rem;
+  filter: grayscale(0.3);
+}
+
+.explore-button:hover .explore-icon {
+  filter: grayscale(0);
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
+
+.explore-label-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+/* ==================== STATS SECTION (OUTSIDE SPHERE) ==================== */
+
+.stats-container {
+  position: absolute;
+  width: 100%;
+  bottom: 5%;
+  left: 0;
+  display: flex;
+  justify-content: space-around;
+  z-index: 3;
+  padding: 0 5%;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #FFFFFF 0%, #D4A574 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #AAAAAA;
+  font-weight: 500;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+
+@media (max-width: 1200px) {
+  .nxgen-sphere {
+    width: 500px;
+    height: 500px;
+  }
+  
+  .stats-container {
+    bottom: 3%;
+  }
+  
+  .stat-value {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nxgen-sphere {
+    width: 400px;
+    height: 400px;
+  }
+  
+  .xo-logo {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .xo-inner {
+    width: 90px;
+    height: 90px;
+    font-size: 2.25rem;
+  }
+  
+  .explore-buttons {
+    gap: 0.75rem;
+  }
+  
+  .explore-button {
+    min-width: 100px;
+    padding: 1rem;
+  }
+  
+  .stats-container {
+    flex-wrap: wrap;
+    gap: 2rem;
+    bottom: 2%;
+  }
+  
+  .stat-value {
+    font-size: 1.75rem;
+  }
+  
+  .stat-label {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nxgen-sphere {
+    width: 320px;
+    height: 320px;
+  }
+  
+  .xo-logo {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .xo-inner {
+    width: 70px;
+    height: 70px;
+    font-size: 1.75rem;
+  }
+  
+  .sphere-cta {
+    padding: 0.85rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .explore-button {
+    min-width: 80px;
+    padding: 0.85rem;
+    font-size: 0.85rem;
+  }
+  
+  .stats-container {
+    position: relative;
+    margin-top: 3rem;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+
+/* ==================== PERFORMANCE OPTIMIZATIONS ==================== */
+
+/* Use GPU acceleration for animations */
+.sphere-body,
+.sphere-glow,
+.sphere-grid,
+.xo-logo {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .sphere-body,
+  .sphere-glow,
+  .sphere-grid,
+  .xo-logo,
+  .nxgen-sphere-background::before,
+  .nxgen-sphere-background::after {
+    animation: none;
+  }
+}

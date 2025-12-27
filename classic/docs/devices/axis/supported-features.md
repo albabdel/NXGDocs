@@ -13,47 +13,37 @@ last_updated: 2025-12-04
 
 # Axis Supported Features
 
-## Overview
+The Axis integration supports a wide range of operational and management features out of the box.
 
-[Placeholder: Brief overview of Axis Supported Features]
+## Core Video Features
 
-## Prerequisites
+- **Live Streaming**: Secure RTSP/HTTPS streams for real-time monitoring.
+- **Playback Control**: Access to recorded footage with smooth timeline scrubbing and calendar search.
+- **PTZ & Presets**: Full control of Pan-Tilt-Zoom cameras, including the ability to trigger predefined presets.
+- **Multi-Camera Layouts**: Standardized streaming in grid views within the Video Viewer application.
 
-[Placeholder: List any prerequisites]
+## Alarm & Event Management
 
-## Key Concepts
+- **Event Ingestion**: Real-time alerts for Motion, Tamper, and System Health.
+- **Analytics Ingestion**: Support for Axis-native analytics events (e.g., Object Analytics, Line Crossing).
+- **Snapshot Support**: Display of pre-alarm, current-alarm, and post-alarm snapshots in the operator workflow.
 
-[Placeholder: Explain key concepts]
+## Control & Communication
 
-## Step-by-Step Guide
+- **SIP Audio**: High-clarity live announcements through Axis Horn Speakers and audio modules.
+- **Output Control**: Remote triggering of relays and virtual inputs for gate control or alarm activation.
+- **I/O Status**: Real-time monitoring of physical sensor inputs integrated via Axis I/O modules.
 
-### Step 1: [First Step]
+## Features Summary
 
-[Placeholder: Detailed instructions]
-
-### Step 2: [Second Step]
-
-[Placeholder: Detailed instructions]
-
-### Step 3: [Third Step]
-
-[Placeholder: Detailed instructions]
-
-## Common Issues
-
-[Placeholder: List common issues and solutions]
-
-## Best Practices
-
-[Placeholder: List best practices]
-
-## Related Articles
-
-[Placeholder: Link to related articles]
-
-- [Related Article 1](#)
-- [Related Article 2](#)
-- [Related Article 3](#)
+| Feature           | Protocol Used     | Integration Status |
+| :---------------- | :---------------- | :----------------- |
+| Device Discovery  | VAPIX API         | ✅ Integrated       |
+| Live Stream       | RTSP/HTTPS        | ✅ Integrated       |
+| Timeline Search   | VAPIX / ACS API   | ✅ Integrated       |
+| PTZ Control       | VAPIX / ACS API   | ✅ Integrated       |
+| Audio (Talkback)  | SIP / VAPIX Audio | ✅ Integrated       |
+| Output Triggering | VAPIX I/O         | ✅ Integrated       |
 
 ## Need Help?
 

@@ -10,12 +10,19 @@ const config: Config = {
   favicon: 'img/favicon.ico',
 
   // Future flags
-  future: {
-    v4: true,
-  },
+  // future: {
+  //   v4: true,
+  // },
 
   // Enhanced metadata
   headTags: [
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'algolia-site-verification',
+        content: '30877B7953347DD6',
+      },
+    },
     {
       tagName: 'meta',
       attributes: {
@@ -59,25 +66,19 @@ const config: Config = {
   onBrokenMarkdownLinks: 'ignore',
   onBrokenAnchors: 'ignore',
 
-  // Multilingual support
+  markdown: {
+    mermaid: true,
+  },
+
+  // English only - multilingual support disabled
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'de', 'fr'],
+    locales: ['en'],
     localeConfigs: {
       en: {
         label: 'English',
         direction: 'ltr',
         htmlLang: 'en-US',
-      },
-      de: {
-        label: 'Deutsch',
-        direction: 'ltr',
-        htmlLang: 'de-DE',
-      },
-      fr: {
-        label: 'Français',
-        direction: 'ltr',
-        htmlLang: 'fr-FR',
       },
     },
   },
@@ -186,19 +187,18 @@ const config: Config = {
     ],
   ],
 
+  themes: ['@docusaurus/theme-mermaid'],
+
   themeConfig: {
     image: 'img/nxgen-social-card.jpg',
 
     // Algolia DocSearch Configuration
-    // NOTE: Waiting for Algolia approval - these are placeholder values
     algolia: {
-      appId: process.env.ALGOLIA_APP_ID || 'YOUR_APP_ID',
-      apiKey: process.env.ALGOLIA_API_KEY || 'YOUR_SEARCH_API_KEY',
-      indexName: process.env.ALGOLIA_INDEX_NAME || 'nxgen_docs',
+      appId: 'V5T3AW2AU9',
+      apiKey: 'faaa9ffb8640ba49520a0cf44dc9f7ef', // Search-only API key
+      indexName: 'Documentation site',
       contextualSearch: true,
-      searchParameters: {
-        facetFilters: [],
-      },
+      searchParameters: {},
       searchPagePath: 'search',
       insights: false,
     },
@@ -218,7 +218,7 @@ const config: Config = {
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'docs',
+          sidebarId: 'tutorialSidebar',
           position: 'left',
           label: 'Documentation',
         },
@@ -248,10 +248,6 @@ const config: Config = {
               to: '/docs/troubleshooting',
             },
           ],
-        },
-        {
-          type: 'localeDropdown',
-          position: 'right',
         },
         {
           href: 'https://github.com/nxgen/nxgen-docs',

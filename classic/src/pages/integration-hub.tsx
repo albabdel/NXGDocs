@@ -744,6 +744,18 @@ const devices: Device[] = [
         ],
     },
     {
+        name: 'Ajax Hub/NVR',
+        category: 'NVR',
+        configLink: '/docs/devices/ajax/overview',
+        features: [
+            { name: 'Discovery' },
+            { name: 'Events' },
+            { name: 'Device Monitoring' },
+            { name: 'Encrypted Communication' },
+            { name: 'Account Mapping' },
+        ],
+    },
+    {
         name: 'Essence My Sheild PIR CAM',
         category: 'IOT',
         configLink: '/docs/devices/essence/overview',

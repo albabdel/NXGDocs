@@ -1,0 +1,145 @@
+﻿
+> classic@0.0.0 start
+> docusaurus start --host 0.0.0.0 --host 0.0.0.0
+
+
+ ------------------------------------------------------------------------------                                                                                                          Update available 3.8.1 ΓåÆ 3.9.2                                                                                                                 To upgrade Docusaurus packages with the latest version, run the                                       following command:                                       `npm i @docusaurus/core@latest @docusaurus/preset-classic@latest             @docusaurus/theme-mermaid@latest @docusaurus/module-type-aliases@latest                  @docusaurus/tsconfig@latest @docusaurus/types@latest`                                                                                               ------------------------------------------------------------------------------ 
+
+[INFO] Starting the development server...
+
+node.exe : [ERROR] 
+Error: Docusaurus 
+could not load module 
+at path "C:\Users\abde
+l\.gemini\antigravity\
+scratch\nxgen-docs\cla
+ssic\docusaurus.config
+.ts"
+At line:1 char:1
++ & "C:\Program Files\
+nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: ([ERROR] Er   
+ ror: ...urus.conf    
+ig.ts":String) []    
+, RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+Cause: ParseError: 
+C:\: Unexpected token 
+ 
+ C:\Users\abdel\.gemin
+i\antigravity\scratch\
+nxgen-docs\classic\doc
+usaurus.config.ts:192:
+2
+    at 
+loadFreshModule (C:\Us
+ers\abdel\.gemini\anti
+gravity\scratch\nxgen-
+docs\classic\node_modu
+les\@docusaurus\utils\
+lib\moduleUtils.js:36:
+15)
+    at loadSiteConfig 
+(C:\Users\abdel\.gemin
+i\antigravity\scratch\
+nxgen-docs\classic\nod
+e_modules\@docusaurus\
+core\lib\server\config
+.js:36:62)
+    ... 7 lines 
+matching cause stack 
+trace ...
+[INFO] Docusaurus version: 3.8.1
+Node version: v22.20.0
+    at async file:///C
+:/Users/abdel/.gemini/
+antigravity/scratch/nx
+gen-docs/classic/node_
+modules/@docusaurus/co
+re/bin/docusaurus.mjs:
+44:3 {
+  [cause]: Error: 
+ParseError: C:\: 
+Unexpected token  
+   C:\Users\abdel\.gem
+ini\antigravity\scratc
+h\nxgen-docs\classic\d
+ocusaurus.config.ts:19
+2:2
+      at 
+loadFreshModule (C:\Us
+ers\abdel\.gemini\anti
+gravity\scratch\nxgen-
+docs\classic\node_modu
+les\@docusaurus\utils\
+lib\moduleUtils.js:33:
+16)
+      at 
+loadSiteConfig (C:\Use
+rs\abdel\.gemini\antig
+ravity\scratch\nxgen-d
+ocs\classic\node_modul
+es\@docusaurus\core\li
+b\server\config.js:36:
+62)
+      at async 
+Promise.all (index 1)
+      at async 
+loadContext (C:\Users\
+abdel\.gemini\antigrav
+ity\scratch\nxgen-docs
+\classic\node_modules\
+@docusaurus\core\lib\s
+erver\site.js:39:97)
+      at async 
+loadSite (C:\Users\abd
+el\.gemini\antigravity
+\scratch\nxgen-docs\cl
+assic\node_modules\@do
+cusaurus\core\lib\serv
+er\site.js:143:21)
+      at async 
+createReloadableSite (
+C:\Users\abdel\.gemini
+\antigravity\scratch\n
+xgen-docs\classic\node
+_modules\@docusaurus\c
+ore\lib\commands\start
+\utils.js:63:16)
+      at async 
+doStart (C:\Users\abde
+l\.gemini\antigravity\
+scratch\nxgen-docs\cla
+ssic\node_modules\@doc
+usaurus\core\lib\comma
+nds\start\start.js:22:
+28)
+      at async 
+Promise.all (index 0)
+      at async runCLI 
+(C:\Users\abdel\.gemin
+i\antigravity\scratch\
+nxgen-docs\classic\nod
+e_modules\@docusaurus\
+core\lib\commands\cli.
+js:56:5)
+      at async file://
+/C:/Users/abdel/.gemin
+i/antigravity/scratch/
+nxgen-docs/classic/nod
+e_modules/@docusaurus/
+core/bin/docusaurus.mj
+s:44:3
+}

@@ -27,34 +27,67 @@ import {
     Star
 } from 'lucide-react';
 
-// Video Placeholder Component
-const VideoPlaceholder = ({ title, duration, description }: { title: string; duration: string; description: string }) => (
-    <div className="relative group overflow-hidden rounded-xl bg-[#202020] border border-white/10 hover:border-[#E8B058]/50 transition-all duration-300">
-        {/* Video Thumbnail Area */}
-        <div className="aspect-video bg-[#1a1a1a] flex items-center justify-center relative">
-            {/* Play Button */}
-            <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-20 h-20 rounded-full bg-[#E8B058]/20 backdrop-blur-sm border-2 border-[#E8B058]/50 flex items-center justify-center group-hover:scale-110 group-hover:bg-[#E8B058]/30 transition-all duration-300">
-                    <Play className="w-8 h-8 text-[#E8B058] ml-1" fill="currentColor" />
+// Video Component (for actual videos)
+const VideoCard = ({ title, duration, description, videoSrc }: { title: string; duration: string; description: string; videoSrc?: string }) => {
+    if (!videoSrc) {
+        // Fallback to placeholder if no video source
+        return (
+            <div className="relative group overflow-hidden rounded-xl bg-[#202020] border border-white/10 hover:border-[#E8B058]/50 transition-all duration-300">
+                <div className="aspect-video bg-[#1a1a1a] flex items-center justify-center relative">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-20 h-20 rounded-full bg-[#E8B058]/20 backdrop-blur-sm border-2 border-[#E8B058]/50 flex items-center justify-center group-hover:scale-110 group-hover:bg-[#E8B058]/30 transition-all duration-300">
+                            <Play className="w-8 h-8 text-[#E8B058] ml-1" fill="currentColor" />
+                        </div>
+                    </div>
+                    <div className="absolute bottom-3 right-3 px-2 py-1 bg-black/70 rounded text-xs text-white font-medium">
+                        {duration}
+                    </div>
+                    <div className="absolute top-3 left-3 flex items-center gap-2 px-3 py-1.5 bg-[#E8B058]/20 backdrop-blur-sm rounded-full border border-[#E8B058]/30">
+                        <Video className="w-4 h-4 text-[#E8B058]" />
+                        <span className="text-xs font-medium text-[#E8B058]">Video</span>
+                    </div>
+                </div>
+                <div className="p-4">
+                    <h4 className="font-semibold text-white mb-2 group-hover:text-[#E8B058] transition-colors">{title}</h4>
+                    <p className="text-sm text-white/70 leading-relaxed">{description}</p>
                 </div>
             </div>
-            {/* Duration Badge */}
-            <div className="absolute bottom-3 right-3 px-2 py-1 bg-black/70 rounded text-xs text-white font-medium">
-                {duration}
+        );
+    }
+
+    return (
+        <div className="relative group overflow-hidden rounded-xl bg-[#202020] border border-white/10 hover:border-[#E8B058]/50 transition-all duration-300">
+            {/* Video Player */}
+            <div className="aspect-video bg-[#1a1a1a] relative">
+                <video
+                    className="w-full h-full object-contain"
+                    controls
+                    preload="metadata"
+                >
+                    <source src={videoSrc} type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+                {/* Duration Badge */}
+                <div className="absolute bottom-3 right-3 px-2 py-1 bg-black/70 rounded text-xs text-white font-medium pointer-events-none">
+                    {duration}
+                </div>
+                {/* Video Icon Badge */}
+                <div className="absolute top-3 left-3 flex items-center gap-2 px-3 py-1.5 bg-[#E8B058]/20 backdrop-blur-sm rounded-full border border-[#E8B058]/30 pointer-events-none">
+                    <Video className="w-4 h-4 text-[#E8B058]" />
+                    <span className="text-xs font-medium text-[#E8B058]">Video</span>
+                </div>
             </div>
-            {/* Video Icon Badge */}
-            <div className="absolute top-3 left-3 flex items-center gap-2 px-3 py-1.5 bg-[#E8B058]/20 backdrop-blur-sm rounded-full border border-[#E8B058]/30">
-                <Video className="w-4 h-4 text-[#E8B058]" />
-                <span className="text-xs font-medium text-[#E8B058]">Video</span>
+            {/* Video Info */}
+            <div className="p-4">
+                <h4 className="font-semibold text-white mb-2 group-hover:text-[#E8B058] transition-colors">{title}</h4>
+                <p className="text-sm text-white/70 leading-relaxed">{description}</p>
             </div>
         </div>
-        {/* Video Info */}
-        <div className="p-4">
-            <h4 className="font-semibold text-white mb-2 group-hover:text-[#E8B058] transition-colors">{title}</h4>
-            <p className="text-sm text-white/70 leading-relaxed">{description}</p>
-        </div>
-    </div>
-);
+    );
+};
+
+// Keep VideoPlaceholder for backward compatibility
+const VideoPlaceholder = VideoCard;
 
 // Phase Card Component
 const PhaseCard = ({
@@ -208,6 +241,7 @@ export default function GettingStarted() {
                                     title="Platform Walkthrough"
                                     duration="8:45"
                                     description="A complete tour of the GCXONE interface, navigation, and key features you'll use daily."
+                                    videoSrc="/videos/platform-walkthrough.mp4"
                                 />
                             </motion.div>
                             <motion.div
@@ -220,6 +254,7 @@ export default function GettingStarted() {
                                     title="Key Features & Value"
                                     duration="6:15"
                                     description="Learn how GCXONE's powerful features deliver real value and transform your monitoring operations."
+                                    videoSrc="/videos/key-features-value.mp4"
                                 />
                             </motion.div>
                         </div>
@@ -236,6 +271,7 @@ export default function GettingStarted() {
                                     title="First-Time Login & Setup"
                                     duration="4:20"
                                     description="Step-by-step guide to your first login, password setup, and MFA configuration."
+                                    videoSrc="/videos/first-time-login-setup.mp4"
                                 />
                             </motion.div>
                             <motion.div
@@ -248,6 +284,7 @@ export default function GettingStarted() {
                                     title="Dashboard Deep Dive"
                                     duration="7:00"
                                     description="Master the dashboard widgets, customization options, and real-time monitoring capabilities."
+                                    videoSrc="/videos/dashboard-deep-dive.mp4"
                                 />
                             </motion.div>
                         </div>

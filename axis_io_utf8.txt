@@ -1,0 +1,43 @@
+﻿NXGEN Technology AG
+Axis IO Input Module Onboarding Guide
+Pre-requisites:
+a.Site is created in Genesis and the user knows the steps to add a device.
+b. The device is reachable with the external IP and Http/Https port to access the device is open┬á
+1.. Device addition in Genesis:
+1.1. On the Add Device Dialog, Enter the following details - Discover and save the device.┬á
+┬á ┬á ┬á ┬á ┬á ┬á Type = Axis┬á
+┬á ┬á ┬á ┬á ┬á ┬á IP Address = External IP┬á of the device┬á
+┬á ┬á ┬á ┬á ┬á ┬á Serial number of the device┬á
+┬á ┬á ┬á ┬á ┬á ┬á User Name and password to access the device┬á
+┬á ┬á ┬á ┬á ┬á ┬á All the ports to be configured with the HTPP / Https Port┬á
+┬á ┬á ┬á ┬á ┬á ┬á Device Timezone
+1.2.1.┬áCopy the Device ID┬á- On the configuration page select the Axis IO Module device onboarded to Genesis
+and Click on Edit as seen below┬á
+https://helpdesk.nxgen.io/portal/en/kb/articles/axis-io-module-onboarding-guide
+1.2.2. Scroll down and copy the Device Unique Number┬áto use in Step 2.2.2
+2. Configurations on Axis IO Module:
+2.1. Login into Axis IO Module and Navigate to Events Configuration┬á
+https://helpdesk.nxgen.io/portal/en/kb/articles/axis-io-module-onboarding-guide
+2.2. Configure a Recipient┬á
+2.2.1. Goto Recipients tab and 'Add recipient'
+2.2.2. Enter the following details and save the recipient
+┬á┬á┬á┬á┬á┬áName for the Recipient
+┬á ┬á ┬á Type = Https
+┬á ┬á ┬á URL =┬áhttps://axisproxy.nxgen.cloud/eventIngest/Device ID (copied in step 1.2.2)
+┬á ┬á ┬á User name and password used to access the Axis IO Module
+https://helpdesk.nxgen.io/portal/en/kb/articles/axis-io-module-onboarding-guide
+2.2. Configure a Rule:
+Configure the Alarm trigger conditions and action┬á
+┬á┬á┬á┬á┬á┬áAction = Send notification through HTTPS
+┬á ┬á ┬á Recipient = Recipient created in step 2.1┬á
+┬á ┬á ┬á Query String =┬ámessage=Perimeter+Protection+N9&alarmcode=io.trigger&type=alarm&dc09code=AT
+┬á ┬á ┬á *(Replace the text in Bold with the value that you have to Pass to Genesis)
+https://helpdesk.nxgen.io/portal/en/kb/articles/axis-io-module-onboarding-guide
+3. Configurations on Talos (Optional):┬á
+The Alarms with Alarm Code 'io.trigger' is forwarded to talos. If you want to replace the alarm code with that
+message that┬á is configured in the above step, Please perform the configuration below┬á ┬á
+3.1. Navigate to Criteria Mapping in Site/Site Group
+https://helpdesk.nxgen.io/portal/en/kb/articles/axis-io-module-onboarding-guide
+3.2. Replace io.trigger alarms with┬á{{ alarm.headers['IO_Message'] }} as seen below.
+https://helpdesk.nxgen.io/portal/en/kb/articles/axis-io-module-onboarding-guide
+

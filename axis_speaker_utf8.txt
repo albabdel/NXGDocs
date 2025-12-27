@@ -1,0 +1,45 @@
+﻿NXGEN Technology AG
+Axis Speaker - Automatic audio announcement
+(recorded Audio) from Workflow
+Scenario: Trigger Audio Play (recorded Audio) from Talos Workflow
+Pre-requisites:
+a. The audio audio clips are pre-recoded in the Speaker and is available in the Audio Clips section on the Audio
+bridge (step 2.4 below)
+b. Ensure that a Link is created for the recording that has to be triggered - this is the URL that is used in the HTTP
+call made from the WF┬á
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000023474954/en
+1. Load the attached WF to the site where the audio has to play┬á
+┬á ┬á ┬á 1.b. Update the Wofkflow trigger conditions if applicable. (Nxgen team should be able to help you with this)
+2. Configure the following parameters in the Workflow┬á
+┬á┬á┬á┬á┬á┬á2.1. Navigate to the HTTP Node┬á
+┬á ┬á ┬á┬á┬á┬á┬á┬á┬á┬á
+┬á ┬á ┬á
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000023474954/en
+┬á┬á┬á┬á┬á┬á2.2. Go to the Headers Tab - Update the auth-token to the tenant specific Auth token ( ! This step should be
+performed by Nxgen Team)
+┬á ┬á ┬á┬á┬á┬á┬á┬á┬á┬á┬á
+┬á
+┬á┬á┬á┬á┬á┬á2.3. Modify the parameters in the Content Tab
+┬á ┬á ┬á┬á
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000023474954/en
+┬á┬á┬á┬á┬á┬á2.4. The following is the call that will be set up assuming that we play recorded audio on two devices. Repeat
+the set up if you need more speakers to announce at the same time.┬á
+[
+┬á ┬á {
+┬á ┬á ┬á ┬á "type": "curl",
+┬á ┬á ┬á ┬á "payload": {
+┬á ┬á ┬á ┬á ┬á ┬á "message": "curl -v 'http://IP1/axis-cgi/playclip.cgi?
+location=alarm.mp3&repeat=0&volume=100&audiodeviceid=0&audiooutputid=0' --digest --user
+'UserName:Pwd'"
+┬á ┬á ┬á ┬á }
+┬á ┬á },
+┬á ┬á {
+┬á ┬á ┬á ┬á "type": "curl",
+┬á ┬á ┬á ┬á "payload": {
+┬á ┬á ┬á ┬á ┬á ┬á "message": "curl -v 'http://IP2/axis-cgi/playclip.cgi?
+location=alarm.mp3&repeat=0&volume=100&audiodeviceid=0&audiooutputid=0' --digest -u 'UserName:Pwd'"
+┬á ┬á ┬á ┬á }
+┬á ┬á }┬á ┬á┬á
+]
+https://helpdesk.nxgen.io/support/nxgentechnology/ShowHomePage.do#Solutions/dv/17599000023474954/en
+
