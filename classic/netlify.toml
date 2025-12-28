@@ -6,6 +6,10 @@
   NODE_VERSION = "18"
   STORYBLOK_ACCESS_TOKEN = "lZ1VpFd6y9FjoNcJQFlXLAtt"
   STORYBLOK_REGION = "eu"
+  STORYBLOK_SPACE_ID = "289434723537263"
+  # IMPORTANT: Set STORYBLOK_IS_PREVIEW in Netlify dashboard:
+  # - Production: STORYBLOK_IS_PREVIEW = "false"
+  # - Preview: STORYBLOK_IS_PREVIEW = "true"
   HYGRAPH_ENDPOINT = "https://api-eu-west-2.hygraph.com/v2/cmcd3s4gx00uq07w3xhw9djjz/master"
   # Note: Set HYGRAPH_TOKEN in Netlify dashboard Environment Variables (not here for security)
 

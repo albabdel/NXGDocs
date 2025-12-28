@@ -1,0 +1,166 @@
+[
+  {
+    "name": "doc_page",
+    "display_name": "Documentation Page",
+    "description": "",
+    "created_at": "2025-12-26T21:21:01.242Z",
+    "updated_at": "2025-12-26T21:45:32.903Z",
+    "id": 127362913258295,
+    "schema": {
+      "title": {
+        "type": "text",
+        "pos": 0,
+        "id": "8iwywb-UQsuNVnwxKPWVBQ"
+      },
+      "body": {
+        "type": "richtext",
+        "pos": 1,
+        "id": "N8KxKf72Sim0b5HE3-tkvQ"
+      },
+      "description": {
+        "type": "textarea",
+        "pos": 2,
+        "id": "AI8hE-jFQAigCDA3DduM3Q"
+      }
+    },
+    "image": null,
+    "preview_field": null,
+    "is_root": true,
+    "preview_tmpl": null,
+    "is_nestable": false,
+    "all_presets": [],
+    "preset_id": null,
+    "real_name": "Documentation Page",
+    "component_group_uuid": null,
+    "color": null,
+    "icon": null,
+    "internal_tags_list": [],
+    "internal_tag_ids": [],
+    "content_type_asset_preview": null,
+    "metadata": {}
+  },
+  {
+    "name": "feature",
+    "display_name": null,
+    "description": null,
+    "created_at": "2025-12-26T20:52:41.084Z",
+    "updated_at": "2025-12-26T20:52:41.084Z",
+    "id": 127355949407030,
+    "schema": {
+      "name": {
+        "type": "text",
+        "id": "NAz93u8wT7qws0GMJrNO1w"
+      }
+    },
+    "image": null,
+    "preview_field": null,
+    "is_root": false,
+    "preview_tmpl": null,
+    "is_nestable": true,
+    "all_presets": [],
+    "preset_id": null,
+    "real_name": "feature",
+    "component_group_uuid": null,
+    "color": null,
+    "icon": null,
+    "internal_tags_list": [],
+    "internal_tag_ids": [],
+    "content_type_asset_preview": null,
+    "metadata": {}
+  },
+  {
+    "name": "grid",
+    "display_name": null,
+    "description": null,
+    "created_at": "2025-12-26T20:52:41.074Z",
+    "updated_at": "2025-12-26T20:52:41.074Z",
+    "id": 127355949366069,
+    "schema": {
+      "columns": {
+        "type": "bloks",
+        "id": "yRp5WJ6lQm-FryA9K28aGg"
+      }
+    },
+    "image": null,
+    "preview_field": null,
+    "is_root": false,
+    "preview_tmpl": null,
+    "is_nestable": true,
+    "all_presets": [],
+    "preset_id": null,
+    "real_name": "grid",
+    "component_group_uuid": null,
+    "color": null,
+    "icon": null,
+    "internal_tags_list": [],
+    "internal_tag_ids": [],
+    "content_type_asset_preview": null,
+    "metadata": {}
+  },
+  {
+    "name": "page",
+    "display_name": null,
+    "description": null,
+    "created_at": "2025-12-26T20:52:41.053Z",
+    "updated_at": "2025-12-27T11:37:31.796Z",
+    "id": 127355949280051,
+    "schema": {
+      "title": {
+        "type": "text",
+        "pos": 0,
+        "id": "TjCZavWBQKWcNVaU9mnT3g"
+      },
+      "body": {
+        "type": "text",
+        "id": "AMJimMztT_uAviga7k_kfQ",
+        "display_name": "Test",
+        "required": true,
+        "pos": 1
+      }
+    },
+    "image": null,
+    "preview_field": null,
+    "is_root": true,
+    "preview_tmpl": null,
+    "is_nestable": false,
+    "all_presets": [],
+    "preset_id": null,
+    "real_name": "page",
+    "component_group_uuid": null,
+    "color": null,
+    "icon": null,
+    "internal_tags_list": [],
+    "internal_tag_ids": [],
+    "content_type_asset_preview": null,
+    "metadata": {}
+  },
+  {
+    "name": "teaser",
+    "display_name": null,
+    "description": null,
+    "created_at": "2025-12-26T20:52:41.064Z",
+    "updated_at": "2025-12-26T20:52:41.064Z",
+    "id": 127355949321012,
+    "schema": {
+      "headline": {
+        "type": "text",
+        "id": "NxOtN8kkSFWgSUubXDaIRg"
+      }
+    },
+    "image": null,
+    "preview_field": null,
+    "is_root": false,
+    "preview_tmpl": null,
+    "is_nestable": true,
+    "all_presets": [],
+    "preset_id": null,
+    "real_name": "teaser",
+    "component_group_uuid": null,
+    "color": null,
+    "icon": null,
+    "internal_tags_list": [],
+    "internal_tag_ids": [],
+    "content_type_asset_preview": null,
+    "metadata": {}
+  }
+]
