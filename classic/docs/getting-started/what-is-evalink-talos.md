@@ -40,18 +40,21 @@ import TabItem from '@theme/TabItem';
   ```mermaid
   graph LR
       subgraph "🏢 Customer Site"
-          Device["📹 Security Device<br/>(Camera/Sensor)"]
+          Device["📹 Security Device
+(Camera/Sensor)"]
       end
-      
+
       subgraph "☁️ NXGEN Cloud"
-          GCXONE["🧠 GCXONE<br/>Video Analytics & AI"]
-          Talos["🚨 Evalink Talos<br/>Alarm Management"]
+          GCXONE["🧠 GCXONE
+Video Analytics & AI"]
+          Talos["🚨 Evalink Talos
+Alarm Management"]
       end
-      
+
       subgraph "👥 Monitoring Station"
           Operator["👨‍💼 Security Operator"]
       end
-      
+
       Device -->|"Raw Alarms"| GCXONE
       GCXONE -->|"AI-Verified Alarms"| Talos
       Talos -->|"Enriched Alerts"| Operator

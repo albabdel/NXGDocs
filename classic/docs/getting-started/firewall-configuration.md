@@ -88,22 +88,25 @@ import TabItem from '@theme/TabItem';
   ```mermaid
   graph LR
       subgraph "🏢 Customer Site"
-          Device["📹 Device<br/>(Camera/NVR)"]
+          Device["📹 Device
+(Camera/NVR)"]
           Firewall["🔥 Firewall"]
       end
-      
+
       subgraph "🌐 Internet"
           Internet["Public Internet"]
       end
-      
+
       subgraph "☁️ NXGEN Cloud"
-          Gateway["🌐 GCXONE Gateways<br/>Primary/Secondary"]
+          Gateway["🌐 GCXONE Gateways
+Primary/Secondary"]
           Streaming["📹 Streaming Servers"]
           Services["⚙️ Platform Services"]
       end
-      
+
       Device -->|"Device Traffic"| Firewall
-      Firewall -->|"Whitelisted IPs<br/>Ports 80/443/554/10001-10500"| Internet
+      Firewall -->|"Whitelisted IPs
+Ports 80/443/554/10001-10500"| Internet
       Internet --> Gateway
       Internet --> Streaming
       Internet --> Services

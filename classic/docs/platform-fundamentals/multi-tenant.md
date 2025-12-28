@@ -41,19 +41,28 @@ import TabItem from '@theme/TabItem';
       graph TB
           subgraph "Shared Cloud Infrastructure"
               subgraph "Tenant A"
-                  TA1[Tenant A<br/>Data]
-                  TA2[Tenant A<br/>Config]
-                  TA3[Tenant A<br/>Users]
+                  TA1["Tenant A
+Data"]
+                  TA2["Tenant A
+Config"]
+                  TA3["Tenant A
+Users"]
               end
               subgraph "Tenant B"
-                  TB1[Tenant B<br/>Data]
-                  TB2[Tenant B<br/>Config]
-                  TB3[Tenant B<br/>Users]
+                  TB1["Tenant B
+Data"]
+                  TB2["Tenant B
+Config"]
+                  TB3["Tenant B
+Users"]
               end
               subgraph "Tenant C"
-                  TC1[Tenant C<br/>Data]
-                  TC2[Tenant C<br/>Config]
-                  TC3[Tenant C<br/>Users]
+                  TC1["Tenant C
+Data"]
+                  TC2["Tenant C
+Config"]
+                  TC3["Tenant C
+Users"]
               end
           end
           

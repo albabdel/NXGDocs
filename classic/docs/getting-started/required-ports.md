@@ -19,14 +19,18 @@ Modern web applications rely on a variety of services for authentication, video 
 ```mermaid
 flowchart TD
     Browser["Operator Browser"]
-    
+
     subgraph "External Services"
-        Auth["Auth0<br/>(Authentication)"]
-        Twilio["Twilio<br/>(Audio/Video SDK)"]
-        AWS["AWS S3<br/>(Assets/Snapshots)"]
-        Google["Google Maps<br/>(GIS Services)"]
+        Auth["Auth0
+(Authentication)"]
+        Twilio["Twilio
+(Audio/Video SDK)"]
+        AWS["AWS S3
+(Assets/Snapshots)"]
+        Google["Google Maps
+(GIS Services)"]
     end
-    
+
     subgraph "NXGEN Cloud"
         API["NXGEN API"]
         Stream["Streaming Servers"]

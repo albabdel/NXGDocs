@@ -1,0 +1,1356 @@
+================================================================================
+IMAGE REFERENCES ANALYSIS REPORT
+================================================================================
+
+SUMMARY STATISTICS:
+--------------------------------------------------------------------------------
+Total Markdown Files Analyzed: 70
+Total Image References: 524
+  - Absolute Paths (/img/): 104
+  - Relative Paths (./images/): 420
+Total Existing Images in static/img: 85
+Broken Absolute Path References: 0
+
+================================================================================
+PART 1: MARKDOWN FILES WITH IMAGE REFERENCES (ALL)
+================================================================================
+
+File: device-integration\alarm-panels.md
+  Total references: 5
+    [EXISTS] /img/device-integration/blueprint-operation/blueprint-page-3.png
+    [EXISTS] /img/device-integration/blueprint-operation/blueprint-page-4.png
+    [EXISTS] /img/device-integration/blueprint-operation/blueprint-page-5.png
+    [EXISTS] /img/device-integration/blueprint-operation/blueprint-page-6.png
+    [EXISTS] /img/device-integration/blueprint-operation/blueprint-page-7.png
+
+File: device-integration\iot-sensors.md
+  Total references: 7
+    [EXISTS] /img/device-integration/sensor-lifecycle/sensor-lifecycle-page-2.png
+    [EXISTS] /img/device-integration/sensor-lifecycle/sensor-lifecycle-page-3.png
+    [EXISTS] /img/device-integration/sensor-lifecycle/sensor-lifecycle-page-4.png
+    [EXISTS] /img/device-integration/sensor-lifecycle/sensor-lifecycle-page-5.png
+    [EXISTS] /img/device-integration/sensor-lifecycle/sensor-lifecycle-page-6.png
+    [EXISTS] /img/device-integration/sensor-lifecycle/sensor-lifecycle-page-7.png
+    [EXISTS] /img/device-integration/sensor-lifecycle/sensor-lifecycle-page-8.png
+
+File: device-integration\ip-cameras.md
+  Total references: 6
+    [EXISTS] /img/device-integration/platform-mastery/platform-mastery-page-2.png
+    [EXISTS] /img/device-integration/platform-mastery/platform-mastery-page-4.png
+    [EXISTS] /img/device-integration/platform-mastery/platform-mastery-page-5.png
+    [EXISTS] /img/device-integration/platform-mastery/platform-mastery-page-6.png
+    [EXISTS] /img/device-integration/platform-mastery/platform-mastery-page-7.png
+    [EXISTS] /img/device-integration/platform-mastery/platform-mastery-page-8.png
+
+File: devices\ajax\overview.md
+  Total references: 11
+    [RELATIVE] ./images/Ajax%201.png
+    [RELATIVE] ./images/Ajax%202.png
+    [RELATIVE] ./images/Ajax%203.png
+    [RELATIVE] ./images/Ajax%204.png
+    [RELATIVE] ./images/Ajax%205.png
+    [RELATIVE] ./images/Ajax%206.png
+    [RELATIVE] ./images/Ajax%207.png
+    [RELATIVE] ./images/Ajax%208.png
+    [RELATIVE] ./images/Ajax%209.png
+    [RELATIVE] ./images/Ajax%2010.png
+    [RELATIVE] ./images/Ajax%2011.png
+
+File: devices\auraigateway\configuration.md
+  Total references: 4
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+
+File: devices\autoaid\configuration.md
+  Total references: 4
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+
+File: devices\axis\configuration.md
+  Total references: 4
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+
+File: devices\axiscamerastation\configuration.md
+  Total references: 15
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-step4.png
+    [RELATIVE] ./images/config-step5.png
+    [RELATIVE] ./images/config-step6.png
+    [RELATIVE] ./images/config-gcxone-add.png
+    [RELATIVE] ./images/config-step7.png
+    [RELATIVE] ./images/config-step8.png
+    [RELATIVE] ./images/config-step9.png
+    [RELATIVE] ./images/config-step10.png
+    [RELATIVE] ./images/config-step11.png
+    [RELATIVE] ./images/config-step12.png
+    [RELATIVE] ./images/config-step13.png
+    [RELATIVE] ./images/config-step14.png
+
+File: devices\axiscspro\configuration.md
+  Total references: 1
+    [RELATIVE] ./images/config-gcxone-add.png
+
+File: devices\axxon\configuration.md
+  Total references: 4
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+
+File: devices\davantis\configuration.md
+  Total references: 4
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+
+File: devices\digitalwatchdog\configuration.md
+  Total references: 8
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-step4.png
+    [RELATIVE] ./images/config-step5.png
+    [RELATIVE] ./images/config-gcxone-add.png
+    [RELATIVE] ./images/config-step6.png
+    [RELATIVE] ./images/config-step7.png
+
+File: devices\eagleeye\overview.md
+  Total references: 5
+    [RELATIVE] ./images/EagleEye%201.png
+    [RELATIVE] ./images/EagleEye%202.png
+    [RELATIVE] ./images/EagleEye%203.png
+    [RELATIVE] ./images/EagleEye%204.png
+    [RELATIVE] ./images/EagleEye%205.png
+
+File: devices\efoy\configuration.md
+  Total references: 4
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+
+File: devices\eneo\configuration.md
+  Total references: 6
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-step4.png
+    [RELATIVE] ./images/config-gcxone-add.png
+    [RELATIVE] ./images/config-step5.png
+
+File: devices\eneoip\configuration.md
+  Total references: 9
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-step4.png
+    [RELATIVE] ./images/config-step5.png
+    [RELATIVE] ./images/config-step6.png
+    [RELATIVE] ./images/config-step7.png
+    [RELATIVE] ./images/config-gcxone-add.png
+    [RELATIVE] ./images/config-step8.png
+
+File: devices\essence\configuration.md
+  Total references: 4
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+
+File: devices\ganz\overview.md
+  Total references: 9
+    [RELATIVE] ./images/ganz%201.png
+    [RELATIVE] ./images/ganz%202.png
+    [RELATIVE] ./images/ganz%203.png
+    [RELATIVE] ./images/ganz%204.png
+    [RELATIVE] ./images/ganz%205.png
+    [RELATIVE] ./images/ganz%206.png
+    [RELATIVE] ./images/ganz%207.png
+    [RELATIVE] ./images/ganz%208.png
+    [RELATIVE] ./images/ganz%209.png
+
+File: devices\genesisaudio\configuration.md
+  Total references: 2
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-gcxone-add.png
+
+File: devices\genesisvms\configuration.md
+  Total references: 6
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+    [RELATIVE] ./images/config-step4.png
+    [RELATIVE] ./images/config-step5.png
+
+File: devices\geutebruck\configuration.md
+  Total references: 4
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+
+File: devices\hanwha\configuration.md
+  Total references: 4
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+
+File: devices\heitel\configuration.md
+  Total references: 4
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+
+File: devices\hikpro\configuration.md
+  Total references: 4
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+
+File: devices\honeywell\configuration.md
+  Total references: 6
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step5.png
+    [RELATIVE] ./images/config-step8.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+
+File: devices\innovi\configuration.md
+  Total references: 4
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+
+File: devices\milestone\configuration.md
+  Total references: 15
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-step4.png
+    [RELATIVE] ./images/config-step5.png
+    [RELATIVE] ./images/config-step6.png
+    [RELATIVE] ./images/alarm-step1.png
+    [RELATIVE] ./images/alarm-step2.png
+    [RELATIVE] ./images/alarm-step3.png
+    [RELATIVE] ./images/alarm-step4.png
+    [RELATIVE] ./images/alarm-step5.png
+    [RELATIVE] ./images/config-gcxone-add.png
+    [RELATIVE] ./images/config-step10.png
+    [RELATIVE] ./images/config-step11.png
+    [RELATIVE] ./images/config-step12.png
+
+File: devices\miwi\configuration.md
+  Total references: 4
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+
+File: devices\netvue\configuration.md
+  Total references: 6
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+    [RELATIVE] ./images/config-step4.png
+    [RELATIVE] ./images/config-step5.png
+
+File: devices\nxgcloudnvr\configuration.md
+  Total references: 4
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-gcxone-add.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+
+File: devices\nxgcloudvisionedge\configuration.md
+  Total references: 6
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+    [RELATIVE] ./images/config-step4.png
+    [RELATIVE] ./images/config-step5.png
+
+File: devices\nxwitness\configuration.md
+  Total references: 8
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-step4.png
+    [RELATIVE] ./images/config-step5.png
+    [RELATIVE] ./images/config-gcxone-add.png
+    [RELATIVE] ./images/config-step6.png
+    [RELATIVE] ./images/config-step7.png
+
+File: devices\rosenberger\configuration.md
+  Total references: 4
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+
+File: devices\spykebox\configuration.md
+  Total references: 7
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-step4.png
+    [RELATIVE] ./images/config-gcxone-add.png
+    [RELATIVE] ./images/config-step5.png
+    [RELATIVE] ./images/config-step6.png
+
+File: devices\uniview\overview.md
+  Total references: 7
+    [RELATIVE] ./images/Uniview%201.png
+    [RELATIVE] ./images/Uniview%202.png
+    [RELATIVE] ./images/Uniview%203.png
+    [RELATIVE] ./images/Uniview%204.png
+    [RELATIVE] ./images/Uniview%205.png
+    [RELATIVE] ./images/Uniview%206.png
+    [RELATIVE] ./images/Uniview%207.png
+
+File: devices\viasys\configuration.md
+  Total references: 6
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+    [RELATIVE] ./images/config-step4.png
+    [RELATIVE] ./images/config-step5.png
+
+File: devices\victron\configuration.md
+  Total references: 4
+    [RELATIVE] ./images/config-step1.png
+    [RELATIVE] ./images/config-step2.png
+    [RELATIVE] ./images/config-step3.png
+    [RELATIVE] ./images/config-gcxone-add.png
+
+File: getting-started\Towers\Towers.md
+  Total references: 16
+    [RELATIVE] ./images/tower-page-1.png
+    [RELATIVE] ./images/tower-page-2.png
+    [RELATIVE] ./images/tower-page-3.png
+    [RELATIVE] ./images/tower-step-1-1.png
+    [RELATIVE] ./images/tower-page-4.png
+    [RELATIVE] ./images/tower-page-5.png
+    [RELATIVE] ./images/tower-step-2-1.png
+    [RELATIVE] ./images/tower-step-2-2.jpeg
+    [RELATIVE] ./images/tower-step-3-1.jpeg
+    [RELATIVE] ./images/tower-step-3-2.png
+    [RELATIVE] ./images/tower-step-4-1.jpeg
+    [RELATIVE] ./images/tower-step-6-1.png
+    [RELATIVE] ./images/tower-step-7-1.png
+    [RELATIVE] ./images/tower-step-7-2.png
+    [RELATIVE] ./images/tower-step-8-1.png
+    [RELATIVE] ./images/tower-step-9-1.png
+
+File: getting-started\bandwidth-requirements.md
+  Total references: 1
+    [EXISTS] /img/getting-started/key-benefits/key-benefits-page-7-img-1.png
+
+File: getting-started\devices\ADPRO\ADPRO.md
+  Total references: 21
+    [RELATIVE] ./images/ADPRO%201.png
+    [RELATIVE] ./images/ADPRO%202.png
+    [RELATIVE] ./images/ADPRO%203.png
+    [RELATIVE] ./images/ADPRO%204.png
+    [RELATIVE] ./images/ADPRO%205.png
+    [RELATIVE] ./images/ADPRO%206.png
+    [RELATIVE] ./images/ADPRO%207.png
+    [RELATIVE] ./images/ADPRO%208.png
+    [RELATIVE] ./images/ADPRO%209.png
+    [RELATIVE] ./images/ADPRO%2010.png
+    [RELATIVE] ./images/ADPRO%2011.png
+    [RELATIVE] ./images/ADPRO%2012.png
+    [RELATIVE] ./images/ADPRO%2013.png
+    [RELATIVE] ./images/ADPRO%2014.png
+    [RELATIVE] ./images/ADPRO%2015.png
+    [RELATIVE] ./images/ADPRO%2016.png
+    [RELATIVE] ./images/ADPRO%2017.png
+    [RELATIVE] ./images/ADPRO%2018.png
+    [RELATIVE] ./images/ADPRO%2017.png
+    [RELATIVE] ./images/ADPRO%2018.png
+    [RELATIVE] ./images/ADPRO%2019.png
+
+File: getting-started\devices\Ajax\Ajax.md
+  Total references: 11
+    [RELATIVE] ./images/Ajax%201.png
+    [RELATIVE] ./images/Ajax%202.png
+    [RELATIVE] ./images/Ajax%203.png
+    [RELATIVE] ./images/Ajax%204.png
+    [RELATIVE] ./images/Ajax%205.png
+    [RELATIVE] ./images/Ajax%206.png
+    [RELATIVE] ./images/Ajax%207.png
+    [RELATIVE] ./images/Ajax%208.png
+    [RELATIVE] ./images/Ajax%209.png
+    [RELATIVE] ./images/Ajax%2010.png
+    [RELATIVE] ./images/Ajax%2011.png
+
+File: getting-started\devices\Avigilon\Avigilon.md
+  Total references: 22
+    [RELATIVE] ./images/Avigilon%20 ACC Client Login](./images/Avigilon%201.png
+    [RELATIVE] ./images/Avigilon%20 Camera Selection](./images/Avigilon%202.png
+    [RELATIVE] ./images/Avigilon%20 Camera Right-Click](./images/Avigilon%203.png
+    [RELATIVE] ./images/Avigilon%20 4.png
+    [RELATIVE] ./images/Avigilon%20 5.png
+    [RELATIVE] ./images/Avigilon%20 6.png
+    [RELATIVE] ./images/Avigilon%20 7.png
+    [RELATIVE] ./images/Avigilon%20 8.png
+    [RELATIVE] ./images/Avigilon%20 9.png
+    [RELATIVE] ./images/Avigilon%20 10.png
+    [RELATIVE] ./images/Avigilon%20 11.png
+    [RELATIVE] ./images/Avigilon%20 12.png
+    [RELATIVE] ./images/Avigilon%20 13.png
+    [RELATIVE] ./images/Avigilon%20 14.png
+    [RELATIVE] ./images/Avigilon%20 15.png
+    [RELATIVE] ./images/Avigilon%20 16.png
+    [RELATIVE] ./images/Avigilon%20 17.png
+    [RELATIVE] ./images/Avigilon%20 18.png
+    [RELATIVE] ./images/Avigilon%20 19.png
+    [RELATIVE] ./images/Avigilon%20 20.png
+    [RELATIVE] ./images/Avigilon%20 21.png
+    [RELATIVE] ./images/Avigilon%20 GC-X-ONE Configuration](./images/Avigilon%2022.png
+
+File: getting-started\devices\AxisCameraStation\Axis Camera Station Pro.md
+  Total references: 26
+    [RELATIVE] ./images/AXIS%20 1.png
+    [RELATIVE] ./images/AXIS%20 2.png
+    [RELATIVE] ./images/AXIS%20 3.png
+    [RELATIVE] ./images/AXIS%20 4.png
+    [RELATIVE] ./images/AXIS%20 5.png
+    [RELATIVE] ./images/AXIS%20 6.png
+    [RELATIVE] ./images/AXIS%20 7.png
+    [RELATIVE] ./images/AXIS%20 8.png
+    [RELATIVE] ./images/AXIS%20 9.png
+    [RELATIVE] ./images/AXIS%20 10.png
+    [RELATIVE] ./images/AXIS%20 11.png
+    [RELATIVE] ./images/AXIS%20 12.png
+    [RELATIVE] ./images/AXIS%20 13.png
+    [RELATIVE] ./images/AXIS%20 14.png
+    [RELATIVE] ./images/AXIS%20 15.png
+    [RELATIVE] ./images/AXIS%20 16.png
+    [RELATIVE] ./images/AXIS%20 19.png
+    [RELATIVE] ./images/AXIS%2031.png
+    [RELATIVE] ./images/AXIS%20 31.png
+    [RELATIVE] ./images/AXIS%20 24.png
+    [RELATIVE] ./images/AXIS%20 25.png
+    [RELATIVE] ./images/AXIS%20 26.png
+    [RELATIVE] ./images/AXIS%20 27.png
+    [RELATIVE] ./images/AXIS%20 28.png
+    [RELATIVE] ./images/AXIS%20 29.png
+    [RELATIVE] ./images/AXIS%20 30.png
+
+File: getting-started\devices\Camect\Camect.md
+  Total references: 6
+    [RELATIVE] ./images/Camect%201.gif
+    [RELATIVE] ./images/Camect%203.gif
+    [RELATIVE] ./images/Camect%204.gif
+    [RELATIVE] ./images/Camect%202.gif
+    [RELATIVE] ./images/Camect%205.gif
+    [RELATIVE] ./images/CAMECT%20ADDING%20DEVICE.png
+
+File: getting-started\devices\Dahua Dolynk\Dahua Dolynk.md
+  Total references: 5
+    [RELATIVE] ./images/Dolynk%201.png
+    [RELATIVE] ./images/Dolynk%202.png
+    [RELATIVE] ./images/Dolynk%203.png
+    [RELATIVE] ./images/Dolynk%204.png
+    [RELATIVE] ./images/Dolynk%205.png
+
+File: getting-started\devices\Dahua\Dahua.md
+  Total references: 6
+    [RELATIVE] ./images/Dahua%20pic%201.gif
+    [RELATIVE] ./images/Dahua%20pic%203.gif
+    [RELATIVE] ./images/Dahua%20pic%202.gif
+    [RELATIVE] ./images/Adding%20device%201.png
+    [RELATIVE] ./images/Adding%20device%202.png
+    [RELATIVE] ./images/Adding%20device%203.png
+
+File: getting-started\devices\EagleEye\EagleEye.md
+  Total references: 5
+    [RELATIVE] ./images/EagleEye%201.png
+    [RELATIVE] ./images/EagleEye%202.png
+    [RELATIVE] ./images/EagleEye%203.png
+    [RELATIVE] ./images/EagleEye%204.png
+    [RELATIVE] ./images/EagleEye%205.png
+
+File: getting-started\devices\Ganz\Ganz.md
+  Total references: 3
+    [RELATIVE] ./images/ganz%201.png
+    [RELATIVE] ./images/ganz%202.png
+    [RELATIVE] ./images/ganz%209.png
+
+File: getting-started\devices\HikVision\Hikvision.md
+  Total references: 8
+    [RELATIVE] ./images/Hik%20vision Time Configuration](./images/Hik%201.png
+    [RELATIVE] ./images/Hik%20vision NTP Settings](./images/Hik%202.png
+    [RELATIVE] ./images/Hik%20 3.png
+    [RELATIVE] ./images/Hik%20 4.png
+    [RELATIVE] ./images/Hik%20 5.png
+    [RELATIVE] ./images/Hik%20 6.png
+    [RELATIVE] ./images/Hik%20 7.png
+    [RELATIVE] ./images/Hik%208.png
+
+File: getting-started\devices\Reconeyez\Reconeyez.md
+  Total references: 4
+    [RELATIVE] ./images/Reconeyez%201.png
+    [RELATIVE] ./images/Reconeyez%202.png
+    [RELATIVE] ./images/Reconeyez%203.png
+    [RELATIVE] ./images/Reconeyez%204.png
+
+File: getting-started\devices\Senstar\Senstar.md
+  Total references: 26
+    [RELATIVE] ./images/senstar%20 Installation](./images/senstar%201.png
+    [RELATIVE] ./images/senstar%20 2.png
+    [RELATIVE] ./images/senstar%20 3.png
+    [RELATIVE] ./images/senstar%20 4.png
+    [RELATIVE] ./images/senstar%20 5.png
+    [RELATIVE] ./images/senstar%20 6.png
+    [RELATIVE] ./images/senstar%20 7.png
+    [RELATIVE] ./images/senstar%20 8.png
+    [RELATIVE] ./images/senstar%20 9.png
+    [RELATIVE] ./images/senstar%20 10.png
+    [RELATIVE] ./images/senstar%20 11.png
+    [RELATIVE] ./images/senstar%20 12.png
+    [RELATIVE] ./images/senstar%20 13.png
+    [RELATIVE] ./images/senstar%20 14.png
+    [RELATIVE] ./images/senstar%20 15.png
+    [RELATIVE] ./images/senstar%20 16.png
+    [RELATIVE] ./images/senstar%20 17.png
+    [RELATIVE] ./images/senstar%20 18.png
+    [RELATIVE] ./images/senstar%20 19.png
+    [RELATIVE] ./images/senstar%20 20.png
+    [RELATIVE] ./images/senstar%20 21.png
+    [RELATIVE] ./images/senstar%20 22.png
+    [RELATIVE] ./images/senstar%20 23.png
+    [RELATIVE] ./images/senstar%20 24.png
+    [RELATIVE] ./images/senstar%20 25.png
+    [RELATIVE] ./images/senstar%20 26.png
+
+File: getting-started\devices\Teltonika Router\Teltonkia Router.md
+  Total references: 8
+    [RELATIVE] ./images/Teltonika%20Router%20 Status](./images/Teltonika%20Router%201.png
+    [RELATIVE] ./images/Teltonika%20Router%20 2.png
+    [RELATIVE] ./images/Teltonika%20Router%20 10.png
+    [RELATIVE] ./images/Teltonika%20Router%20 11.png
+    [RELATIVE] ./images/Teltonika%20Router%20 11.png
+    [RELATIVE] ./images/Teltonika%20Router%20 12.png
+    [RELATIVE] ./images/Teltonika%20Router%20 8.png
+    [RELATIVE] ./images/Teltonika%20Router%20 9.png
+
+File: getting-started\devices\Uniview\Uniview.md
+  Total references: 7
+    [RELATIVE] ./images/Uniview%20 Network Configuration](./images/Uniview%201.png
+    [RELATIVE] ./images/Uniview%20 2.png
+    [RELATIVE] ./images/Uniview%20 3.png
+    [RELATIVE] ./images/Uniview%20 4.png
+    [RELATIVE] ./images/Uniview%20 5.png
+    [RELATIVE] ./images/Uniview%20 6.png
+    [RELATIVE] ./images/Uniview%20 7.png
+
+File: getting-started\first-time-login-full.md
+  Total references: 32
+    [EXISTS] /img/getting-started/first-time-login/img_358fe55e1f.png
+    [EXISTS] /img/getting-started/first-time-login/img_6f0dd9a688.png
+    [EXISTS] /img/getting-started/first-time-login/img_4fdcca4c52.png
+    [EXISTS] /img/getting-started/first-time-login/img_51e6b333cb.png
+    [EXISTS] /img/getting-started/first-time-login/img_b3b7e7d4f3.png
+    [EXISTS] /img/getting-started/first-time-login/img_16258c0d27.png
+    [EXISTS] /img/getting-started/first-time-login/img_391533ac02.png
+    [EXISTS] /img/getting-started/first-time-login/img_c7a1f8ab36.png
+    [EXISTS] /img/getting-started/first-time-login/img_1ec3d58e1e.png
+    [EXISTS] /img/getting-started/first-time-login/img_362cfa68c5.png
+    [EXISTS] /img/getting-started/first-time-login/img_6ce3c6c695.png
+    [EXISTS] /img/getting-started/first-time-login/img_15e7a6bfc0.png
+    [EXISTS] /img/getting-started/first-time-login/img_458f27db17.png
+    [EXISTS] /img/getting-started/first-time-login/img_08d6593c64.png
+    [EXISTS] /img/getting-started/first-time-login/img_0c79556600.png
+    [EXISTS] /img/getting-started/first-time-login/img_7175c0d0ec.png
+    [EXISTS] /img/getting-started/first-time-login/img_788c58f3c1.png
+    [EXISTS] /img/getting-started/first-time-login/img_5f5e114cec.png
+    [EXISTS] /img/getting-started/first-time-login/img_d800296414.png
+    [EXISTS] /img/getting-started/first-time-login/img_ec5fbaf7c0.png
+    [EXISTS] /img/getting-started/first-time-login/img_be63042d4f.png
+    [EXISTS] /img/getting-started/first-time-login/img_12379c39e6.png
+    [EXISTS] /img/getting-started/first-time-login/img_dee55341bc.png
+    [EXISTS] /img/getting-started/first-time-login/img_d143a12969.png
+    [EXISTS] /img/getting-started/first-time-login/img_2e6fb8a3e1.png
+    [EXISTS] /img/getting-started/first-time-login/img_12704e5d4e.png
+    [EXISTS] /img/getting-started/first-time-login/img_f871b83f91.png
+    [EXISTS] /img/getting-started/first-time-login/img_e07750c652.png
+    [EXISTS] /img/getting-started/first-time-login/img_42273b4730.png
+    [EXISTS] /img/getting-started/first-time-login/img_0e08388249.png
+    [EXISTS] /img/getting-started/first-time-login/img_44b4878991.png
+    [EXISTS] /img/getting-started/first-time-login/img_1531f175db.png
+
+File: getting-started\first-time-login.md
+  Total references: 32
+    [EXISTS] /img/getting-started/first-time-login/img_358fe55e1f.png
+    [EXISTS] /img/getting-started/first-time-login/img_6f0dd9a688.png
+    [EXISTS] /img/getting-started/first-time-login/img_4fdcca4c52.png
+    [EXISTS] /img/getting-started/first-time-login/img_51e6b333cb.png
+    [EXISTS] /img/getting-started/first-time-login/img_b3b7e7d4f3.png
+    [EXISTS] /img/getting-started/first-time-login/img_16258c0d27.png
+    [EXISTS] /img/getting-started/first-time-login/img_391533ac02.png
+    [EXISTS] /img/getting-started/first-time-login/img_c7a1f8ab36.png
+    [EXISTS] /img/getting-started/first-time-login/img_1ec3d58e1e.png
+    [EXISTS] /img/getting-started/first-time-login/img_362cfa68c5.png
+    [EXISTS] /img/getting-started/first-time-login/img_6ce3c6c695.png
+    [EXISTS] /img/getting-started/first-time-login/img_15e7a6bfc0.png
+    [EXISTS] /img/getting-started/first-time-login/img_458f27db17.png
+    [EXISTS] /img/getting-started/first-time-login/img_08d6593c64.png
+    [EXISTS] /img/getting-started/first-time-login/img_0c79556600.png
+    [EXISTS] /img/getting-started/first-time-login/img_7175c0d0ec.png
+    [EXISTS] /img/getting-started/first-time-login/img_788c58f3c1.png
+    [EXISTS] /img/getting-started/first-time-login/img_5f5e114cec.png
+    [EXISTS] /img/getting-started/first-time-login/img_d800296414.png
+    [EXISTS] /img/getting-started/first-time-login/img_ec5fbaf7c0.png
+    [EXISTS] /img/getting-started/first-time-login/img_be63042d4f.png
+    [EXISTS] /img/getting-started/first-time-login/img_12379c39e6.png
+    [EXISTS] /img/getting-started/first-time-login/img_dee55341bc.png
+    [EXISTS] /img/getting-started/first-time-login/img_d143a12969.png
+    [EXISTS] /img/getting-started/first-time-login/img_2e6fb8a3e1.png
+    [EXISTS] /img/getting-started/first-time-login/img_12704e5d4e.png
+    [EXISTS] /img/getting-started/first-time-login/img_f871b83f91.png
+    [EXISTS] /img/getting-started/first-time-login/img_e07750c652.png
+    [EXISTS] /img/getting-started/first-time-login/img_42273b4730.png
+    [EXISTS] /img/getting-started/first-time-login/img_0e08388249.png
+    [EXISTS] /img/getting-started/first-time-login/img_44b4878991.png
+    [EXISTS] /img/getting-started/first-time-login/img_1531f175db.png
+
+File: getting-started\gcxone-talos-interaction.md
+  Total references: 4
+    [EXISTS] /img/getting-started/gcxone-talos-interaction/hierarchy-diagram.png
+    [EXISTS] /img/getting-started/gcxone-talos-interaction/data-synchronization.png
+    [EXISTS] /img/getting-started/gcxone-talos-interaction/alarm-lifecycle.png
+    [EXISTS] /img/getting-started/gcxone-talos-interaction/filtering-logic.png
+
+File: getting-started\key-benefits.md
+  Total references: 13
+    [EXISTS] /img/getting-started/key-benefits/key-benefits-page-1-img-1.png
+    [EXISTS] /img/getting-started/key-benefits/key-benefits-page-2-img-1.png
+    [EXISTS] /img/getting-started/key-benefits/key-benefits-page-3-img-1.png
+    [EXISTS] /img/getting-started/key-benefits/key-benefits-page-4-img-1.png
+    [EXISTS] /img/getting-started/key-benefits/key-benefits-page-5-img-1.png
+    [EXISTS] /img/getting-started/key-benefits/key-benefits-page-6-img-1.png
+    [EXISTS] /img/getting-started/key-benefits/key-benefits-page-7-img-1.png
+    [EXISTS] /img/getting-started/key-benefits/key-benefits-page-8-img-1.png
+    [EXISTS] /img/getting-started/key-benefits/key-benefits-page-9-img-1.png
+    [EXISTS] /img/getting-started/key-benefits/key-benefits-page-10-img-1.png
+    [EXISTS] /img/getting-started/key-benefits/key-benefits-page-11-img-1.png
+    [EXISTS] /img/getting-started/key-benefits/key-benefits-page-12-img-1.png
+    [EXISTS] /img/getting-started/key-benefits/key-benefits-page-13-img-1.png
+
+File: getting-started\ntp-configuration.md
+  Total references: 10
+    [RELATIVE] ./images/ntp-step-1.png
+    [RELATIVE] ./images/ntp-step-2.png
+    [RELATIVE] ./images/ntp-step-3.png
+    [RELATIVE] ./images/ntp-step-4.png
+    [RELATIVE] ./images/ntp-step-5.png
+    [RELATIVE] ./images/ntp-step-6.png
+    [RELATIVE] ./images/ntp-step-7.png
+    [RELATIVE] ./images/ntp-step-8.png
+    [RELATIVE] ./images/ntp-step-9.png
+    [RELATIVE] ./images/ntp-step-10.png
+
+File: getting-started\quick-start-checklist.md
+  Total references: 5
+    [RELATIVE] ./images/quick-start-1.png
+    [RELATIVE] ./images/quick-start-2.png
+    [RELATIVE] ./images/quick-start-3.png
+    [RELATIVE] ./images/quick-start-4.png
+    [RELATIVE] ./images/quick-start-5.png
+
+File: getting-started\user-management\creating-roles.md
+  Total references: 7
+    [RELATIVE] ./images/user-management-8.png
+    [RELATIVE] ./images/user-management-9.png
+    [RELATIVE] ./images/user-management-10.png
+    [RELATIVE] ./images/user-management-11.png
+    [RELATIVE] ./images/user-management-12.png
+    [RELATIVE] ./images/user-management-13.png
+    [RELATIVE] ./images/user-management-14.png
+
+File: getting-started\user-management\customer-groups.md
+  Total references: 2
+    [RELATIVE] ./images/user-management-3.png
+    [RELATIVE] ./images/user-management-3.png
+
+File: getting-started\user-management\inviting-users.md
+  Total references: 7
+    [RELATIVE] ./images/user-management-1.png
+    [RELATIVE] ./images/user-management-2.png
+    [RELATIVE] ./images/user-management-3.png
+    [RELATIVE] ./images/user-management-4.png
+    [RELATIVE] ./images/user-management-5.png
+    [RELATIVE] ./images/user-management-6.png
+    [RELATIVE] ./images/user-management-7.png
+
+File: getting-started\user-management\managing-users.md
+  Total references: 4
+    [RELATIVE] ./images/user-management-1.png
+    [RELATIVE] ./images/user-management-2.png
+    [RELATIVE] ./images/user-management-3.png
+    [RELATIVE] ./images/user-management-4.png
+
+File: getting-started\user-management\overview.md
+  Total references: 3
+    [RELATIVE] ./images/user-management-1.png
+    [RELATIVE] ./images/user-management-2.png
+    [RELATIVE] ./images/user-management-3.png
+
+File: getting-started\user-management\roles-and-access-levels.md
+  Total references: 4
+    [RELATIVE] ./images/user-management-4.png
+    [RELATIVE] ./images/user-management-5.png
+    [RELATIVE] ./images/user-management-6.png
+    [RELATIVE] ./images/user-management-7.png
+
+File: getting-started\user-management\talos-user-management.md
+  Total references: 7
+    [RELATIVE] ./images/talos-role-creation-1.png
+    [RELATIVE] ./images/talos-role-creation-1.png
+    [RELATIVE] ./images/adjust-privileges-1.png
+    [RELATIVE] ./images/adjust-privileges-2.png
+    [RELATIVE] ./images/alarm-groups-1.png
+    [RELATIVE] ./images/alarm-groups-2.png
+    [RELATIVE] ./images/alarm-groups-3.png
+
+File: platform-fundamentals-hierarchy-model.md
+  Total references: 1
+    [EXISTS] /img/getting-started/gcxone-talos-interaction/hierarchy-diagram.png
+
+File: platform-fundamentals-microservices-architecture.md
+  Total references: 1
+    [EXISTS] /img/getting-started/key-benefits/key-benefits-page-8-img-1.png
+
+File: platform-fundamentals\hierarchy-model.md
+  Total references: 1
+    [EXISTS] /img/getting-started/gcxone-talos-interaction/hierarchy-diagram.png
+
+File: platform-fundamentals\microservices-architecture.md
+  Total references: 1
+    [EXISTS] /img/getting-started/key-benefits/key-benefits-page-8-img-1.png
+
+================================================================================
+PART 2: BROKEN IMAGE REFERENCES (ABSOLUTE PATHS ONLY)
+================================================================================
+
+GOOD NEWS! No broken absolute paths found!
+
+================================================================================
+PART 3: RELATIVE PATH REFERENCES (./images/) - NEED INVESTIGATION
+================================================================================
+
+Total files with relative references: 58
+
+File: devices\ajax\overview.md
+  Relative references: 11
+    - ./images/Ajax%201.png
+    - ./images/Ajax%202.png
+    - ./images/Ajax%203.png
+    - ./images/Ajax%204.png
+    - ./images/Ajax%205.png
+    - ./images/Ajax%206.png
+    - ./images/Ajax%207.png
+    - ./images/Ajax%208.png
+    - ./images/Ajax%209.png
+    - ./images/Ajax%2010.png
+    - ./images/Ajax%2011.png
+
+File: devices\auraigateway\configuration.md
+  Relative references: 4
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+
+File: devices\autoaid\configuration.md
+  Relative references: 4
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+
+File: devices\axis\configuration.md
+  Relative references: 4
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+
+File: devices\axiscamerastation\configuration.md
+  Relative references: 15
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-step4.png
+    - ./images/config-step5.png
+    - ./images/config-step6.png
+    - ./images/config-gcxone-add.png
+    - ./images/config-step7.png
+    - ./images/config-step8.png
+    - ./images/config-step9.png
+    - ./images/config-step10.png
+    - ./images/config-step11.png
+    - ./images/config-step12.png
+    - ./images/config-step13.png
+    - ./images/config-step14.png
+
+File: devices\axiscspro\configuration.md
+  Relative references: 1
+    - ./images/config-gcxone-add.png
+
+File: devices\axxon\configuration.md
+  Relative references: 4
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+
+File: devices\davantis\configuration.md
+  Relative references: 4
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+
+File: devices\digitalwatchdog\configuration.md
+  Relative references: 8
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-step4.png
+    - ./images/config-step5.png
+    - ./images/config-gcxone-add.png
+    - ./images/config-step6.png
+    - ./images/config-step7.png
+
+File: devices\eagleeye\overview.md
+  Relative references: 5
+    - ./images/EagleEye%201.png
+    - ./images/EagleEye%202.png
+    - ./images/EagleEye%203.png
+    - ./images/EagleEye%204.png
+    - ./images/EagleEye%205.png
+
+File: devices\efoy\configuration.md
+  Relative references: 4
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+
+File: devices\eneo\configuration.md
+  Relative references: 6
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-step4.png
+    - ./images/config-gcxone-add.png
+    - ./images/config-step5.png
+
+File: devices\eneoip\configuration.md
+  Relative references: 9
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-step4.png
+    - ./images/config-step5.png
+    - ./images/config-step6.png
+    - ./images/config-step7.png
+    - ./images/config-gcxone-add.png
+    - ./images/config-step8.png
+
+File: devices\essence\configuration.md
+  Relative references: 4
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+
+File: devices\ganz\overview.md
+  Relative references: 9
+    - ./images/ganz%201.png
+    - ./images/ganz%202.png
+    - ./images/ganz%203.png
+    - ./images/ganz%204.png
+    - ./images/ganz%205.png
+    - ./images/ganz%206.png
+    - ./images/ganz%207.png
+    - ./images/ganz%208.png
+    - ./images/ganz%209.png
+
+File: devices\genesisaudio\configuration.md
+  Relative references: 2
+    - ./images/config-step1.png
+    - ./images/config-gcxone-add.png
+
+File: devices\genesisvms\configuration.md
+  Relative references: 6
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+    - ./images/config-step4.png
+    - ./images/config-step5.png
+
+File: devices\geutebruck\configuration.md
+  Relative references: 4
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+
+File: devices\hanwha\configuration.md
+  Relative references: 4
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+
+File: devices\heitel\configuration.md
+  Relative references: 4
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+
+File: devices\hikpro\configuration.md
+  Relative references: 4
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+
+File: devices\honeywell\configuration.md
+  Relative references: 6
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step5.png
+    - ./images/config-step8.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+
+File: devices\innovi\configuration.md
+  Relative references: 4
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+
+File: devices\milestone\configuration.md
+  Relative references: 15
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-step4.png
+    - ./images/config-step5.png
+    - ./images/config-step6.png
+    - ./images/alarm-step1.png
+    - ./images/alarm-step2.png
+    - ./images/alarm-step3.png
+    - ./images/alarm-step4.png
+    - ./images/alarm-step5.png
+    - ./images/config-gcxone-add.png
+    - ./images/config-step10.png
+    - ./images/config-step11.png
+    - ./images/config-step12.png
+
+File: devices\miwi\configuration.md
+  Relative references: 4
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+
+File: devices\netvue\configuration.md
+  Relative references: 6
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+    - ./images/config-step4.png
+    - ./images/config-step5.png
+
+File: devices\nxgcloudnvr\configuration.md
+  Relative references: 4
+    - ./images/config-step1.png
+    - ./images/config-gcxone-add.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+
+File: devices\nxgcloudvisionedge\configuration.md
+  Relative references: 6
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+    - ./images/config-step4.png
+    - ./images/config-step5.png
+
+File: devices\nxwitness\configuration.md
+  Relative references: 8
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-step4.png
+    - ./images/config-step5.png
+    - ./images/config-gcxone-add.png
+    - ./images/config-step6.png
+    - ./images/config-step7.png
+
+File: devices\rosenberger\configuration.md
+  Relative references: 4
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+
+File: devices\spykebox\configuration.md
+  Relative references: 7
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-step4.png
+    - ./images/config-gcxone-add.png
+    - ./images/config-step5.png
+    - ./images/config-step6.png
+
+File: devices\uniview\overview.md
+  Relative references: 7
+    - ./images/Uniview%201.png
+    - ./images/Uniview%202.png
+    - ./images/Uniview%203.png
+    - ./images/Uniview%204.png
+    - ./images/Uniview%205.png
+    - ./images/Uniview%206.png
+    - ./images/Uniview%207.png
+
+File: devices\viasys\configuration.md
+  Relative references: 6
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+    - ./images/config-step4.png
+    - ./images/config-step5.png
+
+File: devices\victron\configuration.md
+  Relative references: 4
+    - ./images/config-step1.png
+    - ./images/config-step2.png
+    - ./images/config-step3.png
+    - ./images/config-gcxone-add.png
+
+File: getting-started\Towers\Towers.md
+  Relative references: 16
+    - ./images/tower-page-1.png
+    - ./images/tower-page-2.png
+    - ./images/tower-page-3.png
+    - ./images/tower-step-1-1.png
+    - ./images/tower-page-4.png
+    - ./images/tower-page-5.png
+    - ./images/tower-step-2-1.png
+    - ./images/tower-step-2-2.jpeg
+    - ./images/tower-step-3-1.jpeg
+    - ./images/tower-step-3-2.png
+    - ./images/tower-step-4-1.jpeg
+    - ./images/tower-step-6-1.png
+    - ./images/tower-step-7-1.png
+    - ./images/tower-step-7-2.png
+    - ./images/tower-step-8-1.png
+    - ./images/tower-step-9-1.png
+
+File: getting-started\devices\ADPRO\ADPRO.md
+  Relative references: 21
+    - ./images/ADPRO%201.png
+    - ./images/ADPRO%202.png
+    - ./images/ADPRO%203.png
+    - ./images/ADPRO%204.png
+    - ./images/ADPRO%205.png
+    - ./images/ADPRO%206.png
+    - ./images/ADPRO%207.png
+    - ./images/ADPRO%208.png
+    - ./images/ADPRO%209.png
+    - ./images/ADPRO%2010.png
+    - ./images/ADPRO%2011.png
+    - ./images/ADPRO%2012.png
+    - ./images/ADPRO%2013.png
+    - ./images/ADPRO%2014.png
+    - ./images/ADPRO%2015.png
+    - ./images/ADPRO%2016.png
+    - ./images/ADPRO%2017.png
+    - ./images/ADPRO%2018.png
+    - ./images/ADPRO%2017.png
+    - ./images/ADPRO%2018.png
+    - ./images/ADPRO%2019.png
+
+File: getting-started\devices\Ajax\Ajax.md
+  Relative references: 11
+    - ./images/Ajax%201.png
+    - ./images/Ajax%202.png
+    - ./images/Ajax%203.png
+    - ./images/Ajax%204.png
+    - ./images/Ajax%205.png
+    - ./images/Ajax%206.png
+    - ./images/Ajax%207.png
+    - ./images/Ajax%208.png
+    - ./images/Ajax%209.png
+    - ./images/Ajax%2010.png
+    - ./images/Ajax%2011.png
+
+File: getting-started\devices\Avigilon\Avigilon.md
+  Relative references: 22
+    - ./images/Avigilon%20 ACC Client Login](./images/Avigilon%201.png
+    - ./images/Avigilon%20 Camera Selection](./images/Avigilon%202.png
+    - ./images/Avigilon%20 Camera Right-Click](./images/Avigilon%203.png
+    - ./images/Avigilon%20 4.png
+    - ./images/Avigilon%20 5.png
+    - ./images/Avigilon%20 6.png
+    - ./images/Avigilon%20 7.png
+    - ./images/Avigilon%20 8.png
+    - ./images/Avigilon%20 9.png
+    - ./images/Avigilon%20 10.png
+    - ./images/Avigilon%20 11.png
+    - ./images/Avigilon%20 12.png
+    - ./images/Avigilon%20 13.png
+    - ./images/Avigilon%20 14.png
+    - ./images/Avigilon%20 15.png
+    - ./images/Avigilon%20 16.png
+    - ./images/Avigilon%20 17.png
+    - ./images/Avigilon%20 18.png
+    - ./images/Avigilon%20 19.png
+    - ./images/Avigilon%20 20.png
+    - ./images/Avigilon%20 21.png
+    - ./images/Avigilon%20 GC-X-ONE Configuration](./images/Avigilon%2022.png
+
+File: getting-started\devices\AxisCameraStation\Axis Camera Station Pro.md
+  Relative references: 26
+    - ./images/AXIS%20 1.png
+    - ./images/AXIS%20 2.png
+    - ./images/AXIS%20 3.png
+    - ./images/AXIS%20 4.png
+    - ./images/AXIS%20 5.png
+    - ./images/AXIS%20 6.png
+    - ./images/AXIS%20 7.png
+    - ./images/AXIS%20 8.png
+    - ./images/AXIS%20 9.png
+    - ./images/AXIS%20 10.png
+    - ./images/AXIS%20 11.png
+    - ./images/AXIS%20 12.png
+    - ./images/AXIS%20 13.png
+    - ./images/AXIS%20 14.png
+    - ./images/AXIS%20 15.png
+    - ./images/AXIS%20 16.png
+    - ./images/AXIS%20 19.png
+    - ./images/AXIS%2031.png
+    - ./images/AXIS%20 31.png
+    - ./images/AXIS%20 24.png
+    - ./images/AXIS%20 25.png
+    - ./images/AXIS%20 26.png
+    - ./images/AXIS%20 27.png
+    - ./images/AXIS%20 28.png
+    - ./images/AXIS%20 29.png
+    - ./images/AXIS%20 30.png
+
+File: getting-started\devices\Camect\Camect.md
+  Relative references: 6
+    - ./images/Camect%201.gif
+    - ./images/Camect%203.gif
+    - ./images/Camect%204.gif
+    - ./images/Camect%202.gif
+    - ./images/Camect%205.gif
+    - ./images/CAMECT%20ADDING%20DEVICE.png
+
+File: getting-started\devices\Dahua Dolynk\Dahua Dolynk.md
+  Relative references: 5
+    - ./images/Dolynk%201.png
+    - ./images/Dolynk%202.png
+    - ./images/Dolynk%203.png
+    - ./images/Dolynk%204.png
+    - ./images/Dolynk%205.png
+
+File: getting-started\devices\Dahua\Dahua.md
+  Relative references: 6
+    - ./images/Dahua%20pic%201.gif
+    - ./images/Dahua%20pic%203.gif
+    - ./images/Dahua%20pic%202.gif
+    - ./images/Adding%20device%201.png
+    - ./images/Adding%20device%202.png
+    - ./images/Adding%20device%203.png
+
+File: getting-started\devices\EagleEye\EagleEye.md
+  Relative references: 5
+    - ./images/EagleEye%201.png
+    - ./images/EagleEye%202.png
+    - ./images/EagleEye%203.png
+    - ./images/EagleEye%204.png
+    - ./images/EagleEye%205.png
+
+File: getting-started\devices\Ganz\Ganz.md
+  Relative references: 3
+    - ./images/ganz%201.png
+    - ./images/ganz%202.png
+    - ./images/ganz%209.png
+
+File: getting-started\devices\HikVision\Hikvision.md
+  Relative references: 8
+    - ./images/Hik%20vision Time Configuration](./images/Hik%201.png
+    - ./images/Hik%20vision NTP Settings](./images/Hik%202.png
+    - ./images/Hik%20 3.png
+    - ./images/Hik%20 4.png
+    - ./images/Hik%20 5.png
+    - ./images/Hik%20 6.png
+    - ./images/Hik%20 7.png
+    - ./images/Hik%208.png
+
+File: getting-started\devices\Reconeyez\Reconeyez.md
+  Relative references: 4
+    - ./images/Reconeyez%201.png
+    - ./images/Reconeyez%202.png
+    - ./images/Reconeyez%203.png
+    - ./images/Reconeyez%204.png
+
+File: getting-started\devices\Senstar\Senstar.md
+  Relative references: 26
+    - ./images/senstar%20 Installation](./images/senstar%201.png
+    - ./images/senstar%20 2.png
+    - ./images/senstar%20 3.png
+    - ./images/senstar%20 4.png
+    - ./images/senstar%20 5.png
+    - ./images/senstar%20 6.png
+    - ./images/senstar%20 7.png
+    - ./images/senstar%20 8.png
+    - ./images/senstar%20 9.png
+    - ./images/senstar%20 10.png
+    - ./images/senstar%20 11.png
+    - ./images/senstar%20 12.png
+    - ./images/senstar%20 13.png
+    - ./images/senstar%20 14.png
+    - ./images/senstar%20 15.png
+    - ./images/senstar%20 16.png
+    - ./images/senstar%20 17.png
+    - ./images/senstar%20 18.png
+    - ./images/senstar%20 19.png
+    - ./images/senstar%20 20.png
+    - ./images/senstar%20 21.png
+    - ./images/senstar%20 22.png
+    - ./images/senstar%20 23.png
+    - ./images/senstar%20 24.png
+    - ./images/senstar%20 25.png
+    - ./images/senstar%20 26.png
+
+File: getting-started\devices\Teltonika Router\Teltonkia Router.md
+  Relative references: 8
+    - ./images/Teltonika%20Router%20 Status](./images/Teltonika%20Router%201.png
+    - ./images/Teltonika%20Router%20 2.png
+    - ./images/Teltonika%20Router%20 10.png
+    - ./images/Teltonika%20Router%20 11.png
+    - ./images/Teltonika%20Router%20 11.png
+    - ./images/Teltonika%20Router%20 12.png
+    - ./images/Teltonika%20Router%20 8.png
+    - ./images/Teltonika%20Router%20 9.png
+
+File: getting-started\devices\Uniview\Uniview.md
+  Relative references: 7
+    - ./images/Uniview%20 Network Configuration](./images/Uniview%201.png
+    - ./images/Uniview%20 2.png
+    - ./images/Uniview%20 3.png
+    - ./images/Uniview%20 4.png
+    - ./images/Uniview%20 5.png
+    - ./images/Uniview%20 6.png
+    - ./images/Uniview%20 7.png
+
+File: getting-started\ntp-configuration.md
+  Relative references: 10
+    - ./images/ntp-step-1.png
+    - ./images/ntp-step-2.png
+    - ./images/ntp-step-3.png
+    - ./images/ntp-step-4.png
+    - ./images/ntp-step-5.png
+    - ./images/ntp-step-6.png
+    - ./images/ntp-step-7.png
+    - ./images/ntp-step-8.png
+    - ./images/ntp-step-9.png
+    - ./images/ntp-step-10.png
+
+File: getting-started\quick-start-checklist.md
+  Relative references: 5
+    - ./images/quick-start-1.png
+    - ./images/quick-start-2.png
+    - ./images/quick-start-3.png
+    - ./images/quick-start-4.png
+    - ./images/quick-start-5.png
+
+File: getting-started\user-management\creating-roles.md
+  Relative references: 7
+    - ./images/user-management-8.png
+    - ./images/user-management-9.png
+    - ./images/user-management-10.png
+    - ./images/user-management-11.png
+    - ./images/user-management-12.png
+    - ./images/user-management-13.png
+    - ./images/user-management-14.png
+
+File: getting-started\user-management\customer-groups.md
+  Relative references: 2
+    - ./images/user-management-3.png
+    - ./images/user-management-3.png
+
+File: getting-started\user-management\inviting-users.md
+  Relative references: 7
+    - ./images/user-management-1.png
+    - ./images/user-management-2.png
+    - ./images/user-management-3.png
+    - ./images/user-management-4.png
+    - ./images/user-management-5.png
+    - ./images/user-management-6.png
+    - ./images/user-management-7.png
+
+File: getting-started\user-management\managing-users.md
+  Relative references: 4
+    - ./images/user-management-1.png
+    - ./images/user-management-2.png
+    - ./images/user-management-3.png
+    - ./images/user-management-4.png
+
+File: getting-started\user-management\overview.md
+  Relative references: 3
+    - ./images/user-management-1.png
+    - ./images/user-management-2.png
+    - ./images/user-management-3.png
+
+File: getting-started\user-management\roles-and-access-levels.md
+  Relative references: 4
+    - ./images/user-management-4.png
+    - ./images/user-management-5.png
+    - ./images/user-management-6.png
+    - ./images/user-management-7.png
+
+File: getting-started\user-management\talos-user-management.md
+  Relative references: 7
+    - ./images/talos-role-creation-1.png
+    - ./images/talos-role-creation-1.png
+    - ./images/adjust-privileges-1.png
+    - ./images/adjust-privileges-2.png
+    - ./images/alarm-groups-1.png
+    - ./images/alarm-groups-2.png
+    - ./images/alarm-groups-3.png

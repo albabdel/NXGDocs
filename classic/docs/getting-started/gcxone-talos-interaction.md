@@ -193,13 +193,13 @@ Arm/disarm workflows are triggered by schedules or status changes, ensuring site
 
 ```mermaid
 flowchart LR
-    A[Schedule/Status Change] --> B[Trigger ARM API]
-    B --> C[Wait 30 seconds]
-    C --> D[Verify Status]
+    A["Schedule/Status Change"] --> B["Trigger ARM API"]
+    B --> C["Wait 30 seconds"]
+    C --> D["Verify Status"]
     D --> E{Success?}
-    E -->|Yes| F[Site Armed]
-    E -->|No| G[Retry/Alert]
-    
+    E -->|Yes| F["Site Armed"]
+    E -->|No| G["Retry/Alert"]
+
     style A fill:#4F46E5,stroke:#fff,stroke-width:2px,color:#fff
     style F fill:#22C55E,stroke:#fff,stroke-width:2px,color:#fff
     style G fill:#EF4444,stroke:#fff,stroke-width:2px,color:#fff
@@ -296,14 +296,14 @@ Objects on the **black list** are always suppressed as false alarms, regardless 
 
 ```mermaid
 graph TD
-    A[Detection Event] --> B{Check Priority List}
-    B -->|Match| C[Trigger Alarm]
+    A["Detection Event"] --> B{Check Priority List}
+    B -->|Match| C["Trigger Alarm"]
     B -->|No Match| D{Check Black List}
-    D -->|Match| E[Suppress Alarm]
+    D -->|Match| E["Suppress Alarm"]
     D -->|No Match| F{Check White List}
     F -->|Match Criteria| C
     F -->|No Match| E
-    
+
     style C fill:#22C55E,stroke:#fff,stroke-width:2px,color:#fff
     style E fill:#EF4444,stroke:#fff,stroke-width:2px,color:#fff
 ```
@@ -352,34 +352,34 @@ GCXONE performs continuous, automatic health checks on all connected devices, mo
 ```mermaid
 graph TB
     subgraph "On-Premise"
-        D[Security Devices]
-        F[Customer Firewall]
+        D["Security Devices"]
+        F["Customer Firewall"]
     end
-    
+
     subgraph "Cloud - GCXONE"
-        API[GCXONE API]
-        PROXY[Proxy Services]
-        AI[AI Analytics Engine]
-        DB[(GCXONE Database)]
+        API["GCXONE API"]
+        PROXY["Proxy Services"]
+        AI["AI Analytics Engine"]
+        DB[("GCXONE Database")]
     end
-    
+
     subgraph "Cloud - Talos"
-        TALOS[Talos Platform]
-        WORKFLOW[Workflow Engine]
-        ALARM[Alarm Queue]
+        TALOS["Talos Platform"]
+        WORKFLOW["Workflow Engine"]
+        ALARM["Alarm Queue"]
     end
-    
+
     D -->|Alarm Signals| F
     F -->|Ports 80/443/554| PROXY
     PROXY --> API
     API --> DB
-    
+
     API <-->|MQTT Messages| TALOS
     TALOS --> WORKFLOW
     WORKFLOW -->|Forward Images| AI
     AI -->|Follow-up Alarm| ALARM
     ALARM --> TALOS
-    
+
     style API fill:#4F46E5,stroke:#fff,stroke-width:2px,color:#fff
     style TALOS fill:#06B6D4,stroke:#fff,stroke-width:2px,color:#fff
     style AI fill:#D946EF,stroke:#fff,stroke-width:2px,color:#fff

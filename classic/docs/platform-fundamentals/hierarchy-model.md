@@ -73,11 +73,16 @@ import TabItem from '@theme/TabItem';
 
 ```mermaid
 graph TD
-    A[🏢 Tenant<br/><small>Top-Level Organization</small>] --> B[👤 Customer<br/><small>Client or Business Unit</small>]
-    B --> C[📍 Site<br/><small>Physical Location</small>]
-    C --> D[📟 Device<br/><small>Hardware Unit</small>]
-    D --> E[🎥 Camera/Sensor<br/><small>Individual Channel</small>]
-    
+    A["🏢 Tenant
+    Top-Level Organization"] --> B["👤 Customer
+    Client or Business Unit"]
+    B --> C["📍 Site
+    Physical Location"]
+    C --> D["📟 Device
+    Hardware Unit"]
+    D --> E["🎥 Camera/Sensor
+    Individual Channel"]
+
     style A fill:#4F46E5,stroke:#fff,stroke-width:3px,color:#fff
     style B fill:#06B6D4,stroke:#fff,stroke-width:3px,color:#fff
     style C fill:#10B981,stroke:#fff,stroke-width:3px,color:#fff
