@@ -4,14 +4,25 @@
 
 [build.environment]
   NODE_VERSION = "18"
-  STORYBLOK_ACCESS_TOKEN = "lZ1VpFd6y9FjoNcJQFlXLAtt"
   STORYBLOK_REGION = "eu"
   STORYBLOK_SPACE_ID = "289434723537263"
-  # IMPORTANT: Set STORYBLOK_IS_PREVIEW in Netlify dashboard:
-  # - Production: STORYBLOK_IS_PREVIEW = "false"
-  # - Preview: STORYBLOK_IS_PREVIEW = "true"
   HYGRAPH_ENDPOINT = "https://api-eu-west-2.hygraph.com/v2/cmcd3s4gx00uq07w3xhw9djjz/master"
-  # Note: Set HYGRAPH_TOKEN in Netlify dashboard Environment Variables (not here for security)
+
+  # SECURITY: All sensitive credentials MUST be set in Netlify Dashboard
+  # Navigate to: Site Settings → Environment Variables
+  #
+  # Required Environment Variables (set in Netlify dashboard):
+  # - STORYBLOK_ACCESS_TOKEN (public API token - ROTATED 2025-12-28)
+  # - STORYBLOK_MANAGEMENT_TOKEN (management API token - ROTATED 2025-12-28)
+  # - STORYBLOK_IS_PREVIEW (false for production, true for preview)
+  # - SMTP_USER (email service username - ROTATED 2025-12-28)
+  # - SMTP_PASS (email service password - ROTATED 2025-12-28)
+  #
+  # Optional (if using Hygraph):
+  # - HYGRAPH_TOKEN (set in dashboard)
+  # - HYGRAPH_AS_SOURCE (false - we use Storyblok)
+  #
+  # ⚠️ NEVER commit API tokens or passwords to version control!
 
 [[redirects]]
   from = "/*"

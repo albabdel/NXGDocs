@@ -42,8 +42,15 @@ function StoryblokPreviewComponent() {
     script.onload = () => {
       // Initialize Storyblok Bridge
       if (window.storyblok) {
+        const accessToken = process.env.STORYBLOK_ACCESS_TOKEN;
+        if (!accessToken) {
+          setError('STORYBLOK_ACCESS_TOKEN environment variable not set');
+          setLoading(false);
+          return;
+        }
+
         window.storyblok.init({
-          accessToken: 'lZ1VpFd6y9FjoNcJQFlXLAtt', // Preview token
+          accessToken: accessToken,
         });
 
         // Listen for story updates from Storyblok editor

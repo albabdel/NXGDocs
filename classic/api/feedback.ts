@@ -2,11 +2,21 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import nodemailer from 'nodemailer';
 
 // ZeptoMail SMTP Configuration
+const SMTP_USER = process.env.SMTP_USER;
+const SMTP_PASS = process.env.SMTP_PASS;
+
+if (!SMTP_USER || !SMTP_PASS) {
+  throw new Error(
+    'SMTP_USER and SMTP_PASS environment variables are required. ' +
+    'Please set them in your Netlify environment variables.'
+  );
+}
+
 const mailConfig = {
   host: 'smtp.zeptomail.eu',
   port: 587,
-  user: 'emailappsmtp.1bb47c6b0a9025c9',
-  pass: 'HtPkPzaSjssz',
+  user: SMTP_USER,
+  pass: SMTP_PASS,
   secure: false,
   from: 'noreply@nxgen.io',
 };

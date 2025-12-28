@@ -7,21 +7,32 @@ import Grid from '../components/storyblok/Grid';
 import Teaser from '../components/storyblok/Teaser';
 
 // Storyblok configuration
-const STORYBLOK_TOKEN = process.env.STORYBLOK_ACCESS_TOKEN || 'lZ1VpFd6y9FjoNcJQFlXLAtt';
+const STORYBLOK_TOKEN = process.env.STORYBLOK_ACCESS_TOKEN;
 const STORYBLOK_REGION = process.env.STORYBLOK_REGION || 'eu';
 const STORYBLOK_IS_PREVIEW = process.env.STORYBLOK_IS_PREVIEW === 'true';
 
-// Create Storyblok client
-export const storyblokClient = new StoryblokClient({
+// Create Storyblok client (will be null if no token)
+export const storyblokClient = STORYBLOK_TOKEN ? new StoryblokClient({
   accessToken: STORYBLOK_TOKEN,
   region: STORYBLOK_REGION as 'eu' | 'us' | 'ap' | 'ca' | 'cn',
-});
+}) : null;
 
 // Initialize Storyblok for React components
 export const initStoryblok = () => {
+  // Skip initialization during SSG build if token not available
   if (!STORYBLOK_TOKEN) {
-    console.warn('⚠️ STORYBLOK_ACCESS_TOKEN not set in environment variables');
-    return null;
+    if (typeof window === 'undefined') {
+      // Server-side (SSG build) - skip silently
+      console.log('ℹ️  Storyblok: Skipping initialization during SSG build');
+      return null;
+    } else {
+      // Client-side - this is an error
+      console.error(
+        '❌ STORYBLOK_ACCESS_TOKEN environment variable is required. ' +
+        'Please set it in your .env.local file or Netlify environment variables.'
+      );
+      return null;
+    }
   }
 
   storyblokInit({
@@ -52,6 +63,11 @@ export function getVersion() {
 
 // Fetch a single story by slug
 export async function getStory(slug: string, params = {}) {
+  if (!storyblokClient) {
+    console.error('Storyblok client not initialized - missing STORYBLOK_ACCESS_TOKEN');
+    return null;
+  }
+
   try {
     const response = await storyblokClient.get(`cdn/stories/${slug}`, {
       version: getVersion(),
@@ -66,6 +82,11 @@ export async function getStory(slug: string, params = {}) {
 
 // Fetch all stories
 export async function getAllStories(params = {}) {
+  if (!storyblokClient) {
+    console.error('Storyblok client not initialized - missing STORYBLOK_ACCESS_TOKEN');
+    return [];
+  }
+
   try {
     const response = await storyblokClient.get('cdn/stories', {
       version: getVersion(),
@@ -80,6 +101,11 @@ export async function getAllStories(params = {}) {
 
 // Fetch stories by folder
 export async function getStoriesByFolder(folder: string, params = {}) {
+  if (!storyblokClient) {
+    console.error('Storyblok client not initialized - missing STORYBLOK_ACCESS_TOKEN');
+    return [];
+  }
+
   try {
     const response = await storyblokClient.get('cdn/stories', {
       starts_with: folder,
