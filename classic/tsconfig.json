@@ -2,12 +2,23 @@
   "extends": "@docusaurus/tsconfig",
   "compilerOptions": {
     "baseUrl": ".",
+    "types": ["react", "react-dom", "@docusaurus/types", "node"],
     "jsx": "react-jsx",
-    "skipLibCheck": true,
-    "noImplicitAny": false,
-    "allowSyntheticDefaultImports": true,
+    "jsxImportSource": "react",
     "esModuleInterop": true,
-    "types": ["react", "react-dom"]
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "strict": false,
+    "skipLibCheck": true
   },
-  "exclude": [".docusaurus", "build", "node_modules", "tina"]
+  "include": [
+    "src/**/*",
+    ".docusaurus/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    ".docusaurus/dist"
+  ]
 }

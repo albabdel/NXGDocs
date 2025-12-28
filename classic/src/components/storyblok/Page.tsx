@@ -1,5 +1,6 @@
 import React from 'react';
 import { storyblokEditable, SbBlokData } from '@storyblok/react';
+import { sanitizeHTML } from '../../lib/sanitize';
 import type { Page as PageType } from '../../../.storyblok/types/289434723537263/storyblok-components';
 
 interface PageProps {
@@ -7,13 +8,17 @@ interface PageProps {
 }
 
 const Page: React.FC<PageProps> = ({ blok }) => {
+  // Sanitize body content to prevent XSS attacks
+  const sanitizedBody = blok.body ? sanitizeHTML(blok.body) : '';
+
   return (
     <div {...storyblokEditable(blok as SbBlokData)} className="storyblok-page">
       {blok.title && <h1>{blok.title}</h1>}
-      {blok.body && (
-        <div className="page-content">
-          {blok.body}
-        </div>
+      {sanitizedBody && (
+        <div
+          className="page-content"
+          dangerouslySetInnerHTML={{ __html: sanitizedBody }}
+        />
       )}
     </div>
   );

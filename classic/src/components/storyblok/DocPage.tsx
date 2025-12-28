@@ -1,5 +1,6 @@
 import React from 'react';
 import { storyblokEditable, renderRichText, SbBlokData } from '@storyblok/react';
+import { sanitizeRichText } from '../../lib/sanitize';
 import type { DocPage as DocPageType } from '../../../.storyblok/types/289434723537263/storyblok-components';
 
 interface DocPageProps {
@@ -9,6 +10,9 @@ interface DocPageProps {
 const DocPage: React.FC<DocPageProps> = ({ blok }) => {
   // Render rich text content
   const renderedBody = blok.body ? renderRichText(blok.body as any) : '';
+  
+  // Sanitize to prevent XSS attacks
+  const sanitizedBody = sanitizeRichText(renderedBody);
 
   return (
     <article {...storyblokEditable(blok as SbBlokData)} className="storyblok-doc-page">
@@ -18,10 +22,10 @@ const DocPage: React.FC<DocPageProps> = ({ blok }) => {
         <p className="doc-description">{blok.description}</p>
       )}
 
-      {renderedBody && (
+      {sanitizedBody && (
         <div
           className="doc-content"
-          dangerouslySetInnerHTML={{ __html: renderedBody }}
+          dangerouslySetInnerHTML={{ __html: sanitizedBody }}
         />
       )}
     </article>
