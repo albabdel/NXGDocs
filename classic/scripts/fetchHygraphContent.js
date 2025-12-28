@@ -7,9 +7,9 @@ const endpoint = process.env.HYGRAPH_ENDPOINT;
 const token = process.env.HYGRAPH_TOKEN;
 
 if (!endpoint || !token) {
-  console.error('❌ Error: HYGRAPH_ENDPOINT and HYGRAPH_TOKEN must be set in .env.local');
-  console.error('   Please update .env.local with your Hygraph credentials.');
-  process.exit(1);
+  console.log('ℹ️  Skipping Hygraph content generation - using Storyblok');
+  console.log('   To enable Hygraph sync, set HYGRAPH_ENDPOINT and HYGRAPH_TOKEN in environment variables.');
+  process.exit(0); // Exit successfully, don't fail the build
 }
 
 const headers = {

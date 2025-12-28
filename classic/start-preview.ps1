@@ -8,7 +8,7 @@ Write-Host ""
 
 # Check if certificates exist
 if (-not (Test-Path "localhost.pem") -or -not (Test-Path "localhost-key.pem")) {
-    Write-Host "❌ SSL certificates not found!" -ForegroundColor Red
+    Write-Host "ERROR: SSL certificates not found!" -ForegroundColor Red
     Write-Host ""
     Write-Host "Please run setup first:" -ForegroundColor Yellow
     Write-Host "  .\setup-https.ps1" -ForegroundColor White
@@ -16,21 +16,22 @@ if (-not (Test-Path "localhost.pem") -or -not (Test-Path "localhost-key.pem")) {
     exit 1
 }
 
-Write-Host "✓ SSL certificates found" -ForegroundColor Green
+Write-Host "SSL certificates found" -ForegroundColor Green
 Write-Host ""
 
 # Start Docusaurus dev server in background
 Write-Host "Starting Docusaurus dev server on port 3000..." -ForegroundColor Cyan
-$docusaurus = Start-Process -FilePath "npm" -ArgumentList "start" -PassThru -NoNewWindow
+$docusaurus = Start-Process -FilePath "npm.cmd" -ArgumentList "start" -PassThru -NoNewWindow
 
-# Wait a bit for Docusaurus to start
-Start-Sleep -Seconds 3
+# Wait for Docusaurus to start
+Write-Host "Waiting for Docusaurus to start..." -ForegroundColor Yellow
+Start-Sleep -Seconds 15
 
 # Start HTTPS proxy
 Write-Host "Starting HTTPS proxy on port 3010..." -ForegroundColor Cyan
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Green
-Write-Host "  ✓ Preview Server Running!" -ForegroundColor Green
+Write-Host "  Preview Server Running!" -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Green
 Write-Host ""
 Write-Host "Docusaurus:  http://localhost:3000" -ForegroundColor White
@@ -50,5 +51,5 @@ try {
     Write-Host ""
     Write-Host "Stopping Docusaurus..." -ForegroundColor Cyan
     Stop-Process -Id $docusaurus.Id -Force -ErrorAction SilentlyContinue
-    Write-Host "✓ Servers stopped" -ForegroundColor Green
+    Write-Host "Servers stopped" -ForegroundColor Green
 }
