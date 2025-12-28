@@ -9,6 +9,12 @@ import {
     Wifi, HardDrive, Gauge, Settings, Bell, Video, Headphones, MessageSquare, FileText, Download, Calendar
 } from 'lucide-react';
 
+declare global {
+    interface Window {
+        Chart: any;
+    }
+}
+
 export default function PlatformOverview() {
     const [activeTab, setActiveTab] = useState('live');
     const [isPlaying, setIsPlaying] = useState(false);

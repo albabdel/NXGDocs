@@ -30,7 +30,8 @@ function Card({ item }: { item: any }) {
     );
 }
 
-export default function DocCardList({ items }: { items: any[] }): React.JSX.Element {
+export default function DocCardList(props: { items?: any[] }): React.JSX.Element {
+    const { items } = props;
     const category = useCurrentSidebarCategory();
     const categoryItems = items || category?.items;
 

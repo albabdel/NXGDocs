@@ -8,6 +8,7 @@ import {
     Filter,
     X,
     ChevronRight,
+    FileText,
     Home,
     Package,
     Server,
