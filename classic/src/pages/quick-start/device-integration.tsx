@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from '@theme/Layout';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from '@docusaurus/Link';
+import LandingPageBackground from '../../components/LandingPageBackground';
 import {
     Wifi, Video, Camera, Cpu, Radio, Speaker, AlertTriangle, Network, MonitorPlay, Router,
     Home, ChevronRight, Eye, Server, Database, Cloud, Smartphone, Settings, Zap, Activity,
@@ -193,9 +194,10 @@ export default function DeviceIntegration() {
             title="Device Integration Guide"
             description="Complete guide to connecting devices to GCXONE platform"
         >
-            <main className="min-h-screen bg-black">
+            <LandingPageBackground />
+            <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
                 {/* Breadcrumbs */}
-                <div className="bg-black border-b border-white/10">
+                <div className="border-b" style={{ backgroundColor: 'var(--ifm-background-color)', borderColor: 'var(--ifm-color-emphasis-300)' }}>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                         <nav className="flex items-center gap-2 text-sm">
                             <Link to="/" className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors no-underline">

@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import { motion } from 'framer-motion';
+import LandingPageBackground from '../components/LandingPageBackground';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import {
@@ -193,6 +194,7 @@ export default function TowersLandingPage() {
             title="Towers"
             description="Complete guide to managing and configuring mobile towers in GCXONE"
         >
+            <LandingPageBackground />
             <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
                 {/* Breadcrumbs */}
                 <div className="border-b" style={{ backgroundColor: 'var(--ifm-background-color)', borderColor: 'var(--ifm-color-emphasis-300)' }}>

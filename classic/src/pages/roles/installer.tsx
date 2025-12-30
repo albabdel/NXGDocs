@@ -3,6 +3,7 @@ import Layout from '@theme/Layout';
 import { motion } from 'framer-motion';
 import Link from '@docusaurus/Link';
 import PageHeader from '../../components/PageHeader';
+import LandingPageBackground from '../../components/LandingPageBackground';
 import {
     Wifi, Server, CheckCircle, Smartphone, Radio, Download, Cpu, Wrench, ClipboardList,
     Network, Camera, Settings, Zap, Activity, Shield, Eye,
@@ -16,7 +17,8 @@ export default function InstallerLandingPage() {
             title="Installer Toolkit"
             description="Technical resources and field tools for GCXONE site commissioning and device integration"
         >
-            <main className="min-h-screen bg-black">
+            <LandingPageBackground />
+            <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
                 <PageHeader 
                     breadcrumbs={[
                         { label: 'Home', href: '/' },

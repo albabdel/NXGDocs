@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Layout from '@theme/Layout';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from '@docusaurus/Link';
+import LandingPageBackground from '../../components/LandingPageBackground';
 import {
     Cpu, Network, Shield, Cloud, Server, Database, Zap, Activity, Globe, Radio, Home, ChevronRight,
     Building, Users, MapPin, Camera, CheckCircle, ArrowRight, BarChart3, Lock, Layers, GitBranch,
@@ -133,9 +134,10 @@ export default function PlatformOverview() {
             title="Platform Overview"
             description="Complete guide to NXGEN GCXONE architecture, hierarchy model, and core capabilities"
         >
-            <main className="min-h-screen bg-black">
+            <LandingPageBackground />
+            <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
                 {/* Breadcrumbs */}
-                <div className="bg-black border-b border-white/10">
+                <div className="border-b" style={{ backgroundColor: 'var(--ifm-background-color)', borderColor: 'var(--ifm-color-emphasis-300)' }}>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                         <nav className="flex items-center gap-2 text-sm">
                             <Link to="/" className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors no-underline">

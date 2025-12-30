@@ -3,6 +3,7 @@ import Layout from '@theme/Layout';
 import { motion } from 'framer-motion';
 import Link from '@docusaurus/Link';
 import PageHeader from '../../components/PageHeader';
+import LandingPageBackground from '../../components/LandingPageBackground';
 import {
     Bell, Video, Activity, ClipboardList, Search, Phone, MapPin, Clock, Eye,
     Shield, Target, Zap, CheckCircle, Users, Settings,
@@ -16,7 +17,8 @@ export default function OperatorLandingPage() {
             title="Operator Workspace"
             description="Mission control center for real-time monitoring, alarm response, and security operations"
         >
-            <main className="min-h-screen bg-black">
+            <LandingPageBackground />
+            <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
                 <PageHeader 
                     breadcrumbs={[
                         { label: 'Home', href: '/' },

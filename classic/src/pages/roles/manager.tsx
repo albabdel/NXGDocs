@@ -3,6 +3,7 @@ import Layout from '@theme/Layout';
 import { motion } from 'framer-motion';
 import Link from '@docusaurus/Link';
 import PageHeader from '../../components/PageHeader';
+import LandingPageBackground from '../../components/LandingPageBackground';
 import {
     BarChart, PieChart, TrendingUp, Users, FileCheck, Award, Calendar, Mail,
     Activity, Shield, Clock, Target, Zap, Eye, Globe,
@@ -16,7 +17,8 @@ export default function ManagerLandingPage() {
             title="Manager Overview"
             description="Strategic insights, performance analytics, and team management for GCXONE operations leaders"
         >
-            <main className="min-h-screen bg-black">
+            <LandingPageBackground />
+            <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
                 <PageHeader 
                     breadcrumbs={[
                         { label: 'Home', href: '/' },

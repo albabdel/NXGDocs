@@ -3,6 +3,7 @@ import Layout from '@theme/Layout';
 import { motion } from 'framer-motion';
 import Link from '@docusaurus/Link';
 import PageHeader from '../../components/PageHeader';
+import LandingPageBackground from '../../components/LandingPageBackground';
 import {
     Users, Settings, Shield, Database, Activity, Globe, Lock, FileText, 
     BarChart3, CheckCircle, Clock, Target, Zap,
@@ -16,7 +17,8 @@ export default function AdminLandingPage() {
             title="Admin Workspace"
             description="Complete administrative control center for GCXONE platform management"
         >
-            <main className="min-h-screen bg-black">
+            <LandingPageBackground />
+            <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
                 <PageHeader 
                     breadcrumbs={[
                         { label: 'Home', href: '/' },

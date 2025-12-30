@@ -3,7 +3,8 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import { motion } from 'framer-motion';
-import { ArrowRight, Zap, Activity, TrendingUp, Shield, Clock, Eye, Users, Package, Layers } from 'lucide-react';
+import { ArrowRight, Zap, Activity, TrendingUp, Shield, Clock, Eye, Users, Package, Layers, Home, ChevronRight } from 'lucide-react';
+import LandingPageBackground from '../../components/LandingPageBackground';
 
 function BreakthroughsContent(): JSX.Element {
     const [isDark, setIsDark] = useState(false);
@@ -141,7 +142,25 @@ function BreakthroughsContent(): JSX.Element {
             title="Breakthroughs"
             description="Ten core services that define how GCXONE monitors, correlates, and responds at scale"
         >
+            <LandingPageBackground />
             <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
+                {/* Breadcrumbs */}
+                <div className="border-b" style={{ backgroundColor: 'var(--ifm-background-color)', borderColor: 'var(--ifm-color-emphasis-300)' }}>
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                        <nav className="flex items-center gap-2 text-sm">
+                            <Link to="/" className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors no-underline">
+                                <Home className="w-4 h-4" />
+                                Home
+                            </Link>
+                            <ChevronRight className="w-4 h-4 text-slate-600" />
+                            <Link to="/docs" className="text-slate-400 hover:text-white transition-colors no-underline">
+                                Docs
+                            </Link>
+                            <ChevronRight className="w-4 h-4 text-slate-600" />
+                            <span className="text-[#E8B058] font-medium">Breakthroughs</span>
+                        </nav>
+                    </div>
+                </div>
 
                 {/* Hero Section - Redesigned */}
                 <div className="relative overflow-hidden border-b" style={{
