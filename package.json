@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd classic && npm run build",
+    "build": "cd classic && npm install && npm run build",
     "start": "cd classic && npm start",
     "serve": "cd classic && npm run serve"
   },
