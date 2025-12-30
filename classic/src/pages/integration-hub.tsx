@@ -1120,7 +1120,7 @@ export default function IntegrationHub() {
             <LandingPageBackground />
             <main className="min-h-screen">
                 {/* Breadcrumbs */}
-                <div className="border-b backdrop-blur-sm" style={{ backgroundColor: 'rgba(var(--ifm-background-surface-color-rgb, 0,0,0), 0.7)', borderColor: 'var(--ifm-color-emphasis-300)' }}>
+                <div className="backdrop-blur-sm" style={{ background: 'linear-gradient(to bottom, var(--ifm-background-color) 0%, var(--ifm-background-color) 60%, transparent 100%)', borderBottom: '1px solid rgba(var(--ifm-color-emphasis-300-rgb, 200,200,200), 0.3)' }}>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                         <nav className="flex items-center gap-2 text-sm">
                             <Link to="/" className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors no-underline">

@@ -35,14 +35,14 @@ export default function AdminLandingPage() {
                         transition={{ duration: 0.5 }}
                         className="text-center mb-20"
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#E8B058]/10 border border-[#E8B058]/20 rounded-full mb-6">
-                            <Shield className="w-4 h-4 text-[#E8B058]" />
-                            <span className="text-sm font-medium text-[#E8B058]">System Administrator</span>
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gold-tint border border-[#E8B058]/20 rounded-full mb-6">
+                            <Shield className="w-4 h-4 text-themed-gold" />
+                            <span className="text-sm font-medium text-themed-gold">System Administrator</span>
                         </div>
-                        <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+                        <h1 className="text-5xl md:text-6xl font-bold text-themed-heading mb-6">
                             Admin Workspace
                         </h1>
-                        <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed mb-8">
+                        <p className="text-xl text-themed-secondary max-w-3xl mx-auto leading-relaxed mb-8">
                             Complete control center for managing your GCXONE organization, users, security policies, 
                             and system-wide configurations. Enterprise-grade administration tools at your fingertips.
                         </p>
@@ -70,13 +70,13 @@ export default function AdminLandingPage() {
                                 <Link
                                     key={idx}
                                     to={feature.link}
-                                    className="group p-6 bg-white/5 rounded-xl border border-white/10 hover:border-[#E8B058]/50 transition-all text-center no-underline"
+                                    className="group p-6 card-themed rounded-xl hover:border-[#E8B058]/50 transition-all text-center no-underline"
                                 >
-                                    <div className="flex justify-center mb-3 text-[#E8B058]">
+                                    <div className="flex justify-center mb-3 text-themed-gold">
                                         {feature.icon}
                                     </div>
-                                    <div className="text-lg font-semibold text-white mb-2 group-hover:text-[#E8B058] transition-colors">{feature.title}</div>
-                                    <div className="text-xs text-white/70">{feature.description}</div>
+                                    <div className="text-lg font-semibold text-themed-heading mb-2 group-hover:text-[#E8B058] transition-colors">{feature.title}</div>
+                                    <div className="text-xs text-themed-secondary">{feature.description}</div>
                                 </Link>
                             ))}
                         </div>
@@ -91,8 +91,8 @@ export default function AdminLandingPage() {
                         className="mb-32"
                     >
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-white mb-4">Core Administration</h2>
-                            <p className="text-white/70 text-lg max-w-3xl mx-auto">
+                            <h2 className="text-3xl font-bold text-themed-heading mb-4">Core Administration</h2>
+                            <p className="text-themed-secondary text-lg max-w-3xl mx-auto">
                                 Essential tools for managing your GCXONE organization and security infrastructure
                             </p>
                         </div>
@@ -154,7 +154,7 @@ export default function AdminLandingPage() {
                                 >
                                     <Link
                                         to={item.link}
-                                        className="group block h-full p-6 bg-[#202020] rounded-xl border border-white/10 hover:border-[#E8B058]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#E8B058]/10 no-underline"
+                                        className="group block h-full p-6 card-themed rounded-xl hover:border-[#E8B058]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#E8B058]/10 no-underline"
                                     >
                                         <div className="flex items-center gap-3 mb-4">
                                             <div 
@@ -173,10 +173,10 @@ export default function AdminLandingPage() {
                                                 </span>
                                             )}
                                         </div>
-                                        <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-[#E8B058] transition-colors">
+                                        <h3 className="text-lg font-semibold text-themed-heading mb-3 group-hover:text-[#E8B058] transition-colors">
                                             {item.title}
                                         </h3>
-                                        <p className="text-sm text-white/70 leading-relaxed">{item.description}</p>
+                                        <p className="text-sm text-themed-secondary leading-relaxed">{item.description}</p>
                                     </Link>
                                 </motion.div>
                             ))}
@@ -192,8 +192,8 @@ export default function AdminLandingPage() {
                         className="mb-32"
                     >
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-white mb-4">Advanced Administration</h2>
-                            <p className="text-white/70 text-lg max-w-3xl mx-auto">
+                            <h2 className="text-3xl font-bold text-themed-heading mb-4">Advanced Administration</h2>
+                            <p className="text-themed-secondary text-lg max-w-3xl mx-auto">
                                 Enterprise-grade tools for large-scale deployments and complex organizational structures
                             </p>
                         </div>
@@ -238,22 +238,22 @@ export default function AdminLandingPage() {
                                 >
                                     <Link
                                         to={feature.link}
-                                        className="group block h-full p-8 bg-gradient-to-br from-[#202020] to-[#1a1a1a] rounded-xl border border-white/10 hover:border-[#E8B058]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#E8B058]/10 no-underline"
+                                        className="group block h-full p-8 card-themed rounded-xl hover:border-[#E8B058]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#E8B058]/10 no-underline"
                                     >
                                         <div className="flex items-center gap-4 mb-6">
-                                            <div className="p-4 bg-[#E8B058]/10 rounded-lg text-[#E8B058]">
+                                            <div className="p-4 bg-gold-tint rounded-lg text-themed-gold">
                                                 {feature.icon}
                                             </div>
                                             <div>
-                                                <h3 className="text-xl font-semibold text-white group-hover:text-[#E8B058] transition-colors">
+                                                <h3 className="text-xl font-semibold text-themed-heading group-hover:text-[#E8B058] transition-colors">
                                                     {feature.title}
                                                 </h3>
                                             </div>
                                         </div>
-                                        <p className="text-white/70 mb-6">{feature.description}</p>
+                                        <p className="text-themed-secondary mb-6">{feature.description}</p>
                                         <div className="space-y-2">
                                             {feature.features.map((item, i) => (
-                                                <div key={i} className="flex items-center gap-2 text-sm text-white/60">
+                                                <div key={i} className="flex items-center gap-2 text-sm text-themed-muted">
                                                     <CheckCircle className="w-4 h-4 text-green-400" />
                                                     {item}
                                                 </div>
@@ -274,8 +274,8 @@ export default function AdminLandingPage() {
                         className="mb-32"
                     >
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-white mb-4">Quick Actions</h2>
-                            <p className="text-white/70 text-lg max-w-3xl mx-auto">
+                            <h2 className="text-3xl font-bold text-themed-heading mb-4">Quick Actions</h2>
+                            <p className="text-themed-secondary text-lg max-w-3xl mx-auto">
                                 Common administrative tasks and frequently accessed tools
                             </p>
                         </div>
@@ -316,15 +316,15 @@ export default function AdminLandingPage() {
                                 >
                                     <Link
                                         to={action.link}
-                                        className="group block p-6 bg-[#202020] rounded-xl border border-white/10 hover:border-[#E8B058]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#E8B058]/10 no-underline"
+                                        className="group block p-6 card-themed rounded-xl hover:border-[#E8B058]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#E8B058]/10 no-underline"
                                     >
-                                        <div className="p-3 bg-[#E8B058]/10 rounded-lg text-[#E8B058] inline-block mb-4">
+                                        <div className="p-3 bg-gold-tint rounded-lg text-themed-gold inline-block mb-4">
                                             {action.icon}
                                         </div>
-                                        <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#E8B058] transition-colors">
+                                        <h3 className="text-lg font-semibold text-themed-heading mb-2 group-hover:text-[#E8B058] transition-colors">
                                             {action.title}
                                         </h3>
-                                        <p className="text-sm text-white/70">{action.description}</p>
+                                        <p className="text-sm text-themed-secondary">{action.description}</p>
                                     </Link>
                                 </motion.div>
                             ))}
@@ -340,8 +340,8 @@ export default function AdminLandingPage() {
                         className="mb-16"
                     >
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-white mb-4">Resources & Support</h2>
-                            <p className="text-white/70 text-lg max-w-3xl mx-auto">
+                            <h2 className="text-3xl font-bold text-themed-heading mb-4">Resources & Support</h2>
+                            <p className="text-themed-secondary text-lg max-w-3xl mx-auto">
                                 Documentation, training materials, and support channels for administrators
                             </p>
                         </div>
@@ -379,20 +379,20 @@ export default function AdminLandingPage() {
                                 >
                                     <Link
                                         to={resource.link}
-                                        className="group block h-full p-6 bg-[#202020] rounded-xl border border-white/10 hover:border-[#E8B058]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#E8B058]/10 no-underline"
+                                        className="group block h-full p-6 card-themed rounded-xl hover:border-[#E8B058]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#E8B058]/10 no-underline"
                                     >
                                         <div className="flex items-center gap-3 mb-4">
-                                            <div className="p-3 bg-[#E8B058]/10 rounded-lg text-[#E8B058]">
+                                            <div className="p-3 bg-gold-tint rounded-lg text-themed-gold">
                                                 {resource.icon}
                                             </div>
-                                            <h3 className="text-lg font-semibold text-white group-hover:text-[#E8B058] transition-colors">
+                                            <h3 className="text-lg font-semibold text-themed-heading group-hover:text-[#E8B058] transition-colors">
                                                 {resource.title}
                                             </h3>
                                         </div>
-                                        <p className="text-sm text-white/70 mb-4">{resource.description}</p>
+                                        <p className="text-sm text-themed-secondary mb-4">{resource.description}</p>
                                         <div className="space-y-2">
                                             {resource.items.map((item, i) => (
-                                                <div key={i} className="flex items-center gap-2 text-xs text-white/60">
+                                                <div key={i} className="flex items-center gap-2 text-xs text-themed-muted">
                                                     <CheckCircle className="w-3 h-3 text-green-400" />
                                                     {item}
                                                 </div>
@@ -412,10 +412,10 @@ export default function AdminLandingPage() {
                         viewport={{ once: true }}
                         className="text-center"
                     >
-                        <div className="p-8 bg-[#202020] border border-white/10 rounded-2xl">
-                            <Shield className="w-12 h-12 text-[#E8B058] mx-auto mb-4" />
-                            <h2 className="text-2xl font-bold text-white mb-4">Need Administrative Assistance?</h2>
-                            <p className="text-white/70 mb-8 max-w-xl mx-auto">
+                        <div className="p-8 card-themed rounded-2xl">
+                            <Shield className="w-12 h-12 text-themed-gold mx-auto mb-4" />
+                            <h2 className="text-2xl font-bold text-themed-heading mb-4">Need Administrative Assistance?</h2>
+                            <p className="text-themed-secondary mb-8 max-w-xl mx-auto">
                                 Our expert support team is available to help with complex configurations and enterprise deployments
                             </p>
                             <div className="inline-flex gap-4 flex-wrap justify-center">
@@ -428,7 +428,7 @@ export default function AdminLandingPage() {
                                 </Link>
                                 <Link
                                     to="/docs/admin-guide/dashboard-overview"
-                                    className="inline-flex items-center gap-2 px-8 py-4 bg-[#202020] hover:bg-[#2a2a2a] border border-white/10 rounded-xl text-white hover:text-[#E8B058] transition-all no-underline"
+                                    className="inline-flex items-center gap-2 px-8 py-4 card-themed rounded-xl text-themed-primary hover:text-[#E8B058] transition-all no-underline"
                                 >
                                     <FileText className="w-5 h-5" />
                                     View Documentation

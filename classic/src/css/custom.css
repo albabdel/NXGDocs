@@ -28,6 +28,10 @@
   --ifm-color-primary-lighter: #E0B688;
   --nxgen-gold-lighter: #E0B688;
   --ifm-color-primary-lightest: #F0CDA5;
+  
+  /* === LIGHT MODE ACCESSIBLE GOLD (Darker for WCAG AA on white) === */
+  --nxgen-gold-accessible: #996B1F;
+  --nxgen-gold-accessible-hover: #7A5518;
 
   /* === NXGEN DARK PALETTE === */
   --nxgen-black: #000000;
@@ -50,6 +54,60 @@
   --nxgen-glow-md: 0 0 20px rgba(200, 148, 70, 0.3);
   --nxgen-glow-lg: 0 0 30px rgba(200, 148, 70, 0.4);
   --nxgen-glow-xl: 0 0 40px rgba(200, 148, 70, 0.5);
+  
+  /* ==========================================================================
+     SEMANTIC DESIGN TOKENS - LIGHT MODE FIRST (with Dark Mode overrides)
+     These tokens provide theme-aware values for components.
+     CRITICAL: Dark Mode values are set in [data-theme='dark'] section below.
+     ========================================================================== */
+  
+  /* --- Card & Surface Tokens --- */
+  --card-bg: #FFFFFF;
+  --card-bg-hover: #F8F9FA;
+  --card-border: 1px solid #E5E5E5;
+  --card-border-hover: 1px solid #D1D5DB;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+  
+  /* --- Text Tokens --- */
+  --text-primary: #1A1A1A;
+  --text-secondary: #4B5563;
+  --text-muted: #6B7280;
+  --text-inverse: #FFFFFF;
+  
+  /* --- Heading Tokens --- */
+  --heading-color: #1A1A1A;
+  --heading-color-secondary: #374151;
+  
+  /* --- Border Tokens --- */
+  --border-subtle: rgba(0, 0, 0, 0.1);
+  --border-default: #E5E7EB;
+  --border-strong: #D1D5DB;
+  
+  /* --- Interactive Gold (WCAG AA Compliant on white) --- */
+  --gold-text: #996B1F;
+  --gold-text-hover: #7A5518;
+  --gold-bg: rgba(200, 148, 70, 0.1);
+  --gold-bg-hover: rgba(200, 148, 70, 0.15);
+  --gold-border: rgba(153, 107, 31, 0.3);
+  
+  /* --- Component-Specific Tokens --- */
+  --table-bg: #FFFFFF;
+  --table-header-bg: #F9FAFB;
+  --table-border: #E5E7EB;
+  --table-row-hover: #F3F4F6;
+  
+  --code-bg: #F5F5F7;
+  --code-border: #E5E7EB;
+  
+  --breadcrumb-bg: rgba(255, 255, 255, 0.9);
+  --breadcrumb-text: #4B5563;
+  --breadcrumb-link: #1A1A1A;
+  
+  --toc-bg: rgba(248, 250, 252, 0.95);
+  --toc-border: rgba(203, 213, 225, 0.6);
+  --toc-text: #475569;
+  --toc-text-hover: var(--nxgen-gold-accessible);
   /* === APPLE-INSPIRED TYPOGRAPHY === */
   --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', sans-serif;
   --ifm-font-family-monospace: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
@@ -150,6 +208,7 @@
 }
 
 /* === DARK MODE - NXGEN AUTHENTIC DARK THEME === */
+/* CRITICAL: These values are the "Golden Master" - DO NOT MODIFY */
 [data-theme='dark'] {
   /* Core Backgrounds */
   --ifm-background-color: var(--nxgen-dark-100);
@@ -169,16 +228,66 @@
 
   /* Semantic Colors - Adjusted for dark mode */
   --color-success: #22C55E;
-  /* Green - Maintains visibility in dark mode */
   --color-warning: #FBBF24;
-  /* Lighter amber for dark mode */
   --color-danger: #F87171;
-  /* Lighter red for dark mode */
   --color-info: #60A5FA;
-  /* Lighter blue for dark mode */
 
   --ifm-code-background: var(--nxgen-dark-200);
   --docusaurus-highlighted-code-line-bg: rgba(200, 148, 70, 0.15);
+  
+  /* ==========================================================================
+     SEMANTIC DESIGN TOKENS - DARK MODE OVERRIDES
+     These override the Light Mode defaults set in :root
+     IMMUTABLE: These values match the current "Golden Master" dark theme.
+     ========================================================================== */
+  
+  /* --- Card & Surface Tokens (Dark) --- */
+  --card-bg: #202020;
+  --card-bg-hover: #2a2a2a;
+  --card-border: 1px solid rgba(255, 255, 255, 0.1);
+  --card-border-hover: 1px solid rgba(255, 255, 255, 0.2);
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --card-shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.4);
+  
+  /* --- Text Tokens (Dark) --- */
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-muted: rgba(255, 255, 255, 0.5);
+  --text-inverse: #000000;
+  
+  /* --- Heading Tokens (Dark) --- */
+  --heading-color: #FFFFFF;
+  --heading-color-secondary: rgba(255, 255, 255, 0.9);
+  
+  /* --- Border Tokens (Dark) --- */
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-default: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.2);
+  
+  /* --- Interactive Gold (Original Gold for Dark Mode) --- */
+  --gold-text: #C89446;
+  --gold-text-hover: #D4A574;
+  --gold-bg: rgba(200, 148, 70, 0.15);
+  --gold-bg-hover: rgba(200, 148, 70, 0.25);
+  --gold-border: rgba(200, 148, 70, 0.3);
+  
+  /* --- Component-Specific Tokens (Dark) --- */
+  --table-bg: #202020;
+  --table-header-bg: rgba(255, 255, 255, 0.05);
+  --table-border: rgba(255, 255, 255, 0.1);
+  --table-row-hover: rgba(255, 255, 255, 0.05);
+  
+  --code-bg: #202020;
+  --code-border: rgba(255, 255, 255, 0.1);
+  
+  --breadcrumb-bg: #202020;
+  --breadcrumb-text: rgba(255, 255, 255, 0.7);
+  --breadcrumb-link: #FFFFFF;
+  
+  --toc-bg: #202020;
+  --toc-border: rgba(255, 255, 255, 0.1);
+  --toc-text: rgba(255, 255, 255, 0.7);
+  --toc-text-hover: #C89446;
 }
 
 /* === GLOBAL RESET & BASE STYLES === */
@@ -419,18 +528,35 @@ html:not([data-theme='dark']) .theme-doc-sidebar-container {
   border-left-color: var(--ifm-color-emphasis-200);
 }
 
-/* 5. Child Link Styling - Matching Landing Page */
+/* 5. Child Link Styling - Theme-Aware */
 .menu__list .menu__list .menu__link {
   font-weight: 400;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
-  /* Semi-transparent white matching landing page */
+  color: var(--text-secondary);
   padding: 0.5rem 1rem;
 }
 
 .menu__list .menu__list .menu__link:hover {
-  background: color-mix(in srgb, var(--ifm-color-primary) 8%, transparent);
-  color: var(--ifm-color-content);
+  background: var(--gold-bg);
+  color: var(--text-primary);
+}
+
+/* Light Mode Child Links */
+[data-theme='light'] .menu__list .menu__list .menu__link {
+  color: #4B5563;
+}
+
+[data-theme='light'] .menu__list .menu__list .menu__link:hover {
+  color: #1A1A1A;
+}
+
+/* Dark Mode Child Links - IMMUTABLE */
+[data-theme='dark'] .menu__list .menu__list .menu__link {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+[data-theme='dark'] .menu__list .menu__list .menu__link:hover {
+  color: #FFFFFF;
 }
 
 /* 2. Improve Spacing & Breathing Room - FIX BROKEN LINE */
@@ -677,7 +803,7 @@ html:not([data-theme='dark']) .theme-doc-sidebar-container {
   color: var(--ifm-color-content-secondary);
 }
 
-/* === FEATURE CARDS SYSTEM - Matching Landing Page === */
+/* === FEATURE CARDS SYSTEM - Theme-Aware === */
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -686,11 +812,11 @@ html:not([data-theme='dark']) .theme-doc-sidebar-container {
 }
 
 .feature-card {
-  background: var(--ifm-background-surface-color);
-  border: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--card-bg);
+  border: var(--card-border);
   border-radius: var(--ifm-card-border-radius);
   padding: 2rem;
-  box-shadow: var(--ifm-global-shadow-lw);
+  box-shadow: var(--card-shadow);
   transition: all var(--ifm-transition-slow);
   position: relative;
   overflow: hidden;
@@ -709,25 +835,33 @@ html:not([data-theme='dark']) .theme-doc-sidebar-container {
 
 .feature-card:hover {
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 20px 40px color-mix(in srgb, var(--ifm-color-primary-dark) 15%, transparent);
-  border-color: var(--ifm-color-primary);
+  background: var(--card-bg-hover);
+  border: var(--card-border-hover);
+  box-shadow: var(--card-shadow-hover);
 }
 
-[data-theme='dark'] .feature-card {
-  background: #202020;
-  /* Card background matching landing page */
-  border-color: rgba(255, 255, 255, 0.1);
-  /* Subtle border matching landing page */
-}
-
-[data-theme='dark'] .feature-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  /* Slightly more visible on hover */
+/* Light Mode Feature Cards */
+[data-theme='light'] .feature-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 [data-theme='light'] .feature-card:hover {
-  box-shadow: 0 12px 32px rgba(232, 176, 88, 0.15), 0 4px 16px rgba(0, 0, 0, 0.1);
-  border-color: var(--ifm-color-primary);
+  background: #FAFAFA;
+  border-color: var(--nxgen-gold-accessible);
+  box-shadow: 0 12px 32px rgba(153, 107, 31, 0.12), 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark Mode Feature Cards - IMMUTABLE */
+[data-theme='dark'] .feature-card {
+  background: #202020;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .feature-card:hover {
+  background: #2a2a2a;
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .feature-link {
@@ -774,27 +908,41 @@ html:not([data-theme='dark']) .theme-doc-sidebar-container {
   margin: 0 0 1rem 0;
   font-size: 1.25rem;
   font-weight: var(--ifm-font-weight-semibold);
-  color: #FFFFFF;
-  /* White text matching landing page */
+  color: var(--heading-color);
   line-height: 1.3;
 }
 
 .feature-content p {
   margin: 0;
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.7);
-  /* Semi-transparent white matching landing page */
+  color: var(--text-secondary);
   line-height: 1.5;
 }
 
-/* === CODE BLOCKS - Matching Landing Page Theme === */
+/* Light Mode Feature Content */
+[data-theme='light'] .feature-content h3 {
+  color: #1A1A1A;
+}
+
+[data-theme='light'] .feature-content p {
+  color: #4B5563;
+}
+
+/* Dark Mode Feature Content - IMMUTABLE */
+[data-theme='dark'] .feature-content h3 {
+  color: #FFFFFF;
+}
+
+[data-theme='dark'] .feature-content p {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* === CODE BLOCKS - Theme-Aware === */
 .prism-code {
   border-radius: var(--ifm-code-border-radius);
-  box-shadow: var(--ifm-global-shadow-md);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  /* Subtle border matching landing page */
-  background: #202020 !important;
-  /* Card background matching landing page */
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--code-border);
+  background: var(--code-bg) !important;
   font-family: var(--ifm-font-family-monospace);
   font-size: 0.875rem;
   line-height: 1.7;
@@ -802,11 +950,17 @@ html:not([data-theme='dark']) .theme-doc-sidebar-container {
   transform: translateZ(0);
 }
 
+/* Light Mode Code Blocks */
+[data-theme='light'] .prism-code {
+  background: #F8F9FA !important;
+  border-color: #E5E7EB;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Dark Mode Code Blocks - IMMUTABLE */
 [data-theme='dark'] .prism-code {
   background: #202020 !important;
-  /* Card background matching landing page */
   border-color: rgba(255, 255, 255, 0.1);
-  /* Subtle border matching landing page */
 }
 
 .theme-code-block-highlighted-line {
@@ -817,15 +971,14 @@ html:not([data-theme='dark']) .theme-doc-sidebar-container {
   border-left: 3px solid var(--ifm-color-primary);
 }
 
-/* === BUTTONS - Matching Landing Page Theme === */
+/* === BUTTONS - Theme-Aware === */
 .button {
   font-family: var(--ifm-font-family-base);
   font-weight: var(--ifm-font-weight-medium);
   border-radius: var(--ifm-button-border-radius);
   padding: 0.75rem 1.5rem;
   transition: all var(--ifm-transition-fast);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  /* Subtle border matching landing page */
+  border: 1px solid var(--border-default);
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
@@ -836,8 +989,8 @@ html:not([data-theme='dark']) .theme-doc-sidebar-container {
 .button--primary {
   background: var(--ifm-color-primary);
   color: #000000;
-  /* Black text for contrast */
   box-shadow: 0 2px 8px color-mix(in srgb, var(--ifm-color-primary) 30%, transparent);
+  border-color: transparent;
 }
 
 .button--primary:hover {
@@ -845,58 +998,74 @@ html:not([data-theme='dark']) .theme-doc-sidebar-container {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px color-mix(in srgb, var(--ifm-color-primary) 40%, transparent);
   color: #000000;
-  /* Black text for contrast */
 }
 
 .button--secondary {
-  background: #202020;
-  /* Card background matching landing page */
-  color: #FFFFFF;
-  /* White text matching landing page */
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  /* Subtle border matching landing page */
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
 }
 
 .button--secondary:hover {
-  background: #2a2a2a;
-  /* Slightly lighter on hover */
-  border-color: rgba(255, 255, 255, 0.2);
-  /* More visible border on hover */
-  color: #FFFFFF;
-  /* White text matching landing page */
+  background: var(--card-bg-hover);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
 }
 
-/* === TABLES - Matching Landing Page Theme === */
+/* Light Mode Buttons */
+[data-theme='light'] .button--secondary {
+  background: #FFFFFF;
+  color: #1A1A1A;
+  border-color: #E5E7EB;
+}
+
+[data-theme='light'] .button--secondary:hover {
+  background: #F9FAFB;
+  border-color: var(--nxgen-gold-accessible);
+  color: #1A1A1A;
+}
+
+/* Dark Mode Buttons - IMMUTABLE */
+[data-theme='dark'] .button {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .button--secondary {
+  background: #202020;
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .button--secondary:hover {
+  background: #2a2a2a;
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+}
+
+/* === TABLES - Theme-Aware === */
 .markdown table {
   display: block;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   border-radius: var(--ifm-border-radius);
-  box-shadow: var(--ifm-global-shadow-lw);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  /* Subtle border matching landing page */
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-default);
   margin: 2rem 0;
-  background: #202020;
-  /* Card background matching landing page */
+  background: var(--table-bg);
 }
 
 .markdown table th {
-  background: rgba(255, 255, 255, 0.05);
-  /* Subtle background */
+  background: var(--table-header-bg);
   font-weight: var(--ifm-font-weight-semibold);
-  color: #FFFFFF;
-  /* White text matching landing page */
+  color: var(--heading-color);
   padding: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  /* Subtle border matching landing page */
+  border-bottom: 1px solid var(--table-border);
 }
 
 .markdown table td {
   padding: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  /* Very subtle border */
-  color: rgba(255, 255, 255, 0.7);
-  /* Semi-transparent white matching landing page */
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
 }
 
 .markdown tr {
@@ -904,96 +1073,168 @@ html:not([data-theme='dark']) .theme-doc-sidebar-container {
 }
 
 .markdown tr:hover {
-  background: rgba(255, 255, 255, 0.05);
-  /* Subtle hover effect */
+  background: var(--table-row-hover);
 }
 
+/* Light Mode Tables */
+[data-theme='light'] .markdown table {
+  background: #FFFFFF;
+  border-color: #E5E7EB;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme='light'] .markdown table th {
+  background: #F9FAFB;
+  color: #1A1A1A;
+  border-bottom-color: #E5E7EB;
+}
+
+[data-theme='light'] .markdown table td {
+  color: #4B5563;
+  border-bottom-color: #F3F4F6;
+}
+
+[data-theme='light'] .markdown tr:hover {
+  background: #F9FAFB;
+}
+
+/* Dark Mode Tables - IMMUTABLE */
 [data-theme='dark'] .markdown table {
   background: #202020;
-  /* Card background matching landing page */
   border-color: rgba(255, 255, 255, 0.1);
-  /* Subtle border matching landing page */
 }
 
 [data-theme='dark'] .markdown table th {
   background: rgba(255, 255, 255, 0.05);
+  color: #FFFFFF;
   border-bottom-color: rgba(255, 255, 255, 0.1);
 }
 
 [data-theme='dark'] .markdown table td {
   border-bottom-color: rgba(255, 255, 255, 0.05);
   color: rgba(255, 255, 255, 0.7);
-  /* Semi-transparent white matching landing page */
 }
 
 [data-theme='dark'] .markdown tr:hover {
   background: rgba(255, 255, 255, 0.05);
-  /* Subtle hover effect */
 }
 
-/* === ADMONITIONS - Matching Landing Page Theme === */
+/* === ADMONITIONS - Theme-Aware === */
 .alert {
   border-radius: var(--ifm-border-radius);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  /* Subtle border matching landing page */
+  border: 1px solid var(--border-default);
   border-left: 4px solid;
-  box-shadow: var(--ifm-global-shadow-lw);
+  box-shadow: var(--card-shadow);
   margin: 2rem 0;
   padding: 1.5rem;
-  background: #202020;
-  /* Card background matching landing page */
+  background: var(--card-bg);
 }
 
 .alert--info {
   border-left-color: #007acc;
-  background: rgba(0, 122, 204, 0.1);
+  background: rgba(0, 122, 204, 0.08);
 }
 
 .alert--warning {
   border-left-color: #ff9500;
-  background: rgba(255, 149, 0, 0.1);
+  background: rgba(255, 149, 0, 0.08);
 }
 
 .alert--danger {
   border-left-color: #ff3b30;
-  background: rgba(255, 59, 48, 0.1);
+  background: rgba(255, 59, 48, 0.08);
 }
 
 .alert--success {
   border-left-color: #34c759;
+  background: rgba(52, 199, 89, 0.08);
+}
+
+/* Light Mode Alerts */
+[data-theme='light'] .alert {
+  background: #FFFFFF;
+  border-color: #E5E7EB;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme='light'] .alert--info {
+  background: rgba(0, 122, 204, 0.06);
+}
+
+[data-theme='light'] .alert--warning {
+  background: rgba(255, 149, 0, 0.06);
+}
+
+[data-theme='light'] .alert--danger {
+  background: rgba(255, 59, 48, 0.06);
+}
+
+[data-theme='light'] .alert--success {
+  background: rgba(52, 199, 89, 0.06);
+}
+
+/* Dark Mode Alerts - IMMUTABLE */
+[data-theme='dark'] .alert {
+  background: #202020;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .alert--info {
+  background: rgba(0, 122, 204, 0.1);
+}
+
+[data-theme='dark'] .alert--warning {
+  background: rgba(255, 149, 0, 0.1);
+}
+
+[data-theme='dark'] .alert--danger {
+  background: rgba(255, 59, 48, 0.1);
+}
+
+[data-theme='dark'] .alert--success {
   background: rgba(52, 199, 89, 0.1);
 }
 
-/* === ENHANCED CARDS FOR GENERATED CONTENT - Matching Landing Page === */
+/* === ENHANCED CARDS FOR GENERATED CONTENT - Theme-Aware === */
 article.margin-bottom--lg {
-  background: #202020;
-  /* Card background matching landing page */
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  /* Subtle border matching landing page */
+  background: var(--card-bg);
+  border: var(--card-border);
   border-radius: var(--ifm-card-border-radius);
   padding: 2rem;
   margin: 1.5rem 0;
-  box-shadow: var(--ifm-global-shadow-lw);
+  box-shadow: var(--card-shadow);
   transition: all var(--ifm-transition-slow);
 }
 
 article.margin-bottom--lg:hover {
   transform: translateY(-4px);
-  box-shadow: var(--ifm-global-shadow-tl);
-  border-color: rgba(255, 255, 255, 0.2);
-  /* Slightly more visible on hover */
+  background: var(--card-bg-hover);
+  border: var(--card-border-hover);
+  box-shadow: var(--card-shadow-hover);
 }
 
+/* Light Mode Article Cards */
+[data-theme='light'] article.margin-bottom--lg {
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme='light'] article.margin-bottom--lg:hover {
+  background: #FAFAFA;
+  border-color: var(--nxgen-gold-accessible);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode Article Cards - IMMUTABLE */
 [data-theme='dark'] article.margin-bottom--lg {
   background: #202020;
-  /* Card background matching landing page */
   border-color: rgba(255, 255, 255, 0.1);
-  /* Subtle border matching landing page */
 }
 
 [data-theme='dark'] article.margin-bottom--lg:hover {
+  background: #2a2a2a;
   border-color: rgba(255, 255, 255, 0.2);
-  /* Slightly more visible on hover */
 }
 
 /* === CUSTOM SCROLLBARS === */
@@ -1280,6 +1521,308 @@ iframe[allowfullscreen]:fullscreen {
   }
 }
 
+/* ==========================================================================
+   THEME-AWARE TAILWIND UTILITIES FOR LANDING PAGES
+   These classes provide light/dark mode aware styling for React components
+   ========================================================================== */
+
+/* --- Text Colors (Theme-Aware) --- */
+.text-themed-primary {
+  color: var(--text-primary);
+}
+
+.text-themed-secondary {
+  color: var(--text-secondary);
+}
+
+.text-themed-muted {
+  color: var(--text-muted);
+}
+
+.text-themed-heading {
+  color: var(--heading-color);
+}
+
+/* Light Mode: Dark text */
+[data-theme='light'] .text-themed-primary {
+  color: #1A1A1A;
+}
+
+[data-theme='light'] .text-themed-secondary {
+  color: #4B5563;
+}
+
+[data-theme='light'] .text-themed-muted {
+  color: #6B7280;
+}
+
+[data-theme='light'] .text-themed-heading {
+  color: #1A1A1A;
+}
+
+/* Dark Mode: White text - IMMUTABLE */
+[data-theme='dark'] .text-themed-primary {
+  color: #FFFFFF;
+}
+
+[data-theme='dark'] .text-themed-secondary {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+[data-theme='dark'] .text-themed-muted {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme='dark'] .text-themed-heading {
+  color: #FFFFFF;
+}
+
+/* --- Background Colors (Theme-Aware) --- */
+.bg-themed-card {
+  background-color: var(--card-bg);
+}
+
+.bg-themed-card-hover {
+  background-color: var(--card-bg-hover);
+}
+
+.bg-themed-surface {
+  background-color: var(--ifm-background-surface-color);
+}
+
+/* Light Mode Backgrounds */
+[data-theme='light'] .bg-themed-card {
+  background-color: #FFFFFF;
+}
+
+[data-theme='light'] .bg-themed-card-hover {
+  background-color: #F9FAFB;
+}
+
+[data-theme='light'] .bg-themed-surface {
+  background-color: #FFFFFF;
+}
+
+/* Dark Mode Backgrounds - IMMUTABLE */
+[data-theme='dark'] .bg-themed-card {
+  background-color: #202020;
+}
+
+[data-theme='dark'] .bg-themed-card-hover {
+  background-color: #2a2a2a;
+}
+
+[data-theme='dark'] .bg-themed-surface {
+  background-color: #121212;
+}
+
+/* --- Border Colors (Theme-Aware) --- */
+.border-themed {
+  border-color: var(--border-default);
+}
+
+.border-themed-subtle {
+  border-color: var(--border-subtle);
+}
+
+/* Light Mode Borders */
+[data-theme='light'] .border-themed {
+  border-color: #E5E7EB;
+}
+
+[data-theme='light'] .border-themed-subtle {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode Borders - IMMUTABLE */
+[data-theme='dark'] .border-themed {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .border-themed-subtle {
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* --- Gold Accent (Theme-Aware for WCAG) --- */
+.text-themed-gold {
+  color: var(--gold-text);
+}
+
+[data-theme='light'] .text-themed-gold {
+  color: #996B1F;
+}
+
+[data-theme='dark'] .text-themed-gold {
+  color: #C89446;
+}
+
+/* --- Combined Card Styles (Theme-Aware) --- */
+.card-themed {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--card-shadow);
+}
+
+[data-theme='light'] .card-themed {
+  background-color: #FFFFFF;
+  border-color: #E5E5E5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme='dark'] .card-themed {
+  background-color: #202020;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card-themed:hover {
+  border-color: var(--gold-border);
+}
+
+[data-theme='light'] .card-themed:hover {
+  background-color: #FAFAFA;
+  border-color: #996B1F;
+}
+
+[data-theme='dark'] .card-themed:hover {
+  background-color: #2a2a2a;
+  border-color: rgba(232, 176, 88, 0.5);
+}
+
+/* --- Semi-transparent backgrounds --- */
+.bg-gold-tint {
+  background-color: rgba(200, 148, 70, 0.1);
+}
+
+[data-theme='light'] .bg-gold-tint {
+  background-color: rgba(153, 107, 31, 0.08);
+}
+
+[data-theme='dark'] .bg-gold-tint {
+  background-color: rgba(232, 176, 88, 0.1);
+}
+
+/* --- Gradient text backgrounds for hero sections --- */
+.hero-gradient-bg {
+  background: transparent;
+}
+
+[data-theme='light'] .hero-gradient-bg {
+  background: linear-gradient(to bottom, rgba(248, 249, 250, 0.8), transparent);
+}
+
+/* ==========================================================================
+   LIGHT MODE OVERRIDES FOR TAILWIND CLASSES USED IN LANDING PAGES
+   These overrides fix hardcoded dark mode colors in React components
+   ========================================================================== */
+
+/* --- Text Color Overrides --- */
+[data-theme='light'] .text-white {
+  color: #1A1A1A !important;
+}
+
+[data-theme='light'] .text-white\/70 {
+  color: #4B5563 !important;
+}
+
+[data-theme='light'] .text-white\/60 {
+  color: #6B7280 !important;
+}
+
+[data-theme='light'] .text-white\/80 {
+  color: #374151 !important;
+}
+
+[data-theme='light'] .text-white\/50 {
+  color: #9CA3AF !important;
+}
+
+/* --- Background Color Overrides --- */
+[data-theme='light'] .bg-\[\#202020\] {
+  background-color: #FFFFFF !important;
+  border: 1px solid #E5E5E5 !important;
+}
+
+[data-theme='light'] .bg-\[\#1a1a1a\] {
+  background-color: #FAFAFA !important;
+}
+
+[data-theme='light'] .from-\[\#202020\] {
+  --tw-gradient-from: #FFFFFF !important;
+}
+
+[data-theme='light'] .to-\[\#1a1a1a\] {
+  --tw-gradient-to: #F9FAFB !important;
+}
+
+[data-theme='light'] .bg-white\/5 {
+  background-color: #FFFFFF !important;
+  border: 1px solid #E5E5E5 !important;
+}
+
+[data-theme='light'] .bg-white\/10 {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+/* --- Border Color Overrides --- */
+[data-theme='light'] .border-white\/10 {
+  border-color: #E5E5E5 !important;
+}
+
+[data-theme='light'] .border-white\/20 {
+  border-color: #D1D5DB !important;
+}
+
+/* --- Gold Accent Overrides for WCAG --- */
+[data-theme='light'] .text-\[\#E8B058\] {
+  color: #996B1F !important;
+}
+
+[data-theme='light'] .bg-\[\#E8B058\]\/10 {
+  background-color: rgba(153, 107, 31, 0.08) !important;
+}
+
+[data-theme='light'] .border-\[\#E8B058\]\/20 {
+  border-color: rgba(153, 107, 31, 0.2) !important;
+}
+
+[data-theme='light'] .hover\:border-\[\#E8B058\]\/50:hover {
+  border-color: rgba(153, 107, 31, 0.5) !important;
+}
+
+[data-theme='light'] .group-hover\:text-\[\#E8B058\]:hover {
+  color: #996B1F !important;
+}
+
+/* --- Hover States --- */
+[data-theme='light'] .hover\:bg-\[\#2a2a2a\]:hover {
+  background-color: #F3F4F6 !important;
+}
+
+[data-theme='light'] .hover\:text-\[\#E8B058\]:hover {
+  color: #996B1F !important;
+}
+
+/* --- Shadow Overrides --- */
+[data-theme='light'] .hover\:shadow-\[\#E8B058\]\/10:hover {
+  --tw-shadow-color: rgba(153, 107, 31, 0.1) !important;
+}
+
+[data-theme='light'] .hover\:shadow-\[\#E8B058\]\/25:hover {
+  --tw-shadow-color: rgba(153, 107, 31, 0.25) !important;
+}
+
+/* --- Card Shadow for Light Mode --- */
+[data-theme='light'] .bg-\[\#202020\],
+[data-theme='light'] .bg-white\/5 {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-theme='light'] .bg-\[\#202020\]:hover,
+[data-theme='light'] .bg-white\/5:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+}
+
 @media (prefers-contrast: high) {
   .feature-card {
     border: 2px solid var(--ifm-color-primary);
@@ -1341,18 +1884,15 @@ iframe[allowfullscreen]:fullscreen {
   gap: 0.5rem;
 }
 
-/* === BREADCRUMBS - Matching Landing Page Theme === */
+/* === BREADCRUMBS - Theme-Aware === */
 .theme-doc-breadcrumbs {
   display: flex;
   align-items: center;
-  /* Fix vertical alignment */
   font-size: 0.875rem;
   margin-bottom: 1.5rem;
   padding: 0.75rem 1rem;
-  background: #202020;
-  /* Card background matching landing page */
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  /* Subtle border matching landing page */
+  background: var(--breadcrumb-bg);
+  border: 1px solid var(--border-default);
   border-radius: 8px;
 }
 
@@ -1372,14 +1912,41 @@ iframe[allowfullscreen]:fullscreen {
 .breadcrumbs__link {
   display: flex;
   align-items: center;
-  color: rgba(255, 255, 255, 0.7);
-  /* Semi-transparent white matching landing page */
+  color: var(--breadcrumb-text);
   transition: color 0.2s;
 }
 
 .breadcrumbs__link:hover {
-  color: var(--ifm-color-primary);
+  color: var(--gold-text);
   text-decoration: none;
+}
+
+/* Light Mode Breadcrumbs */
+[data-theme='light'] .theme-doc-breadcrumbs {
+  background: #FFFFFF;
+  border-color: #E5E7EB;
+}
+
+[data-theme='light'] .breadcrumbs__link {
+  color: #4B5563;
+}
+
+[data-theme='light'] .breadcrumbs__link:hover {
+  color: var(--nxgen-gold-accessible);
+}
+
+/* Dark Mode Breadcrumbs - IMMUTABLE */
+[data-theme='dark'] .theme-doc-breadcrumbs {
+  background: #202020;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .breadcrumbs__link {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+[data-theme='dark'] .breadcrumbs__link:hover {
+  color: #C89446;
 }
 
 /* === TOUCH TARGETS === */
@@ -1427,13 +1994,13 @@ iframe[allowfullscreen]:fullscreen {
 
 /* === PREMIUM ARTICLE CONTAINERS & NAVIGATION - Matching Landing Page === */
 
-/* 1. Article Container - Match Landing Page Cards */
+/* 1. Article Container - Theme-Aware */
 .theme-doc-markdown {
-  background: var(--ifm-background-surface-color);
+  background: var(--card-bg);
   backdrop-filter: blur(12px);
-  border: 1px solid var(--ifm-color-emphasis-200);
+  border: var(--card-border);
   border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--card-shadow);
   padding: 3.5rem 4rem !important;
   margin: 2rem auto !important;
   max-width: 900px;
@@ -1454,20 +2021,25 @@ iframe[allowfullscreen]:fullscreen {
   z-index: 0;
 }
 
+/* Light Mode Article Container */
 [data-theme='light'] .theme-doc-markdown {
-  background: var(--ifm-background-surface-color);
-  border-color: var(--ifm-color-emphasis-200);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
+[data-theme='light'] .theme-doc-markdown::before {
+  background: linear-gradient(to right, var(--nxgen-gold-accessible), color-mix(in srgb, var(--nxgen-gold-accessible) 30%, transparent), transparent);
+}
+
+/* Dark Mode Article Container - IMMUTABLE */
 [data-theme='dark'] .theme-doc-markdown {
   background: #202020;
-  /* Card background matching landing page */
   border-color: rgba(255, 255, 255, 0.1);
-  /* Subtle border matching landing page */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-/* 2. Footer Navigation - Pill/Button Style - Matching Landing Page */
+/* 2. Footer Navigation - Theme-Aware */
 .pagination-nav {
   margin-top: 3rem;
   gap: 1rem;
@@ -1476,9 +2048,9 @@ iframe[allowfullscreen]:fullscreen {
 }
 
 .pagination-nav__link {
-  background: var(--ifm-background-surface-color);
+  background: var(--card-bg);
   backdrop-filter: blur(12px);
-  border: 1px solid var(--ifm-color-emphasis-200);
+  border: var(--card-border);
   border-radius: 16px;
   padding: 1.25rem 1.75rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1487,9 +2059,9 @@ iframe[allowfullscreen]:fullscreen {
   gap: 0.5rem;
   flex: 1;
   min-width: 200px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--card-shadow);
   position: relative;
-  color: var(--ifm-color-content);
+  color: var(--text-primary);
 }
 
 /* Gold gradient border for pagination links - top border only */
@@ -1506,24 +2078,18 @@ iframe[allowfullscreen]:fullscreen {
 }
 
 .pagination-nav__link:hover {
-  background: var(--ifm-color-emphasis-100);
-  border-color: var(--ifm-color-primary);
+  background: var(--card-bg-hover);
+  border: var(--card-border-hover);
   transform: translateY(-2px);
-  box-shadow: 0 0 24px rgba(232, 176, 88, 0.2), 0 8px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--card-shadow-hover);
   text-decoration: none;
-}
-
-[data-theme='dark'] .pagination-nav__link:hover {
-  background: #2a2a2a;
-  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .pagination-nav__sublabel {
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--ifm-color-content-secondary);
-  /* Semi-transparent white matching landing page */
+  color: var(--text-muted);
   font-weight: 600;
   margin-bottom: 0.25rem;
 }
@@ -1531,30 +2097,70 @@ iframe[allowfullscreen]:fullscreen {
 .pagination-nav__label {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--ifm-color-content);
+  color: var(--heading-color);
   line-height: 1.4;
 }
 
 .pagination-nav__link--prev .pagination-nav__label::before {
   content: '← ';
-  color: var(--ifm-color-primary);
+  color: var(--gold-text);
 }
 
 .pagination-nav__link--next .pagination-nav__label::after {
   content: ' →';
-  color: var(--ifm-color-primary);
+  color: var(--gold-text);
 }
 
+/* Light Mode Pagination */
 [data-theme='light'] .pagination-nav__link {
-  background: var(--ifm-background-surface-color);
-  border-color: var(--ifm-color-emphasis-200);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 [data-theme='light'] .pagination-nav__link:hover {
-  background: var(--ifm-color-emphasis-100);
-  border-color: var(--ifm-color-primary);
-  box-shadow: 0 4px 16px rgba(232, 176, 88, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: #FAFAFA;
+  border-color: var(--nxgen-gold-accessible);
+  box-shadow: 0 4px 16px rgba(153, 107, 31, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='light'] .pagination-nav__sublabel {
+  color: #6B7280;
+}
+
+[data-theme='light'] .pagination-nav__label {
+  color: #1A1A1A;
+}
+
+[data-theme='light'] .pagination-nav__link--prev .pagination-nav__label::before,
+[data-theme='light'] .pagination-nav__link--next .pagination-nav__label::after {
+  color: var(--nxgen-gold-accessible);
+}
+
+/* Dark Mode Pagination - IMMUTABLE */
+[data-theme='dark'] .pagination-nav__link {
+  background: #202020;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='dark'] .pagination-nav__link:hover {
+  background: #2a2a2a;
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 24px rgba(232, 176, 88, 0.2), 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] .pagination-nav__sublabel {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme='dark'] .pagination-nav__label {
+  color: #FFFFFF;
+}
+
+[data-theme='dark'] .pagination-nav__link--prev .pagination-nav__label::before,
+[data-theme='dark'] .pagination-nav__link--next .pagination-nav__label::after {
+  color: #C89446;
 }
 
 /* 3. Tags - Pill Style */
@@ -1609,17 +2215,15 @@ a.tag::before {
   color: var(--ifm-color-primary-dark) !important;
 }
 
-/* 4. Table of Contents - Premium Design Matching Landing Page */
+/* 4. Table of Contents - Theme-Aware */
 .table-of-contents {
-  background: #202020;
-  /* Card background matching landing page */
+  background: var(--toc-bg);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  /* Subtle border matching landing page */
+  border: 1px solid var(--toc-border);
   border-radius: 16px;
   padding: 1.5rem;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--card-shadow);
 }
 
 .table-of-contents::before {
@@ -1629,12 +2233,10 @@ a.tag::before {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.7);
-  /* Semi-transparent white matching landing page */
+  color: var(--text-muted);
   margin-bottom: 1rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  /* Subtle border matching landing page */
+  border-bottom: 1px solid var(--border-default);
 }
 
 .table-of-contents ul {
@@ -1651,8 +2253,7 @@ a.tag::before {
 .table-of-contents a {
   display: block;
   padding: 0.5rem 0.75rem;
-  color: rgba(255, 255, 255, 0.7);
-  /* Semi-transparent white matching landing page */
+  color: var(--toc-text);
   font-size: 0.875rem;
   font-weight: 500;
   text-decoration: none;
@@ -1663,16 +2264,16 @@ a.tag::before {
 }
 
 .table-of-contents a:hover {
-  background: color-mix(in srgb, var(--ifm-color-primary) 10%, transparent);
-  color: var(--ifm-color-primary);
-  border-left-color: var(--ifm-color-primary);
+  background: var(--gold-bg);
+  color: var(--gold-text);
+  border-left-color: var(--gold-text);
   transform: translateX(4px);
 }
 
 .table-of-contents a.table-of-contents__link--active {
-  background: color-mix(in srgb, var(--ifm-color-primary) 15%, transparent);
-  color: var(--ifm-color-primary);
-  border-left-color: var(--ifm-color-primary);
+  background: var(--gold-bg-hover);
+  color: var(--gold-text);
+  border-left-color: var(--gold-text);
   font-weight: 600;
 }
 
@@ -1683,23 +2284,70 @@ a.tag::before {
 
 .table-of-contents ul ul a {
   font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.6);
-  /* Slightly more transparent for nested items */
+  color: var(--text-muted);
 }
 
+/* Light Mode Table of Contents */
 [data-theme='light'] .table-of-contents {
-  background: rgba(248, 250, 252, 0.9);
-  border-color: rgba(203, 213, 225, 0.6);
+  background: #FFFFFF;
+  border-color: #E5E7EB;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme='light'] .table-of-contents::before {
+  color: #6B7280;
+  border-bottom-color: #E5E7EB;
 }
 
 [data-theme='light'] .table-of-contents a {
-  color: #475569;
+  color: #4B5563;
 }
 
 [data-theme='light'] .table-of-contents a:hover {
-  background: color-mix(in srgb, var(--ifm-color-primary) 8%, transparent);
-  color: var(--ifm-color-primary-dark);
-  border-left-color: var(--ifm-color-primary-dark);
+  background: rgba(153, 107, 31, 0.08);
+  color: var(--nxgen-gold-accessible);
+  border-left-color: var(--nxgen-gold-accessible);
+}
+
+[data-theme='light'] .table-of-contents a.table-of-contents__link--active {
+  background: rgba(153, 107, 31, 0.12);
+  color: var(--nxgen-gold-accessible);
+  border-left-color: var(--nxgen-gold-accessible);
+}
+
+[data-theme='light'] .table-of-contents ul ul a {
+  color: #6B7280;
+}
+
+/* Dark Mode Table of Contents - IMMUTABLE */
+[data-theme='dark'] .table-of-contents {
+  background: #202020;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .table-of-contents::before {
+  color: rgba(255, 255, 255, 0.7);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .table-of-contents a {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+[data-theme='dark'] .table-of-contents a:hover {
+  background: rgba(200, 148, 70, 0.1);
+  color: #C89446;
+  border-left-color: #C89446;
+}
+
+[data-theme='dark'] .table-of-contents a.table-of-contents__link--active {
+  background: rgba(200, 148, 70, 0.15);
+  color: #C89446;
+  border-left-color: #C89446;
+}
+
+[data-theme='dark'] .table-of-contents ul ul a {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* Responsive Adjustments */
@@ -1719,15 +2367,13 @@ a.tag::before {
   }
 }
 
-/* === LAST UPDATED SECTION - PREMIUM STYLING Matching Landing Page === */
+/* === LAST UPDATED SECTION - Theme-Aware === */
 .theme-last-updated {
   margin-top: 2rem;
   padding: 0.75rem 1rem;
-  background: #202020;
-  /* Card background matching landing page */
+  background: var(--card-bg);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  /* Subtle border matching landing page */
+  border: var(--card-border);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -1738,8 +2384,8 @@ a.tag::before {
 }
 
 .theme-last-updated:hover {
-  border-color: color-mix(in srgb, var(--ifm-color-primary) 35%, transparent);
-  box-shadow: 0 2px 8px color-mix(in srgb, var(--ifm-color-primary) 10%, transparent);
+  border-color: var(--gold-border);
+  box-shadow: 0 2px 8px var(--gold-bg);
 }
 
 .theme-last-updated::before {
@@ -1750,8 +2396,7 @@ a.tag::before {
 }
 
 .theme-last-updated b {
-  color: rgba(255, 255, 255, 0.7);
-  /* Semi-transparent white matching landing page */
+  color: var(--text-muted);
   font-weight: 600;
   font-size: 0.75rem;
   text-transform: uppercase;
@@ -1759,30 +2404,37 @@ a.tag::before {
 }
 
 .theme-last-updated time {
-  color: rgba(255, 255, 255, 0.7);
-  /* Semi-transparent white matching landing page */
+  color: var(--text-secondary);
   font-weight: 500;
   font-size: 0.8125rem;
 }
 
+/* Light Mode Last Updated */
 [data-theme='light'] .theme-last-updated {
-  background: #ffffff;
-  border-color: rgba(0, 0, 0, 0.1);
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
 }
 
 [data-theme='light'] .theme-last-updated b {
-  color: #64748B;
+  color: #6B7280;
 }
 
 [data-theme='light'] .theme-last-updated time {
-  color: #475569;
+  color: #4B5563;
 }
 
+/* Dark Mode Last Updated - IMMUTABLE */
 [data-theme='dark'] .theme-last-updated {
   background: #202020;
-  /* Card background matching landing page */
   border-color: rgba(255, 255, 255, 0.1);
-  /* Subtle border matching landing page */
+}
+
+[data-theme='dark'] .theme-last-updated b {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+[data-theme='dark'] .theme-last-updated time {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* Alternative icon using SVG if emoji doesn't work */

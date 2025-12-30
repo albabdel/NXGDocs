@@ -1,0 +1,651 @@
+---
+sidebar_position: 0
+title: Documentation Home
+description: Complete documentation for the NXGEN GCXONE platform - security operations, device integration, and system administration.
+slug: /
+---
+
+import Link from '@docusaurus/Link';
+
+# GCXONE Documentation Center
+
+<p className="text-themed-secondary text-lg mb-8">
+Your complete guide to the NXGEN GCXONE security operations platform. Find everything you need to get started, manage your system, and optimize your security operations.
+</p>
+
+---
+
+## 🚀 Getting Started
+
+New to GCXONE? Start here with our essential guides to get up and running quickly.
+
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-6">
+
+<Link to="/docs/getting-started/what-is-nxgen-gcxone" className="card-themed p-5 rounded-xl no-underline block hover:border-[#E8B058]/50 transition-all">
+  <div className="text-2xl mb-2">📖</div>
+  <h4 className="text-themed-heading text-base font-semibold mb-1">What is GCXONE?</h4>
+  <p className="text-themed-muted text-xs">Platform overview and key concepts</p>
+</Link>
+
+<Link to="/docs/getting-started/quick-start-checklist" className="card-themed p-5 rounded-xl no-underline block hover:border-[#E8B058]/50 transition-all">
+  <div className="text-2xl mb-2">✅</div>
+  <h4 className="text-themed-heading text-base font-semibold mb-1">Quick Start Checklist</h4>
+  <p className="text-themed-muted text-xs">Step-by-step setup guide</p>
+</Link>
+
+<Link to="/docs/getting-started/first-time-login" className="card-themed p-5 rounded-xl no-underline block hover:border-[#E8B058]/50 transition-all">
+  <div className="text-2xl mb-2">🔑</div>
+  <h4 className="text-themed-heading text-base font-semibold mb-1">First Time Login</h4>
+  <p className="text-themed-muted text-xs">Access your account</p>
+</Link>
+
+<Link to="/docs/getting-started/key-benefits" className="card-themed p-5 rounded-xl no-underline block hover:border-[#E8B058]/50 transition-all">
+  <div className="text-2xl mb-2">⭐</div>
+  <h4 className="text-themed-heading text-base font-semibold mb-1">Key Benefits</h4>
+  <p className="text-themed-muted text-xs">Why choose GCXONE</p>
+</Link>
+
+</div>
+
+### Essential Setup
+
+| Topic | Description | Time |
+|-------|-------------|------|
+| [Cloud Architecture](/docs/getting-started/cloud-architecture) | Understanding the GCXONE cloud infrastructure | 5 min |
+| [Firewall Configuration](/docs/getting-started/firewall-configuration) | Required ports and network setup | 10 min |
+| [IP Whitelisting](/docs/getting-started/ip-whitelisting) | Secure access configuration | 5 min |
+| [Password Management](/docs/getting-started/password-management) | Security best practices | 5 min |
+| [NTP Configuration](/docs/getting-started/ntp-configuration) | Time synchronization setup | 5 min |
+
+---
+
+## 👥 Documentation by Role
+
+Choose your role to access tailored documentation and workflows.
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+
+<Link to="/roles/admin" className="card-themed p-6 rounded-xl no-underline block hover:border-[#E8B058]/50 transition-all group">
+  <div className="flex items-center gap-4 mb-4">
+    <div className="p-3 bg-gold-tint rounded-lg">
+      <span className="text-2xl">🛡️</span>
+    </div>
+    <div>
+      <h3 className="text-themed-heading text-lg font-semibold group-hover:text-[#E8B058] transition-colors">System Administrators</h3>
+      <p className="text-themed-muted text-sm">Full system control and configuration</p>
+    </div>
+  </div>
+  <ul className="text-themed-secondary text-sm space-y-1 ml-4">
+    <li>User & role management</li>
+    <li>Site configuration</li>
+    <li>Security policies & RBAC</li>
+    <li>System monitoring</li>
+  </ul>
+</Link>
+
+<Link to="/roles/operator" className="card-themed p-6 rounded-xl no-underline block hover:border-[#E8B058]/50 transition-all group">
+  <div className="flex items-center gap-4 mb-4">
+    <div className="p-3 bg-gold-tint rounded-lg">
+      <span className="text-2xl">🖥️</span>
+    </div>
+    <div>
+      <h3 className="text-themed-heading text-lg font-semibold group-hover:text-[#E8B058] transition-colors">Security Operators</h3>
+      <p className="text-themed-muted text-sm">Real-time monitoring & response</p>
+    </div>
+  </div>
+  <ul className="text-themed-secondary text-sm space-y-1 ml-4">
+    <li>Alarm processing</li>
+    <li>Live video monitoring</li>
+    <li>Incident response</li>
+    <li>Event investigation</li>
+  </ul>
+</Link>
+
+<Link to="/roles/installer" className="card-themed p-6 rounded-xl no-underline block hover:border-[#E8B058]/50 transition-all group">
+  <div className="flex items-center gap-4 mb-4">
+    <div className="p-3 bg-gold-tint rounded-lg">
+      <span className="text-2xl">🔧</span>
+    </div>
+    <div>
+      <h3 className="text-themed-heading text-lg font-semibold group-hover:text-[#E8B058] transition-colors">Field Installers</h3>
+      <p className="text-themed-muted text-sm">Site deployment & integration</p>
+    </div>
+  </div>
+  <ul className="text-themed-secondary text-sm space-y-1 ml-4">
+    <li>Site commissioning</li>
+    <li>Device installation</li>
+    <li>Network configuration</li>
+    <li>Testing & validation</li>
+  </ul>
+</Link>
+
+<Link to="/roles/manager" className="card-themed p-6 rounded-xl no-underline block hover:border-[#E8B058]/50 transition-all group">
+  <div className="flex items-center gap-4 mb-4">
+    <div className="p-3 bg-gold-tint rounded-lg">
+      <span className="text-2xl">📊</span>
+    </div>
+    <div>
+      <h3 className="text-themed-heading text-lg font-semibold group-hover:text-[#E8B058] transition-colors">Operations Managers</h3>
+      <p className="text-themed-muted text-sm">Analytics & team performance</p>
+    </div>
+  </div>
+  <ul className="text-themed-secondary text-sm space-y-1 ml-4">
+    <li>Performance analytics</li>
+    <li>Team management</li>
+    <li>Compliance & SLA</li>
+    <li>Business intelligence</li>
+  </ul>
+</Link>
+
+</div>
+
+---
+
+## ⚙️ Administration Guide
+
+Complete documentation for system administrators managing the GCXONE platform.
+
+### User & Access Management
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
+
+<Link to="/docs/admin-guide/user-management" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">User Management</h4>
+  <p className="text-themed-muted text-xs">Create and manage user accounts</p>
+</Link>
+
+<Link to="/docs/admin-guide/creating-users" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Creating Users</h4>
+  <p className="text-themed-muted text-xs">Invite new team members</p>
+</Link>
+
+<Link to="/docs/admin-guide/rbac" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Role-Based Access Control</h4>
+  <p className="text-themed-muted text-xs">Configure roles and permissions</p>
+</Link>
+
+<Link to="/docs/admin-guide/permissions-matrix" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Permissions Matrix</h4>
+  <p className="text-themed-muted text-xs">Complete permissions reference</p>
+</Link>
+
+<Link to="/docs/admin-guide/adjust-user-operator-privileges" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Operator Privileges</h4>
+  <p className="text-themed-muted text-xs">Fine-tune user access</p>
+</Link>
+
+<Link to="/docs/admin-guide/talos-role-creation" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Talos Role Creation</h4>
+  <p className="text-themed-muted text-xs">Advanced role configuration</p>
+</Link>
+
+</div>
+
+### Site & Customer Management
+
+| Documentation | Description |
+|--------------|-------------|
+| [Creating Customers](/docs/admin-guide/creating-customers) | Set up customer organizations |
+| [Creating Sites](/docs/admin-guide/creating-sites) | Configure monitoring locations |
+| [Site Groups](/docs/admin-guide/site-groups) | Organize sites into groups |
+| [Timezone Management](/docs/admin-guide/timezone-management) | Configure time zones |
+
+### System Configuration
+
+| Documentation | Description |
+|--------------|-------------|
+| [Dashboard Overview](/docs/admin-guide/dashboard-overview) | Admin dashboard walkthrough |
+| [Custom Properties](/docs/admin-guide/custom-properties-overview) | Create custom metadata fields |
+| [Custom Property Hierarchy](/docs/admin-guide/custom-property-hierarchy) | Organize custom properties |
+| [Event Clip Configuration](/docs/admin-guide/event-clip-configuration) | Configure video clip settings |
+
+### Monitoring & Analytics
+
+| Documentation | Description |
+|--------------|-------------|
+| [Alarm Volume Analytics](/docs/admin-guide/alarm-volume-analytics) | Monitor alarm patterns |
+| [Device Health Status](/docs/admin-guide/device-health-status) | Track device connectivity |
+| [Active Sites Widget](/docs/admin-guide/active-sites-widget) | Dashboard widget setup |
+
+---
+
+## 🖥️ Operator Guide
+
+Essential documentation for security operators handling day-to-day monitoring and response.
+
+### Core Operations
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
+
+<Link to="/docs/operator-guide/operator-dashboard" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Operator Dashboard</h4>
+  <p className="text-themed-muted text-xs">Navigate the operator interface</p>
+</Link>
+
+<Link to="/docs/operator-guide/handling-alarms" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Handling Alarms</h4>
+  <p className="text-themed-muted text-xs">Process and respond to alarms</p>
+</Link>
+
+<Link to="/docs/operator-guide/live-video" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Live Video</h4>
+  <p className="text-themed-muted text-xs">Real-time video monitoring</p>
+</Link>
+
+<Link to="/docs/operator-guide/video-playback" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Video Playback</h4>
+  <p className="text-themed-muted text-xs">Review recorded footage</p>
+</Link>
+
+<Link to="/docs/operator-guide/ptz-control" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">PTZ Control</h4>
+  <p className="text-themed-muted text-xs">Camera pan/tilt/zoom</p>
+</Link>
+
+<Link to="/docs/operator-guide/event-clips" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Event Clips</h4>
+  <p className="text-themed-muted text-xs">Manage video evidence</p>
+</Link>
+
+</div>
+
+### Response & Communication
+
+| Documentation | Description |
+|--------------|-------------|
+| [Response Procedures](/docs/operator-guide/response-procedures) | Standard operating procedures |
+| [Emergency Procedures](/docs/operator-guide/emergency-procedures) | Critical incident handling |
+| [Communication Tools](/docs/operator-guide/communication-tools) | Contact authorities and keyholders |
+| [Notes & Annotations](/docs/operator-guide/notes-annotations) | Document incidents |
+
+### Shift Management
+
+| Documentation | Description |
+|--------------|-------------|
+| [Shift Handover](/docs/operator-guide/shift-handover) | Transfer between shifts |
+| [Multi-Site Monitoring](/docs/operator-guide/multi-site-monitoring) | Manage multiple locations |
+| [Site Navigation](/docs/operator-guide/site-navigation) | Navigate between sites |
+| [Performance Metrics](/docs/operator-guide/performance-metrics) | Track your performance |
+
+### Training & Best Practices
+
+| Documentation | Description |
+|--------------|-------------|
+| [Training Guide](/docs/operator-guide/training-guide) | Operator certification |
+| [Best Practices](/docs/operator-guide/best-practices) | Operational excellence |
+| [Shortcuts & Tips](/docs/operator-guide/shortcuts-tips) | Productivity boosters |
+| [Troubleshooting](/docs/operator-guide/troubleshooting) | Common issue resolution |
+
+---
+
+## 🔧 Installer Guide
+
+Technical documentation for field technicians deploying and configuring GCXONE.
+
+### Installation Workflow
+
+<div className="grid grid-cols-1 md:grid-cols-4 gap-4 my-4">
+
+<Link to="/docs/installer-guide/site-survey" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all text-center">
+  <div className="text-2xl mb-2">1️⃣</div>
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Site Survey</h4>
+  <p className="text-themed-muted text-xs">Assessment & planning</p>
+</Link>
+
+<Link to="/docs/installer-guide/network-setup" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all text-center">
+  <div className="text-2xl mb-2">2️⃣</div>
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Network Setup</h4>
+  <p className="text-themed-muted text-xs">Connectivity configuration</p>
+</Link>
+
+<Link to="/docs/installer-guide/device-installation" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all text-center">
+  <div className="text-2xl mb-2">3️⃣</div>
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Device Installation</h4>
+  <p className="text-themed-muted text-xs">Hardware deployment</p>
+</Link>
+
+<Link to="/docs/installer-guide/testing-commissioning" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all text-center">
+  <div className="text-2xl mb-2">4️⃣</div>
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Testing</h4>
+  <p className="text-themed-muted text-xs">Validation & handover</p>
+</Link>
+
+</div>
+
+### Technical Documentation
+
+| Topic | Description |
+|-------|-------------|
+| [Installation Overview](/docs/installer-guide/installation-overview) | Complete installation guide |
+| [Network Configuration](/docs/installer-guide/network-configuration) | Detailed network setup |
+| [Bandwidth Planning](/docs/installer-guide/bandwidth-planning) | Capacity planning |
+| [Storage Requirements](/docs/installer-guide/storage-requirements) | Storage sizing guide |
+| [Power Requirements](/docs/installer-guide/power-requirements) | Electrical specifications |
+| [Camera Positioning](/docs/installer-guide/camera-positioning) | Optimal placement |
+| [Redundancy & Failover](/docs/installer-guide/redundancy-failover) | High availability setup |
+| [Post-Installation](/docs/installer-guide/post-installation) | Final configuration |
+
+---
+
+## 📹 Device Integration
+
+Connect your security devices to GCXONE. We support 40+ manufacturers and device types.
+
+### General Integration
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
+
+<Link to="/docs/devices/general/onboarding-overview" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Onboarding Overview</h4>
+  <p className="text-themed-muted text-xs">Device integration fundamentals</p>
+</Link>
+
+<Link to="/docs/devices/general/discovery-methods" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Discovery Methods</h4>
+  <p className="text-themed-muted text-xs">Auto-detect devices on network</p>
+</Link>
+
+<Link to="/docs/devices/general/authentication" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Authentication</h4>
+  <p className="text-themed-muted text-xs">Device credentials setup</p>
+</Link>
+
+<Link to="/docs/devices/general/health-monitoring" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Health Monitoring</h4>
+  <p className="text-themed-muted text-xs">Track device status</p>
+</Link>
+
+<Link to="/docs/devices/general/troubleshooting-basics" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Troubleshooting Basics</h4>
+  <p className="text-themed-muted text-xs">Common integration issues</p>
+</Link>
+
+<Link to="/docs/devices/generic/onvif-integration" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">ONVIF Integration</h4>
+  <p className="text-themed-muted text-xs">Universal camera protocol</p>
+</Link>
+
+</div>
+
+### Supported Manufacturers
+
+#### Camera Systems
+
+| Manufacturer | Documentation |
+|-------------|---------------|
+| **Hikvision** | [Overview](/docs/devices/hikvision/overview) |
+| **Axis** | [Overview](/docs/devices/axis/overview) |
+| **Dahua** | [Overview](/docs/devices/dahua/overview) |
+| **Hanwha (Samsung)** | [Overview](/docs/devices/hanwha/overview) |
+| **Avigilon** | [Overview](/docs/devices/avigilon/overview) |
+| **Uniview** | [Overview](/docs/devices/uniview/overview) |
+| **Mobotix** | [Overview](/docs/devices/mobotix/overview) |
+
+#### VMS & NVR Systems
+
+| System | Documentation |
+|--------|---------------|
+| **Milestone XProtect** | [Overview](/docs/devices/milestone/overview) |
+| **Axis Camera Station** | [Overview](/docs/devices/axiscamerastation/overview) |
+| **NX Witness** | [Overview](/docs/devices/nxwitness/overview) |
+| **Avigilon ACC** | [Overview](/docs/devices/avigilon/overview) |
+| **Axxon** | [Overview](/docs/devices/axxon/overview) |
+| **Genetec** | [Overview](/docs/devices/genesisvms/overview) |
+
+#### Intrusion & Sensors
+
+| Manufacturer | Documentation |
+|-------------|---------------|
+| **Ajax** | [Overview](/docs/devices/ajax/overview) |
+| **Teltonika** | [Overview](/docs/devices/teltonika/overview) |
+| **Reconeyez** | [Overview](/docs/devices/reconeyez/overview) |
+| **ADPRO** | [Overview](/docs/devices/adpro/overview) |
+| **Essence** | [Overview](/docs/devices/essence/overview) |
+| **Honeywell** | [Overview](/docs/devices/honeywell/overview) |
+
+#### AI & Analytics
+
+| System | Documentation |
+|--------|---------------|
+| **Camect** | [Overview](/docs/devices/camect/overview) |
+| **Ganz AI** | [Overview](/docs/getting-started/devices/ganz/overview) |
+| **Davantis** | [Overview](/docs/devices/davantis/overview) |
+| **Innovi** | [Overview](/docs/devices/innovi/overview) |
+
+---
+
+## 🏗️ Platform Fundamentals
+
+Deep dive into GCXONE architecture and core concepts.
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+
+<Link to="/docs/platform-fundamentals-microservices-architecture" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Microservices Architecture</h4>
+  <p className="text-themed-muted text-xs">Platform design and scalability</p>
+</Link>
+
+<Link to="/docs/platform-fundamentals-hierarchy-model" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Hierarchy Model</h4>
+  <p className="text-themed-muted text-xs">Organization structure</p>
+</Link>
+
+<Link to="/docs/platform-fundamentals-alarm-flow" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Alarm Flow</h4>
+  <p className="text-themed-muted text-xs">How alarms are processed</p>
+</Link>
+
+<Link to="/docs/platform-fundamentals-event-processing" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Event Processing</h4>
+  <p className="text-themed-muted text-xs">Event handling pipeline</p>
+</Link>
+
+<Link to="/docs/platform-fundamentals-device-protocols" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Device Protocols</h4>
+  <p className="text-themed-muted text-xs">Supported protocols</p>
+</Link>
+
+<Link to="/docs/platform-fundamentals-multi-tenant" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Multi-Tenant Architecture</h4>
+  <p className="text-themed-muted text-xs">Data isolation and security</p>
+</Link>
+
+<Link to="/docs/platform-fundamentals-proxy-architecture" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Proxy Architecture</h4>
+  <p className="text-themed-muted text-xs">Video streaming infrastructure</p>
+</Link>
+
+<Link to="/docs/platform-fundamentals-site-synchronization" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Site Synchronization</h4>
+  <p className="text-themed-muted text-xs">Data sync mechanisms</p>
+</Link>
+
+</div>
+
+---
+
+## 📊 Reporting & Analytics
+
+Generate insights from your security operations data.
+
+| Report Type | Documentation |
+|-------------|---------------|
+| [Reporting Overview](/docs/reporting-reporting-overview) | Introduction to reporting |
+| [Standard Reports](/docs/reporting-standard-reports) | Pre-built report templates |
+| [Custom Reports](/docs/reporting-custom-reports) | Build your own reports |
+| [Alarm Statistics](/docs/reporting-alarm-statistics) | Alarm analysis |
+| [Event Analytics](/docs/reporting-event-analytics) | Event trend analysis |
+| [Device Activity](/docs/reporting-device-activity) | Device usage reports |
+| [User Activity](/docs/reporting-user-activity) | Operator performance |
+| [System Performance](/docs/reporting-system-performance) | Infrastructure metrics |
+| [Compliance Reports](/docs/reporting-compliance-reports) | Regulatory compliance |
+| [Scheduled Reports](/docs/reporting-scheduled-reports) | Automated delivery |
+| [Report Export](/docs/reporting-report-export) | Export formats |
+
+---
+
+## 🔍 Troubleshooting
+
+Find solutions to common issues and problems.
+
+### By Category
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
+
+<div className="card-themed p-4 rounded-lg">
+  <h4 className="text-themed-heading text-sm font-semibold mb-3">🔌 Connectivity</h4>
+  <ul className="text-themed-secondary text-xs space-y-2">
+    <li><Link to="/docs/troubleshooting-device-offline">Device Offline</Link></li>
+    <li><Link to="/docs/troubleshooting-connection-issues">Connection Issues</Link></li>
+    <li><Link to="/docs/troubleshooting-network-connectivity">Network Connectivity</Link></li>
+    <li><Link to="/docs/troubleshooting-firewall-issues">Firewall Issues</Link></li>
+  </ul>
+</div>
+
+<div className="card-themed p-4 rounded-lg">
+  <h4 className="text-themed-heading text-sm font-semibold mb-3">🎬 Video Issues</h4>
+  <ul className="text-themed-secondary text-xs space-y-2">
+    <li><Link to="/docs/troubleshooting-video-streaming">Video Streaming</Link></li>
+    <li><Link to="/docs/troubleshooting-video-quality">Video Quality</Link></li>
+    <li><Link to="/docs/troubleshooting-playback-issues">Playback Issues</Link></li>
+    <li><Link to="/docs/troubleshooting-clips-missing">Missing Clips</Link></li>
+  </ul>
+</div>
+
+<div className="card-themed p-4 rounded-lg">
+  <h4 className="text-themed-heading text-sm font-semibold mb-3">🔔 Alarms</h4>
+  <ul className="text-themed-secondary text-xs space-y-2">
+    <li><Link to="/docs/troubleshooting-alarm-not-received">Alarm Not Received</Link></li>
+    <li><Link to="/docs/troubleshooting-alarm-overflow-threshold">Overflow Threshold</Link></li>
+    <li><Link to="/docs/troubleshooting-time-sync">Time Sync</Link></li>
+  </ul>
+</div>
+
+<div className="card-themed p-4 rounded-lg">
+  <h4 className="text-themed-heading text-sm font-semibold mb-3">🔐 Authentication</h4>
+  <ul className="text-themed-secondary text-xs space-y-2">
+    <li><Link to="/docs/troubleshooting-login-problems">Login Problems</Link></li>
+    <li><Link to="/docs/troubleshooting-certificate-errors">Certificate Errors</Link></li>
+    <li><Link to="/docs/troubleshooting-api-issues">API Issues</Link></li>
+  </ul>
+</div>
+
+<div className="card-themed p-4 rounded-lg">
+  <h4 className="text-themed-heading text-sm font-semibold mb-3">⚡ Performance</h4>
+  <ul className="text-themed-secondary text-xs space-y-2">
+    <li><Link to="/docs/troubleshooting-performance-issues">Performance Issues</Link></li>
+    <li><Link to="/docs/troubleshooting-storage-issues">Storage Issues</Link></li>
+    <li><Link to="/docs/troubleshooting-browser-compatibility">Browser Compatibility</Link></li>
+  </ul>
+</div>
+
+<div className="card-themed p-4 rounded-lg">
+  <h4 className="text-themed-heading text-sm font-semibold mb-3">📱 Other</h4>
+  <ul className="text-themed-secondary text-xs space-y-2">
+    <li><Link to="/docs/troubleshooting-mobile-app">Mobile App</Link></li>
+    <li><Link to="/docs/troubleshooting-audio-problems">Audio Problems</Link></li>
+    <li><Link to="/docs/troubleshooting-ptz-not-working">PTZ Not Working</Link></li>
+  </ul>
+</div>
+
+</div>
+
+---
+
+## 📚 Knowledge Base
+
+Reference materials and best practices.
+
+| Topic | Description |
+|-------|-------------|
+| [FAQ](/docs/knowledge-base-faq) | Frequently asked questions |
+| [Glossary](/docs/knowledge-base-glossary) | Terminology definitions |
+| [System Requirements](/docs/knowledge-base-system-requirements) | Hardware & software requirements |
+| [Network Requirements](/docs/knowledge-base-network-requirements) | Bandwidth & connectivity |
+| [Security Best Practices](/docs/knowledge-base-security-best-practices) | Security recommendations |
+| [Performance Optimization](/docs/knowledge-base-performance-optimization) | Tuning guidelines |
+| [Integration Guides](/docs/knowledge-base-integration-guides) | Third-party integrations |
+| [Migration Guides](/docs/knowledge-base-migration-guides) | Platform migration |
+| [Video Tutorials](/docs/knowledge-base-video-tutorials) | Training videos |
+| [Quick Reference](/docs/knowledge-base-quick-reference) | Cheat sheets |
+| [Compliance](/docs/knowledge-base-compliance) | Regulatory compliance |
+| [Data Privacy](/docs/knowledge-base-data-privacy) | Privacy policies |
+
+---
+
+## 📋 Release Notes
+
+Stay updated with the latest GCXONE improvements.
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+
+<Link to="/docs/release-notes-latest" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <div className="flex items-center gap-2 mb-2">
+    <span className="px-2 py-1 text-xs font-medium rounded-full bg-green-500/20 text-green-400">Latest</span>
+  </div>
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Current Release</h4>
+  <p className="text-themed-muted text-xs">See what's new in the latest version</p>
+</Link>
+
+<Link to="/docs/release-notes-roadmap" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all">
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Product Roadmap</h4>
+  <p className="text-themed-muted text-xs">Upcoming features and improvements</p>
+</Link>
+
+</div>
+
+### Version History
+
+| Version | Release Notes | Upgrade Guide |
+|---------|--------------|---------------|
+| v3.0 | [Release Notes](/docs/release-notes-v3-0) | [Upgrade Guide](/docs/release-notes-upgrade-guide) |
+| v2.9 | [Release Notes](/docs/release-notes-v2-9) | - |
+| v2.8 | [Release Notes](/docs/release-notes-v2-8) | - |
+| v2.7 | [Release Notes](/docs/release-notes-v2-7) | - |
+| v2.6 | [Release Notes](/docs/release-notes-v2-6) | - |
+
+---
+
+## 🎓 Support & Training
+
+Get help when you need it.
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
+
+<Link to="/docs/support-contact-support" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all text-center">
+  <div className="text-2xl mb-2">🎧</div>
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Contact Support</h4>
+  <p className="text-themed-muted text-xs">24/7 technical support</p>
+</Link>
+
+<Link to="/docs/support-ticket-system" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all text-center">
+  <div className="text-2xl mb-2">🎫</div>
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">Submit Ticket</h4>
+  <p className="text-themed-muted text-xs">Create a support request</p>
+</Link>
+
+<Link to="/docs/support-system-status" className="card-themed p-4 rounded-lg no-underline block hover:border-[#E8B058]/50 transition-all text-center">
+  <div className="text-2xl mb-2">🟢</div>
+  <h4 className="text-themed-heading text-sm font-semibold mb-1">System Status</h4>
+  <p className="text-themed-muted text-xs">Check platform availability</p>
+</Link>
+
+</div>
+
+| Resource | Description |
+|----------|-------------|
+| [Training Resources](/docs/support-training-resources) | Learning materials |
+| [Certification](/docs/support-certification) | Professional certification |
+| [Community Forum](/docs/support-community-forum) | Connect with other users |
+| [Professional Services](/docs/support-professional-services) | Custom implementations |
+| [Partner Program](/docs/support-partner-program) | Become a partner |
+| [Support SLA](/docs/support-support-sla) | Service level agreements |
+| [Feedback](/docs/support-feedback) | Share your feedback |
+
+---
+
+<div className="text-center my-12">
+  <p className="text-themed-muted text-sm">
+    Can't find what you're looking for? <Link to="/docs/support-contact-support">Contact our support team</Link> for assistance.
+  </p>
+</div>
