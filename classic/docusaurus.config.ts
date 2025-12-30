@@ -7,7 +7,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'NXGEN GCXONE Documentation',
   tagline: 'Complete documentation for NXGEN GCXONE platform',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.png',
 
   // Future flags
   // future: {
@@ -236,7 +236,7 @@ const config: Config = {
           label: 'Quick Links',
           position: 'left',
           items: [
-                        {
+            {
               label: '🌟 Breakthroughs',
               to: '/docs/breakthroughs',
             },
@@ -272,7 +272,7 @@ const config: Config = {
         {
           title: 'Documentation',
           items: [
-                        {
+            {
               label: 'Breakthroughs',
               to: '/docs/breakthroughs',
             },
