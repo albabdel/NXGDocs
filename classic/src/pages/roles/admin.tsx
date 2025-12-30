@@ -18,7 +18,7 @@ export default function AdminLandingPage() {
             description="Complete administrative control center for GCXONE platform management"
         >
             <LandingPageBackground />
-            <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
+            <main className="min-h-screen">
                 <PageHeader 
                     breadcrumbs={[
                         { label: 'Home', href: '/' },

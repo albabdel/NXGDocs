@@ -18,7 +18,7 @@ export default function InstallerLandingPage() {
             description="Technical resources and field tools for GCXONE site commissioning and device integration"
         >
             <LandingPageBackground />
-            <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
+            <main className="min-h-screen">
                 <PageHeader 
                     breadcrumbs={[
                         { label: 'Home', href: '/' },

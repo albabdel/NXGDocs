@@ -18,7 +18,7 @@ export default function OperatorLandingPage() {
             description="Mission control center for real-time monitoring, alarm response, and security operations"
         >
             <LandingPageBackground />
-            <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
+            <main className="min-h-screen">
                 <PageHeader 
                     breadcrumbs={[
                         { label: 'Home', href: '/' },

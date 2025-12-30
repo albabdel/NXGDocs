@@ -18,7 +18,7 @@ export default function ManagerLandingPage() {
             description="Strategic insights, performance analytics, and team management for GCXONE operations leaders"
         >
             <LandingPageBackground />
-            <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
+            <main className="min-h-screen">
                 <PageHeader 
                     breadcrumbs={[
                         { label: 'Home', href: '/' },

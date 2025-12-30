@@ -1118,9 +1118,9 @@ export default function IntegrationHub() {
             description="Discover all supported devices and integrations in GCXONE"
         >
             <LandingPageBackground />
-            <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
+            <main className="min-h-screen">
                 {/* Breadcrumbs */}
-                <div className="border-b" style={{ backgroundColor: 'var(--ifm-background-color)', borderColor: 'var(--ifm-color-emphasis-300)' }}>
+                <div className="border-b backdrop-blur-sm" style={{ backgroundColor: 'rgba(var(--ifm-background-surface-color-rgb, 0,0,0), 0.7)', borderColor: 'var(--ifm-color-emphasis-300)' }}>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                         <nav className="flex items-center gap-2 text-sm">
                             <Link to="/" className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors no-underline">
