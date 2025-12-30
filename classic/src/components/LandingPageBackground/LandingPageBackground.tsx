@@ -24,14 +24,14 @@ const LandingPageBackground: React.FC = () => {
       >
         {/* Curved waves emanating from bottom-left */}
         <g className={styles.waves}>
-          <path d="M0 100 Q 30 70, 60 80 T 120 60" fill="none" stroke="currentColor" strokeWidth="0.3" />
-          <path d="M0 90 Q 35 60, 70 70 T 130 50" fill="none" stroke="currentColor" strokeWidth="0.3" />
-          <path d="M0 80 Q 40 50, 80 60 T 140 40" fill="none" stroke="currentColor" strokeWidth="0.3" />
-          <path d="M0 70 Q 45 40, 90 50 T 150 30" fill="none" stroke="currentColor" strokeWidth="0.3" />
-          <path d="M0 60 Q 50 30, 100 40 T 160 20" fill="none" stroke="currentColor" strokeWidth="0.3" />
-          <path d="M0 50 Q 55 20, 110 30 T 170 10" fill="none" stroke="currentColor" strokeWidth="0.3" />
-          <path d="M0 40 Q 60 10, 120 20 T 180 0" fill="none" stroke="currentColor" strokeWidth="0.3" />
-          <path d="M0 30 Q 65 0, 130 10 T 190 -10" fill="none" stroke="currentColor" strokeWidth="0.3" />
+          <path d="M0 100 Q 30 70, 60 80 T 120 60" fill="none" stroke="currentColor" strokeWidth="0.15" />
+          <path d="M0 90 Q 35 60, 70 70 T 130 50" fill="none" stroke="currentColor" strokeWidth="0.15" />
+          <path d="M0 80 Q 40 50, 80 60 T 140 40" fill="none" stroke="currentColor" strokeWidth="0.15" />
+          <path d="M0 70 Q 45 40, 90 50 T 150 30" fill="none" stroke="currentColor" strokeWidth="0.15" />
+          <path d="M0 60 Q 50 30, 100 40 T 160 20" fill="none" stroke="currentColor" strokeWidth="0.15" />
+          <path d="M0 50 Q 55 20, 110 30 T 170 10" fill="none" stroke="currentColor" strokeWidth="0.15" />
+          <path d="M0 40 Q 60 10, 120 20 T 180 0" fill="none" stroke="currentColor" strokeWidth="0.15" />
+          <path d="M0 30 Q 65 0, 130 10 T 190 -10" fill="none" stroke="currentColor" strokeWidth="0.15" />
         </g>
       </svg>
 
