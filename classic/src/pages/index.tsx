@@ -22,6 +22,7 @@ import {
 // Using Algolia DocSearch for search functionality
 import FeatureCard from '../components/FeatureCard';
 import QuickLink from '../components/QuickLink';
+import { BreakthroughGrid } from '../components/breakthroughs';
 import NXGENSphereHero from '../components/NXGENSphereHero';
 
 // --- Data ---
@@ -35,6 +36,12 @@ type Resource = {
 };
 
 const quickStartLinks: Resource[] = [
+    {
+        title: 'Breakthroughs',
+        description: 'Ten core services that define how GCXONE works at scale',
+        link: '/docs/breakthroughs',
+        icon: <Zap className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
+    },
     {
         title: 'Platform Overview',
         description: 'Learn about core concepts and architecture',

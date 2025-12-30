@@ -1,0 +1,104 @@
+---
+title: "Hikvision Integration"
+description: "How to configure Hikvision cameras and NVRs using ISAPI and Digest authentication for GCXONE monitoring."
+tags:
+  - role:admin
+  - category:tutorial
+  - difficulty:intermediate
+  - platform:hikvision
+sidebar_position: 10
+last_updated: 2025-12-28
+---
+
+# 📹 Hikvision Integration
+
+**Hikvision** devices utilize the **ISAPI** protocol to deliver high-performance video and metadata to GCXONE. This guide covers the essential security settings, including **Digest Authentication**, and the configuration of Smart Events like Line Crossing and Intrusion Detection.
+
+import Callout from '@site/src/components/Callout';
+import Steps from '@site/src/components/Steps';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## 📋 Prerequisites
+
+- **Hikvision Device:** Connected and accessible via its web management interface.
+- **ISAPI Enabled:** The integration protocol must be toggled on.
+- **Whitelist:** Ensure the Hikvision Receiver IP (`35.156.60.98`) is whitelisted in your local firewall.
+
+---
+
+## 🚦 Device Profile
+
+| Feature | Support Level | Notes |
+| :--- | :--- | :--- |
+| **Protocol** | ISAPI | Proprietary high-speed metadata interface. |
+| **Authentication** | Digest | **Mandatory** for modern security standards. |
+| **Smart Events** | ✅ Supported | Line Crossing, Intrusion, Tampering. |
+| **Two-way Audio** | ✅ Supported | Full SIP-based duplex audio. |
+
+---
+
+## 🛠️ Configuration Steps
+
+<Steps>
+
+### 1. Security & Authentication
+Navigate to **Configuration → System → Security**.
+- Set both **RTSP Authentication** and **WEB Authentication** to **Digest**.
+- <Callout type="important">Using "Basic" authentication is insecure and may cause connection rejections in newer GCXONE clusters.</Callout>
+
+### 2. Enable Integration Protocol
+Navigate to **Configuration → Network → Advanced Settings → Integration Protocol**.
+- Toggle **Enable ISAPI** to **ON**.
+- This allows GCXONE to pull the model information, firmware version, and sensor list automatically.
+
+![Hikvision ISAPI Settings](./images/Hik%205.png)
+
+### 3. Dedicated Service User
+Navigate to **Configuration → System → User Management**.
+- Add a user named **"NXG"**.
+- **Remote Permissions:** Ensure "Live View", "Playback", "PTZ Control", and "Notify Surveillance Center" are checked.
+- **Local Permissions:** Check "Playback" and "Log Search".
+
+### 4. Smart Event Tuning
+Navigate to **Configuration → Event → Smart Event**.
+1. Choose **Line Crossing** or **Intrusion Detection**.
+2. Draw your detection zones.
+3. Under the **Linkage Method** tab, ensure **Notify Surveillance Center** is checked.
+4. <Callout type="warning">Without "Notify Surveillance Center" checked, the device will record the event locally but fail to push a signal to GCXONE.</Callout>
+
+![Hikvision Smart Event](./images/Hik%207.png)
+
+### 5. Final Discovery in GCXONE
+1. Log in to **GCXONE** → **Sites** → **Devices**.
+2. Click **Add Device** and select **Hikvision**.
+3. Enter the IP/Host and the **NXG** user credentials.
+4. Click **Discover**.
+
+</Steps>
+
+---
+
+## 💡 Troubleshooting
+
+- **"Invalid Username/Password":** Double-check the **Digest** authentication setting. If correctly set to Digest, try resetting the NXG user password for a fresh handshake.
+- **No Alarms in Video Activity:** Verify the **Linkage Method** in the Hikvision UI. "Notify Surveillance Center" must be active for every rule you want monitored.
+- **Stream Not Loading:** Ensure the **RTSP Port (554)** is open and that the whitelisted IP (`35.156.60.98`) has access to it.
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "Digest vs Basic Auth",
+    url: "/docs/platform-fundamentals/security/authentication-types",
+    description: "Why GCXONE enforces modern auth standards."
+  },
+  {
+    title: "Required Ports",
+    url: "/docs/getting-started/required-ports",
+    description: "Whitelisting the Hikvision receiver gateway."
+  }
+]} />

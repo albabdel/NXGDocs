@@ -1116,9 +1116,9 @@ export default function IntegrationHub() {
             title="Integration Hub"
             description="Discover all supported devices and integrations in GCXONE"
         >
-            <main className="min-h-screen bg-black">
+            <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
                 {/* Breadcrumbs */}
-                <div className="bg-black border-b border-white/10">
+                <div className="border-b" style={{ backgroundColor: 'var(--ifm-background-color)', borderColor: 'var(--ifm-color-emphasis-300)' }}>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                         <nav className="flex items-center gap-2 text-sm">
                             <Link to="/" className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors no-underline">
@@ -1143,10 +1143,10 @@ export default function IntegrationHub() {
                             <Plug className="w-4 h-4 text-[#E8B058]" />
                             <span className="text-sm font-medium text-[#E8B058]">50+ Supported Devices</span>
                         </div>
-                        <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+                        <h1 className="text-5xl md:text-6xl font-bold mb-6" style={{ color: 'var(--ifm-font-color-base)' }}>
                             Integration Hub
                         </h1>
-                        <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed mb-8">
+                        <p className="text-xl max-w-3xl mx-auto leading-relaxed mb-8" style={{ color: 'var(--ifm-font-color-secondary)' }}>
                             Browse our catalog of supported devices. Each integration includes comprehensive setup guides and feature documentation.
                         </p>
                     </motion.div>

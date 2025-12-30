@@ -1,0 +1,84 @@
+---
+title: "User Management"
+description: "High-level overview of roles, permissions, and access control in the GCXONE platform."
+tags:
+  - role:admin
+  - category:explanation
+  - difficulty:beginner
+  - platform:both
+sidebar_position: 1
+last_updated: 2025-12-28
+---
+
+# 👥 User Management Overview
+
+User management is a fundamental aspect of GCXONE, allowing administrators to precisely control who can access the system and what they can do within it.
+
+import Callout from '@site/src/components/Callout';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+## Core Concepts (RBAC)
+
+GCXONE uses **Role-Based Access Control (RBAC)** to ensure security and scalability. Instead of assigning permissions to individuals, you assign them to **Roles**, and then assign individuals to those roles.
+
+### 🎭 Roles and Permissions
+Roles define the actions a user can take (e.g., "View Live Video," "Export Alarms," "Delete Sites"). Each role is a collection of these granular privileges.
+
+### 📶 Access Levels
+Access levels determine the **scope** of a user's vision. A user with the same role (e.g., "Operator") can have different scopes:
+- **Service Provider:** Can see all customers and sites within the entire tenant.
+- **Customer:** Can only see sites belonging to their specific customer account.
+- **Site:** Can only see specific physical locations.
+
+### 🏷️ Customer Groups
+Customer Groups allow you to group multiple customers together. This is useful for managers who need to supervise a specific regional subset of clients without having full "Service Provider" access.
+
+---
+
+## The User Journey
+
+Getting a new user onboarded follows a simple four-step process:
+
+1. **Define the Role:** Choose a default role or create a custom one with specific permissions.
+2. **Assign a Customer Group:** Decide which clients this user is allowed to monitor.
+3. **Send Invitation:** Invite the user via their email address using the automated workflow.
+4. **Talos Sync:** For operators, ensure their account is synchronized with the [Talos Alarm Engine](/docs/getting-started/what-is-evalink-talos).
+
+---
+
+## 🚀 Quick Start Checklist
+
+<Callout type="tip" title="Best Practice">
+Always start with **Default Roles** (Company Admin, Manager, Operator). Only create custom roles if your business requires a highly niche set of permissions.
+</Callout>
+
+- [ ] Review the default roles.
+- [ ] Create a "Customer Group" for your first project.
+- [ ] Send an invitation to your first operator.
+- [ ] Verify they can log in and see the correct sites.
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "Roles and Access Levels",
+    url: "/docs/getting-started/user-management/roles-and-access-levels",
+    description: "Deep dive into permission scopes."
+  },
+  {
+    title: "Inviting Users",
+    url: "/docs/getting-started/user-management/inviting-users",
+    description: "How to send and manage email invitations."
+  },
+  {
+    title: "Talos User Management",
+    url: "/docs/getting-started/user-management/talos-user-management",
+    description: "Configuring the alarm operator interface."
+  }
+]} />
+
+---
+
+**Next:** [Understanding Roles & Access Levels](/docs/getting-started/user-management/roles-and-access-levels)

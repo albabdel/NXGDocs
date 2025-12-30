@@ -1,0 +1,97 @@
+---
+title: "Teltonika Router Integration"
+description: "How to configure Teltonika RUT routers for GPS tracking and device health monitoring in GCXONE."
+tags:
+  - role:admin
+  - category:tutorial
+  - difficulty:beginner
+  - platform:teltonika
+sidebar_position: 13
+last_updated: 2025-12-28
+---
+
+# 🛰️ Teltonika Router Integration
+
+**Teltonika RUT** routers are frequently used in mobile towers and remote sites to provide both connectivity and real-time GPS tracking. This guide covers how to register the device in GCXONE and configure the HTTPS push service for location updates.
+
+import Callout from '@site/src/components/Callout';
+import Steps from '@site/src/components/Steps';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## 📋 Prerequisites
+
+- **Teltonika RUT Router:** (e.g., RUT240, RUT950) with a functional GPS antenna.
+- **SIM Card:** Active data connection to reach the GCXONE cloud.
+- **Administrative Access:** To the RutOS web interface (usually `192.168.1.1`).
+
+---
+
+## 🚦 Device Profile
+
+| Feature | Specification | Notes |
+| :--- | :--- | :--- |
+| **Tracking** | GPS / GLONASS | Real-time coordinate transmission. |
+| **Protocol** | HTTPS Post | Secure data push to GCXONE. |
+| **Discovery** | Serial Number | Use the 10-digit SN from the router sticker. |
+| **Health** | Keep-alive | Monitoring of signal strength and uptime. |
+
+---
+
+## 🛠️ Configuration Steps
+
+<Steps>
+
+### 1. Identify Serial Number
+Log in to your **Teltonika Router (RutOS)**.
+- Navigate to **Status** → **Device**.
+- Copy the **Serial Number** (SN).
+- <Callout type="info">The SN is mandatory for cloud binding; without it, GCXONE will reject incoming location data.</Callout>
+
+### 2. Register in GCXONE
+1. Log in to **GCXONE** → **Sites** → **Devices**.
+2. Click **Add Device** and select **Teltonika**.
+3. Enter the **Serial Number** as the primary identifier.
+4. Click **Save**.
+
+### 3. Retrieve Custom Push URL
+Once the device is saved in GCXONE, stay on the device details page.
+- Locate the field: **Teltonika Custom Receiver URL**.
+- Copy this unique HTTPS endpoint. It should look like: `https://gps.nxgen.cloud/api/teltonika/[YOUR_UNIQUE_ID]`.
+
+### 4. Configure HTTPS Push
+Back in the **Teltonika Web UI**:
+1. Navigate to **Services** → **GPS**.
+2. Select the **HTTPS** tab.
+3. **Enable HTTPS:** Toggle to ON.
+4. **HTTPS URL:** Paste the unique URL retrieved in Step 3.
+5. Set the **Update Interval** (recommended: 60 seconds).
+6. Click **Save & Apply**.
+
+</Steps>
+
+---
+
+## 💡 Troubleshooting
+
+- **No Location in GCXONE:** Ensure the GPS antenna is mounted externally or near a window. Check the "Satellites" count in the router status; it must be 4 or higher for a valid fix.
+- **Connection Refused:** Verify that the **HTTPS URL** matches the one in GCXONE exactly. Ensure your SIM card permits outbound HTTPS (Port 443) traffic.
+- **Device Offline:** Check the router's data usage. If the data limit is reached, it may stop sending HTTPS updates until the monthly reset.
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "Towers Overview",
+    url: "/docs/getting-started/towers/overview",
+    description: "Integrating Teltonika routers into rapid-deployment towers."
+  },
+  {
+    title: "Device Health Monitoring",
+    url: "/docs/platform-fundamentals/monitoring/device-health",
+    description: "Setting up uptime alerts for field routers."
+  }
+]} />

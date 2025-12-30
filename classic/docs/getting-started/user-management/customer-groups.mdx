@@ -1,0 +1,82 @@
+---
+title: "Customer Groups"
+description: "How to use Customer Groups to segregate client data and manage regional access levels."
+tags:
+  - role:admin
+  - category:how-to
+  - difficulty:intermediate
+  - platform:GCXONE
+sidebar_position: 4
+last_updated: 2025-12-28
+---
+
+# 🏷️ Configuring Customer Groups
+
+Customer Groups are the primary tool for segregating data within a single Tenant. They allow you to define which specific customers a user can see without needing to create hundreds of individual roles.
+
+import Callout from '@site/src/components/Callout';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## Why Use Customer Groups?
+
+By default, a user at the **Service Provider** level can see every client site in the platform. Customer Groups provide a "Lens" to filter that view.
+
+- **Data Privacy:** Ensure that Installer A cannot see the sites managed by Installer B.
+- **Environment Isolation:** Separate "Production" sites from "Test/Trial" sites so operators aren't distracted by test alarms.
+- **Regional Management:** Create groups for specific cities or states (e.g., "Texas Sites") and assign regional managers to those groups.
+
+---
+
+## 🛠️ How to Create a Group
+
+1. Navigate to **Configuration** → **Customer Groups**.
+2. Click **Add New**.
+3. **Name the Group:** Use clear, descriptive labels (e.g., "Premium Support Tier" or "Midwest Region").
+4. **Assign Customers:** Select the specific client organizations that should be visible to this group.
+5. **Activate:** Ensure the toggle is set to **Active** and click **Create**.
+
+---
+
+## 🔑 Access Rules & Overrides
+
+<Callout type="important" title="Positive Definition Only">
+GCXONE uses a "Positive Access" model. You specify what a user **CAN** see. You cannot "Exclude" a single site from an otherwise global view.
+</Callout>
+
+### How it Overrides Roles
+- **Without a Group:** A "Service Provider" user sees all 1,000 customers.
+- **With a Group:** Assigning that same user to the "Retail Group" (containing 5 customers) immediately restricts their view to ONLY those 5 customers.
+
+---
+
+## 🚀 Use Case Example
+
+### The "Test vs. Production" Setup
+To protect your operators from false alerts during system maintenance:
+1. Create a group called **"Production Only"** and add all live billing clients.
+2. Create a group called **"Staging/Test"** and add your internal test sites.
+3. Assign your daily monitoring staff to the **Production Only** group.
+4. Assign your technicians to the **Staging/Test** group.
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "Roles and Access Levels",
+    url: "/docs/getting-started/user-management/roles-and-access-levels",
+    description: "Understanding the hierarchy boundary."
+  },
+  {
+    title: "Inviting Users",
+    url: "/docs/getting-started/user-management/inviting-users",
+    description: "Assigning groups during onboarding."
+  }
+]} />
+
+---
+
+**Next:** [Inviting Users to the Platform](/docs/getting-started/user-management/inviting-users)

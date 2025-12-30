@@ -1,0 +1,74 @@
+---
+title: "Audio Routing & Conference Mode"
+description: "How GCXONE manages multi-device audio collaboration and automated fallback modes."
+tags:
+  - role:operator
+  - category:feature
+  - platform:twilio
+sidebar_position: 10
+last_updated: 2025-12-28
+---
+
+# 🎙️ Audio Routing & Conference Mode
+
+GCXONE supports advanced audio routing logic that allows multiple operators and field devices to collaborate in real-time. This is primarily powered by a **Twilio Conference Bridge**, ensuring high-quality, low-latency duplex communication.
+
+import Callout from '@site/src/components/Callout';
+import Steps from '@site/src/components/Steps';
+
+---
+
+## 🚦 Audio Routing Modes
+
+Routing behavior is determined by the **ACTIVE** status of the Audio Devices configured at any given site.
+
+### 1. 🏢 Conference Mode (Full Collaboration)
+**Condition:** All configured audio devices at the site are toggled to **ACTIVE**.
+- **Behavior:** All active devices and the operator are connected via a central conference bridge.
+- **Best For:** Command centers or guard booths with multiple intercoms/speakers that need to hear the same broadcast simultaneously.
+
+### 2. 📞 Dial-In Mode (Direct Control)
+**Condition:** Exactly **one** audio device is **ACTIVE**; all others are INACTIVE.
+- **Behavior:** The operator is linked directly to the single active device. All other hardware is ignored.
+- **Best For:** Single-point office intercoms or dedicated phone-line integrations.
+
+### 3. 🎙️ Device Audio Mode (Isolated)
+**Condition:** All audio devices at the site are **INACTIVE**.
+- **Behavior:** The system uses the camera's default internal microphone and speaker (G.711/AAC over RTSP).
+- **Best For:** Basic cameras with built-in audio support but no external speaker system.
+
+---
+
+## 🛠️ Configuration Steps
+
+<Steps>
+
+### 1. Register a Genesis Audio Device
+1. Log in to **GCXONE** → **Configuration App**.
+2. Select your **Site** and navigate to the **Devices** tab.
+3. Click **Add** and set the type to **"Genesis Audio"**.
+4. Enter a name and click **Discover**.
+5. <Callout type="tip">The system will generate unique SIP credentials. Use these credentials to configure your IP Speaker or SIP Horn.</Callout>
+
+### 2. Activate the Conference Toggle
+1. In the Site tree view, select the newly added **Genesis Audio** device.
+2. Toggle the **Active** switch to **ON**.
+3. Repeat this for all devices you want to include in the conference bridge.
+
+### 3. Initiate an Audio Call
+1. Open the **Video Viewer (Salvo)**.
+2. Drag a sensor/camera from the tree view into a tile.
+3. Locate the **Mic Icon** (default state is Red).
+4. Click the icon to initiate the call. The icon will turn **Blue** once the conference is active.
+
+</Steps>
+
+---
+
+## ⚠️ Important Notes
+
+- **Permissions:** Audio functionality is only visible to users with the `REMOTE_TWO_WAY_AUDIO` permission enabled in their role.
+- **Local Mode:** Unlike VLS recording, audio calls do **not** require the "Local Mode" service to be active; they are handled directly via the cloud SIP gateway.
+- **Bandwidth:** High-fidelity audio adds ~64kbps per participant. ensure your network has sufficient overhead for multi-party conferences.
+
+---

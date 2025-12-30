@@ -1,0 +1,116 @@
+---
+title: "Axis Camera Station Pro"
+description: "How to integrate Axis Camera Station Pro VMS with GCXONE using webhooks and custom proxy settings."
+tags:
+  - role:admin
+  - category:tutorial
+  - difficulty:advanced
+  - platform:axis
+sidebar_position: 4
+last_updated: 2025-12-28
+---
+
+# 🎥 Axis Camera Station Pro
+
+**Axis Camera Station (ACS) Pro** is a powerful VMS that requires a specialized cloud-proxy configuration to communicate with GCXONE. This guide covers the installation, proxy setup, and the critical webhook configuration needed for real-time alarm events.
+
+import Callout from '@site/src/components/Callout';
+import Steps from '@site/src/components/Steps';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## 📋 Prerequisites
+
+- **ACS Pro Installer:** [Download Here](https://www.axis.com/ftp/pub_soft/cam_srv/cam_station_pro/latest/AXISCameraStationProSetup.msi).
+- **Static Proxy URL:** `https://acsproxy.nxgen.cloud/` (Used for webhook routing).
+- **Admin Access:** You must have permissions to create event rules in ACS Pro.
+
+---
+
+## 🚦 Device Profile
+
+| Feature | Support Level | Notes |
+| :--- | :--- | :--- |
+| **Default Port** | `29204` | **Non-changeable** in the Pro version. |
+| **Events** | ✅ Webhook-based | Requires manual JSON payload configuration. |
+| **Playback** | ✅ Supported | Recording must be enabled on the local ACS server. |
+| **Discovery** | ✅ HTTPS | Auto-discovery of cameras linked to the ACS server. |
+
+---
+
+## 🛠️ Configuration Steps
+
+<Steps>
+
+### 1. Global Proxy Property
+Before adding the device, GCXONE needs to know where to route the Axis heartbeat.
+1. Log in to **GCXONE** → **Service Provider Overview**.
+2. Click **Edit** → **Additional Settings** → **Custom Property**.
+3. Add a new String property:
+   - **Name:** `AxisCameraStation_Device_Custom_baseUrl`
+   - **Value:** `https://acsproxy.nxgen.cloud/`
+
+### 2. ACS Pro Event Setup
+In the **Axis Camera Station Pro Client**, navigate to **Recording and Events**.
+- Enable recording for all cameras intended for cloud monitoring. Without local recording, playback in GCXONE will fail.
+
+### 3. Create the Integration Webhook
+GCXONE uses a specific JSON format to receive Axis events. In the ACS client:
+1. Navigate to **HTTP Notification**.
+2. Set Method to **POST** and Content Type to **application/json**.
+3. **URL:** `https://acsproxy.nxgen.cloud/`
+4. **Request Body:**
+```json
+{
+  "initialRequest": {
+    "payload": {
+      "type": "NOTIFICATION",
+      "authenticationToken": "5654974ab97f48a1b16a74472864e195",
+      "notifications": [
+        {
+          "event": {
+            "type": "ALARM_TRIGGERED",
+            "cameraId": "$(TriggerData.SourceId)",
+            "timestamp": "$(TriggerData.TimeUtc)"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+### 4. Final Discovery in GCXONE
+1. Log in to **GCXONE** → **Sites** → **Devices**.
+2. Click **Add Device** and select **Axis Camera Station**.
+3. Enter the Host IP, Username, and Password.
+4. Set the HTTP Port to **29204**.
+5. Click **Discover** to pull in the camera list.
+
+</Steps>
+
+---
+
+## 💡 Troubleshooting
+
+- **No Events in GCXONE:** Double-check the `authenticationToken` in your webhook body. It must match the security token provided in your GCXONE onboarding document exactly.
+- **Connection Timed Out:** Ensure port **29204** is open on the server hosting ACS Pro and that your router permits outbound traffic to `acsproxy.nxgen.cloud`.
+- **Playback Mismatch:** If live view works but playback fails, verify that the local Axis server has a "Continuous" or "Event" recording schedule active.
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "VMS Performance Tuning",
+    url: "/docs/platform-fundamentals/performance/vms-optimization",
+    description: "Reducing latency for high-resolution Axis streams."
+  },
+  {
+    title: "Required Ports",
+    url: "/docs/getting-started/required-ports",
+    description: "VMS-specific firewall exceptions."
+  }
+]} />

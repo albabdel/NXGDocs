@@ -1,0 +1,93 @@
+---
+title: "Creating Roles"
+description: "Step-by-step tutorial to creating custom roles and configuring session timeouts."
+tags:
+  - role:admin
+  - category:tutorial
+  - difficulty:intermediate
+  - platform:GCXONE
+sidebar_position: 3
+last_updated: 2025-12-28
+---
+
+# 🛠️ Creating and Configuring Roles
+
+Custom roles allow you to tailor GCXONE access to your specific operational needs. Follow this tutorial to create your first custom role.
+
+import Callout from '@site/src/components/Callout';
+import Steps from '@site/src/components/Steps';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## 🏗️ Step-by-Step Configuration
+
+<Steps>
+
+### 1. Access Role Settings
+1. Click **Settings** in the main sidebar.
+2. Navigate to the **Roles** tab.
+3. Click **Configure New Role**.
+
+### 2. Basic Information
+Enter a descriptive name and a brief summary of what the role is for.
+- **Example Name:** "Night Shift Operator"
+- **Example Description:** "Monitoring access for after-hours staff; no config privileges."
+
+### 3. Assign Privileges
+Select the check-boxes for each permission category:
+- **Dashboard:** View analytics and system health.
+- **Monitoring:** Live video and alarm processing.
+- **Configuration:** Device and site setup.
+- **Settings:** User and role management.
+
+### 4. Set Access Level
+Choose how much of the hierarchy this role can see:
+- **Service Provider:** Global access (Tenant level).
+- **Customer:** Client-specific access.
+- **Site:** Location-specific access.
+
+### 5. Configure Session Timeout
+Decide how long a user can be inactive before being logged out (default is 30 minutes).
+- **Admin:** 120 minutes recommended.
+- **Operator:** 60 minutes recommended.
+
+</Steps>
+
+---
+
+## 💡 Best Practices
+
+- **Document Custom Roles:** Keep a list of why a custom role was created to avoid "Role Bloat."
+- **Least Privilege:** Start with zero permissions and add only what the user needs to do their job.
+- **Test Before Deployment:** Create a "dummy" user with the new role to verify the sidebar only shows the intended apps.
+
+<Callout type="warning" title="Immediate Effect">
+Changes to a role take effect **immediately**. Any active user assigned to that role will see their permissions update as soon as they navigate to a new page.
+</Callout>
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "Roles and Access Levels",
+    url: "/docs/getting-started/user-management/roles-and-access-levels",
+    description: "Understanding the RBAC hierarchy."
+  },
+  {
+    title: "Customer Groups",
+    url: "/docs/getting-started/user-management/customer-groups",
+    description: "Filtering client visibility."
+  },
+  {
+    title: "Inviting Users",
+    url: "/docs/getting-started/user-management/inviting-users",
+    description: "The next step after creating a role."
+  }
+]} />
+
+---
+
+**Next:** [Configuring Customer Groups](/docs/getting-started/user-management/customer-groups)

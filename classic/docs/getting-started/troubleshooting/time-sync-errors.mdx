@@ -1,0 +1,85 @@
+---
+title: "Time Sync Errors"
+description: "Diagnosing and resolving time synchronization issues between Genesis and Evalink Talos."
+tags:
+  - role:admin
+  - category:troubleshooting
+  - difficulty:intermediate
+  - platform:talos
+sidebar_position: 3
+last_updated: 2025-12-28
+---
+
+# ⏰ Resolving Time Sync Errors
+
+Time synchronization is the backbone of accurate alarm processing. When Genesis and Talos clocks drift apart, it can lead to out-of-order events, missed SLAs, and fragmented audit logs.
+
+import Callout from '@site/src/components/Callout';
+import Steps from '@site/src/components/Steps';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## 🔍 How to Identify Drift
+
+You likely have a sync issue if you notice:
+- Alarms appearing in the Talos buffer with "Future" or "Past" timestamps.
+- Video playback not aligning with the alarm event marker.
+- Scheduled workflows (like auto-arming) triggering at the wrong time.
+
+---
+
+## 🛠️ Step-by-Step Diagnostic
+
+<Steps>
+
+### 1. Compare System Times
+- **In Genesis:** check the device dashboard for the current "Last Seen" timestamp.
+- **In Talos:** view the site overview and check the "Last Pulse" time.
+- **The Gap:** A difference of more than **5 seconds** is considered a drift.
+
+### 2. Verify NTP Configuration
+Most devices should point to the centralized NXGEN time server:
+- **NTP Server:** `time1.nxgen.cloud`
+- **Port:** UDP 123 (Ensure this is open in your [Firewall](/docs/getting-started/firewall-configuration)).
+
+### 3. Check Timezone Alignment
+Mismatched timezones are the most common cause of "drift."
+- Ensure both the Genesis **Site Profile** and the Talos **Site Settings** are set to the exact same regional timezone.
+
+</Steps>
+
+---
+
+## 🚀 Common Fixes
+
+<Callout type="warning" title="Avoid Manual Time">
+Never set the time manually on a device. Manual clocks drift within days. Always use **NTP synchronization**.
+</Callout>
+
+### Solution 1: Global NTP Push
+If multiple sites are drifting, update the **Default NTP** in your Tenant Settings to `time1.nxgen.cloud`.
+
+### Solution 2: Firewall Whitelisting
+If the NTP status is "Timeout," ensure your edge router is not blocking **UDP Port 123**. Some ISPs block this port by default to prevent DDoS attacks.
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "NTP Configuration",
+    url: "/docs/getting-started/ntp-configuration",
+    description: "Detailed setup for localized time servers."
+  },
+  {
+    title: "Firewall Rules",
+    url: "/docs/getting-started/firewall-configuration",
+    description: "Whitelisting NTP traffic."
+  }
+]} />
+
+---
+
+**Next:** [Resolving Alarm Overflow Thresholds](/docs/getting-started/talos/overflow-thresholds)

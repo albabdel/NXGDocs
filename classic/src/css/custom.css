@@ -94,7 +94,34 @@
   /* Medium gray */
   --ifm-color-emphasis-500: #6b7280;
   /* Darker gray for muted text */
-  /* === SPACING - Apple's 8pt Grid === */
+  
+  /* === SEMANTIC COLORS === */
+  --color-success: #22C55E;
+  /* Green - Success states, positive confirmations */
+  --color-warning: #F59E0B;
+  /* Amber/Orange - Warnings, important notices */
+  --color-danger: #EF4444;
+  /* Red - Errors, destructive actions, critical alerts */
+  --color-info: #3B82F6;
+  /* Blue - Informational messages, tips, helpful context */
+  
+  /* === SPACING - Apple's 8pt Grid System === */
+  --space-1: 0.25rem;
+  /* 4px - Tight spacing, icons */
+  --space-2: 0.5rem;
+  /* 8px - Small gaps */
+  --space-3: 0.75rem;
+  /* 12px - Default spacing */
+  --space-4: 1rem;
+  /* 16px - Standard spacing */
+  --space-6: 1.5rem;
+  /* 24px - Medium spacing */
+  --space-8: 2rem;
+  /* 32px - Large spacing */
+  --space-12: 3rem;
+  /* 48px - Section spacing */
+  --space-16: 4rem;
+  /* 64px - Major section spacing */
   --ifm-spacing-horizontal: 1.5rem;
   --ifm-navbar-height: 72px;
   /* Apple's standard nav height */
@@ -140,6 +167,16 @@
   --ifm-color-emphasis-400: #3A3A3A;
   --ifm-color-emphasis-500: #4A4A4A;
 
+  /* Semantic Colors - Adjusted for dark mode */
+  --color-success: #22C55E;
+  /* Green - Maintains visibility in dark mode */
+  --color-warning: #FBBF24;
+  /* Lighter amber for dark mode */
+  --color-danger: #F87171;
+  /* Lighter red for dark mode */
+  --color-info: #60A5FA;
+  /* Lighter blue for dark mode */
+
   --ifm-code-background: var(--nxgen-dark-200);
   --docusaurus-highlighted-code-line-bg: rgba(200, 148, 70, 0.15);
 }
@@ -160,20 +197,20 @@ body {
   font-size: var(--ifm-font-size-base);
   line-height: var(--ifm-line-height-base);
   color: var(--ifm-color-content);
-  background: var(--ifm-background-color) !important;
+  background: transparent !important; /* Let BackgroundPattern handle this */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
-/* Ensure main content area uses theme colors */
+/* Ensure main content area is transparent to show BackgroundPattern */
 .main-wrapper {
-  background: var(--ifm-background-color) !important;
+  background: transparent !important;
 }
 
-/* Ensure docs wrapper uses theme colors */
+/* Ensure docs wrapper is transparent to show BackgroundPattern */
 .docs-wrapper {
-  background: var(--ifm-background-color) !important;
+  background: transparent !important;
 }
 
 /* === NAVBAR HIDDEN === */

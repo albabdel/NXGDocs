@@ -1,0 +1,93 @@
+---
+title: "Platform Feature List"
+description: "A comprehensive index of all GCXONE platform capabilities and technical modules."
+tags:
+  - role:all
+  - category:reference
+  - difficulty:beginner
+  - platform:GCXONE
+sidebar_position: 1
+last_updated: 2025-12-28
+---
+
+# 📑 Platform Feature List
+
+GCXONE is a unified SaaS ecosystem that bridges video surveillance, AI analytics, and IoT telemetry. This document serves as a high-density reference for all available platform capabilities.
+
+import Callout from '@site/src/components/Callout';
+import Tabs from '@site/src/components/Tabs';
+import TabItem from '@site/src/components/Tabs/TabItem';
+
+---
+
+## 📹 Video Management
+
+| Feature | Description | Support |
+| :--- | :--- | :--- |
+| **P2P Streaming** | Direct peer-to-peer connection for ultra-low latency. | Dahua, Hikvision |
+| **GreenStream** | Adaptive resolution switching based on viewport size. | All Manufacturers |
+| **GPU Dewarping** | Client-side correction for 360° fisheye lenses. | Multi-vendor |
+| **Time-Lapse** | Generate condensed video summaries of historical data. | Any Cloud Site |
+| **PTZ Controls** | Pan, Tilt, Zoom, and Point-to-Center optical controls. | Milestone/Dahua/Hik |
+
+---
+
+## 🧠 AI & Alarm Processing
+
+| Feature | Description | Metric |
+| :--- | :--- | :--- |
+| **Human Detection** | Filters alarms to only notify when people are present. | 80% False Alarm reduction |
+| **SLA Enforcement** | Guaranteed 60-90 second handling window for alerts. | Priority Alarms |
+| **Event Metadata** | Bounding boxes and labels on people/vehicles. | AI Enriched |
+| **Redundancy Timer** | Prevents "Alarm Floods" by ignoring duplicates. | 30s Default |
+| **Event Overflow** | Protects system from unstable or "noisy" sensors. | 5m Auto-Suspension |
+
+---
+
+## 🩺 System Health Monitoring
+
+<Tabs defaultValue="basic">
+  <TabItem value="basic" label="Basic Health">
+    Checks for a valid camera image every **12 hours**. Ideal for low-risk storage and internal views.
+  </TabItem>
+  <TabItem value="plus" label="Health Plus">
+    Configurable heartbeat checks (15 mins to 8 hours). Proactive reporting of network drops and camera downtime.
+  </TabItem>
+  <TabItem value="adv" label="Advanced Health">
+    Uses Proprietary AI to detect:
+    - **Blurry** or out-of-focus lenses.
+    - **Spider Webs** or debris on camera glass.
+    - **Angle Deviations** (tampering or wind movement).
+  </TabItem>
+</Tabs>
+
+---
+
+## 🎙️ Communication & I/O
+
+- **Genesis Audio (SIP):** Two-way communication via IP speakers using Twilio integration.
+- **Digital I/O:** Real-time relay control for opening gates, barriers, or firing sirens.
+- **Custom SIP URLs:** Highly specific audio endpoints for legacy SIP hardware.
+- **ARM/DISARM Control:** Software-level scheduling to override physical device behavior.
+
+---
+
+## 🔋 IoT & Energy Telemetry
+
+- **Victron Integration:** Real-time monitoring of solar yield, battery voltage, and charger states.
+- **Teltonika Fleet:** GPS tracking and network health monitoring for mobile security towers.
+- **Reconeyez Synergy:** Battery level and LTE signal strength reporting for remote intrusion panels.
+
+---
+
+## 📊 Reporting & Accountability
+
+- **Audit Trails:** Immutable logs of every user action and configuration change.
+- **Workflow Analytics:** Reports on how operators handled specific incident types.
+- **Custom Report Builder:** Schedule weekly PDF/CSV deliveries of alarm volumes and site uptimes.
+
+---
+
+<Callout type="tip" title="Looking for something specific?">
+If a feature listed here requires technical setup, please refer to the [Admin Configuration Guide](/docs/admin-guide/overview).
+</Callout>

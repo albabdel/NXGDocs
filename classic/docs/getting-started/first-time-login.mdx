@@ -1,0 +1,106 @@
+---
+title: "First-Time Login & Setup"
+description: "Step-by-step tutorial to register your account and configure your first site."
+tags:
+  - role:all
+  - category:tutorial
+  - difficulty:beginner
+  - platform:GCXONE
+sidebar_position: 2
+last_updated: 2025-12-28
+---
+
+# 🏁 First-Time Login & Setup
+
+Welcome to NXGEN GCXONE! This tutorial will guide you through the initial steps of setting up your account, organization, and first site.
+
+import Callout from '@site/src/components/Callout';
+import Steps from '@site/src/components/Steps';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+<Callout type="info">
+**Estimated Time:** 15 minutes.
+**Prerequisites:** A valid business email and administrative access details.
+</Callout>
+
+---
+
+## 🏗️ Step-by-Step Configuration
+
+<Steps>
+
+### 1. Account Registration
+Navigate to the [GCXONE Portal](https://nxgen.cloud) and select **Register**.
+1. Enter your personal details (Name, Email, Contact).
+2. Define your **Organization Name**. This will be used for all reporting and billing.
+3. Select your setup path:
+    - **Existing Camera:** For integrating your current IP infrastructure.
+    - **Instant Setup:** For an immediate demo experience without hardware.
+
+### 2. Verify and Set Password
+Check your email for a registration confirmation.
+1. Click the **Password Reset** link in the email.
+2. Set a secure password following the platform requirements.
+3. Log in using your new credentials at the portal home page.
+
+### 3. Configure User Roles
+Before adding customers, define who has access to what.
+1. Navigate to **Settings** → **User Roles**.
+2. Click **Configure New Role** to add custom permissions (e.g., "Night Shift Operator").
+3. Use the **Users** tab to invite team members and assign these roles.
+
+### 4. Build Your Hierarchy
+GCXONE uses a 3-tier model: **Customer → Site → Device**.
+1. **Create Customer:** Enter the client's business details and contact info.
+2. **Add Site:** under the customer, create a physical location (e.g., "Berlin Warehouse").
+3. **Add Device:** Under the site, click **Add New** to register your hardware.
+
+### 5. Device Discovery
+Connect your cameras to the platform instantly.
+1. Select the **Manufacturer** (e.g., Hikvision, Dahua).
+2. Enter the IP address and credentials.
+3. Click **Discover**. The system will automatically map the camera channels and features.
+
+</Steps>
+
+---
+
+## 💡 Best Practices
+
+- **Descriptive Naming:** Always use specific names for sites (e.g., "Exit Gate 04" instead of "Site 1").
+- **Least Privilege:** Assign roles based on actual job functions to maintain security.
+- **Instant Setup:** Use the demo mode first to familiarize yourself with the UI before deploying physical hardware.
+
+---
+
+## 🛠️ Troubleshooting
+
+- **No Email?** Check your spam folder or ensure `no-reply@nxgen.cloud` is whitelisted.
+- **Discovery Failed?** Verify that the camera's ONVIF or API port is open on your firewall.
+- **Login Issues?** Clear your browser cache or try an incognito window.
+
+---
+
+## Related Guides
+
+<RelatedArticles articles={[
+  {
+    title: "IP Whitelisting",
+    url: "/docs/getting-started/ip-whitelisting",
+    description: "Ensure your network allows GCXONE traffic."
+  },
+  {
+    title: "Required Ports",
+    url: "/docs/getting-started/required-ports",
+    description: "Technical specifications for firewall configuration."
+  },
+  {
+    title: "Zen Mode Overview",
+    url: "/docs/breakthroughs/zen-mode",
+    description: "Learn how to optimize your monitoring experience."
+  }
+]} />
+
+---
+
+**Next Step:** Learn how to [Connect Your First Device](/docs/getting-started/devices/overview).

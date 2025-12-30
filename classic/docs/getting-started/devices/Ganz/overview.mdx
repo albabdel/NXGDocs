@@ -1,0 +1,97 @@
+---
+title: "Ganz Integration"
+description: "How to configure Ganz cameras and NVRs for ONVIF-based event detection and video streaming in GCXONE."
+tags:
+  - role:admin
+  - category:tutorial
+  - difficulty:intermediate
+  - platform:ganz
+sidebar_position: 9
+last_updated: 2025-12-28
+---
+
+# 👁️ Ganz Integration
+
+Integrating **Ganz** devices with GCXONE ensures that edge-based intelligence (Line Crossing, Intrusion) is accurately captured in the cloud. This integration relies on the **ONVIF** protocol for discovery and event handling.
+
+import Callout from '@site/src/components/Callout';
+import Steps from '@site/src/components/Steps';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## 📋 Prerequisites
+
+- **Ganz IP Camera/NVR:** Accessible on the local network.
+- **ONVIF Service:** Enabled within the Ganz device settings.
+- **NTP Synchronization:** Crucial for matching alarm timestamps with the GCXONE buffer.
+
+---
+
+## 🚦 Device Profile
+
+| Feature | Support Level | Notes |
+| :--- | :--- | :--- |
+| **Protocol** | ONVIF | Standard cross-platform interface. |
+| **Smart Events** | ✅ Supported | Line Crossing, Intrusion, Tampering. |
+| **Compression** | H.264 / H.265 | Optimized for low-bandwidth environments. |
+| **Discovery** | Automatic | Discover sensors via ONVIF metadata. |
+
+---
+
+## 🛠️ Configuration Steps
+
+<Steps>
+
+### 1. Accurate Timekeeping
+Navigate to **Time Settings** in the Ganz web UI.
+- Set the correct Timezone.
+- Enable **NTP** and use `pool.ntp.org` or `time1.nxgen.cloud`.
+- <Callout type="warning">Without precise time sync, events may appear in the past or be discarded by the GCXONE firewall.</Callout>
+
+### 2. Activate Smart Analytics
+Navigate to **Alarm/Event Settings**.
+1. Configure your detection zones (Line Crossing or Intrusion).
+2. Set the **Sensitivity** and **Threshold** to suit the environment.
+3. **Important:** Enable the "ONVIF Event Push" or "Log Report" if available to ensure the device sends signals externally.
+
+![Ganz Event Setup](./images/ganz%203.png)
+
+### 3. Stream Optimization
+Navigate to **Live View/Stream Settings**.
+- Configure the **Main Stream** for recording.
+- Configure the **Sub-Stream** (CIF/D1) for live monitoring.
+- Ensure **ONVIF** is toggled to **Enabled**.
+
+### 4. Final Discovery in GCXONE
+1. Log in to **GCXONE** → **Sites** → **Devices**.
+2. Click **Add Device** and select **GanzAI**.
+3. Enter the device IP, Port (usually 80 or 8080 for ONVIF), and credentials.
+4. Click **Discover**. GCXONE will pull in all analytic channels as virtual sensors.
+
+</Steps>
+
+---
+
+## 💡 Troubleshooting
+
+- **Sensors Not Appearing:** Ensure the **ONVIF** user has "Administrator" or "Operator" level privileges. Some Ganz firmware restricts ONVIF discovery to admin accounts.
+- **No Video Stream:** Verify that the **RTSP Port (554)** is open and reachable from the GCXONE gateway if using a public IP.
+- **Missed Detections:** Check the "Detection Region" in the Ganz UI. Ensure the red "Activity" indicator triggers when you walk through the zone.
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "ONVIF Protocol Overview",
+    url: "/docs/platform-fundamentals/protocols/onvif",
+    description: "Understanding the industry standard for IP cameras."
+  },
+  {
+    title: "Required Ports",
+    url: "/docs/getting-started/required-ports",
+    description: "Firewall rules for ONVIF and RTSP traffic."
+  }
+]} />

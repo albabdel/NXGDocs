@@ -1,0 +1,93 @@
+---
+title: "Managing Users"
+description: "How to edit user roles, update Customer Groups, and manage account status."
+tags:
+  - role:admin
+  - category:how-to
+  - difficulty:beginner
+  - platform:GCXONE
+sidebar_position: 6
+last_updated: 2025-12-28
+---
+
+# 👤 Managing Existing Users
+
+Once users are onboarded, administrators can modify their permissions and client visibility as their responsibilities evolve.
+
+import Callout from '@site/src/components/Callout';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## 🔍 Viewing and Searching Users
+
+1. Go to **Settings** → **Users**.
+2. **Search Bar:** Quickly find a user by their name or email.
+3. **Filter by Role:** View all users assigned to a specific role (e.g., all "Operators").
+4. **Status Filter:** Toggle between **Active** and **Inactive** users.
+
+---
+
+## ✏️ Editing User Access
+
+If a team member changes roles or needs to monitor new clients:
+
+1. Locate the user in the table and click the **Actions (3 dots)** menu.
+2. Select **Edit**.
+3. **Update Role:** Change their permission set.
+4. **Update Customer Group:** Change which clients they can see.
+5. Click **Save**.
+
+<Callout type="warning" title="Immediate Sync">
+Permission changes take effect **immediately**. The user may need to refresh their browser tab to see new sidebar icons or client sites.
+</Callout>
+
+---
+
+## 🛡️ Deactivate vs. Delete
+
+When a user no longer needs access, you have two options:
+
+### ⏸️ Deactivate (Recommended)
+- **Status:** Sets the user to **Inactive**.
+- **Result:** The user is immediately logged out and cannot log back in.
+- **Why:** Preserves the user's history in audit logs and allows for easy reactivation if they return.
+
+### 🗑️ Delete (Permanent)
+- **Status:** Permanently removes the record.
+- **Result:** The account is gone and cannot be restored.
+- **Why:** Use only for accounts created by mistake or during development.
+
+---
+
+## 🛠️ Security Best Practices
+
+- **Quarterly Audits:** Review your user list every 3 months. Deactivate anyone who hasn't logged in recently.
+- **Offboarding:** Deactivate accounts the moment a team member leaves the organization.
+- **Avoid Shared Accounts:** Never share a single login (e.g., `operator@company.com`) between multiple people. This destroys your audit trail.
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "Inviting Users",
+    url: "/docs/getting-started/user-management/inviting-users",
+    description: "Adding new team members."
+  },
+  {
+    title: "Creating Roles",
+    url: "/docs/getting-started/user-management/creating-roles",
+    description: "Building custom permission sets."
+  },
+  {
+    title: "Customer Groups",
+    url: "/docs/getting-started/user-management/customer-groups",
+    description: "Restricting client visibility."
+  }
+]} />
+
+---
+
+**Next:** [Talos-Specific User Management](/docs/getting-started/user-management/talos-user-management)

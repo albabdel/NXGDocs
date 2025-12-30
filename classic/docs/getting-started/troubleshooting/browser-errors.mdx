@@ -1,0 +1,89 @@
+---
+title: "Browser Errors"
+description: "Resolving 'Oops something went wrong' errors caused by blocked third-party cookies."
+tags:
+  - role:all
+  - category:troubleshooting
+  - difficulty:beginner
+  - platform:talos
+sidebar_position: 5
+last_updated: 2025-12-28
+---
+
+# 🍪 Resolving Browser Cookie Errors
+
+If you can access the Genesis Dashboard but receive an **"Oops something went wrong"** message when clicking on **Alarm Management** or **Workflows**, the issue is almost certainly your browser's security settings.
+
+import Callout from '@site/src/components/Callout';
+import Tabs from '@site/src/components/Tabs';
+import TabItem from '@site/src/components/Tabs/TabItem';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## 🔍 The Root Cause
+Talos is an **embedded application**. It runs inside the Genesis interface but communicates with a separate security backend. To maintain your session across these two domains, your browser must allow **third-party cookies**.
+
+---
+
+## 🛠️ How to Fix: Quick Toggle
+
+The fastest way to fix this is using the address bar toggles:
+
+1. Look at the right side of your **Browser Address Bar**.
+2. Click the **Eye icon** (👁️) or **Cookie icon**.
+3. Toggle the switch to **"Allow Third-Party Cookies"** for this site.
+4. Refresh the page.
+
+---
+
+## ⚙️ Manual Browser Settings
+
+If the quick toggle isn't visible, use the manual settings for your specific browser:
+
+<Tabs defaultValue="chrome">
+  <TabItem value="chrome" label="Google Chrome">
+    1. Go to `Settings` → `Privacy and Security` → `Third-party cookies`.
+    2. Select **Allow third-party cookies**.
+    3. *Alternatively:* Add `[*.]nxgen.cloud` and `[*.]evalink.io` to the **"Allowed to use third-party cookies"** list.
+  </TabItem>
+  <TabItem value="edge" label="Microsoft Edge">
+    1. Go to `Settings` → `Cookies and site permissions`.
+    2. Ensure **"Allow sites to save and read cookie data"** is On.
+    3. Ensure **"Block third-party cookies"** is Off.
+  </TabItem>
+  <TabItem value="safari" label="Safari">
+    1. Go to `Settings` (or Preferences) → `Privacy`.
+    2. **Uncheck** "Prevent cross-site tracking".
+    3. **Uncheck** "Block all cookies".
+  </TabItem>
+</Tabs>
+
+---
+
+## 💡 Troubleshooting Checklist
+
+- [ ] **Incognito Mode:** If Talos works in Incognito, clear your regular browser cache.
+- [ ] **Ad-Blockers:** Some ad-blockers (like uBlock Origin) treat Talos cookies as "trackers." Whitelist the site in your extension settings.
+- [ ] **Corporate VPN:** Some VPNs strip cookie headers. Try connecting from a direct internet line to rule out network-level blocking.
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "First-Time Login",
+    url: "/docs/getting-started/first-time-login",
+    description: "Initial account activation."
+  },
+  {
+    title: "Password Management",
+    url: "/docs/getting-started/password-management",
+    description: "Resetting your credentials."
+  }
+]} />
+
+---
+
+**Next:** [Talos Roles and Permissions](/docs/getting-started/talos/roles-and-permissions)

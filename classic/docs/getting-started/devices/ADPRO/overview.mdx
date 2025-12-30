@@ -1,0 +1,123 @@
+---
+title: "ADPRO Integration"
+description: "How to configure ADPRO Honeywell devices for seamless alarm transmission to GCXONE."
+tags:
+  - role:admin
+  - category:tutorial
+  - difficulty:intermediate
+  - platform:adpro
+sidebar_position: 1
+last_updated: 2025-12-28
+---
+
+# 🛡️ ADPRO Honeywell Integration
+
+This guide provides the technical steps required to link **ADPRO (Honeywell)** security control panels to the GCXONE cloud platform. High-density alarm transmission, real-time analytics, and automated schedules are all supported.
+
+import Callout from '@site/src/components/Callout';
+import Steps from '@site/src/components/Steps';
+import Tabs from '@site/src/components/Tabs';
+import TabItem from '@site/src/components/Tabs/TabItem';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## 📋 Prerequisites
+
+Before starting, ensure you have the following:
+- **ADPRO XO Client:** software installed on your local workstation.
+- **Dedicated Virtual Receiver IP:** Provided by your GCXONE onboarding team.
+- **Network Access:** UDP/TCP ports must be whitelisted for the receiver IP.
+
+---
+
+## 🚦 Device Profile
+
+| Feature | Support Level | Notes |
+| :--- | :--- | :--- |
+| **Alarm Transmission** | ✅ Primary & Backup | High-availability redundancy supported. |
+| **Event Types** | ✅ Analytics & Motion | Intrusion, Loiter, Sabotage traces. |
+| **Arm/Disarm** | ✅ Schedule-based | Can be synchronized with GCXONE schedules. |
+| **Live View** | ✅ Supported | RTSP/Encrypted streaming available. |
+| **Time Sync** | ✅ NTP Supported | Recommended: `time1.nxgen.cloud`. |
+
+---
+
+## 🛠️ Configuration Steps
+
+<Steps>
+
+### 1. Global CMS Settings
+Navigate to **ADPRO XO Client → CMS Alarm Transmission**.
+- Enter your **Server Unit ID**. 
+- <Callout type="warning">Each device MUST have a unique ID. Duplicates will cause signal collisions.</Callout>
+
+![ADPRO General Settings](./images/ADPRO%202.png)
+
+### 2. Primary Transmission Path
+In the **Primary Alarm Transmission** section:
+- Enter the **GCXONE Virtual Receiver IP** provided to you.
+- Enable **Site Pulse** (Lifecheck). Set the interval (recommended: 60s) to monitor heartbeats in GCXONE.
+
+![ADPRO Primary Alarm Transmission](./images/ADPRO%203.png)
+
+### 3. Analytics & Detection
+Navigate to **Analytics**.
+Define your detection zones and sensitivity parameters:
+- **Intrusion Trace:** Unauthorized entry monitoring.
+- **Loiter Trace:** Detection for prolonged presence.
+- **Motion Sabotage:** Alerts if the camera is obstructed or tampered with.
+
+![ADPRO Analytics Configuration](./images/ADPRO%207.png)
+
+### 4. Arm/Disarm Scheduling
+Navigate to **Arm/Disarm Schedule**.
+Define the automated operational windows. This prevents "false positives" during business hours while ensuring peak security at night.
+
+![ADPRO Arm/Disarm Schedule](./images/ADPRO%209.png)
+
+### 5. Camera View Style
+Navigate to **Input/Output Behavior**.
+Link events to specific cameras and select a view style:
+- **Live View:** Real-time stream on both XO Client and GCXONE.
+- **Quad/Duress:** Snapshot-based reporting for high-latency environments.
+
+### 6. Final discovery in GCXONE
+1. Log in to **GCXONE** → **Sites** → **Devices**.
+2. Click **Add Device** and select **ADPRO**.
+3. Enter the Host/Serial and credentials.
+4. Click **Discover** to pull in all configured sensors and I/Os automatically.
+
+</Steps>
+
+---
+
+## 💡 Troubleshooting
+
+<Tabs defaultValue="transmission">
+  <TabItem value="transmission" label="📡 Signal Issues">
+    - **Duplicate ID:** Ensure the `Server Unit ID` is not reused elsewhere.
+    - **Firewall:** Verify outbound traffic to your virtual receiver IP is allowed.
+  </TabItem>
+  <TabItem value="false-alarms" label="🕷️ False Alarms">
+    - **Sensitivity:** Lower the loitering threshold in ADPRO Analytics.
+    - **IVS Rules:** Use "Intrusion Trace" instead of simple pixel-based motion.
+  </TabItem>
+</Tabs>
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "Firewall Configuration",
+    url: "/docs/getting-started/firewall-configuration",
+    description: "Opening ports for virtual receivers."
+  },
+  {
+    title: "NTP Configuration",
+    url: "/docs/getting-started/ntp-configuration",
+    description: "Syncing device clocks with the cloud."
+  }
+]} />

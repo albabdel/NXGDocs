@@ -1,15 +1,17 @@
 import React from 'react';
-import PDFExportButton from '../components/PDFExportButton';
 import ScrollProgress from '../components/ScrollProgress';
 import VoCWidget from '../components/VoCWidget/VoCWidget';
+import ThemeToggle from '../components/ThemeToggle';
+import BackgroundPattern from '../components/BackgroundPattern';
 
 // Default implementation, that you can customize
 export default function Root({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <BackgroundPattern />
       <ScrollProgress />
       {children}
-      <PDFExportButton />
+      <ThemeToggle />
       <VoCWidget />
     </>
   );

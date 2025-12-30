@@ -1,0 +1,105 @@
+---
+title: "Roles and Access Levels"
+description: "Detailed breakdown of default roles, permission scopes, and access levels in GCXONE."
+tags:
+  - role:admin
+  - category:explanation
+  - difficulty:beginner
+  - platform:GCXONE
+sidebar_position: 2
+last_updated: 2025-12-28
+---
+
+# 🛡️ Roles and Access Levels
+
+Roles and access levels form the foundation of security in GCXONE. Understanding how these layers interact is essential for properly configuring your team's access.
+
+import Callout from '@site/src/components/Callout';
+import Tabs from '@site/src/components/Tabs';
+import TabItem from '@site/src/components/Tabs/TabItem';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## What Are Roles?
+
+A **Role** is a template that defines which features a user can access and what actions (View, Create, Edit, Delete) they can perform within those features.
+
+### Default Role Types
+
+<Tabs defaultValue="admin">
+  <TabItem value="admin" label="Company Admin">
+    **Full access.** Can manage every setting in the platform, including role creation and tenant-wide configurations.
+    - **Use Case:** IT Directors or Platform Owners.
+  </TabItem>
+  <TabItem value="mgr" label="Manager">
+    **Supervisory access.** Can view most objects and run reports, but has limited access to critical system settings.
+    - **Use Case:** Operations managers or team leads.
+  </TabItem>
+  <TabItem value="op" label="Operator">
+    **Monitoring access.** Can view live video, process alarms, and manage cameras. Cannot change system settings.
+    - **Use Case:** Daily security desk staff.
+  </TabItem>
+</Tabs>
+
+---
+
+## Access Levels (Scope)
+
+While a Role defines *what* you can do, an **Access Level** defines *how broad* your view is.
+
+| Access Level | Visible Scope | Primary Use Case |
+| :--- | :--- | :--- |
+| **Service Provider** | The entire Tenant (all clients & sites). | Internal support and platform admins. |
+| **Customer** | A specific organization and its sites. | Client-side security managers. |
+| **Site** | Only specific physical locations. | On-site technicians or store managers. |
+
+---
+
+## Roles vs. Access Levels vs. Customer Groups
+
+It's common to confuse these three types of "Filtering." Here is the breakdown:
+
+- **Role:** What features are available? (Permissions)
+- **Access Level:** How broad is the hierarchy view? (Scope)
+- **Customer Group:** Which *specific* customers are visible? (Filter)
+
+<Callout type="tip" title="Example Scenario">
+An **Operator** (Role) at the **Customer** level (Access Level) assigned to the **"London Sites"** (Customer Group) will see only the monitoring tools for London-based clients.
+</Callout>
+
+---
+
+## Permissions Tiering
+
+Permissions are enforced at three distinct levels:
+
+1. **App Level:** Which apps show up in the sidebar (Dashboard, Monitoring, Config).
+2. **Category Level:** Which sections are visible within an app (Devices, Users, Alarms).
+3. **Action Level:** Whether a user can *View*, *Create*, *Edit*, or *Delete* a specific item.
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "Creating Roles",
+    url: "/docs/getting-started/user-management/creating-roles",
+    description: "How to build custom permission sets."
+  },
+  {
+    title: "Customer Groups",
+    url: "/docs/getting-started/user-management/customer-groups",
+    description: "Grouping clients for regional access."
+  },
+  {
+    title: "User Management Overview",
+    url: "/docs/getting-started/user-management/overview",
+    description: "High-level summary of RBAC."
+  }
+]} />
+
+---
+
+**Next:** [Creating and Configuring Roles](/docs/getting-started/user-management/creating-roles)

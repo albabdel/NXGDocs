@@ -1,0 +1,76 @@
+{
+  "totalBreakthroughs": 10,
+  "extractedAt": "2025-12-28T16:15:53.921Z",
+  "breakthroughs": [
+    {
+      "name": "Bulkimport",
+      "pages": 5,
+      "sectionsFound": 0,
+      "featuresFound": 0,
+      "benefitsFound": 0
+    },
+    {
+      "name": "Custom View",
+      "pages": 5,
+      "sectionsFound": 0,
+      "featuresFound": 0,
+      "benefitsFound": 0
+    },
+    {
+      "name": "Genie",
+      "pages": 5,
+      "sectionsFound": 0,
+      "featuresFound": 0,
+      "benefitsFound": 0
+    },
+    {
+      "name": "Healthcheck",
+      "pages": 5,
+      "sectionsFound": 0,
+      "featuresFound": 0,
+      "benefitsFound": 0
+    },
+    {
+      "name": "MarketPlace",
+      "pages": 5,
+      "sectionsFound": 0,
+      "featuresFound": 0,
+      "benefitsFound": 0
+    },
+    {
+      "name": "NOVA99x",
+      "pages": 5,
+      "sectionsFound": 0,
+      "featuresFound": 0,
+      "benefitsFound": 0
+    },
+    {
+      "name": "Pulse View",
+      "pages": 5,
+      "sectionsFound": 0,
+      "featuresFound": 0,
+      "benefitsFound": 0
+    },
+    {
+      "name": "Time Sync",
+      "pages": 5,
+      "sectionsFound": 0,
+      "featuresFound": 0,
+      "benefitsFound": 0
+    },
+    {
+      "name": "Tower Guard",
+      "pages": 5,
+      "sectionsFound": 0,
+      "featuresFound": 0,
+      "benefitsFound": 0
+    },
+    {
+      "name": "Zen mode",
+      "pages": 5,
+      "sectionsFound": 0,
+      "featuresFound": 0,
+      "benefitsFound": 0
+    }
+  ]
+}

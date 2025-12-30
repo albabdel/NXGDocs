@@ -1,0 +1,115 @@
+---
+title: "Quick Start Checklist"
+description: "A systematic 5-phase checklist to guide you from network readiness to live security monitoring."
+tags:
+  - role:all
+  - category:tutorial
+  - difficulty:beginner
+  - platform:GCXONE
+sidebar_position: 3
+last_updated: 2025-12-28
+---
+
+# ✅ Quick Start Checklist
+
+This checklist systematicallly guides you through the initial setup and configuration of the **GCXONE** platform. Follow these five phases to ensure a solid foundation for your security infrastructure.
+
+import Callout from '@site/src/components/Callout';
+import Steps from '@site/src/components/Steps';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+<Callout type="tip">
+**How to use:** Treat this as your primary punch-list. Check off each item as you complete it during your first week of setup.
+</Callout>
+
+---
+
+## 🏗️ Phase 1: Network Readiness
+
+Before logging in, ensure your local network is prepared to communicate with the GCXONE cloud.
+
+- [ ] **Internet Connectivity:** Stable, high-bandwidth connection verified.
+- [ ] **IP Whitelisting:** [Gateway IPs](/docs/getting-started/ip-whitelisting) added to your firewall.
+- [ ] **Port Forwarding:** Ports **80, 443, 554, and 123** opened on your router.
+- [ ] **Workstation Check:** PC meets [minimum specs](/docs/getting-started/required-ports) (32GB RAM, i7 CPU, NVIDIA GPU).
+
+---
+
+## 🔑 Phase 2: Platform Setup
+
+Establish your organizational hierarchy within the GCXONE interface.
+
+- [ ] **Tenant Access:** Logged in to your dedicated URL with admin credentials.
+- [ ] **Create Site:** Added physical locations under the **Sites** tab.
+- [ ] **Address Validation:** Verified that site addresses match your **Talos CMS** records exactly.
+- [ ] **User Roles:** Defined Admin and Operator roles in the **Settings** menu.
+
+---
+
+## 🏷️ Phase 3: Device Onboarding
+
+Connect your physical hardware (NVRs, Cameras, Sensors) to the platform.
+
+- [ ] **Device Registration:** Entered IP, port, and credentials for all hardware.
+- [ ] **Unique Unit IDs:** Assigned a **unique identification number** to every device.
+- [ ] **Time Sync:** Configured all hardware to use `time1.nxgen.cloud` (NTP).
+- [ ] **Auto-Discovery:** Ran the **Discover** function to map all camera channels.
+
+---
+
+## ⚙️ Phase 4: Critical Security Tuning
+
+Optimize your hardware settings for intelligent alarm processing.
+
+- [ ] **Alarm Transmission:** Enabled "Notify Surveillance Center" (or webhook) on all devices.
+- [ ] **Recording Buffers:** Set devices to **Continuous Recording** with a 30-second pre-alarm buffer.
+- [ ] **Smart Events:** Enabled **Intrusion Detection** and **Line Crossing** analytics.
+
+---
+
+## 🚀 Phase 5: Validation & Go-Live
+
+Verify that the integrated system is operating correctly.
+
+- [ ] **Live Feed:** Confirmed real-time video is visible in the **Video Viewer**.
+- [ ] **Alarm Loop:** Triggered a test event and confirmed it appeared in **Talos CMS** within 90 seconds.
+- [ ] **Health Check:** Verified that all devices show "Healthy" status in the [HealthCheck dashboard](/docs/breakthroughs/healthcheck).
+
+---
+
+## Quick Reference Tables
+
+### Essential Infrastructure
+
+| Service | Address / Port | Purpose |
+| :--- | :--- | :--- |
+| **Primary Gateway** | `18.185.17.113` | Main Cloud Gateway |
+| **NTP Server** | `time1.nxgen.cloud` | Time Synchronization |
+| **Video Port** | `554 (RTSP)` | Real-time Streaming |
+| **Web Port** | `443 (HTTPS)` | Secure Dashboard Access |
+
+---
+
+## Related Guides
+
+<RelatedArticles articles={[
+  {
+    title: "First-Time Login",
+    url: "/docs/getting-started/first-time-login",
+    description: "Detailed step-by-step account activation."
+  },
+  {
+    title: "Firewall Guide",
+    url: "/docs/getting-started/firewall-configuration",
+    description: "Securely opening your network for GCXONE."
+  },
+  {
+    title: "NOVA99x Setup",
+    url: "/docs/breakthroughs/nova99x",
+    description: "Learn how to filter out 99% of false alarms."
+  }
+]} />
+
+---
+
+**Next:** [Firewall Configuration & Network Security](/docs/getting-started/firewall-configuration)

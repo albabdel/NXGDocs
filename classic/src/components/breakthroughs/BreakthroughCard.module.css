@@ -1,0 +1,138 @@
+.breakthroughCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--ifm-card-background-color, #fff);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  padding: 0;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+  overflow: hidden;
+}
+
+.breakthroughCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  border-color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.cardHeader {
+  padding: 1.5rem;
+  border-left: 4px solid #4F46E5;
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, transparent 100%);
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.number {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ifm-color-primary);
+  background: var(--ifm-color-primary-lightest);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.titleSection {
+  margin: 0;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+  color: var(--ifm-heading-color);
+}
+
+.tagline {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  margin: 0;
+  font-style: italic;
+}
+
+.cardBody {
+  padding: 0 1.5rem 1.5rem;
+  flex: 1;
+}
+
+.description {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0;
+}
+
+.cardFooter {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-color-emphasis-100);
+}
+
+.learnMore {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: gap 0.2s ease;
+}
+
+.breakthroughCard:hover .learnMore {
+  gap: 0.5rem;
+}
+
+/* Dark mode support */
+[data-theme='dark'] .breakthroughCard {
+  background: var(--ifm-background-surface-color);
+  border-color: var(--ifm-color-emphasis-300);
+}
+
+[data-theme='dark'] .cardHeader {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.15) 0%, transparent 100%);
+}
+
+[data-theme='dark'] .cardFooter {
+  background: var(--ifm-color-emphasis-200);
+  border-top-color: var(--ifm-color-emphasis-300);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .cardHeader {
+    padding: 1rem;
+  }
+
+  .cardBody {
+    padding: 0 1rem 1rem;
+  }
+
+  .cardFooter {
+    padding: 0.75rem 1rem;
+  }
+
+  .title {
+    font-size: 1.125rem;
+  }
+
+  .description {
+    font-size: 0.875rem;
+  }
+}

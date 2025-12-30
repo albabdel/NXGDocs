@@ -1,0 +1,92 @@
+---
+title: "Inviting Users"
+description: "Step-by-step tutorial to onboarding new team members and managing multi-tenant access."
+tags:
+  - role:admin
+  - category:tutorial
+  - difficulty:beginner
+  - platform:GCXONE
+sidebar_position: 5
+last_updated: 2025-12-28
+---
+
+# ✉️ Inviting Users to GCXONE
+
+Onboarding new team members is handled through an automated email workflow. This ensures that every user securely verifies their identity and sets their own private credentials.
+
+import Callout from '@site/src/components/Callout';
+import Steps from '@site/src/components/Steps';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## 🏗️ Step-by-Step Onboarding
+
+<Steps>
+
+### 1. Initiation
+1. Navigate to **Settings** → **Users**.
+2. Click **Invite New User**.
+
+### 2. Enter Identity Details
+- **Email:** This must be a unique, valid email address. It will serve as their login ID.
+- **Personal Info:** Enter First Name, Last Name, and optionally a Phone Number for SMS alerts.
+
+### 3. Configure Access
+- **Role:** Select the [pre-defined role](/docs/getting-started/user-management/roles-and-access-levels) that matches their responsibilities.
+- **Customer Group:** (Optional) Select a [Customer Group](/docs/getting-started/user-management/customer-groups) if you need to restrict their view to a specific client subset.
+- **Session Timeout:** Set the inactivity limit (default 30 mins).
+
+### 4. Verification Workflow
+Once you click **Submit**, GCXONE sends two automated emails to the user:
+1. **Confirmation Email:** Verifies the email is active.
+2. **Password Setup Link:** Allows the user to create their secure password.
+
+</Steps>
+
+---
+
+## 🌐 Multi-Tenant Access
+
+If a user (such as a consultant) is invited to multiple different GCXONE organizations using the **same email address**:
+
+- **Single Identity:** They only need one password.
+- **Tenant Selection:** Upon login, they will be prompted to choose which organization they want to access for that session.
+- **Switching:** They can switch between tenants anytime via **Settings** → **Switch Tenant**.
+
+---
+
+## 🛠️ Troubleshooting
+
+<Callout type="warning" title="Invitation Links Expire">
+For security, the password setup link expires after **24 hours**. If a user misses this window, you must **Resend Invitation** from the Users table.
+</Callout>
+
+- **Email Not Received:** Ask the user to check their Spam/Junk folder for mail from `@nxgen.cloud`.
+- **Login Issues:** Ensure the user clicked the **Verification Link** in the first email before attempting to use the password setup link.
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "Roles and Access Levels",
+    url: "/docs/getting-started/user-management/roles-and-access-levels",
+    description: "Choosing the right scope for a new user."
+  },
+  {
+    title: "Customer Groups",
+    url: "/docs/getting-started/user-management/customer-groups",
+    description: "Restricting client visibility."
+  },
+  {
+    title: "Managing Users",
+    url: "/docs/getting-started/user-management/managing-users",
+    description: "Editing or removing active user accounts."
+  }
+]} />
+
+---
+
+**Next:** [Managing and Editing Active Users](/docs/getting-started/user-management/managing-users)

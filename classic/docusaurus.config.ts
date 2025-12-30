@@ -223,6 +223,11 @@ const config: Config = {
           label: 'Documentation',
         },
         {
+          to: '/docs/breakthroughs',
+          position: 'left',
+          label: '🌟 Breakthroughs',
+        },
+        {
           type: 'custom-RoleSwitcher',
           position: 'left',
         },
@@ -231,6 +236,10 @@ const config: Config = {
           label: 'Quick Links',
           position: 'left',
           items: [
+                        {
+              label: '🌟 Breakthroughs',
+              to: '/docs/breakthroughs',
+            },
             {
               label: 'Getting Started',
               to: '/docs/getting-started',
@@ -263,6 +272,10 @@ const config: Config = {
         {
           title: 'Documentation',
           items: [
+                        {
+              label: 'Breakthroughs',
+              to: '/docs/breakthroughs',
+            },
             {
               label: 'Getting Started',
               to: '/docs/getting-started',
@@ -333,9 +346,9 @@ const config: Config = {
     },
 
     colorMode: {
-      defaultMode: 'light',
+      defaultMode: 'dark',
       disableSwitch: false,
-      respectPrefersColorScheme: true,
+      respectPrefersColorScheme: false,
     },
     tableOfContents: {
       minHeadingLevel: 2,

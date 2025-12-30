@@ -70,8 +70,7 @@ import TabItem from '@theme/TabItem';
   ```mermaid
   graph TB
       subgraph "GCXONE Core"
-          API["API Gateway
-Standardized Interface"]
+          API[API Gateway<br/>Standardized Interface]
       end
       
       subgraph "Proxy Layer"
@@ -152,26 +151,17 @@ Standardized Interface"]
   
   ```mermaid
   sequenceDiagram
-      participant User as "👤 User
-(Web/Mobile)"
-      participant API as "🌐 GCXONE API
-(Gateway)"
-      participant Proxy as "⚙️ Device Proxy
-(e.g., HikProxy)"
+      participant User as 👤 User<br/>(Web/Mobile)
+      participant API as 🌐 GCXONE API<br/>(Gateway)
+      participant Proxy as ⚙️ Device Proxy<br/>(e.g., HikProxy)
       participant Device as 📹 Physical Device
-
-      User->>API: "1. Initiates Request
-(e.g., PTZ Move)"
-      Note over API: "2. Identifies request type
-& device manufacturer"
-      API->>API: "3. Consults proxy
-endpoint dictionary"
-      API->>Proxy: "4. HTTP Call
-(Standardized JSON)"
-      Note over Proxy: "5. Translates to native
-protocol (SDK/ISAPI)"
-      Proxy->>Device: "6. Native Command
-(e.g., Move Right)"
+      
+      User->>API: 1. Initiates Request<br/>(e.g., PTZ Move)
+      Note over API: 2. Identifies request type<br/>& device manufacturer
+      API->>API: 3. Consults proxy<br/>endpoint dictionary
+      API->>Proxy: 4. HTTP Call<br/>(Standardized JSON)
+      Note over Proxy: 5. Translates to native<br/>protocol (SDK/ISAPI)
+      Proxy->>Device: 6. Native Command<br/>(e.g., Move Right)
       Device-->>Proxy: 7. Acknowledge/Result
       Proxy-->>API: 8. Standardized Response
       API-->>User: 9. Update UI

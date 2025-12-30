@@ -1,13 +1,13 @@
 /* 
  * AGGRESSIVE STYLE OVERRIDES FOR NEW DESIGN
  * This file ensures the new luxury dark theme is applied with high specificity
- * Add this import to your main CSS file or docusaurus config if needed
+ * BackgroundPattern component handles the main background - keep wrappers transparent
  */
 
 /* Light Mode Styles */
 html:not([data-theme='dark']),
 html:not([data-theme='dark']) body {
-  background-color: var(--ifm-background-color) !important;
+  background-color: transparent !important; /* Let BackgroundPattern handle this */
 }
 
 html:not([data-theme='dark']) .modal,
@@ -32,20 +32,19 @@ html:not([data-theme='dark']) .searchContainer {
 }
 
 html:not([data-theme='dark']) .theme-doc-sidebar-container {
-  background: var(--ifm-background-color) !important;
+  background: rgba(248, 249, 250, 0.95) !important; /* Semi-transparent for pattern to show */
   border-right: 1px solid var(--ifm-color-emphasis-200) !important;
 }
 
 html:not([data-theme='dark']) .main-wrapper,
 html:not([data-theme='dark']) .main-wrapper.docs-wrapper {
-  background: var(--ifm-background-color) !important;
+  background: transparent !important; /* Let BackgroundPattern show through */
 }
 
 /* Dark Mode Styles - matching landing page theme */
 [data-theme='dark'] html,
 [data-theme='dark'] body {
-  background-color: #000000 !important;
-  /* Pure black matching landing page */
+  background-color: transparent !important; /* Let BackgroundPattern handle this */
 }
 
 [data-theme='dark'] .modal,
@@ -76,14 +75,12 @@ html:not([data-theme='dark']) .main-wrapper.docs-wrapper {
 }
 
 [data-theme='dark'] .theme-doc-sidebar-container {
-  background: #000000 !important;
-  /* Pure black matching landing page */
+  background: rgba(0, 0, 0, 0.85) !important; /* Semi-transparent for pattern to show */
   border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
   /* Subtle border matching landing page */
 }
 
 [data-theme='dark'] .main-wrapper,
 [data-theme='dark'] .main-wrapper.docs-wrapper {
-  background: #000000 !important;
-  /* Pure black matching landing page */
+  background: transparent !important; /* Let BackgroundPattern show through */
 }

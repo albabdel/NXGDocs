@@ -29,6 +29,7 @@
     "@docusaurus/types": "^3.9.2",
     "axios": "^1.13.2",
     "dotenv": "^17.2.3",
-    "gray-matter": "^4.0.3"
+    "gray-matter": "^4.0.3",
+    "pdf-parse": "^2.4.5"
   }
 }

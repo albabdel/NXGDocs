@@ -1,0 +1,86 @@
+---
+title: "Talos User Management"
+description: "How to configure operator behaviors, alarm groups, and workflow-specific roles in the Talos ecosystem."
+tags:
+  - role:admin
+  - category:how-to
+  - difficulty:intermediate
+  - platform:talos
+sidebar_position: 7
+last_updated: 2025-12-28
+---
+
+# 🚨 Talos User Management
+
+While [GCXONE manages the account identity](/docs/getting-started/user-management/overview), **Talos** handles the behavioral settings of how an operator interacts with alarms.
+
+import Callout from '@site/src/components/Callout';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## 🛰️ How the Systems Sync
+
+Talos uses your GCXONE user account as the base for its sessions. However, once a user enters the Talos interface, their permissions are governed by **Talos Roles** and **User Types**.
+
+| Aspect | GCXONE Responsibility | Talos Responsibility |
+| :--- | :--- | :--- |
+| **Identity** | Email and MFA. | Leverages the GCXONE session. |
+| **Platform Access** | Permissions to see Configuration. | Not applicable. |
+| **Workflow** | Not applicable. | Permissions to view, process, or close alarms. |
+| **Behavior** | Not applicable. | Automatic redirection and auto-assign rules. |
+
+---
+
+## 🎭 Creating Workflow Roles
+
+To define how operators handle incident response:
+
+1. In GCXONE, navigate to **Talos Workflow** app.
+2. Select **Company** → **Settings** → **Users**.
+3. Click **Add Role**.
+4. Define the privilege level (e.g., "Full Operator" vs "View Only").
+5. **Create a User Type:** Every role needs a User Type that defines behavioral rules (like "Auto-redirect to next alarm").
+
+---
+
+## 📂 Alarm Distribution Groups
+
+Talos allows you to organize sites into groups that are assigned to specific operator teams.
+
+1. Navigate to **Configuration** → **Alarm Groups**.
+2. Click **Add New**.
+3. **Assign Sites:** Choose which locations belong to this monitoring group.
+4. **Assign Operators:** Select which team members are responsible for these sites.
+
+<Callout type="tip" title="Load Balancing">
+Use Alarm Groups to balance workloads. For example, assign your "High Priority" group to your most senior operators.
+</Callout>
+
+---
+
+## 🛠️ Troubleshooting Access
+
+- **Login Loops:** If an operator can see GCXONE but gets a "Permission Denied" in Talos, ensure they have been assigned a **Talos Role** in the `Company → Users` settings.
+- **Missing Alarms:** Verify the operator is part of the correct **Alarm Group** for the site in question.
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "Roles and Access Levels",
+    url: "/docs/getting-started/user-management/roles-and-access-levels",
+    description: "GCXONE platform-wide permissions."
+  },
+  {
+    title: "Talos Interaction",
+    url: "/docs/getting-started/gcxone-talos-interaction",
+    description: "Deep dive into the sync logic."
+  }
+]} />
+
+---
+
+**Next:** [Developer Tools & API Integration](/docs/api/overview)

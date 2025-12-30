@@ -153,9 +153,9 @@ export default function GettingStarted() {
             title="Getting Started"
             description="Complete onboarding guide for GCXONE - everything you need for your first week"
         >
-            <main className="min-h-screen bg-black">
+            <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
                 {/* Breadcrumbs */}
-                <div className="bg-black border-b border-white/10">
+                <div className="border-b" style={{ backgroundColor: 'var(--ifm-background-color)', borderColor: 'var(--ifm-color-emphasis-300)' }}>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                         <nav className="flex items-center gap-2 text-sm">
                             <Link to="/" className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors no-underline">
@@ -180,10 +180,10 @@ export default function GettingStarted() {
                             <Rocket className="w-4 h-4 text-[#E8B058]" />
                             <span className="text-sm font-medium text-[#E8B058]">Your First Week with GCXONE</span>
                         </div>
-                        <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+                        <h1 className="text-5xl md:text-6xl font-bold mb-6" style={{ color: 'var(--ifm-font-color-base)' }}>
                             Getting Started
                         </h1>
-                        <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8">
+                        <p className="text-xl max-w-3xl mx-auto leading-relaxed mb-8" style={{ color: 'var(--ifm-font-color-secondary)' }}>
                             Your complete guide to mastering GCXONE. From initial login to full operational capability,
                             we'll walk you through everything step by step.
                         </p>
@@ -212,8 +212,8 @@ export default function GettingStarted() {
                         className="mb-32"
                     >
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-white mb-4">Watch & Learn</h2>
-                            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                            <h2 className="text-3xl font-bold mb-4">Watch & Learn</h2>
+                            <p className="text-lg max-w-2xl mx-auto">
                                 Start with our video guides to get a visual understanding of GCXONE
                             </p>
                         </div>
@@ -299,8 +299,8 @@ export default function GettingStarted() {
                         className="mb-32"
                     >
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-white mb-4">Your Onboarding Roadmap</h2>
-                            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                            <h2 className="text-3xl font-bold mb-4">Your Onboarding Roadmap</h2>
+                            <p className="text-lg max-w-2xl mx-auto">
                                 Follow these phases to go from new user to GCXONE expert
                             </p>
                         </div>
@@ -385,8 +385,8 @@ export default function GettingStarted() {
                         className="mb-32"
                     >
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-white mb-4">Learn by Role</h2>
-                            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                            <h2 className="text-3xl font-bold mb-4">Learn by Role</h2>
+                            <p className="text-lg max-w-2xl mx-auto">
                                 Find documentation tailored to your specific responsibilities
                             </p>
                         </div>
@@ -453,8 +453,8 @@ export default function GettingStarted() {
                         className="mb-32"
                     >
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-white mb-4">Feature Deep Dives</h2>
-                            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                            <h2 className="text-3xl font-bold mb-4">Feature Deep Dives</h2>
+                            <p className="text-lg max-w-2xl mx-auto">
                                 Detailed video guides for specific GCXONE features
                             </p>
                         </div>
@@ -502,8 +502,8 @@ export default function GettingStarted() {
                         className="mb-32"
                     >
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-white mb-4">Additional Resources</h2>
-                            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                            <h2 className="text-3xl font-bold mb-4">Additional Resources</h2>
+                            <p className="text-lg max-w-2xl mx-auto">
                                 Everything else you need to succeed with GCXONE
                             </p>
                         </div>

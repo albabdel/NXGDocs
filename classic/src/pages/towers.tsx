@@ -193,9 +193,9 @@ export default function TowersLandingPage() {
             title="Towers"
             description="Complete guide to managing and configuring mobile towers in GCXONE"
         >
-            <main className="min-h-screen bg-black">
+            <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
                 {/* Breadcrumbs */}
-                <div className="bg-black border-b border-white/10">
+                <div className="border-b" style={{ backgroundColor: 'var(--ifm-background-color)', borderColor: 'var(--ifm-color-emphasis-300)' }}>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                         <nav className="flex items-center gap-2 text-sm">
                             <Link to="/" className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors no-underline">
@@ -224,10 +224,10 @@ export default function TowersLandingPage() {
                             <Radio className="w-4 h-4 text-[#E8B058]" />
                             <span className="text-sm font-medium text-[#E8B058]">Mobile Tower Management</span>
                         </div>
-                        <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+                        <h1 className="text-5xl md:text-6xl font-bold mb-6" style={{ color: 'var(--ifm-font-color-base)' }}>
                             Towers
                         </h1>
-                        <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8">
+                        <p className="text-xl max-w-3xl mx-auto leading-relaxed mb-8" style={{ color: 'var(--ifm-font-color-secondary)' }}>
                             Complete guide to adding, configuring, and managing mobile towers in GCXONE. 
                             From marketplace template creation to final deployment, learn everything you need to deploy and maintain your tower infrastructure.
                         </p>
@@ -256,8 +256,8 @@ export default function TowersLandingPage() {
                         className="mb-32"
                     >
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-white mb-4">Watch & Learn</h2>
-                            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                            <h2 className="text-3xl font-bold mb-4">Watch & Learn</h2>
+                            <p className="text-lg max-w-2xl mx-auto">
                                 Start with our comprehensive video guide to see the complete process of adding and configuring a mobile tower
                             </p>
                         </div>
@@ -279,8 +279,8 @@ export default function TowersLandingPage() {
                         className="mb-32"
                     >
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-white mb-4">Tower Configuration Overview</h2>
-                            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                            <h2 className="text-3xl font-bold mb-4">Tower Configuration Overview</h2>
+                            <p className="text-lg max-w-2xl mx-auto">
                                 Understanding the complete tower setup process
                             </p>
                         </div>
@@ -334,8 +334,8 @@ export default function TowersLandingPage() {
                         className="mb-32"
                     >
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-white mb-4">Complete Step-by-Step Guide</h2>
-                            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                            <h2 className="text-3xl font-bold mb-4">Complete Step-by-Step Guide</h2>
+                            <p className="text-lg max-w-2xl mx-auto">
                                 Follow all 36 steps to successfully add and configure your mobile tower
                             </p>
                         </div>
@@ -404,8 +404,8 @@ export default function TowersLandingPage() {
                         className="mb-32"
                     >
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-white mb-4">Tower Management Features</h2>
-                            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                            <h2 className="text-3xl font-bold mb-4">Tower Management Features</h2>
+                            <p className="text-lg max-w-2xl mx-auto">
                                 Everything you need to manage your mobile tower infrastructure
                             </p>
                         </div>
@@ -465,8 +465,8 @@ export default function TowersLandingPage() {
                         className="mb-32"
                     >
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-white mb-4">Technical Specifications & Configuration Reference</h2>
-                            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                            <h2 className="text-3xl font-bold mb-4">Technical Specifications & Configuration Reference</h2>
+                            <p className="text-lg max-w-2xl mx-auto">
                                 Complete technical reference for tower configuration and deployment
                             </p>
                         </div>
@@ -683,8 +683,8 @@ export default function TowersLandingPage() {
                         className="mb-32"
                     >
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-white mb-4">Best Practices</h2>
-                            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                            <h2 className="text-3xl font-bold mb-4">Best Practices</h2>
+                            <p className="text-lg max-w-2xl mx-auto">
                                 Tips and recommendations for successful tower deployment
                             </p>
                         </div>
@@ -750,8 +750,8 @@ export default function TowersLandingPage() {
                         className="mb-32"
                     >
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-white mb-4">Related Resources</h2>
-                            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                            <h2 className="text-3xl font-bold mb-4">Related Resources</h2>
+                            <p className="text-lg max-w-2xl mx-auto">
                                 Additional documentation to help you with tower management
                             </p>
                         </div>

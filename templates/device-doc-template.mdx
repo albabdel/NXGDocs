@@ -1,0 +1,268 @@
+---
+title: "[Device Manufacturer] [Device Model]"
+description: "Complete integration guide for [Device Model] with GCXONE"
+tags:
+  - category:device
+  - manufacturer:[manufacturer-name]
+  - device-type:camera|nvr|access-control|audio|sensor|other
+  - platform:GCXONE
+sidebar_position: 1
+last_updated: 2025-12-28
+---
+
+# [Device Manufacturer] [Device Model]
+
+import Callout from '@site/src/components/Callout';
+import Steps, { Step } from '@site/src/components/Steps';
+import Tabs from '@site/src/components/Tabs';
+import TabItem from '@site/src/components/Tabs/TabItem';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+## Overview
+
+Brief introduction to the device and its integration with GCXONE.
+
+<Callout type="info" title="Device Information">
+- **Manufacturer:** [Manufacturer Name]
+- **Model:** [Model Name/Number]
+- **Device Type:** [Camera/NVR/Access Control/Audio/Sensor]
+- **Supported Versions:** [Firmware/Software versions]
+</Callout>
+
+## Supported Models
+
+List of supported device models and variants:
+
+- **Model A:** Description and specific features
+- **Model B:** Description and specific features
+- **Model C:** Description and specific features
+
+## Features
+
+Key features and capabilities when integrated with GCXONE:
+
+- ✅ Feature 1
+- ✅ Feature 2
+- ✅ Feature 3
+- ⚠️ Feature 4 (with limitations)
+
+<Callout type="warning">
+Known limitations or unsupported features.
+</Callout>
+
+## Prerequisites
+
+Before integrating this device, ensure you have:
+
+- Prerequisite 1 (e.g., firmware version 1.2.3 or later)
+- Prerequisite 2 (e.g., network access)
+- Prerequisite 3 (e.g., specific GCXONE permissions)
+
+## System Requirements
+
+### Device Requirements
+
+- **Firmware Version:** [Minimum required version]
+- **Network:** [Requirements]
+- **Hardware:** [Any special hardware requirements]
+
+### GCXONE Requirements
+
+- **GCXONE Version:** [Minimum version]
+- **Permissions:** [Required user roles/permissions]
+
+## Installation
+
+<Steps>
+  <Step title="Step 1: Prepare the Device">
+    Instructions for preparing the device before integration.
+    
+    <Callout type="tip">
+    Helpful tip for this step.
+    </Callout>
+  </Step>
+  
+  <Step title="Step 2: Network Configuration">
+    Network setup instructions.
+    
+    ```bash
+    # Example configuration command
+    ```
+  </Step>
+  
+  <Step title="Step 3: Add Device in GCXONE">
+    Instructions for adding the device to GCXONE.
+    
+    1. Navigate to Device Management
+    2. Click "Add Device"
+    3. Select device type
+    4. Enter device information
+  </Step>
+  
+  <Step title="Step 4: Configure Settings">
+    Configuration steps.
+  </Step>
+  
+  <Step title="Step 5: Verify Integration">
+    How to verify the device is working correctly.
+  </Step>
+</Steps>
+
+## Configuration
+
+### Basic Configuration
+
+Essential configuration settings:
+
+<Tabs defaultValue="settings">
+  <TabItem value="settings" label="Settings">
+    ```yaml
+    # Basic configuration example
+    device:
+      name: "Device Name"
+      ip_address: "192.168.1.100"
+      port: 80
+    ```
+  </TabItem>
+  
+  <TabItem value="ui" label="UI Configuration">
+    Screenshots or description of UI configuration steps.
+  </TabItem>
+</Tabs>
+
+### Advanced Configuration
+
+Optional advanced settings:
+
+- **Setting 1:** Description and configuration
+- **Setting 2:** Description and configuration
+- **Setting 3:** Description and configuration
+
+### Integration Parameters
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `parameter1` | string | Yes | - | Parameter description |
+| `parameter2` | integer | No | `8080` | Parameter description |
+| `parameter3` | boolean | No | `false` | Parameter description |
+
+## Troubleshooting
+
+### Common Issues
+
+**Issue 1: [Problem Description]**
+
+**Symptoms:**
+- Symptom 1
+- Symptom 2
+
+**Solution:**
+Step-by-step solution.
+
+**Issue 2: [Problem Description]**
+
+**Symptoms:**
+- Symptom 1
+
+**Solution:**
+Step-by-step solution.
+
+### Diagnostics
+
+How to diagnose issues:
+
+1. Check device status in GCXONE
+2. Review device logs
+3. Verify network connectivity
+4. Test device directly
+
+<Callout type="tip">
+Diagnostic commands or tools that can help.
+</Callout>
+
+## API Reference
+
+If applicable, provide API endpoints or methods specific to this device:
+
+### `GET /api/devices/{deviceId}/status`
+
+Get device status.
+
+**Response:**
+
+```json
+{
+  "status": "online",
+  "last_seen": "2025-12-28T10:00:00Z"
+}
+```
+
+## Best Practices
+
+Recommendations for using this device effectively:
+
+- Best practice 1
+- Best practice 2
+- Best practice 3
+
+<Callout type="warning" title="Important">
+Critical best practice or warning.
+</Callout>
+
+## Firmware Updates
+
+How to update device firmware:
+
+<Steps>
+  <Step title="Check Current Version">
+    How to check the current firmware version.
+  </Step>
+  
+  <Step title="Download Firmware">
+    Where to get the latest firmware.
+  </Step>
+  
+  <Step title="Update Firmware">
+    How to perform the update.
+  </Step>
+</Steps>
+
+## Related Devices
+
+Similar or compatible devices:
+
+- [Device Model X](/docs/devices/manufacturer/model-x)
+- [Device Model Y](/docs/devices/manufacturer/model-y)
+
+## Related Documentation
+
+<RelatedArticles articles={[
+  {
+    title: "Device Integration Overview",
+    url: "/docs/devices",
+    description: "General device integration guide"
+  },
+  {
+    title: "Troubleshooting Guide",
+    url: "/docs/troubleshooting",
+    description: "Common device issues and solutions"
+  },
+  {
+    title: "[Manufacturer] Other Models",
+    url: "/docs/devices/manufacturer",
+    description: "Other devices from this manufacturer"
+  }
+]} />
+
+## Support
+
+**Need help with this device?**
+
+- Check the [troubleshooting section](#troubleshooting) above
+- Review [device-specific FAQ](/docs/knowledge-base/faq#device-integration)
+- [Contact Support](/docs/support) with device model and error details
+
+---
+
+**Last Updated:** 2025-12-28  
+**Device Compatibility:** Verified with firmware [version]
