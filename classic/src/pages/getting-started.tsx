@@ -256,7 +256,7 @@ export default function GettingStarted() {
                                     title="Platform Walkthrough"
                                     duration="8:45"
                                     description="A complete tour of the GCXONE interface, navigation, and key features you'll use daily."
-                                    youtubeId="GsLpEgo1jqo"
+                                    youtubeId="p--04PIIO-M"
                                 />
                             </motion.div>
                             <motion.div
