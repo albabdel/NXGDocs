@@ -243,7 +243,7 @@ export default function GettingStarted() {
                                     title="Platform Walkthrough"
                                     duration="8:45"
                                     description="A complete tour of the GCXONE interface, navigation, and key features you'll use daily."
-                                    videoSrc="/videos/platform-walkthrough.mp4"
+                                    videoSrc="https://pub-349c0383a2e4431f885b54a7faedb14fe.r2.dev/platform-walkthrough.mp4"
                                 />
                             </motion.div>
                             <motion.div
@@ -256,7 +256,7 @@ export default function GettingStarted() {
                                     title="Key Features & Value"
                                     duration="6:15"
                                     description="Learn how GCXONE's powerful features deliver real value and transform your monitoring operations."
-                                    videoSrc="/videos/key-features-value.mp4"
+                                    videoSrc="https://pub-349c0383a2e4431f885b54a7faedb14fe.r2.dev/key-features-value.mp4"
                                 />
                             </motion.div>
                         </div>
@@ -273,7 +273,7 @@ export default function GettingStarted() {
                                     title="First-Time Login & Setup"
                                     duration="4:20"
                                     description="Step-by-step guide to your first login, password setup, and MFA configuration."
-                                    videoSrc="/videos/first-time-login-setup.mp4"
+                                    videoSrc="https://pub-349c0383a2e4431f885b54a7faedb14fe.r2.dev/first-time-login-setup.mp4"
                                 />
                             </motion.div>
                             <motion.div
@@ -286,7 +286,7 @@ export default function GettingStarted() {
                                     title="Dashboard Deep Dive"
                                     duration="7:00"
                                     description="Master the dashboard widgets, customization options, and real-time monitoring capabilities."
-                                    videoSrc="/videos/dashboard-deep-dive.mp4"
+                                    videoSrc="https://pub-349c0383a2e4431f885b54a7faedb14fe.r2.dev/dashboard-deep-dive.mp4"
                                 />
                             </motion.div>
                         </div>

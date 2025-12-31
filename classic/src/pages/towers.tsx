@@ -40,8 +40,8 @@ import {
 
 // Video Component
 const VideoPlayer = ({ title, description }: { title: string; description: string }) => {
-    const videoUrl = useBaseUrl('/videos/add-and-configure-mobile-tower.mp4');
-    
+    const videoUrl = useBaseUrl('https://pub-349c0383a2e4431f885b54a7faedb14fe.r2.dev/add-and-configure-mobile-tower.mp4');
+
     return (
         <div className="relative group overflow-hidden rounded-xl bg-[#202020] border border-white/10 hover:border-[#E8B058]/50 transition-all duration-300">
             <div className="aspect-video bg-[#1a1a1a] relative">
@@ -143,7 +143,7 @@ const FeatureSection = ({
 
 export default function TowersLandingPage() {
     const towersDocLink = '/docs/getting-started/Towers/Towers';
-    
+
     // All 36 steps from Towers.md organized by phase
     const steps = [
         // Phase 1: Marketplace Setup (Steps 1-16)
@@ -163,7 +163,7 @@ export default function TowersLandingPage() {
         { step: 14, title: 'Router Settings', description: 'Configure router network settings and security parameters', phase: 'Marketplace Setup' },
         { step: 15, title: 'Template Review', description: 'Review and verify all template configurations before saving', phase: 'Marketplace Setup' },
         { step: 16, title: 'Save Template', description: 'Save your tower template for future use and deployment', phase: 'Marketplace Setup' },
-        
+
         // Phase 2: Tower Deployment (Steps 17-26)
         { step: 17, title: 'Navigate to Mobile Towers', description: 'Navigate to Mobile Towers section in the main menu', phase: 'Tower Deployment' },
         { step: 18, title: 'Start Adding Tower', description: 'Start adding a new mobile tower to your network', phase: 'Tower Deployment' },
@@ -175,7 +175,7 @@ export default function TowersLandingPage() {
         { step: 24, title: 'Network Configuration', description: 'Configure network settings for tower connectivity', phase: 'Tower Deployment' },
         { step: 25, title: 'IP Address Setup', description: 'Set up IP addresses and network parameters', phase: 'Tower Deployment' },
         { step: 26, title: 'Connectivity Test', description: 'Test connectivity and verify network settings', phase: 'Tower Deployment' },
-        
+
         // Phase 3: Component Configuration (Steps 27-36)
         { step: 27, title: 'Navigate Components', description: 'Navigate through the components to configure each device', phase: 'Component Configuration' },
         { step: 28, title: 'Component Settings', description: 'Access and configure individual component settings', phase: 'Component Configuration' },
@@ -188,7 +188,7 @@ export default function TowersLandingPage() {
         { step: 35, title: 'Final Review', description: 'Review all configurations before finalizing tower setup', phase: 'Component Configuration' },
         { step: 36, title: 'Deploy Tower', description: 'Complete deployment and activate your mobile tower', phase: 'Component Configuration' },
     ];
-    
+
     return (
         <Layout
             title="Towers"
@@ -230,7 +230,7 @@ export default function TowersLandingPage() {
                             Towers
                         </h1>
                         <p className="text-xl max-w-3xl mx-auto leading-relaxed mb-8" style={{ color: 'var(--ifm-font-color-secondary)' }}>
-                            Complete guide to adding, configuring, and managing mobile towers in GCXONE. 
+                            Complete guide to adding, configuring, and managing mobile towers in GCXONE.
                             From marketplace template creation to final deployment, learn everything you need to deploy and maintain your tower infrastructure.
                         </p>
                         <div className="flex items-center justify-center gap-6 text-sm flex-wrap">
@@ -798,7 +798,7 @@ export default function TowersLandingPage() {
                             <Star className="w-12 h-12 text-[#E8B058] mx-auto mb-4" />
                             <h2 className="text-2xl font-bold text-white mb-4">Ready to Configure Your Tower?</h2>
                             <p className="text-white/70 mb-8 max-w-xl mx-auto">
-                                Follow our complete 36-step guide to add and configure your first mobile tower in GCXONE. 
+                                Follow our complete 36-step guide to add and configure your first mobile tower in GCXONE.
                                 Watch the video tutorial and follow along with the detailed steps above.
                             </p>
                             <div className="inline-flex gap-4 flex-wrap justify-center">

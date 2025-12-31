@@ -86,7 +86,7 @@ const StepCard = ({
     details?: React.ReactNode;
 }) => {
     const imageUrl = image ? useBaseUrl(image) : null;
-    
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -153,8 +153,8 @@ const FeatureSection = ({
 
 // Video Component
 const VideoPlayer = ({ title, description, videoSrc }: { title: string; description: string; videoSrc?: string }) => {
-    const videoUrl = videoSrc ? useBaseUrl(videoSrc) : useBaseUrl('/videos/first-time-login-setup.mp4');
-    
+    const videoUrl = videoSrc ? useBaseUrl(videoSrc) : useBaseUrl('https://pub-349c0383a2e4431f885b54a7faedb14fe.r2.dev/first-time-login-setup.mp4');
+
     return (
         <div className="relative group overflow-hidden rounded-xl bg-[#202020] border border-white/10 hover:border-[#E8B058]/50 transition-all duration-300">
             <div className="aspect-video bg-[#1a1a1a] relative">
@@ -220,7 +220,7 @@ export default function QuickStartGuide() {
                             Quick Start Guide
                         </h1>
                         <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed mb-8">
-                            Follow this comprehensive guide to configure your GCXONE platform from initial login to full monitoring capability. 
+                            Follow this comprehensive guide to configure your GCXONE platform from initial login to full monitoring capability.
                             Get your security operations center up and running in minutes.
                         </p>
                         <div className="flex items-center justify-center gap-6 text-sm flex-wrap">
@@ -883,7 +883,7 @@ Account Format: [Your Site ID Format]`} />
                                         Your GCXONE platform is fully configured and ready for monitoring operations.
                                     </p>
                                     <p className="text-sm text-white/70">
-                                        Next step: Connect your first device to start receiving and processing alarms. 
+                                        Next step: Connect your first device to start receiving and processing alarms.
                                         Check out our device integration guides to get started.
                                     </p>
                                 </div>
