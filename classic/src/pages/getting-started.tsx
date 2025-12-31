@@ -29,8 +29,8 @@ import {
 } from 'lucide-react';
 
 // Video Component (for actual videos)
-const VideoCard = ({ title, duration, description, videoSrc }: { title: string; duration: string; description: string; videoSrc?: string }) => {
-    if (!videoSrc) {
+const VideoCard = ({ title, duration, description, videoSrc, youtubeId }: { title: string; duration: string; description: string; videoSrc?: string; youtubeId?: string }) => {
+    if (!videoSrc && !youtubeId) {
         // Fallback to placeholder if no video source
         return (
             <div className="relative group overflow-hidden rounded-xl bg-[#202020] border border-white/10 hover:border-[#E8B058]/50 transition-all duration-300">
@@ -60,18 +60,31 @@ const VideoCard = ({ title, duration, description, videoSrc }: { title: string; 
         <div className="relative group overflow-hidden rounded-xl bg-[#202020] border border-white/10 hover:border-[#E8B058]/50 transition-all duration-300">
             {/* Video Player */}
             <div className="aspect-video bg-[#1a1a1a] relative">
-                <video
-                    className="w-full h-full object-contain"
-                    controls
-                    preload="metadata"
-                >
-                    <source src={videoSrc} type="video/mp4" />
-                    Your browser does not support the video tag.
-                </video>
+                {youtubeId ? (
+                    <iframe
+                        className="w-full h-full"
+                        src={`https://www.youtube.com/embed/${youtubeId}`}
+                        title={title}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    ></iframe>
+                ) : (
+                    <video
+                        className="w-full h-full object-contain"
+                        controls
+                        preload="metadata"
+                    >
+                        <source src={videoSrc} type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                )}
+
                 {/* Duration Badge */}
-                <div className="absolute bottom-3 right-3 px-2 py-1 bg-black/70 rounded text-xs text-white font-medium pointer-events-none">
-                    {duration}
-                </div>
+                {!youtubeId && (
+                    <div className="absolute bottom-3 right-3 px-2 py-1 bg-black/70 rounded text-xs text-white font-medium pointer-events-none">
+                        {duration}
+                    </div>
+                )}
                 {/* Video Icon Badge */}
                 <div className="absolute top-3 left-3 flex items-center gap-2 px-3 py-1.5 bg-[#E8B058]/20 backdrop-blur-sm rounded-full border border-[#E8B058]/30 pointer-events-none">
                     <Video className="w-4 h-4 text-[#E8B058]" />
@@ -243,7 +256,7 @@ export default function GettingStarted() {
                                     title="Platform Walkthrough"
                                     duration="8:45"
                                     description="A complete tour of the GCXONE interface, navigation, and key features you'll use daily."
-                                    videoSrc="https://pub-349c0383a2e4431f885b54a7faedb14fe.r2.dev/platform-walkthrough.mp4"
+                                    youtubeId="GsLpEgo1jqo"
                                 />
                             </motion.div>
                             <motion.div
@@ -256,7 +269,7 @@ export default function GettingStarted() {
                                     title="Key Features & Value"
                                     duration="6:15"
                                     description="Learn how GCXONE's powerful features deliver real value and transform your monitoring operations."
-                                    videoSrc="https://pub-349c0383a2e4431f885b54a7faedb14fe.r2.dev/key-features-value.mp4"
+                                    youtubeId="ER-tnAvGXow"
                                 />
                             </motion.div>
                         </div>
@@ -273,7 +286,7 @@ export default function GettingStarted() {
                                     title="First-Time Login & Setup"
                                     duration="4:20"
                                     description="Step-by-step guide to your first login, password setup, and MFA configuration."
-                                    videoSrc="https://pub-349c0383a2e4431f885b54a7faedb14fe.r2.dev/first-time-login-setup.mp4"
+                                    youtubeId="I7dccOLTOsk"
                                 />
                             </motion.div>
                             <motion.div
@@ -286,7 +299,7 @@ export default function GettingStarted() {
                                     title="Dashboard Deep Dive"
                                     duration="7:00"
                                     description="Master the dashboard widgets, customization options, and real-time monitoring capabilities."
-                                    videoSrc="https://pub-349c0383a2e4431f885b54a7faedb14fe.r2.dev/dashboard-deep-dive.mp4"
+                                    youtubeId="AxHOF8cV88Q"
                                 />
                             </motion.div>
                         </div>

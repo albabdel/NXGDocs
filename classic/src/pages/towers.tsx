@@ -40,24 +40,25 @@ import {
 
 // Video Component
 const VideoPlayer = ({ title, description }: { title: string; description: string }) => {
-    const videoUrl = useBaseUrl('https://pub-349c0383a2e4431f885b54a7faedb14fe.r2.dev/add-and-configure-mobile-tower.mp4');
-
     return (
         <div className="relative group overflow-hidden rounded-xl bg-[#202020] border border-white/10 hover:border-[#E8B058]/50 transition-all duration-300">
+            {/* Video Player */}
             <div className="aspect-video bg-[#1a1a1a] relative">
-                <video
-                    className="w-full h-full object-contain"
-                    controls
-                    preload="metadata"
-                >
-                    <source src={videoUrl} type="video/mp4" />
-                    Your browser does not support the video tag.
-                </video>
+                <iframe
+                    className="w-full h-full"
+                    src="https://www.youtube.com/embed/H2WhN1p3x9E"
+                    title={title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                ></iframe>
+
+                {/* Video Icon Badge */}
                 <div className="absolute top-3 left-3 flex items-center gap-2 px-3 py-1.5 bg-[#E8B058]/20 backdrop-blur-sm rounded-full border border-[#E8B058]/30 pointer-events-none">
                     <Video className="w-4 h-4 text-[#E8B058]" />
-                    <span className="text-xs font-medium text-[#E8B058]">Video Tutorial</span>
+                    <span className="text-xs font-medium text-[#E8B058]">Video</span>
                 </div>
             </div>
+            {/* Video Info */}
             <div className="p-4">
                 <h4 className="font-semibold text-white mb-2 group-hover:text-[#E8B058] transition-colors">{title}</h4>
                 <p className="text-sm text-white/70 leading-relaxed">{description}</p>
