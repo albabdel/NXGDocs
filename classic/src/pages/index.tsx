@@ -183,6 +183,7 @@ export default function Home(): React.JSX.Element {
         document.dispatchEvent(event);
     };
 
+
     return (
         <Layout
             title="Documentation"

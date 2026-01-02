@@ -62,11 +62,18 @@ const config: Config = {
   organizationName: 'nxgen',
   projectName: 'nxgen-docs',
 
-  onBrokenLinks: 'ignore',
-  onBrokenMarkdownLinks: 'ignore',
+  onBrokenLinks: 'warn',
+  onBrokenMarkdownLinks: 'warn',
   onBrokenAnchors: 'ignore',
 
+  // Handle broken markdown images (pre-existing issues with missing images in docs)
   markdown: {
+    hooks: {
+      onBrokenMarkdownImages: (image, file, options) => {
+        console.warn(`[Warning] Broken image "${image}" in ${file.path}`);
+        return;
+      },
+    },
     mermaid: true,
   },
 
@@ -204,127 +211,18 @@ const config: Config = {
     },
 
     navbar: {
-      title: 'NXGEN GCXONE',
-      logo: {
-        alt: 'NXGEN GCXONE Logo',
-        src: 'img/logo.svg',
-        srcDark: 'img/logo-dark.svg',
-        href: '/',
-        width: 32,
-        height: 32,
-      },
+      // Navbar disabled - using custom Navbar component in Root.tsx
       hideOnScroll: false,
-      style: 'primary',
-      items: [
-        {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Documentation',
-        },
-        {
-          to: '/docs/breakthroughs',
-          position: 'left',
-          label: '🌟 Breakthroughs',
-        },
-        {
-          type: 'custom-RoleSwitcher',
-          position: 'left',
-        },
-        {
-          type: 'dropdown',
-          label: 'Quick Links',
-          position: 'left',
-          items: [
-            {
-              label: '🌟 Breakthroughs',
-              to: '/docs/breakthroughs',
-            },
-            {
-              label: 'Getting Started',
-              to: '/docs/getting-started',
-            },
-            {
-              label: 'Devices',
-              to: '/docs/devices',
-            },
-            {
-              label: 'Features',
-              to: '/docs/features',
-            },
-            {
-              label: 'Troubleshooting',
-              to: '/docs/troubleshooting',
-            },
-          ],
-        },
-        {
-          href: 'https://github.com/nxgen/nxgen-docs',
-          position: 'right',
-          className: 'header-github-link',
-          'aria-label': 'GitHub repository',
-        },
-      ],
+      logo: {
+        alt: 'NXGEN GCXONE',
+        src: 'img/XoLogo.png',
+      },
+      items: [],
     },
     footer: {
+      // Footer customized in Root.tsx
       style: 'dark',
-      links: [
-        {
-          title: 'Documentation',
-          items: [
-            {
-              label: 'Breakthroughs',
-              to: '/docs/breakthroughs',
-            },
-            {
-              label: 'Getting Started',
-              to: '/docs/getting-started',
-            },
-            {
-              label: 'Devices',
-              to: '/docs/devices',
-            },
-            {
-              label: 'Features',
-              to: '/docs/features',
-            },
-            {
-              label: 'Troubleshooting',
-              to: '/docs/troubleshooting',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Support',
-              to: '/docs/support',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/nxgen/nxgen-docs',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'NXGEN Website',
-              href: 'https://nxgen.cloud',
-            },
-            {
-              label: 'Release Notes',
-              to: '/docs/release-notes',
-            },
-            {
-              label: 'Privacy Policy',
-              href: 'https://nxgen.cloud/privacy',
-            },
-          ],
-        },
-      ],
+      links: [],
       copyright: `Copyright © ${new Date().getFullYear()} NXGEN. Built with Docusaurus.`,
     },
     prism: {

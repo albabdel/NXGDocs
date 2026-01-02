@@ -1,13 +1,14 @@
 ---
-title: HealthCheck Breakthrough
-description: Automated daily checks 12x faster, zero downtime, eliminate risks.
+title: "HealthCheck Breakthrough"
+description: "Automated daily checks 12x faster, zero downtime, eliminate risks."
 tags:
-  - role:all
-  - category:breakthrough
-  - difficulty:beginner
-  - platform:GCXONE
+  - all
+  - breakthrough
+  - beginner
+  - GCXONE
 last_updated: 2025-12-28
 ---
+
 
 # ❤️ HealthCheck Breakthrough
 

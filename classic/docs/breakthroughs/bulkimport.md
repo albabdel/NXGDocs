@@ -1,13 +1,14 @@
 ---
-title: Bulkimport Breakthrough
-description: Deploy thousands of devices in minutes with automated onboarding.
+title: "Bulkimport Breakthrough"
+description: "Deploy thousands of devices in minutes with automated onboarding."
 tags:
-  - role:admin
-  - category:breakthrough
-  - difficulty:intermediate
-  - platform:GCXONE
+  - admin
+  - breakthrough
+  - intermediate
+  - GCXONE
 last_updated: 2025-12-28
 ---
+
 
 # 🚀 Bulkimport Breakthrough
 

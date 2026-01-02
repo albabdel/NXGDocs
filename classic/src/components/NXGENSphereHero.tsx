@@ -295,14 +295,13 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-4">
 
           <Link to="/getting-started" 
-            className={`w-full sm:w-auto min-w-[200px] group relative inline-flex items-center justify-center gap-2.5 px-8 py-4 font-bold rounded-2xl overflow-hidden transition-all hover:-translate-y-0.5 no-underline ${isDark ? 'bg-[#E8B058] text-black shadow-lg hover:shadow-xl' : 'bg-[#C89446] text-white shadow-lg hover:shadow-xl'}`}
+            className={`w-full sm:w-auto min-w-[200px] group relative inline-flex items-center justify-center gap-2.5 px-8 py-4 font-bold rounded-2xl transition-all duration-300 no-underline hover:scale-[1.02] ${isDark ? 'bg-[#E8B058] text-black shadow-lg hover:shadow-xl' : 'bg-[#C89446] text-white shadow-lg hover:shadow-xl'}`}
             style={!isDark ? { boxShadow: '0 4px 14px rgba(200, 148, 70, 0.35)' } : {}}
           >
-            <span className="relative z-10 flex items-center gap-2">
+            <span className="relative z-10 flex items-center gap-2 transition-all duration-300 group-hover:gap-3">
               Get Started
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
             </span>
-            <div className={`absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ${isDark ? 'bg-white/20' : 'bg-[#E8B058]'}`} />
           </Link>
 
           <Link to="/integration-hub" className={`w-full sm:w-auto min-w-[200px] group inline-flex items-center justify-center gap-2.5 px-8 py-4 border font-medium rounded-2xl transition-all hover:-translate-y-0.5 no-underline ${isDark

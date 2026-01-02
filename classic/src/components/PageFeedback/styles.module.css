@@ -1,0 +1,429 @@
+/* PageFeedback Styles */
+
+.feedbackSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem 0;
+  margin-top: 2rem;
+  text-align: left;
+  /* No container - clean inline appearance */
+}
+
+.feedbackQuestion {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.feedbackButtons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.feedbackButtonYes,
+.feedbackButtonImprove {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  min-width: 120px;
+  border-radius: 8px;
+  border: 1px solid var(--border-default);
+  background: var(--card-bg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.feedbackButtonYes {
+  color: var(--text-secondary);
+}
+
+.feedbackButtonYes:hover {
+  background: rgba(34, 197, 94, 0.08);
+  border-color: rgba(34, 197, 94, 0.3);
+  color: #22C55E;
+}
+
+.feedbackButtonImprove {
+  color: var(--text-secondary);
+}
+
+.feedbackButtonImprove:hover {
+  background: var(--gold-bg);
+  border-color: var(--gold-border);
+  color: var(--gold-text);
+}
+
+.feedbackButtonYes:disabled,
+.feedbackButtonImprove:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.thankYou {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #22C55E;
+  font-weight: 600;
+}
+
+.checkIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.15);
+  border: 2px solid #22C55E;
+  font-size: 1rem;
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  width: 100%;
+  max-width: 520px;
+  background: #FFFFFF;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.modalHeader h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1A1A1A;
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: #F3F4F6;
+  color: #6B7280;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  line-height: 1;
+}
+
+.closeButton:hover {
+  background: #E5E7EB;
+  color: #1A1A1A;
+}
+
+.modalForm {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #6B7280;
+}
+
+.textarea,
+.input {
+  padding: 0.875rem;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: #FFFFFF;
+  color: #1A1A1A;
+  transition: all 0.2s;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.textarea:focus,
+.input:focus {
+  outline: none;
+  border-color: #3B82F6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.charCount {
+  text-align: right;
+  font-size: 0.75rem;
+  color: #9CA3AF;
+}
+
+.addFileButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #3B82F6;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: fit-content;
+}
+
+.addFileButton:hover {
+  background: #F9FAFB;
+  border-color: #3B82F6;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.contactSection {
+  padding-top: 1rem;
+  border-top: 1px solid #E5E7EB;
+}
+
+.contactLabel {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin: 0 0 1rem 0;
+}
+
+.contactFields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.errorBanner {
+  padding: 0.875rem;
+  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #DC2626;
+  font-size: 0.9rem;
+}
+
+.submitButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  background: #6B7280;
+  border: none;
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-left: auto;
+}
+
+.submitButton:hover {
+  background: #4B5563;
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Light Mode */
+:global([data-theme='light']) .feedbackQuestion {
+  color: #6B7280;
+}
+
+:global([data-theme='light']) .feedbackButtonYes,
+:global([data-theme='light']) .feedbackButtonImprove {
+  background: #FFFFFF;
+  border-color: #E5E7EB;
+}
+
+:global([data-theme='light']) .feedbackButtonImprove {
+  color: #4B5563;
+}
+
+:global([data-theme='light']) .feedbackButtonImprove:hover {
+  background: rgba(153, 107, 31, 0.08);
+  border-color: #996B1F;
+  color: #996B1F;
+}
+
+/* Dark Mode */
+:global([data-theme='dark']) .feedbackQuestion {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+:global([data-theme='dark']) .feedbackButtonYes,
+:global([data-theme='dark']) .feedbackButtonImprove {
+  background: #202020;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme='dark']) .feedbackButtonImprove {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+:global([data-theme='dark']) .feedbackButtonImprove:hover {
+  background: rgba(200, 148, 70, 0.15);
+  border-color: #C89446;
+  color: #C89446;
+}
+
+/* Dark Mode Modal - Keep it light for contrast */
+:global([data-theme='dark']) .modal {
+  background: #1A1A1A;
+}
+
+:global([data-theme='dark']) .modalHeader {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme='dark']) .modalHeader h3 {
+  color: #FFFFFF;
+}
+
+:global([data-theme='dark']) .closeButton {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+:global([data-theme='dark']) .closeButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+}
+
+:global([data-theme='dark']) .label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+:global([data-theme='dark']) .textarea,
+:global([data-theme='dark']) .input {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+:global([data-theme='dark']) .textarea:focus,
+:global([data-theme='dark']) .input:focus {
+  border-color: #C89446;
+  box-shadow: 0 0 0 3px rgba(200, 148, 70, 0.15);
+}
+
+:global([data-theme='dark']) .charCount {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+:global([data-theme='dark']) .addFileButton {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #60A5FA;
+}
+
+:global([data-theme='dark']) .addFileButton:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #60A5FA;
+}
+
+:global([data-theme='dark']) .contactSection {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme='dark']) .contactLabel {
+  color: #FFFFFF;
+}
+
+:global([data-theme='dark']) .submitButton {
+  background: #4B5563;
+}
+
+:global([data-theme='dark']) .submitButton:hover {
+  background: #6B7280;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .feedbackSection {
+    padding: 1.5rem;
+  }
+
+  .feedbackButtons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .feedbackButtonYes,
+  .feedbackButtonImprove {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .modal {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .contactFields {
+    grid-template-columns: 1fr;
+  }
+}
+

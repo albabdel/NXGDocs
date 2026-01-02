@@ -2,13 +2,14 @@
 title: "User Permissions Matrix"
 description: "Complete guide for User Permissions Matrix"
 tags:
-  - role:admin
-  - category:configuration
-  - difficulty:intermediate
-  - platform:GCXONE
+  - admin
+  - configuration
+  - intermediate
+  - GCXONE
 sidebar_position: 10
 last_updated: 2025-12-04
 ---
+
 
 # User Permissions Matrix
 

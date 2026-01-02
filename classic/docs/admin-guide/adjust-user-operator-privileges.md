@@ -2,13 +2,14 @@
 title: "How to Adjust User/Operator Privileges in Genesis"
 description: "Step-by-step guide for adjusting user and operator privileges in Genesis platform"
 tags:
-  - role:admin
-  - category:configuration
-  - difficulty:beginner
-  - platform:GCXONE
+  - admin
+  - configuration
+  - beginner
+  - GCXONE
 sidebar_position: 12
 last_updated: 2025-12-21
 ---
+
 
 # How to Adjust User/Operator Privileges in Genesis
 

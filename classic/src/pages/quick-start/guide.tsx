@@ -3,6 +3,7 @@ import Layout from '@theme/Layout';
 import { motion } from 'framer-motion';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import LandingPageBackground from '../../components/LandingPageBackground';
 import {
     Zap,
     LogIn,
@@ -195,7 +196,8 @@ export default function QuickStartGuide() {
             title="Quick Start Guide"
             description="Get up and running with GCXONE in 5-10 minutes - Complete step-by-step guide from first login to full monitoring capability"
         >
-            <main className="min-h-screen bg-black">
+            <LandingPageBackground />
+            <main className="min-h-screen">
                 {/* Breadcrumbs */}
                 <div className="bg-black border-b border-white/10">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">

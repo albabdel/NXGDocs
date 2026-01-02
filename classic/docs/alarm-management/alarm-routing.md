@@ -2,13 +2,14 @@
 title: "Alarm Routing Rules"
 description: "Complete guide to configuring intelligent alarm routing and escalation based on site, device, priority, and time"
 tags:
-  - role:admin
-  - category:configuration
-  - difficulty:intermediate
-  - platform:GCXONE
+  - admin
+  - configuration
+  - intermediate
+  - GCXONE
 sidebar_position: 6
 last_updated: 2025-01-27
 ---
+
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';

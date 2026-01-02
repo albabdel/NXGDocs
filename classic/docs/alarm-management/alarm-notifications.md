@@ -2,13 +2,14 @@
 title: "Alarm Notifications"
 description: "Complete guide for Alarm Notifications"
 tags:
-  - role:admin
-  - category:configuration
-  - difficulty:intermediate
-  - platform:GCXONE
+  - admin
+  - configuration
+  - intermediate
+  - GCXONE
 sidebar_position: 8
 last_updated: 2025-12-04
 ---
+
 
 # Alarm Notifications
 

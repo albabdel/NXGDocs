@@ -1,13 +1,14 @@
 ---
-title: Pulse View Breakthrough
-description: High-quality timelapse videos using existing surveillance feeds and alarms.
+title: "Pulse View Breakthrough"
+description: "High-quality timelapse videos using existing surveillance feeds and alarms."
 tags:
-  - role:all
-  - category:breakthrough
-  - difficulty:beginner
-  - platform:GCXONE
+  - all
+  - breakthrough
+  - beginner
+  - GCXONE
 last_updated: 2025-12-28
 ---
+
 
 # 📸 Pulse View Breakthrough
 

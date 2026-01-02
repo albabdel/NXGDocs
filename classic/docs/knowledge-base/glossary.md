@@ -2,13 +2,14 @@
 title: "Glossary of Terms"
 description: "Complete guide for Glossary of Terms"
 tags:
-  - role:all
-  - category:configuration
-  - difficulty:beginner
-  - platform:GCXONE
+  - all
+  - configuration
+  - beginner
+  - GCXONE
 sidebar_position: 2
 last_updated: 2025-12-04
 ---
+
 
 # Glossary of Terms
 

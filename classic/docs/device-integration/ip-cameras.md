@@ -2,14 +2,14 @@
 title: "IP Cameras Integration Guide"
 description: "Complete guide to integrating IP cameras with GCXONE for HD surveillance and alarm management"
 tags:
-  - role:all
-  - category:configuration
-  - difficulty:beginner
-  - platform:GCXONE
-  - device:ip-camera
+  - all
+  - configuration
+  - beginner
+  - GCXONE
 sidebar_position: 1
 last_updated: 2025-01-27
 ---
+
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';

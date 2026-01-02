@@ -1,0 +1,22 @@
+/**
+ * DocItem Layout Styles
+ */
+
+.docItemContainer header + *,
+.docItemContainer article > *:first-child {
+  margin-top: 0;
+}
+
+@media (min-width: 997px) {
+  .docItemCol {
+    max-width: 75% !important;
+  }
+}
+
+/* Position Share section at the top of the TOC sidebar */
+.custom-doc-item-wrapper > div:first-child {
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 1rem);
+  z-index: 10;
+}
+

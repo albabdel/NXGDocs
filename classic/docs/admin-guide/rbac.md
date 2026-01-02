@@ -2,13 +2,14 @@
 title: "Role-Based Access Control (RBAC)"
 description: "Complete guide for Role-Based Access Control (RBAC)"
 tags:
-  - role:admin
-  - category:configuration
-  - difficulty:intermediate
-  - platform:GCXONE
+  - admin
+  - configuration
+  - intermediate
+  - GCXONE
 sidebar_position: 9
 last_updated: 2025-12-04
 ---
+
 
 # Role-Based Access Control (RBAC)
 

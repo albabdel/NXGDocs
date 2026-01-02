@@ -2,13 +2,14 @@
 title: "Event Clip Recording Configuration"
 description: "Complete guide for Event Clip Recording Configuration"
 tags:
-  - role:admin
-  - category:configuration
-  - difficulty:intermediate
-  - platform:GCXONE
+  - admin
+  - configuration
+  - intermediate
+  - GCXONE
 sidebar_position: 13
 last_updated: 2025-12-04
 ---
+
 
 # Event Clip Recording Configuration
 

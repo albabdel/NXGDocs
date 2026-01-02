@@ -1,0 +1,24 @@
+/* DocItem Footer Wrapper Styles */
+
+.shareWrapper {
+  margin-top: 3rem;
+  padding-top: 1rem;
+}
+
+.feedbackWrapper {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Ensure proper spacing on mobile */
+@media (max-width: 768px) {
+  .shareWrapper {
+    margin-top: 2rem;
+  }
+
+  .feedbackWrapper {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
+

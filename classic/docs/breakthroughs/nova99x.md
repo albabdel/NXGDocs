@@ -1,13 +1,14 @@
 ---
-title: NOVA99x Breakthrough
-description: Slash false alarms by up to 99% and focus every operator on real threats.
+title: "NOVA99x Breakthrough"
+description: "Slash false alarms by up to 99% and focus every operator on real threats."
 tags:
-  - role:all
-  - category:breakthrough
-  - difficulty:beginner
-  - platform:GCXONE
+  - all
+  - breakthrough
+  - beginner
+  - GCXONE
 last_updated: 2025-12-28
 ---
+
 
 # 🚀 NOVA99x Breakthrough
 

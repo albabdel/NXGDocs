@@ -1,13 +1,14 @@
 ---
-title: Custom View Breakthrough
-description: Real-time insights and role-based dashboards for crystal-clear perspective.
+title: "Custom View Breakthrough"
+description: "Real-time insights and role-based dashboards for crystal-clear perspective."
 tags:
-  - role:all
-  - category:breakthrough
-  - difficulty:beginner
-  - platform:GCXONE
+  - all
+  - breakthrough
+  - beginner
+  - GCXONE
 last_updated: 2025-12-28
 ---
+
 
 # 📊 Custom View Breakthrough
 

@@ -1,13 +1,14 @@
 ---
-title: Genie Breakthrough
-description: Predict. Resolve. Guide. Your intelligent AI assistant for security operations.
+title: "Genie Breakthrough"
+description: "Predict. Resolve. Guide. Your intelligent AI assistant for security operations."
 tags:
-  - role:all
-  - category:breakthrough
-  - difficulty:beginner
-  - platform:GCXONE
+  - all
+  - breakthrough
+  - beginner
+  - GCXONE
 last_updated: 2025-12-28
 ---
+
 
 # 🧞 Genie Breakthrough
 

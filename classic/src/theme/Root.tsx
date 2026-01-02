@@ -3,6 +3,7 @@ import ScrollProgress from '../components/ScrollProgress';
 import VoCWidget from '../components/VoCWidget/VoCWidget';
 import ThemeToggle from '../components/ThemeToggle';
 import BackgroundPattern from '../components/BackgroundPattern';
+import Footer from '../components/Footer';
 
 // Default implementation, that you can customize
 export default function Root({ children }: { children: React.ReactNode }) {
@@ -11,6 +12,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
       <BackgroundPattern />
       <ScrollProgress />
       {children}
+      <Footer />
       <ThemeToggle />
       <VoCWidget />
     </>

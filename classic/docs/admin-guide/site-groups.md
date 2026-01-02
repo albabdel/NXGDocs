@@ -2,13 +2,14 @@
 title: "Site Groups Management"
 description: "Complete guide for Site Groups Management"
 tags:
-  - role:admin
-  - category:configuration
-  - difficulty:intermediate
-  - platform:GCXONE
+  - admin
+  - configuration
+  - intermediate
+  - GCXONE
 sidebar_position: 7
 last_updated: 2025-12-04
 ---
+
 
 # Site Groups & Hierarchy Management
 

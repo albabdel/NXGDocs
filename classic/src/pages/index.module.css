@@ -8,7 +8,7 @@
 /* === GLOBAL & LAYOUT === */
 .main {
     background-color: var(--ifm-background-color);
-    min-height: calc(100vh - var(--ifm-navbar-height));
+    min-height: 100vh;
     color: var(--ifm-font-color-base);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     position: relative;

@@ -1,13 +1,14 @@
 ---
-title: Zen Mode Breakthrough
-description: Shift to true calm; silence noise, maximize focus.
+title: "Zen Mode Breakthrough"
+description: "Shift to true calm; silence noise, maximize focus."
 tags:
-  - role:all
-  - category:breakthrough
-  - difficulty:beginner
-  - platform:GCXONE
+  - all
+  - breakthrough
+  - beginner
+  - GCXONE
 last_updated: 2025-12-28
 ---
+
 
 # 🧘 Zen Mode Breakthrough
 

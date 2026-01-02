@@ -2,13 +2,14 @@
 title: "User Management Guide"
 description: "Complete guide for user management in GCXONE including roles, access levels, customer groups, and user invitations"
 tags:
-  - role:admin
-  - category:configuration
-  - difficulty:intermediate
-  - platform:GCXONE
+  - admin
+  - configuration
+  - intermediate
+  - GCXONE
 sidebar_position: 10
 last_updated: 2025-01-21
 ---
+
 
 # User Management Guide
 

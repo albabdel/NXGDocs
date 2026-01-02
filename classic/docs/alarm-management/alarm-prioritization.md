@@ -2,13 +2,14 @@
 title: "Alarm Prioritization"
 description: "Complete guide for Alarm Prioritization"
 tags:
-  - role:operator
-  - category:configuration
-  - difficulty:intermediate
-  - platform:GCXONE
+  - operator
+  - configuration
+  - intermediate
+  - GCXONE
 sidebar_position: 3
 last_updated: 2025-12-04
 ---
+
 
 # Alarm Prioritization
 

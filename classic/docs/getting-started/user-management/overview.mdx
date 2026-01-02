@@ -1,6 +1,6 @@
 ---
-title: "User Management"
-description: "High-level overview of roles, permissions, and access control in the GCXONE platform."
+title: "User Management Overview"
+description: "Complete guide to user management in GCXONE including roles, access levels, customer groups, and user administration."
 tags:
   - role:admin
   - category:explanation
@@ -10,52 +10,317 @@ sidebar_position: 1
 last_updated: 2025-12-28
 ---
 
-# 👥 User Management Overview
-
-User management is a fundamental aspect of GCXONE, allowing administrators to precisely control who can access the system and what they can do within it.
-
 import Callout from '@site/src/components/Callout';
 import RelatedArticles from '@site/src/components/RelatedArticles';
 
-## Core Concepts (RBAC)
+# User Management Guide
 
-GCXONE uses **Role-Based Access Control (RBAC)** to ensure security and scalability. Instead of assigning permissions to individuals, you assign them to **Roles**, and then assign individuals to those roles.
+This guide covers the complete user management system in NXGEN GCXONE, including creating roles, configuring privileges, setting up customer groups, and inviting users to the platform.
 
-### 🎭 Roles and Permissions
-Roles define the actions a user can take (e.g., "View Live Video," "Export Alarms," "Delete Sites"). Each role is a collection of these granular privileges.
+## Topics Covered
 
-### 📶 Access Levels
-Access levels determine the **scope** of a user's vision. A user with the same role (e.g., "Operator") can have different scopes:
-- **Service Provider:** Can see all customers and sites within the entire tenant.
-- **Customer:** Can only see sites belonging to their specific customer account.
-- **Site:** Can only see specific physical locations.
-
-### 🏷️ Customer Groups
-Customer Groups allow you to group multiple customers together. This is useful for managers who need to supervise a specific regional subset of clients without having full "Service Provider" access.
+1. Understanding Roles and Access Levels
+2. Creating and Configuring Roles
+3. Customer Groups
+4. Inviting Users
+5. Managing Existing Users
 
 ---
 
-## The User Journey
+## Understanding Roles and Access Levels
 
-Getting a new user onboarded follows a simple four-step process:
+### What Are Roles?
 
-1. **Define the Role:** Choose a default role or create a custom one with specific permissions.
-2. **Assign a Customer Group:** Decide which clients this user is allowed to monitor.
-3. **Send Invitation:** Invite the user via their email address using the automated workflow.
-4. **Talos Sync:** For operators, ensure their account is synchronized with the [Talos Alarm Engine](/docs/getting-started/what-is-evalink-talos).
+Roles define what users can see and do within the platform. Each role contains a set of privileges (permissions) that determine access to specific features and sections of the application.
+
+### Common Role Types
+
+GCXONE provides default roles with predefined permissions, and you can create custom roles to fit specific operational needs:
+
+- **Company Admin**: Full access to all features and settings, including configuring settings for all types of users
+- **Manager**: Supervises operators with permissions to view most objects but limited access to settings
+- **Operator**: Focuses on day-to-day operational access for monitoring and alarm processing
+- **Operator Minimal**: Limited view permissions, strictly for processing alarms
+- **End User**: Custom role with limited access for customers to view and control their own sites
+
+### Access Levels Explained
+
+Every role operates at one of three access levels that determine the scope of what users can see and manage within the GCXONE hierarchy (Tenant to Customer to Site to Device to Sensor):
+
+| Access Level | Description | Use Case |
+| :--- | :--- | :--- |
+| **Service Provider** | Access across the entire tenant, including all customers and sites | Platform administrators who manage the entire organization |
+| **Customer** | Access limited to specific customer account(s) and their associated sites | Account managers or operators who work with specific customers |
+| **Site** | Access limited to specific physical locations only | Installers or technicians who work at particular sites |
+
+**Key Point**: A Customer can have multiple sites under it. The access level determines the boundary of what a user can see and manage within the hierarchy.
 
 ---
 
-## 🚀 Quick Start Checklist
+## Creating and Configuring Roles
 
-<Callout type="tip" title="Best Practice">
-Always start with **Default Roles** (Company Admin, Manager, Operator). Only create custom roles if your business requires a highly niche set of permissions.
+### Step 1: Navigate to Roles
+
+1. Open **Settings**
+2. Click on the **Roles** tab
+3. Click **Configure new role** to create a new role
+
+![Roles Settings](./images/roles-settings.png)
+
+### Step 2: Define the Role
+
+1. Enter a **Role Name** (e.g., "End User", "Installer", "Operator")
+2. Add a brief **Description** explaining the role's purpose
+
+![Role Definition](./images/role-definition.png)
+
+### Step 3: Configure Privileges
+
+Select the specific privileges you want to assign to this role. Permissions in GCXONE are categorized by:
+
+- **App**: Which applications the user can access
+- **Category**: Specific sections within applications
+- **Action**: What operations the user can perform (view, create, edit, delete)
+
+**Example configurations:**
+
+- **Company Admin Role**: Enable all privileges across all categories
+- **Operator Role**: Enable monitoring, alarm processing, and device management; disable system configuration
+- **End User Role**: Enable only Configuration and Dashboard for site control
+- **Installer Role**: Enable device setup, mobile towers, and sensors; disable reporting and user management
+
+### Step 4: Set Access Level
+
+Choose the appropriate access level for this role:
+
+- **Service Provider**: For tenant-wide access
+- **Customer**: For customer-specific access (can be further refined with Customer Groups)
+- **Site**: For site-specific access
+
+### Step 5: Configure Session Timeout
+
+Set the session timeout duration (in minutes, default is 30 minutes):
+
+- **Range**: 30-1440 minutes (0.5-24 hours)
+- If GCXONE is unattended for the set time, the user is automatically logged out
+- **Important**: Session timeouts are configured at the role level, not per individual user. All users assigned to this role will have the same session timeout setting.
+
+### Step 6: Save the Role
+
+Click **Save** to finalize the role setup. It will immediately be available for user assignment.
+
+### Editing Existing Roles
+
+Roles can be modified at any time:
+
+1. Open **Settings**
+2. Click on the **Roles** tab
+3. Select the role you want to modify
+4. Click **Edit**
+5. Update privileges, access level, or session timeout as needed
+6. Click **Save**
+
+![User List](./images/user-list.png)
+
+**Important**: Changes to roles take effect immediately and will apply to all users assigned to that role.
+
+### Deleting Roles
+
+Roles that are no longer needed can be deleted. Ensure no active users are assigned to a role before deleting it, or reassign those users to a different role first.
+
+---
+
+## Customer Groups
+
+### What Are Customer Groups?
+
+Customer Groups provide a flexible way to control which customers a user can access without creating separate roles for each customer. This is particularly useful when you have multiple customers and want to use standardized roles.
+
+### Purpose and Benefits
+
+Customer Groups provide a mechanism to restrict the visibility and access of specific users to a subset of data within a tenant. This is particularly useful for:
+
+**Segregating Customer Data:**
+- If a monitoring station (Service Provider) handles multiple installers, you can group customers by installer
+- Users assigned to "Customer Group A" will not see sites or data from "Customer Group B"
+
+**Production vs. Test Sites:**
+- Separate production sites from test/trial sites
+- Prevent operators from viewing or acting on test alarms by restricting them to the "Production" Customer Group
+
+**Without Customer Groups:**
+- Users at Service Provider level would see all customers by default
+- You would need to create separate roles for each customer or segment
+- Managing permissions becomes complex as you scale
+
+**With Customer Groups:**
+- Create one unified role (e.g., "End User" or "Operator")
+- Assign different Customer Groups to different users
+- Each user sees only their designated customer(s)
+- Role permissions remain consistent across all customers
+
+### Creating a Customer Group
+
+1. Open **Configuration**
+2. Click on the **Customer Groups** tab in the horizontal menu
+3. Click **Add New**
+4. Enter a descriptive **Name** (typically the customer's name or a descriptive label like "All Production Sites")
+5. Add a **Description** (e.g., "End user Customer group for the customer")
+6. Toggle the group to **Active**
+7. **Select customers**: Choose which customer(s) should be included in this group
+8. Click **Create**
+
+![Customer Group Creation](./images/customer-group-creation.png)
+
+<Callout type="important" title="Important Access Rule">
+GCXONE does not support an "exclusion" policy (e.g., "See everything except Site X"). Access must be positively defined via Customer Groups. If a user is set up at the Service Provider level, they have access to all customers by default unless explicitly restricted by assigning them to a specific Customer Group.
 </Callout>
 
-- [ ] Review the default roles.
-- [ ] Create a "Customer Group" for your first project.
-- [ ] Send an invitation to your first operator.
-- [ ] Verify they can log in and see the correct sites.
+### Customer Groups vs. Access Levels
+
+- **Access Level** (set in Role): Defines the type of access (Service Provider/Customer/Site)
+- **Customer Group** (assigned to User): Restricts which specific customers the user can see
+
+Think of it this way: The role's access level sets the boundary, and the Customer Group applies the filter within that boundary.
+
+### Editing Customer Groups
+
+Customer Groups can be modified after creation:
+
+1. Navigate to **Customer Groups**
+2. Click the **Actions** menu (three dots) next to the group
+3. Select **Edit**
+4. Add or remove customers as needed
+5. Save changes
+
+---
+
+## Inviting Users
+
+### Step 1: Navigate to Users
+
+1. Open the **Settings**
+2. Click on the **Users**
+3. Click **Invite new user** to start adding a new user
+
+### Step 2: Enter User Information
+
+Fill in the required fields:
+
+**Personal Information:**
+- **First Name**
+- **Last Name**
+- **Email Address** (required - serves as login ID and must be unique)
+- **Phone Number** (optional - for SMS alerts)
+
+**Address Information** (optional):
+- Street Name
+- Building Number
+- Zip Code
+- City
+- Country
+
+### Step 3: Configure Account Settings
+
+**Role Assignment:**
+- Select the role that defines what this user can access (e.g., "End User", "Admin", "Operator", etc.). Each role determines which features and actions the user can access.
+
+**Customer Group** (optional):
+- If you want to restrict this user to specific customer(s), select a Customer Group.
+- If no Customer Group is selected, the user will have the default access defined in their role.
+
+**Session Timeout:**
+- Set the session timeout period (default: 30 minutes).
+- Range: 30-1440 minutes (0.5-24 hours).
+
+### Step 4: Send Invitation
+
+Click **Submit**. The user will receive two automated emails:
+
+1. **Email Confirmation**: Verifies the email is active.
+2. **Password Setup Link**: Allows the user to create their secure password.
+
+### What Happens Next?
+
+Once you click **Submit**, the user will receive two emails. The account setup process works as follows:
+
+1. The user receives an email titled "Changing your password for the nxgen NXGEN application".
+2. They click the password reset link in the email.
+3. They create a new password for their account.
+4. Upon first login, they are directed to the appropriate section based on their role:
+   - If Dashboard is enabled in their role, they land on Dashboard.
+   - If Dashboard is not enabled, they land on the first accessible section (e.g., Configuration).
+
+### Multi-Organization Access
+
+Users invited to multiple tenants use the same email address. Upon login, they are prompted to select which organization to access. They can switch between tenants anytime via **Settings** and **Switch Tenant**.
+
+---
+
+## Managing Existing Users
+
+### Viewing Users
+
+Open **Settings** and click on the **Users** tab to see all users in your organization, including:
+- Name and email
+- Assigned role
+- Status (Active/Inactive)
+
+### Editing User Access
+
+To modify a user's role or Customer Group:
+
+1. Open **Settings**.
+2. Click on the **Users** tab.
+3. Click on the 3 dots of the user you want to edit.
+4. Update their role or Customer Group assignment.
+5. Click **Save**.
+
+Changes take effect immediately.
+
+### Removing Users
+
+To remove a user's access:
+
+1. Open **Settings**.
+2. Click on the **Users** tab.
+3. Click on the 3 dots of the user you want to remove.
+4. Click **Delete User**.
+5. Confirm the deletion.
+
+<Callout type="warning" title="Warning">
+This permanently removes the account and cannot be restored. This also deletes associated contacts and logs for that user's specific actions if they were the primary contact. Use only for accounts created by mistake or during development.
+</Callout>
+
+**Note**: Consider deactivating users instead of deleting them, as this preserves the user's history in audit logs and allows for easy reactivation if needed.
+
+---
+
+## Best Practices
+
+- **Use Default Roles First**: Start with default roles (Company Admin, Manager, Operator). Only create custom roles if your business requires a highly niche set of permissions.
+- **Quarterly Audits**: Review your user list every 3 months. Deactivate anyone who hasn't logged in recently.
+- **Offboarding**: Deactivate accounts the moment a team member leaves the organization.
+- **Avoid Shared Accounts**: Never share a single login between multiple people. This destroys your audit trail.
+- **Document Custom Roles**: Keep a list of why a custom role was created to avoid "Role Bloat."
+- **Least Privilege**: Start with zero permissions and add only what the user needs to do their job.
+- **Test Before Deployment**: Create a "dummy" user with the new role to verify the sidebar only shows the intended apps.
+
+---
+
+## Troubleshooting
+
+### Invitation Links Expire
+
+For security, the password setup link expires after **24 hours**. If a user misses this window, you must **Resend Invitation** from the Users table.
+
+### Email Not Received
+
+Ask the user to check their Spam/Junk folder for mail from `@nxgen.cloud`.
+
+### Login Issues
+
+Ensure the user clicked the **Verification Link** in the first email before attempting to use the password setup link.
 
 ---
 
@@ -65,12 +330,12 @@ Always start with **Default Roles** (Company Admin, Manager, Operator). Only cre
   {
     title: "Roles and Access Levels",
     url: "/docs/getting-started/user-management/roles-and-access-levels",
-    description: "Deep dive into permission scopes."
+    description: "Detailed breakdown of permission scopes."
   },
   {
-    title: "Inviting Users",
-    url: "/docs/getting-started/user-management/inviting-users",
-    description: "How to send and manage email invitations."
+    title: "Customer Groups",
+    url: "/docs/getting-started/user-management/customer-groups",
+    description: "How to group customers and restrict access."
   },
   {
     title: "Talos User Management",
@@ -81,4 +346,4 @@ Always start with **Default Roles** (Company Admin, Manager, Operator). Only cre
 
 ---
 
-**Next:** [Understanding Roles & Access Levels](/docs/getting-started/user-management/roles-and-access-levels)
+**Next:** [Roles and Access Levels](/docs/getting-started/user-management/roles-and-access-levels)

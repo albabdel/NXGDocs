@@ -2,13 +2,14 @@
 title: "Alarm Escalation Rules"
 description: "Complete guide for Alarm Escalation Rules"
 tags:
-  - role:admin
-  - category:configuration
-  - difficulty:intermediate
-  - platform:GCXONE
+  - admin
+  - configuration
+  - intermediate
+  - GCXONE
 sidebar_position: 5
 last_updated: 2025-12-04
 ---
+
 
 # Alarm Escalation Rules
 

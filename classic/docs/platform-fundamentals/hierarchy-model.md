@@ -2,13 +2,14 @@
 title: "Tenant-Customer-Site-Device Model"
 description: "Understanding the GCXONE hierarchical structure for organizing security assets and managing access control"
 tags:
-  - role:admin
-  - category:configuration
-  - difficulty:intermediate
-  - platform:GCXONE
+  - admin
+  - configuration
+  - intermediate
+  - GCXONE
 sidebar_position: 4
 last_updated: 2025-12-04
 ---
+
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';

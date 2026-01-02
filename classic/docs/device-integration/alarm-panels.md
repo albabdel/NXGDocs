@@ -2,14 +2,14 @@
 title: "Alarm Panels Integration Guide"
 description: "Complete guide to integrating alarm panels with GCXONE for AI-verified security events"
 tags:
-  - role:all
-  - category:configuration
-  - difficulty:intermediate
-  - platform:GCXONE
-  - device:alarm-panel
+  - all
+  - configuration
+  - intermediate
+  - GCXONE
 sidebar_position: 2
 last_updated: 2025-01-27
 ---
+
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';

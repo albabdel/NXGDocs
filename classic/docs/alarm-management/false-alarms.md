@@ -2,13 +2,14 @@
 title: "False Alarm Management"
 description: "Complete guide for False Alarm Management"
 tags:
-  - role:operator
-  - category:configuration
-  - difficulty:intermediate
-  - platform:GCXONE
+  - operator
+  - configuration
+  - intermediate
+  - GCXONE
 sidebar_position: 11
 last_updated: 2025-12-04
 ---
+
 
 # False Alarm Management
 

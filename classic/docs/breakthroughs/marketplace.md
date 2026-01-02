@@ -1,13 +1,14 @@
 ---
-title: MarketPlace Breakthrough
-description: Launch new client services instantly, expand revenue, zero hassle.
+title: "MarketPlace Breakthrough"
+description: "Launch new client services instantly, expand revenue, zero hassle."
 tags:
-  - role:all
-  - category:breakthrough
-  - difficulty:beginner
-  - platform:GCXONE
+  - all
+  - breakthrough
+  - beginner
+  - GCXONE
 last_updated: 2025-12-28
 ---
+
 
 # 🛒 MarketPlace Breakthrough
 

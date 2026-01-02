@@ -2,14 +2,14 @@
 title: "IoT Sensors Integration Guide"
 description: "Complete guide to integrating IoT sensors with GCXONE for environmental monitoring and event detection"
 tags:
-  - role:all
-  - category:configuration
-  - difficulty:intermediate
-  - platform:GCXONE
-  - device:iot-sensor
+  - all
+  - configuration
+  - intermediate
+  - GCXONE
 sidebar_position: 3
 last_updated: 2025-01-27
 ---
+
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';

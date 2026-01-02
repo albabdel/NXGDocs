@@ -1,13 +1,14 @@
 ---
-title: Tower Guard Breakthrough
-description: Deploy towers 3x faster and achieve full protection in record time.
+title: "Tower Guard Breakthrough"
+description: "Deploy towers 3x faster and achieve full protection in record time."
 tags:
-  - role:all
-  - category:breakthrough
-  - difficulty:beginner
-  - platform:GCXONE
+  - all
+  - breakthrough
+  - beginner
+  - GCXONE
 last_updated: 2025-12-28
 ---
+
 
 # 🗼 Tower Guard Breakthrough
 

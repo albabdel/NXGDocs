@@ -28,7 +28,7 @@
   --ifm-color-primary-lighter: #E0B688;
   --nxgen-gold-lighter: #E0B688;
   --ifm-color-primary-lightest: #F0CDA5;
-  
+
   /* === LIGHT MODE ACCESSIBLE GOLD (Darker for WCAG AA on white) === */
   --nxgen-gold-accessible: #996B1F;
   --nxgen-gold-accessible-hover: #7A5518;
@@ -54,13 +54,13 @@
   --nxgen-glow-md: 0 0 20px rgba(200, 148, 70, 0.3);
   --nxgen-glow-lg: 0 0 30px rgba(200, 148, 70, 0.4);
   --nxgen-glow-xl: 0 0 40px rgba(200, 148, 70, 0.5);
-  
+
   /* ==========================================================================
      SEMANTIC DESIGN TOKENS - LIGHT MODE FIRST (with Dark Mode overrides)
      These tokens provide theme-aware values for components.
      CRITICAL: Dark Mode values are set in [data-theme='dark'] section below.
      ========================================================================== */
-  
+
   /* --- Card & Surface Tokens --- */
   --card-bg: #FFFFFF;
   --card-bg-hover: #F8F9FA;
@@ -68,42 +68,42 @@
   --card-border-hover: 1px solid #D1D5DB;
   --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
-  
+
   /* --- Text Tokens --- */
   --text-primary: #1A1A1A;
   --text-secondary: #4B5563;
   --text-muted: #6B7280;
   --text-inverse: #FFFFFF;
-  
+
   /* --- Heading Tokens --- */
   --heading-color: #1A1A1A;
   --heading-color-secondary: #374151;
-  
+
   /* --- Border Tokens --- */
   --border-subtle: rgba(0, 0, 0, 0.1);
   --border-default: #E5E7EB;
   --border-strong: #D1D5DB;
-  
+
   /* --- Interactive Gold (WCAG AA Compliant on white) --- */
   --gold-text: #996B1F;
   --gold-text-hover: #7A5518;
   --gold-bg: rgba(200, 148, 70, 0.1);
   --gold-bg-hover: rgba(200, 148, 70, 0.15);
   --gold-border: rgba(153, 107, 31, 0.3);
-  
+
   /* --- Component-Specific Tokens --- */
   --table-bg: #FFFFFF;
   --table-header-bg: #F9FAFB;
   --table-border: #E5E7EB;
   --table-row-hover: #F3F4F6;
-  
+
   --code-bg: #F5F5F7;
   --code-border: #E5E7EB;
-  
+
   --breadcrumb-bg: rgba(255, 255, 255, 0.9);
   --breadcrumb-text: #4B5563;
   --breadcrumb-link: #1A1A1A;
-  
+
   --toc-bg: rgba(248, 250, 252, 0.95);
   --toc-border: rgba(203, 213, 225, 0.6);
   --toc-text: #475569;
@@ -152,7 +152,7 @@
   /* Medium gray */
   --ifm-color-emphasis-500: #6b7280;
   /* Darker gray for muted text */
-  
+
   /* === SEMANTIC COLORS === */
   --color-success: #22C55E;
   /* Green - Success states, positive confirmations */
@@ -162,7 +162,7 @@
   /* Red - Errors, destructive actions, critical alerts */
   --color-info: #3B82F6;
   /* Blue - Informational messages, tips, helpful context */
-  
+
   /* === SPACING - Apple's 8pt Grid System === */
   --space-1: 0.25rem;
   /* 4px - Tight spacing, icons */
@@ -181,7 +181,7 @@
   --space-16: 4rem;
   /* 64px - Major section spacing */
   --ifm-spacing-horizontal: 1.5rem;
-  --ifm-navbar-height: 72px;
+  --ifm-navbar-height: 0px;
   /* Apple's standard nav height */
   --ifm-sidebar-width: 300px;
   /* Increased from 280px to prevent text cramping */
@@ -234,13 +234,13 @@
 
   --ifm-code-background: var(--nxgen-dark-200);
   --docusaurus-highlighted-code-line-bg: rgba(200, 148, 70, 0.15);
-  
+
   /* ==========================================================================
      SEMANTIC DESIGN TOKENS - DARK MODE OVERRIDES
      These override the Light Mode defaults set in :root
      IMMUTABLE: These values match the current "Golden Master" dark theme.
      ========================================================================== */
-  
+
   /* --- Card & Surface Tokens (Dark) --- */
   --card-bg: #202020;
   --card-bg-hover: #2a2a2a;
@@ -248,42 +248,42 @@
   --card-border-hover: 1px solid rgba(255, 255, 255, 0.2);
   --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   --card-shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.4);
-  
+
   /* --- Text Tokens (Dark) --- */
   --text-primary: #FFFFFF;
   --text-secondary: rgba(255, 255, 255, 0.7);
   --text-muted: rgba(255, 255, 255, 0.5);
   --text-inverse: #000000;
-  
+
   /* --- Heading Tokens (Dark) --- */
   --heading-color: #FFFFFF;
   --heading-color-secondary: rgba(255, 255, 255, 0.9);
-  
+
   /* --- Border Tokens (Dark) --- */
   --border-subtle: rgba(255, 255, 255, 0.05);
   --border-default: rgba(255, 255, 255, 0.1);
   --border-strong: rgba(255, 255, 255, 0.2);
-  
+
   /* --- Interactive Gold (Original Gold for Dark Mode) --- */
   --gold-text: #C89446;
   --gold-text-hover: #D4A574;
   --gold-bg: rgba(200, 148, 70, 0.15);
   --gold-bg-hover: rgba(200, 148, 70, 0.25);
   --gold-border: rgba(200, 148, 70, 0.3);
-  
+
   /* --- Component-Specific Tokens (Dark) --- */
   --table-bg: #202020;
   --table-header-bg: rgba(255, 255, 255, 0.05);
   --table-border: rgba(255, 255, 255, 0.1);
   --table-row-hover: rgba(255, 255, 255, 0.05);
-  
+
   --code-bg: #202020;
   --code-border: rgba(255, 255, 255, 0.1);
-  
+
   --breadcrumb-bg: #202020;
   --breadcrumb-text: rgba(255, 255, 255, 0.7);
   --breadcrumb-link: #FFFFFF;
-  
+
   --toc-bg: #202020;
   --toc-border: rgba(255, 255, 255, 0.1);
   --toc-text: rgba(255, 255, 255, 0.7);
@@ -306,7 +306,8 @@ body {
   font-size: var(--ifm-font-size-base);
   line-height: var(--ifm-line-height-base);
   color: var(--ifm-color-content);
-  background: transparent !important; /* Let BackgroundPattern handle this */
+  background: transparent !important;
+  /* Let BackgroundPattern handle this */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -322,17 +323,50 @@ body {
   background: transparent !important;
 }
 
-/* === NAVBAR HIDDEN === */
-/* NOTE: Navbar is intentionally hidden for minimal design.
-   If you want to show it, remove this rule and ensure navbar styling is consistent with theme. */
-.navbar {
+/* === NAVBAR COMPLETELY REMOVED === */
+/* Navbar has been permanently disabled - all navbar elements are hidden */
+.navbar,
+.navbar__brand,
+.navbar__logo,
+.navbar__title,
+.navbar__link,
+.navbar__toggle,
+.navbar-sidebar,
+.navbar-sidebar__brand,
+.navbar-sidebar__items {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+
+/* === BACK TO TOP BUTTON COMPLETELY REMOVED === */
+/* BackToTop button has been permanently disabled - it was conflicting with VoCWidget position */
+.back-to-top-button,
+button[aria-label="Back to top"] {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* === FOOTER === */
+/* Custom Footer component is now visible and integrated globally via Root.tsx */
+/* Hide default Docusaurus footer - we're using our custom Footer component */
+.footer.footer--dark {
   display: none !important;
 }
 
-/* === FOOTER HIDDEN === */
-/* NOTE: Footer is intentionally hidden for minimal design.
-   If you want to show it, remove this rule and ensure footer styling is consistent with theme. */
-.footer {
+/* Also hide any other footer variants */
+footer.footer {
   display: none !important;
 }
 
@@ -478,29 +512,30 @@ html:not([data-theme='dark']) .theme-doc-sidebar-container {
   display: none;
 }
 
-/* 6. Active State (Gold/Brand Theme) */
+/* 6. Active State (Gold/Brand Theme) with Glow */
 /* Make it obvious which page is active */
 .menu__link--active {
   background: color-mix(in srgb, var(--ifm-color-primary) 15%, transparent) !important;
-  /* Gold Tint */
   color: var(--ifm-color-primary-dark) !important;
   font-weight: 600 !important;
   border-right: 3px solid var(--ifm-color-primary);
-  /* Right indicator */
   border-radius: 8px 0 0 8px;
-  /* Rounded left corners only */
+  box-shadow: 0 0 15px rgba(200, 148, 70, 0.2), inset 0 0 20px rgba(200, 148, 70, 0.05);
+  transition: all 0.3s ease;
 }
 
-/* Dark mode adjustment for active state */
+/* Dark mode adjustment for active state with enhanced glow */
 [data-theme='dark'] .menu__link--active {
   background: color-mix(in srgb, var(--ifm-color-primary) 20%, transparent) !important;
   color: var(--ifm-color-primary-light) !important;
+  box-shadow: 0 0 20px rgba(200, 148, 70, 0.25), inset 0 0 25px rgba(200, 148, 70, 0.08);
 }
 
 /* Light mode adjustment for active state */
 [data-theme='light'] .menu__link--active {
   background: color-mix(in srgb, var(--ifm-color-primary) 12%, transparent) !important;
   color: var(--ifm-color-primary-dark) !important;
+  box-shadow: 0 0 12px rgba(200, 148, 70, 0.15);
 }
 
 /* 4. Clearer Hierarchy for Children */
@@ -636,7 +671,7 @@ html:not([data-theme='dark']) .theme-doc-sidebar-container {
 }
 
 /* Fix article content alignment */
-.theme-doc-markdown > * {
+.theme-doc-markdown>* {
   text-align: left;
 }
 
@@ -2226,6 +2261,7 @@ a.tag::before {
   box-shadow: var(--card-shadow);
 }
 
+/* On This Page heading - now includes Share section above it */
 .table-of-contents::before {
   content: 'On This Page';
   display: block;
@@ -2237,6 +2273,7 @@ a.tag::before {
   margin-bottom: 1rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--border-default);
+  margin-top: 0; /* Remove space for Share section - it has its own spacing */
 }
 
 .table-of-contents ul {
@@ -3110,8 +3147,8 @@ select.voc-input:focus {
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 20px !important;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08),
-              0 50px 100px -20px rgba(0, 0, 0, 0.9),
-              0 0 40px rgba(200, 148, 70, 0.1) !important;
+    0 50px 100px -20px rgba(0, 0, 0, 0.9),
+    0 0 40px rgba(200, 148, 70, 0.1) !important;
   max-width: 680px !important;
   overflow: hidden !important;
 }
@@ -3148,7 +3185,7 @@ select.voc-input:focus {
   border-color: var(--nxgen-gold) !important;
   background: rgba(200, 148, 70, 0.08) !important;
   box-shadow: 0 0 0 4px rgba(200, 148, 70, 0.15),
-              inset 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    inset 0 2px 8px rgba(0, 0, 0, 0.2) !important;
 }
 
 /* Search Input */
@@ -3445,5 +3482,192 @@ select.voc-input:focus {
 
   .DocSearch-Button-Keys {
     display: none !important;
+  }
+}
+
+/* ==========================================================================
+   DESIGN ENHANCEMENTS - Added December 31, 2025
+   ========================================================================== */
+
+/* === PAGE TRANSITIONS === */
+/* Smooth fade-in animation when navigating between pages */
+.main-wrapper {
+  animation: pageSlideIn 0.4s ease-out;
+}
+
+@keyframes pageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Doc content fade-in */
+.theme-doc-markdown {
+  animation: contentFadeIn 0.5s ease-out 0.1s both;
+}
+
+@keyframes contentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === BACK TO TOP BUTTON ANIMATION === */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === ENHANCED CODE BLOCKS === */
+/* Language badge styling */
+.prism-code {
+  position: relative;
+}
+
+div[class*="codeBlockContainer"] {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(200, 148, 70, 0.15);
+  transition: all 0.3s ease;
+}
+
+div[class*="codeBlockContainer"]:hover {
+  border-color: rgba(200, 148, 70, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme='dark'] div[class*="codeBlockContainer"]:hover {
+  box-shadow: 0 4px 30px rgba(200, 148, 70, 0.1);
+}
+
+/* Code block title/language badge */
+div[class*="codeBlockTitle"] {
+  background: linear-gradient(135deg, rgba(200, 148, 70, 0.15) 0%, rgba(200, 148, 70, 0.05) 100%) !important;
+  border-bottom: 1px solid rgba(200, 148, 70, 0.2) !important;
+  color: #C89446 !important;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem !important;
+}
+
+/* Copy button enhanced */
+button[class*="copyButton"] {
+  background: rgba(200, 148, 70, 0.1) !important;
+  border: 1px solid rgba(200, 148, 70, 0.3) !important;
+  border-radius: 8px !important;
+  color: #C89446 !important;
+  transition: all 0.2s ease !important;
+}
+
+button[class*="copyButton"]:hover {
+  background: rgba(200, 148, 70, 0.2) !important;
+  border-color: rgba(200, 148, 70, 0.5) !important;
+  transform: scale(1.05);
+}
+
+/* Copy button success state */
+button[class*="copyButton"][class*="copyButtonCopied"] {
+  background: rgba(34, 197, 94, 0.2) !important;
+  border-color: rgba(34, 197, 94, 0.5) !important;
+  color: #22C55E !important;
+}
+
+/* === TOC (Table of Contents) ENHANCEMENTS === */
+/* Enhanced TOC with progress indicator */
+.table-of-contents {
+  border-left: 2px solid rgba(200, 148, 70, 0.1);
+  padding-left: 0.75rem;
+}
+
+.table-of-contents__link {
+  position: relative;
+  transition: all 0.2s ease;
+  padding: 0.375rem 0;
+  display: block;
+  color: var(--toc-text);
+}
+
+.table-of-contents__link:hover {
+  color: var(--toc-text-hover);
+}
+
+/* Active TOC item with indicator */
+.table-of-contents__link--active {
+  color: #C89446 !important;
+  font-weight: 600;
+}
+
+.table-of-contents__link--active::before {
+  content: '';
+  position: absolute;
+  left: -0.875rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #C89446 0%, #E8B058 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(200, 148, 70, 0.4);
+}
+
+/* TOC container styling */
+.theme-doc-toc-desktop {
+  padding-top: 1rem;
+}
+
+/* Share Section - Positioned above TOC */
+.share-section-global {
+  display: none;
+}
+
+@media (min-width: 997px) {
+  .share-section-global {
+    display: block;
+    margin-bottom: 1rem;
+  }
+  
+  /* Find the TOC container and position ShareSection above it */
+  .theme-doc-sidebar-container ~ * .share-section-global,
+  .col--3 .share-section-global {
+    margin-bottom: 1rem;
+  }
+  
+  /* Ensure it's visible and positioned correctly */
+  .share-section-global {
+    width: 100%;
+    max-width: var(--ifm-toc-width, 300px);
+  }
+}
+
+/* === REDUCED MOTION SUPPORT === */
+@media (prefers-reduced-motion: reduce) {
+
+  .main-wrapper,
+  .theme-doc-markdown,
+  .back-to-top-button {
+    animation: none !important;
+    transition: none !important;
   }
 }

@@ -1,13 +1,14 @@
 ---
-title: Time Sync Breakthrough
-description: Synchronise multi-camera evidence with perfectly timed frames you can trust.
+title: "Time Sync Breakthrough"
+description: "Synchronise multi-camera evidence with perfectly timed frames you can trust."
 tags:
-  - role:all
-  - category:breakthrough
-  - difficulty:beginner
-  - platform:GCXONE
+  - all
+  - breakthrough
+  - beginner
+  - GCXONE
 last_updated: 2025-12-28
 ---
+
 
 # 🕒 Time Sync Breakthrough
 

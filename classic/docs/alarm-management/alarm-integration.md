@@ -2,13 +2,14 @@
 title: "Alarm Integration with Third-Party"
 description: "Complete guide for Alarm Integration with Third-Party"
 tags:
-  - role:admin
-  - category:configuration
-  - difficulty:advanced
-  - platform:GCXONE
+  - admin
+  - configuration
+  - advanced
+  - GCXONE
 sidebar_position: 15
 last_updated: 2025-12-04
 ---
+
 
 # Alarm Integration with Third-Party
 
