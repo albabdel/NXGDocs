@@ -100,6 +100,22 @@ const roleCards: Resource[] = [
 const popularDevices: Resource[] = [
 ];
 
+const recentReleases: Resource[] = [
+    {
+        title: 'Sprint 2025.12-B',
+        description: 'Enhanced alarm processing, improved video playback, and new device integrations',
+        link: '/releases',
+        icon: <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
+        badge: 'Latest',
+    },
+    {
+        title: 'Sprint 2025.12-A',
+        description: 'Initial release with core features and foundational improvements',
+        link: '/releases',
+        icon: <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
+    },
+];
+
 const featuredFeatures: Resource[] = [
     {
         title: 'Alarm Management',
@@ -240,19 +256,27 @@ export default function Home(): React.JSX.Element {
                         </div>
                     </motion.section>
 
-                    {/* Popular Devices */}
+                    {/* Releases */}
                     <motion.section
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.8 }}
                         className="mt-20"
                     >
-                        <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold" style={{ color: 'var(--ifm-color-content)' }}>Popular Devices</h2>
-                            <p className="mt-2" style={{ color: 'var(--ifm-color-content-secondary)' }}>Commonly integrated hardware devices</p>
+                        <div className="flex items-center justify-between mb-6">
+                            <div>
+                                <h2 className="text-3xl font-bold text-[#E8B058]">Releases</h2>
+                                <p className="mt-2" style={{ color: 'var(--ifm-color-content-secondary)' }}>Latest updates and new features</p>
+                            </div>
+                            <Link
+                                to="/releases"
+                                className="text-[#E8B058] hover:text-[#D4A047] transition-colors text-sm font-medium no-underline"
+                            >
+                                View All Releases →
+                            </Link>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {popularDevices.map((item, index) => (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {recentReleases.map((item, index) => (
                                 <motion.div
                                     key={item.title}
                                     initial={{ opacity: 0, scale: 0.95 }}
@@ -264,6 +288,7 @@ export default function Home(): React.JSX.Element {
                                         description={item.description}
                                         icon={item.icon}
                                         link={item.link}
+                                        badge={item.badge}
                                     />
                                 </motion.div>
                             ))}
