@@ -50,10 +50,27 @@ If not set, the build will skip Hygraph content fetching automatically.
 
 ## Troubleshooting
 
+### Build Timeout
 If build still times out:
 1. Check Cloudflare Pages build logs for specific bottlenecks
 2. Consider reducing the number of documentation pages
 3. Review and optimize large images/assets
 4. Consider using Cloudflare Workers for longer build times
 5. Split build into multiple stages if possible
+
+### "Must specify a project name" Error
+If you see the error `✘ [ERROR] Must specify a project name.` during deployment:
+
+**Solution:** Cloudflare Pages should deploy automatically after a successful build. Do NOT set a custom deploy command in the Cloudflare Pages dashboard.
+
+1. Go to your Cloudflare Pages project settings
+2. Navigate to "Builds & deployments" section
+3. **Remove any custom deploy command** (leave it empty/blank)
+4. Ensure only these settings are configured:
+   - **Build command**: `npm run build`
+   - **Build output directory**: `classic/build`
+   - **Root directory**: `.` (root of repository)
+   - **Node version**: 18 or higher
+
+The `wrangler.toml` file has been configured with `pages_build_output_dir = "classic/build"` which Cloudflare Pages will use automatically. You do NOT need to run `wrangler pages deploy` manually.
 
