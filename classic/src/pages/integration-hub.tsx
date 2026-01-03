@@ -56,37 +56,6 @@ type Device = {
 // Parse device data from user input
 const devices: Device[] = [
     {
-        name: 'Adpro NVR',
-        category: 'NVR',
-        configLink: '/docs/devices/adpro/overview',
-        features: [
-            { name: 'Discovery' },
-            { name: 'Live Streaming (Cloud)' },
-            { name: 'Playback (Cloud)' },
-            { name: 'Timeline (Cloud)' },
-            { name: 'Events' },
-            { name: 'Arm/Disarm' },
-            { name: 'Genesis Audio (SIP)' },
-            { name: 'PTZ/Presets' },
-            { name: 'IO' },
-            { name: 'Event Acknowledgement' },
-            { name: 'Play Audio from File' },
-            { name: 'Live Streaming (Local)' },
-            { name: 'Playback (Local)' },
-            { name: 'Local SDK Audio' },
-            { name: 'Local PTZ' },
-            { name: 'Local IO' },
-            { name: 'Timeline (Local)' },
-            { name: 'Poll from Cloud' },
-            { name: 'Heart beat from Device' },
-            { name: 'Mobile App Enabled' },
-            { name: 'Basic Profile' },
-            { name: 'Basic+ Profile' },
-            { name: 'Advanced Profile' },
-            { name: 'Timelapse', partial: true },
-        ],
-    },
-    {
         name: 'Hikvision(NVR) NVR',
         category: 'NVR',
         configLink: '/docs/devices/hikvision/overview',
@@ -144,7 +113,7 @@ const devices: Device[] = [
     {
         name: 'Hikpro P2P Cloud VMS',
         category: 'Cloud VMS',
-        configLink: '/docs/devices/hikpro/overview',
+        configLink: '/docs/devices/hikvision/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -167,7 +136,7 @@ const devices: Device[] = [
     {
         name: 'Dahua NVR',
         category: 'NVR',
-        configLink: '/docs/devices/dahua/overview',
+        configLink: '/docs/devices/dahua/installer-configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -195,7 +164,7 @@ const devices: Device[] = [
     {
         name: 'Dahua Dolync Cloud P2P Cloud VMS',
         category: 'Cloud VMS',
-        configLink: '/docs/devices/dahua/dolynk-setup',
+        configLink: '/docs/devices/dahua/installer-configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -240,7 +209,7 @@ const devices: Device[] = [
     {
         name: 'HANWHA',
         category: 'VMS',
-        configLink: '/docs/devices/hanwha/overview',
+        configLink: '/docs/devices/hanwha/installer-configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -265,7 +234,7 @@ const devices: Device[] = [
     {
         name: 'DigitalWatchdog',
         category: 'VMS',
-        configLink: '/docs/devices/digitalwatchdog/overview',
+        configLink: '/docs/devices/digitalwatchdog/configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -290,7 +259,7 @@ const devices: Device[] = [
     {
         name: 'GenesisVms',
         category: 'VMS',
-        configLink: '/docs/devices/genesisvms/overview',
+        configLink: '/docs/devices/genesisvms/configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -390,7 +359,7 @@ const devices: Device[] = [
     {
         name: 'Hanwha-Techwin NVR',
         category: 'NVR',
-        configLink: '/docs/devices/hanwha/overview',
+        configLink: '/docs/devices/hanwha/installer-configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -406,7 +375,7 @@ const devices: Device[] = [
     {
         name: 'Camect AI BOX',
         category: 'AI Box',
-        configLink: '/docs/devices/camect/overview',
+        configLink: '/docs/devices/camect/installer-configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -430,7 +399,7 @@ const devices: Device[] = [
     {
         name: 'Ganz AI BOX',
         category: 'AI Box',
-        configLink: '/docs/devices/ganz/overview',
+        configLink: '/docs/devices/ganz/installer-configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -450,7 +419,7 @@ const devices: Device[] = [
     {
         name: 'Avigilon VMS',
         category: 'VMS',
-        configLink: '/docs/devices/avigilon/overview',
+        configLink: '/docs/devices/avigilon/installer-configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -475,7 +444,7 @@ const devices: Device[] = [
     {
         name: 'Axxon VMS',
         category: 'VMS',
-        configLink: '/docs/devices/axxon/overview',
+        configLink: '/docs/devices/axxon/configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -525,7 +494,7 @@ const devices: Device[] = [
     {
         name: 'AxisCameraStation VMS',
         category: 'VMS',
-        configLink: '/docs/devices/axiscamerastation/overview',
+        configLink: '/docs/devices/axiscamerastation/configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -551,7 +520,7 @@ const devices: Device[] = [
     {
         name: 'Heitel NVR',
         category: 'NVR',
-        configLink: '/docs/devices/heitel/overview',
+        configLink: '/docs/devices/heitel/configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -613,7 +582,7 @@ const devices: Device[] = [
     {
         name: 'Axis IP Camera',
         category: 'IP Camera',
-        configLink: '/docs/devices/axis/overview',
+        configLink: '/docs/devices/axis/configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -692,7 +661,7 @@ const devices: Device[] = [
     {
         name: 'Davantis AI BOX',
         category: 'AI Box',
-        configLink: '/docs/devices/davantis/overview',
+        configLink: '/docs/devices/davantis/configuration',
         features: [
             { name: 'Genesis Audio (SIP)' },
         ],
@@ -700,7 +669,7 @@ const devices: Device[] = [
     {
         name: 'GenesisAudio SIP Twillio',
         category: 'Other',
-        configLink: '/docs/devices/genesisaudio/overview',
+        configLink: '/docs/devices/genesisaudio/configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Genesis Audio (SIP)' },
@@ -720,7 +689,7 @@ const devices: Device[] = [
     {
         name: 'EFOY Router',
         category: 'Router',
-        configLink: '/docs/devices/efoy/overview',
+        configLink: '/docs/devices/efoy/configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Events' },
@@ -747,7 +716,7 @@ const devices: Device[] = [
     {
         name: 'Ajax Hub/NVR',
         category: 'NVR',
-        configLink: '/docs/devices/ajax/overview',
+        configLink: '/docs/devices/ajax/installer-configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Events' },
@@ -759,7 +728,7 @@ const devices: Device[] = [
     {
         name: 'Essence My Sheild PIR CAM',
         category: 'IOT',
-        configLink: '/docs/devices/essence/overview',
+        configLink: '/docs/devices/essence/configuration',
         features: [
             { name: 'Events' },
             { name: 'Arm/Disarm' },
@@ -800,7 +769,7 @@ const devices: Device[] = [
     {
         name: 'Autoaid IOT',
         category: 'IOT',
-        configLink: '/docs/devices/autoaid/overview',
+        configLink: '/docs/devices/autoaid/configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Events' },
@@ -811,7 +780,7 @@ const devices: Device[] = [
     {
         name: 'Auraigateway IOT Mining',
         category: 'IOT',
-        configLink: '/docs/devices/auraigateway/overview',
+        configLink: '/docs/devices/auraigateway/configuration',
         features: [
             { name: 'Events' },
             { name: 'Arm/Disarm' },
@@ -843,7 +812,7 @@ const devices: Device[] = [
     {
         name: 'ENEO NVR',
         category: 'NVR',
-        configLink: '/docs/devices/eneo/overview',
+        configLink: '/docs/devices/eneo/configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -866,7 +835,7 @@ const devices: Device[] = [
     {
         name: 'ENEOIP NVR',
         category: 'NVR',
-        configLink: '/docs/devices/eneoip/overview',
+        configLink: '/docs/devices/eneoip/configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -889,7 +858,7 @@ const devices: Device[] = [
     {
         name: 'AXIS CS Pro VMS',
         category: 'VMS',
-        configLink: '/docs/devices/axiscspro/overview',
+        configLink: '/docs/devices/axiscspro/configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -916,7 +885,7 @@ const devices: Device[] = [
     {
         name: 'Geutebrück VMS',
         category: 'VMS',
-        configLink: '/docs/devices/geutebruck/overview',
+        configLink: '/docs/devices/geutebruck/configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },

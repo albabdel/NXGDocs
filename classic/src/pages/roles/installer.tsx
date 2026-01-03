@@ -52,7 +52,7 @@ export default function InstallerLandingPage() {
                                     title: 'Site Commissioning', 
                                     description: 'Step-by-step installation procedures',
                                     icon: <ClipboardList className="w-6 h-6" />,
-                                    link: '/docs/installer-guide/installation-overview'
+                                    link: '#'
                                 },
                                 { 
                                     title: 'Device Integration', 
@@ -64,7 +64,7 @@ export default function InstallerLandingPage() {
                                     title: 'Network Setup', 
                                     description: 'Configure network and connectivity',
                                     icon: <Network className="w-6 h-6" />,
-                                    link: '/docs/installer-guide/network-setup'
+                                    link: '#'
                                 }
                             ].map((feature, idx) => (
                                 <Link
@@ -103,7 +103,7 @@ export default function InstallerLandingPage() {
                                     title: 'Pre-Installation Survey',
                                     description: 'Site assessment checklist and bandwidth calculations',
                                     icon: <ClipboardList className="w-8 h-8" />,
-                                    link: '/docs/installer-guide/site-survey',
+                                    link: '#',
                                     badge: 'Start Here',
                                     color: '#10B981'
                                 },
@@ -111,7 +111,7 @@ export default function InstallerLandingPage() {
                                     title: 'Network Configuration',
                                     description: 'Port forwarding, firewall rules, and VLAN setup',
                                     icon: <Network className="w-8 h-8" />,
-                                    link: '/docs/installer-guide/network-setup',
+                                    link: '#',
                                     badge: 'Critical',
                                     color: '#EF4444'
                                 },
@@ -119,28 +119,28 @@ export default function InstallerLandingPage() {
                                     title: 'Hardware Requirements',
                                     description: 'Server specs, appliance setup, and storage planning',
                                     icon: <Server className="w-8 h-8" />,
-                                    link: '/docs/installer-guide/storage-requirements',
+                                    link: '#',
                                     color: '#3B82F6'
                                 },
                                 {
                                     title: 'Device Discovery',
                                     description: 'Automatic network scanning and device identification',
                                     icon: <Eye className="w-8 h-8" />,
-                                    link: '/docs/devices/general/discovery-methods',
+                                    link: '/docs/devices/general/onboarding-overview',
                                     color: '#8B5CF6'
                                 },
                                 {
                                     title: 'System Testing',
                                     description: 'Connectivity verification and alarm transmission tests',
                                     icon: <CheckCircle className="w-8 h-8" />,
-                                    link: '/docs/installer-guide/installation-overview',
+                                    link: '#',
                                     color: '#F59E0B'
                                 },
                                 {
                                     title: 'Go-Live Checklist',
                                     description: 'Final validation and handover procedures',
                                     icon: <Target className="w-8 h-8" />,
-                                    link: '/docs/installer-guide/installation-overview',
+                                    link: '#',
                                     badge: 'Final Step',
                                     color: '#06B6D4'
                                 }
@@ -305,28 +305,28 @@ export default function InstallerLandingPage() {
                                     title: 'Mobile Commissioning',
                                     description: 'Commission sites directly from your smartphone',
                                     icon: <Smartphone className="w-6 h-6" />,
-                                    link: '/docs/installer-guide/installation-overview',
+                                    link: '#',
                                     features: ['QR code scanning', 'Device pairing', 'Network testing', 'Site validation']
                                 },
                                 {
                                     title: 'Network Diagnostics',
                                     description: 'Test connectivity and bandwidth requirements',
                                     icon: <Wifi className="w-6 h-6" />,
-                                    link: '/docs/installer-guide/network-setup',
+                                    link: '#',
                                     features: ['Speed testing', 'Latency checks', 'Port scanning', 'Firewall validation']
                                 },
                                 {
                                     title: 'Camera Calibration',
                                     description: 'Optimize camera settings and analytics zones',
                                     icon: <Settings className="w-6 h-6" />,
-                                    link: '/docs/installer-guide/device-installation',
+                                    link: '#',
                                     features: ['Auto-focus', 'Exposure tuning', 'Zone setup', 'Analytics testing']
                                 },
                                 {
                                     title: 'Firmware Manager',
                                     description: 'Download and deploy latest device firmware',
                                     icon: <Download className="w-6 h-6" />,
-                                    link: '/docs/installer-guide/device-installation',
+                                    link: '#',
                                     features: ['Version checking', 'Bulk updates', 'Rollback support', 'Compatibility matrix']
                                 }
                             ].map((tool, idx) => (
@@ -458,14 +458,14 @@ export default function InstallerLandingPage() {
                                     Field Support
                                 </Link>
                                 <Link
-                                    to="/docs/installer-guide/installation-overview"
+                                    to="#"
                                     className="inline-flex items-center gap-2 px-8 py-4 bg-[#202020] hover:bg-[#2a2a2a] border border-white/10 rounded-xl text-white hover:text-[#E8B058] transition-all no-underline"
                                 >
                                     <FileText className="w-5 h-5" />
                                     Installation Guide
                                 </Link>
                                 <Link
-                                    to="/docs/installer-guide/installation-overview"
+                                    to="#"
                                     className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all no-underline"
                                 >
                                     <Smartphone className="w-5 h-5" />

@@ -17,7 +17,7 @@ const popularPages = [
         title: 'Getting Started',
         description: 'Learn the basics of GCXONE',
         icon: <BookOpen className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
-        href: '/docs/platform-fundamentals/what-is-gcxone-GCXONE',
+        href: '#',
     },
     {
         title: 'Device Integration',

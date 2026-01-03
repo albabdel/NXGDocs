@@ -10,7 +10,6 @@ sidebar_position: 4
 last_updated: 2025-12-04
 ---
 
-
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -432,7 +431,7 @@ graph TD
   </div>
 </div>
 
-For more information, see [GCXONE & Talos Integration](/docs/getting-started/gcxone-talos-interaction).
+For more information, see .
 
 ---
 
@@ -475,13 +474,12 @@ For more information, see [GCXONE & Talos Integration](/docs/getting-started/gcx
 
 ## Related Articles
 
-- [Multi-Tenant Architecture](/docs/platform-fundamentals/multi-tenant)
-- [GCXONE & Talos Integration](/docs/getting-started/gcxone-talos-interaction)
-- [Cloud Architecture Overview](/docs/getting-started/cloud-architecture)
-- [Quick Start Checklist](/docs/getting-started/quick-start-checklist)
+- 
+- 
+- 
 
 ---
 
 ## Need Help?
 
-If you need assistance understanding or configuring the hierarchy model, check our [Troubleshooting Guide](/docs/troubleshooting) or [contact support](/docs/support).
+If you need assistance understanding or configuring the hierarchy model, please contact support for assistance.

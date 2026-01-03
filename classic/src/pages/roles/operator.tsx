@@ -52,19 +52,19 @@ export default function OperatorLandingPage() {
                                     title: 'Alarm Processing', 
                                     description: 'Handle and respond to security alarms',
                                     icon: <Bell className="w-6 h-6" />,
-                                    link: '/docs/operator-guide/handling-alarms'
+                                    link: '#'handling-alarms'
                                 },
                                 { 
                                     title: 'Live Video Monitoring', 
                                     description: 'Monitor real-time video feeds and PTZ control',
                                     icon: <Video className="w-6 h-6" />,
-                                    link: '/docs/operator-guide/live-video'
+                                    link: '#'live-video'
                                 },
                                 { 
                                     title: 'Event Investigation', 
                                     description: 'Review historical events and video playback',
                                     icon: <Search className="w-6 h-6" />,
-                                    link: '/docs/operator-guide/video-playback'
+                                    link: '#'video-playback'
                                 }
                             ].map((feature, idx) => (
                                 <Link
@@ -103,7 +103,7 @@ export default function OperatorLandingPage() {
                                     title: 'Alarm Processing',
                                     description: 'Handle incoming alarms with AI-verified video clips and context',
                                     icon: <Bell className="w-8 h-8" />,
-                                    link: '/docs/operator-guide/handling-alarms',
+                                    link: '#'handling-alarms',
                                     badge: 'Primary',
                                     color: '#EF4444'
                                 },
@@ -111,35 +111,35 @@ export default function OperatorLandingPage() {
                                     title: 'Live Video Monitoring',
                                     description: 'Real-time video feeds with PTZ control and digital zoom',
                                     icon: <Video className="w-8 h-8" />,
-                                    link: '/docs/operator-guide/live-video',
+                                    link: '#'live-video',
                                     color: '#10B981'
                                 },
                                 {
                                     title: 'Event Investigation',
                                     description: 'Search historical events and review recorded footage',
                                     icon: <Search className="w-8 h-8" />,
-                                    link: '/docs/operator-guide/video-playback',
+                                    link: '#'video-playback',
                                     color: '#3B82F6'
                                 },
                                 {
                                     title: 'Response Procedures',
                                     description: 'Standard operating procedures for different alarm types',
                                     icon: <ClipboardList className="w-8 h-8" />,
-                                    link: '/docs/operator-guide/response-procedures',
+                                    link: '#'response-procedures',
                                     color: '#8B5CF6'
                                 },
                                 {
                                     title: 'Communication Tools',
                                     description: 'Contact authorities, keyholders, and emergency services',
                                     icon: <Phone className="w-8 h-8" />,
-                                    link: '/docs/operator-guide/communication-tools',
+                                    link: '#'communication-tools',
                                     color: '#F59E0B'
                                 },
                                 {
                                     title: 'Site Navigation',
                                     description: 'Interactive maps, floor plans, and location services',
                                     icon: <MapPin className="w-8 h-8" />,
-                                    link: '/docs/operator-guide/site-navigation',
+                                    link: '#'site-navigation',
                                     color: '#06B6D4'
                                 }
                             ].map((item, idx) => (
@@ -199,28 +199,28 @@ export default function OperatorLandingPage() {
                                     description: 'Leverage artificial intelligence to quickly verify threats and reduce false alarms',
                                     features: ['Automated threat classification', 'Behavioral analysis', 'Object recognition', 'Smart filtering'],
                                     icon: <Eye className="w-8 h-8" />,
-                                    link: '/docs/operator-guide/operator-dashboard'
+                                    link: '#'operator-dashboard'
                                 },
                                 {
                                     title: 'Multi-Site Operations',
                                     description: 'Manage multiple locations simultaneously with unified command and control',
                                     features: ['Centralized monitoring', 'Cross-site coordination', 'Resource allocation', 'Priority management'],
                                     icon: <Globe className="w-8 h-8" />,
-                                    link: '/docs/operator-guide/multi-site-monitoring'
+                                    link: '#'multi-site-monitoring'
                                 },
                                 {
                                     title: 'Emergency Response',
                                     description: 'Specialized tools and procedures for critical incidents and emergency situations',
                                     features: ['Emergency protocols', 'Mass notification', 'Incident escalation', 'Crisis management'],
                                     icon: <AlertTriangle className="w-8 h-8" />,
-                                    link: '/docs/operator-guide/emergency-procedures'
+                                    link: '#'emergency-procedures'
                                 },
                                 {
                                     title: 'Performance Analytics',
                                     description: 'Track your performance metrics and identify areas for improvement',
                                     features: ['Response time tracking', 'Accuracy metrics', 'Productivity analysis', 'Skill development'],
                                     icon: <BarChart3 className="w-8 h-8" />,
-                                    link: '/docs/operator-guide/performance-metrics'
+                                    link: '#'performance-metrics'
                                 }
                             ].map((feature, idx) => (
                                 <motion.div
@@ -280,28 +280,28 @@ export default function OperatorLandingPage() {
                                     title: 'Shift Handover',
                                     description: 'Document and transfer critical information between shifts',
                                     icon: <Users className="w-6 h-6" />,
-                                    link: '/docs/operator-guide/shift-handover',
+                                    link: '#'shift-handover',
                                     tasks: ['Incident summaries', 'Ongoing investigations', 'System status', 'Priority alerts']
                                 },
                                 {
                                     title: 'Incident Reporting',
                                     description: 'Create detailed reports for security incidents and responses',
                                     icon: <FileText className="w-6 h-6" />,
-                                    link: '/docs/operator-guide/incident-reporting',
+                                    link: '#'incident-reporting',
                                     tasks: ['Incident documentation', 'Evidence collection', 'Timeline creation', 'Report generation']
                                 },
                                 {
                                     title: 'System Monitoring',
                                     description: 'Monitor system health and device status across all sites',
                                     icon: <Activity className="w-6 h-6" />,
-                                    link: '/docs/operator-guide/system-monitoring',
+                                    link: '#'system-monitoring',
                                     tasks: ['Device health checks', 'Network status', 'Performance metrics', 'Alert management']
                                 },
                                 {
                                     title: 'Quality Assurance',
                                     description: 'Maintain high service standards and continuous improvement',
                                     icon: <Target className="w-6 h-6" />,
-                                    link: '/docs/operator-guide/quality-assurance',
+                                    link: '#'quality-assurance',
                                     tasks: ['Response quality', 'Customer feedback', 'Process improvement', 'Training needs']
                                 }
                             ].map((item, idx) => (
@@ -358,21 +358,21 @@ export default function OperatorLandingPage() {
                                     title: 'Video Training',
                                     description: 'Interactive video tutorials and scenario-based training',
                                     icon: <Play className="w-6 h-6" />,
-                                    link: '/docs/operator-guide/training-guide',
+                                    link: '#'training-guide',
                                     resources: ['Alarm handling basics', 'Advanced video tools', 'Emergency procedures', 'System navigation']
                                 },
                                 {
                                     title: 'Best Practices',
                                     description: 'Industry standards and proven operational methodologies',
                                     icon: <Shield className="w-6 h-6" />,
-                                    link: '/docs/operator-guide/best-practices',
+                                    link: '#'best-practices',
                                     resources: ['Response protocols', 'Communication standards', 'Quality guidelines', 'Safety procedures']
                                 },
                                 {
                                     title: 'Certification',
                                     description: 'Professional certification programs and skill assessments',
                                     icon: <CheckCircle className="w-6 h-6" />,
-                                    link: '/docs/operator-guide/training-guide',
+                                    link: '#'training-guide',
                                     resources: ['Skill assessments', 'Certification tracks', 'Continuing education', 'Performance reviews']
                                 }
                             ].map((resource, idx) => (
@@ -433,14 +433,14 @@ export default function OperatorLandingPage() {
                                     24/7 Support
                                 </Link>
                                 <Link
-                                    to="/docs/operator-guide/operator-dashboard"
+                                    to="#"operator-dashboard"
                                     className="inline-flex items-center gap-2 px-8 py-4 bg-[#202020] hover:bg-[#2a2a2a] border border-white/10 rounded-xl text-white hover:text-[#E8B058] transition-all no-underline"
                                 >
                                     <FileText className="w-5 h-5" />
                                     Operator Guide
                                 </Link>
                                 <Link
-                                    to="/docs/operator-guide/training-guide"
+                                    to="#"training-guide"
                                     className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all no-underline"
                                 >
                                     <CheckCircle className="w-5 h-5" />

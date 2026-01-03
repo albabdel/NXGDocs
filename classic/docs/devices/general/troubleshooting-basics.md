@@ -268,11 +268,7 @@ Track device performance over time:
 
 ## Related Articles
 
-- [Device Health Monitoring](/docs/devices/general/health-monitoring)
-- [Connection Troubleshooting](/docs/troubleshooting/connection-issues)
-- [Device Offline Issues](/docs/troubleshooting/device-offline)
-- [Performance Issues](/docs/troubleshooting/performance-issues)
 
 ## Need Help?
 
-If you're experiencing issues that cannot be resolved through diagnostics, check our [Troubleshooting Guide](/docs/troubleshooting) or [contact support](/docs/support/contact-support).
+If you're experiencing issues that cannot be resolved through diagnostics, please contact support for assistance.

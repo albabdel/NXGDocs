@@ -50,125 +50,7 @@ type UserFeature = {
 };
 
 const userFeatures: UserFeature[] = [
-    // Role Management
-    {
-        title: 'Role-Based Access Control (RBAC)',
-        description: 'Comprehensive RBAC system with predefined and custom roles defining granular permissions for every feature and function across the platform.',
-        category: 'Role Management',
-        link: '/docs/admin-guide/rbac',
-        icon: <ShieldCheck className="w-6 h-6" />,
-        level: 'basic'
-    },
-    {
-        title: 'Creating Custom Roles',
-        description: 'Build tailored roles with specific privilege combinations matching your organizational structure and security requirements.',
-        category: 'Role Management',
-        link: '/docs/admin-guide/creating-users',
-        icon: <UserCog className="w-6 h-6" />,
-        level: 'intermediate'
-    },
-    {
-        title: 'Access Levels',
-        description: 'Three-tier access hierarchy (Service Provider, Customer, Site) controlling scope of user visibility across the organizational structure.',
-        category: 'Role Management',
-        link: '/docs/admin-guide/rbac',
-        icon: <Layers className="w-6 h-6" />,
-        level: 'basic'
-    },
-    {
-        title: 'Privilege Configuration',
-        description: 'Granular permission control across apps, categories, and actions (view, create, edit, delete) for precise access management.',
-        category: 'Role Management',
-        link: '/docs/admin-guide/rbac',
-        icon: <Key className="w-6 h-6" />,
-        level: 'intermediate'
-    },
-    {
-        title: 'Session Timeout Management',
-        description: 'Role-level session timeout configuration (30-1440 minutes) ensuring automatic logout for security compliance.',
-        category: 'Role Management',
-        link: '/docs/admin-guide/rbac',
-        icon: <Clock className="w-6 h-6" />,
-        level: 'basic'
-    },
-
-    // User Administration
-    {
-        title: 'User Invitation System',
-        description: 'Email-based invitation workflow with role assignment, customer group selection, and multi-organization access configuration.',
-        category: 'User Administration',
-        link: '/docs/admin-guide/creating-users',
-        icon: <UserPlus className="w-6 h-6" />,
-        level: 'basic'
-    },
-    {
-        title: 'Multi-Organization Access',
-        description: 'Enable single user accounts to access multiple tenants/organizations with distinct roles per organization for enterprise flexibility.',
-        category: 'User Administration',
-        link: '/docs/admin-guide/creating-users',
-        icon: <Building2 className="w-6 h-6" />,
-        level: 'advanced'
-    },
-    {
-        title: 'User Status Management',
-        description: 'Activate, deactivate, or suspend user accounts with immediate effect on login capabilities and existing sessions.',
-        category: 'User Administration',
-        link: '/docs/admin-guide/creating-users',
-        icon: <UserCheck className="w-6 h-6" />,
-        level: 'basic'
-    },
-    {
-        title: 'Bulk User Operations',
-        description: 'Efficiently manage multiple users simultaneously with batch invite, role assignment, and access level updates.',
-        category: 'User Administration',
-        link: '/docs/admin-guide/creating-users',
-        icon: <UsersIcon className="w-6 h-6" />,
-        level: 'intermediate'
-    },
-
-    // Customer Groups
-    {
-        title: 'Customer Groups',
-        description: 'Flexible customer segmentation restricting user access to specific customer subsets without creating separate roles for each.',
-        category: 'Customer Groups',
-        link: '/docs/admin-guide/creating-customers',
-        icon: <Users className="w-6 h-6" />,
-        level: 'intermediate'
-    },
-    {
-        title: 'Customer Group Configuration',
-        description: 'Create, edit, and manage customer groups with active/inactive status and flexible customer membership assignment.',
-        category: 'Customer Groups',
-        link: '/docs/admin-guide/creating-customers',
-        icon: <Settings className="w-6 h-6" />,
-        level: 'intermediate'
-    },
-    {
-        title: 'Data Segregation',
-        description: 'Enforce strict data isolation between customer groups preventing cross-customer visibility for multi-tenant security.',
-        category: 'Customer Groups',
-        link: '/docs/admin-guide/creating-customers',
-        icon: <Shield className="w-6 h-6" />,
-        level: 'advanced'
-    },
-    {
-        title: 'Production/Test Environment Separation',
-        description: 'Segregate production sites from test environments using customer groups to prevent operator confusion and test alarm interference.',
-        category: 'Customer Groups',
-        link: '/docs/admin-guide/creating-customers',
-        icon: <Target className="w-6 h-6" />,
-        level: 'intermediate'
-    },
-
     // Permissions & Security
-    {
-        title: 'Permissions Matrix',
-        description: 'Comprehensive permission mapping showing which roles have access to specific features, actions, and data scopes.',
-        category: 'Permissions & Security',
-        link: '/docs/admin-guide/permissions-matrix',
-        icon: <FileText className="w-6 h-6" />,
-        level: 'intermediate'
-    },
     {
         title: 'Password Policies',
         description: 'Enforce strong password requirements including complexity rules, expiration policies, and password history tracking.',
@@ -194,30 +76,13 @@ const userFeatures: UserFeature[] = [
         level: 'advanced'
     },
 
-    // Operator Management
-    {
-        title: 'Operator Privilege Adjustment',
-        description: 'Fine-tune operator permissions for Talos alarm monitoring including alarm actions, site access, and administrative functions.',
-        category: 'Operator Management',
-        link: '/docs/admin-guide/adjust-user-operator-privileges',
-        icon: <UserCog className="w-6 h-6" />,
-        level: 'intermediate'
-    },
-    {
-        title: 'Operator Groups & Alarm Routing',
-        description: 'Organize operators into groups for targeted alarm routing, shift management, and workload distribution.',
-        category: 'Operator Management',
-        link: '/docs/admin-guide/adjust-user-operator-privileges',
-        icon: <UsersIcon className="w-6 h-6" />,
-        level: 'advanced'
-    },
 
     // Monitoring & Audit
     {
         title: 'User Activity Logging',
         description: 'Complete audit trail of user actions including logins, configuration changes, alarm actions, and data access for compliance.',
         category: 'Monitoring & Audit',
-        link: '/docs/reporting/user-activity',
+        link: '#',
         icon: <Activity className="w-6 h-6" />,
         level: 'advanced'
     },
@@ -225,7 +90,7 @@ const userFeatures: UserFeature[] = [
         title: 'User Analytics',
         description: 'Dashboard analytics showing user login patterns, feature usage, session duration, and role distribution metrics.',
         category: 'Monitoring & Audit',
-        link: '/docs/reporting/user-activity',
+        link: '#',
         icon: <BarChart3 className="w-6 h-6" />,
         level: 'advanced'
     },
@@ -233,7 +98,7 @@ const userFeatures: UserFeature[] = [
         title: 'Access Reports',
         description: 'Generate detailed reports on user access patterns, permission changes, and role assignments for security audits.',
         category: 'Monitoring & Audit',
-        link: '/docs/reporting/user-activity',
+        link: '#',
         icon: <FileText className="w-6 h-6" />,
         level: 'intermediate'
     },
@@ -652,24 +517,6 @@ export default function UserManagementHub() {
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {[
-                            {
-                                title: 'Create Your First Role',
-                                description: 'Step-by-step guide to building custom roles',
-                                icon: <ShieldCheck className="w-6 h-6" />,
-                                link: '/docs/admin-guide/rbac',
-                            },
-                            {
-                                title: 'Invite New Users',
-                                description: 'Add users and assign roles quickly',
-                                icon: <UserPlus className="w-6 h-6" />,
-                                link: '/docs/admin-guide/creating-users',
-                            },
-                            {
-                                title: 'Setup Customer Groups',
-                                description: 'Configure data segregation and access control',
-                                icon: <Building2 className="w-6 h-6" />,
-                                link: '/docs/admin-guide/creating-customers',
-                            },
                         ].map((resource, index) => (
                             <Link
                                 key={index}

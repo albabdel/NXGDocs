@@ -393,8 +393,8 @@ See the [Troubleshooting Guide](./troubleshooting.md) for common problems and so
 
 - [PTZ Control Overview](./overview.md)
 - [PTZ Control Troubleshooting](./troubleshooting.md)
-- [Live View Overview](/docs/features/live-view/overview.md)
-- [Video Streaming Configuration](/docs/features/video-streaming/configuration.md)
+- 
+- 
 
 ---
 

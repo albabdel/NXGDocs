@@ -155,9 +155,9 @@ Video streaming is supported across all device types integrated with GCXONE:
 
 - [Video Streaming Configuration](./configuration.md)
 - [Video Streaming Troubleshooting](./troubleshooting.md)
-- [Local Mode Overview](/docs/features/local-mode/overview.md)
-- [Live View Overview](/docs/features/live-view/overview.md)
-- [Playback Overview](/docs/features/playback/overview.md)
+- 
+- 
+- 
 
 ## Need Help?
 

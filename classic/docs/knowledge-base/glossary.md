@@ -10,7 +10,6 @@ sidebar_position: 2
 last_updated: 2025-12-04
 ---
 
-
 # Glossary of Terms
 
 This glossary provides definitions for common terms used within the GCXONE platform and the wider security industry.

@@ -121,9 +121,9 @@ For detailed step-by-step instructions with screenshots, see the [Configuration 
 
 - [SPYKEBOX NVR Configuration](./configuration.md)
 - [SPYKEBOX NVR Troubleshooting](./troubleshooting.md)
-- [Hikvision Overview](/docs/devices/hikvision/overview) - For SDK compatibility reference
-- [Firewall Configuration](/docs/getting-started/firewall-configuration)
-- [Required Ports](/docs/getting-started/required-ports)
+-  - For SDK compatibility reference
+- 
+- 
 - [Standard Device Onboarding Process](/docs/device-integration/standard-device-onboarding-process)
 
 ## Change Log

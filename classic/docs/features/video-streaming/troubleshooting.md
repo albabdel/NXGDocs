@@ -363,9 +363,7 @@ If you've tried the solutions above and are still experiencing problems:
 
 - [Video Streaming Overview](./overview.md)
 - [Video Streaming Configuration](./configuration.md)
-- [Local Mode Overview](/docs/features/local-mode/overview.md)
-- [Network Troubleshooting](/docs/troubleshooting/network-issues.md)
-- [Device Troubleshooting](/docs/troubleshooting/device-connection-issues.md)
+- 
 
 ---
 

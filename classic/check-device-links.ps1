@@ -1,5 +1,4 @@
 $deviceLinks = @(
-    '/docs/devices/adpro/overview',
     '/docs/devices/hikvision/overview',
     '/docs/devices/hikpro/overview',
     '/docs/devices/dahua/overview',

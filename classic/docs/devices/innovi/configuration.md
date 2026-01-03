@@ -273,8 +273,8 @@ If you encounter issues during configuration, see the [Troubleshooting Guide](./
 
 - [Innovi AI Cloud Overview](./overview.md)
 - [Innovi AI Cloud Troubleshooting](./troubleshooting.md)
-- [Firewall Configuration](/docs/getting-started/firewall-configuration)
-- [Network Requirements](/docs/getting-started/required-ports)
+- 
+- 
 
 ## Change Log
 

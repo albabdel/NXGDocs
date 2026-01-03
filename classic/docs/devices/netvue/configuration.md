@@ -390,8 +390,8 @@ If you encounter issues during configuration, see the [Troubleshooting Guide](./
 
 - [NetVue IP Camera Overview](./overview.md)
 - [NetVue IP Camera Troubleshooting](./troubleshooting.md)
-- [Firewall Configuration](/docs/getting-started/firewall-configuration)
-- [Required Ports](/docs/getting-started/required-ports)
+- 
+- 
 
 ---
 

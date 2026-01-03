@@ -56,7 +56,7 @@ const sidebarSections: NavSection[] = [
       { label: 'Features', href: '/docs/features/index' },
       { label: 'Devices', href: '/docs/devices/index' },
       { label: 'API', href: '/docs/api/index' },
-      { label: 'Release notes', href: '/docs/release-notes/index' },
+      { label: 'Release notes', href: '#' },
     ],
   },
 ];

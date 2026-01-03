@@ -155,8 +155,8 @@ PTZ control is supported on:
 
 - [PTZ Control Configuration](./configuration.md)
 - [PTZ Control Troubleshooting](./troubleshooting.md)
-- [Live View Overview](/docs/features/live-view/overview.md)
-- [Video Streaming Overview](/docs/features/video-streaming/overview.md)
+- 
+- 
 
 ## Need Help?
 

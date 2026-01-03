@@ -384,9 +384,9 @@ See the [Troubleshooting Guide](./troubleshooting.md) for common problems and so
 
 - [SPYKEBOX NVR Overview](./overview.md)
 - [SPYKEBOX NVR Troubleshooting](./troubleshooting.md)
-- [Hikvision Overview](/docs/devices/hikvision/overview) - SDK compatibility reference
-- [Firewall Configuration](/docs/getting-started/firewall-configuration)
-- [Required Ports](/docs/getting-started/required-ports)
+-  - SDK compatibility reference
+- 
+- 
 
 ---
 

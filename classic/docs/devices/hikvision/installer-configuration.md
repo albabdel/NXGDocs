@@ -297,13 +297,12 @@ import TabItem from '@theme/TabItem';
 
 ## Related Articles
 
-- [Hikvision Overview](/docs/devices/hikvision/overview)
-- [Hikvision Supported Features](/docs/devices/hikvision/supported-features)
-- [Hikvision Troubleshooting](/docs/devices/hikvision/troubleshooting)
-- [Device Registration](/docs/installer-guide/device-registration)
+- 
+- 
+- 
 
 ---
 
 ## Need Help?
 
-If you're experiencing issues during configuration, check our [Troubleshooting Guide](/docs/devices/hikvision/troubleshooting) or [contact support](/docs/support).
+If you're experiencing issues during configuration, check our  or [contact support](/docs/support).

@@ -220,8 +220,8 @@ Event Clips integrate seamlessly with alarm processing:
 
 - [Event Clips Configuration](./configuration.md)
 - [Event Clips Troubleshooting](./troubleshooting.md)
-- [AI Analytics Overview](/docs/features/ai-analytics/overview.md)
-- [Playback Overview](/docs/features/playback/overview.md)
+- 
+- 
 - [Alarm Management](/docs/alarm-management/)
 
 ## Need Help?

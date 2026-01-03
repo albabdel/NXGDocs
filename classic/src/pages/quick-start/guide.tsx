@@ -775,8 +775,6 @@ Account Format: [Your Site ID Format]`} />
                         {/* Quick Links */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             {[
-                                { title: 'Create Customers', icon: <Building2 className="w-5 h-5" />, link: '/docs/admin-guide/creating-customers', desc: 'Set up customer accounts' },
-                                { title: 'Add Sites', icon: <Database className="w-5 h-5" />, link: '/docs/admin-guide/creating-sites', desc: 'Configure locations' },
                                 { title: 'Manage Users', icon: <Users className="w-5 h-5" />, link: '/docs/account-management/managing-users-and-roles', desc: 'User permissions' }
                             ].map(item => (
                                 <Link

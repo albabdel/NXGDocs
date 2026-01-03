@@ -517,7 +517,7 @@ export default function RoleLandingPage({
                         </p>
                         <div className="flex flex-wrap gap-4 justify-center">
                             <Link
-                                to="/docs/support/contact-support"
+                                to="#"
                                 className="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-full font-medium hover:bg-primary-700 transition-colors no-underline"
                             >
                                 <HelpCircle className="w-5 h-5" />

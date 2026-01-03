@@ -268,13 +268,12 @@ import TabItem from '@theme/TabItem';
 
 ## Related Articles
 
-- [Reconeyez Overview](/docs/devices/reconeyez/overview)
-- [Reconeyez Supported Features](/docs/devices/reconeyez/supported-features)
-- [Reconeyez Troubleshooting](/docs/devices/reconeyez/troubleshooting)
-- [Device Registration](/docs/installer-guide/device-registration)
+- 
+- 
+- 
 
 ---
 
 ## Need Help?
 
-If you're experiencing issues during configuration, check our [Troubleshooting Guide](/docs/devices/reconeyez/troubleshooting) or [contact support](/docs/support).
+If you're experiencing issues during configuration, check our  or [contact support](/docs/support).

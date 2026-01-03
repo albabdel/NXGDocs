@@ -98,24 +98,6 @@ const roleCards: Resource[] = [
 ];
 
 const popularDevices: Resource[] = [
-    {
-        title: 'IP Cameras',
-        description: 'HD surveillance cameras with alarm integration',
-        link: '/docs/device-integration/ip-cameras',
-        icon: <Camera className="w-6 h-6 text-primary-600 dark:text-primary-400" />,
-    },
-    {
-        title: 'Alarm Panels',
-        description: 'Connect security panels to GCXONE',
-        link: '/docs/device-integration/alarm-panels',
-        icon: <Bell className="w-6 h-6 text-primary-600 dark:text-primary-400" />,
-    },
-    {
-        title: 'IoT Sensors',
-        description: 'Temperature, motion, and environmental sensors',
-        link: '/docs/device-integration/iot-sensors',
-        icon: <Server className="w-6 h-6 text-primary-600 dark:text-primary-400" />,
-    },
 ];
 
 const featuredFeatures: Resource[] = [
@@ -150,7 +132,7 @@ const helpResources: Resource[] = [
     {
         title: 'Help Center',
         description: 'Submit tickets and find answers',
-        link: '/docs/support/contact-support',
+        link: '#',
         icon: <HelpCircle className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
     },
     {
@@ -162,7 +144,7 @@ const helpResources: Resource[] = [
     {
         title: 'Release Notes',
         description: 'Latest updates and releases',
-        link: '/docs/release-notes/latest',
+        link: '#',
         icon: <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
     },
 ];

@@ -115,8 +115,8 @@ For detailed step-by-step instructions with screenshots, see the [Configuration 
 
 - [NXWitness VMS Configuration](./configuration.md)
 - [NXWitness VMS Troubleshooting](./troubleshooting.md)
-- [Firewall Configuration](/docs/getting-started/firewall-configuration)
-- [Required Ports](/docs/getting-started/required-ports)
+- 
+- 
 - [Standard Device Onboarding Process](/docs/device-integration/standard-device-onboarding-process)
 
 ## Change Log

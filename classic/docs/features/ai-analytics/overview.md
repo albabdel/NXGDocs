@@ -202,8 +202,8 @@ AI Analytics works with alarms from:
 
 - [AI Analytics Configuration](./configuration.md)
 - [AI Analytics Troubleshooting](./troubleshooting.md)
-- [Motion Detection Overview](/docs/features/motion-detection/overview.md)
-- [Event Clips Overview](/docs/features/event-clips/overview.md)
+- 
+- 
 - [Alarm Management](/docs/alarm-management/)
 
 ## Need Help?

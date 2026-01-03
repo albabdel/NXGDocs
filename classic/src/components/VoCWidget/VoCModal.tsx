@@ -222,7 +222,6 @@ export default function VoCModal({ onClose, currentPath }: VoCModalProps) {
         }
     };
 
-
     // Capability toggle handler
     const toggleCapability = (capability: Capability) => {
         setCapabilities(prev => 

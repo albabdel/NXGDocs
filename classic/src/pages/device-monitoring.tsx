@@ -60,7 +60,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Device Health Status Dashboard',
         description: 'Unified dashboard displaying real-time health status of all connected devices with color-coded indicators (online, offline, warning).',
         category: 'Real-Time Health Monitoring',
-        link: '/docs/admin-guide/device-health-status',
+        link: '#',
         icon: <Activity className="w-6 h-6" />,
         criticality: 'critical'
     },
@@ -68,7 +68,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Connectivity Monitoring',
         description: 'Continuous monitoring of device network connectivity with instant alerts for connection loss, degraded performance, or intermittent issues.',
         category: 'Real-Time Health Monitoring',
-        link: '/docs/devices/general/health-monitoring',
+        link: '#',
         icon: <Wifi className="w-6 h-6" />,
         criticality: 'critical'
     },
@@ -76,7 +76,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Heartbeat Detection',
         description: 'Automated heartbeat monitoring detecting unresponsive devices and triggering notifications when devices fail to check in within expected intervals.',
         category: 'Real-Time Health Monitoring',
-        link: '/docs/devices/general/health-monitoring',
+        link: '#',
         icon: <Heart className="w-6 h-6" />,
         criticality: 'critical'
     },
@@ -84,7 +84,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Device Status Indicators',
         description: 'Visual status indicators showing online/offline state, communication quality, event reception rate, and last successful connection timestamp.',
         category: 'Real-Time Health Monitoring',
-        link: '/docs/admin-guide/device-health-status',
+        link: '#',
         icon: <Signal className="w-6 h-6" />,
         criticality: 'important'
     },
@@ -92,7 +92,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Multi-Site Health Overview',
         description: 'Aggregated health view across multiple sites showing site-level device status summaries and quick navigation to problem areas.',
         category: 'Real-Time Health Monitoring',
-        link: '/docs/admin-guide/device-health-status',
+        link: '#',
         icon: <Layers className="w-6 h-6" />,
         criticality: 'important'
     },
@@ -102,7 +102,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'System Diagnostics',
         description: 'Comprehensive diagnostic tools including ping tests, port checks, authentication validation, and configuration verification for troubleshooting.',
         category: 'Device Diagnostics',
-        link: '/docs/devices/general/troubleshooting-basics',
+        ,
         icon: <Settings className="w-6 h-6" />,
         criticality: 'critical'
     },
@@ -110,7 +110,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Connection Quality Metrics',
         description: 'Detailed connection metrics tracking latency, packet loss, bandwidth utilization, and stream quality for each device.',
         category: 'Device Diagnostics',
-        link: '/docs/devices/general/health-monitoring',
+        link: '#',
         icon: <Gauge className="w-6 h-6" />,
         criticality: 'important'
     },
@@ -118,7 +118,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Event Reception Rate',
         description: 'Monitor event delivery rates detecting delays, dropped events, or communication bottlenecks between devices and the platform.',
         category: 'Device Diagnostics',
-        link: '/docs/devices/general/health-monitoring',
+        link: '#',
         icon: <TrendingUp className="w-6 h-6" />,
         criticality: 'important'
     },
@@ -126,7 +126,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Device Logs & History',
         description: 'Comprehensive device activity logs recording connections, disconnections, configuration changes, and communication errors for forensic analysis.',
         category: 'Device Diagnostics',
-        link: '/docs/troubleshooting/device-offline',
+        link: '#',
         icon: <FileText className="w-6 h-6" />,
         criticality: 'standard'
     },
@@ -136,7 +136,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Video Stream Quality Monitoring',
         description: 'Real-time monitoring of video stream health including frame rate, bitrate, resolution, and codec performance for optimal viewing.',
         category: 'Performance Monitoring',
-        link: '/docs/troubleshooting/video-streaming',
+        link: '#',
         icon: <Camera className="w-6 h-6" />,
         criticality: 'important'
     },
@@ -144,7 +144,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Storage Capacity Monitoring',
         description: 'Track device storage utilization with alerts for low disk space, recording failures, or storage system errors preventing data loss.',
         category: 'Performance Monitoring',
-        link: '/docs/troubleshooting/storage-issues',
+        link: '#',
         icon: <HardDrive className="w-6 h-6" />,
         criticality: 'important'
     },
@@ -152,7 +152,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'CPU & Memory Utilization',
         description: 'Monitor device resource consumption tracking CPU usage, memory load, and system performance to identify overloaded devices.',
         category: 'Performance Monitoring',
-        link: '/docs/devices/general/health-monitoring',
+        link: '#',
         icon: <Cpu className="w-6 h-6" />,
         criticality: 'standard'
     },
@@ -160,7 +160,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Temperature & Environmental Monitoring',
         description: 'Track device operating temperature and environmental conditions with alerts for overheating or conditions outside safe parameters.',
         category: 'Performance Monitoring',
-        link: '/docs/devices/general/health-monitoring',
+        link: '#',
         icon: <Thermometer className="w-6 h-6" />,
         criticality: 'important'
     },
@@ -168,7 +168,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Bandwidth Usage Tracking',
         description: 'Monitor network bandwidth consumption per device identifying bandwidth hogs and optimizing stream configurations for efficiency.',
         category: 'Performance Monitoring',
-        link: '/docs/troubleshooting/performance-issues',
+        link: '#',
         icon: <Network className="w-6 h-6" />,
         criticality: 'standard'
     },
@@ -178,7 +178,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Device Offline Alerts',
         description: 'Instant notifications when devices go offline with configurable alert thresholds, escalation rules, and multi-channel delivery.',
         category: 'Alerts & Notifications',
-        link: '/docs/troubleshooting/device-offline',
+        link: '#',
         icon: <WifiOff className="w-6 h-6" />,
         criticality: 'critical'
     },
@@ -186,7 +186,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Health Alert Rules',
         description: 'Customizable alert rules based on device health metrics triggering notifications for storage, temperature, connectivity, or performance issues.',
         category: 'Alerts & Notifications',
-        link: '/docs/devices/general/health-monitoring',
+        link: '#',
         icon: <Bell className="w-6 h-6" />,
         criticality: 'important'
     },
@@ -194,7 +194,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Proactive Maintenance Alerts',
         description: 'Predictive alerts for upcoming maintenance needs based on device age, usage patterns, and historical performance trends.',
         category: 'Alerts & Notifications',
-        link: '/docs/installer-guide/maintenance-schedule',
+        link: '#',
         icon: <Clock className="w-6 h-6" />,
         criticality: 'standard'
     },
@@ -204,7 +204,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Remote Device Configuration',
         description: 'Centralized configuration management for devices including firmware updates, parameter adjustments, and bulk configuration deployment.',
         category: 'Configuration & Management',
-        link: '/docs/installer-guide/device-installation',
+        link: '#',
         icon: <Settings className="w-6 h-6" />,
         criticality: 'important'
     },
@@ -212,7 +212,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Firmware Version Management',
         description: 'Track firmware versions across devices with alerts for outdated firmware, security patches, and centralized update orchestration.',
         category: 'Configuration & Management',
-        link: '/docs/devices/general/health-monitoring',
+        link: '#',
         icon: <RefreshCw className="w-6 h-6" />,
         criticality: 'important'
     },
@@ -220,7 +220,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Device Registration & Onboarding',
         description: 'Streamlined device registration workflow with auto-discovery, manual registration, bulk onboarding, and verification procedures.',
         category: 'Configuration & Management',
-        link: '/docs/installer-guide/device-registration',
+        link: '#',
         icon: <Plug className="w-6 h-6" />,
         criticality: 'critical'
     },
@@ -228,7 +228,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Device Grouping & Organization',
         description: 'Organize devices into logical groups by type, location, function, or custom criteria for efficient monitoring and management.',
         category: 'Configuration & Management',
-        link: '/docs/admin-guide/site-groups',
+        link: '#',
         icon: <Layers className="w-6 h-6" />,
         criticality: 'standard'
     },
@@ -238,7 +238,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Device Health Reports',
         description: 'Comprehensive reports on device uptime, connectivity statistics, performance trends, and health score history for SLA tracking.',
         category: 'Reporting & Analytics',
-        link: '/docs/reporting/device-activity',
+        link: '#',
         icon: <BarChart3 className="w-6 h-6" />,
         criticality: 'important'
     },
@@ -246,7 +246,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Uptime & Availability Metrics',
         description: 'Track device availability percentages, downtime duration, mean time between failures (MTBF), and service level compliance.',
         category: 'Reporting & Analytics',
-        link: '/docs/reporting/device-activity',
+        link: '#',
         icon: <TrendingUp className="w-6 h-6" />,
         criticality: 'important'
     },
@@ -254,7 +254,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Historical Performance Trends',
         description: 'Long-term performance analytics identifying degradation patterns, seasonal variations, and devices requiring attention.',
         category: 'Reporting & Analytics',
-        link: '/docs/reporting/system-performance',
+        link: '#',
         icon: <Activity className="w-6 h-6" />,
         criticality: 'standard'
     },
@@ -262,7 +262,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Device Activity Analytics',
         description: 'Detailed analytics on device usage including event volumes, stream consumption, alarm frequency, and operational patterns.',
         category: 'Reporting & Analytics',
-        link: '/docs/reporting/device-activity',
+        link: '#',
         icon: <Eye className="w-6 h-6" />,
         criticality: 'standard'
     },
@@ -272,7 +272,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Automated Troubleshooting',
         description: 'Guided troubleshooting workflows with automated diagnostic checks, common issue resolution, and step-by-step remediation procedures.',
         category: 'Troubleshooting & Support',
-        link: '/docs/devices/general/troubleshooting-basics',
+        ,
         icon: <AlertCircle className="w-6 h-6" />,
         criticality: 'important'
     },
@@ -280,7 +280,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Connection Troubleshooting',
         description: 'Specialized tools for diagnosing network connectivity issues including firewall checks, port validation, and DNS resolution testing.',
         category: 'Troubleshooting & Support',
-        link: '/docs/troubleshooting/connection-issues',
+        link: '#',
         icon: <Network className="w-6 h-6" />,
         criticality: 'critical'
     },
@@ -288,7 +288,7 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Device Reset & Recovery',
         description: 'Remote device reset capabilities, factory restore options, and recovery procedures for unresponsive or misconfigured devices.',
         category: 'Troubleshooting & Support',
-        link: '/docs/troubleshooting/device-offline',
+        link: '#',
         icon: <RefreshCw className="w-6 h-6" />,
         criticality: 'important'
     },
@@ -575,19 +575,19 @@ export default function DeviceMonitoringHub() {
                                 title: 'Device Health Dashboard',
                                 description: 'View real-time health status of all devices',
                                 icon: <Activity className="w-6 h-6" />,
-                                link: '/docs/admin-guide/device-health-status',
+                                link: '#',
                             },
                             {
                                 title: 'Connection Troubleshooting',
                                 description: 'Diagnose and resolve connectivity issues',
                                 icon: <Network className="w-6 h-6" />,
-                                link: '/docs/troubleshooting/connection-issues',
+                                link: '#',
                             },
                             {
                                 title: 'Setup Health Alerts',
                                 description: 'Configure proactive monitoring notifications',
                                 icon: <Bell className="w-6 h-6" />,
-                                link: '/docs/devices/general/health-monitoring',
+                                link: '#',
                             },
                         ].map((resource, index) => (
                             <Link

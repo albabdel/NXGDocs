@@ -82,11 +82,3 @@ export function SkeletonEditor() {
   );
 }
 
-
-
-
-
-
-
-
-

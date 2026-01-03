@@ -194,9 +194,9 @@ For playback to work properly:
 
 - [Playback Configuration](./configuration.md)
 - [Playback Troubleshooting](./troubleshooting.md)
-- [Video Streaming Overview](/docs/features/video-streaming/overview.md)
-- [Live View Overview](/docs/features/live-view/overview.md)
-- [Event Clips Overview](/docs/features/event-clips/overview.md)
+- 
+- 
+- 
 
 ## Need Help?
 

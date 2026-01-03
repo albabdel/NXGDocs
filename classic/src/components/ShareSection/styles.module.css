@@ -61,6 +61,17 @@
   display: block;
 }
 
+/* Copied state styling */
+.shareButton.copied {
+  color: #10B981;
+  border-color: #10B981;
+}
+
+.shareButton.copied:hover {
+  color: #059669;
+  border-color: #059669;
+}
+
 /* LinkedIn button - blue icon */
 .linkedInButton {
   color: #0077B5;

@@ -388,8 +388,8 @@ If you encounter issues during configuration, see the [Troubleshooting Guide](./
 
 - [NXWitness VMS Overview](./overview.md)
 - [NXWitness VMS Troubleshooting](./troubleshooting.md)
-- [Firewall Configuration](/docs/getting-started/firewall-configuration)
-- [Required Ports](/docs/getting-started/required-ports)
+- 
+- 
 
 ---
 

@@ -446,7 +446,6 @@ import TabItem from '@theme/TabItem';
 - [Senstar Overview](/docs/devices/senstar/overview)
 - [Senstar Supported Features](/docs/devices/senstar/supported-features)
 - [Senstar Troubleshooting](/docs/devices/senstar/troubleshooting)
-- [Device Registration](/docs/installer-guide/device-registration)
 
 ---
 

@@ -90,8 +90,8 @@ For detailed step-by-step instructions, see the [Configuration Guide](./configur
 
 - [Victron Router Configuration](./configuration.md)
 - [Victron Router Troubleshooting](./troubleshooting.md)
-- [Firewall Configuration](/docs/getting-started/firewall-configuration)
-- [Required Ports](/docs/getting-started/required-ports)
+- 
+- 
 - [Standard Device Onboarding Process](/docs/device-integration/standard-device-onboarding-process)
 
 ## Change Log

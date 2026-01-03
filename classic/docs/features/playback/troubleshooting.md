@@ -398,8 +398,8 @@ If problems persist:
 
 - [Playback Overview](./overview.md)
 - [Playback Configuration](./configuration.md)
-- [NTP Configuration](/docs/getting-started/ntp-configuration.md)
-- [Video Streaming Troubleshooting](/docs/features/video-streaming/troubleshooting.md)
+- 
+- 
 
 ---
 

@@ -132,7 +132,7 @@ export default function DeviceIntegration() {
             description: 'Direct IP camera connection via ONVIF',
             duration: '10 min',
             difficulty: 'Beginner',
-            link: '/docs/devices/axis/overview',
+            link: '/docs/devices/axis/configuration',
             icon: <Camera className="w-6 h-6" />,
             steps: ['ONVIF setup', 'Stream configuration', 'Motion detection', 'Audio setup']
         },
@@ -141,7 +141,7 @@ export default function DeviceIntegration() {
             description: 'AI-powered edge analytics integration',
             duration: '20 min',
             difficulty: 'Intermediate',
-            link: '/docs/devices/camect/overview',
+            link: '/docs/devices/camect/installer-configuration',
             icon: <Cpu className="w-6 h-6" />,
             steps: ['API configuration', 'Event mapping', 'AI model setup', 'Alert routing']
         },
@@ -150,7 +150,7 @@ export default function DeviceIntegration() {
             description: 'Wireless sensor network integration',
             duration: '25 min',
             difficulty: 'Advanced',
-            link: '/docs/devices/ajax/overview',
+            link: '/docs/devices/ajax/installer-configuration',
             icon: <Radio className="w-6 h-6" />,
             steps: ['Hub configuration', 'Device pairing', 'Zone mapping', 'Alarm integration']
         }

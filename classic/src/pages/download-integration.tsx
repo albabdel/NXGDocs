@@ -95,7 +95,7 @@ const deviceClients: DeviceClient[] = [
                 description: 'Test client for Dahua device integration validation'
             }
         ],
-        documentationLink: '/docs/devices/dahua/overview'
+        documentationLink: '/docs/devices/dahua/installer-configuration'
     },
     {
         vendor: 'Axis',
@@ -113,7 +113,7 @@ const deviceClients: DeviceClient[] = [
                 description: 'Test tool for Axis camera and device integration'
             }
         ],
-        documentationLink: '/docs/devices/axis/overview'
+        documentationLink: '/docs/devices/axis/configuration'
     },
     {
         vendor: 'Milestone',
@@ -149,7 +149,7 @@ const deviceClients: DeviceClient[] = [
                 description: 'Test client for Avigilon ACC WebAPI integration'
             }
         ],
-        documentationLink: '/docs/devices/avigilon/overview'
+        documentationLink: '/docs/devices/avigilon/installer-configuration'
     },
     {
         vendor: 'Adpro',
@@ -166,8 +166,7 @@ const deviceClients: DeviceClient[] = [
                 downloadUrl: '#',
                 description: 'Integration test client for Adpro FastTrace NVR'
             }
-        ],
-        documentationLink: '/docs/devices/adpro/overview'
+        ]
     },
     {
         vendor: 'Camect',
@@ -185,7 +184,7 @@ const deviceClients: DeviceClient[] = [
                 description: 'Web-based API testing tool for Camect AI Box'
             }
         ],
-        documentationLink: '/docs/devices/camect/overview'
+        documentationLink: '/docs/devices/camect/installer-configuration'
     },
     {
         vendor: 'Hanwha',
@@ -203,7 +202,7 @@ const deviceClients: DeviceClient[] = [
                 description: 'Test client for Hanwha Wisenet devices'
             }
         ],
-        documentationLink: '/docs/devices/hanwha/overview'
+        documentationLink: '/docs/devices/hanwha/installer-configuration'
     },
 ];
 

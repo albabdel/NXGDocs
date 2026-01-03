@@ -169,9 +169,9 @@ Live view works with all devices integrated with GCXONE:
 
 - [Live View Configuration](./configuration.md)
 - [Live View Troubleshooting](./troubleshooting.md)
-- [Video Streaming Overview](/docs/features/video-streaming/overview.md)
-- [PTZ Control Overview](/docs/features/ptz-control/overview.md)
-- [Local Mode Overview](/docs/features/local-mode/overview.md)
+- 
+- 
+- 
 
 ## Need Help?
 

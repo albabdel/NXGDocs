@@ -265,10 +265,9 @@ import TabItem from '@theme/TabItem';
 
 ## Related Articles
 
-- [Uniview Overview](/docs/devices/uniview/overview)
+- 
 - [Uniview Supported Features](/docs/devices/uniview/supported-features)
 - [Uniview Troubleshooting](/docs/devices/uniview/troubleshooting)
-- [Device Registration](/docs/installer-guide/device-registration)
 
 ---
 

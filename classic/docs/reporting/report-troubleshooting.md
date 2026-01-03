@@ -52,5 +52,5 @@ Content for this section is being developed.
 If you encounter issues during configuration, please:
 
 1. Check the [troubleshooting guide](/docs/troubleshooting)
-2. Review the [FAQ](/docs/knowledge-base/faq)
+2. Review the FAQ
 3. [Contact support](/docs/support/contact-support) for assistance

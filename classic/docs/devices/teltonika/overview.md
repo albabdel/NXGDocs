@@ -139,8 +139,8 @@ For detailed step-by-step instructions with screenshots, see the [Installer Conf
 
 - [Teltonika Installer Configuration](./installer-configuration.md)
 - [Teltonika Troubleshooting](./troubleshooting.md)
-- [Firewall Configuration](/docs/getting-started/firewall-configuration)
-- [Required Ports](/docs/getting-started/required-ports)
+- 
+- 
 
 ## Change Log
 

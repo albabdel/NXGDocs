@@ -327,10 +327,9 @@ export default function GettingStarted() {
                                 description="Get started with your account"
                                 color="green"
                                 topics={[
-                                    { title: 'First Time Login', link: '/docs/getting-started/first-time-login' },
-                                    { title: 'Password Management', link: '/docs/getting-started/password-management' },
+                                    { title: 'First Time Login',  },
+                                    { title: 'Password Management',  },
                                     { title: 'What is NXGEN GCXONE?', link: '/docs/getting-started/what-is-nxgen-GCXONE' },
-                                    { title: 'What is Evalink Talos?', link: '/docs/getting-started/what-is-evalink-talos' },
                                 ]}
                             />
 
@@ -340,10 +339,10 @@ export default function GettingStarted() {
                                 description="Learn the interface and navigation"
                                 color="blue"
                                 topics={[
-                                    { title: 'Key Benefits', link: '/docs/getting-started/key-benefits' },
-                                    { title: 'Cloud Architecture', link: '/docs/getting-started/cloud-architecture' },
+                                    { title: 'Key Benefits',  },
+                                    { title: 'Cloud Architecture',  },
                                     { title: 'GCXONE & Talos Interaction', link: '/docs/getting-started/GCXONE-talos-interaction' },
-                                    { title: 'Quick Start Checklist', link: '/docs/getting-started/quick-start-checklist' },
+                                    { title: 'Quick Start Checklist',  },
                                 ]}
                             />
 
@@ -353,9 +352,9 @@ export default function GettingStarted() {
                                 description="Ensure proper connectivity"
                                 color="purple"
                                 topics={[
-                                    { title: 'Required Ports', link: '/docs/getting-started/required-ports' },
-                                    { title: 'Firewall Configuration', link: '/docs/getting-started/firewall-configuration' },
-                                    { title: 'IP Whitelisting', link: '/docs/getting-started/ip-whitelisting' },
+                                    { title: 'Required Ports',  },
+                                    { title: 'Firewall Configuration',  },
+                                    { title: 'IP Whitelisting',  },
                                     { title: 'Bandwidth Requirements', link: '/docs/getting-started/bandwidth-requirements' },
                                 ]}
                             />
@@ -366,10 +365,7 @@ export default function GettingStarted() {
                                 description="Configure NTP and architecture"
                                 color="cyan"
                                 topics={[
-                                    { title: 'NTP Configuration', link: '/docs/getting-started/ntp-configuration' },
-                                    { title: 'Hierarchy Model', link: '/docs/platform-fundamentals/hierarchy-model' },
-                                    { title: 'Multi-Tenant Architecture', link: '/docs/platform-fundamentals/multi-tenant' },
-                                    { title: 'Microservices Overview', link: '/docs/platform-fundamentals/microservices-architecture' },
+                                    { title: 'NTP Configuration',  },
                                 ]}
                             />
                         </div>
@@ -382,10 +378,6 @@ export default function GettingStarted() {
                                 description="Start monitoring and handling alarms"
                                 color="amber"
                                 topics={[
-                                    { title: 'Alarm Flow Overview', link: '/docs/platform-fundamentals/alarm-flow' },
-                                    { title: 'Event Processing', link: '/docs/platform-fundamentals/event-processing' },
-                                    { title: 'Device Protocols', link: '/docs/platform-fundamentals/device-protocols' },
-                                    { title: 'System Health Overview', link: '/docs/platform-fundamentals/system-health-overview' },
                                 ]}
                             />
                         </div>

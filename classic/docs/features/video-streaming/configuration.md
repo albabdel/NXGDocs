@@ -327,10 +327,10 @@ See the [Troubleshooting Guide](./troubleshooting.md) for common problems and so
 
 - [Video Streaming Overview](./overview.md)
 - [Video Streaming Troubleshooting](./troubleshooting.md)
-- [Local Mode Overview](/docs/features/local-mode/overview.md)
-- [Live View Overview](/docs/features/live-view/overview.md)
+- 
+- 
 - [Bandwidth Requirements](/docs/getting-started/bandwidth-requirements.md)
-- [Required Ports](/docs/getting-started/required-ports.md)
+- 
 
 ---
 

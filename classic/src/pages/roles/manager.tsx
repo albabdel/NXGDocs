@@ -48,24 +48,6 @@ export default function ManagerLandingPage() {
                         </p>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                             {[
-                                { 
-                                    title: 'Performance Analytics', 
-                                    description: 'Monitor team and system performance metrics',
-                                    icon: <BarChart className="w-6 h-6" />,
-                                    link: '/docs/admin-guide/alarm-volume-analytics'
-                                },
-                                { 
-                                    title: 'Dashboard Overview', 
-                                    description: 'Access comprehensive operational dashboards',
-                                    icon: <Activity className="w-6 h-6" />,
-                                    link: '/docs/admin-guide/dashboard-overview'
-                                },
-                                { 
-                                    title: 'Reporting Tools', 
-                                    description: 'Generate reports and track key metrics',
-                                    icon: <FileText className="w-6 h-6" />,
-                                    link: '/docs/admin-guide/dashboard-overview'
-                                }
                             ].map((feature, idx) => (
                                 <Link
                                     key={idx}
@@ -99,50 +81,6 @@ export default function ManagerLandingPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {[
-                                {
-                                    title: 'Executive Dashboard',
-                                    description: 'High-level KPIs and performance metrics for stakeholders',
-                                    icon: <BarChart className="w-8 h-8" />,
-                                    link: '/docs/admin-guide/dashboard-overview',
-                                    badge: 'Overview',
-                                    color: '#10B981'
-                                },
-                                {
-                                    title: 'Team Performance',
-                                    description: 'Individual and team productivity metrics and trends',
-                                    icon: <Users className="w-8 h-8" />,
-                                    link: '/docs/admin-guide/alarm-volume-analytics',
-                                    color: '#3B82F6'
-                                },
-                                {
-                                    title: 'Response Analytics',
-                                    description: 'Alarm processing times, escalation rates, and efficiency',
-                                    icon: <TrendingUp className="w-8 h-8" />,
-                                    link: '/docs/admin-guide/alarm-volume-analytics',
-                                    color: '#8B5CF6'
-                                },
-                                {
-                                    title: 'Operational Metrics',
-                                    description: 'System uptime, device health, and infrastructure status',
-                                    icon: <Activity className="w-8 h-8" />,
-                                    link: '/docs/admin-guide/device-health-status',
-                                    color: '#F59E0B'
-                                },
-                                {
-                                    title: 'Cost Analysis',
-                                    description: 'ROI tracking, cost per incident, and budget optimization',
-                                    icon: <DollarSign className="w-8 h-8" />,
-                                    link: '/docs/admin-guide/dashboard-overview',
-                                    badge: 'Business',
-                                    color: '#EF4444'
-                                },
-                                {
-                                    title: 'Custom Reports',
-                                    description: 'Build tailored reports for specific business requirements',
-                                    icon: <FileText className="w-8 h-8" />,
-                                    link: '/docs/admin-guide/dashboard-overview',
-                                    color: '#06B6D4'
-                                }
                             ].map((item, idx) => (
                                 <motion.div
                                     key={item.title}
@@ -200,32 +138,11 @@ export default function ManagerLandingPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {[
                                 {
-                                    title: 'Workforce Analytics',
-                                    description: 'Comprehensive insights into team performance, productivity, and workload distribution',
-                                    features: ['Individual performance tracking', 'Shift efficiency analysis', 'Workload balancing', 'Skills assessment'],
-                                    icon: <Users className="w-8 h-8" />,
-                                    link: '/docs/admin-guide/alarm-volume-analytics'
-                                },
-                                {
-                                    title: 'Schedule Management',
-                                    description: 'Advanced scheduling tools for 24/7 operations with automated optimization',
-                                    features: ['Shift planning', 'Coverage optimization', 'Time-off management', 'Emergency scheduling'],
-                                    icon: <Calendar className="w-8 h-8" />,
-                                    link: '/docs/admin-guide/dashboard-overview'
-                                },
-                                {
                                     title: 'Training & Development',
                                     description: 'Track certifications, training progress, and skill development across your team',
                                     features: ['Certification tracking', 'Training schedules', 'Skill gap analysis', 'Performance coaching'],
                                     icon: <Award className="w-8 h-8" />,
                                     link: '/docs/getting-started'
-                                },
-                                {
-                                    title: 'Quality Assurance',
-                                    description: 'Monitor and improve service quality with comprehensive QA tools and metrics',
-                                    features: ['Call monitoring', 'Response quality scoring', 'Customer feedback', 'Improvement plans'],
-                                    icon: <CheckCircle className="w-8 h-8" />,
-                                    link: '/docs/admin-guide/dashboard-overview'
                                 }
                             ].map((category, idx) => (
                                 <motion.div
@@ -281,34 +198,6 @@ export default function ManagerLandingPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {[
-                                {
-                                    title: 'Audit Management',
-                                    description: 'Complete audit trails and compliance documentation',
-                                    icon: <FileCheck className="w-6 h-6" />,
-                                    link: '/docs/admin-guide/dashboard-overview',
-                                    metrics: ['100% audit trail coverage', 'Automated compliance reports', 'Real-time monitoring']
-                                },
-                                {
-                                    title: 'SLA Tracking',
-                                    description: 'Monitor and report on service level agreement adherence',
-                                    icon: <Target className="w-6 h-6" />,
-                                    link: '/docs/admin-guide/dashboard-overview',
-                                    metrics: ['99.8% SLA compliance', 'Automated alerts', 'Performance dashboards']
-                                },
-                                {
-                                    title: 'Risk Management',
-                                    description: 'Identify and mitigate operational and compliance risks',
-                                    icon: <Shield className="w-6 h-6" />,
-                                    link: '/docs/admin-guide/dashboard-overview',
-                                    metrics: ['Risk assessment tools', 'Mitigation tracking', 'Incident analysis']
-                                },
-                                {
-                                    title: 'Reporting Suite',
-                                    description: 'Automated compliance and performance reporting',
-                                    icon: <Mail className="w-6 h-6" />,
-                                    link: '/docs/admin-guide/dashboard-overview',
-                                    metrics: ['Scheduled reports', 'Custom templates', 'Stakeholder distribution']
-                                }
                             ].map((item, idx) => (
                                 <motion.div
                                     key={item.title}
@@ -359,27 +248,6 @@ export default function ManagerLandingPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {[
-                                {
-                                    title: 'Predictive Analytics',
-                                    description: 'Forecast trends and anticipate operational needs',
-                                    icon: <TrendingUp className="w-6 h-6" />,
-                                    link: '/docs/admin-guide/alarm-volume-analytics',
-                                    capabilities: ['Alarm volume forecasting', 'Resource planning', 'Trend analysis', 'Capacity modeling']
-                                },
-                                {
-                                    title: 'ROI Analysis',
-                                    description: 'Measure return on investment and cost optimization opportunities',
-                                    icon: <DollarSign className="w-6 h-6" />,
-                                    link: '/docs/admin-guide/dashboard-overview',
-                                    capabilities: ['Cost per incident', 'Efficiency gains', 'Technology ROI', 'Budget optimization']
-                                },
-                                {
-                                    title: 'Benchmarking',
-                                    description: 'Compare performance against industry standards and best practices',
-                                    icon: <BarChart className="w-6 h-6" />,
-                                    link: '/docs/admin-guide/dashboard-overview',
-                                    capabilities: ['Industry comparisons', 'Performance baselines', 'Best practice identification', 'Improvement targets']
-                                }
                             ].map((capability, idx) => (
                                 <motion.div
                                     key={capability.title}
@@ -436,20 +304,6 @@ export default function ManagerLandingPage() {
                                 >
                                     <Headphones className="w-5 h-5" />
                                     Consulting Services
-                                </Link>
-                                <Link
-                                    to="/docs/admin-guide/dashboard-overview"
-                                    className="inline-flex items-center gap-2 px-8 py-4 bg-[#202020] hover:bg-[#2a2a2a] border border-white/10 rounded-xl text-white hover:text-[#E8B058] transition-all no-underline"
-                                >
-                                    <FileText className="w-5 h-5" />
-                                    Analytics Guide
-                                </Link>
-                                <Link
-                                    to="/docs/admin-guide/dashboard-overview"
-                                    className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all no-underline"
-                                >
-                                    <Users className="w-5 h-5" />
-                                    Team Management
                                 </Link>
                             </div>
                         </div>

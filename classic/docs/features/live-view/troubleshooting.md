@@ -15,7 +15,7 @@ last_updated: 2025-12-21
 
 ## Overview
 
-This guide provides solutions for common live view issues in GCXONE. Many issues overlap with video streaming troubleshooting - see [Video Streaming Troubleshooting](/docs/features/video-streaming/troubleshooting.md) for additional solutions.
+This guide provides solutions for common live view issues in GCXONE. Many issues overlap with video streaming troubleshooting - see  for additional solutions.
 
 ---
 
@@ -30,7 +30,7 @@ This guide provides solutions for common live view issues in GCXONE. Many issues
 
 **Possible Causes and Solutions:**
 
-See [Video Streaming Troubleshooting - No Video Display](/docs/features/video-streaming/troubleshooting.md#no-video-display) for detailed solutions.
+See  for detailed solutions.
 
 Quick fixes:
 - Verify device is online
@@ -49,7 +49,7 @@ Quick fixes:
 
 **Possible Causes and Solutions:**
 
-See [Video Streaming Troubleshooting - Poor Video Quality](/docs/features/video-streaming/troubleshooting.md#poor-video-quality) for detailed solutions.
+See  for detailed solutions.
 
 Quick fixes:
 - Increase stream quality setting
@@ -103,7 +103,7 @@ Quick fixes:
 
 **Possible Causes and Solutions:**
 
-See [Video Streaming Troubleshooting - Frequent Buffering](/docs/features/video-streaming/troubleshooting.md#frequent-buffering-or-stuttering) for detailed solutions.
+See  for detailed solutions.
 
 Additional live view specific:
 - **Limit Concurrent Streams**: Reduce number of simultaneous streams
@@ -157,7 +157,7 @@ Additional live view specific:
 
 **Possible Causes and Solutions:**
 
-See [PTZ Control Troubleshooting](/docs/features/ptz-control/troubleshooting.md) for detailed solutions.
+See  for detailed solutions.
 
 Quick fixes:
 - Verify camera supports PTZ
@@ -182,8 +182,8 @@ If problems persist:
 
 - [Live View Overview](./overview.md)
 - [Live View Configuration](./configuration.md)
-- [Video Streaming Troubleshooting](/docs/features/video-streaming/troubleshooting.md)
-- [PTZ Control Troubleshooting](/docs/features/ptz-control/troubleshooting.md)
+- 
+- 
 
 ---
 

@@ -39,10 +39,3 @@ export function sanitizeRichText(richTextHTML: string): string {
   return sanitizeHTML(richTextHTML);
 }
 
-
-
-
-
-
-
-

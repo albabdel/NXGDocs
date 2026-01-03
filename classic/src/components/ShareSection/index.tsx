@@ -39,12 +39,18 @@ function ShareSectionInner() {
       <span className={styles.shareLabel}>Share:</span>
       <div className={styles.shareButtons}>
         <button
-          className={styles.shareButton}
+          className={`${styles.shareButton} ${copied ? styles.copied : ''}`}
           onClick={copyToClipboard}
-          title="Copy link"
+          title={copied ? "Copied!" : "Copy link"}
           aria-label="Copy link to clipboard"
         >
-          <Link2 size={20} />
+          {copied ? (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+          ) : (
+            <Link2 size={20} />
+          )}
         </button>
         <button
           className={styles.shareButton}

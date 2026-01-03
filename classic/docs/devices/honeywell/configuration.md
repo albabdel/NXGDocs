@@ -327,8 +327,8 @@ If you encounter issues during configuration, see the [Troubleshooting Guide](./
 
 - [Honeywell 35 Series NVR Overview](./overview.md)
 - [Honeywell 35 Series NVR Troubleshooting](./troubleshooting.md)
-- [Firewall Configuration](/docs/getting-started/firewall-configuration)
-- [Network Requirements](/docs/getting-started/required-ports)
+- 
+- 
 
 ## Change Log
 

@@ -48,24 +48,6 @@ export default function AdminLandingPage() {
                         </p>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                             {[
-                                { 
-                                    title: 'User Management', 
-                                    description: 'Create and manage users, roles, and permissions',
-                                    icon: <Users className="w-6 h-6" />,
-                                    link: '/docs/admin-guide/user-management'
-                                },
-                                { 
-                                    title: 'System Configuration', 
-                                    description: 'Configure system-wide settings and preferences',
-                                    icon: <Settings className="w-6 h-6" />,
-                                    link: '/docs/admin-guide/dashboard-overview'
-                                },
-                                { 
-                                    title: 'Security & Access', 
-                                    description: 'Manage security policies and access controls',
-                                    icon: <Shield className="w-6 h-6" />,
-                                    link: '/docs/admin-guide/rbac'
-                                }
                             ].map((feature, idx) => (
                                 <Link
                                     key={idx}
@@ -100,41 +82,12 @@ export default function AdminLandingPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {[
                                 {
-                                    title: 'User Management',
-                                    description: 'Create, manage, and assign roles to users across your organization',
-                                    icon: <Users className="w-8 h-8" />,
-                                    link: '/docs/admin-guide/user-management',
-                                    badge: 'Essential',
-                                    color: '#10B981'
-                                },
-                                {
                                     title: 'Security Policies',
                                     description: 'Configure 2FA, password requirements, and access controls',
                                     icon: <Shield className="w-8 h-8" />,
                                     link: '/docs/getting-started/user-management/roles-and-access-levels',
                                     badge: 'Critical',
                                     color: '#EF4444'
-                                },
-                                {
-                                    title: 'System Configuration',
-                                    description: 'Global settings, preferences, and platform-wide defaults',
-                                    icon: <Settings className="w-8 h-8" />,
-                                    link: '/docs/admin-guide/dashboard-overview',
-                                    color: '#3B82F6'
-                                },
-                                {
-                                    title: 'Site Management',
-                                    description: 'Organize locations, hierarchies, and geographical structures',
-                                    icon: <Globe className="w-8 h-8" />,
-                                    link: '/docs/admin-guide/creating-sites',
-                                    color: '#8B5CF6'
-                                },
-                                {
-                                    title: 'Audit & Compliance',
-                                    description: 'Access logs, user activity reports, and compliance tracking',
-                                    icon: <FileText className="w-8 h-8" />,
-                                    link: '/docs/admin-guide/dashboard-overview',
-                                    color: '#F59E0B'
                                 },
                                 {
                                     title: 'API Management',
@@ -200,34 +153,6 @@ export default function AdminLandingPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {[
-                                {
-                                    title: 'Customer & Site Management',
-                                    description: 'Manage customers, sites, and organizational hierarchies',
-                                    features: ['Creating customers', 'Site configuration', 'Site groups', 'Hierarchy management'],
-                                    icon: <Database className="w-8 h-8" />,
-                                    link: '/docs/admin-guide/creating-customers'
-                                },
-                                {
-                                    title: 'Role-Based Access Control',
-                                    description: 'Configure roles, permissions, and access levels for your organization',
-                                    features: ['Role creation', 'Permission matrix', 'Access levels', 'User privileges'],
-                                    icon: <Network className="w-8 h-8" />,
-                                    link: '/docs/admin-guide/rbac'
-                                },
-                                {
-                                    title: 'Analytics & Reporting',
-                                    description: 'Monitor system performance, alarm volumes, and operational metrics',
-                                    features: ['Dashboard overview', 'Alarm analytics', 'Device health', 'Performance metrics'],
-                                    icon: <BarChart3 className="w-8 h-8" />,
-                                    link: '/docs/admin-guide/dashboard-overview'
-                                },
-                                {
-                                    title: 'System Configuration',
-                                    description: 'Configure system-wide settings, timezones, and custom properties',
-                                    features: ['Timezone management', 'Custom properties', 'Event clip configuration', 'System preferences'],
-                                    icon: <CheckCircle className="w-8 h-8" />,
-                                    link: '/docs/admin-guide/timezone-management'
-                                }
                             ].map((feature, idx) => (
                                 <motion.div
                                     key={feature.title}
@@ -283,28 +208,10 @@ export default function AdminLandingPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {[
                                 {
-                                    title: 'Creating Users',
-                                    description: 'Learn how to invite and configure new team members',
-                                    icon: <UserCheck className="w-6 h-6" />,
-                                    link: '/docs/admin-guide/creating-users'
-                                },
-                                {
                                     title: 'API Authentication',
                                     description: 'Understand API tokens and integration access',
                                     icon: <Key className="w-6 h-6" />,
                                     link: '/docs/api/index'
-                                },
-                                {
-                                    title: 'System Monitoring',
-                                    description: 'Monitor platform status and device health',
-                                    icon: <Activity className="w-6 h-6" />,
-                                    link: '/docs/admin-guide/device-health-status'
-                                },
-                                {
-                                    title: 'Security Configuration',
-                                    description: 'Configure security policies and access controls',
-                                    icon: <AlertTriangle className="w-6 h-6" />,
-                                    link: '/docs/admin-guide/rbac'
                                 }
                             ].map((action, idx) => (
                                 <motion.div
@@ -348,13 +255,6 @@ export default function AdminLandingPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {[
-                                {
-                                    title: 'Admin Documentation',
-                                    description: 'Comprehensive guides for all administrative functions',
-                                    icon: <FileText className="w-6 h-6" />,
-                                    link: '/docs/admin-guide/dashboard-overview',
-                                    items: ['User management guides', 'Security configuration', 'System administration', 'Troubleshooting']
-                                },
                                 {
                                     title: 'Training Resources',
                                     description: 'Video tutorials and certification programs',
@@ -425,13 +325,6 @@ export default function AdminLandingPage() {
                                 >
                                     <Headphones className="w-5 h-5" />
                                     Contact Support
-                                </Link>
-                                <Link
-                                    to="/docs/admin-guide/dashboard-overview"
-                                    className="inline-flex items-center gap-2 px-8 py-4 card-themed rounded-xl text-themed-primary hover:text-[#E8B058] transition-all no-underline"
-                                >
-                                    <FileText className="w-5 h-5" />
-                                    View Documentation
                                 </Link>
                             </div>
                         </div>

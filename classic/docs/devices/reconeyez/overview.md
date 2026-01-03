@@ -138,8 +138,7 @@ For detailed step-by-step instructions with screenshots, see the [Installer Conf
 
 - [Reconeyez Installer Configuration](./installer-configuration.md)
 - [Reconeyez Troubleshooting](./troubleshooting.md)
-- [Network Requirements](/docs/knowledge-base/network-requirements)
-- [Firewall Configuration](/docs/getting-started/firewall-configuration)
+- 
 
 ## Change Log
 

@@ -316,8 +316,8 @@ See the [Troubleshooting Guide](./troubleshooting.md) for common problems and so
 
 - [Viasys/ShieldBox Cloud NVR Overview](./overview.md)
 - [Viasys/ShieldBox Cloud NVR Troubleshooting](./troubleshooting.md)
-- [Firewall Configuration](/docs/getting-started/firewall-configuration)
-- [Required Ports](/docs/getting-started/required-ports)
+- 
+- 
 
 ---
 

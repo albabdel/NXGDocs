@@ -331,8 +331,8 @@ Check manufacturer's ONVIF conformance at: https://www.onvif.org/conformant-prod
 
 - [ONVIF IP Camera Overview](./overview.md)
 - [ONVIF IP Camera Troubleshooting](./troubleshooting.md)
-- [Firewall Configuration](/docs/getting-started/firewall-configuration)
-- [Required Ports](/docs/getting-started/required-ports)
+- 
+- 
 
 ---
 

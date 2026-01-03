@@ -344,11 +344,3 @@ useEffect(() => {
 
 *These fixes address the most critical UX/UI issues and can be implemented quickly for immediate impact.*
 
-
-
-
-
-
-
-
-

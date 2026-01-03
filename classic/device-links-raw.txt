@@ -1,5 +1,4 @@
     configLink: string;
-        configLink: '/docs/devices/adpro/overview',
         configLink: '/docs/devices/hikvision/overview',
         configLink: '/docs/devices/hikvision/overview',
         configLink: '/docs/devices/hikpro/overview',

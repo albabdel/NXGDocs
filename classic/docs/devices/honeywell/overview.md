@@ -118,8 +118,8 @@ For detailed step-by-step instructions with screenshots, see the [Configuration 
 
 - [Honeywell 35 Series NVR Configuration](./configuration.md)
 - [Honeywell 35 Series NVR Troubleshooting](./troubleshooting.md)
-- [Firewall Configuration](/docs/getting-started/firewall-configuration)
-- [Required Ports](/docs/getting-started/required-ports)
+- 
+- 
 - [Standard Device Onboarding Process](/docs/device-integration/standard-device-onboarding-process)
 
 ## Change Log

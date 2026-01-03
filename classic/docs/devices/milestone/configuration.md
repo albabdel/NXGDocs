@@ -360,8 +360,8 @@ See [Troubleshooting Guide](./troubleshooting.md) for more.
 
 - [Milestone VMS Overview](./overview.md)
 - [Milestone VMS Troubleshooting](./troubleshooting.md)
-- [Firewall Configuration](/docs/getting-started/firewall-configuration)
-- [Required Ports](/docs/getting-started/required-ports)
+- 
+- 
 
 ---
 
