@@ -22,7 +22,7 @@
     "dev:preview": "npm run preview",
     "prebuild": "npm run fetch-content",
     "start": "npm run fetch-content && docusaurus start --host 0.0.0.0",
-    "build": "NODE_OPTIONS='--max-old-space-size=4096' docusaurus build",
+    "build": "node scripts/build-with-memory.js",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",

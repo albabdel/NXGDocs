@@ -15,11 +15,13 @@ The build was timing out on Cloudflare Pages (20-minute timeout limit).
 ### 2. Memory Optimization
 - Added `NODE_OPTIONS='--max-old-space-size=4096'` to increase Node.js memory limit
 - Prevents out-of-memory errors during large builds
+- Uses cross-platform Node.js wrapper script (`scripts/build-with-memory.js`) for Windows/Linux compatibility
 
 ### 3. Cloudflare Pages Configuration
-- Created `wrangler.toml` for Cloudflare configuration
+- Created `wrangler.toml` for Cloudflare configuration (Pages-compatible format)
 - Created `.cfpages.yaml` for Pages-specific settings
 - Build output directory: `classic/build`
+- **Important**: `wrangler.toml` only contains Pages-compatible settings (no `[build]` section)
 
 ### 4. HTTP Headers
 - Added `classic/static/_headers` for proper caching and security headers
@@ -59,18 +61,21 @@ If build still times out:
 5. Split build into multiple stages if possible
 
 ### "Must specify a project name" Error
-If you see the error `✘ [ERROR] Must specify a project name.` during deployment:
+If you see the error `✘ [ERROR] Must specify a project name.` or `Configuration file for Pages projects does not support "build"` during deployment:
 
-**Solution:** Cloudflare Pages should deploy automatically after a successful build. Do NOT set a custom deploy command in the Cloudflare Pages dashboard.
+**Root Cause:** Cloudflare Pages is trying to execute a custom deploy command (like `npx wrangler pages deploy`) which is not needed and causes conflicts.
+
+**Solution:** Cloudflare Pages deploys automatically after a successful build. Do NOT set a custom deploy command in the Cloudflare Pages dashboard.
 
 1. Go to your Cloudflare Pages project settings
 2. Navigate to "Builds & deployments" section
-3. **Remove any custom deploy command** (leave it empty/blank)
+3. **Remove any custom deploy command** (leave it completely empty/blank)
 4. Ensure only these settings are configured:
    - **Build command**: `npm run build`
    - **Build output directory**: `classic/build`
    - **Root directory**: `.` (root of repository)
    - **Node version**: 18 or higher
+   - **Deploy command**: (leave empty/blank - this is critical!)
 
-The `wrangler.toml` file has been configured with `pages_build_output_dir = "classic/build"` which Cloudflare Pages will use automatically. You do NOT need to run `wrangler pages deploy` manually.
+The `wrangler.toml` file has been configured with `pages_build_output_dir = "classic/build"` in Pages-compatible format. Cloudflare Pages will use this automatically. You do NOT need to manually run `wrangler pages deploy` or any other deploy command.
 
