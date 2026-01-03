@@ -21,7 +21,6 @@ tags:
 - **Platform**: GC-X-ONE
 - **Doc Version**: 1.0.0
 
-
 # Zusammenfassung
 
 - Zweck: Avigilon Video Management System (VMS) so konfigurieren, dass es sich nahtlos mit der GC-X-ONE-Plattform für erweiterte Videoüberwachung und Analytics integriert.

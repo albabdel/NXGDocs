@@ -23,7 +23,6 @@ tags:
 - **Platform**: GC-X-ONE
 - **Doc Version**: 1.0.0
 
-
 # Zusammenfassung
 
 - Zweck: ADPRO-Devices so konfigurieren, dass Alarme zuverlässig an die GC-X-ONE-Plattform gesendet werden.
@@ -266,7 +265,6 @@ tags:
   ![Adding Device Step 2](./images/ADPRO%2018.png)
   
   ![ADPRO Device Added](./images/ADPRO%2019.png)
-
 
 ## Step 12 – Integration verifizieren
 

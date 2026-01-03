@@ -355,7 +355,7 @@ If you've tried the solutions above and are still experiencing problems:
    - Firmware version
    - Network configuration
    - Error messages and timestamps
-4. **Contact Support**: [Submit a support ticket](/docs/support) with gathered information
+4. **Contact Support**: [Submit a support ticket](#) with gathered information
 
 ---
 
@@ -369,4 +369,4 @@ If you've tried the solutions above and are still experiencing problems:
 
 **Need Help?**
 
-If you need further assistance, [contact support](/docs/support).
+If you need further assistance, [contact support](#).

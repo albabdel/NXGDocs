@@ -300,7 +300,7 @@ For managing multiple Viasys/ShieldBox Cloud NVRs:
 
 ## Troubleshooting
 
-See the [Troubleshooting Guide](./troubleshooting.md) for common problems and solutions.
+See the Troubleshooting Guide for common problems and solutions.
 
 **Quick troubleshooting:**
 - **NVR not discovered**: Verify cloud account credentials and NVR is online in Viasys platform
@@ -315,7 +315,7 @@ See the [Troubleshooting Guide](./troubleshooting.md) for common problems and so
 ## Related Articles
 
 - [Viasys/ShieldBox Cloud NVR Overview](./overview.md)
-- [Viasys/ShieldBox Cloud NVR Troubleshooting](./troubleshooting.md)
+- Viasys/ShieldBox Cloud NVR Troubleshooting
 - 
 - 
 

@@ -192,7 +192,7 @@ For playback to work properly:
 
 ## Related Articles
 
-- [Playback Configuration](./configuration.md)
+- Playback Configuration
 - [Playback Troubleshooting](./troubleshooting.md)
 - 
 - 
@@ -200,4 +200,4 @@ For playback to work properly:
 
 ## Need Help?
 
-If you're experiencing issues with playback, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](/docs/support).
+If you're experiencing issues with playback, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](#).

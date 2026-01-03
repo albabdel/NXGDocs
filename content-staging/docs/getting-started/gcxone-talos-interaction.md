@@ -468,16 +468,16 @@ The integration between GCXONE and Talos uses **MQTT (Message Queuing Telemetry 
 ## Related Articles
 
 - [What is NXGEN GCXONE?](/docs/getting-started/what-is-nxgen-gcxone)
-- [Cloud Architecture Overview](/docs/getting-started/cloud-architecture)
-- [Key Benefits & Value Propositions](/docs/getting-started/key-benefits)
-- [IP Whitelisting](/docs/getting-started/ip-whitelisting)
-- [Required Ports](/docs/getting-started/required-ports)
-- [NTP Configuration](/docs/getting-started/ntp-configuration)
+- 
+- 
+- 
+- 
+- 
 
 ---
 
 ## Need Help?
 
-If you have questions about GCXONE-Talos integration or need assistance with configuration, check our [Troubleshooting Guide](/docs/troubleshooting) or [contact support](/docs/support).
+If you have questions about GCXONE-Talos integration or need assistance with configuration, check our Troubleshooting Guide or contact support.
 
 For detailed API documentation and technical specifications, refer to the [GCXONE API Documentation](/docs/api).

@@ -21,7 +21,6 @@ tags:
 - **Platform**: GC-X-ONE
 - **Doc Version**: 1.0.0
 
-
 # Zusammenfassung
 
 - Zweck: Teltonika Router für GPS-Tracking und Device Monitoring in GC-X-ONE integrieren.

@@ -21,7 +21,6 @@ tags:
 - **Platform**: GC-X-ONE
 - **Doc Version**: 1.0.0
 
-
 # Zusammenfassung
 
 - Zweck: Ajax-Sicherheitsgeräte mit der GC-X-ONE-Plattform integrieren, um Alarme zu überwachen und False Alarms zu filtern.

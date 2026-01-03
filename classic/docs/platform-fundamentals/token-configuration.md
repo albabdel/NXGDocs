@@ -50,14 +50,14 @@ This guide provides essential information and procedures.
 
 ## Related Documentation
 
-- [Getting Started Guide](/docs/getting-started)
-- [Troubleshooting](/docs/troubleshooting)
-- [Support Resources](/docs/support)
+- Getting Started Guide
+- [Troubleshooting](#)
+- [Support Resources](#)
 
 ## Need Help?
 
 If you encounter issues during configuration, please:
 
-1. Check the [troubleshooting guide](/docs/troubleshooting)
+1. Check the [troubleshooting guide](#)
 2. Review the FAQ
-3. [Contact support](/docs/support/contact-support) for assistance
+3. [Contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket) for assistance

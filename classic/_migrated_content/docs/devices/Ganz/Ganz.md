@@ -21,7 +21,6 @@ tags:
 - **Platform**: GC-X-ONE
 - **Doc Version**: 1.0.0
 
-
 # Zusammenfassung
 
 - Zweck: Ganz-Devices für nahtlose Integration mit GC-X-ONE zur Videoüberwachung und zum Event-Management konfigurieren.

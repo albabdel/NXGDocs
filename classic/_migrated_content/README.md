@@ -14,9 +14,3 @@ This folder contains all articles, folders, and content that was moved from the 
 
 You can now move this entire `_migrated_content` folder away from the codebase when ready. The main documentation folders (`docs/`, `docs-internal/`, `internal_docs/`, `blog/`, `i18n/`) are now empty skeletons ready for building new content from scratch.
 
-
-
-
-
-
-

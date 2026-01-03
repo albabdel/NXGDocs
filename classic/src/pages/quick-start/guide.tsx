@@ -514,7 +514,7 @@ export default function QuickStartGuide() {
                                     <p className="text-sm text-white/70">Detailed guide with screenshots and troubleshooting</p>
                                 </div>
                                 <Link
-                                    to="/docs/getting-started/first-time-login"
+                                    to="/docs"
                                     className="px-6 py-3 bg-[#E8B058]/20 hover:bg-[#E8B058]/30 border border-[#E8B058]/40 text-[#E8B058] font-medium rounded-lg transition-all no-underline flex items-center gap-2"
                                 >
                                     View Full Guide
@@ -996,14 +996,14 @@ Account Format: [Your Site ID Format]`} />
                             </p>
                             <div className="inline-flex gap-4 flex-wrap justify-center">
                                 <Link
-                                    to="/docs/troubleshooting"
+                                    to="#"
                                     className="inline-flex items-center gap-2 px-6 py-3 bg-[#E8B058]/20 hover:bg-[#E8B058]/30 border border-[#E8B058]/40 text-[#E8B058] font-medium rounded-lg transition-all no-underline"
                                 >
                                     <FileText className="w-5 h-5" />
                                     Troubleshooting Guide
                                 </Link>
                                 <Link
-                                    to="/docs/support"
+                                    to="#"
                                     className="inline-flex items-center gap-2 px-6 py-3 bg-[#202020] hover:bg-[#2a2a2a] border border-white/10 rounded-lg text-white hover:text-[#E8B058] transition-all no-underline"
                                 >
                                     <HelpCircle className="w-5 h-5" />

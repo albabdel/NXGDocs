@@ -55,7 +55,6 @@ const userFeatures: UserFeature[] = [
         title: 'Password Policies',
         description: 'Enforce strong password requirements including complexity rules, expiration policies, and password history tracking.',
         category: 'Permissions & Security',
-        link: '/docs/getting-started/password-management',
         icon: <Lock className="w-6 h-6" />,
         level: 'basic'
     },
@@ -63,7 +62,6 @@ const userFeatures: UserFeature[] = [
         title: 'Two-Factor Authentication (2FA)',
         description: 'Optional 2FA enforcement for enhanced account security with support for authenticator apps and SMS verification.',
         category: 'Permissions & Security',
-        link: '/docs/getting-started/password-management',
         icon: <ShieldAlert className="w-6 h-6" />,
         level: 'advanced'
     },
@@ -71,11 +69,9 @@ const userFeatures: UserFeature[] = [
         title: 'Single Sign-On (SSO)',
         description: 'Enterprise SSO integration with SAML 2.0 and OAuth 2.0 for seamless authentication across corporate identity providers.',
         category: 'Permissions & Security',
-        link: '/docs/getting-started/first-time-login',
         icon: <Key className="w-6 h-6" />,
         level: 'advanced'
     },
-
 
     // Monitoring & Audit
     {

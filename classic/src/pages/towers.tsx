@@ -777,7 +777,7 @@ export default function TowersLandingPage() {
                                 <p className="text-sm text-white/70">Complete Towers.md guide with all details and images</p>
                             </Link>
                             <Link
-                                to="/docs/getting-started/required-ports"
+                                to="/docs"
                                 className="p-6 bg-[#202020] backdrop-blur-xl border border-white/10 rounded-xl hover:border-[#E8B058]/50 transition-all no-underline group"
                             >
                                 <Wifi className="w-10 h-10 text-[#E8B058] mb-4 group-hover:scale-110 transition-transform" />

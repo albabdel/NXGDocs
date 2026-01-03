@@ -451,5 +451,5 @@ import TabItem from '@theme/TabItem';
 
 ## Need Help?
 
-If you're experiencing issues during configuration, check our [Troubleshooting Guide](/docs/devices/senstar/troubleshooting) or [contact support](/docs/support).
+If you're experiencing issues during configuration, check our [Troubleshooting Guide](/docs/devices/senstar/troubleshooting) or [contact support](#).
 

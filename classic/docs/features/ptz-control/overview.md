@@ -154,10 +154,10 @@ PTZ control is supported on:
 ## Related Articles
 
 - [PTZ Control Configuration](./configuration.md)
-- [PTZ Control Troubleshooting](./troubleshooting.md)
+- PTZ Control Troubleshooting
 - 
 - 
 
 ## Need Help?
 
-If you're experiencing issues with PTZ control, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](/docs/support).
+If you're experiencing issues with PTZ control, check our Troubleshooting Guide or [contact support](#).

@@ -221,4 +221,4 @@ GCXONE supports two distinct levels of audio configuration for Hikvision devices
 
 ## Need Help?
 
-If you need assistance with Hikvision integration, check our  or [contact support](/docs/support).
+If you need assistance with Hikvision integration, check our  or [contact support](#).

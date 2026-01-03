@@ -138,7 +138,7 @@ For detailed step-by-step instructions with screenshots, see the [Installer Conf
 ## Related Articles
 
 - [Teltonika Installer Configuration](./installer-configuration.md)
-- [Teltonika Troubleshooting](./troubleshooting.md)
+- Teltonika Troubleshooting
 - 
 - 
 
@@ -150,4 +150,4 @@ For detailed step-by-step instructions with screenshots, see the [Installer Conf
 
 **Need Help?**
 
-If you need assistance with Teltonika Router integration, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).
+If you need assistance with Teltonika Router integration, check our Troubleshooting Guide or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).

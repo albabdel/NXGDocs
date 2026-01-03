@@ -301,7 +301,7 @@ For best results with specific manufacturers:
 
 ## Troubleshooting
 
-See the [Troubleshooting Guide](./troubleshooting.md) for common problems and solutions.
+See the Troubleshooting Guide for common problems and solutions.
 
 **Quick troubleshooting:**
 - **Camera not discovered**: Verify ONVIF enabled, check IP address and ONVIF port
@@ -330,7 +330,7 @@ Check manufacturer's ONVIF conformance at: https://www.onvif.org/conformant-prod
 ## Related Articles
 
 - [ONVIF IP Camera Overview](./overview.md)
-- [ONVIF IP Camera Troubleshooting](./troubleshooting.md)
+- ONVIF IP Camera Troubleshooting
 - 
 - 
 

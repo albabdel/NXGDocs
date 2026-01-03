@@ -379,7 +379,7 @@ For sites with multiple PTZ cameras:
 
 ## Troubleshooting
 
-See the [Troubleshooting Guide](./troubleshooting.md) for common problems and solutions.
+See the Troubleshooting Guide for common problems and solutions.
 
 **Quick troubleshooting:**
 - **PTZ not working**: Verify PTZ enabled on device, check protocol settings, verify user permissions
@@ -392,7 +392,7 @@ See the [Troubleshooting Guide](./troubleshooting.md) for common problems and so
 ## Related Articles
 
 - [PTZ Control Overview](./overview.md)
-- [PTZ Control Troubleshooting](./troubleshooting.md)
+- PTZ Control Troubleshooting
 - 
 - 
 
@@ -400,4 +400,4 @@ See the [Troubleshooting Guide](./troubleshooting.md) for common problems and so
 
 **Need Help?**
 
-If you need assistance with PTZ configuration, [contact support](/docs/support).
+If you need assistance with PTZ configuration, [contact support](#).

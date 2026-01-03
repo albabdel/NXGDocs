@@ -219,11 +219,11 @@ Event Clips integrate seamlessly with alarm processing:
 ## Related Articles
 
 - [Event Clips Configuration](./configuration.md)
-- [Event Clips Troubleshooting](./troubleshooting.md)
+- Event Clips Troubleshooting
 - 
 - 
 - [Alarm Management](/docs/alarm-management/)
 
 ## Need Help?
 
-If you're experiencing issues with event clips, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](/docs/support).
+If you're experiencing issues with event clips, check our Troubleshooting Guide or [contact support](#).

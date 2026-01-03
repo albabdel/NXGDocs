@@ -123,7 +123,6 @@ export default function DeviceIntegration() {
             description: 'Complete guide for Hikvision NVR integration',
             duration: '15 min',
             difficulty: 'Beginner',
-            link: '/docs/devices/hikvision/overview',
             icon: <Server className="w-6 h-6" />,
             steps: ['Network configuration', 'Device discovery', 'Stream setup', 'Event configuration']
         },

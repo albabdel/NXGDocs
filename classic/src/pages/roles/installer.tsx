@@ -58,7 +58,7 @@ export default function InstallerLandingPage() {
                                     title: 'Device Integration', 
                                     description: 'Connect cameras and security devices',
                                     icon: <Camera className="w-6 h-6" />,
-                                    link: '/docs/devices/general/onboarding-overview'
+                                    
                                 },
                                 { 
                                     title: 'Network Setup', 
@@ -126,7 +126,6 @@ export default function InstallerLandingPage() {
                                     title: 'Device Discovery',
                                     description: 'Automatic network scanning and device identification',
                                     icon: <Eye className="w-8 h-8" />,
-                                    link: '/docs/devices/general/onboarding-overview',
                                     color: '#8B5CF6'
                                 },
                                 {
@@ -205,7 +204,6 @@ export default function InstallerLandingPage() {
                                     description: 'Connect IP cameras from all major manufacturers with automatic configuration',
                                     features: ['Auto-discovery via ONVIF', 'Stream optimization', 'Motion detection setup', 'PTZ calibration'],
                                     icon: <Camera className="w-8 h-8" />,
-                                    link: '/docs/devices/general/onboarding-overview',
                                     brands: ['Hikvision', 'Axis', 'Dahua', 'Hanwha']
                                 },
                                 {
@@ -213,7 +211,6 @@ export default function InstallerLandingPage() {
                                     description: 'Integrate existing recording systems and video management platforms',
                                     features: ['SDK integration', 'Playback configuration', 'Event synchronization', 'Storage mapping'],
                                     icon: <Server className="w-8 h-8" />,
-                                    link: '/docs/devices/general/onboarding-overview',
                                     brands: ['Milestone', 'Avigilon', 'NX Witness', 'Genetec']
                                 },
                                 {
@@ -221,7 +218,6 @@ export default function InstallerLandingPage() {
                                     description: 'Connect wireless sensors and environmental monitoring devices',
                                     features: ['Wireless pairing', 'Battery monitoring', 'Zone configuration', 'Alarm mapping'],
                                     icon: <Radio className="w-8 h-8" />,
-                                    link: '/docs/devices/general/onboarding-overview',
                                     brands: ['Ajax', 'Teltonika', 'Reconeyez', 'Essence']
                                 },
                                 {
@@ -229,7 +225,6 @@ export default function InstallerLandingPage() {
                                     description: 'Integrate edge AI devices for advanced video analytics',
                                     features: ['API configuration', 'Model deployment', 'Event processing', 'Performance tuning'],
                                     icon: <Cpu className="w-8 h-8" />,
-                                    link: '/docs/devices/general/onboarding-overview',
                                     brands: ['Camect', 'Ganz AI', 'Davantis', 'Custom']
                                 }
                             ].map((category, idx) => (

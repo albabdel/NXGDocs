@@ -85,7 +85,6 @@ export default function AdminLandingPage() {
                                     title: 'Security Policies',
                                     description: 'Configure 2FA, password requirements, and access controls',
                                     icon: <Shield className="w-8 h-8" />,
-                                    link: '/docs/getting-started/user-management/roles-and-access-levels',
                                     badge: 'Critical',
                                     color: '#EF4444'
                                 },

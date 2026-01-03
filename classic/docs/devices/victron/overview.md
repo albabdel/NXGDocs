@@ -89,7 +89,7 @@ For detailed step-by-step instructions, see the [Configuration Guide](./configur
 ## Related Articles
 
 - [Victron Router Configuration](./configuration.md)
-- [Victron Router Troubleshooting](./troubleshooting.md)
+- Victron Router Troubleshooting
 - 
 - 
 - [Standard Device Onboarding Process](/docs/device-integration/standard-device-onboarding-process)
@@ -102,4 +102,4 @@ For detailed step-by-step instructions, see the [Configuration Guide](./configur
 
 **Need Help?**
 
-If you need assistance with Victron Router integration, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).
+If you need assistance with Victron Router integration, check our Troubleshooting Guide or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).

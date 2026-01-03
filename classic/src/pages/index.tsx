@@ -165,7 +165,6 @@ export default function Home(): React.JSX.Element {
         document.dispatchEvent(event);
     };
 
-
     return (
         <Layout
             title="Documentation"
@@ -358,7 +357,7 @@ export default function Home(): React.JSX.Element {
                                 </div>
 
                                 <Link
-                                    to="/docs/getting-started"
+                                    to="/docs"
                                     className="group inline-flex items-center gap-2 px-8 py-3.5 bg-primary-500 hover:bg-primary-600 text-black font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-primary-500/25 hover:-translate-y-0.5 no-underline"
                                 >
                                     Start Learning

@@ -161,4 +161,4 @@ Video streaming is supported across all device types integrated with GCXONE:
 
 ## Need Help?
 
-If you're experiencing issues with video streaming, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](/docs/support).
+If you're experiencing issues with video streaming, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](#).

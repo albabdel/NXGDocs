@@ -134,7 +134,7 @@ For detailed step-by-step instructions with screenshots, see the [Configuration 
 ## Related Articles
 
 - [Milestone VMS Configuration](./configuration.md)
-- [Milestone VMS Troubleshooting](./troubleshooting.md)
+- Milestone VMS Troubleshooting
 - 
 - 
 - [Standard Device Onboarding Process](/docs/device-integration/standard-device-onboarding-process)
@@ -147,4 +147,4 @@ For detailed step-by-step instructions with screenshots, see the [Configuration 
 
 **Need Help?**
 
-If you need assistance with Milestone VMS integration, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).
+If you need assistance with Milestone VMS integration, check our Troubleshooting Guide or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).

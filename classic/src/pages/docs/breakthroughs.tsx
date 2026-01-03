@@ -334,7 +334,7 @@ function BreakthroughsContent(): JSX.Element {
                             These breakthroughs work together to create a security operations platform that's faster, smarter, and more scalable than anything else available.
                         </p>
                         <Link
-                            to="/docs/getting-started"
+                            to="/docs"
                             className="inline-flex items-center gap-2 px-8 py-3 rounded-xl font-semibold no-underline transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
                             style={{
                                 background: '#E8B058',

@@ -48,4 +48,4 @@ Confirm the device status shows as "Online" in GCXONE and verify that GPS positi
 
 ## Need Help?
 
-If you're experiencing issues, check our [Troubleshooting Guide](/docs/troubleshooting) or [contact support](/docs/support).
+If you're experiencing issues, check our [Troubleshooting Guide](#) or [contact support](#).

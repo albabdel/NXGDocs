@@ -51,10 +51,10 @@ const sidebarSections: NavSection[] = [
   {
     label: 'Organization',
     items: [
-      { label: 'Getting Started', href: '/docs/getting-started/index' },
+      { label: 'Getting Started', href: '/docs' },
       { label: 'Roles', href: '/docs/roles/admin' },
-      { label: 'Features', href: '/docs/features/index' },
-      { label: 'Devices', href: '/docs/devices/index' },
+      { label: 'Features', href: '#' },
+      { label: 'Devices', href: '/docs' },
       { label: 'API', href: '/docs/api/index' },
       { label: 'Release notes', href: '#' },
     ],

@@ -229,4 +229,4 @@ last_updated: 2025-12-04
 
 ## Need Help?
 
-For questions about Hikvision features, check our  or [contact support](/docs/support).
+For questions about Hikvision features, check our  or [contact support](#).

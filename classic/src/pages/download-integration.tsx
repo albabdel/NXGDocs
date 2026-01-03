@@ -76,7 +76,6 @@ const deviceClients: DeviceClient[] = [
                 description: 'Full SDK for advanced integration development'
             }
         ],
-        documentationLink: '/docs/devices/hikvision/overview',
         supportedFeatures: ['Live Streaming', 'Playback', 'Events', 'PTZ', 'Two-Way Audio']
     },
     {
@@ -131,7 +130,6 @@ const deviceClients: DeviceClient[] = [
                 description: 'SDK for integrating with Milestone XProtect VMS'
             }
         ],
-        documentationLink: '/docs/devices/milestone/overview'
     },
     {
         vendor: 'Avigilon',

@@ -57,4 +57,4 @@ last_updated: 2025-12-04
 
 ## Need Help?
 
-If you're experiencing issues, check our [Troubleshooting Guide](/docs/troubleshooting) or [contact support](/docs/support).
+If you're experiencing issues, check our Troubleshooting Guide or contact support.

@@ -45,22 +45,22 @@ export default function Footer(): JSX.Element {
                 </Link>
               </li>
               <li>
-                <Link to="/docs/getting-started" className={styles.footerLink}>
+                <Link to="/docs" className={styles.footerLink}>
                   Getting Started
                 </Link>
               </li>
               <li>
-                <Link to="/docs/devices" className={styles.footerLink}>
+                <Link to="/docs" className={styles.footerLink}>
                   Devices
                 </Link>
               </li>
               <li>
-                <Link to="/docs/features" className={styles.footerLink}>
+                <Link to="#" className={styles.footerLink}>
                   Features
                 </Link>
               </li>
               <li>
-                <Link to="/docs/troubleshooting" className={styles.footerLink}>
+                <Link to="#" className={styles.footerLink}>
                   Troubleshooting
                 </Link>
               </li>
@@ -72,12 +72,12 @@ export default function Footer(): JSX.Element {
             <h4 className={styles.sectionTitle}>Resources</h4>
             <ul className={styles.linksList}>
               <li>
-                <Link to="/docs/support" className={styles.footerLink}>
+                <Link to="#" className={styles.footerLink}>
                   Support Center
                 </Link>
               </li>
               <li>
-                <Link to="/docs/release-notes" className={styles.footerLink}>
+                <Link to="#" className={styles.footerLink}>
                   Release Notes
                 </Link>
               </li>

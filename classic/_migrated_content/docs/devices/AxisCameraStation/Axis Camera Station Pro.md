@@ -21,7 +21,6 @@ tags:
 - **Platform**: GC-X-ONE
 - **Doc Version**: 1.0.0
 
-
 # Zusammenfassung
 
 - Zweck: Axis Camera Station Pro so konfigurieren, dass sie sich nahtlos mit der GC-X-ONE-Plattform für umfassendes Video Management und Security Monitoring verbindet.

@@ -21,7 +21,6 @@ tags:
 - **Platform**: GC-X-ONE
 - **Doc Version**: 1.0.0
 
-
 # Zusammenfassung
 
 - Zweck: EagleEye Bridge so konfigurieren, dass sie sich mit der GC-X-ONE-Plattform für Videoüberwachung und Kamera-Management verbindet.

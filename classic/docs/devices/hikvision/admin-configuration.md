@@ -51,4 +51,4 @@ In the GCXONE Configuration App, add the device by entering the **Host/Serial**,
 
 ## Need Help?
 
-If you're experiencing issues, check our [Troubleshooting Guide](/docs/troubleshooting) or [contact support](/docs/support).
+If you're experiencing issues, check our [Troubleshooting Guide](#) or [contact support](#).

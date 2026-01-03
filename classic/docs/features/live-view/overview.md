@@ -167,7 +167,7 @@ Live view works with all devices integrated with GCXONE:
 
 ## Related Articles
 
-- [Live View Configuration](./configuration.md)
+- Live View Configuration
 - [Live View Troubleshooting](./troubleshooting.md)
 - 
 - 
@@ -175,4 +175,4 @@ Live view works with all devices integrated with GCXONE:
 
 ## Need Help?
 
-If you're experiencing issues with live view, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](/docs/support).
+If you're experiencing issues with live view, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](#).

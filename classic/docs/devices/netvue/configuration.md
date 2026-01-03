@@ -374,7 +374,7 @@ After completing the configuration, verify the following:
 
 ## Troubleshooting
 
-If you encounter issues during configuration, see the [Troubleshooting Guide](./troubleshooting.md) for common problems and solutions.
+If you encounter issues during configuration, see the Troubleshooting Guide for common problems and solutions.
 
 **Quick troubleshooting:**
 - **Camera not discovered**: Verify camera is online in NetVue app, check serial number and credentials
@@ -389,7 +389,7 @@ If you encounter issues during configuration, see the [Troubleshooting Guide](./
 ## Related Articles
 
 - [NetVue IP Camera Overview](./overview.md)
-- [NetVue IP Camera Troubleshooting](./troubleshooting.md)
+- NetVue IP Camera Troubleshooting
 - 
 - 
 

@@ -352,14 +352,14 @@ This comprehensive guide covers Milestone XProtect VMS integration with GCXONE, 
 - Check storage space
 - Confirm retention period
 
-See [Troubleshooting Guide](./troubleshooting.md) for more.
+See Troubleshooting Guide for more.
 
 ---
 
 ## Related Articles
 
 - [Milestone VMS Overview](./overview.md)
-- [Milestone VMS Troubleshooting](./troubleshooting.md)
+- Milestone VMS Troubleshooting
 - 
 - 
 

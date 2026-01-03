@@ -120,7 +120,7 @@ For detailed step-by-step instructions with screenshots, see the [Configuration 
 ## Related Articles
 
 - [SPYKEBOX NVR Configuration](./configuration.md)
-- [SPYKEBOX NVR Troubleshooting](./troubleshooting.md)
+- SPYKEBOX NVR Troubleshooting
 -  - For SDK compatibility reference
 - 
 - 
@@ -134,4 +134,4 @@ For detailed step-by-step instructions with screenshots, see the [Configuration 
 
 **Need Help?**
 
-If you need assistance with SPYKEBOX NVR integration, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).
+If you need assistance with SPYKEBOX NVR integration, check our Troubleshooting Guide or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).

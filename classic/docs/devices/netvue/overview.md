@@ -121,7 +121,7 @@ For detailed step-by-step instructions with screenshots, see the [Configuration 
 ## Related Articles
 
 - [NetVue IP Camera Configuration](./configuration.md)
-- [NetVue IP Camera Troubleshooting](./troubleshooting.md)
+- NetVue IP Camera Troubleshooting
 - 
 - 
 - [Standard Device Onboarding Process](/docs/device-integration/standard-device-onboarding-process)
@@ -134,4 +134,4 @@ For detailed step-by-step instructions with screenshots, see the [Configuration 
 
 **Need Help?**
 
-If you need assistance with NetVue IP Camera integration, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).
+If you need assistance with NetVue IP Camera integration, check our Troubleshooting Guide or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).

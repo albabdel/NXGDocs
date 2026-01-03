@@ -21,7 +21,6 @@ tags:
 - **Platform**: GC-X-ONE
 - **Doc Version**: 1.0.0
 
-
 # Zusammenfassung
 
 - Zweck: Reconeyez-Devices für ereignisgesteuerte Videoüberwachung und Monitoring in GC-X-ONE konfigurieren.

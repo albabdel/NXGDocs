@@ -137,7 +137,7 @@ For detailed step-by-step instructions with screenshots, see the [Installer Conf
 ## Related Articles
 
 - [Reconeyez Installer Configuration](./installer-configuration.md)
-- [Reconeyez Troubleshooting](./troubleshooting.md)
+- Reconeyez Troubleshooting
 - 
 
 ## Change Log
@@ -148,4 +148,4 @@ For detailed step-by-step instructions with screenshots, see the [Installer Conf
 
 **Need Help?**
 
-If you need assistance with Reconeyez PIR Cam integration, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).
+If you need assistance with Reconeyez PIR Cam integration, check our Troubleshooting Guide or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).

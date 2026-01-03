@@ -117,7 +117,7 @@ For detailed step-by-step instructions with screenshots, see the [Configuration 
 ## Related Articles
 
 - [Honeywell 35 Series NVR Configuration](./configuration.md)
-- [Honeywell 35 Series NVR Troubleshooting](./troubleshooting.md)
+- Honeywell 35 Series NVR Troubleshooting
 - 
 - 
 - [Standard Device Onboarding Process](/docs/device-integration/standard-device-onboarding-process)
@@ -130,4 +130,4 @@ For detailed step-by-step instructions with screenshots, see the [Configuration 
 
 **Need Help?**
 
-If you need assistance with Honeywell 35 Series NVR integration, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).
+If you need assistance with Honeywell 35 Series NVR integration, check our Troubleshooting Guide or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).

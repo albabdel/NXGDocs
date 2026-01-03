@@ -200,12 +200,12 @@ AI Analytics works with alarms from:
 
 ## Related Articles
 
-- [AI Analytics Configuration](./configuration.md)
-- [AI Analytics Troubleshooting](./troubleshooting.md)
+- AI Analytics Configuration
+- AI Analytics Troubleshooting
 - 
 - 
 - [Alarm Management](/docs/alarm-management/)
 
 ## Need Help?
 
-If you're experiencing issues with AI Analytics, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](/docs/support).
+If you're experiencing issues with AI Analytics, check our Troubleshooting Guide or [contact support](#).

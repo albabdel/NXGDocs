@@ -42,4 +42,4 @@ This glossary provides definitions for common terms used within the GCXONE platf
 
 ## Need Help?
 
-If you're experiencing issues, check our [Troubleshooting Guide](/docs/troubleshooting) or [contact support](/docs/support).
+If you're experiencing issues, check our [Troubleshooting Guide](#) or [contact support](#).

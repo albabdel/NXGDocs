@@ -260,7 +260,7 @@ After completing the configuration, verify the following:
 
 ## Troubleshooting
 
-If you encounter issues during configuration, see the [Troubleshooting Guide](./troubleshooting.md) for common problems and solutions.
+If you encounter issues during configuration, see the Troubleshooting Guide for common problems and solutions.
 
 **Quick troubleshooting**:
 - **Device not discovered**: Verify network connectivity, credentials, and firewall settings
@@ -272,7 +272,7 @@ If you encounter issues during configuration, see the [Troubleshooting Guide](./
 ## Related Articles
 
 - [Victron Router Overview](./overview.md)
-- [Victron Router Troubleshooting](./troubleshooting.md)
+- Victron Router Troubleshooting
 - 
 - 
 

@@ -60,7 +60,6 @@ const sidebars: SidebarsConfig = {
           type: 'category',
           label: 'Hanwha',
           items: [
-            'devices/hanwha/installer-configuration',
           ],
         },
         {
@@ -73,7 +72,6 @@ const sidebars: SidebarsConfig = {
           type: 'category',
           label: 'Axxon',
           items: [
-            'devices/axxon/installer-configuration',
           ],
         },
         {
@@ -86,14 +84,12 @@ const sidebars: SidebarsConfig = {
           type: 'category',
           label: 'Axis',
           items: [
-            'devices/axis/installer-configuration',
           ],
         },
         {
           type: 'category',
           label: 'Heitel',
           items: [
-            'devices/heitel/installer-configuration',
           ],
         },
         {

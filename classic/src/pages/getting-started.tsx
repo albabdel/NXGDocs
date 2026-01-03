@@ -517,7 +517,7 @@ export default function GettingStarted() {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <Link
-                                to="/docs/support"
+                                to="#"
                                 className="p-6 bg-[#202020] backdrop-blur-xl border border-white/10 rounded-xl hover:border-[#E8B058]/50 transition-all no-underline group"
                             >
                                 <HelpCircle className="w-10 h-10 text-[#E8B058] mb-4 group-hover:scale-110 transition-transform" />
@@ -525,7 +525,7 @@ export default function GettingStarted() {
                                 <p className="text-sm text-white/70">Submit tickets, find answers, and get support from our team</p>
                             </Link>
                             <Link
-                                to="/docs/release-notes"
+                                to="#"
                                 className="p-6 bg-[#202020] backdrop-blur-xl border border-white/10 rounded-xl hover:border-[#E8B058]/50 transition-all no-underline group"
                             >
                                 <FileText className="w-10 h-10 text-[#E8B058] mb-4 group-hover:scale-110 transition-transform" />
@@ -533,7 +533,7 @@ export default function GettingStarted() {
                                 <p className="text-sm text-white/70">Stay updated with the latest features and improvements</p>
                             </Link>
                             <Link
-                                to="/docs/troubleshooting"
+                                to="#"
                                 className="p-6 bg-[#202020] backdrop-blur-xl border border-white/10 rounded-xl hover:border-[#E8B058]/50 transition-all no-underline group"
                             >
                                 <Target className="w-10 h-10 text-[#E8B058] mb-4 group-hover:scale-110 transition-transform" />

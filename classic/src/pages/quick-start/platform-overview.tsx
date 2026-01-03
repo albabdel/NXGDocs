@@ -1437,13 +1437,11 @@ export default function PlatformOverview() {
                                 {
                                     title: 'Quick Start Guide',
                                     desc: 'Step-by-step setup instructions',
-                                    link: '/docs/getting-started/quick-start-checklist',
                                     icon: <Zap className="w-6 h-6" />
                                 },
                                 {
                                     title: 'Cloud Architecture',
                                     desc: 'Deep dive into technical details',
-                                    link: '/docs/getting-started/cloud-architecture',
                                     icon: <Cloud className="w-6 h-6" />
                                 },
                                 {
@@ -1455,7 +1453,6 @@ export default function PlatformOverview() {
                                 {
                                     title: 'Key Benefits',
                                     desc: 'Explore platform advantages',
-                                    link: '/docs/getting-started/key-benefits',
                                     icon: <CheckCircle className="w-6 h-6" />
                                 }
                             ].map((item, idx) => (
@@ -1488,14 +1485,14 @@ export default function PlatformOverview() {
                     >
                         <div className="inline-flex gap-4">
                             <Link
-                                to="/docs/getting-started/first-time-login"
+                                to="/docs"
                                 className="inline-flex items-center gap-2 px-8 py-4 bg-[#E8B058] hover:bg-[#D4A047] text-black font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-[#E8B058]/25 no-underline"
                             >
                                 Start Free Trial
                                 <ChevronRight className="w-5 h-5" />
                             </Link>
                             <Link
-                                to="/docs/getting-started/cloud-architecture"
+                                to="#"
                                 className="inline-flex items-center gap-2 px-8 py-4 bg-[#202020] hover:bg-[#2a2a2a] border border-white/10 rounded-xl text-white hover:text-[#E8B058] transition-all no-underline"
                             >
                                 Technical Deep Dive

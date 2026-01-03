@@ -112,7 +112,7 @@ For detailed step-by-step instructions with screenshots, see the [Configuration 
 ## Related Articles
 
 - [Viasys/ShieldBox Cloud NVR Configuration](./configuration.md)
-- [Viasys/ShieldBox Cloud NVR Troubleshooting](./troubleshooting.md)
+- Viasys/ShieldBox Cloud NVR Troubleshooting
 - 
 - 
 - [Standard Device Onboarding Process](/docs/device-integration/standard-device-onboarding-process)
@@ -125,4 +125,4 @@ For detailed step-by-step instructions with screenshots, see the [Configuration 
 
 **Need Help?**
 
-If you need assistance with Viasys/ShieldBox Cloud NVR integration, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).
+If you need assistance with Viasys/ShieldBox Cloud NVR integration, check our Troubleshooting Guide or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).

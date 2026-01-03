@@ -367,7 +367,7 @@ For NVRs with physical alarm inputs/outputs:
 
 ## Troubleshooting
 
-See the [Troubleshooting Guide](./troubleshooting.md) for common problems and solutions.
+See the Troubleshooting Guide for common problems and solutions.
 
 **Quick troubleshooting:**
 - **NVR not discovered**: Verify IP address, port 8000, and credentials
@@ -383,7 +383,7 @@ See the [Troubleshooting Guide](./troubleshooting.md) for common problems and so
 ## Related Articles
 
 - [SPYKEBOX NVR Overview](./overview.md)
-- [SPYKEBOX NVR Troubleshooting](./troubleshooting.md)
+- SPYKEBOX NVR Troubleshooting
 -  - SDK compatibility reference
 - 
 - 

@@ -132,7 +132,7 @@ Features depend on camera capabilities and ONVIF implementation quality. Some ma
 ## Related Articles
 
 - [ONVIF IP Camera Configuration](./configuration.md)
-- [ONVIF IP Camera Troubleshooting](./troubleshooting.md)
+- ONVIF IP Camera Troubleshooting
 - 
 - 
 - [Standard Device Onboarding Process](/docs/device-integration/standard-device-onboarding-process)
@@ -145,4 +145,4 @@ Features depend on camera capabilities and ONVIF implementation quality. Some ma
 
 **Need Help?**
 
-If you need assistance with ONVIF IP Camera integration, check our [Troubleshooting Guide](./troubleshooting.md) or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).
+If you need assistance with ONVIF IP Camera integration, check our Troubleshooting Guide or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).

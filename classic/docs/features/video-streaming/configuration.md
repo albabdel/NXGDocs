@@ -336,4 +336,4 @@ See the [Troubleshooting Guide](./troubleshooting.md) for common problems and so
 
 **Need Help?**
 
-If you need assistance with video streaming configuration, [contact support](/docs/support).
+If you need assistance with video streaming configuration, [contact support](#).

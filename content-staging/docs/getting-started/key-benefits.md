@@ -240,22 +240,22 @@ By eliminating the need for on-premise servers and infrastructure, GCXONE delive
 
 Ready to experience the benefits of GCXONE Intelligent Security?
 
-1. **[Create Your Account](/docs/getting-started/first-time-login)** - Get started in minutes with our simple registration process
-2. **[Review Cloud Architecture](/docs/getting-started/cloud-architecture)** - Understand how our platform works
-3. **[Configure Your Environment](/docs/getting-started/ip-whitelisting)** - Set up network access and security settings
-4. **[Connect Your Devices](/docs/getting-started/quick-start-checklist)** - Follow our quick start guide to begin monitoring
+1. **** - Get started in minutes with our simple registration process
+2. **** - Understand how our platform works
+3. **** - Set up network access and security settings
+4. **** - Follow our quick start guide to begin monitoring
 
 ---
 
 ## Related Articles
 
 - [What is NXGEN GCXONE?](/docs/getting-started/what-is-nxgen-gcxone)
-- [Cloud Architecture Overview](/docs/getting-started/cloud-architecture)
-- [Quick Start Checklist](/docs/getting-started/quick-start-checklist)
-- [First Time Login](/docs/getting-started/first-time-login)
+- 
+- 
+- 
 
 ---
 
 ## Need Help?
 
-If you have questions about GCXONE's capabilities or would like to discuss how these benefits apply to your organization, [contact our support team](/docs/support) or schedule a consultation with our security experts.
+If you have questions about GCXONE's capabilities or would like to discuss how these benefits apply to your organization, contact our support team or schedule a consultation with our security experts.

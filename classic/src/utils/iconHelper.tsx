@@ -12,4 +12,3 @@ export function getIconComponent(iconName: string, size: number = 24): React.Rea
   return <IconComponent size={size} />;
 }
 
-

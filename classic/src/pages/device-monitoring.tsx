@@ -102,7 +102,6 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'System Diagnostics',
         description: 'Comprehensive diagnostic tools including ping tests, port checks, authentication validation, and configuration verification for troubleshooting.',
         category: 'Device Diagnostics',
-        ,
         icon: <Settings className="w-6 h-6" />,
         criticality: 'critical'
     },
@@ -272,7 +271,6 @@ const monitoringFeatures: MonitoringFeature[] = [
         title: 'Automated Troubleshooting',
         description: 'Guided troubleshooting workflows with automated diagnostic checks, common issue resolution, and step-by-step remediation procedures.',
         category: 'Troubleshooting & Support',
-        ,
         icon: <AlertCircle className="w-6 h-6" />,
         criticality: 'important'
     },

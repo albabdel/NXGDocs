@@ -21,7 +21,6 @@ tags:
 - **Platform**: GC-X-ONE
 - **Doc Version**: 1.0.0  
 
-
 # Zusammenfassung
 - Zweck: Camect für Streaming und Event-Weiterleitung an GC-X-ONE konfigurieren.
 - Ergebnis: Live View und Alerts erscheinen in GC-X-ONE (Video Activity).
@@ -113,7 +112,6 @@ tags:
   - Test-Alert senden. Er erscheint in **Video Activity**.
   - **Live** öffnet ohne Ruckeln.
   - PTZ-Presets bewegen sich, falls aktiviert.
-
 
 # Troubleshooting
 - Keine Events in Video Activity

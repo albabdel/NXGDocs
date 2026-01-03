@@ -174,14 +174,14 @@ If problems persist:
 1. **Check Video Streaming Troubleshooting**: Many live view issues are streaming-related
 2. **Gather Information**: Device types, error messages, network configuration
 3. **Review Logs**: Check GCXONE and device logs for errors
-4. **Contact Support**: [Submit a support ticket](/docs/support) with details
+4. **Contact Support**: [Submit a support ticket](#) with details
 
 ---
 
 ## Related Articles
 
 - [Live View Overview](./overview.md)
-- [Live View Configuration](./configuration.md)
+- Live View Configuration
 - 
 - 
 
@@ -189,4 +189,4 @@ If problems persist:
 
 **Need Help?**
 
-If you need further assistance, [contact support](/docs/support).
+If you need further assistance, [contact support](#).

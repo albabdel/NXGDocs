@@ -49,7 +49,7 @@ type Device = {
     name: string;
     category: 'NVR' | 'VMS' | 'IP Camera' | 'AI Box' | 'Router' | 'IOT' | 'Cloud VMS' | 'Other';
     features: DeviceFeature[];
-    configLink: string;
+    configLink?: string;
     icon?: React.ReactNode;
 };
 
@@ -58,7 +58,6 @@ const devices: Device[] = [
     {
         name: 'Hikvision(NVR) NVR',
         category: 'NVR',
-        configLink: '/docs/devices/hikvision/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -88,7 +87,6 @@ const devices: Device[] = [
     {
         name: 'Hikvision(IPCamera) IPC',
         category: 'IP Camera',
-        configLink: '/docs/devices/hikvision/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -113,7 +111,6 @@ const devices: Device[] = [
     {
         name: 'Hikpro P2P Cloud VMS',
         category: 'Cloud VMS',
-        configLink: '/docs/devices/hikvision/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -184,7 +181,6 @@ const devices: Device[] = [
     {
         name: 'NXWitness',
         category: 'VMS',
-        configLink: '/docs/devices/nxwitness/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -209,7 +205,6 @@ const devices: Device[] = [
     {
         name: 'HANWHA',
         category: 'VMS',
-        configLink: '/docs/devices/hanwha/installer-configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -284,7 +279,6 @@ const devices: Device[] = [
     {
         name: 'NXGCloudNVR',
         category: 'Cloud VMS',
-        configLink: '/docs/devices/nxgcloudnvr/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -309,7 +303,6 @@ const devices: Device[] = [
     {
         name: 'NXG Cloud Vision Edge',
         category: 'Cloud VMS',
-        configLink: '/docs/devices/nxgcloudvisionedge/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -334,7 +327,6 @@ const devices: Device[] = [
     {
         name: 'SPYKEBOX NVR',
         category: 'NVR',
-        configLink: '/docs/devices/spykebox/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -359,7 +351,6 @@ const devices: Device[] = [
     {
         name: 'Hanwha-Techwin NVR',
         category: 'NVR',
-        configLink: '/docs/devices/hanwha/installer-configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -468,7 +459,6 @@ const devices: Device[] = [
     {
         name: 'Milestone VMS',
         category: 'VMS',
-        configLink: '/docs/devices/milestone/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -537,7 +527,6 @@ const devices: Device[] = [
     {
         name: 'Uniview NVR',
         category: 'NVR',
-        configLink: '/docs/devices/uniview/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -563,7 +552,6 @@ const devices: Device[] = [
     {
         name: 'Viasys/ShieldBox Cloud NVR',
         category: 'Cloud VMS',
-        configLink: '/docs/devices/viasys/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -631,7 +619,6 @@ const devices: Device[] = [
     {
         name: 'NetVue IP Camera',
         category: 'IP Camera',
-        configLink: '/docs/devices/netvue/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -645,7 +632,6 @@ const devices: Device[] = [
     {
         name: 'Honeywell 35 Series NVR',
         category: 'NVR',
-        configLink: '/docs/devices/honeywell/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -678,7 +664,6 @@ const devices: Device[] = [
     {
         name: 'Teltonika Router',
         category: 'Router',
-        configLink: '/docs/devices/teltonika/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Events' },
@@ -698,7 +683,6 @@ const devices: Device[] = [
     {
         name: 'Victron Router',
         category: 'Router',
-        configLink: '/docs/devices/victron/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Events' },
@@ -737,7 +721,6 @@ const devices: Device[] = [
     {
         name: 'Reconeyez PIR Cam',
         category: 'IOT',
-        configLink: '/docs/devices/reconeyez/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Events' },
@@ -747,7 +730,6 @@ const devices: Device[] = [
     {
         name: 'Innovi AI Cloud',
         category: 'IOT',
-        configLink: '/docs/devices/innovi/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Events' },
@@ -758,7 +740,6 @@ const devices: Device[] = [
     {
         name: 'Rosenberger IOT battery Mgmt',
         category: 'IOT',
-        configLink: '/docs/devices/rosenberger/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Events' },
@@ -790,7 +771,6 @@ const devices: Device[] = [
     {
         name: 'Onvif IP Camera',
         category: 'IP Camera',
-        configLink: '/docs/devices/onvif/overview',
         features: [
             { name: 'Events' },
             { name: 'Arm/Disarm' },
@@ -800,7 +780,6 @@ const devices: Device[] = [
     {
         name: 'Mobotix IP Camera',
         category: 'IP Camera',
-        configLink: '/docs/devices/mobotix/overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -911,7 +890,6 @@ const devices: Device[] = [
     {
         name: 'Miwi Urmet (Polish) NVR/IP Camera',
         category: 'NVR',
-        configLink: '/docs/devices/miwi/overview',
         features: [
             { name: 'Discovery' },
         ],
@@ -989,17 +967,11 @@ const DeviceCard = ({ device }: { device: Device }) => {
     const fullFeatures = device.features.filter(f => !f.partial).length;
     const keyCapabilities = getKeyCapabilities(device);
 
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            viewport={{ once: true }}
+    const CardContent = device.configLink ? (
+        <Link
+            to={device.configLink}
+            className={`block h-full p-6 bg-gradient-to-br ${categoryInfo.gradient} backdrop-blur-xl rounded-xl hover:scale-[1.02] transition-all duration-300 border border-slate-700/30 hover:border-slate-600/50 no-underline group`}
         >
-            <Link
-                to={device.configLink}
-                className={`block h-full p-6 bg-gradient-to-br ${categoryInfo.gradient} backdrop-blur-xl rounded-xl hover:scale-[1.02] transition-all duration-300 border border-slate-700/30 hover:border-slate-600/50 no-underline group`}
-            >
                 {/* Header */}
                 <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
@@ -1035,12 +1007,63 @@ const DeviceCard = ({ device }: { device: Device }) => {
                         <Sparkles className="w-4 h-4 text-[#E8B058]" />
                         <span>{featureCount} features</span>
                     </div>
-                    <div className="flex items-center gap-1 text-[#E8B058] group-hover:translate-x-1 transition-transform">
-                        <span className="text-sm font-medium">Configure</span>
-                        <ChevronRight className="w-4 h-4" />
-                    </div>
+                    {device.configLink && (
+                        <div className="flex items-center gap-1 text-[#E8B058] group-hover:translate-x-1 transition-transform">
+                            <span className="text-sm font-medium">Configure</span>
+                            <ChevronRight className="w-4 h-4" />
+                        </div>
+                    )}
                 </div>
             </Link>
+    ) : (
+        <div className={`block h-full p-6 bg-gradient-to-br ${categoryInfo.gradient} backdrop-blur-xl rounded-xl border border-slate-700/30 no-underline group opacity-75`}>
+            {/* Header */}
+            <div className="flex items-start justify-between mb-4">
+                <div className="flex-1">
+                    <h3 className="text-lg font-bold text-white mb-2">
+                        {device.name}
+                    </h3>
+                    <div className="flex items-center gap-2">
+                        <span className="text-[#E8B058]">
+                            {categoryInfo.icon}
+                        </span>
+                        <span className="text-sm text-white/70">{device.category}</span>
+                    </div>
+                </div>
+            </div>
+
+            {/* Key Capabilities */}
+            {keyCapabilities.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-4">
+                    {keyCapabilities.map((cap, idx) => (
+                        <span
+                            key={idx}
+                            className="px-2.5 py-1 text-xs font-medium bg-white/10 backdrop-blur-sm text-white rounded-md border border-white/20"
+                        >
+                            {cap}
+                        </span>
+                    ))}
+                </div>
+            )}
+
+            {/* Feature Summary */}
+            <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                <div className="flex items-center gap-2 text-sm text-white/70">
+                    <Sparkles className="w-4 h-4 text-[#E8B058]" />
+                    <span>{featureCount} features</span>
+                </div>
+            </div>
+        </div>
+    );
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            viewport={{ once: true }}
+        >
+            {CardContent}
         </motion.div>
     );
 };
@@ -1274,7 +1297,4 @@ export default function IntegrationHub() {
         </Layout>
     );
 }
-
-
-
 

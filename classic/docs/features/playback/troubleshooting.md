@@ -390,14 +390,14 @@ If problems persist:
    - Check device logs for recording issues
    - Look for network or connectivity errors
 
-3. **Contact Support**: [Submit a support ticket](/docs/support) with information
+3. **Contact Support**: [Submit a support ticket](#) with information
 
 ---
 
 ## Related Articles
 
 - [Playback Overview](./overview.md)
-- [Playback Configuration](./configuration.md)
+- Playback Configuration
 - 
 - 
 
@@ -405,4 +405,4 @@ If problems persist:
 
 **Need Help?**
 
-If you need further assistance, [contact support](/docs/support).
+If you need further assistance, [contact support](#).
