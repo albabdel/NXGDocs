@@ -210,13 +210,38 @@ export default function VoCModal({ onClose, currentPath }: VoCModalProps) {
                 setSubmitStatus('success');
                 setTimeout(() => onClose(), 2500);
             } else {
-                const errorData = await response.json().catch(() => ({ error: 'Server error' }));
-                throw new Error(errorData.error || 'Server error');
+                // Try to get error message from response
+                let errorMessage = 'Server error';
+                try {
+                    const errorData = await response.json();
+                    errorMessage = errorData.error || errorData.message || `Server returned ${response.status}: ${response.statusText}`;
+                } catch (parseError) {
+                    // If response is not JSON, use status text
+                    errorMessage = `Server returned ${response.status}: ${response.statusText || 'Unknown error'}`;
+                }
+                throw new Error(errorMessage);
             }
         } catch (error) {
-            console.error(error);
+            console.error('Feedback submission error:', error);
             setSubmitStatus('error');
-            setErrorMessage('Failed to submit. Please check your connection.');
+            
+            // Provide more specific error messages
+            if (error instanceof TypeError && error.message.includes('fetch')) {
+                // Network error (CORS, connection refused, etc.)
+                setErrorMessage('Network error: Unable to reach the server. Please check your internet connection and try again.');
+            } else if (error instanceof Error) {
+                // Use the actual error message if available
+                const errorMsg = error.message;
+                if (errorMsg.includes('Server returned')) {
+                    setErrorMessage(`Server error: ${errorMsg}. Please try again later.`);
+                } else if (errorMsg.includes('Failed to send email') || errorMsg.includes('SMTP')) {
+                    setErrorMessage('Email service error. Please try again later or contact support.');
+                } else {
+                    setErrorMessage(`Failed to submit: ${errorMsg}`);
+                }
+            } else {
+                setErrorMessage('Failed to submit. Please check your connection and try again.');
+            }
         } finally {
             setIsSubmitting(false);
         }

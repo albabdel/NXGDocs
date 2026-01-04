@@ -39,8 +39,8 @@ interface FeedbackPayload {
   title: string;
   email?: string;
   tenant_name?: string;
-  module: string;
-  severity: string;
+  module?: string;
+  severity?: string;
   role?: string;
   desired_outcome?: string;
   business_value?: string;
@@ -85,14 +85,18 @@ function formatEmailBody(payload: FeedbackPayload): string {
         <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold; background-color: #f5f5f5;">Title</td>
         <td style="padding: 8px; border: 1px solid #ddd;">${payload.title}</td>
       </tr>
+      ${payload.module ? `
       <tr>
         <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold; background-color: #f5f5f5;">Module</td>
         <td style="padding: 8px; border: 1px solid #ddd;">${payload.module}</td>
       </tr>
+      ` : ''}
+      ${payload.severity ? `
       <tr>
         <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold; background-color: #f5f5f5;">Severity/Impact</td>
         <td style="padding: 8px; border: 1px solid #ddd;">${payload.severity}</td>
       </tr>
+      ` : ''}
       ${payload.email ? `
       <tr>
         <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold; background-color: #f5f5f5;">Customer Email</td>
