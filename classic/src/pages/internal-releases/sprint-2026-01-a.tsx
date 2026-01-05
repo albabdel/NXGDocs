@@ -22,7 +22,9 @@ import {
     Users,
     Map,
     Activity,
-    BarChart3
+    BarChart3,
+    Database,
+    Radio
 } from 'lucide-react';
 
 // Increment data structure
@@ -36,132 +38,183 @@ type Increment = {
     status: 'completed' | 'in-progress';
 };
 
-// Sprint 2025.12-A increment data
+// Sprint 2026.01-A increment data
 const increments: Increment[] = [
-    // Core Features - Salvo + Alarm control parity
+    // DC09 / CMS Support via Marketplace
     {
         id: 'inc-001',
-        title: 'Salvo Operator Controls',
-        description: 'Operators can isolate cameras, trigger IOs, control PTZ, and share events directly from Salvo.',
-        category: 'Core Features',
-        images: [
-            '/img/sprint-2025-12-a/IO 1.png',
-            '/img/sprint-2025-12-a/IO 2.png'
-        ],
-        videos: [
-            '/videos/sprint-2025-12-a/Salvo Operator Controls.mp4',
-            '/videos/sprint-2025-12-a/Salvo share.mp4'
-        ],
-        status: 'completed'
+        title: 'DC09 CMS Integration via Marketplace',
+        description: 'Complete DC09 and CMS support through the Marketplace enabling amwin and LISA customers to onboard and route alarms correctly. Includes viewing CMS options, configuring Evalink Talos and DC09 CMS, assigning account IDs, enabling encryption, and viewing alarm logs.',
+        category: 'DC09 / CMS Support',
+        images: [],
+        videos: [],
+        status: 'in-progress'
     },
     {
         id: 'inc-002',
-        title: 'Salvo View Layout Improvements',
-        description: 'Quad view customization and priority handling improve operational speed.',
-        category: 'Core Features',
+        title: 'DC09 Configuration and Validation',
+        description: 'Prevent invalid DC09 configurations and ensure proper setup validation for reliable alarm routing.',
+        category: 'DC09 / CMS Support',
         images: [],
-        videos: [
-            '/videos/sprint-2025-12-a/Salvo view enhancements.mp4'
-        ],
-        status: 'completed'
+        videos: [],
+        status: 'in-progress'
     },
-    // Video Features - Playback and Salvo view changes
+    // Feature Parity: Critical Genesis Gaps
     {
         id: 'inc-003',
-        title: 'Salvo Video View Refactor',
-        description: 'Improved layout and interaction model for video monitoring.',
-        category: 'Video Features',
+        title: 'Analytics Marketplace Integration',
+        description: 'Subscribe to and activate Analytics from the Marketplace, completing key Genesis parity functionality.',
+        category: 'Feature Parity: Genesis Gaps',
         images: [],
-        videos: [
-            '/videos/sprint-2025-12-a/2025-04-23 09-24-05.mp4'
-        ],
-        status: 'completed'
+        videos: [],
+        status: 'in-progress'
     },
     {
         id: 'inc-004',
-        title: 'Full Image Preview',
-        description: 'Full-frame image display in preview for faster validation.',
-        category: 'Video Features',
-        images: [
-            '/img/sprint-2025-12-a/Full Image Preview 1.png',
-            '/img/sprint-2025-12-a/Full Image Preview 2.png'
-        ],
+        title: 'Device Type Expansion',
+        description: 'Add remaining device types to the Add Device Panel, expanding configuration options for customers.',
+        category: 'Feature Parity: Genesis Gaps',
+        images: [],
         videos: [],
-        status: 'completed'
+        status: 'in-progress'
     },
-    // Map Module Improvements - Navigation and usability parity
     {
         id: 'inc-005',
-        title: 'Map Navigation and Search',
-        description: 'Breadcrumb search and surroundings view improve site navigation.',
-        category: 'Map Module Improvements',
+        title: 'Talos Two-Way Sync',
+        description: 'Implement Talos reverse sync functionality, enabling bidirectional data synchronization between systems.',
+        category: 'Feature Parity: Genesis Gaps',
         images: [],
-        videos: [
-            '/videos/sprint-2025-12-a/Map Navigation and Search.mp4'
-        ],
-        status: 'completed'
+        videos: [],
+        status: 'in-progress'
     },
     {
         id: 'inc-006',
-        title: 'Tower and Device Management',
-        description: 'Enhanced tower visibility, sub-camera toggles, and inline editing.',
-        category: 'Map Module Improvements',
-        images: [
-            '/img/sprint-2025-12-a/Screenshot 2026-01-05 233502.png'
-        ],
+        title: 'Reference Image Management',
+        description: 'Reference image management workflow improvements for healthcheck operations.',
+        category: 'Feature Parity: Genesis Gaps',
+        images: [],
         videos: [],
-        status: 'completed'
+        status: 'in-progress'
     },
-    // Healthcheck & Reporting - Dashboard, performance, reports
     {
         id: 'inc-007',
-        title: 'Healthcheck Dashboard Improvements',
-        description: 'UI refactor, performance improvements, and integration updates.',
-        category: 'Healthcheck & Reporting',
-        images: [
-            '/img/sprint-2025-12-a/Screenshot 2026-01-05 231442.png',
-            '/img/sprint-2025-12-a/Screenshot 2026-01-05 233356.png'
-        ],
+        title: 'VAS Quad View Detection Fix',
+        description: 'Fix detection display issues in VAS quad view to ensure proper visibility of detection data.',
+        category: 'Feature Parity: Genesis Gaps',
+        images: [],
         videos: [],
-        status: 'completed'
+        status: 'in-progress'
     },
     {
         id: 'inc-008',
-        title: 'Reporting Structure and Localization',
-        description: 'Updated report structure with German language support.',
-        category: 'Healthcheck & Reporting',
-        images: [
-            '/img/sprint-2025-12-a/Customer success report 1.png',
-            '/img/sprint-2025-12-a/Customer success report 2.png',
-            '/img/sprint-2025-12-a/Customer success report 3.png',
-            '/img/sprint-2025-12-a/localization_DE 1.png',
-            '/img/sprint-2025-12-a/localization_DE 2.png'
-        ],
+        title: 'Sensor Configuration UI',
+        description: 'Improved Add/Edit Sensor UI layout for better configuration workflow.',
+        category: 'Feature Parity: Genesis Gaps',
+        images: [],
         videos: [],
-        status: 'completed'
+        status: 'in-progress'
     },
     {
         id: 'inc-009',
-        title: 'Automated Reports',
-        description: 'Reports can now be scheduled and sent automatically.',
-        category: 'Healthcheck & Reporting',
+        title: 'Genesis Audio Audit Tab Fix',
+        description: 'Fix empty page issue in Configuration Genesis Audio audit tab.',
+        category: 'Feature Parity: Genesis Gaps',
         images: [],
-        videos: [
-            '/videos/sprint-2025-12-a/Automated Reports.mp4'
-        ],
-        status: 'completed'
+        videos: [],
+        status: 'in-progress'
     },
-    // Security and Analysis - Nova99x
+    // Enhanced Tower Management
     {
         id: 'inc-010',
-        title: 'Security Analysis Enhancements',
-        description: 'Improved analysis accuracy using Nova99x.',
-        category: 'Security and Analysis',
-        images: [
-            '/img/sprint-2025-12-a/Low light threshhold.png'
-        ],
+        title: 'Move Tower Functionality',
+        description: 'Enhanced tower management with move tower capabilities, improving operational flexibility.',
+        category: 'Enhanced Tower Management',
+        images: [],
         videos: [],
-        status: 'completed'
+        status: 'in-progress'
+    },
+    {
+        id: 'inc-011',
+        title: 'Tower Status Management',
+        description: 'Improved tower status tracking and management for better operational visibility.',
+        category: 'Enhanced Tower Management',
+        images: [],
+        videos: [],
+        status: 'in-progress'
+    },
+    {
+        id: 'inc-012',
+        title: 'Additional Properties Menu',
+        description: 'Enhanced properties burger menu with additional options for tower management.',
+        category: 'Enhanced Tower Management',
+        images: [],
+        videos: [],
+        status: 'in-progress'
+    },
+    // Healthcheck Dashboard & Reports
+    {
+        id: 'inc-013',
+        title: 'Bulk Healthcheck Execution',
+        description: 'Ability to bulk run healthcheck from the overview with filtering support, improving operational efficiency.',
+        category: 'Healthcheck Dashboard & Reports',
+        images: [],
+        videos: [],
+        status: 'in-progress'
+    },
+    {
+        id: 'inc-014',
+        title: 'Customer Report Enhancements',
+        description: 'Site Summary Table in Healthcheck Customer Report and improved report clarity with larger images and better layout.',
+        category: 'Healthcheck Dashboard & Reports',
+        images: [],
+        videos: [],
+        status: 'in-progress'
+    },
+    {
+        id: 'inc-015',
+        title: 'Report Scheduler Improvements',
+        description: 'Copy selected customers/sites and email templates from other schedulers, streamlining report configuration.',
+        category: 'Healthcheck Dashboard & Reports',
+        images: [],
+        videos: [],
+        status: 'in-progress'
+    },
+    {
+        id: 'inc-016',
+        title: 'Healthcheck Image Handling',
+        description: 'Improved image handling with larger display space and better visibility in reports.',
+        category: 'Healthcheck Dashboard & Reports',
+        images: [],
+        videos: [],
+        status: 'in-progress'
+    },
+    {
+        id: 'inc-017',
+        title: 'Detection Visibility Improvements',
+        description: 'Highlight detection functionality and split black screen into no license and no video categories for clearer reporting.',
+        category: 'Healthcheck Dashboard & Reports',
+        images: [],
+        videos: [],
+        status: 'in-progress'
+    },
+    {
+        id: 'inc-018',
+        title: 'Healthcheck AI Performance',
+        description: 'Improved healthcheck AI performance and response handling for lowlight issues with dual lens cameras (thermal + optical).',
+        category: 'Healthcheck Dashboard & Reports',
+        images: [],
+        videos: [],
+        status: 'in-progress'
+    },
+    // Documentation
+    {
+        id: 'inc-019',
+        title: 'Documentation Updates',
+        description: 'docs.nxgen.cloud documentation updates and fixes for issues identified during recent onboardings.',
+        category: 'Documentation',
+        images: [],
+        videos: [],
+        status: 'in-progress'
     }
 ];
 
@@ -174,13 +227,13 @@ const groupedIncrements = increments.reduce((acc, increment) => {
     return acc;
 }, {} as Record<string, Increment[]>);
 
-export default function Sprint202512BPage() {
+export default function Sprint202601APage() {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     return (
         <Layout
-            title="Sprint 2025.12-A - Internal Releases"
-            description="Detailed release notes for Sprint 2025.12-A"
+            title="Sprint 2026.01-A - Internal Releases"
+            description="Detailed release notes for Sprint 2026.01-A"
         >
             <LandingPageBackground />
             <main className="min-h-screen">
@@ -188,7 +241,7 @@ export default function Sprint202512BPage() {
                     breadcrumbs={[
                         { label: 'Home', href: '/' },
                         { label: 'Internal Releases', href: '/internal-releases' },
-                        { label: 'Sprint 2025.12-A' }
+                        { label: 'Sprint 2026.01-A' }
                     ]}
                 />
 
@@ -221,22 +274,32 @@ export default function Sprint202512BPage() {
                             <span className="text-sm font-medium text-[#E8B058]">Sprint Release</span>
                         </div>
                         <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-                            Sprint 2025.12-A
+                            Sprint 2026.01-A
                         </h1>
                         <div className="flex items-center justify-center gap-6 text-white/70 mb-4">
                             <div className="flex items-center gap-2">
                                 <Calendar className="w-5 h-5" />
-                                <span>December 1, 2025</span>
+                                <span>January 1, 2026</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <CheckCircle2 className="w-5 h-5" />
                                 <span>{increments.length} Features</span>
                             </div>
                         </div>
-                        <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
-                            This sprint focuses on stabilizing the Map Module, enhancing the Healthcheck Dashboard, 
-                            and refining camera operation controls. The team is balancing backend refactoring with critical UI improvements.
-                        </p>
+                        <div className="max-w-4xl mx-auto">
+                            <p className="text-xl text-white/90 font-semibold mb-4 leading-relaxed">
+                                Enable DC09 onboarding and close the last high impact Genesis gaps so customers can migrate, operate, and monitor without blockers.
+                            </p>
+                            <p className="text-lg text-white/70 leading-relaxed">
+                                This sprint focuses on removing remaining blockers for customer migration and day to day operations. The priority is delivering DC09 and CMS support through the Marketplace so amwin and LISA customers can onboard and route alarms correctly. In parallel, we will complete key Genesis parity items, including remaining device types, permissions, analytics subscription and activation, and Talos two way sync.
+                            </p>
+                            <p className="text-lg text-white/70 mt-4 leading-relaxed">
+                                We will continue strengthening core operational flows by improving tower management, tower statuses, moving towers, journey workflows, and autostreaming behavior. Healthcheck remains a major focus area, with work on bulk execution, reporting clarity, image handling, detection visibility, AI performance, and customer report improvements.
+                            </p>
+                            <p className="text-lg text-white/70 mt-4 leading-relaxed">
+                                The sprint also includes documentation updates and fixes for issues identified during recent onboardings. The goal is to stabilize the platform, reduce manual workarounds, and ensure the product is ready for broader customer adoption and migration.
+                            </p>
+                        </div>
                     </motion.div>
 
                     {/* Increments by Category */}
@@ -268,12 +331,12 @@ export default function Sprint202512BPage() {
                                     >
                                         <div className="flex items-start gap-4 mb-4">
                                             <div className="p-3 bg-[#E8B058]/10 rounded-lg text-[#E8B058] flex-shrink-0">
-                                                {increment.category === 'Core Features' && <Zap className="w-6 h-6" />}
-                                                {increment.category === 'Video Features' && <Video className="w-6 h-6" />}
-                                                {increment.category === 'Map Module Improvements' && <Map className="w-6 h-6" />}
-                                                {increment.category === 'Healthcheck & Reporting' && <Activity className="w-6 h-6" />}
-                                                {increment.category === 'Security and Analysis' && <Shield className="w-6 h-6" />}
-                                                {!['Core Features', 'Video Features', 'Map Module Improvements', 'Healthcheck & Reporting', 'Security and Analysis'].includes(increment.category) && <FileText className="w-6 h-6" />}
+                                                {category === 'DC09 / CMS Support' && <Database className="w-6 h-6" />}
+                                                {category === 'Feature Parity: Genesis Gaps' && <Zap className="w-6 h-6" />}
+                                                {category === 'Enhanced Tower Management' && <Radio className="w-6 h-6" />}
+                                                {category === 'Healthcheck Dashboard & Reports' && <Activity className="w-6 h-6" />}
+                                                {category === 'Documentation' && <FileText className="w-6 h-6" />}
+                                                {!['DC09 / CMS Support', 'Feature Parity: Genesis Gaps', 'Enhanced Tower Management', 'Healthcheck Dashboard & Reports', 'Documentation'].includes(category) && <FileText className="w-6 h-6" />}
                                             </div>
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-3 mb-2">
@@ -283,6 +346,11 @@ export default function Sprint202512BPage() {
                                                     {increment.status === 'completed' && (
                                                         <span className="px-3 py-1 text-xs font-medium rounded-full bg-green-500/20 text-green-400 border border-green-500/30">
                                                             Completed
+                                                        </span>
+                                                    )}
+                                                    {increment.status === 'in-progress' && (
+                                                        <span className="px-3 py-1 text-xs font-medium rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                                                            In Progress
                                                         </span>
                                                     )}
                                                 </div>
@@ -370,16 +438,16 @@ export default function Sprint202512BPage() {
                         <h2 className="text-2xl font-bold text-white mb-4">Release Summary</h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div className="text-center">
+                                <div className="text-3xl font-bold text-[#E8B058] mb-2">8</div>
+                                <div className="text-white/70">DC09 & Marketplace Features</div>
+                            </div>
+                            <div className="text-center">
+                                <div className="text-3xl font-bold text-[#E8B058] mb-2">7</div>
+                                <div className="text-white/70">Genesis Parity Items</div>
+                            </div>
+                            <div className="text-center">
                                 <div className="text-3xl font-bold text-[#E8B058] mb-2">6</div>
-                                <div className="text-white/70">Core Capability Updates</div>
-                            </div>
-                            <div className="text-center">
-                                <div className="text-3xl font-bold text-[#E8B058] mb-2">12+</div>
-                                <div className="text-white/70">Usability and UI Improvements</div>
-                            </div>
-                            <div className="text-center">
-                                <div className="text-3xl font-bold text-[#E8B058] mb-2">5</div>
-                                <div className="text-white/70">Reporting and Automation Updates</div>
+                                <div className="text-white/70">Healthcheck Improvements</div>
                             </div>
                         </div>
                     </motion.div>
