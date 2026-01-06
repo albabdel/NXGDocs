@@ -118,7 +118,7 @@ export const CloudinaryVideo: React.FC<CloudinaryVideoProps> = ({
   format = 'mp4', // Force MP4 for better compatibility and metadata loading
   quality = 'auto',
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false); // Start as false, only show loading when actually loading
   const [hasError, setHasError] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -161,67 +161,96 @@ export const CloudinaryVideo: React.FC<CloudinaryVideoProps> = ({
     posterUrl = posterImg.toURL();
   }
 
-  // Handle video events through DOM
+  // Handle video events through DOM with retry mechanism
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const videoElement = container.querySelector('video') as HTMLVideoElement;
-    if (!videoElement) return;
+    let videoElement: HTMLVideoElement | null = null;
+    let cleanup: (() => void) | null = null;
 
-    const handleLoadedMetadata = () => {
+    // Wait for video element to be available (AdvancedVideo might render async)
+    const setupVideoListeners = () => {
+      videoElement = container.querySelector('video') as HTMLVideoElement;
+      
+      if (!videoElement) {
+        // Retry after a short delay
+        setTimeout(setupVideoListeners, 100);
+        return;
+      }
+
+      // Check if already loaded - if so, don't show loading
+      if (videoElement.readyState >= 2) {
+        setIsLoading(false);
+      } else {
+        // Only show loading if video is actually loading
+        setIsLoading(true);
+      }
+
+      const handleLoadedMetadata = () => {
+        setIsLoading(false);
+        setHasError(false);
+      };
+
+      const handleCanPlay = () => {
+        setIsLoading(false);
+      };
+
+      const handleCanPlayThrough = () => {
+        setIsLoading(false);
+      };
+
+      const handleError = (e: Event) => {
+        setIsLoading(false);
+        setHasError(true);
+        console.error('Video error:', e);
+      };
+
+      const handleLoadStart = () => {
+        setIsLoading(true);
+        setHasError(false);
+      };
+
+      const handleWaiting = () => {
+        setIsLoading(true);
+      };
+
+      const handlePlaying = () => {
+        setIsLoading(false);
+      };
+
+      videoElement.addEventListener('loadedmetadata', handleLoadedMetadata);
+      videoElement.addEventListener('canplay', handleCanPlay);
+      videoElement.addEventListener('canplaythrough', handleCanPlayThrough);
+      videoElement.addEventListener('error', handleError);
+      videoElement.addEventListener('loadstart', handleLoadStart);
+      videoElement.addEventListener('waiting', handleWaiting);
+      videoElement.addEventListener('playing', handlePlaying);
+
+      cleanup = () => {
+        if (videoElement) {
+          videoElement.removeEventListener('loadedmetadata', handleLoadedMetadata);
+          videoElement.removeEventListener('canplay', handleCanPlay);
+          videoElement.removeEventListener('canplaythrough', handleCanPlayThrough);
+          videoElement.removeEventListener('error', handleError);
+          videoElement.removeEventListener('loadstart', handleLoadStart);
+          videoElement.removeEventListener('waiting', handleWaiting);
+          videoElement.removeEventListener('playing', handlePlaying);
+        }
+      };
+    };
+
+    // Start setup
+    setupVideoListeners();
+
+    // Fallback timeout - clear loading after 2 seconds if nothing happens
+    const fallbackTimeout = setTimeout(() => {
       setIsLoading(false);
-      setHasError(false);
-    };
-
-    const handleCanPlay = () => {
-      setIsLoading(false);
-    };
-
-    const handleCanPlayThrough = () => {
-      setIsLoading(false);
-    };
-
-    const handleError = (e: Event) => {
-      setIsLoading(false);
-      setHasError(true);
-      console.error('Video error:', e);
-    };
-
-    const handleLoadStart = () => {
-      setIsLoading(true);
-      setHasError(false);
-    };
-
-    const handleWaiting = () => {
-      setIsLoading(true);
-    };
-
-    const handlePlaying = () => {
-      setIsLoading(false);
-    };
-
-    videoElement.addEventListener('loadedmetadata', handleLoadedMetadata);
-    videoElement.addEventListener('canplay', handleCanPlay);
-    videoElement.addEventListener('canplaythrough', handleCanPlayThrough);
-    videoElement.addEventListener('error', handleError);
-    videoElement.addEventListener('loadstart', handleLoadStart);
-    videoElement.addEventListener('waiting', handleWaiting);
-    videoElement.addEventListener('playing', handlePlaying);
-
-    // Force load metadata
-    if (videoElement.readyState === 0) {
-      videoElement.load();
-    }
+    }, 2000);
 
     return () => {
-      videoElement.removeEventListener('loadedmetadata', handleLoadedMetadata);
-      videoElement.removeEventListener('canplay', handleCanPlay);
-      videoElement.removeEventListener('canplaythrough', handleCanPlayThrough);
-      videoElement.removeEventListener('error', handleError);
-      videoElement.removeEventListener('loadstart', handleLoadStart);
-      videoElement.removeEventListener('waiting', handleWaiting);
-      videoElement.removeEventListener('playing', handlePlaying);
+      if (cleanup) cleanup();
+      clearTimeout(fallbackTimeout);
     };
   }, [retryCount, publicId]);
 
