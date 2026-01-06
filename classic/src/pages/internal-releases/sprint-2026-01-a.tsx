@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Link from '@docusaurus/Link';
 import PageHeader from '../../components/PageHeader';
 import LandingPageBackground from '../../components/LandingPageBackground/LandingPageBackground';
+import { CloudinaryVideo } from '../../components/CloudinaryVideo';
 import {
     Calendar,
     Package,
@@ -403,18 +404,14 @@ export default function Sprint202601APage() {
                                                                     key={vidIdx}
                                                                     className="relative aspect-video bg-gray-800 rounded-lg overflow-hidden border border-white/10"
                                                                 >
-                                                                    <video
+                                                                    <CloudinaryVideo
+                                                                        publicId={video}
                                                                         controls
-                                                                        crossOrigin="anonymous"
+                                                                        preload="metadata"
                                                                         className="w-full h-full object-contain"
-                                                                        style={{
-                                                                            maxWidth: '100%',
-                                                                            borderRadius: '8px'
-                                                                        }}
-                                                                    >
-                                                                        <source src={video} type="video/mp4" />
-                                                                        Your browser does not support the video tag.
-                                                                    </video>
+                                                                        format="auto"
+                                                                        quality="auto"
+                                                                    />
                                                                 </div>
                                                             ))}
                                                         </div>

@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import Link from '@docusaurus/Link';
 import PageHeader from '../../components/PageHeader';
 import LandingPageBackground from '../../components/LandingPageBackground/LandingPageBackground';
+import { CloudinaryVideo } from '../../components/CloudinaryVideo';
+import { CloudinaryImage } from '../../components/CloudinaryImage';
 import {
     Calendar,
     Package,
@@ -45,12 +47,12 @@ const increments: Increment[] = [
         description: 'Operators can isolate cameras, trigger IOs, control PTZ, and share events directly from Salvo.',
         category: 'Core Features',
         images: [
-            '/img/sprint-2025-12-a/IO 1.png',
-            '/img/sprint-2025-12-a/IO 2.png'
+            'IO_1_a1aguq',
+            'IO_2_p83hxh'
         ],
         videos: [
-            '/videos/sprint-2025-12-a/Salvo%20Operator%20Controls.mp4',
-            '/videos/sprint-2025-12-a/Salvo%20share.mp4'
+            'Salvo_Operator_Controls_fifx9q',
+            'Salvo_share_pianax'
         ],
         status: 'completed'
     },
@@ -61,7 +63,7 @@ const increments: Increment[] = [
         category: 'Core Features',
         images: [],
         videos: [
-            '/videos/sprint-2025-12-a/Salvo%20view%20enhancements.mp4'
+            'Salvo_view_enhancements_anhoe6'
         ],
         status: 'completed'
     },
@@ -83,8 +85,8 @@ const increments: Increment[] = [
         description: 'Full-frame image display in preview for faster validation.',
         category: 'Video Features',
         images: [
-            '/img/sprint-2025-12-a/Full Image Preview 1.png',
-            '/img/sprint-2025-12-a/Full Image Preview 2.png'
+            'Full_Image_Preview_1_iwt5yo',
+            'Full_Image_Preview_2_rm0mfb'
         ],
         videos: [],
         status: 'completed'
@@ -97,7 +99,7 @@ const increments: Increment[] = [
         category: 'Map Module Improvements',
         images: [],
         videos: [
-            '/videos/sprint-2025-12-a/Map%20Navigation%20and%20Search.mp4'
+            'Map_Navigation_and_Search_cudtfn'
         ],
         status: 'completed'
     },
@@ -107,7 +109,7 @@ const increments: Increment[] = [
         description: 'Enhanced tower visibility, sub-camera toggles, and inline editing.',
         category: 'Map Module Improvements',
         images: [
-            '/img/sprint-2025-12-a/Screenshot 2026-01-05 233502.png'
+            'Screenshot_2026-01-05_233502_ghibuc'
         ],
         videos: [],
         status: 'completed'
@@ -119,8 +121,8 @@ const increments: Increment[] = [
         description: 'UI refactor, performance improvements, and integration updates.',
         category: 'Healthcheck & Reporting',
         images: [
-            '/img/sprint-2025-12-a/Screenshot 2026-01-05 231442.png',
-            '/img/sprint-2025-12-a/Screenshot 2026-01-05 233356.png'
+            'Screenshot_2026-01-05_231442_ncuxnf',
+            'Screenshot_2026-01-05_233356_ncrnna'
         ],
         videos: [],
         status: 'completed'
@@ -131,11 +133,11 @@ const increments: Increment[] = [
         description: 'Updated report structure with German language support.',
         category: 'Healthcheck & Reporting',
         images: [
-            '/img/sprint-2025-12-a/Customer success report 1.png',
-            '/img/sprint-2025-12-a/Customer success report 2.png',
-            '/img/sprint-2025-12-a/Customer success report 3.png',
-            '/img/sprint-2025-12-a/localization_DE 1.png',
-            '/img/sprint-2025-12-a/localization_DE 2.png'
+            'Customer_success_report_1_lcezop',
+            'Customer_success_report_2_qbnwgk',
+            'Customer_success_report_3_kbu68h',
+            'localization_DE_1_jjkcuv',
+            'localization_DE_2_d2homi'
         ],
         videos: [],
         status: 'completed'
@@ -147,7 +149,7 @@ const increments: Increment[] = [
         category: 'Healthcheck & Reporting',
         images: [],
         videos: [
-            '/videos/sprint-2025-12-a/Automated%20Reports.mp4'
+            'Automated_Reports_nctikh'
         ],
         status: 'completed'
     },
@@ -158,7 +160,7 @@ const increments: Increment[] = [
         description: 'Improved analysis accuracy using Nova99x.',
         category: 'Security and Analysis',
         images: [
-            '/img/sprint-2025-12-a/Low light threshhold.png'
+            'Low_light_threshhold_wv5b5r'
         ],
         videos: [],
         status: 'completed'
@@ -298,26 +300,41 @@ export default function Sprint202512BPage() {
                                                             <span className="text-sm font-medium">Screenshots</span>
                                                         </div>
                                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                            {increment.images.map((image, imgIdx) => (
-                                                                <div
-                                                                    key={imgIdx}
-                                                                    className="relative group cursor-pointer"
-                                                                    onClick={() => setSelectedImage(image)}
-                                                                >
-                                                                    <div className="relative aspect-video bg-gray-800 rounded-lg overflow-hidden border border-white/10 hover:border-[#E8B058]/50 transition-all">
-                                                                        <img
-                                                                            src={image}
-                                                                            alt={`${increment.title} - Screenshot ${imgIdx + 1}`}
-                                                                            className="w-full h-full object-contain"
-                                                                        />
-                                                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                                                                            <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                                                                                <ImageIcon className="w-8 h-8 text-white" />
+                                                            {increment.images.map((image, imgIdx) => {
+                                                                // Check if image is a Cloudinary public ID (no http/https, no file extension)
+                                                                const isCloudinaryImage = image && !image.startsWith('http') && !image.includes('/') && !image.includes('.');
+                                                                
+                                                                return (
+                                                                    <div
+                                                                        key={imgIdx}
+                                                                        className="relative group cursor-pointer"
+                                                                        onClick={() => setSelectedImage(image)}
+                                                                    >
+                                                                        <div className="relative aspect-video bg-gray-800 rounded-lg overflow-hidden border border-white/10 hover:border-[#E8B058]/50 transition-all">
+                                                                            {isCloudinaryImage ? (
+                                                                                <CloudinaryImage
+                                                                                    publicId={image}
+                                                                                    alt={`${increment.title} - Screenshot ${imgIdx + 1}`}
+                                                                                    className="w-full h-full object-contain"
+                                                                                    format="auto"
+                                                                                    quality="auto"
+                                                                                />
+                                                                            ) : (
+                                                                                <img
+                                                                                    src={image}
+                                                                                    alt={`${increment.title} - Screenshot ${imgIdx + 1}`}
+                                                                                    className="w-full h-full object-contain"
+                                                                                />
+                                                                            )}
+                                                                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                                                                                <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                                                                                    <ImageIcon className="w-8 h-8 text-white" />
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            ))}
+                                                                );
+                                                            })}
                                                         </div>
                                                     </div>
                                                 )}
@@ -335,17 +352,14 @@ export default function Sprint202512BPage() {
                                                                     key={vidIdx}
                                                                     className="relative aspect-video bg-gray-800 rounded-lg overflow-hidden border border-white/10"
                                                                 >
-                                                                    <video
+                                                                    <CloudinaryVideo
+                                                                        publicId={video}
                                                                         controls
+                                                                        preload="metadata"
                                                                         className="w-full h-full object-contain"
-                                                                        style={{
-                                                                            maxWidth: '100%',
-                                                                            borderRadius: '8px'
-                                                                        }}
-                                                                    >
-                                                                        <source src={video} type="video/mp4" />
-                                                                        Your browser does not support the video tag.
-                                                                    </video>
+                                                                        format="auto"
+                                                                        quality="auto"
+                                                                    />
                                                                 </div>
                                                             ))}
                                                         </div>
@@ -392,11 +406,21 @@ export default function Sprint202512BPage() {
                         onClick={() => setSelectedImage(null)}
                     >
                         <div className="relative max-w-7xl max-h-full">
-                            <img
-                                src={selectedImage}
-                                alt="Full size screenshot"
-                                className="max-w-full max-h-[90vh] object-contain"
-                            />
+                            {selectedImage && !selectedImage.startsWith('http') && !selectedImage.includes('/') && !selectedImage.includes('.') ? (
+                                <CloudinaryImage
+                                    publicId={selectedImage}
+                                    alt="Full size screenshot"
+                                    className="max-w-full max-h-[90vh] object-contain"
+                                    format="auto"
+                                    quality="auto"
+                                />
+                            ) : (
+                                <img
+                                    src={selectedImage}
+                                    alt="Full size screenshot"
+                                    className="max-w-full max-h-[90vh] object-contain"
+                                />
+                            )}
                             <button
                                 onClick={() => setSelectedImage(null)}
                                 className="absolute top-4 right-4 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors"

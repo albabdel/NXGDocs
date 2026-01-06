@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './BreakthroughHeader.module.css';
+import { CloudinaryVideo } from '../CloudinaryVideo';
 
 export interface BreakthroughHeaderProps {
   number: number;
@@ -9,6 +10,10 @@ export interface BreakthroughHeaderProps {
   video?: string;
   poster?: string;
   color?: string;
+  /**
+   * If true, treats video as a Cloudinary public ID instead of a URL
+   */
+  useCloudinary?: boolean;
 }
 
 export default function BreakthroughHeader({
@@ -18,8 +23,12 @@ export default function BreakthroughHeader({
   tagline,
   video,
   poster,
-  color = '#4F46E5'
+  color = '#4F46E5',
+  useCloudinary = false
 }: BreakthroughHeaderProps): JSX.Element {
+  // Check if video is a Cloudinary public ID (no http/https, no file extension, or explicitly set)
+  const isCloudinaryVideo = useCloudinary || (video && !video.startsWith('http') && !video.includes('.'));
+
   return (
     <div className={styles.breakthroughHeader}>
       <div className={styles.headerContent}>
@@ -43,16 +52,28 @@ export default function BreakthroughHeader({
 
       {video && (
         <div className={styles.videoContainer}>
-          <video
-            className={styles.video}
-            controls
-            poster={poster}
-            preload="metadata"
-            crossOrigin="anonymous"
-          >
-            <source src={video} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          {isCloudinaryVideo ? (
+            <CloudinaryVideo
+              publicId={video}
+              poster={poster}
+              controls
+              preload="metadata"
+              className={styles.video}
+              format="auto"
+              quality="auto"
+            />
+          ) : (
+            <video
+              className={styles.video}
+              controls
+              poster={poster}
+              preload="metadata"
+              crossOrigin="anonymous"
+            >
+              <source src={video} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          )}
         </div>
       )}
     </div>

@@ -3,6 +3,7 @@ import Layout from '@theme/Layout';
 import { motion } from 'framer-motion';
 import LandingPageBackground from '../components/LandingPageBackground';
 import Link from '@docusaurus/Link';
+import { CloudinaryVideo } from '../components/CloudinaryVideo';
 import {
     Rocket,
     Play,
@@ -30,6 +31,9 @@ import {
 
 // Video Component (for actual videos)
 const VideoCard = ({ title, duration, description, videoSrc, youtubeId }: { title: string; duration: string; description: string; videoSrc?: string; youtubeId?: string }) => {
+    // Check if videoSrc is a Cloudinary public ID (no http/https, no file extension)
+    const isCloudinaryVideo = videoSrc && !videoSrc.startsWith('http') && !videoSrc.includes('.');
+
     if (!videoSrc && !youtubeId) {
         // Fallback to placeholder if no video source
         return (
@@ -68,6 +72,15 @@ const VideoCard = ({ title, duration, description, videoSrc, youtubeId }: { titl
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                     ></iframe>
+                ) : isCloudinaryVideo && videoSrc ? (
+                    <CloudinaryVideo
+                        publicId={videoSrc}
+                        controls
+                        preload="metadata"
+                        className="w-full h-full object-contain"
+                        format="auto"
+                        quality="auto"
+                    />
                 ) : (
                     <video
                         className="w-full h-full object-contain"
