@@ -118,24 +118,37 @@ const increments: Increment[] = [
     {
         id: 'inc-007',
         title: 'Healthcheck Dashboard Improvements',
-        description: 'UI refactor, performance improvements, and integration updates.',
+        description: 'UI refactor, performance improvements, and integration updates. The dashboard now provides better visibility into healthcheck operations with improved filtering and status tracking.',
         category: 'Healthcheck & Reporting',
         images: [
             'Screenshot_2026-01-05_231442_ncuxnf',
-            'Screenshot_2026-01-05_233356_ncrnna'
+            'Screenshot_2026-01-05_233356_ncrnna',
+            'Screenshot_2026-01-05_233502_ghibuc'
+        ],
+        videos: [
+            'HealthCheck_Dashboard_t07ur9'
+        ],
+        status: 'completed'
+    },
+    {
+        id: 'inc-008',
+        title: 'New Report Structure',
+        description: 'Updated report structure with improved layout, larger images, and better organization. Reports now provide clearer insights with enhanced visual presentation and data organization.',
+        category: 'Healthcheck & Reporting',
+        images: [
+            'Customer_success_report_1_lcezop',
+            'Customer_success_report_2_qbnwgk',
+            'Customer_success_report_3_kbu68h'
         ],
         videos: [],
         status: 'completed'
     },
     {
-        id: 'inc-008',
-        title: 'Reporting Structure and Localization',
-        description: 'Updated report structure with German language support.',
+        id: 'inc-008b',
+        title: 'Report Localization',
+        description: 'Healthcheck reports now support localization. When users change the language in GCXONE, the healthcheck reports will automatically display in that language. Currently supports German (DE) with more languages coming soon.',
         category: 'Healthcheck & Reporting',
         images: [
-            'Customer_success_report_1_lcezop',
-            'Customer_success_report_2_qbnwgk',
-            'Customer_success_report_3_kbu68h',
             'localization_DE_1_jjkcuv',
             'localization_DE_2_d2homi'
         ],
@@ -145,7 +158,7 @@ const increments: Increment[] = [
     {
         id: 'inc-009',
         title: 'Automated Reports',
-        description: 'Reports can now be scheduled and sent automatically.',
+        description: 'Reports can now be scheduled and sent automatically. Configure report schedules to automatically generate and deliver healthcheck reports to specified recipients.',
         category: 'Healthcheck & Reporting',
         images: [],
         videos: [
@@ -153,15 +166,35 @@ const increments: Increment[] = [
         ],
         status: 'completed'
     },
-    // Security and Analysis - Nova99x
     {
         id: 'inc-010',
-        title: 'Security Analysis Enhancements',
-        description: 'Improved analysis accuracy using Nova99x.',
-        category: 'Security and Analysis',
+        title: 'Lowlight Threshold Configuration',
+        description: 'Customers can now modify the lowlight threshold settings for healthcheck operations. This allows fine-tuning of detection sensitivity for low-light conditions, improving accuracy and reducing false positives.',
+        category: 'Healthcheck & Reporting',
         images: [
             'Low_light_threshhold_wv5b5r'
         ],
+        videos: [],
+        status: 'completed'
+    },
+    {
+        id: 'inc-011',
+        title: 'Report Scheduler',
+        description: 'Enhanced report scheduling capabilities with improved configuration options and management tools.',
+        category: 'Healthcheck & Reporting',
+        images: [],
+        videos: [
+            'report_scheduler_zthkqr'
+        ],
+        status: 'completed'
+    },
+    // Security and Analysis - Nova99x
+    {
+        id: 'inc-012',
+        title: 'Security Analysis Enhancements',
+        description: 'Improved analysis accuracy using Nova99x for better detection and analysis capabilities.',
+        category: 'Security and Analysis',
+        images: [],
         videos: [],
         status: 'completed'
     }
@@ -355,9 +388,9 @@ export default function Sprint202512BPage() {
                                                                     <CloudinaryVideo
                                                                         publicId={video}
                                                                         controls
-                                                                        preload="metadata"
+                                                                        preload="auto"
                                                                         className="w-full h-full object-contain"
-                                                                        format="auto"
+                                                                        format="mp4"
                                                                         quality="auto"
                                                                     />
                                                                 </div>
@@ -388,12 +421,12 @@ export default function Sprint202512BPage() {
                                 <div className="text-white/70">Core Capability Updates</div>
                             </div>
                             <div className="text-center">
-                                <div className="text-3xl font-bold text-[#E8B058] mb-2">12+</div>
-                                <div className="text-white/70">Usability and UI Improvements</div>
+                                <div className="text-3xl font-bold text-[#E8B058] mb-2">7</div>
+                                <div className="text-white/70">Healthcheck & Reporting Features</div>
                             </div>
                             <div className="text-center">
-                                <div className="text-3xl font-bold text-[#E8B058] mb-2">5</div>
-                                <div className="text-white/70">Reporting and Automation Updates</div>
+                                <div className="text-3xl font-bold text-[#E8B058] mb-2">12+</div>
+                                <div className="text-white/70">Usability and UI Improvements</div>
                             </div>
                         </div>
                     </motion.div>

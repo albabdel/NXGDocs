@@ -57,9 +57,9 @@ export default function BreakthroughHeader({
               publicId={video}
               poster={poster}
               controls
-              preload="metadata"
+              preload="auto"
               className={styles.video}
-              format="auto"
+              format="mp4"
               quality="auto"
             />
           ) : (

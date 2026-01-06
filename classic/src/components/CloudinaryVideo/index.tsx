@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { AdvancedVideo } from '@cloudinary/react';
 import { CloudinaryVideo as CloudinaryVideoType } from '@cloudinary/url-gen';
 import { auto } from '@cloudinary/url-gen/actions/resize';
@@ -113,17 +113,23 @@ export const CloudinaryVideo: React.FC<CloudinaryVideoProps> = ({
   loop = false,
   muted = false,
   playsInline = true,
-  preload = 'metadata',
+  preload = 'auto', // Changed default to 'auto' for better loading
   transformations,
-  format = 'auto',
+  format = 'mp4', // Force MP4 for better compatibility and metadata loading
   quality = 'auto',
 }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
   // Create the base video
   let video = cld.video(publicId);
 
-  // Apply format and quality optimizations
+  // Apply format - use MP4 for better compatibility and metadata loading
   if (format === 'auto') {
-    video = video.format('auto');
+    // Force MP4 for better compatibility and proper metadata
+    video = video.format('mp4');
   } else {
     video = video.format(format);
   }
@@ -155,19 +161,125 @@ export const CloudinaryVideo: React.FC<CloudinaryVideoProps> = ({
     posterUrl = posterImg.toURL();
   }
 
+  // Handle video events through DOM
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const videoElement = container.querySelector('video') as HTMLVideoElement;
+    if (!videoElement) return;
+
+    const handleLoadedMetadata = () => {
+      setIsLoading(false);
+      setHasError(false);
+    };
+
+    const handleCanPlay = () => {
+      setIsLoading(false);
+    };
+
+    const handleCanPlayThrough = () => {
+      setIsLoading(false);
+    };
+
+    const handleError = (e: Event) => {
+      setIsLoading(false);
+      setHasError(true);
+      console.error('Video error:', e);
+    };
+
+    const handleLoadStart = () => {
+      setIsLoading(true);
+      setHasError(false);
+    };
+
+    const handleWaiting = () => {
+      setIsLoading(true);
+    };
+
+    const handlePlaying = () => {
+      setIsLoading(false);
+    };
+
+    videoElement.addEventListener('loadedmetadata', handleLoadedMetadata);
+    videoElement.addEventListener('canplay', handleCanPlay);
+    videoElement.addEventListener('canplaythrough', handleCanPlayThrough);
+    videoElement.addEventListener('error', handleError);
+    videoElement.addEventListener('loadstart', handleLoadStart);
+    videoElement.addEventListener('waiting', handleWaiting);
+    videoElement.addEventListener('playing', handlePlaying);
+
+    // Force load metadata
+    if (videoElement.readyState === 0) {
+      videoElement.load();
+    }
+
+    return () => {
+      videoElement.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      videoElement.removeEventListener('canplay', handleCanPlay);
+      videoElement.removeEventListener('canplaythrough', handleCanPlayThrough);
+      videoElement.removeEventListener('error', handleError);
+      videoElement.removeEventListener('loadstart', handleLoadStart);
+      videoElement.removeEventListener('waiting', handleWaiting);
+      videoElement.removeEventListener('playing', handlePlaying);
+    };
+  }, [retryCount, publicId]);
+
+  const handleRetry = () => {
+    setRetryCount(prev => prev + 1);
+    setHasError(false);
+    setIsLoading(true);
+    const container = containerRef.current;
+    if (container) {
+      const videoElement = container.querySelector('video') as HTMLVideoElement;
+      if (videoElement) {
+        videoElement.load();
+      }
+    }
+  };
+
   return (
-    <AdvancedVideo
-      cldVid={video}
-      controls={controls}
-      autoPlay={autoplay}
-      loop={loop}
-      muted={muted}
-      playsInline={playsInline}
-      preload={preload}
-      poster={posterUrl}
-      className={className}
-      style={style}
-    />
+    <div ref={containerRef} className="relative w-full h-full" style={style}>
+      {isLoading && !hasError && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-900/50 z-10">
+          <div className="flex flex-col items-center gap-2">
+            <div className="w-8 h-8 border-4 border-[#E8B058] border-t-transparent rounded-full animate-spin"></div>
+            <span className="text-sm text-white/70">Loading video...</span>
+          </div>
+        </div>
+      )}
+      
+      {hasError && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-900/80 z-10">
+          <div className="flex flex-col items-center gap-3 p-4">
+            <span className="text-sm text-white/70">Failed to load video</span>
+            <button
+              onClick={handleRetry}
+              className="px-4 py-2 bg-[#E8B058] text-black rounded-lg hover:bg-[#E8B058]/80 transition-colors text-sm font-medium"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+      )}
+
+      <AdvancedVideo
+        cldVid={video}
+        controls={controls}
+        autoPlay={autoplay}
+        loop={loop}
+        muted={muted}
+        playsInline={playsInline}
+        preload={preload}
+        poster={posterUrl}
+        className={className}
+        style={{
+          ...style,
+          opacity: isLoading && !hasError ? 0.7 : 1,
+          transition: 'opacity 0.3s ease-in-out'
+        }}
+      />
+    </div>
   );
 };
 

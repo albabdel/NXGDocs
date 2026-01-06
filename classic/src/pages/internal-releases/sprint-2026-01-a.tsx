@@ -407,9 +407,9 @@ export default function Sprint202601APage() {
                                                                     <CloudinaryVideo
                                                                         publicId={video}
                                                                         controls
-                                                                        preload="metadata"
+                                                                        preload="auto"
                                                                         className="w-full h-full object-contain"
-                                                                        format="auto"
+                                                                        format="mp4"
                                                                         quality="auto"
                                                                     />
                                                                 </div>
