@@ -19,6 +19,7 @@ import {
     XCircle,
     PlayCircle
 } from 'lucide-react';
+import { sprint202601AMetadata, sprint202601AStats } from '../data/sprint-2026-01-a';
 
 // Release data structure
 type Release = {
@@ -48,15 +49,15 @@ type FutureSprint = {
     }[];
 };
 
-// Current sprint
+// Current sprint - dynamically calculated from sprint data
 const currentSprint: Release = {
-    id: 'sprint-2026-01-a',
-    title: 'Sprint 2026.01-A',
-    date: 'January 1, 2026',
-    description: 'Current sprint in progress - focusing on API improvements and new integrations',
+    id: sprint202601AMetadata.id,
+    title: sprint202601AMetadata.title,
+    date: sprint202601AMetadata.date,
+    description: sprint202601AMetadata.description,
     status: 'current',
-    incrementCount: 6,
-    plannedIncrements: 10
+    incrementCount: sprint202601AStats.total,
+    plannedIncrements: sprint202601AStats.total // Use total items as planned increments
 };
 
 // Completed releases with completion tracking
@@ -282,8 +283,16 @@ export default function InternalReleasesPage() {
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <CheckCircle2 className="w-4 h-4" />
-                                            <span>{currentSprint.incrementCount} / {currentSprint.plannedIncrements} Increments</span>
+                                            <span>{sprint202601AStats.total} Items</span>
                                         </div>
+                                    </div>
+                                    
+                                    <div className="flex items-center gap-4 mb-3 text-xs text-white/50">
+                                        <span>{sprint202601AStats.stories} Stories</span>
+                                        <span>•</span>
+                                        <span>{sprint202601AStats.tasks} Tasks</span>
+                                        <span>•</span>
+                                        <span>{sprint202601AStats.bugs} Bugs</span>
                                     </div>
                                     
                                     <p className="text-white/70 mb-4">
@@ -293,8 +302,12 @@ export default function InternalReleasesPage() {
                                     <div className="w-full bg-white/10 rounded-full h-2 mb-4">
                                         <div 
                                             className="bg-blue-500 h-2 rounded-full transition-all"
-                                            style={{ width: `${(currentSprint.incrementCount / (currentSprint.plannedIncrements || 1)) * 100}%` }}
+                                            style={{ width: `${(sprint202601AStats.byStatus.done / sprint202601AStats.total) * 100}%` }}
                                         />
+                                    </div>
+                                    <div className="flex items-center justify-between text-xs text-white/50">
+                                        <span>Progress</span>
+                                        <span>{sprint202601AStats.byStatus.done} / {sprint202601AStats.total} Complete</span>
                                     </div>
                                 </div>
                                 

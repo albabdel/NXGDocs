@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Layout from '@theme/Layout';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from '@docusaurus/Link';
 import PageHeader from '../../components/PageHeader';
 import LandingPageBackground from '../../components/LandingPageBackground/LandingPageBackground';
@@ -9,227 +9,227 @@ import {
     Calendar,
     Package,
     ArrowLeft,
-    Clock,
     CheckCircle2,
-    Image as ImageIcon,
-    Video,
+    ChevronDown,
+    ChevronRight,
     FileText,
-    Code,
-    Settings,
-    Zap,
-    Shield,
-    Camera,
-    Bell,
-    Users,
-    Map,
-    Activity,
-    BarChart3,
     Database,
-    Radio
+    Zap,
+    Radio,
+    Activity,
+    Tag,
+    User,
+    Bug,
+    ListTodo,
+    BookOpen,
+    TrendingUp,
+    Filter,
+    X,
+    AlertCircle
 } from 'lucide-react';
+import { sprint202601AItems, sprint202601AStats, sprint202601AMetadata, SprintItem } from '../../data/sprint-2026-01-a';
 
-// Increment data structure
-type Increment = {
-    id: string;
-    title: string;
-    description: string;
-    category: string;
-    images?: string[];
-    videos?: string[];
-    status: 'completed' | 'in-progress';
+// Group items by epic
+const groupedByEpic = sprint202601AItems.reduce((acc, item) => {
+    if (!acc[item.epic]) {
+        acc[item.epic] = [];
+    }
+    acc[item.epic].push(item);
+    return acc;
+}, {} as Record<string, SprintItem[]>);
+
+// Get epic icon
+const getEpicIcon = (epic: string) => {
+    if (epic.includes('DC09') || epic.includes('CMS')) return <Database className="w-5 h-5" />;
+    if (epic.includes('Genesis')) return <Zap className="w-5 h-5" />;
+    if (epic.includes('Tower')) return <Radio className="w-5 h-5" />;
+    if (epic.includes('Healthcheck')) return <Activity className="w-5 h-5" />;
+    if (epic.includes('Documentation')) return <FileText className="w-5 h-5" />;
+    return <FileText className="w-5 h-5" />;
 };
 
-// Sprint 2026.01-A increment data
-const increments: Increment[] = [
-    // DC09 / CMS Support via Marketplace
-    {
-        id: 'inc-001',
-        title: 'DC09 CMS Integration via Marketplace',
-        description: 'Complete DC09 and CMS support through the Marketplace enabling amwin and LISA customers to onboard and route alarms correctly. Includes viewing CMS options, configuring Evalink Talos and DC09 CMS, assigning account IDs, enabling encryption, and viewing alarm logs.',
-        category: 'DC09 / CMS Support',
-        images: [],
-        videos: [],
-        status: 'in-progress'
-    },
-    {
-        id: 'inc-002',
-        title: 'DC09 Configuration and Validation',
-        description: 'Prevent invalid DC09 configurations and ensure proper setup validation for reliable alarm routing.',
-        category: 'DC09 / CMS Support',
-        images: [],
-        videos: [],
-        status: 'in-progress'
-    },
-    // Feature Parity: Critical Genesis Gaps
-    {
-        id: 'inc-003',
-        title: 'Analytics Marketplace Integration',
-        description: 'Subscribe to and activate Analytics from the Marketplace, completing key Genesis parity functionality.',
-        category: 'Feature Parity: Genesis Gaps',
-        images: [],
-        videos: [],
-        status: 'in-progress'
-    },
-    {
-        id: 'inc-004',
-        title: 'Device Type Expansion',
-        description: 'Add remaining device types to the Add Device Panel, expanding configuration options for customers.',
-        category: 'Feature Parity: Genesis Gaps',
-        images: [],
-        videos: [],
-        status: 'in-progress'
-    },
-    {
-        id: 'inc-005',
-        title: 'Talos Two-Way Sync',
-        description: 'Implement Talos reverse sync functionality, enabling bidirectional data synchronization between systems.',
-        category: 'Feature Parity: Genesis Gaps',
-        images: [],
-        videos: [],
-        status: 'in-progress'
-    },
-    {
-        id: 'inc-006',
-        title: 'Reference Image Management',
-        description: 'Reference image management workflow improvements for healthcheck operations.',
-        category: 'Feature Parity: Genesis Gaps',
-        images: [],
-        videos: [],
-        status: 'in-progress'
-    },
-    {
-        id: 'inc-007',
-        title: 'VAS Quad View Detection Fix',
-        description: 'Fix detection display issues in VAS quad view to ensure proper visibility of detection data.',
-        category: 'Feature Parity: Genesis Gaps',
-        images: [],
-        videos: [],
-        status: 'in-progress'
-    },
-    {
-        id: 'inc-008',
-        title: 'Sensor Configuration UI',
-        description: 'Improved Add/Edit Sensor UI layout for better configuration workflow.',
-        category: 'Feature Parity: Genesis Gaps',
-        images: [],
-        videos: [],
-        status: 'in-progress'
-    },
-    {
-        id: 'inc-009',
-        title: 'Genesis Audio Audit Tab Fix',
-        description: 'Fix empty page issue in Configuration Genesis Audio audit tab.',
-        category: 'Feature Parity: Genesis Gaps',
-        images: [],
-        videos: [],
-        status: 'in-progress'
-    },
-    // Enhanced Tower Management
-    {
-        id: 'inc-010',
-        title: 'Move Tower Functionality',
-        description: 'Enhanced tower management with move tower capabilities, improving operational flexibility.',
-        category: 'Enhanced Tower Management',
-        images: [],
-        videos: [],
-        status: 'in-progress'
-    },
-    {
-        id: 'inc-011',
-        title: 'Tower Status Management',
-        description: 'Improved tower status tracking and management for better operational visibility.',
-        category: 'Enhanced Tower Management',
-        images: [],
-        videos: [],
-        status: 'in-progress'
-    },
-    {
-        id: 'inc-012',
-        title: 'Additional Properties Menu',
-        description: 'Enhanced properties burger menu with additional options for tower management.',
-        category: 'Enhanced Tower Management',
-        images: [],
-        videos: [],
-        status: 'in-progress'
-    },
-    // Healthcheck Dashboard & Reports
-    {
-        id: 'inc-013',
-        title: 'Bulk Healthcheck Execution',
-        description: 'Ability to bulk run healthcheck from the overview with filtering support, improving operational efficiency.',
-        category: 'Healthcheck Dashboard & Reports',
-        images: [],
-        videos: [],
-        status: 'in-progress'
-    },
-    {
-        id: 'inc-014',
-        title: 'Customer Report Enhancements',
-        description: 'Site Summary Table in Healthcheck Customer Report and improved report clarity with larger images and better layout.',
-        category: 'Healthcheck Dashboard & Reports',
-        images: [],
-        videos: [],
-        status: 'in-progress'
-    },
-    {
-        id: 'inc-015',
-        title: 'Report Scheduler Improvements',
-        description: 'Copy selected customers/sites and email templates from other schedulers, streamlining report configuration.',
-        category: 'Healthcheck Dashboard & Reports',
-        images: [],
-        videos: [],
-        status: 'in-progress'
-    },
-    {
-        id: 'inc-016',
-        title: 'Healthcheck Image Handling',
-        description: 'Improved image handling with larger display space and better visibility in reports.',
-        category: 'Healthcheck Dashboard & Reports',
-        images: [],
-        videos: [],
-        status: 'in-progress'
-    },
-    {
-        id: 'inc-017',
-        title: 'Detection Visibility Improvements',
-        description: 'Highlight detection functionality and split black screen into no license and no video categories for clearer reporting.',
-        category: 'Healthcheck Dashboard & Reports',
-        images: [],
-        videos: [],
-        status: 'in-progress'
-    },
-    {
-        id: 'inc-018',
-        title: 'Healthcheck AI Performance',
-        description: 'Improved healthcheck AI performance and response handling for lowlight issues with dual lens cameras (thermal + optical).',
-        category: 'Healthcheck Dashboard & Reports',
-        images: [],
-        videos: [],
-        status: 'in-progress'
-    },
-    // Documentation
-    {
-        id: 'inc-019',
-        title: 'Documentation Updates',
-        description: 'docs.nxgen.cloud documentation updates and fixes for issues identified during recent onboardings.',
-        category: 'Documentation',
-        images: [],
-        videos: [],
-        status: 'in-progress'
+// Get item type icon
+const getItemTypeIcon = (type: string) => {
+    switch (type) {
+        case 'Story':
+            return <BookOpen className="w-4 h-4" />;
+        case 'Task':
+            return <ListTodo className="w-4 h-4" />;
+        case 'Bug':
+            return <Bug className="w-4 h-4" />;
+        default:
+            return <FileText className="w-4 h-4" />;
     }
-];
+};
 
-// Group increments by category
-const groupedIncrements = increments.reduce((acc, increment) => {
-    if (!acc[increment.category]) {
-        acc[increment.category] = [];
+// Get status color
+const getStatusColor = (status: string) => {
+    switch (status) {
+        case 'Done':
+            return 'bg-green-500/20 text-green-400 border-green-500/30';
+        case 'In Progress':
+            return 'bg-blue-500/20 text-blue-400 border-blue-500/30';
+        case 'To do':
+            return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
+        default:
+            return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
     }
-    acc[increment.category].push(increment);
-    return acc;
-}, {} as Record<string, Increment[]>);
+};
+
+// Expandable Item Component
+const ExpandableItem: React.FC<{ item: SprintItem; index: number }> = ({ item, index }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: index * 0.05 }}
+            className="bg-[#1a1a1a] rounded-lg border border-white/10 hover:border-white/20 transition-all overflow-hidden"
+        >
+            <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="w-full p-4 flex items-center justify-between gap-4 text-left hover:bg-white/5 transition-colors"
+            >
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                    <div className="flex-shrink-0">
+                        {isExpanded ? (
+                            <ChevronDown className="w-5 h-5 text-white/60" />
+                        ) : (
+                            <ChevronRight className="w-5 h-5 text-white/60" />
+                        )}
+                    </div>
+                    
+                    <div className="flex-shrink-0 text-xs font-mono text-white/50">
+                        {item.id}
+                    </div>
+                    
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                        <div className={`p-1.5 rounded ${getStatusColor(item.status)}`}>
+                            {getItemTypeIcon(item.type)}
+                        </div>
+                    </div>
+                    
+                    <div className="flex-1 min-w-0">
+                        <h4 className="text-white font-medium truncate">{item.title}</h4>
+                    </div>
+                    
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                        <span className={`px-2 py-1 text-xs font-medium rounded-full border ${getStatusColor(item.status)}`}>
+                            {item.status}
+                        </span>
+                    </div>
+                </div>
+            </button>
+            
+            <AnimatePresence>
+                {isExpanded && (
+                    <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden border-t border-white/10"
+                    >
+                        <div className="p-4 bg-[#151515] space-y-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <div className="text-xs text-white/50 mb-2">Type</div>
+                                    <div className="flex items-center gap-2">
+                                        <div className={`p-1.5 rounded ${getStatusColor(item.status)}`}>
+                                            {getItemTypeIcon(item.type)}
+                                        </div>
+                                        <span className="text-white">{item.type}</span>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div className="text-xs text-white/50 mb-2">Status</div>
+                                    <span className={`px-3 py-1 text-sm font-medium rounded-full border ${getStatusColor(item.status)} inline-block`}>
+                                        {item.status}
+                                    </span>
+                                </div>
+                                
+                                {item.assignees.length > 0 && (
+                                    <div>
+                                        <div className="text-xs text-white/50 mb-2">Assignees</div>
+                                        <div className="flex items-center gap-2 flex-wrap">
+                                            {item.assignees.map((assignee, idx) => (
+                                                <div
+                                                    key={idx}
+                                                    className="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs font-medium border border-blue-500/30"
+                                                >
+                                                    {assignee}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                                
+                                {item.tags.length > 0 && (
+                                    <div>
+                                        <div className="text-xs text-white/50 mb-2">Tags</div>
+                                        <div className="flex items-center gap-2 flex-wrap">
+                                            {item.tags.filter(tag => tag !== 'Add Tag').map((tag, idx) => (
+                                                <div
+                                                    key={idx}
+                                                    className="flex items-center gap-1 px-2 py-1 bg-white/5 text-white/70 rounded text-xs border border-white/10"
+                                                >
+                                                    <Tag className="w-3 h-3" />
+                                                    {tag}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                            
+                            {item.description && (
+                                <div>
+                                    <div className="text-xs text-white/50 mb-2">Description</div>
+                                    <p className="text-white/80 text-sm">{item.description}</p>
+                                </div>
+                            )}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </motion.div>
+    );
+};
 
 export default function Sprint202601APage() {
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [expandedEpics, setExpandedEpics] = useState<Set<string>>(new Set(Object.keys(groupedByEpic)));
+    const [filterStatus, setFilterStatus] = useState<string>('all');
+    const [filterType, setFilterType] = useState<string>('all');
+
+    const toggleEpic = (epic: string) => {
+        const newExpanded = new Set(expandedEpics);
+        if (newExpanded.has(epic)) {
+            newExpanded.delete(epic);
+        } else {
+            newExpanded.add(epic);
+        }
+        setExpandedEpics(newExpanded);
+    };
+
+    const filteredItems = sprint202601AItems.filter(item => {
+        const statusMatch = filterStatus === 'all' || item.status === filterStatus;
+        const typeMatch = filterType === 'all' || item.type === filterType;
+        return statusMatch && typeMatch;
+    });
+
+    const filteredGroupedByEpic = Object.entries(groupedByEpic).reduce((acc, [epic, items]) => {
+        const filtered = items.filter(item => {
+            const statusMatch = filterStatus === 'all' || item.status === filterStatus;
+            const typeMatch = filterType === 'all' || item.type === filterType;
+            return statusMatch && typeMatch;
+        });
+        if (filtered.length > 0) {
+            acc[epic] = filtered;
+        }
+        return acc;
+    }, {} as Record<string, SprintItem[]>);
 
     return (
         <Layout
@@ -268,214 +268,243 @@ export default function Sprint202601APage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="text-center mb-20"
+                        className="mb-12"
                     >
                         <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#E8B058]/10 border border-[#E8B058]/20 rounded-full mb-6">
                             <Package className="w-4 h-4 text-[#E8B058]" />
                             <span className="text-sm font-medium text-[#E8B058]">Sprint Release</span>
                         </div>
                         <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-                            Sprint 2026.01-A
+                            {sprint202601AMetadata.title}
                         </h1>
-                        <div className="flex items-center justify-center gap-6 text-white/70 mb-4">
+                        
+                        <div className="flex items-center gap-6 text-white/70 mb-6 flex-wrap">
                             <div className="flex items-center gap-2">
                                 <Calendar className="w-5 h-5" />
-                                <span>January 1, 2026</span>
+                                <span>{sprint202601AMetadata.date}</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <CheckCircle2 className="w-5 h-5" />
-                                <span>{increments.length} Features</span>
+                                <span>{sprint202601AStats.total} Items</span>
                             </div>
+                            <div className="flex items-center gap-2">
+                                <BookOpen className="w-5 h-5" />
+                                <span>{sprint202601AStats.stories} Stories</span>
+                            </div>
+                            {sprint202601AStats.bugs > 0 && (
+                                <div className="flex items-center gap-2">
+                                    <Bug className="w-5 h-5" />
+                                    <span>{sprint202601AStats.bugs} Bugs</span>
+                                </div>
+                            )}
                         </div>
-                        <div className="max-w-4xl mx-auto">
-                            <p className="text-xl text-white/90 font-semibold mb-4 leading-relaxed">
-                                Enable DC09 onboarding and close the last high impact Genesis gaps so customers can migrate, operate, and monitor without blockers.
-                            </p>
-                            <p className="text-lg text-white/70 leading-relaxed">
-                                This sprint focuses on removing remaining blockers for customer migration and day to day operations. The priority is delivering DC09 and CMS support through the Marketplace so amwin and LISA customers can onboard and route alarms correctly. In parallel, we will complete key Genesis parity items, including remaining device types, permissions, analytics subscription and activation, and Talos two way sync.
-                            </p>
-                            <p className="text-lg text-white/70 mt-4 leading-relaxed">
-                                We will continue strengthening core operational flows by improving tower management, tower statuses, moving towers, journey workflows, and autostreaming behavior. Healthcheck remains a major focus area, with work on bulk execution, reporting clarity, image handling, detection visibility, AI performance, and customer report improvements.
-                            </p>
-                            <p className="text-lg text-white/70 mt-4 leading-relaxed">
-                                The sprint also includes documentation updates and fixes for issues identified during recent onboardings. The goal is to stabilize the platform, reduce manual workarounds, and ensure the product is ready for broader customer adoption and migration.
-                            </p>
+                        
+                        <p className="text-xl text-white/90 max-w-4xl leading-relaxed">
+                            {sprint202601AMetadata.description}
+                        </p>
+                    </motion.div>
+
+                    {/* Stats Cards */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                        className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8"
+                    >
+                        <div className="p-6 bg-gradient-to-br from-blue-500/10 to-blue-600/5 rounded-xl border border-blue-500/30">
+                            <div className="text-3xl font-bold text-white mb-2">{sprint202601AStats.total}</div>
+                            <div className="text-sm text-white/60">Total Items</div>
+                        </div>
+                        <div className="p-6 bg-gradient-to-br from-green-500/10 to-green-600/5 rounded-xl border border-green-500/30">
+                            <div className="text-3xl font-bold text-white mb-2">{sprint202601AStats.byStatus.done}</div>
+                            <div className="text-sm text-white/60">Completed</div>
+                        </div>
+                        <div className="p-6 bg-gradient-to-br from-yellow-500/10 to-yellow-600/5 rounded-xl border border-yellow-500/30">
+                            <div className="text-3xl font-bold text-white mb-2">{sprint202601AStats.byStatus.inProgress}</div>
+                            <div className="text-sm text-white/60">In Progress</div>
+                        </div>
+                        <div className="p-6 bg-gradient-to-br from-gray-500/10 to-gray-600/5 rounded-xl border border-gray-500/30">
+                            <div className="text-3xl font-bold text-white mb-2">{sprint202601AStats.byStatus.todo}</div>
+                            <div className="text-sm text-white/60">To Do</div>
                         </div>
                     </motion.div>
 
-                    {/* Increments by Category */}
-                    {Object.entries(groupedIncrements).map(([category, categoryIncrements], categoryIdx) => (
-                        <motion.section
-                            key={category}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: categoryIdx * 0.1 }}
-                            viewport={{ once: true }}
-                            className="mb-16"
-                        >
-                            <div className="mb-8">
-                                <h2 className="text-3xl font-bold text-white mb-2">{category}</h2>
-                                <p className="text-white/60">
-                                    {categoryIncrements.length} {categoryIncrements.length === 1 ? 'feature' : 'features'}
-                                </p>
+                    {/* Filters */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        className="mb-8 p-4 bg-[#202020] rounded-xl border border-white/10"
+                    >
+                        <div className="flex items-center gap-4 flex-wrap">
+                            <div className="flex items-center gap-2">
+                                <Filter className="w-4 h-4 text-white/60" />
+                                <span className="text-sm text-white/60">Filters:</span>
                             </div>
+                            
+                            <div className="flex items-center gap-2">
+                                <select
+                                    value={filterStatus}
+                                    onChange={(e) => setFilterStatus(e.target.value)}
+                                    className="px-3 py-1.5 bg-[#1a1a1a] border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-[#E8B058]/50"
+                                >
+                                    <option value="all">All Status</option>
+                                    <option value="To do">To Do</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Done">Done</option>
+                                </select>
+                            </div>
+                            
+                            <div className="flex items-center gap-2">
+                                <select
+                                    value={filterType}
+                                    onChange={(e) => setFilterType(e.target.value)}
+                                    className="px-3 py-1.5 bg-[#1a1a1a] border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-[#E8B058]/50"
+                                >
+                                    <option value="all">All Types</option>
+                                    <option value="Story">Stories</option>
+                                    <option value="Task">Tasks</option>
+                                    <option value="Bug">Bugs</option>
+                                </select>
+                            </div>
+                            
+                            {(filterStatus !== 'all' || filterType !== 'all') && (
+                                <button
+                                    onClick={() => {
+                                        setFilterStatus('all');
+                                        setFilterType('all');
+                                    }}
+                                    className="flex items-center gap-1 px-3 py-1.5 text-sm text-white/60 hover:text-white transition-colors"
+                                >
+                                    <X className="w-4 h-4" />
+                                    Clear Filters
+                                </button>
+                            )}
+                        </div>
+                    </motion.div>
 
-                            <div className="space-y-8">
-                                {categoryIncrements.map((increment, idx) => (
-                                    <motion.div
-                                        key={increment.id}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.4, delay: idx * 0.1 }}
-                                        viewport={{ once: true }}
-                                        className="p-8 bg-[#202020] rounded-xl border border-white/10"
+                    {/* Items by Epic */}
+                    {Object.entries(filteredGroupedByEpic).map(([epic, items], epicIdx) => {
+                        const isExpanded = expandedEpics.has(epic);
+                        const epicStats = {
+                            total: items.length,
+                            stories: items.filter(i => i.type === 'Story').length,
+                            tasks: items.filter(i => i.type === 'Task').length,
+                            bugs: items.filter(i => i.type === 'Bug').length,
+                            done: items.filter(i => i.status === 'Done').length,
+                            inProgress: items.filter(i => i.status === 'In Progress').length,
+                            todo: items.filter(i => i.status === 'To do').length
+                        };
+
+                        return (
+                            <motion.section
+                                key={epic}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: epicIdx * 0.1 }}
+                                viewport={{ once: true }}
+                                className="mb-8"
+                            >
+                                <div className="bg-[#202020] rounded-xl border border-white/10 overflow-hidden">
+                                    {/* Epic Header */}
+                                    <button
+                                        onClick={() => toggleEpic(epic)}
+                                        className="w-full p-6 flex items-center justify-between hover:bg-white/5 transition-colors text-left"
                                     >
-                                        <div className="flex items-start gap-4 mb-4">
-                                            <div className="p-3 bg-[#E8B058]/10 rounded-lg text-[#E8B058] flex-shrink-0">
-                                                {category === 'DC09 / CMS Support' && <Database className="w-6 h-6" />}
-                                                {category === 'Feature Parity: Genesis Gaps' && <Zap className="w-6 h-6" />}
-                                                {category === 'Enhanced Tower Management' && <Radio className="w-6 h-6" />}
-                                                {category === 'Healthcheck Dashboard & Reports' && <Activity className="w-6 h-6" />}
-                                                {category === 'Documentation' && <FileText className="w-6 h-6" />}
-                                                {!['DC09 / CMS Support', 'Feature Parity: Genesis Gaps', 'Enhanced Tower Management', 'Healthcheck Dashboard & Reports', 'Documentation'].includes(category) && <FileText className="w-6 h-6" />}
+                                        <div className="flex items-center gap-4 flex-1">
+                                            <div className="p-3 bg-[#E8B058]/10 rounded-lg text-[#E8B058]">
+                                                {getEpicIcon(epic)}
                                             </div>
                                             <div className="flex-1">
-                                                <div className="flex items-center gap-3 mb-2">
-                                                    <h3 className="text-2xl font-semibold text-white">
-                                                        {increment.title}
-                                                    </h3>
-                                                    {increment.status === 'completed' && (
-                                                        <span className="px-3 py-1 text-xs font-medium rounded-full bg-green-500/20 text-green-400 border border-green-500/30">
-                                                            Completed
-                                                        </span>
-                                                    )}
-                                                    {increment.status === 'in-progress' && (
-                                                        <span className="px-3 py-1 text-xs font-medium rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">
-                                                            In Progress
-                                                        </span>
-                                                    )}
+                                                <h2 className="text-2xl font-bold text-white mb-2">{epic}</h2>
+                                                <div className="flex items-center gap-4 text-sm text-white/60 flex-wrap">
+                                                    <span>{epicStats.total} Items</span>
+                                                    {epicStats.stories > 0 && <span>{epicStats.stories} Stories</span>}
+                                                    {epicStats.tasks > 0 && <span>{epicStats.tasks} Tasks</span>}
+                                                    {epicStats.bugs > 0 && <span>{epicStats.bugs} Bugs</span>}
+                                                    <span className="text-green-400">{epicStats.done} Done</span>
+                                                    <span className="text-blue-400">{epicStats.inProgress} In Progress</span>
+                                                    <span className="text-gray-400">{epicStats.todo} To Do</span>
                                                 </div>
-                                                <p className="text-white/70 leading-relaxed mb-6">
-                                                    {increment.description}
-                                                </p>
-
-                                                {/* Images */}
-                                                {increment.images && increment.images.length > 0 && (
-                                                    <div className="mb-6">
-                                                        <div className="flex items-center gap-2 mb-4 text-white/60">
-                                                            <ImageIcon className="w-5 h-5" />
-                                                            <span className="text-sm font-medium">Screenshots</span>
-                                                        </div>
-                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                            {increment.images.map((image, imgIdx) => (
-                                                                <div
-                                                                    key={imgIdx}
-                                                                    className="relative group cursor-pointer"
-                                                                    onClick={() => setSelectedImage(image)}
-                                                                >
-                                                                    <div className="relative aspect-video bg-gray-800 rounded-lg overflow-hidden border border-white/10 hover:border-[#E8B058]/50 transition-all">
-                                                                        <img
-                                                                            src={image}
-                                                                            alt={`${increment.title} - Screenshot ${imgIdx + 1}`}
-                                                                            className="w-full h-full object-contain"
-                                                                        />
-                                                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                                                                            <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                                                                                <ImageIcon className="w-8 h-8 text-white" />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    </div>
-                                                )}
-
-                                                {/* Videos */}
-                                                {increment.videos && increment.videos.length > 0 && (
-                                                    <div>
-                                                        <div className="flex items-center gap-2 mb-4 text-white/60">
-                                                            <Video className="w-5 h-5" />
-                                                            <span className="text-sm font-medium">Videos</span>
-                                                        </div>
-                                                        <div className="space-y-4">
-                                                            {increment.videos.map((video, vidIdx) => (
-                                                                <div
-                                                                    key={vidIdx}
-                                                                    className="relative aspect-video bg-gray-800 rounded-lg overflow-hidden border border-white/10"
-                                                                >
-                                                                    <CloudinaryVideo
-                                                                        publicId={video}
-                                                                        controls
-                                                                        preload="auto"
-                                                                        className="w-full h-full object-contain"
-                                                                        format="mp4"
-                                                                        quality="auto"
-                                                                    />
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    </div>
-                                                )}
                                             </div>
                                         </div>
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </motion.section>
-                    ))}
+                                        <div className="flex-shrink-0">
+                                            {isExpanded ? (
+                                                <ChevronDown className="w-6 h-6 text-white/60" />
+                                            ) : (
+                                                <ChevronRight className="w-6 h-6 text-white/60" />
+                                            )}
+                                        </div>
+                                    </button>
 
-                    {/* Summary Section */}
+                                    {/* Epic Items */}
+                                    <AnimatePresence>
+                                        {isExpanded && (
+                                            <motion.div
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: 'auto', opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                transition={{ duration: 0.3 }}
+                                                className="overflow-hidden border-t border-white/10"
+                                            >
+                                                <div className="p-6 space-y-3">
+                                                    {items.map((item, itemIdx) => (
+                                                        <ExpandableItem key={item.id} item={item} index={itemIdx} />
+                                                    ))}
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+                            </motion.section>
+                        );
+                    })}
+
+                    {/* Progress Summary */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
                         viewport={{ once: true }}
-                        className="mt-16 p-8 bg-gradient-to-br from-[#202020] to-[#1a1a1a] rounded-xl border border-white/10"
+                        className="mt-12 p-8 bg-gradient-to-br from-[#202020] to-[#1a1a1a] rounded-xl border border-white/10"
                     >
-                        <h2 className="text-2xl font-bold text-white mb-4">Release Summary</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div className="text-center">
-                                <div className="text-3xl font-bold text-[#E8B058] mb-2">8</div>
-                                <div className="text-white/70">DC09 & Marketplace Features</div>
+                        <div className="flex items-center gap-3 mb-6">
+                            <TrendingUp className="w-6 h-6 text-[#E8B058]" />
+                            <h2 className="text-2xl font-bold text-white">Sprint Progress</h2>
+                        </div>
+                        <div className="space-y-4">
+                            <div>
+                                <div className="flex items-center justify-between mb-2">
+                                    <span className="text-sm text-white/70">Overall Completion</span>
+                                    <span className="text-sm font-medium text-white">
+                                        {Math.round((sprint202601AStats.byStatus.done / sprint202601AStats.total) * 100)}%
+                                    </span>
+                                </div>
+                                <div className="w-full bg-white/10 rounded-full h-3">
+                                    <div 
+                                        className="bg-gradient-to-r from-green-500 to-green-400 h-3 rounded-full transition-all"
+                                        style={{ width: `${(sprint202601AStats.byStatus.done / sprint202601AStats.total) * 100}%` }}
+                                    />
+                                </div>
                             </div>
-                            <div className="text-center">
-                                <div className="text-3xl font-bold text-[#E8B058] mb-2">7</div>
-                                <div className="text-white/70">Genesis Parity Items</div>
-                            </div>
-                            <div className="text-center">
-                                <div className="text-3xl font-bold text-[#E8B058] mb-2">6</div>
-                                <div className="text-white/70">Healthcheck Improvements</div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                                <div className="p-4 bg-white/5 rounded-lg">
+                                    <div className="text-lg font-bold text-white mb-1">{sprint202601AStats.byStatus.done}</div>
+                                    <div className="text-sm text-white/60">Completed</div>
+                                </div>
+                                <div className="p-4 bg-white/5 rounded-lg">
+                                    <div className="text-lg font-bold text-white mb-1">{sprint202601AStats.byStatus.inProgress}</div>
+                                    <div className="text-sm text-white/60">In Progress</div>
+                                </div>
+                                <div className="p-4 bg-white/5 rounded-lg">
+                                    <div className="text-lg font-bold text-white mb-1">{sprint202601AStats.byStatus.todo}</div>
+                                    <div className="text-sm text-white/60">To Do</div>
+                                </div>
                             </div>
                         </div>
                     </motion.div>
                 </div>
-
-                {/* Image Modal */}
-                {selectedImage && (
-                    <div
-                        className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
-                        onClick={() => setSelectedImage(null)}
-                    >
-                        <div className="relative max-w-7xl max-h-full">
-                            <img
-                                src={selectedImage}
-                                alt="Full size screenshot"
-                                className="max-w-full max-h-[90vh] object-contain"
-                            />
-                            <button
-                                onClick={() => setSelectedImage(null)}
-                                className="absolute top-4 right-4 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors"
-                            >
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                )}
             </main>
         </Layout>
     );
 }
-
