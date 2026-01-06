@@ -76,7 +76,7 @@ const VideoCard = ({ title, duration, description, videoSrc, youtubeId }: { titl
                     <CloudinaryVideo
                         publicId={videoSrc}
                         controls
-                        preload="auto"
+                        preload="metadata"
                         className="w-full h-full object-contain"
                         format="mp4"
                         quality="auto"
