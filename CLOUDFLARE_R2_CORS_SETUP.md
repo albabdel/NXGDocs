@@ -1,9 +1,34 @@
 # Cloudflare R2 CORS Configuration Guide
 
 ## Problem
-Videos are not loading on your Cloudflare site because the R2 bucket doesn't have a CORS (Cross-Origin Resource Sharing) policy configured. Browsers block cross-origin requests to R2 without proper CORS headers.
+Videos were not loading because:
+1. The video files don't exist in the R2 bucket (404 errors)
+2. The R2 bucket doesn't have a CORS policy configured (would cause CORS errors if files existed)
 
-## Solution
+## Solution Applied
+
+**✅ IMMEDIATE FIX**: The code has been updated to use local static files instead of R2 URLs. Videos should now load from:
+- `/videos/sprint-2025-12-a/[filename].mp4`
+
+This works immediately without needing R2 configuration.
+
+## If You Want to Use R2 Instead
+
+If you prefer to use Cloudflare R2 for video hosting (better for production, CDN benefits), follow these steps:
+
+### Step 1: Upload Videos to R2
+
+1. Go to Cloudflare Dashboard → R2 → Object Storage → "sprint" bucket
+2. Create a folder called `sprint` (if it doesn't exist)
+3. Upload all videos from `classic/static/videos/sprint-2025-12-a/` to R2:
+   - `Salvo Operator Controls.mp4`
+   - `Salvo share.mp4`
+   - `Salvo view enhancements.mp4`
+   - `2025-04-23 09-24-05.mp4`
+   - `Map Navigation and Search.mp4`
+   - `Automated Reports.mp4`
+
+### Step 2: Configure CORS Policy
 
 You need to configure a CORS policy in your Cloudflare R2 bucket settings. Here's how:
 
@@ -120,12 +145,15 @@ If videos still don't load after configuring CORS:
 
 ## Current Video URLs
 
-Your videos are currently using:
+**Current Setup (Local Static Files):**
+- Videos are loaded from: `/videos/sprint-2025-12-a/[filename].mp4`
+- Files are served from: `classic/static/videos/sprint-2025-12-a/`
+- No CORS configuration needed for local files
+
+**If Switching to R2:**
 - Base URL: `https://pub-a6c619a3e7a54e46ad6394ac2d72a48d.r2.dev/sprint/`
 - Example: `https://pub-a6c619a3e7a54e46ad6394ac2d72a48d.r2.dev/sprint/Salvo%20Operator%20Controls.mp4`
-
-After setting up a custom domain, you'll need to update these URLs in:
-- `classic/src/pages/internal-releases/sprint-2025-12-b.tsx`
-- `classic/src/pages/internal-releases/sprint-2026-01-a.tsx`
-- Any other files that reference R2 video URLs
+- After uploading to R2 and configuring CORS, update URLs in:
+  - `classic/src/pages/internal-releases/sprint-2025-12-b.tsx`
+  - `classic/src/pages/internal-releases/sprint-2026-01-a.tsx`
 
