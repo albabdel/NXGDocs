@@ -260,11 +260,14 @@ export default function InternalReleasesPage() {
                             </p>
                         </div>
 
-                        <div className="p-6 bg-gradient-to-br from-blue-500/10 to-blue-600/5 rounded-xl border border-blue-500/30">
+                        <Link
+                            to={`/internal-releases/${currentSprint.id}`}
+                            className="group block p-6 bg-gradient-to-br from-blue-500/10 to-blue-600/5 rounded-xl border border-blue-500/30 hover:border-blue-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 no-underline"
+                        >
                             <div className="flex items-start justify-between gap-4">
                                 <div className="flex-1">
                                     <div className="flex items-center gap-3 mb-3">
-                                        <h3 className="text-2xl font-semibold text-white">
+                                        <h3 className="text-2xl font-semibold text-white group-hover:text-blue-400 transition-colors">
                                             {currentSprint.title}
                                         </h3>
                                         <span className="px-3 py-1 text-xs font-medium rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">
@@ -296,12 +299,12 @@ export default function InternalReleasesPage() {
                                 </div>
                                 
                                 <div className="flex-shrink-0">
-                                    <div className="p-4 bg-blue-500/20 rounded-lg text-blue-400">
+                                    <div className="p-4 bg-blue-500/20 rounded-lg text-blue-400 group-hover:bg-blue-500/30 transition-colors">
                                         <PlayCircle className="w-8 h-8" />
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </motion.section>
 
                     {/* Completed Releases */}
