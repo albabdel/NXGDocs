@@ -337,6 +337,7 @@ export default function Sprint202512BPage() {
                                                                 >
                                                                     <video
                                                                         controls
+                                                                        crossOrigin="anonymous"
                                                                         className="w-full h-full object-contain"
                                                                         style={{
                                                                             maxWidth: '100%',

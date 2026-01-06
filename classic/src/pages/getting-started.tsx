@@ -73,6 +73,7 @@ const VideoCard = ({ title, duration, description, videoSrc, youtubeId }: { titl
                         className="w-full h-full object-contain"
                         controls
                         preload="metadata"
+                        crossOrigin="anonymous"
                     >
                         <source src={videoSrc} type="video/mp4" />
                         Your browser does not support the video tag.

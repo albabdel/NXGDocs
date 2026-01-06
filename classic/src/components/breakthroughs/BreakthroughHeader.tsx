@@ -48,6 +48,7 @@ export default function BreakthroughHeader({
             controls
             poster={poster}
             preload="metadata"
+            crossOrigin="anonymous"
           >
             <source src={video} type="video/mp4" />
             Your browser does not support the video tag.
