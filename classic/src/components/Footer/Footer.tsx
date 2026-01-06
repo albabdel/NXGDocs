@@ -82,6 +82,11 @@ export default function Footer(): JSX.Element {
                 </Link>
               </li>
               <li>
+                <Link to="/roadmap" className={styles.footerLink}>
+                  Product Roadmap
+                </Link>
+              </li>
+              <li>
                 <a
                   href="https://nxgen.cloud"
                   target="_blank"

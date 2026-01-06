@@ -163,6 +163,12 @@ const helpResources: Resource[] = [
         link: '#',
         icon: <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
     },
+    {
+        title: 'Product Roadmap',
+        description: 'Preview of upcoming features and improvements',
+        link: '/roadmap',
+        icon: <Zap className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
+    },
 ];
 
 // --- Main Page ---
