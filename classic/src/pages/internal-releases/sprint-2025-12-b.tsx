@@ -77,7 +77,9 @@ const increments: Increment[] = [
         title: 'Salvo Video View Refactor',
         description: 'Improved layout and interaction model for video monitoring.',
         category: 'Video Features',
-        images: [],
+        images: [
+            'Screenshot_2026-01-05_231442_ncuxnf'
+        ],
         videos: [],
         status: 'completed'
     },
@@ -111,6 +113,7 @@ const increments: Increment[] = [
         description: 'Enhanced tower visibility, sub-camera toggles, and inline editing.',
         category: 'Map Module Improvements',
         images: [
+            'Screenshot_2026-01-05_233356_ncrnna',
             'Screenshot_2026-01-05_233502_ghibuc'
         ],
         videos: [],
@@ -122,11 +125,7 @@ const increments: Increment[] = [
         title: 'Healthcheck Dashboard Improvements',
         description: 'UI refactor, performance improvements, and integration updates. The dashboard now provides better visibility into healthcheck operations with improved filtering and status tracking.',
         category: 'Healthcheck & Reporting',
-        images: [
-            'Screenshot_2026-01-05_231442_ncuxnf',
-            'Screenshot_2026-01-05_233356_ncrnna',
-            'Screenshot_2026-01-05_233502_ghibuc'
-        ],
+        images: [],
         videos: [
             'HealthCheck_Dashboard_t07ur9'
         ],
