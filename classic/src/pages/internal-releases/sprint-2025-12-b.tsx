@@ -49,8 +49,8 @@ const increments: Increment[] = [
             '/img/sprint-2025-12-a/IO 2.png'
         ],
         videos: [
-            '/videos/sprint-2025-12-a/Salvo Operator Controls.mp4',
-            '/videos/sprint-2025-12-a/Salvo share.mp4'
+            'https://pub-a6c619a3e7a54e46ad6394ac2d72a48d.r2.dev/sprint/Salvo%20Operator%20Controls.mp4',
+            'https://pub-a6c619a3e7a54e46ad6394ac2d72a48d.r2.dev/sprint/Salvo%20share.mp4'
         ],
         status: 'completed'
     },
@@ -61,7 +61,7 @@ const increments: Increment[] = [
         category: 'Core Features',
         images: [],
         videos: [
-            '/videos/sprint-2025-12-a/Salvo view enhancements.mp4'
+            'https://pub-a6c619a3e7a54e46ad6394ac2d72a48d.r2.dev/sprint/Salvo%20view%20enhancements.mp4'
         ],
         status: 'completed'
     },
@@ -73,7 +73,7 @@ const increments: Increment[] = [
         category: 'Video Features',
         images: [],
         videos: [
-            '/videos/sprint-2025-12-a/2025-04-23 09-24-05.mp4'
+            'https://pub-a6c619a3e7a54e46ad6394ac2d72a48d.r2.dev/sprint/2025-04-23%2009-24-05.mp4'
         ],
         status: 'completed'
     },
@@ -97,7 +97,7 @@ const increments: Increment[] = [
         category: 'Map Module Improvements',
         images: [],
         videos: [
-            '/videos/sprint-2025-12-a/Map Navigation and Search.mp4'
+            'https://pub-a6c619a3e7a54e46ad6394ac2d72a48d.r2.dev/sprint/Map%20Navigation%20and%20Search.mp4'
         ],
         status: 'completed'
     },
@@ -147,7 +147,7 @@ const increments: Increment[] = [
         category: 'Healthcheck & Reporting',
         images: [],
         videos: [
-            '/videos/sprint-2025-12-a/Automated Reports.mp4'
+            'https://pub-a6c619a3e7a54e46ad6394ac2d72a48d.r2.dev/sprint/Automated%20Reports.mp4'
         ],
         status: 'completed'
     },
