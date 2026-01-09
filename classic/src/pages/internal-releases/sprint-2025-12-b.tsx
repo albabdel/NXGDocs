@@ -73,17 +73,6 @@ const increments: Increment[] = [
     },
     // Video Features - Playback and Salvo view changes
     {
-        id: 'inc-003',
-        title: 'Salvo Video View Refactor',
-        description: 'Improved layout and interaction model for video monitoring.',
-        category: 'Video Features',
-        images: [
-            'Screenshot_2026-01-05_231442_ncuxnf'
-        ],
-        videos: [],
-        status: 'completed'
-    },
-    {
         id: 'inc-004',
         title: 'Full Image Preview',
         description: 'Full-frame image display in preview for faster validation.',
@@ -175,27 +164,6 @@ const increments: Increment[] = [
         images: [
             'Low_light_threshhold_wv5b5r'
         ],
-        videos: [],
-        status: 'completed'
-    },
-    {
-        id: 'inc-011',
-        title: 'Report Scheduler',
-        description: 'Enhanced report scheduling capabilities with improved configuration options and management tools.',
-        category: 'Healthcheck & Reporting',
-        images: [],
-        videos: [
-            'report_scheduler_zthkqr'
-        ],
-        status: 'completed'
-    },
-    // Security and Analysis - Nova99x
-    {
-        id: 'inc-012',
-        title: 'Security Analysis Enhancements',
-        description: 'Improved analysis accuracy using Nova99x for better detection and analysis capabilities.',
-        category: 'Security and Analysis',
-        images: [],
         videos: [],
         status: 'completed'
     }
