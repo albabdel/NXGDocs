@@ -17,7 +17,9 @@ import {
     TrendingUp,
     AlertCircle,
     XCircle,
-    PlayCircle
+    PlayCircle,
+    ExternalLink,
+    Layers
 } from 'lucide-react';
 import { sprint202601AMetadata, sprint202601AStats } from '../data/sprint-2026-01-a';
 
@@ -37,17 +39,6 @@ type Release = {
     }[];
 };
 
-// Future sprint data structure
-type FutureSprint = {
-    id: string;
-    title: string;
-    plannedDate: string;
-    plannedIncrements: {
-        title: string;
-        category: string;
-        description: string;
-    }[];
-};
 
 // Current sprint - dynamically calculated from sprint data
 const currentSprint: Release = {
@@ -74,63 +65,6 @@ const completedReleases: Release[] = [
     }
 ];
 
-// Future sprints with planned increments
-const futureSprints: FutureSprint[] = [
-    {
-        id: 'sprint-2026-01-b',
-        title: 'Sprint 2026.01-B',
-        plannedDate: 'January 15, 2026',
-        plannedIncrements: [
-            {
-                title: 'Advanced Analytics Dashboard',
-                category: 'Analytics',
-                description: 'Complete the analytics dashboard with real-time metrics and custom reports'
-            },
-            {
-                title: 'Bulk Export Feature',
-                category: 'Data Management',
-                description: 'Implement bulk export functionality for reports and data'
-            },
-            {
-                title: 'Enhanced Mobile App',
-                category: 'Mobile',
-                description: 'Improve mobile app performance and add new notification features'
-            },
-            {
-                title: 'API Rate Limiting',
-                category: 'Infrastructure',
-                description: 'Implement advanced rate limiting and throttling for API endpoints'
-            },
-            {
-                title: 'Multi-language Support',
-                category: 'Internationalization',
-                description: 'Add support for additional languages in the user interface'
-            }
-        ]
-    },
-    {
-        id: 'sprint-2026-02-a',
-        title: 'Sprint 2026.02-A',
-        plannedDate: 'February 1, 2026',
-        plannedIncrements: [
-            {
-                title: 'AI-Powered Threat Detection',
-                category: 'AI/ML',
-                description: 'Implement machine learning models for advanced threat detection'
-            },
-            {
-                title: 'Enhanced Reporting System',
-                category: 'Reporting',
-                description: 'Redesign reporting system with customizable templates'
-            },
-            {
-                title: 'Advanced User Permissions',
-                category: 'Security',
-                description: 'Implement granular permission system with role-based access control'
-            }
-        ]
-    }
-];
 
 export default function InternalReleasesPage() {
     return (
@@ -215,8 +149,8 @@ export default function InternalReleasesPage() {
                                         <Target className="w-6 h-6" />
                                     </div>
                                     <div>
-                                        <div className="text-2xl font-bold text-white">{futureSprints.length}</div>
-                                        <div className="text-sm text-white/60">Planned</div>
+                                        <div className="text-2xl font-bold text-white">109+</div>
+                                        <div className="text-sm text-white/60">Backlog Items</div>
                                     </div>
                                 </div>
                             </div>
@@ -429,7 +363,7 @@ export default function InternalReleasesPage() {
                         </div>
                     </motion.section>
 
-                    {/* Future Sprints */}
+                    {/* Product Roadmap */}
                     <motion.section
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -438,68 +372,61 @@ export default function InternalReleasesPage() {
                         className="mb-16"
                     >
                         <div className="mb-8">
-                            <div className="flex items-center gap-3 mb-2">
-                                <Target className="w-8 h-8 text-purple-400" />
-                                <h2 className="text-3xl font-bold text-white">Future Sprints</h2>
+                            <div className="flex items-center justify-between mb-2">
+                                <div className="flex items-center gap-3">
+                                    <Target className="w-8 h-8 text-purple-400" />
+                                    <h2 className="text-3xl font-bold text-white">Product Roadmap</h2>
+                                </div>
+                                <Link
+                                    to="/roadmap"
+                                    className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 hover:bg-purple-500/30 text-purple-400 border border-purple-500/30 rounded-lg transition-all no-underline group"
+                                >
+                                    <span>View Full Roadmap</span>
+                                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                </Link>
                             </div>
                             <p className="text-white/70">
-                                Planned sprints with scheduled increments and target dates
+                                Explore the complete product backlog and planned features organized by epic and priority
                             </p>
                         </div>
 
-                        <div className="space-y-6">
-                            {futureSprints.map((sprint, idx) => (
-                                <motion.div
-                                    key={sprint.id}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.4, delay: idx * 0.1 }}
-                                    viewport={{ once: true }}
-                                    className="p-6 bg-[#202020] rounded-xl border border-white/10"
-                                >
-                                    <div className="flex items-start justify-between gap-4 mb-6">
+                        <Link
+                            to="/roadmap"
+                            className="block p-8 bg-gradient-to-br from-purple-500/10 to-purple-600/5 rounded-xl border border-purple-500/30 hover:border-purple-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10 group no-underline"
+                        >
+                            <div className="flex items-start justify-between gap-6">
+                                <div className="flex-1">
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <div className="p-3 bg-purple-500/20 rounded-lg text-purple-400 group-hover:scale-110 transition-transform">
+                                            <Target className="w-6 h-6" />
+                                        </div>
                                         <div>
-                                            <div className="flex items-center gap-3 mb-2">
-                                                <h3 className="text-2xl font-semibold text-white">
-                                                    {sprint.title}
-                                                </h3>
-                                                <span className="px-3 py-1 text-xs font-medium rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30">
-                                                    Planned
-                                                </span>
-                                            </div>
-                                            <div className="flex items-center gap-2 text-sm text-white/60">
-                                                <Calendar className="w-4 h-4" />
-                                                <span>Target Date: {sprint.plannedDate}</span>
-                                            </div>
-                                        </div>
-                                        <div className="text-right">
-                                            <div className="text-2xl font-bold text-white">{sprint.plannedIncrements.length}</div>
-                                            <div className="text-sm text-white/60">Planned Increments</div>
+                                            <h3 className="text-2xl font-semibold text-white mb-2 group-hover:text-purple-400 transition-colors">
+                                                Product Backlog & Roadmap
+                                            </h3>
+                                            <p className="text-white/70">
+                                                Comprehensive view of all planned features, enhancements, and backlog items organized by epic
+                                            </p>
                                         </div>
                                     </div>
-
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        {sprint.plannedIncrements.map((increment, i) => (
-                                            <div
-                                                key={i}
-                                                className="p-4 bg-white/5 rounded-lg border border-white/5"
-                                            >
-                                                <div className="flex items-start gap-3">
-                                                    <div className="p-2 bg-purple-500/20 rounded-lg text-purple-400 flex-shrink-0">
-                                                        <Target className="w-4 h-4" />
-                                                    </div>
-                                                    <div className="flex-1">
-                                                        <div className="text-xs text-purple-400 mb-1">{increment.category}</div>
-                                                        <h4 className="text-sm font-semibold text-white mb-1">{increment.title}</h4>
-                                                        <p className="text-xs text-white/60">{increment.description}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
+                                    <div className="flex items-center gap-6 text-sm text-white/60">
+                                        <div className="flex items-center gap-2">
+                                            <CheckCircle2 className="w-4 h-4" />
+                                            <span>109+ Backlog Items</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <Layers className="w-4 h-4" />
+                                            <span>Organized by Epic</span>
+                                        </div>
                                     </div>
-                                </motion.div>
-                            ))}
-                        </div>
+                                </div>
+                                <div className="flex-shrink-0">
+                                    <div className="p-4 bg-purple-500/20 rounded-lg text-purple-400 group-hover:bg-purple-500/30 transition-colors">
+                                        <ExternalLink className="w-8 h-8" />
+                                    </div>
+                                </div>
+                            </div>
+                        </Link>
                     </motion.section>
 
                     {/* Info Section */}

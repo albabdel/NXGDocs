@@ -18,7 +18,7 @@ import {
     ExternalLink,
     Layers
 } from 'lucide-react';
-import { roadmapFeatures, roadmapStats, RoadmapFeature, RoadmapStatus } from '../data/roadmap';
+import { roadmapFeatures, roadmapStats, roadmapBacklog, roadmapBacklogStats, RoadmapFeature, RoadmapStatus, RoadmapEpic, RoadmapItem } from '../data/roadmap';
 
 // Get status icon and color
 const getStatusConfig = (status: RoadmapStatus) => {
@@ -432,6 +432,133 @@ export default function RoadmapPage() {
                             </div>
                         )}
                     </motion.div>
+
+                    {/* Product Backlog Section */}
+                    <motion.section
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
+                        className="mt-16"
+                    >
+                        <div className="mb-8">
+                            <h2 className="text-3xl font-bold text-white mb-2">Product Backlog</h2>
+                            <p className="text-white/70">
+                                Detailed backlog items organized by epic ({roadmapBacklogStats.total} items across {roadmapBacklog.length} epics)
+                            </p>
+                        </div>
+
+                        {/* Backlog Stats */}
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                            <div className="p-4 bg-[#202020] rounded-lg border border-white/10">
+                                <div className="text-2xl font-bold text-white">{roadmapBacklogStats.total}</div>
+                                <div className="text-sm text-white/60">Total Items</div>
+                            </div>
+                            <div className="p-4 bg-[#202020] rounded-lg border border-white/10">
+                                <div className="text-2xl font-bold text-white">{roadmapBacklogStats.byType.Story || 0}</div>
+                                <div className="text-sm text-white/60">Stories</div>
+                            </div>
+                            <div className="p-4 bg-[#202020] rounded-lg border border-white/10">
+                                <div className="text-2xl font-bold text-white">{roadmapBacklogStats.byType.Task || 0}</div>
+                                <div className="text-sm text-white/60">Tasks</div>
+                            </div>
+                            <div className="p-4 bg-[#202020] rounded-lg border border-white/10">
+                                <div className="text-2xl font-bold text-white">{roadmapBacklogStats.byType.Bug || 0}</div>
+                                <div className="text-sm text-white/60">Bugs</div>
+                            </div>
+                        </div>
+
+                        {/* Epics */}
+                        <div className="space-y-6">
+                            {roadmapBacklog.map((epic, epicIdx) => (
+                                <motion.div
+                                    key={epic.id}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4, delay: epicIdx * 0.05 }}
+                                    viewport={{ once: true }}
+                                    className="bg-[#202020] rounded-xl border border-white/10 overflow-hidden"
+                                >
+                                    <div className="p-6 border-b border-white/10">
+                                        <div className="flex items-center justify-between">
+                                            <div>
+                                                <h3 className="text-xl font-bold text-white mb-1">{epic.name}</h3>
+                                                <p className="text-sm text-white/60">{epic.items.length} items</p>
+                                            </div>
+                                            <div className="flex items-center gap-4 text-sm">
+                                                <div className="text-white/60">
+                                                    <span className="text-white font-medium">{epic.items.filter(i => i.status === 'Done').length}</span> Done
+                                                </div>
+                                                <div className="text-white/60">
+                                                    <span className="text-white font-medium">{epic.items.filter(i => i.status === 'In Progress').length}</span> In Progress
+                                                </div>
+                                                <div className="text-white/60">
+                                                    <span className="text-white font-medium">{epic.items.filter(i => i.status === 'To do').length}</span> To Do
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="p-6">
+                                        <div className="space-y-3">
+                                            {epic.items.map((item, itemIdx) => {
+                                                const statusColors = {
+                                                    'Done': 'bg-green-500/20 text-green-400 border-green-500/30',
+                                                    'In Progress': 'bg-blue-500/20 text-blue-400 border-blue-500/30',
+                                                    'In Staging': 'bg-purple-500/20 text-purple-400 border-purple-500/30',
+                                                    'To do': 'bg-gray-500/20 text-gray-400 border-gray-500/30'
+                                                };
+                                                const typeColors = {
+                                                    'Story': 'bg-blue-500/20 text-blue-400',
+                                                    'Task': 'bg-yellow-500/20 text-yellow-400',
+                                                    'Bug': 'bg-red-500/20 text-red-400'
+                                                };
+                                                return (
+                                                    <div
+                                                        key={item.id}
+                                                        className="p-4 bg-[#1a1a1a] rounded-lg border border-white/5 hover:border-white/10 transition-colors"
+                                                    >
+                                                        <div className="flex items-start justify-between gap-4">
+                                                            <div className="flex-1 min-w-0">
+                                                                <div className="flex items-center gap-2 mb-2 flex-wrap">
+                                                                    <span className="text-xs font-mono text-white/50">{item.id}</span>
+                                                                    <span className={`px-2 py-0.5 text-xs font-medium rounded ${typeColors[item.type] || 'bg-gray-500/20 text-gray-400'}`}>
+                                                                        {item.type}
+                                                                    </span>
+                                                                    <span className={`px-2 py-0.5 text-xs font-medium rounded-full border ${statusColors[item.status] || 'bg-gray-500/20 text-gray-400 border-gray-500/30'}`}>
+                                                                        {item.status}
+                                                                    </span>
+                                                                </div>
+                                                                <h4 className="text-white font-medium mb-2">{item.title}</h4>
+                                                                {item.assignees && item.assignees.length > 0 && (
+                                                                    <div className="flex items-center gap-2 mb-2">
+                                                                        <span className="text-xs text-white/50">Assignees:</span>
+                                                                        {item.assignees.map((assignee, idx) => (
+                                                                            <span key={idx} className="px-2 py-0.5 bg-blue-500/20 text-blue-400 rounded text-xs border border-blue-500/30">
+                                                                                {assignee}
+                                                                            </span>
+                                                                        ))}
+                                                                    </div>
+                                                                )}
+                                                                {item.tags && item.tags.filter(tag => tag !== 'Add Tag').length > 0 && (
+                                                                    <div className="flex items-center gap-2 flex-wrap mt-2">
+                                                                        {item.tags.filter(tag => tag !== 'Add Tag').map((tag, idx) => (
+                                                                            <span key={idx} className="px-2 py-0.5 bg-white/5 text-white/60 rounded text-xs border border-white/10">
+                                                                                {tag}
+                                                                            </span>
+                                                                        ))}
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </motion.section>
 
                     {/* Footer Note */}
                     <motion.div
