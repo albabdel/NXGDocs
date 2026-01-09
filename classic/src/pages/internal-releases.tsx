@@ -66,30 +66,10 @@ const completedReleases: Release[] = [
         id: 'sprint-2025-12-b',
         title: 'Sprint 2025.12-B',
         date: 'December 15, 2025',
-        description: 'Enhanced alarm processing, improved video playback, and new device integrations',
+        description: 'This sprint delivers significant improvements across core operational workflows, with a strong focus on healthcheck capabilities, reporting enhancements, and camera control refinements. We\'ve enhanced the Map Module, expanded reporting automation, and improved the overall user experience through better UI design and performance optimizations.',
         status: 'released',
-        incrementCount: 8,
+        incrementCount: 10,
         plannedIncrements: 10,
-        completionPercentage: 80,
-        incompleteItems: [
-            {
-                title: 'Advanced Analytics Dashboard',
-                rootCause: 'Dependencies on external API delayed integration testing. Moved to next sprint.'
-            },
-            {
-                title: 'Bulk Export Feature',
-                rootCause: 'Scope expansion required additional design review. Rescheduled for Sprint 2026.01-B.'
-            }
-        ]
-    },
-    {
-        id: 'sprint-2025-12-a',
-        title: 'Sprint 2025.12-A',
-        date: 'December 1, 2025',
-        description: 'Initial release with core features and foundational improvements',
-        status: 'released',
-        incrementCount: 12,
-        plannedIncrements: 12,
         completionPercentage: 100
     }
 ];

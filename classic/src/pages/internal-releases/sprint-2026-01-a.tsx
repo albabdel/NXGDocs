@@ -45,6 +45,8 @@ const getEpicIcon = (epic: string) => {
     if (epic.includes('Tower')) return <Radio className="w-5 h-5" />;
     if (epic.includes('Healthcheck')) return <Activity className="w-5 h-5" />;
     if (epic.includes('Documentation')) return <FileText className="w-5 h-5" />;
+    if (epic.includes('User Management')) return <User className="w-5 h-5" />;
+    if (epic.includes('Autostream')) return <Radio className="w-5 h-5" />;
     return <FileText className="w-5 h-5" />;
 };
 
@@ -111,7 +113,25 @@ const ExpandableItem: React.FC<{ item: SprintItem; index: number }> = ({ item, i
                     </div>
                     
                     <div className="flex-1 min-w-0">
-                        <h4 className="text-white font-medium truncate">{item.title}</h4>
+                        <h4 className="text-white font-medium truncate mb-1">{item.title}</h4>
+                        {item.tags.filter(tag => tag !== 'Add Tag').length > 0 && (
+                            <div className="flex items-center gap-1.5 flex-wrap mt-1">
+                                {item.tags.filter(tag => tag !== 'Add Tag').slice(0, 3).map((tag, idx) => (
+                                    <span
+                                        key={idx}
+                                        className="inline-flex items-center gap-1 px-2 py-0.5 bg-white/5 text-white/60 rounded text-xs border border-white/10 hover:border-[#E8B058]/30 hover:text-[#E8B058]/80 transition-colors"
+                                    >
+                                        <Tag className="w-2.5 h-2.5" />
+                                        {tag}
+                                    </span>
+                                ))}
+                                {item.tags.filter(tag => tag !== 'Add Tag').length > 3 && (
+                                    <span className="text-xs text-white/40">
+                                        +{item.tags.filter(tag => tag !== 'Add Tag').length - 3}
+                                    </span>
+                                )}
+                            </div>
+                        )}
                     </div>
                     
                     <div className="flex items-center gap-2 flex-shrink-0">
@@ -170,15 +190,33 @@ const ExpandableItem: React.FC<{ item: SprintItem; index: number }> = ({ item, i
                                     <div>
                                         <div className="text-xs text-white/50 mb-2">Tags</div>
                                         <div className="flex items-center gap-2 flex-wrap">
-                                            {item.tags.filter(tag => tag !== 'Add Tag').map((tag, idx) => (
-                                                <div
-                                                    key={idx}
-                                                    className="flex items-center gap-1 px-2 py-1 bg-white/5 text-white/70 rounded text-xs border border-white/10"
-                                                >
-                                                    <Tag className="w-3 h-3" />
-                                                    {tag}
-                                                </div>
-                                            ))}
+                                            {item.tags.filter(tag => tag !== 'Add Tag').map((tag, idx) => {
+                                                // Color code tags based on type
+                                                let tagClass = 'bg-white/5 text-white/70 border-white/10';
+                                                if (tag.includes('core-migration') || tag.includes('migration')) {
+                                                    tagClass = 'bg-purple-500/20 text-purple-400 border-purple-500/30';
+                                                } else if (tag.includes('Marketplace') || tag.includes('CMS')) {
+                                                    tagClass = 'bg-blue-500/20 text-blue-400 border-blue-500/30';
+                                                } else if (tag.includes('healthcheck') || tag.includes('secontec')) {
+                                                    tagClass = 'bg-green-500/20 text-green-400 border-green-500/30';
+                                                } else if (tag.includes('SC') || tag.includes('SK')) {
+                                                    tagClass = 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
+                                                } else if (tag.includes('Documentation')) {
+                                                    tagClass = 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30';
+                                                } else if (tag.includes('Configuration')) {
+                                                    tagClass = 'bg-orange-500/20 text-orange-400 border-orange-500/30';
+                                                }
+                                                
+                                                return (
+                                                    <div
+                                                        key={idx}
+                                                        className={`flex items-center gap-1 px-2 py-1 rounded text-xs border hover:scale-105 transition-transform ${tagClass}`}
+                                                    >
+                                                        <Tag className="w-3 h-3" />
+                                                        {tag}
+                                                    </div>
+                                                );
+                                            })}
                                         </div>
                                     </div>
                                 )}
@@ -202,6 +240,10 @@ export default function Sprint202601APage() {
     const [expandedEpics, setExpandedEpics] = useState<Set<string>>(new Set(Object.keys(groupedByEpic)));
     const [filterStatus, setFilterStatus] = useState<string>('all');
     const [filterType, setFilterType] = useState<string>('all');
+    const [filterTag, setFilterTag] = useState<string>('all');
+    
+    // Get all unique tags
+    const allTags = Array.from(new Set(sprint202601AItems.flatMap(item => item.tags.filter(tag => tag !== 'Add Tag')))).sort();
 
     const toggleEpic = (epic: string) => {
         const newExpanded = new Set(expandedEpics);
@@ -216,14 +258,16 @@ export default function Sprint202601APage() {
     const filteredItems = sprint202601AItems.filter(item => {
         const statusMatch = filterStatus === 'all' || item.status === filterStatus;
         const typeMatch = filterType === 'all' || item.type === filterType;
-        return statusMatch && typeMatch;
+        const tagMatch = filterTag === 'all' || item.tags.includes(filterTag);
+        return statusMatch && typeMatch && tagMatch;
     });
 
     const filteredGroupedByEpic = Object.entries(groupedByEpic).reduce((acc, [epic, items]) => {
         const filtered = items.filter(item => {
             const statusMatch = filterStatus === 'all' || item.status === filterStatus;
             const typeMatch = filterType === 'all' || item.type === filterType;
-            return statusMatch && typeMatch;
+            const tagMatch = filterTag === 'all' || item.tags.includes(filterTag);
+            return statusMatch && typeMatch && tagMatch;
         });
         if (filtered.length > 0) {
             acc[epic] = filtered;
@@ -343,6 +387,7 @@ export default function Sprint202601APage() {
                             </div>
                             
                             <div className="flex items-center gap-2">
+                                <span className="text-xs text-white/60">Status:</span>
                                 <select
                                     value={filterStatus}
                                     onChange={(e) => setFilterStatus(e.target.value)}
@@ -356,6 +401,7 @@ export default function Sprint202601APage() {
                             </div>
                             
                             <div className="flex items-center gap-2">
+                                <span className="text-xs text-white/60">Type:</span>
                                 <select
                                     value={filterType}
                                     onChange={(e) => setFilterType(e.target.value)}
@@ -368,11 +414,26 @@ export default function Sprint202601APage() {
                                 </select>
                             </div>
                             
-                            {(filterStatus !== 'all' || filterType !== 'all') && (
+                            <div className="flex items-center gap-2">
+                                <span className="text-xs text-white/60">Tag:</span>
+                                <select
+                                    value={filterTag}
+                                    onChange={(e) => setFilterTag(e.target.value)}
+                                    className="px-3 py-1.5 bg-[#1a1a1a] border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-[#E8B058]/50"
+                                >
+                                    <option value="all">All Tags</option>
+                                    {allTags.map((tag) => (
+                                        <option key={tag} value={tag}>{tag}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            
+                            {(filterStatus !== 'all' || filterType !== 'all' || filterTag !== 'all') && (
                                 <button
                                     onClick={() => {
                                         setFilterStatus('all');
                                         setFilterType('all');
+                                        setFilterTag('all');
                                     }}
                                     className="flex items-center gap-1 px-3 py-1.5 text-sm text-white/60 hover:text-white transition-colors"
                                 >
