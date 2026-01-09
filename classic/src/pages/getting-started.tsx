@@ -128,7 +128,7 @@ const PhaseCard = ({
     phase: number;
     title: string;
     description: string;
-    topics: { title: string; link: string }[];
+    topics: { title: string; link?: string }[];
     color: string;
 }) => {
     const colorClasses = {
@@ -159,17 +159,36 @@ const PhaseCard = ({
                 </div>
             </div>
             <div className="space-y-2 mt-4">
-                {topics.map((topic, idx) => (
-                    <Link
-                        key={idx}
-                        to={topic.link}
-                        className="flex items-center gap-2 p-3 bg-[#1a1a1a] rounded-lg hover:bg-[#2a2a2a] transition-colors no-underline group border border-white/5"
-                    >
-                        <CheckCircle className="w-4 h-4 text-white/50 group-hover:text-[#E8B058] transition-colors" />
-                        <span className="text-sm text-white/70 group-hover:text-white transition-colors">{topic.title}</span>
-                        <ChevronRight className="w-4 h-4 text-white/40 ml-auto group-hover:text-[#E8B058]" />
-                    </Link>
-                ))}
+                {topics.map((topic, idx) => {
+                    const content = (
+                        <>
+                            <CheckCircle className={`w-4 h-4 ${topic.link ? 'text-white/50 group-hover:text-[#E8B058]' : 'text-white/30'} transition-colors`} />
+                            <span className={`text-sm ${topic.link ? 'text-white/70 group-hover:text-white' : 'text-white/50'} transition-colors`}>{topic.title}</span>
+                            {topic.link && <ChevronRight className="w-4 h-4 text-white/40 ml-auto group-hover:text-[#E8B058]" />}
+                        </>
+                    );
+
+                    if (topic.link) {
+                        return (
+                            <Link
+                                key={idx}
+                                to={topic.link}
+                                className="flex items-center gap-2 p-3 bg-[#1a1a1a] rounded-lg hover:bg-[#2a2a2a] transition-colors no-underline group border border-white/5 cursor-pointer"
+                            >
+                                {content}
+                            </Link>
+                        );
+                    }
+
+                    return (
+                        <div
+                            key={idx}
+                            className="flex items-center gap-2 p-3 bg-[#1a1a1a] rounded-lg border border-white/5 opacity-60"
+                        >
+                            {content}
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );
@@ -341,9 +360,10 @@ export default function GettingStarted() {
                                 description="Get started with your account"
                                 color="green"
                                 topics={[
-                                    { title: 'First Time Login',  },
-                                    { title: 'Password Management',  },
-                                    { title: 'What is NXGEN GCXONE?', link: '/docs/getting-started/what-is-nxgen-GCXONE' },
+                                    { title: 'First Time Login', link: '/docs/getting-started/first-time-login' },
+                                    { title: 'Password Management', link: '/docs/getting-started/password-management' },
+                                    { title: 'What is NXGEN GCXONE?', link: '/docs/getting-started/what-is-nxgen-gcxone' },
+                                    { title: 'Quick Start Checklist', link: '/docs/getting-started/quick-start-checklist' },
                                 ]}
                             />
 
@@ -353,10 +373,11 @@ export default function GettingStarted() {
                                 description="Learn the interface and navigation"
                                 color="blue"
                                 topics={[
-                                    { title: 'Key Benefits',  },
-                                    { title: 'Cloud Architecture',  },
-                                    { title: 'GCXONE & Talos Interaction', link: '/docs/getting-started/GCXONE-talos-interaction' },
-                                    { title: 'Quick Start Checklist',  },
+                                    { title: 'Key Benefits', link: '/docs/getting-started/key-benefits' },
+                                    { title: 'Cloud Architecture', link: '/docs/getting-started/cloud-architecture' },
+                                    { title: 'GCXONE & Talos Interaction', link: '/docs/getting-started/gcxone-talos-interaction' },
+                                    { title: 'What is Evalink Talos?', link: '/docs/getting-started/what-is-evalink-talos' },
+                                    { title: 'Getting to Know Evalink Talos', link: '/docs/getting-started/getting-to-know-evalink-talos' },
                                 ]}
                             />
 
@@ -366,9 +387,9 @@ export default function GettingStarted() {
                                 description="Ensure proper connectivity"
                                 color="purple"
                                 topics={[
-                                    { title: 'Required Ports',  },
-                                    { title: 'Firewall Configuration',  },
-                                    { title: 'IP Whitelisting',  },
+                                    { title: 'Required Ports', link: '/docs/getting-started/required-ports' },
+                                    { title: 'Firewall Configuration', link: '/docs/getting-started/firewall-configuration' },
+                                    { title: 'IP Whitelisting', link: '/docs/getting-started/ip-whitelisting' },
                                     { title: 'Bandwidth Requirements', link: '/docs/getting-started/bandwidth-requirements' },
                                 ]}
                             />
@@ -379,7 +400,8 @@ export default function GettingStarted() {
                                 description="Configure NTP and architecture"
                                 color="cyan"
                                 topics={[
-                                    { title: 'NTP Configuration',  },
+                                    { title: 'NTP Configuration', link: '/docs/getting-started/ntp-configuration' },
+                                    { title: 'Alarm Forwarding', link: '/docs/getting-started/alarm-forwarding' },
                                 ]}
                             />
                         </div>
@@ -392,6 +414,11 @@ export default function GettingStarted() {
                                 description="Start monitoring and handling alarms"
                                 color="amber"
                                 topics={[
+                                    { title: 'User Management Overview', link: '/docs/getting-started/user-management/overview' },
+                                    { title: 'Creating Users & Roles', link: '/docs/getting-started/user-management/creating-roles' },
+                                    { title: 'Talos Site Management', link: '/docs/getting-started/talos/site-management' },
+                                    { title: 'Troubleshooting Browser Errors', link: '/docs/getting-started/troubleshooting/browser-errors' },
+                                    { title: 'Image and Video Issues', link: '/docs/getting-started/troubleshooting/image-and-video-issues' },
                                 ]}
                             />
                         </div>
