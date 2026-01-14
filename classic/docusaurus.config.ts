@@ -201,13 +201,15 @@ const config: Config = {
 
     // Algolia DocSearch Configuration
     algolia: {
-      appId: 'V5T3AW2AU9',
-      apiKey: 'faaa9ffb8640ba49520a0cf44dc9f7ef', // Search-only API key
-      indexName: 'Documentation site',
+      appId: process.env.ALGOLIA_APP_ID || 'V5T3AW2AU9',
+      apiKey: process.env.ALGOLIA_API_KEY || 'faaa9ffb8640ba49520a0cf44dc9f7ef', // Search-only API key
+      indexName: process.env.ALGOLIA_INDEX_NAME || 'Documentation site',
       contextualSearch: true,
-      searchParameters: {},
+      searchParameters: {
+        clickAnalytics: true, // Enable click analytics to get queryID in search responses
+      },
       searchPagePath: 'search',
-      insights: false,
+      insights: true, // Enable search insights for event tracking
     },
 
     navbar: {
