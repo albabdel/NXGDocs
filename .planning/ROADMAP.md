@@ -30,7 +30,14 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. No unused React components remain in `src/components/` — every component in the directory is actively rendered somewhere on the site
   4. The site CSS is a single consolidated stylesheet under 2,000 lines with the visual design unchanged and no dead rules
   5. `onBrokenLinks` is set to at minimum `'warn'` and the build log surfaces any broken link rather than silently ignoring it
-**Plans**: TBD
+**Plans**: 5 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Delete Storyblok files (atomic import-order deletion) and remove dead CMS scripts + prebuild hook from package.json
+- [ ] 01-02-PLAN.md — Audit and delete confirmed-orphaned components; remove co-located CSS rules
+- [ ] 01-03-PLAN.md — Remove all dead npm packages in verified batches (Storyblok, Tiptap, Monaco, GraphQL, dnd-kit, tsparticles, MUI, i18n, PDF)
+- [ ] 01-04-PLAN.md — Final CSS consolidation pass to under 2,000 lines; human visual spot-check
+- [ ] 01-05-PLAN.md — Upgrade onBrokenLinks to 'warn' → fix all broken links → elevate to 'throw'
 
 ### Phase 2: CMS Setup
 **Goal**: Sanity is ready for content — MCP operational, Studio accessible, and all four schemas locked before any content is entered
@@ -82,7 +89,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Cleanup | 0/TBD | Not started | - |
+| 1. Cleanup | 0/5 | Not started | - |
 | 2. CMS Setup | 0/TBD | Not started | - |
 | 3. Integration Pipeline | 0/TBD | Not started | - |
 | 4. Content Migration | 0/TBD | Not started | - |
