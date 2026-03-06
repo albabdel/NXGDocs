@@ -23,14 +23,15 @@ Decimal phases appear between their surrounding integers in numeric order.
 ### Phase 1: Cleanup
 **Goal**: The Docusaurus build is clean, fast, and free of dead CMS code — a stable foundation for Sanity integration
 **Depends on**: Nothing (first phase)
-**Requirements**: CLEN-01, CLEN-02, CLEN-03, CLEN-04, INTG-04
+**Requirements**: CLEN-01, CLEN-02, CLEN-03, CLEN-04, INTG-03, INTG-04
 **Success Criteria** (what must be TRUE):
   1. `npm run build` in the classic directory completes without errors and without referencing any Storyblok, TinaCMS, Hygraph, Strapi, Payload, Tiptap, Monaco, or GraphQL packages
   2. The Cloudflare Pages build command no longer runs `fetchHygraphContent.js` or any other dead prebuild hook
   3. No unused React components remain in `src/components/` — every component in the directory is actively rendered somewhere on the site
   4. The site CSS is a single consolidated stylesheet under 2,000 lines with the visual design unchanged and no dead rules
   5. `onBrokenLinks` is set to at minimum `'warn'` and the build log surfaces any broken link rather than silently ignoring it
-**Plans**: 5 plans
+  6. The feedback widget calls `/functions/page-feedback` (Cloudflare Pages Function) and no Netlify or Vercel function files remain
+**Plans**: 6 plans
 
 Plans:
 - [ ] 01-01-PLAN.md — Delete Storyblok files (atomic import-order deletion) and remove dead CMS scripts + prebuild hook from package.json
@@ -38,6 +39,7 @@ Plans:
 - [ ] 01-03-PLAN.md — Remove all dead npm packages in verified batches (Storyblok, Tiptap, Monaco, GraphQL, dnd-kit, tsparticles, MUI, i18n, PDF)
 - [ ] 01-04-PLAN.md — Final CSS consolidation pass to under 2,000 lines; human visual spot-check
 - [ ] 01-05-PLAN.md — Upgrade onBrokenLinks to 'warn' → fix all broken links → elevate to 'throw'
+- [ ] 01-06-PLAN.md — Rewrite feedback widget as Cloudflare Pages Function (ZeptoMail HTTP API); delete dead Netlify/Vercel files; remove nodemailer
 
 ### Phase 2: CMS Setup
 **Goal**: Sanity is ready for content — MCP operational, Studio accessible, and all four schemas locked before any content is entered
