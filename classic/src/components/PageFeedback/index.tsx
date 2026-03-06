@@ -33,7 +33,7 @@ export default function PageFeedback({ className }: PageFeedbackProps) {
       };
 
       const isDev = typeof window !== 'undefined' && window.location.hostname === 'localhost';
-      const apiUrl = isDev ? 'http://localhost:3001/api/page-feedback' : '/.netlify/functions/page-feedback';
+      const apiUrl = isDev ? 'http://localhost:3001/api/page-feedback' : '/functions/page-feedback';
 
       await fetch(apiUrl, {
         method: 'POST',
@@ -93,7 +93,7 @@ export default function PageFeedback({ className }: PageFeedbackProps) {
       };
 
       const isDev = typeof window !== 'undefined' && window.location.hostname === 'localhost';
-      const apiUrl = isDev ? 'http://localhost:3001/api/page-feedback' : '/.netlify/functions/page-feedback';
+      const apiUrl = isDev ? 'http://localhost:3001/api/page-feedback' : '/functions/page-feedback';
 
       const response = await fetch(apiUrl, {
         method: 'POST',
