@@ -31,7 +31,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. The site CSS is a single consolidated stylesheet under 2,000 lines with the visual design unchanged and no dead rules
   5. `onBrokenLinks` is set to at minimum `'warn'` and the build log surfaces any broken link rather than silently ignoring it
   6. The feedback widget calls `/functions/page-feedback` (Cloudflare Pages Function) and no Netlify or Vercel function files remain
-**Plans**: 6 plans
+**Plans**: 8 plans
 
 Plans:
 - [ ] 01-01-PLAN.md — Delete Storyblok files (atomic import-order deletion) and remove dead CMS scripts + prebuild hook from package.json
@@ -40,6 +40,8 @@ Plans:
 - [ ] 01-04-PLAN.md — Final CSS consolidation pass to under 2,000 lines; human visual spot-check
 - [ ] 01-05-PLAN.md — Upgrade onBrokenLinks to 'warn' → fix all broken links → elevate to 'throw'
 - [ ] 01-06-PLAN.md — Rewrite feedback widget as Cloudflare Pages Function (ZeptoMail HTTP API); delete dead Netlify/Vercel files; remove nodemailer
+- [ ] 01-07-PLAN.md — [GAP] Delete 10 remaining orphaned components (BackToTop, Badge, Collapsible, EnhancedFeatureCard, ErrorBoundary, FeaturesGrid, PrevNext, QuickLinks, Skeleton, VideoEmbed)
+- [ ] 01-08-PLAN.md — [GAP] Delete classic/api/feedback.ts and netlify/functions/storyblok-to-gitlab.mjs; create voc-feedback Cloudflare Pages Function; update VoCModal fetch URL
 
 ### Phase 2: CMS Setup
 **Goal**: Sanity is ready for content — MCP operational, Studio accessible, and all four schemas locked before any content is entered
@@ -91,7 +93,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Cleanup | 5/6 | In Progress|  |
+| 1. Cleanup | 6/8 | In Progress (gap closure)|  |
 | 2. CMS Setup | 0/TBD | Not started | - |
 | 3. Integration Pipeline | 0/TBD | Not started | - |
 | 4. Content Migration | 0/TBD | Not started | - |
