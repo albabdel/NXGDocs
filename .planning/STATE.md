@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 01-cleanup-06-PLAN.md
-last_updated: "2026-03-06T13:00:50.239Z"
+stopped_at: Completed 01-cleanup-04-PLAN.md
+last_updated: "2026-03-06T17:06:09.917Z"
 last_activity: 2026-03-06 — Roadmap created; 5 phases derived from 18 v1 requirements
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 6
-  completed_plans: 4
+  completed_plans: 5
   percent: 17
 ---
 
@@ -54,6 +54,7 @@ Progress: [██░░░░░░░░] 17%
 | Phase 01-cleanup P02 | 8min | 2 tasks | 24 files |
 | Phase 01-cleanup P03 | 16min | 2 tasks | 3 files |
 | Phase 01-cleanup P06 | 3min | 2 tasks | 5 files |
+| Phase 01-cleanup P04 | 70 | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -77,6 +78,8 @@ Recent decisions affecting current work:
 - [Phase 01-cleanup]: Use ZeptoMail HTTP API (fetch) for page feedback emails: Cloudflare Workers have no TCP socket support, making nodemailer SMTP incompatible
 - [Phase 01-cleanup]: Delete classic/api/page-feedback.ts (Vercel) and netlify/functions/page-feedback.mjs: both platform-incompatible with Cloudflare Pages and now superseded by classic/functions/page-feedback.ts
 - [Phase 01-cleanup]: ZEPTO_API_KEY must be added to Cloudflare Pages env vars; SMTP_USER/SMTP_PASS no longer needed by feedback function
+- [Phase 01-cleanup]: CSS feature card global rules confirmed dead: active components use CSS modules; global .feature-card system removed as orphaned
+- [Phase 01-cleanup]: CSS stops at 3531 lines (not 2000): remaining rules are all live Docusaurus theme elements — plan stopping condition 'only genuinely-shared rules remain' met
 
 ### Pending Todos
 
@@ -90,6 +93,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-06T13:00:50.236Z
-Stopped at: Completed 01-cleanup-06-PLAN.md
+Last session: 2026-03-06T17:06:09.915Z
+Stopped at: Completed 01-cleanup-04-PLAN.md
 Resume file: None
