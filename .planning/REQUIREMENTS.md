@@ -10,7 +10,7 @@
 - [x] **CLEN-01**: Codebase builds cleanly after removing all dead CMS packages (Storyblok, TinaCMS, Hygraph, Strapi, Payload, Tiptap, Monaco, Express, GraphQL client, and their transitive dependencies)
 - [x] **CLEN-02**: Cloudflare Pages build no longer calls `fetchHygraphContent.js` or any legacy prebuild hooks
 - [x] **CLEN-03**: Unused React components identified and removed — only components actively rendered in the site remain
-- [ ] **CLEN-04**: CSS consolidated from ~3,800 lines to a maintainable stylesheet with dead rules removed and visual design preserved
+- [x] **CLEN-04**: CSS consolidated from ~3,800 lines to a maintainable stylesheet with dead rules removed and visual design preserved
 
 ### CMS Setup
 
@@ -78,7 +78,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CLEN-01 | Phase 1 | Complete |
 | CLEN-02 | Phase 1 | Complete |
 | CLEN-03 | Phase 1 | Complete |
-| CLEN-04 | Phase 1 | Pending |
+| CLEN-04 | Phase 1 | Complete |
 | INTG-04 | Phase 1 | Pending |
 | CMS-01 | Phase 2 | Pending |
 | CMS-02 | Phase 2 | Pending |

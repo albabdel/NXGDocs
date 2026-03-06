@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 01-cleanup-01-PLAN.md
-last_updated: "2026-03-06T12:13:38.586Z"
+stopped_at: Completed 01-cleanup-02-PLAN.md
+last_updated: "2026-03-06T12:34:13.838Z"
 last_activity: 2026-03-06 — Roadmap created; 5 phases derived from 18 v1 requirements
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 6
-  completed_plans: 1
+  completed_plans: 2
   percent: 17
 ---
 
@@ -51,6 +51,7 @@ Progress: [██░░░░░░░░] 17%
 
 *Updated after each plan completion*
 | Phase 01-cleanup P01 | 6 | 2 tasks | 35 files |
+| Phase 01-cleanup P02 | 8min | 2 tasks | 24 files |
 
 ## Accumulated Context
 
@@ -66,6 +67,8 @@ Recent decisions affecting current work:
 - [Phase 01-cleanup]: Delete sanitize.ts: SSG-unsafe DOMPurify wrapper whose only consumer was Storyblok
 - [Phase 01-cleanup]: Delete scripts/lib/markdown-to-richtext.js: sole consumer (migrate-articles) was deleted in same plan
 - [Phase 01-cleanup]: Keep index:algolia in package.json scripts despite not being in explicit target shape — plan says preserve Algolia scripts
+- [Phase 01-cleanup]: All 15 components confirmed orphaned via grep before deletion - no active callers in pages/, theme/, or docs/
+- [Phase 01-cleanup]: CSS custom.css baseline for Plan 04: 3,832 lines - deleted components used CSS modules not global rules, no global CSS removal needed
 
 ### Pending Todos
 
@@ -79,6 +82,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-06T12:13:38.584Z
-Stopped at: Completed 01-cleanup-01-PLAN.md
+Last session: 2026-03-06T12:34:13.836Z
+Stopped at: Completed 01-cleanup-02-PLAN.md
 Resume file: None
