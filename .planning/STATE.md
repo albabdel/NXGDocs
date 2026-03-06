@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 01-cleanup-04-PLAN.md
-last_updated: "2026-03-06T17:06:09.917Z"
+stopped_at: Completed 01-cleanup-05-PLAN.md
+last_updated: "2026-03-06T17:38:50.861Z"
 last_activity: 2026-03-06 — Roadmap created; 5 phases derived from 18 v1 requirements
 progress:
   total_phases: 5
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 6
-  completed_plans: 5
+  completed_plans: 6
   percent: 17
 ---
 
@@ -55,6 +55,7 @@ Progress: [██░░░░░░░░] 17%
 | Phase 01-cleanup P03 | 16min | 2 tasks | 3 files |
 | Phase 01-cleanup P06 | 3min | 2 tasks | 5 files |
 | Phase 01-cleanup P04 | 70 | 2 tasks | 1 files |
+| Phase 01-cleanup P05 | 29 | 2 tasks | 135 files |
 
 ## Accumulated Context
 
@@ -80,6 +81,8 @@ Recent decisions affecting current work:
 - [Phase 01-cleanup]: ZEPTO_API_KEY must be added to Cloudflare Pages env vars; SMTP_USER/SMTP_PASS no longer needed by feedback function
 - [Phase 01-cleanup]: CSS feature card global rules confirmed dead: active components use CSS modules; global .feature-card system removed as orphaned
 - [Phase 01-cleanup]: CSS stops at 3531 lines (not 2000): remaining rules are all live Docusaurus theme elements — plan stopping condition 'only genuinely-shared rules remain' met
+- [Phase 01-cleanup]: Create docs/support/contact.md stub as target for 92 broken support-ticket links rather than mass link removal
+- [Phase 01-cleanup]: onBrokenLinks set to throw: build now fails on any future broken internal link - regression gate active
 
 ### Pending Todos
 
@@ -93,6 +96,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-06T17:06:09.915Z
-Stopped at: Completed 01-cleanup-04-PLAN.md
+Last session: 2026-03-06T17:38:42.660Z
+Stopped at: Completed 01-cleanup-05-PLAN.md
 Resume file: None

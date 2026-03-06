@@ -23,7 +23,7 @@
 - [ ] **INTG-01**: Custom Docusaurus plugin fetches content from Sanity at build time via GROQ and generates MDX files — Docusaurus renders them as normal pages
 - [ ] **INTG-02**: Sanity publish event triggers Cloudflare Pages rebuild via deploy hook — live site updates within minutes of clicking publish in Studio
 - [x] **INTG-03**: Feedback widget rewritten to use `fetch()` to an HTTP email API — works on Cloudflare Workers (removes `nodemailer` dependency)
-- [ ] **INTG-04**: Broken links audited and resolved — `onBrokenLinks` upgraded from `'ignore'` to at minimum `'warn'`
+- [x] **INTG-04**: Broken links audited and resolved — `onBrokenLinks` upgraded from `'ignore'` to at minimum `'warn'`
 
 ### Content Migration
 
@@ -79,7 +79,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CLEN-02 | Phase 1 | Complete |
 | CLEN-03 | Phase 1 | Complete |
 | CLEN-04 | Phase 1 | Complete |
-| INTG-04 | Phase 1 | Pending |
+| INTG-04 | Phase 1 | Complete |
 | CMS-01 | Phase 2 | Pending |
 | CMS-02 | Phase 2 | Pending |
 | CMS-03 | Phase 2 | Pending |
