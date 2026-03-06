@@ -367,4 +367,4 @@ See Troubleshooting Guide for more.
 
 **Need Help?**
 
-[Contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket) for Milestone VMS assistance.
+[Contact support](/docs/support/contact) for Milestone VMS assistance.

@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
-import { motion } from 'framer-motion';
 import {
     LayoutDashboard,
     Server,
@@ -154,7 +153,7 @@ const helpResources: Resource[] = [
     {
         title: 'Video Tutorials',
         description: 'How-to videos for all user levels',
-        link: '/docs/knowledge-base-video-tutorials',
+        link: '/docs/knowledge-base/faq',
         icon: <PlayCircle className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
     },
     {
@@ -200,12 +199,7 @@ export default function Home(): React.JSX.Element {
                 <div className="max-w-7xl mx-auto px-6 pb-20">
 
                     {/* Quick Start Section */}
-                    <motion.section
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.4 }}
-                        className="mt-16"
-                    >
+                    <section className="mt-16">
                         <div className="flex items-center justify-between mb-6">
                             <div>
                                 <h2 className="text-3xl font-bold text-[#E8B058]">Quick Start</h2>
@@ -213,62 +207,40 @@ export default function Home(): React.JSX.Element {
                             </div>
                         </div>
                         <div className="space-y-4">
-                            {quickStartLinks.map((item, index) => (
-                                <motion.div
+                            {quickStartLinks.map((item) => (
+                                <QuickLink
                                     key={item.title}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
-                                >
-                                    <QuickLink
-                                        title={item.title}
-                                        description={item.description}
-                                        icon={item.icon}
-                                        href={item.link}
-                                    />
-                                </motion.div>
+                                    title={item.title}
+                                    description={item.description}
+                                    icon={item.icon}
+                                    href={item.link}
+                                />
                             ))}
                         </div>
-                    </motion.section>
+                    </section>
 
                     {/* Role-Based Navigation */}
-                    <motion.section
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.6 }}
-                        className="mt-20"
-                    >
+                    <section className="mt-20">
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold" style={{ color: 'var(--ifm-color-content)' }}>Learn by Role</h2>
                             <p className="mt-2" style={{ color: 'var(--ifm-color-content-secondary)' }}>Find documentation tailored to your user role</p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            {roleCards.map((item, index) => (
-                                <motion.div
+                            {roleCards.map((item) => (
+                                <FeatureCard
                                     key={item.title}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.3, delay: 0.7 + index * 0.1 }}
-                                >
-                                    <FeatureCard
-                                        title={item.title}
-                                        description={item.description}
-                                        icon={item.icon}
-                                        link={item.link}
-                                        badge={item.badge}
-                                    />
-                                </motion.div>
+                                    title={item.title}
+                                    description={item.description}
+                                    icon={item.icon}
+                                    link={item.link}
+                                    badge={item.badge}
+                                />
                             ))}
                         </div>
-                    </motion.section>
+                    </section>
 
                     {/* Releases */}
-                    <motion.section
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.8 }}
-                        className="mt-20"
-                    >
+                    <section className="mt-20">
                         <div className="flex items-center justify-between mb-6">
                             <div>
                                 <h2 className="text-3xl font-bold text-[#E8B058]">Releases</h2>
@@ -282,94 +254,60 @@ export default function Home(): React.JSX.Element {
                             </Link>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {recentReleases.map((item, index) => (
-                                <motion.div
+                            {recentReleases.map((item) => (
+                                <FeatureCard
                                     key={item.title}
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ duration: 0.3, delay: 0.9 + index * 0.1 }}
-                                >
-                                    <FeatureCard
-                                        title={item.title}
-                                        description={item.description}
-                                        icon={item.icon}
-                                        link={item.link}
-                                        badge={item.badge}
-                                    />
-                                </motion.div>
+                                    title={item.title}
+                                    description={item.description}
+                                    icon={item.icon}
+                                    link={item.link}
+                                    badge={item.badge}
+                                />
                             ))}
                         </div>
-                    </motion.section>
+                    </section>
 
                     {/* Featured Features */}
-                    <motion.section
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 1.0 }}
-                        className="mt-20"
-                    >
+                    <section className="mt-20">
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold" style={{ color: 'var(--ifm-color-content)' }}>Platform Features</h2>
                             <p className="mt-2" style={{ color: 'var(--ifm-color-content-secondary)' }}>Explore core capabilities of GCXONE</p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {featuredFeatures.map((item, index) => (
-                                <motion.div
+                            {featuredFeatures.map((item) => (
+                                <FeatureCard
                                     key={item.title}
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ duration: 0.3, delay: 1.1 + index * 0.1 }}
-                                >
-                                    <FeatureCard
-                                        title={item.title}
-                                        description={item.description}
-                                        icon={item.icon}
-                                        link={item.link}
-                                        badge={item.badge}
-                                    />
-                                </motion.div>
+                                    title={item.title}
+                                    description={item.description}
+                                    icon={item.icon}
+                                    link={item.link}
+                                    badge={item.badge}
+                                />
                             ))}
                         </div>
-                    </motion.section>
+                    </section>
 
                     {/* Help & Resources */}
-                    <motion.section
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 1.2 }}
-                        className="mt-20"
-                    >
+                    <section className="mt-20">
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold" style={{ color: 'var(--ifm-color-content)' }}>Need Help?</h2>
                             <p className="mt-2" style={{ color: 'var(--ifm-color-content-secondary)' }}>Additional resources and support</p>
                         </div>
                         <div className="space-y-4 max-w-3xl mx-auto">
-                            {helpResources.map((item, index) => (
-                                <motion.div
+                            {helpResources.map((item) => (
+                                <QuickLink
                                     key={item.title}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.3, delay: 1.3 + index * 0.1 }}
-                                >
-                                    <QuickLink
-                                        title={item.title}
-                                        description={item.description}
-                                        icon={item.icon}
-                                        href={item.link}
-                                    />
-                                </motion.div>
+                                    title={item.title}
+                                    description={item.description}
+                                    icon={item.icon}
+                                    href={item.link}
+                                />
                             ))}
                         </div>
-                    </motion.section>
+                    </section>
 
                     {/* Support CTA - Redesigned */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.3 }}
-                        viewport={{ once: true }}
-                        className="mt-32 mb-16"
-                    >
+                    <div className="mt-32 mb-16">
                         <div className="relative overflow-hidden rounded-2xl backdrop-blur-xl border p-12 shadow-2xl" style={{
                             background: 'var(--ifm-background-surface-color)',
                             borderColor: 'var(--ifm-color-emphasis-200)'
@@ -403,7 +341,7 @@ export default function Home(): React.JSX.Element {
                                 </Link>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </main>
         </Layout>

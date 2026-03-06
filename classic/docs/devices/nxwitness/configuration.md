@@ -395,4 +395,4 @@ If you encounter issues during configuration, see the [Troubleshooting Guide](./
 
 **Need Help?**
 
-If you need assistance with Nx Witness VMS configuration, [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).
+If you need assistance with Nx Witness VMS configuration, [contact support](/docs/support/contact).

@@ -323,4 +323,4 @@ See the Troubleshooting Guide for common problems and solutions.
 
 **Need Help?**
 
-If you need assistance with Viasys/ShieldBox Cloud NVR configuration, [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).
+If you need assistance with Viasys/ShieldBox Cloud NVR configuration, [contact support](/docs/support/contact).

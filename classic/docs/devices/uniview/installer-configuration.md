@@ -266,12 +266,12 @@ import TabItem from '@theme/TabItem';
 ## Related Articles
 
 - 
-- [Uniview Supported Features](/docs/devices/uniview/supported-features)
-- [Uniview Troubleshooting](/docs/devices/uniview/troubleshooting)
+- [Uniview Supported Features](/docs/devices/general/onboarding-overview)
+- [Uniview Troubleshooting](/docs/devices/general/troubleshooting-basics)
 
 ---
 
 ## Need Help?
 
-If you're experiencing issues during configuration, check our [Troubleshooting Guide](/docs/devices/uniview/troubleshooting) or [contact support](#).
+If you're experiencing issues during configuration, check our [Troubleshooting Guide](/docs/devices/general/troubleshooting-basics) or [contact support](#).
 

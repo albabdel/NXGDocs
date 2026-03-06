@@ -4,12 +4,6 @@ Welcome to the **Operator Minimal** quick reference for NXGEN GCXONE.
 
 This streamlined guide provides essential information for basic monitoring and alarm response.
 
-## Quick Access
-
-- [Live View](live-view)
-- [Alarms](alarms)
-- [Basic Controls](basic-controls)
-
 ## Essential Tasks
 
 ### Live View
@@ -27,9 +21,6 @@ This streamlined guide provides essential information for basic monitoring and a
 - Activate two-way audio
 - Trigger manual recordings
 
-## Need Help?
+## Getting Started
 
-For immediate assistance:
-- [Quick Start Guide](quick-start)
-- [Emergency Procedures](emergency-procedures)
-- [Support Hotline](support)
+For full documentation, visit the [GCXONE Documentation](/docs/getting-started/first-time-login).

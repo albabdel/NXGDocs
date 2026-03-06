@@ -142,7 +142,7 @@ export default function ManagerLandingPage() {
                                     description: 'Track certifications, training progress, and skill development across your team',
                                     features: ['Certification tracking', 'Training schedules', 'Skill gap analysis', 'Performance coaching'],
                                     icon: <Award className="w-8 h-8" />,
-                                    link: '/docs/getting-started'
+                                    link: '/getting-started'
                                 }
                             ].map((category, idx) => (
                                 <motion.div
@@ -299,7 +299,7 @@ export default function ManagerLandingPage() {
                             </p>
                             <div className="inline-flex gap-4 flex-wrap justify-center">
                                 <Link
-                                    to="/docs/troubleshooting-support/how-to-submit-a-support-ticket"
+                                    to="/docs/support/contact"
                                     className="inline-flex items-center gap-2 px-8 py-4 bg-[#E8B058] hover:bg-[#D4A047] text-black font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-[#E8B058]/25 no-underline"
                                 >
                                     <Headphones className="w-5 h-5" />

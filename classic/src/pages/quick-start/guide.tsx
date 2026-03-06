@@ -628,7 +628,7 @@ Encryption: AES-256 (optional)
 Account Format: [Your Site ID Format]`} />
                                     </div>
                                     <Link
-                                        to="/docs/integrations/GCXONE-bridge-overview"
+                                        to="/getting-started"
                                         className="block p-3 bg-[#E8B058]/10 border border-[#E8B058]/20 rounded hover:bg-[#E8B058]/20 transition-colors no-underline"
                                     >
                                         <p className="text-xs text-[#E8B058] flex items-center gap-2">
@@ -775,7 +775,7 @@ Account Format: [Your Site ID Format]`} />
                         {/* Quick Links */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             {[
-                                { title: 'Manage Users', icon: <Users className="w-5 h-5" />, link: '/docs/account-management/managing-users-and-roles', desc: 'User permissions' }
+                                { title: 'Manage Users', icon: <Users className="w-5 h-5" />, link: '/docs/getting-started/user-management/talos-user-management', desc: 'User permissions' }
                             ].map(item => (
                                 <Link
                                     key={item.title}

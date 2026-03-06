@@ -1447,7 +1447,7 @@ export default function PlatformOverview() {
                                 {
                                     title: 'Device Integration',
                                     desc: 'Connect your security devices',
-                                    link: '/docs/devices',
+                                    link: '/docs/devices/general/onboarding-overview',
                                     icon: <Camera className="w-6 h-6" />
                                 },
                                 {

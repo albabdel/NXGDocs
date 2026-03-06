@@ -51,10 +51,10 @@ Think of these lists like a **security guard at a gate**.
 
 ## Related Documentation
 
-- [False Alarm Management](/docs/alarm-management/false-alarms)
-- [Alarm Filtering](/docs/alarm-management/alarm-filtering)
+- [False Alarm Management](/docs/alarm-management/priority-whitelist-blacklist)
+- [Alarm Filtering](/docs/alarm-management/alarm-codes)
 - [Alarm Codes](/docs/alarm-management/alarm-codes)
 - [Redundant Alarms](/docs/alarm-management/redundant-alarms)
 - [Test Mode](/docs/alarm-management/test-mode)
-- [Custom Properties Overview](/docs/admin-guide/custom-properties-overview)
+- [Custom Properties Overview](/docs/getting-started/user-management/talos-user-management)
 

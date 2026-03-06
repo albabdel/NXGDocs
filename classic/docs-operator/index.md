@@ -4,14 +4,6 @@ Welcome to the **Operator** documentation for NXGEN GCXONE.
 
 As an Operator, you monitor live feeds, respond to alarms, and manage day-to-day operations.
 
-## Quick Links
-
-- [Live Monitoring](live-monitoring)
-- [Alarm Management](alarm-management)
-- [Video Playback](video-playback)
-- [Incident Response](incident-response)
-- [Device Control](device-control)
-
 ## Key Responsibilities
 
 ### Live Monitoring
@@ -34,9 +26,6 @@ As an Operator, you monitor live feeds, respond to alarms, and manage day-to-day
 - Communicate with stakeholders
 - Follow standard operating procedures
 
-## Need Help?
+## Getting Started
 
-If you need assistance, please refer to:
-- [Operator Guide](operator-guide)
-- [Quick Reference](quick-reference)
-- [Support](support)
+For full documentation, visit the [GCXONE Documentation](/docs/getting-started/first-time-login).

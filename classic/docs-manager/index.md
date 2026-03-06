@@ -4,14 +4,6 @@ Welcome to the **Manager** documentation for NXGEN GCXONE.
 
 As a Manager, you have access to team oversight, reporting, and operational monitoring features.
 
-## Quick Links
-
-- [Dashboard Overview](dashboard-overview)
-- [Team Management](team-management)
-- [Reports & Analytics](reports-analytics)
-- [Device Monitoring](device-monitoring)
-- [Performance Metrics](performance-metrics)
-
 ## Key Responsibilities
 
 ### Team Oversight
@@ -34,9 +26,6 @@ As a Manager, you have access to team oversight, reporting, and operational moni
 - Analyze incident patterns
 - Generate incident reports for stakeholders
 
-## Need Help?
+## Getting Started
 
-If you need assistance, please refer to:
-- [Manager Guide](manager-guide)
-- [Troubleshooting](troubleshooting)
-- [Support](support)
+For full documentation, visit the [GCXONE Documentation](/docs/getting-started/first-time-login).

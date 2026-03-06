@@ -40,8 +40,8 @@ Think of a redundant alarm like a **doorbell**. If a visitor presses the button 
 
 ## Related Documentation
 
-- [Alarm Filtering](/docs/alarm-management/alarm-filtering)
-- [Alarm Queue Management](/docs/alarm-management/alarm-queue)
-- [False Alarm Management](/docs/alarm-management/false-alarms)
+- [Alarm Filtering](/docs/alarm-management/alarm-codes)
+- [Alarm Queue Management](/docs/alarm-management/alarm-codes)
+- [False Alarm Management](/docs/alarm-management/priority-whitelist-blacklist)
 - [Alarm Flow](/docs/platform-fundamentals/alarm-flow)
 

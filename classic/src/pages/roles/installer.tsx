@@ -378,21 +378,21 @@ export default function InstallerLandingPage() {
                                     title: 'Common Issues',
                                     description: 'Quick fixes for frequently encountered problems',
                                     icon: <AlertTriangle className="w-6 h-6" />,
-                                    link: '/docs/troubleshooting-support/common-issues',
+                                    link: '/docs/getting-started/troubleshooting/overflow-thresholds',
                                     items: ['Device offline', 'Stream quality issues', 'Network connectivity', 'Authentication failures']
                                 },
                                 {
                                     title: 'Diagnostic Procedures',
                                     description: 'Step-by-step troubleshooting workflows',
                                     icon: <ClipboardList className="w-6 h-6" />,
-                                    link: '/docs/troubleshooting-support/common-issues',
+                                    link: '/docs/getting-started/troubleshooting/overflow-thresholds',
                                     items: ['Network testing', 'Device health checks', 'Log analysis', 'Performance monitoring']
                                 },
                                 {
                                     title: 'Support Escalation',
                                     description: 'When and how to escalate complex issues',
                                     icon: <Headphones className="w-6 h-6" />,
-                                    link: '/docs/troubleshooting-support/how-to-submit-a-support-ticket',
+                                    link: '/docs/support/contact',
                                     items: ['Remote assistance', 'Technical escalation', 'Emergency support', 'RMA procedures']
                                 }
                             ].map((section, idx) => (
@@ -446,7 +446,7 @@ export default function InstallerLandingPage() {
                             </p>
                             <div className="inline-flex gap-4 flex-wrap justify-center">
                                 <Link
-                                    to="/docs/troubleshooting-support/how-to-submit-a-support-ticket"
+                                    to="/docs/support/contact"
                                     className="inline-flex items-center gap-2 px-8 py-4 bg-[#E8B058] hover:bg-[#D4A047] text-black font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-[#E8B058]/25 no-underline"
                                 >
                                     <Headphones className="w-5 h-5" />

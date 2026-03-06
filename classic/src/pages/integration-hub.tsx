@@ -133,7 +133,7 @@ const devices: Device[] = [
     {
         name: 'Dahua NVR',
         category: 'NVR',
-        configLink: '/docs/devices/dahua/installer-configuration',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -161,7 +161,7 @@ const devices: Device[] = [
     {
         name: 'Dahua Dolync Cloud P2P Cloud VMS',
         category: 'Cloud VMS',
-        configLink: '/docs/devices/dahua/installer-configuration',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -229,7 +229,7 @@ const devices: Device[] = [
     {
         name: 'DigitalWatchdog',
         category: 'VMS',
-        configLink: '/docs/devices/digitalwatchdog/configuration',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -254,7 +254,7 @@ const devices: Device[] = [
     {
         name: 'GenesisVms',
         category: 'VMS',
-        configLink: '/docs/devices/genesisvms/configuration',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -366,7 +366,7 @@ const devices: Device[] = [
     {
         name: 'Camect AI BOX',
         category: 'AI Box',
-        configLink: '/docs/devices/camect/installer-configuration',
+        configLink: '/docs/devices/camect/supported-features',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -390,7 +390,7 @@ const devices: Device[] = [
     {
         name: 'Ganz AI BOX',
         category: 'AI Box',
-        configLink: '/docs/devices/ganz/installer-configuration',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -410,7 +410,7 @@ const devices: Device[] = [
     {
         name: 'Avigilon VMS',
         category: 'VMS',
-        configLink: '/docs/devices/avigilon/installer-configuration',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -435,7 +435,7 @@ const devices: Device[] = [
     {
         name: 'Axxon VMS',
         category: 'VMS',
-        configLink: '/docs/devices/axxon/configuration',
+        configLink: '/docs/devices/axxon/installer-configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -484,7 +484,7 @@ const devices: Device[] = [
     {
         name: 'AxisCameraStation VMS',
         category: 'VMS',
-        configLink: '/docs/devices/axiscamerastation/configuration',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -510,7 +510,7 @@ const devices: Device[] = [
     {
         name: 'Heitel NVR',
         category: 'NVR',
-        configLink: '/docs/devices/heitel/configuration',
+        configLink: '/docs/devices/heitel/installer-configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -570,7 +570,7 @@ const devices: Device[] = [
     {
         name: 'Axis IP Camera',
         category: 'IP Camera',
-        configLink: '/docs/devices/axis/configuration',
+        configLink: '/docs/devices/axis/installer-configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -592,7 +592,7 @@ const devices: Device[] = [
     {
         name: 'SenStar NVR',
         category: 'NVR',
-        configLink: '/docs/devices/senstar/overview',
+        configLink: '/docs/devices/senstar/installer-configuration',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -647,7 +647,7 @@ const devices: Device[] = [
     {
         name: 'Davantis AI BOX',
         category: 'AI Box',
-        configLink: '/docs/devices/davantis/configuration',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Genesis Audio (SIP)' },
         ],
@@ -655,7 +655,7 @@ const devices: Device[] = [
     {
         name: 'GenesisAudio SIP Twillio',
         category: 'Other',
-        configLink: '/docs/devices/genesisaudio/configuration',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Discovery' },
             { name: 'Genesis Audio (SIP)' },
@@ -674,7 +674,7 @@ const devices: Device[] = [
     {
         name: 'EFOY Router',
         category: 'Router',
-        configLink: '/docs/devices/efoy/configuration',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Discovery' },
             { name: 'Events' },
@@ -691,7 +691,7 @@ const devices: Device[] = [
     {
         name: 'AJAX PIR CAM',
         category: 'IOT',
-        configLink: '/docs/devices/ajax/overview',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Discovery' },
             { name: 'Events' },
@@ -700,7 +700,7 @@ const devices: Device[] = [
     {
         name: 'Ajax Hub/NVR',
         category: 'NVR',
-        configLink: '/docs/devices/ajax/installer-configuration',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Discovery' },
             { name: 'Events' },
@@ -712,7 +712,7 @@ const devices: Device[] = [
     {
         name: 'Essence My Sheild PIR CAM',
         category: 'IOT',
-        configLink: '/docs/devices/essence/configuration',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Events' },
             { name: 'Arm/Disarm' },
@@ -750,7 +750,7 @@ const devices: Device[] = [
     {
         name: 'Autoaid IOT',
         category: 'IOT',
-        configLink: '/docs/devices/autoaid/configuration',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Discovery' },
             { name: 'Events' },
@@ -761,7 +761,7 @@ const devices: Device[] = [
     {
         name: 'Auraigateway IOT Mining',
         category: 'IOT',
-        configLink: '/docs/devices/auraigateway/configuration',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Events' },
             { name: 'Arm/Disarm' },
@@ -791,7 +791,7 @@ const devices: Device[] = [
     {
         name: 'ENEO NVR',
         category: 'NVR',
-        configLink: '/docs/devices/eneo/configuration',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -814,7 +814,7 @@ const devices: Device[] = [
     {
         name: 'ENEOIP NVR',
         category: 'NVR',
-        configLink: '/docs/devices/eneoip/configuration',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -837,7 +837,7 @@ const devices: Device[] = [
     {
         name: 'AXIS CS Pro VMS',
         category: 'VMS',
-        configLink: '/docs/devices/axiscspro/configuration',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -864,7 +864,7 @@ const devices: Device[] = [
     {
         name: 'Geutebrück VMS',
         category: 'VMS',
-        configLink: '/docs/devices/geutebruck/configuration',
+        configLink: '/docs/devices/general/onboarding-overview',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -1276,14 +1276,14 @@ export default function IntegrationHub() {
                             </p>
                             <div className="inline-flex gap-4 flex-wrap justify-center">
                                 <Link
-                                    to="/docs/device-integration/standard-device-onboarding-process"
+                                    to="/docs/devices/general/onboarding-overview"
                                     className="inline-flex items-center gap-2 px-8 py-4 bg-[#E8B058] hover:bg-[#D4A047] text-black font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-[#E8B058]/25 no-underline"
                                 >
                                     <FileText className="w-5 h-5" />
                                     General Onboarding Guide
                                 </Link>
                                 <Link
-                                    to="/docs/troubleshooting-support/how-to-submit-a-support-ticket"
+                                    to="/docs/support/contact"
                                     className="inline-flex items-center gap-2 px-8 py-4 bg-[#202020] hover:bg-[#2a2a2a] border border-white/10 rounded-xl text-white hover:text-[#E8B058] transition-all no-underline"
                                 >
                                     <Activity className="w-5 h-5" />

@@ -56,4 +56,4 @@ If you encounter issues during configuration, please:
 
 1. Check the [troubleshooting guide](#)
 2. Review the FAQ
-3. [Contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket) for assistance
+3. [Contact support](/docs/support/contact) for assistance

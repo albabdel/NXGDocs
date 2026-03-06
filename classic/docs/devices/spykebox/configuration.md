@@ -115,7 +115,7 @@ The configuration process consists of 3 main parts:
 **Integration Notes:**
 - Use **Hikvision** protocol when adding to GCXONE (not generic ONVIF)
 - Hikvision SDK port 8000 must be accessible
-- Refer to [Hikvision documentation](/docs/devices/hikvision) for advanced feature configuration
+- Refer to [Hikvision documentation](/docs/devices/hikvision/overview) for advanced feature configuration
 
 **Compatibility**: If you've configured Hikvision NVRs before, SPYKEBOX configuration will be very familiar.
 :::
@@ -392,4 +392,4 @@ See the Troubleshooting Guide for common problems and solutions.
 
 **Need Help?**
 
-If you need assistance with SPYKEBOX NVR configuration, [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).
+If you need assistance with SPYKEBOX NVR configuration, [contact support](/docs/support/contact).

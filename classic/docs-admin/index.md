@@ -4,14 +4,6 @@ Welcome to the **Company Admin** documentation for NXGEN GCXONE.
 
 As a Company Admin, you have full access to system configuration, user management, and advanced features.
 
-## Quick Links
-
-- [Dashboard Overview](dashboard-overview)
-- [User Management](user-management)
-- [Device Configuration](device-configuration)
-- [System Settings](system-settings)
-- [Reporting & Analytics](reporting-analytics)
-
 ## Key Responsibilities
 
 ### System Configuration
@@ -34,9 +26,6 @@ As a Company Admin, you have full access to system configuration, user managemen
 - Create custom dashboards
 - Export data for analysis
 
-## Need Help?
+## Getting Started
 
-If you need assistance, please refer to:
-- [Admin Guide](admin-guide)
-- [Troubleshooting](troubleshooting)
-- [Support](support)
+For full documentation, visit the [GCXONE Documentation](/docs/getting-started/first-time-login).

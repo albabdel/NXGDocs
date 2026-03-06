@@ -329,7 +329,7 @@ See the [Troubleshooting Guide](./troubleshooting.md) for common problems and so
 - [Video Streaming Troubleshooting](./troubleshooting.md)
 - 
 - 
-- [Bandwidth Requirements](/docs/getting-started/bandwidth-requirements.md)
+- [Bandwidth Requirements](/docs/getting-started/bandwidth-requirements)
 - 
 
 ---

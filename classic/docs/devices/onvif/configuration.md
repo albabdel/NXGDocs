@@ -338,4 +338,4 @@ Check manufacturer's ONVIF conformance at: https://www.onvif.org/conformant-prod
 
 **Need Help?**
 
-If you need assistance with ONVIF IP Camera configuration, [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket). For manufacturer-specific guidance, consult the camera's user manual.
+If you need assistance with ONVIF IP Camera configuration, [contact support](/docs/support/contact). For manufacturer-specific guidance, consult the camera's user manual.

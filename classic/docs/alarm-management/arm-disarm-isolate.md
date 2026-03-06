@@ -50,9 +50,9 @@ Think of **Arming/Disarming** like a master **light switch** for your office; wh
 
 ## Related Documentation
 
-- [Alarm Queue Management](/docs/alarm-management/alarm-queue)
-- [Alarm Filtering](/docs/alarm-management/alarm-filtering)
+- [Alarm Queue Management](/docs/alarm-management/alarm-codes)
+- [Alarm Filtering](/docs/alarm-management/alarm-codes)
 - [Redundant Alarms](/docs/alarm-management/redundant-alarms)
-- [Alarm Actions & Responses](/docs/alarm-management/alarm-actions)
-- [False Alarm Management](/docs/alarm-management/false-alarms)
+- [Alarm Actions & Responses](/docs/alarm-management/arm-disarm-isolate)
+- [False Alarm Management](/docs/alarm-management/priority-whitelist-blacklist)
 

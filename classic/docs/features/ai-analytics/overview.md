@@ -204,7 +204,7 @@ AI Analytics works with alarms from:
 - AI Analytics Troubleshooting
 - 
 - 
-- [Alarm Management](/docs/alarm-management/)
+- [Alarm Management](/docs/alarm-management/alarm-codes)
 
 ## Need Help?
 

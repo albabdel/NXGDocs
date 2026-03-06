@@ -54,7 +54,7 @@ const releases: Release[] = [
             'Basic alarm management capabilities',
             'User management and role-based access control'
         ],
-        link: '/releases/sprint-2025-12-a'
+        link: '/releases'
     }
 ];
 

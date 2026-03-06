@@ -23,13 +23,13 @@ const popularPages = [
         title: 'Device Integration',
         description: 'Connect your devices to the platform',
         icon: <BookOpen className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
-        href: '/docs/device-integration/standard-device-onboarding-process',
+        href: '/docs/devices/general/onboarding-overview',
     },
     {
         title: 'Help Center',
         description: 'Get support and answers',
         icon: <HelpCircle className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
-        href: '/docs/troubleshooting-support/how-to-submit-a-support-ticket',
+        href: '/docs/support/contact',
     },
 ];
 
@@ -141,7 +141,7 @@ export default function NotFound(): React.JSX.Element {
                     >
                         If you believe this is an error, please{' '}
                         <Link
-                            to="/docs/troubleshooting-support/how-to-submit-a-support-ticket"
+                            to="/docs/support/contact"
                             className="text-primary-600 dark:text-primary-400 hover:underline"
                         >
                             contact support

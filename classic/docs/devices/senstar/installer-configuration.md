@@ -443,13 +443,13 @@ import TabItem from '@theme/TabItem';
 
 ## Related Articles
 
-- [Senstar Overview](/docs/devices/senstar/overview)
-- [Senstar Supported Features](/docs/devices/senstar/supported-features)
-- [Senstar Troubleshooting](/docs/devices/senstar/troubleshooting)
+- [Senstar Overview](/docs/devices/general/onboarding-overview)
+- [Senstar Supported Features](/docs/devices/general/onboarding-overview)
+- [Senstar Troubleshooting](/docs/devices/general/troubleshooting-basics)
 
 ---
 
 ## Need Help?
 
-If you're experiencing issues during configuration, check our [Troubleshooting Guide](/docs/devices/senstar/troubleshooting) or [contact support](#).
+If you're experiencing issues during configuration, check our [Troubleshooting Guide](/docs/devices/general/troubleshooting-basics) or [contact support](#).
 

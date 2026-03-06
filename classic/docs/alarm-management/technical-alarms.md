@@ -60,9 +60,9 @@ Think of technical alarms like the **sensors in a modern car**. An intrusion ala
 
 - [Alarm Codes](/docs/alarm-management/alarm-codes)
 - [Event Overflow](/docs/alarm-management/event-overflow)
-- [Alarm Filtering](/docs/alarm-management/alarm-filtering)
+- [Alarm Filtering](/docs/alarm-management/alarm-codes)
 - [Arm/Disarm and Isolate](/docs/alarm-management/arm-disarm-isolate)
 - [Test Mode](/docs/alarm-management/test-mode)
-- [Alarm Queue Management](/docs/alarm-management/alarm-queue)
-- [Alarm Troubleshooting](/docs/alarm-management/alarm-troubleshooting)
+- [Alarm Queue Management](/docs/alarm-management/alarm-codes)
+- [Alarm Troubleshooting](/docs/alarm-management/event-overflow)
 

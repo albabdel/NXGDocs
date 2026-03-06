@@ -92,7 +92,7 @@ export default function AdminLandingPage() {
                                     title: 'API Management',
                                     description: 'Learn about API authentication, tokens, and integration access',
                                     icon: <Lock className="w-8 h-8" />,
-                                    link: '/docs/api/index',
+                                    link: '/docs/getting-started/first-time-login',
                                     badge: 'Developer',
                                     color: '#06B6D4'
                                 }
@@ -210,7 +210,7 @@ export default function AdminLandingPage() {
                                     title: 'API Authentication',
                                     description: 'Understand API tokens and integration access',
                                     icon: <Key className="w-6 h-6" />,
-                                    link: '/docs/api/index'
+                                    link: '/docs/getting-started/first-time-login'
                                 }
                             ].map((action, idx) => (
                                 <motion.div
@@ -258,14 +258,14 @@ export default function AdminLandingPage() {
                                     title: 'Training Resources',
                                     description: 'Video tutorials and certification programs',
                                     icon: <Eye className="w-6 h-6" />,
-                                    link: '/docs/getting-started',
+                                    link: '/getting-started',
                                     items: ['Video walkthroughs', 'Best practices', 'Certification courses', 'Webinar recordings']
                                 },
                                 {
                                     title: 'Support Channels',
                                     description: 'Get help when you need it most',
                                     icon: <Headphones className="w-6 h-6" />,
-                                    link: '/docs/troubleshooting-support/how-to-submit-a-support-ticket',
+                                    link: '/docs/support/contact',
                                     items: ['24/7 technical support', 'Priority admin queue', 'Implementation assistance', 'Emergency escalation']
                                 }
                             ].map((resource, idx) => (
@@ -319,7 +319,7 @@ export default function AdminLandingPage() {
                             </p>
                             <div className="inline-flex gap-4 flex-wrap justify-center">
                                 <Link
-                                    to="/docs/troubleshooting-support/how-to-submit-a-support-ticket"
+                                    to="/docs/support/contact"
                                     className="inline-flex items-center gap-2 px-8 py-4 bg-[#E8B058] hover:bg-[#D4A047] text-black font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-[#E8B058]/25 no-underline"
                                 >
                                     <Headphones className="w-5 h-5" />

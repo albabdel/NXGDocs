@@ -137,7 +137,7 @@ For detailed step-by-step instructions with screenshots, see the [Configuration 
 - Milestone VMS Troubleshooting
 - 
 - 
-- [Standard Device Onboarding Process](/docs/device-integration/standard-device-onboarding-process)
+- [Standard Device Onboarding Process](/docs/devices/general/onboarding-overview)
 
 ## Change Log
 
@@ -147,4 +147,4 @@ For detailed step-by-step instructions with screenshots, see the [Configuration 
 
 **Need Help?**
 
-If you need assistance with Milestone VMS integration, check our Troubleshooting Guide or [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).
+If you need assistance with Milestone VMS integration, check our Troubleshooting Guide or [contact support](/docs/support/contact).

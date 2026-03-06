@@ -222,7 +222,7 @@ Event Clips integrate seamlessly with alarm processing:
 - Event Clips Troubleshooting
 - 
 - 
-- [Alarm Management](/docs/alarm-management/)
+- [Alarm Management](/docs/alarm-management/alarm-codes)
 
 ## Need Help?
 

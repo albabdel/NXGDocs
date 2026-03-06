@@ -397,4 +397,4 @@ If you encounter issues during configuration, see the Troubleshooting Guide for 
 
 **Need Help?**
 
-If you need assistance with NetVue IP Camera configuration, [contact support](/docs/troubleshooting-support/how-to-submit-a-support-ticket).
+If you need assistance with NetVue IP Camera configuration, [contact support](/docs/support/contact).

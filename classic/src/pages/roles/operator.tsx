@@ -426,7 +426,7 @@ export default function OperatorLandingPage() {
                             </p>
                             <div className="inline-flex gap-4 flex-wrap justify-center">
                                 <Link
-                                    to="/docs/troubleshooting-support/how-to-submit-a-support-ticket"
+                                    to="/docs/support/contact"
                                     className="inline-flex items-center gap-2 px-8 py-4 bg-[#E8B058] hover:bg-[#D4A047] text-black font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-[#E8B058]/25 no-underline"
                                 >
                                     <Headphones className="w-5 h-5" />

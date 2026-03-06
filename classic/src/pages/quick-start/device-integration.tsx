@@ -131,7 +131,7 @@ export default function DeviceIntegration() {
             description: 'Direct IP camera connection via ONVIF',
             duration: '10 min',
             difficulty: 'Beginner',
-            link: '/docs/devices/axis/configuration',
+            link: '/docs/devices/axis/installer-configuration',
             icon: <Camera className="w-6 h-6" />,
             steps: ['ONVIF setup', 'Stream configuration', 'Motion detection', 'Audio setup']
         },
@@ -140,7 +140,7 @@ export default function DeviceIntegration() {
             description: 'AI-powered edge analytics integration',
             duration: '20 min',
             difficulty: 'Intermediate',
-            link: '/docs/devices/camect/installer-configuration',
+            link: '/docs/devices/camect/supported-features',
             icon: <Cpu className="w-6 h-6" />,
             steps: ['API configuration', 'Event mapping', 'AI model setup', 'Alert routing']
         },
@@ -149,7 +149,7 @@ export default function DeviceIntegration() {
             description: 'Wireless sensor network integration',
             duration: '25 min',
             difficulty: 'Advanced',
-            link: '/docs/devices/ajax/installer-configuration',
+            link: '/docs/devices/general/onboarding-overview',
             icon: <Radio className="w-6 h-6" />,
             steps: ['Hub configuration', 'Device pairing', 'Zone mapping', 'Alarm integration']
         }
@@ -604,14 +604,14 @@ export default function DeviceIntegration() {
                                     Browse All Devices
                                 </Link>
                                 <Link
-                                    to="/docs/device-integration/standard-device-onboarding-process"
+                                    to="/docs/devices/general/onboarding-overview"
                                     className="inline-flex items-center gap-2 px-8 py-4 bg-[#202020] hover:bg-[#2a2a2a] border border-white/10 rounded-xl text-white hover:text-[#E8B058] transition-all no-underline"
                                 >
                                     <FileText className="w-5 h-5" />
                                     General Setup Guide
                                 </Link>
                                 <Link
-                                    to="/docs/troubleshooting-support/how-to-submit-a-support-ticket"
+                                    to="/docs/support/contact"
                                     className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all no-underline"
                                 >
                                     <Headphones className="w-5 h-5" />

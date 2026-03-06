@@ -475,7 +475,7 @@ Prepare the following information:
 
 ### How to Contact Support
 
-- Submit ticket: [How to Submit a Support Ticket](/docs/troubleshooting-support/how-to-submit-a-support-ticket)
+- Submit ticket: [How to Submit a Support Ticket](/docs/support/contact)
 - Email: support@nxgen.io (include all gathered information)
 - Phone: [Support phone number] (for urgent issues)
 
@@ -485,8 +485,8 @@ Prepare the following information:
 
 - [NXWitness Overview](./overview.md)
 - [NXWitness Configuration](./configuration.md)
-- [General Troubleshooting Guide](/docs/troubleshooting-support/general-troubleshooting)
-- [Network Diagnostics](/docs/troubleshooting-support/network-diagnostics)
+- [General Troubleshooting Guide](/docs/getting-started/troubleshooting/overflow-thresholds)
+- [Network Diagnostics](/docs/getting-started/troubleshooting/overflow-thresholds)
 
 ## Change Log
 
@@ -494,4 +494,4 @@ Prepare the following information:
 
 ---
 
-**Still need help?** [Contact GCXONE Support](/docs/troubleshooting-support/how-to-submit-a-support-ticket)
+**Still need help?** [Contact GCXONE Support](/docs/support/contact)
