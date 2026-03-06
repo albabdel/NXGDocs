@@ -709,16 +709,6 @@ html:not([data-theme='dark']) .theme-doc-sidebar-container {
   text-align: left;
 }
 
-/* PDF Export Button Integration */
-.theme-doc-markdown>.pdfButtonContainer {
-  position: sticky;
-  top: 1rem;
-  z-index: 100;
-  margin-bottom: 1.5rem;
-  margin-top: 0;
-  padding: 0;
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -838,140 +828,6 @@ html:not([data-theme='dark']) .theme-doc-sidebar-container {
   color: var(--ifm-color-content-secondary);
 }
 
-/* === FEATURE CARDS SYSTEM - Theme-Aware === */
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-  margin: 3rem 0;
-}
-
-.feature-card {
-  background: var(--card-bg);
-  border: var(--card-border);
-  border-radius: var(--ifm-card-border-radius);
-  padding: 2rem;
-  box-shadow: var(--card-shadow);
-  transition: all var(--ifm-transition-slow);
-  position: relative;
-  overflow: hidden;
-  transform: translateZ(0);
-}
-
-.feature-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--ifm-color-primary), #f3d09f);
-}
-
-.feature-card:hover {
-  transform: translateY(-4px) scale(1.02);
-  background: var(--card-bg-hover);
-  border: var(--card-border-hover);
-  box-shadow: var(--card-shadow-hover);
-}
-
-/* Light Mode Feature Cards */
-[data-theme='light'] .feature-card {
-  background: #FFFFFF;
-  border: 1px solid #E5E5E5;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-}
-
-[data-theme='light'] .feature-card:hover {
-  background: #FAFAFA;
-  border-color: var(--nxgen-gold-accessible);
-  box-shadow: 0 12px 32px rgba(153, 107, 31, 0.12), 0 4px 16px rgba(0, 0, 0, 0.08);
-}
-
-/* Dark Mode Feature Cards - IMMUTABLE */
-[data-theme='dark'] .feature-card {
-  background: #202020;
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme='dark'] .feature-card:hover {
-  background: #2a2a2a;
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.feature-link {
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  height: 100%;
-}
-
-.feature-link:hover {
-  text-decoration: none;
-  color: inherit;
-}
-
-.feature-icon {
-  width: 64px;
-  height: 64px;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--ifm-color-primary) 10%, transparent);
-  transition: all var(--ifm-transition-slow);
-  color: var(--ifm-color-primary);
-}
-
-.feature-card:hover .feature-icon {
-  background: color-mix(in srgb, var(--ifm-color-primary) 20%, transparent);
-  transform: scale(1.1);
-}
-
-.feature-icon img,
-.feature-icon svg {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-}
-
-.feature-content h3 {
-  margin: 0 0 1rem 0;
-  font-size: 1.25rem;
-  font-weight: var(--ifm-font-weight-semibold);
-  color: var(--heading-color);
-  line-height: 1.3;
-}
-
-.feature-content p {
-  margin: 0;
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
-
-/* Light Mode Feature Content */
-[data-theme='light'] .feature-content h3 {
-  color: #1A1A1A;
-}
-
-[data-theme='light'] .feature-content p {
-  color: #4B5563;
-}
-
-/* Dark Mode Feature Content - IMMUTABLE */
-[data-theme='dark'] .feature-content h3 {
-  color: #FFFFFF;
-}
-
-[data-theme='dark'] .feature-content p {
-  color: rgba(255, 255, 255, 0.7);
-}
-
 /* === CODE BLOCKS - Theme-Aware === */
 .prism-code {
   border-radius: var(--ifm-code-border-radius);
@@ -1004,6 +860,151 @@ html:not([data-theme='dark']) .theme-doc-sidebar-container {
   margin: 0 -1rem;
   padding: 0 1rem;
   border-left: 3px solid var(--ifm-color-primary);
+}
+
+/* === INLINE CODE - Theme-Aware === */
+/* Fix inline code styling in markdown, especially in tables and lists */
+.markdown code:not(pre code),
+.theme-doc-markdown code:not(pre code),
+table code,
+li code,
+ul code,
+ol code,
+p code {
+  background: var(--code-bg);
+  color: var(--ifm-code-font-color, var(--text-primary));
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: var(--ifm-font-family-monospace);
+  border: 1px solid var(--code-border);
+}
+
+/* Light Mode Inline Code */
+[data-theme='light'] .markdown code:not(pre code),
+[data-theme='light'] .theme-doc-markdown code:not(pre code),
+[data-theme='light'] table code,
+[data-theme='light'] li code,
+[data-theme='light'] ul code,
+[data-theme='light'] ol code,
+[data-theme='light'] p code {
+  background: #F5F5F7 !important;
+  color: #1A1A1A !important;
+  border-color: #E5E7EB !important;
+}
+
+/* Dark Mode Inline Code - Fix white background issue */
+[data-theme='dark'] .markdown code:not(pre code),
+[data-theme='dark'] .theme-doc-markdown code:not(pre code),
+[data-theme='dark'] table code,
+[data-theme='dark'] li code,
+[data-theme='dark'] ul code,
+[data-theme='dark'] ol code,
+[data-theme='dark'] p code {
+  background: #2A2A2A !important;
+  color: #FFFFFF !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Ensure code in table cells has proper styling */
+.markdown table td code,
+.theme-doc-markdown table td code {
+  background: var(--code-bg) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme='dark'] .markdown table td code,
+[data-theme='dark'] .theme-doc-markdown table td code {
+  background: #2A2A2A !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme='light'] .markdown table td code,
+[data-theme='light'] .theme-doc-markdown table td code {
+  background: #F5F5F7 !important;
+  color: #1A1A1A !important;
+}
+
+/* Fix code within Tabs component (used in Talos Integration section) */
+[role="tabpanel"] code,
+.tabs-container code,
+.tab-item code,
+.prose code:not(pre code),
+.prose-invert code:not(pre code) {
+  background: var(--code-bg) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme='dark'] [role="tabpanel"] code,
+[data-theme='dark'] .tabs-container code,
+[data-theme='dark'] .tab-item code,
+[data-theme='dark'] .prose code:not(pre code),
+[data-theme='dark'] .prose-invert code:not(pre code),
+.dark .prose-invert code:not(pre code) {
+  background: #2A2A2A !important;
+  color: #FFFFFF !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme='light'] [role="tabpanel"] code,
+[data-theme='light'] .tabs-container code,
+[data-theme='light'] .tab-item code,
+[data-theme='light'] .prose code:not(pre code) {
+  background: #F5F5F7 !important;
+  color: #1A1A1A !important;
+  border-color: #E5E7EB !important;
+}
+
+/* Override Tailwind prose default code styling */
+.prose code:not(pre code),
+.prose-invert code:not(pre code) {
+  padding: 0.2rem 0.4rem !important;
+  border-radius: 4px !important;
+  font-size: 0.9em !important;
+  font-family: var(--ifm-font-family-monospace) !important;
+  border: 1px solid var(--code-border) !important;
+}
+
+/* Ensure list items with code in tabs are properly styled */
+[role="tabpanel"] li code,
+.prose li code:not(pre code),
+.prose-invert li code:not(pre code) {
+  background: var(--code-bg) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme='dark'] [role="tabpanel"] li code,
+[data-theme='dark'] .prose li code:not(pre code),
+[data-theme='dark'] .prose-invert li code:not(pre code),
+.dark .prose-invert li code:not(pre code) {
+  background: #2A2A2A !important;
+  color: #FFFFFF !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme='light'] [role="tabpanel"] li code,
+[data-theme='light'] .prose li code:not(pre code) {
+  background: #F5F5F7 !important;
+  color: #1A1A1A !important;
+  border-color: #E5E7EB !important;
+}
+
+/* Universal fix for all inline code elements - catch-all rule */
+code:not(pre code) {
+  background: var(--code-bg) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme='dark'] code:not(pre code) {
+  background: #2A2A2A !important;
+  color: #FFFFFF !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme='light'] code:not(pre code) {
+  background: #F5F5F7 !important;
+  color: #1A1A1A !important;
+  border-color: #E5E7EB !important;
 }
 
 /* === BUTTONS - Theme-Aware === */
@@ -1291,34 +1292,6 @@ article.margin-bottom--lg:hover {
   background: var(--ifm-color-emphasis-500);
 }
 
-/* === LOADING STATES === */
-.loading-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 200px;
-  opacity: 0.6;
-}
-
-.loading-spinner {
-  width: 32px;
-  height: 32px;
-  border: 2px solid var(--ifm-color-emphasis-300);
-  border-top: 2px solid var(--ifm-color-primary);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 /* === PERFORMANCE OPTIMIZATIONS === */
 img {
   max-width: 100%;
@@ -1444,7 +1417,6 @@ iframe[allowfullscreen]:fullscreen {
 }
 
 /* === FOCUS STATES FOR ACCESSIBILITY === */
-.feature-link:focus-visible,
 .menu__link:focus-visible,
 .button:focus-visible {
   outline: 2px solid var(--ifm-color-primary);
@@ -1485,11 +1457,6 @@ iframe[allowfullscreen]:fullscreen {
     box-shadow: none;
     border-radius: 14px;
   }
-
-  .features-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
 }
 
 @media (max-width: 768px) {
@@ -1497,15 +1464,6 @@ iframe[allowfullscreen]:fullscreen {
   /* tablet breakpoint */
   .theme-doc-markdown {
     padding: 1.5rem 1rem;
-  }
-
-  .features-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .feature-card {
-    padding: 1.5rem;
   }
 
   .markdown h1 {
@@ -1527,21 +1485,6 @@ iframe[allowfullscreen]:fullscreen {
   .theme-doc-markdown {
     padding: 1rem 0.75rem;
   }
-
-  .feature-card {
-    padding: 1rem;
-  }
-
-  .feature-icon {
-    width: 48px;
-    height: 48px;
-  }
-
-  .feature-icon img,
-  .feature-icon svg {
-    width: 32px;
-    height: 32px;
-  }
 }
 
 /* === ACCESSIBILITY === */
@@ -1553,6 +1496,13 @@ iframe[allowfullscreen]:fullscreen {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .main-wrapper,
+  .theme-doc-markdown,
+  .back-to-top-button {
+    animation: none !important;
+    transition: none !important;
   }
 }
 
@@ -1737,15 +1687,6 @@ iframe[allowfullscreen]:fullscreen {
   background-color: rgba(232, 176, 88, 0.1);
 }
 
-/* --- Gradient text backgrounds for hero sections --- */
-.hero-gradient-bg {
-  background: transparent;
-}
-
-[data-theme='light'] .hero-gradient-bg {
-  background: linear-gradient(to bottom, rgba(248, 249, 250, 0.8), transparent);
-}
-
 /* ==========================================================================
    LIGHT MODE OVERRIDES FOR TAILWIND CLASSES USED IN LANDING PAGES
    These overrides fix hardcoded dark mode colors in React components
@@ -1859,10 +1800,6 @@ iframe[allowfullscreen]:fullscreen {
 }
 
 @media (prefers-contrast: high) {
-  .feature-card {
-    border: 2px solid var(--ifm-color-primary);
-  }
-
   .menu__link--active {
     background: color-mix(in srgb, var(--ifm-color-primary) 25%, transparent);
     color: var(--ifm-color-primary);
@@ -1888,35 +1825,10 @@ iframe[allowfullscreen]:fullscreen {
     padding: 0;
   }
 
-  .feature-card {
-    break-inside: avoid;
-    box-shadow: none;
-    border: 1px solid #ccc;
-    background: white;
-  }
-
   .prism-code {
     background: #f5f5f5 !important;
     border: 1px solid #ddd;
   }
-}
-
-/* === PAGE HEADER CONSISTENCY === */
-/* Ensure consistent header styling across all pages */
-.page-header-container {
-  min-height: 60px !important;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.page-header-container nav {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
 }
 
 /* === BREADCRUMBS - Theme-Aware === */
@@ -2014,17 +1926,6 @@ iframe[allowfullscreen]:fullscreen {
   opacity: 1;
   background: var(--ifm-color-primary-dark);
   color: #000000;
-}
-
-/* === REDUCED MOTION === */
-@media (prefers-reduced-motion: reduce) {
-  .theme-doc-markdown {
-    animation: none;
-  }
-
-  .feature-card:hover {
-    transform: none;
-  }
 }
 
 /* === PREMIUM ARTICLE CONTAINERS & NAVIGATION - Matching Landing Page === */
@@ -2490,48 +2391,6 @@ a.tag::before {
   display: none;
 }
 
-/* === WOW FACTOR ENHANCEMENTS === */
-
-/* Animated Gradient Background */
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.animated-gradient {
-  background: linear-gradient(-45deg, #E8B058, #F5C26B, #D4A047, #C09036, #E8B058);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-}
-
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  .animated-gradient {
-    animation: none;
-    background: linear-gradient(-45deg, #E8B058, #F5C26B);
-  }
-
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
 /* === VOC WIDGET STYLES (NXGEN LUXURY) === */
 
 /* Floating Action Button */
@@ -2680,10 +2539,6 @@ html {
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--nxgen-gold), transparent);
   opacity: 0.8;
-}
-
-.voc-glass {
-  /* Handled in main class now for simplicity */
 }
 
 .voc-modal-header {
@@ -3661,13 +3516,17 @@ button[class*="copyButton"][class*="copyButtonCopied"] {
   }
 }
 
-/* === REDUCED MOTION SUPPORT === */
-@media (prefers-reduced-motion: reduce) {
+/* === GRADIENT TEXT EFFECT === */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #F5D08C 0%, #C89446 60%, #A37028 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-  .main-wrapper,
-  .theme-doc-markdown,
-  .back-to-top-button {
-    animation: none !important;
-    transition: none !important;
-  }
+[data-theme='light'] .text-gradient-gold {
+  background: linear-gradient(135deg, #A37028 0%, #996B1F 60%, #7A5518 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
