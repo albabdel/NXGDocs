@@ -79,20 +79,20 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CLEN-02 | Phase 1 | Pending |
 | CLEN-03 | Phase 1 | Pending |
 | CLEN-04 | Phase 1 | Pending |
+| INTG-04 | Phase 1 | Pending |
 | CMS-01 | Phase 2 | Pending |
 | CMS-02 | Phase 2 | Pending |
 | CMS-03 | Phase 2 | Pending |
 | INTG-01 | Phase 3 | Pending |
-| INTG-02 | Phase 4 | Pending |
+| INTG-02 | Phase 3 | Pending |
 | INTG-03 | Phase 3 | Pending |
-| INTG-04 | Phase 1 | Pending |
-| MIGR-01 | Phase 5 | Pending |
-| MIGR-02 | Phase 5 | Pending |
-| MIGR-03 | Phase 5 | Pending |
-| MIGR-04 | Phase 5 | Pending |
-| MIGR-05 | Phase 5 | Pending |
-| PLSH-01 | Phase 6 | Pending |
-| PLSH-02 | Phase 6 | Pending |
+| MIGR-01 | Phase 4 | Pending |
+| MIGR-02 | Phase 4 | Pending |
+| MIGR-03 | Phase 4 | Pending |
+| MIGR-04 | Phase 4 | Pending |
+| MIGR-05 | Phase 4 | Pending |
+| PLSH-01 | Phase 5 | Pending |
+| PLSH-02 | Phase 5 | Pending |
 
 **Coverage:**
 - v1 requirements: 18 total
@@ -101,4 +101,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-03-06*
-*Last updated: 2026-03-06 after initial definition*
+*Last updated: 2026-03-06 — traceability finalized after roadmap creation*
