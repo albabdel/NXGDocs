@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 01-cleanup-03-PLAN.md
-last_updated: "2026-03-06T12:55:26.119Z"
+stopped_at: Completed 01-cleanup-06-PLAN.md
+last_updated: "2026-03-06T13:00:50.239Z"
 last_activity: 2026-03-06 — Roadmap created; 5 phases derived from 18 v1 requirements
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 6
-  completed_plans: 3
+  completed_plans: 4
   percent: 17
 ---
 
@@ -53,6 +53,7 @@ Progress: [██░░░░░░░░] 17%
 | Phase 01-cleanup P01 | 6 | 2 tasks | 35 files |
 | Phase 01-cleanup P02 | 8min | 2 tasks | 24 files |
 | Phase 01-cleanup P03 | 16min | 2 tasks | 3 files |
+| Phase 01-cleanup P06 | 3min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -73,6 +74,9 @@ Recent decisions affecting current work:
 - [Phase 01-cleanup]: Keep framer-motion: 25+ active import calls across pages/ and components/ - confirmed active library
 - [Phase 01-cleanup]: Keep nodemailer + @types/nodemailer: reserved for Plan 01-06 Cloudflare Pages Function
 - [Phase 01-cleanup]: Delete src/i18n/index.ts: orphaned module with no consumers, references now-removed packages
+- [Phase 01-cleanup]: Use ZeptoMail HTTP API (fetch) for page feedback emails: Cloudflare Workers have no TCP socket support, making nodemailer SMTP incompatible
+- [Phase 01-cleanup]: Delete classic/api/page-feedback.ts (Vercel) and netlify/functions/page-feedback.mjs: both platform-incompatible with Cloudflare Pages and now superseded by classic/functions/page-feedback.ts
+- [Phase 01-cleanup]: ZEPTO_API_KEY must be added to Cloudflare Pages env vars; SMTP_USER/SMTP_PASS no longer needed by feedback function
 
 ### Pending Todos
 
@@ -86,6 +90,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-06T12:55:26.117Z
-Stopped at: Completed 01-cleanup-03-PLAN.md
+Last session: 2026-03-06T13:00:50.236Z
+Stopped at: Completed 01-cleanup-06-PLAN.md
 Resume file: None
