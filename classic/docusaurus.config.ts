@@ -62,7 +62,7 @@ const config: Config = {
   organizationName: 'nxgen',
   projectName: 'nxgen-docs',
 
-  onBrokenLinks: 'warn',
+  onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   onBrokenAnchors: 'warn',
 
