@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: "Completed 03-integration-pipeline/03-04-PLAN.md (Task 2 deferred: smoke test requires ZEPTO_API_KEY in CF Pages prod)"
-last_updated: "2026-03-07T12:02:56.993Z"
+stopped_at: Completed 05-polish/05-03-PLAN.md — checkpoint not approved, 3 gaps documented in SUMMARY
+last_updated: "2026-03-07T21:53:25.828Z"
 last_activity: 2026-03-07 — Phase 2 (CMS Setup) complete; Studio live, schemas deployed, CF Pages env vars set
 progress:
   total_phases: 5
-  completed_phases: 3
-  total_plans: 15
-  completed_plans: 15
+  completed_phases: 4
+  total_plans: 18
+  completed_plans: 18
   percent: 100
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-06)
 
 **Core value:** Non-technical editors can open a web UI, write content, and publish it — without a developer as a bottleneck.
-**Current focus:** Phase 3 — Integration Pipeline
+**Current focus:** Phase 5 — Polish (gap-closure plans needed)
 
 ## Current Position
 
-Phase: 3 of 5 (Integration Pipeline)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-03-07 — Phase 2 (CMS Setup) complete; Studio live, schemas deployed, CF Pages env vars set
+Phase: 5 of 5 (Polish)
+Plan: 3 of 6 in current phase (3 gap-closure plans remaining: 05-04, 05-05, 05-06)
+Status: In progress — checkpoint not approved
+Last activity: 2026-03-07 — Phase 5 Plan 03 complete; Playwright suite green; human checkpoint found 3 gaps
 
 Progress: [██████████] 100%
 
@@ -61,6 +61,7 @@ Progress: [██████████] 100%
 | Phase 03-integration-pipeline P01 | 1 | 2 tasks | 5 files |
 | Phase 03-integration-pipeline P02 | 4min | 2 tasks | 4 files |
 | Phase 03-integration-pipeline P04 | 1min | 2 tasks | 0 files |
+| Phase 05-polish P03 | 21min | 1 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -99,6 +100,9 @@ Recent decisions affecting current work:
 - [Phase 03-integration-pipeline]: docusaurus-plugin-sanity-content must be first in plugins[] — Docusaurus runs loadContent() in order, so cache must be populated before plugin-content-docs reads it
 - [Phase 03-integration-pipeline]: Task 2 smoke test deferred until ZEPTO_API_KEY confirmed in CF Pages production — email delivery requires live deployment
 - [Phase 03-integration-pipeline]: netlify/ directory exists as empty untracked git dir — no function files, plan intent met
+- [Phase 05-polish]: Checkpoint not approved — 3 gaps identified: Pagefind migration (Gap 1), hero light mode design (Gap 2), general light mode contrast sweep (Gap 3)
+- [Phase 05-polish]: playwright.config.ts: admin:server webServer block removed — script not in package.json, Decap CMS not required for nav/search/visual e2e tests
+- [Phase 05-polish]: footer selector fix: toBeAttached() used instead of toBeVisible() — Docusaurus layout renders two footer elements, first is CSS-hidden
 
 ### Pending Todos
 
@@ -109,9 +113,10 @@ Recent decisions affecting current work:
 - [Pre-Phase 1]: Dead `prebuild` hook calls `fetchHygraphContent.js` — remove from `package.json` on day one before any other build attempts
 - [Pre-Phase 1]: Storyblok pages and lib must be deleted atomically — delete pages first, then components, then lib, then npm packages; partial deletion causes TypeScript module resolution errors
 - [Pre-Phase 4]: Decision required before Phase 2 schema work — whether to keep, consolidate, or remove the six role-based `@docusaurus/plugin-content-docs` instances; affects `targetAudience` field design in Sanity schema
+- [Phase 05-polish]: Phase 5 sign-off blocked — 3 gaps need gap-closure plans: 05-04 (Pagefind migration), 05-05 (hero light mode redesign), 05-06 (light mode contrast sweep #E8B058)
 
 ## Session Continuity
 
-Last session: 2026-03-07T12:02:56.990Z
-Stopped at: Completed 03-integration-pipeline/03-04-PLAN.md (Task 2 deferred: smoke test requires ZEPTO_API_KEY in CF Pages prod)
+Last session: 2026-03-07T21:53:25.821Z
+Stopped at: Completed 05-polish/05-03-PLAN.md — checkpoint not approved, 3 gaps documented in SUMMARY
 Resume file: None

@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: CMS Setup** - Create Sanity project, configure MCP server, and lock all content schemas (completed 2026-03-07)
 - [x] **Phase 3: Integration Pipeline** - Build the Docusaurus-Sanity plugin, rewrite feedback widget, and wire publish webhook (completed 2026-03-07)
 - [ ] **Phase 4: Content Migration** - Move all MDX content into Sanity section by section with zero URL breakage
-- [ ] **Phase 5: Polish** - Refine navigation, search UX, and visual consistency
+- [x] **Phase 5: Polish** - Refine navigation, search UX, and visual consistency (completed 2026-03-07)
 
 ## Phase Details
 
@@ -93,14 +93,17 @@ Plans:
 **Requirements**: PLSH-01, PLSH-02
 **Success Criteria** (what must be TRUE):
   1. A user navigating from the home page can reach any major content section in no more than two clicks — sidebar structure and top-level navigation reflect the actual content hierarchy
-  2. Algolia search returns relevant results for common user queries — search index reflects the Sanity-sourced content structure and no stale or broken entries appear in results
+  2. Pagefind search returns relevant results for common user queries — index is built at deploy time from the Docusaurus build output; no external service dependency
   3. All visual inconsistencies are resolved — font sizes, spacing, color usage, and component styling are consistent across all page types without changing the overall design direction
-**Plans**: 3 plans
+**Plans**: 6 plans (3 original + 3 gap-closure identified in 05-03 checkpoint)
 
 Plans:
-- [ ] 05-01-PLAN.md — Scaffold Playwright test specs (Wave 0); fix VoC modal light-mode invisible text; fix D4A047 link color override; resolve Footer placeholder # links
-- [ ] 05-02-PLAN.md — Replace Algolia with Pagefind: install docusaurus-pagefind, remove algolia themeConfig block, deprecate algolia-config.json and index-documentation.js; update search spec selectors
-- [ ] 05-03-PLAN.md — Human verification: confirm visual fixes in real browser (light mode), confirm footer links resolve, confirm Pagefind search returns results after Phase 4 deploy
+- [x] 05-01-PLAN.md — Scaffold Playwright test specs (Wave 0); fix VoC modal light-mode invisible text; fix D4A047 link color override; resolve Footer placeholder # links
+- [x] 05-02-PLAN.md — Algolia credential unification (App ID + indexName unified to match indexer script; contextualSearch disabled)
+- [x] 05-03-PLAN.md — Run Playwright suite (8 passed, 1 skipped); human verification checkpoint — NOT approved, 3 gaps identified
+- [ ] 05-04-PLAN.md — [GAP] Complete Pagefind migration: postbuild script, @getcanary/docusaurus-theme-search-pagefind, remove Algolia themeConfig block, update search.spec.ts selectors
+- [ ] 05-05-PLAN.md — [GAP] Hero light mode redesign: increase background.jpg opacity, reduce white overlay, accessible gold on light background
+- [ ] 05-06-PLAN.md — [GAP] Light mode contrast sweep: index.tsx + custom.css #E8B058 → accessible token for light mode; re-run human verification checkpoint
 
 ## Progress
 
@@ -113,4 +116,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. CMS Setup | 3/3 | Complete    | 2026-03-07 |
 | 3. Integration Pipeline | 4/4 | Complete   | 2026-03-07 |
 | 4. Content Migration | 0/TBD | Not started | - |
-| 5. Polish | 0/3 | Not started | - |
+| 5. Polish | 3/6 | In progress — 3 gap-closure plans needed | - |
