@@ -1,0 +1,30 @@
+{
+  "name": "nxgen-docs-studio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Sanity Studio for NXGEN Docs",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "deploy-graphql": "sanity graphql deploy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@sanity/code-input": "^7.0.11",
+    "@sanity/table": "^2.0.1",
+    "@sanity/vision": "^5.13.0",
+    "react": "^19.2.2",
+    "react-dom": "^19.2.2",
+    "sanity": "^5.13.0",
+    "styled-components": "^6.1.15"
+  },
+  "devDependencies": {
+    "@sanity/eslint-config-studio": "^4.0.0",
+    "@types/react": "^19.2.0",
+    "typescript": "5.6.3"
+  }
+}

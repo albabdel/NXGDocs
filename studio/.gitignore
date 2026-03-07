@@ -1,0 +1,17 @@
+# dependencies
+node_modules
+
+# production build
+dist
+
+# Sanity Studio deployment
+.sanity
+
+# Environment variables — NEVER commit these
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
