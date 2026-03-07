@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Phase 3 context gathered
-last_updated: "2026-03-07T07:38:54.431Z"
+stopped_at: Completed 03-integration-pipeline/03-01-PLAN.md
+last_updated: "2026-03-07T11:21:52.695Z"
 last_activity: 2026-03-07 — Phase 2 (CMS Setup) complete; Studio live, schemas deployed, CF Pages env vars set
 progress:
   total_phases: 5
   completed_phases: 2
-  total_plans: 11
-  completed_plans: 11
+  total_plans: 15
+  completed_plans: 12
   percent: 100
 ---
 
@@ -58,6 +58,7 @@ Progress: [██████████] 100%
 | Phase 01-cleanup P05 | 29 | 2 tasks | 135 files |
 | Phase 02-cms-setup P02 | 42 | 2 tasks | 6 files |
 | Phase 02-cms-setup P03 | 20min | 2 tasks | 0 files |
+| Phase 03-integration-pipeline P01 | 1 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -90,6 +91,8 @@ Recent decisions affecting current work:
 - [Phase 02-cms-setup]: Callout body uses type: 'text' not nested array: nested Portable Text inside defineArrayMember causes Studio recursion issues
 - [Phase 02-cms-setup]: Studio URL confirmed as nxgen-docs.sanity.studio — hostname was available, no alternate needed — CF Pages uses unprefixed SANITY_* vars (not SANITY_STUDIO_*) for Phase 3 plugin build-time access — two separate namespaces for two separate consumers
 - [Phase 02-cms-setup]: referencePage confirmed as Phase 3 GROQ contract via human Studio verification — Phase 3 must use _type == referencePage in all queries — Sanity reserves reference as a built-in cross-document reference type; referencePage is the actual document type name after Plan 02 rename
+- [Phase 03-integration-pipeline]: Install @sanity/client and @portabletext/markdown into classic/ (not root/studio) — plugin runs inside Docusaurus build process
+- [Phase 03-integration-pipeline]: Use test.skip for page-presence Playwright test until Plan 02 plugin is complete — Nyquist scaffold before implementation
 
 ### Pending Todos
 
@@ -103,6 +106,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-07T07:38:54.428Z
-Stopped at: Phase 3 context gathered
-Resume file: .planning/phases/03-integration-pipeline/03-CONTEXT.md
+Last session: 2026-03-07T11:21:52.693Z
+Stopped at: Completed 03-integration-pipeline/03-01-PLAN.md
+Resume file: None
