@@ -1,38 +1,14 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-import nodemailer from 'nodemailer';
+// classic/functions/voc-feedback.ts
+// Cloudflare Pages Function — Web Standards API only (no Node.js require, no nodemailer)
+// Docs: https://developers.cloudflare.com/pages/functions/api-reference/
+//
+// Replaces the old classic/api/feedback.ts (Vercel Edge Function w/ nodemailer).
+// Uses the ZeptoMail HTTP API via fetch() — Cloudflare Workers have no TCP sockets,
+// so nodemailer SMTP cannot be used here.
 
-// ZeptoMail SMTP Configuration
-const SMTP_USER = process.env.SMTP_USER;
-const SMTP_PASS = process.env.SMTP_PASS;
-
-if (!SMTP_USER || !SMTP_PASS) {
-  throw new Error(
-    'SMTP_USER and SMTP_PASS environment variables are required. ' +
-    'Please set them in your Netlify environment variables.'
-  );
+interface Env {
+  ZEPTO_API_KEY: string;
 }
-
-const mailConfig = {
-  host: 'smtp.zeptomail.eu',
-  port: 587,
-  user: SMTP_USER,
-  pass: SMTP_PASS,
-  secure: false,
-  from: 'noreply@nxgen.io',
-};
-
-const recipientEmail = 'abed.badarnah@nxgen.io';
-
-// Create transporter
-const transporter = nodemailer.createTransport({
-  host: mailConfig.host,
-  port: mailConfig.port,
-  secure: mailConfig.secure,
-  auth: {
-    user: mailConfig.user,
-    pass: mailConfig.pass,
-  },
-});
 
 interface FeedbackPayload {
   type: 'feature' | 'bug' | 'integration';
@@ -64,17 +40,17 @@ interface FeedbackPayload {
     viewport: string;
     timestamp: string;
   };
-  attachment?: string; // Base64 image
+  attachment?: string; // Base64 image (may include data:image/png;base64, prefix)
 }
 
 function formatEmailBody(payload: FeedbackPayload): string {
   const isFeature = payload.type === 'feature';
   const isIntegration = payload.type === 'integration';
   const typeLabel = isFeature ? 'Feature Request' : isIntegration ? 'Integration Request' : 'Bug Report';
-  
+
   let body = `
     <h2>New ${typeLabel} Submitted</h2>
-    
+
     <h3>Basic Information</h3>
     <table style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
       <tr>
@@ -166,7 +142,7 @@ function formatEmailBody(payload: FeedbackPayload): string {
         ` : ''}
       </table>
     `;
-    
+
     if (payload.supporting_documents && payload.supporting_documents.length > 0) {
       body += `
         <h3>Supporting Documents</h3>
@@ -245,79 +221,114 @@ function formatEmailBody(payload: FeedbackPayload): string {
   if (payload.attachment) {
     body += `
       <h3>Attachment</h3>
-      <p>An image attachment is included in this feedback.</p>
-      <img src="${payload.attachment}" alt="Feedback attachment" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 10px; margin-top: 10px;" />
+      <p>An image attachment is included in this feedback (see attached file).</p>
     `;
   }
 
   return body;
 }
 
-export default async function handler(
-  req: VercelRequest,
-  res: VercelResponse
-) {
-  // Only allow POST requests
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+export const onRequestPost: PagesFunction<Env> = async (context) => {
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json',
+  };
 
   try {
-    const payload: FeedbackPayload = req.body;
+    const payload = await context.request.json() as FeedbackPayload;
 
     // Validate required fields
     if (!payload.title || !payload.type) {
-      return res.status(400).json({ error: 'Missing required fields' });
+      return new Response(JSON.stringify({ error: 'Missing required fields: title and type are required' }), {
+        status: 400,
+        headers: corsHeaders,
+      });
     }
 
-    // Prepare email
-    const typeLabel = payload.type === 'feature' ? 'Feature Request' : payload.type === 'integration' ? 'Integration Request' : 'Bug Report';
+    if (!['feature', 'bug', 'integration'].includes(payload.type)) {
+      return new Response(JSON.stringify({ error: 'Invalid feedback type. Must be feature, bug, or integration' }), {
+        status: 400,
+        headers: corsHeaders,
+      });
+    }
+
+    const typeLabel = payload.type === 'feature'
+      ? 'Feature Request'
+      : payload.type === 'integration'
+        ? 'Integration Request'
+        : 'Bug Report';
+
     const subject = `[${typeLabel}] ${payload.title}`;
     const htmlBody = formatEmailBody(payload);
 
-    // Prepare attachments
-    const attachments = [];
+    // Build ZeptoMail attachments array
+    // ZeptoMail HTTP API accepts: { "attachments": [{ "name": "...", "content": "<base64>" }] }
+    // Strip the data URI prefix (e.g. "data:image/png;base64,") before sending.
+    const attachments: Array<{ name: string; content: string }> = [];
+
     if (payload.attachment) {
-      attachments.push({
-        filename: 'feedback-attachment.png',
-        content: payload.attachment.split(',')[1], // Remove data:image/png;base64, prefix
-        encoding: 'base64',
-      });
+      const base64Data = payload.attachment.includes(',')
+        ? payload.attachment.split(',')[1]
+        : payload.attachment;
+      attachments.push({ name: 'feedback-attachment.png', content: base64Data });
     }
-    
-    // Add supporting documents for integration requests
+
     if (payload.supporting_documents && payload.supporting_documents.length > 0) {
-      payload.supporting_documents.forEach((doc) => {
+      for (const doc of payload.supporting_documents) {
         const base64Data = doc.data.includes(',') ? doc.data.split(',')[1] : doc.data;
-        attachments.push({
-          filename: doc.name,
-          content: base64Data,
-          encoding: 'base64',
-        });
-      });
+        attachments.push({ name: doc.name, content: base64Data });
+      }
     }
 
-    // Send email
-    const info = await transporter.sendMail({
-      from: mailConfig.from,
-      to: recipientEmail,
-      subject: subject,
-      html: htmlBody,
-      attachments: attachments,
+    // ZeptoMail HTTP API — fetch() is globally available in Cloudflare Workers
+    // Do NOT use nodemailer — Workers have no TCP sockets
+    const emailPayload: Record<string, unknown> = {
+      from: { address: 'noreply@nxgen.io' },
+      to: [{ email_address: { address: 'abed.badarnah@nxgen.io' } }],
+      subject,
+      htmlbody: htmlBody,
+    };
+
+    if (attachments.length > 0) {
+      emailPayload.attachments = attachments;
+    }
+
+    const emailResponse = await fetch('https://api.zeptomail.eu/v1.1/email', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Zoho-enczapikey ${context.env.ZEPTO_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(emailPayload),
     });
 
-    console.log('Email sent successfully:', info.messageId);
+    if (!emailResponse.ok) {
+      const errorText = await emailResponse.text();
+      console.error('ZeptoMail error:', emailResponse.status, errorText);
+      throw new Error(`ZeptoMail API error: ${emailResponse.status}`);
+    }
 
-    return res.status(200).json({
-      success: true,
-      messageId: info.messageId,
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: corsHeaders,
     });
-  } catch (error: any) {
-    console.error('Error sending email:', error);
-    return res.status(500).json({
-      error: 'Failed to send email',
-      message: error.message,
+  } catch (error) {
+    console.error('voc-feedback function error:', error);
+    return new Response(JSON.stringify({ error: 'Failed to send feedback' }), {
+      status: 500,
+      headers: corsHeaders,
     });
   }
-}
+};
 
+// CORS preflight handler
+export const onRequestOptions: PagesFunction = async () => {
+  return new Response(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+  });
+};

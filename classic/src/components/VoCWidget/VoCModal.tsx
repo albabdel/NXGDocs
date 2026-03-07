@@ -196,9 +196,9 @@ export default function VoCModal({ onClose, currentPath }: VoCModalProps) {
         };
 
         try {
-            // Use admin server in development, relative path in production (Vercel serverless)
+            // Use admin server in development, Cloudflare Pages Function in production
             const isDevelopment = typeof window !== 'undefined' && window.location.hostname === 'localhost';
-            const apiUrl = isDevelopment ? 'http://localhost:3001/api/feedback' : '/api/feedback';
+            const apiUrl = isDevelopment ? 'http://localhost:3001/api/feedback' : '/functions/voc-feedback';
 
             const response = await fetch(apiUrl, {
                 method: 'POST',
