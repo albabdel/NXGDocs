@@ -100,6 +100,10 @@ async function run() {
       rows.splice(1, 0, '| ' + Array(cols).fill('---').join(' | ') + ' |');
       return rows.join('\n') + '\n';
     }
+    if (t === 'rawHtml') {
+      // Passthrough — written verbatim into the .md file
+      return block.html ? block.html + '\n' : '';
+    }
     return ''; // silently drop unknown custom types
   }
 

@@ -110,5 +110,30 @@ export const bodyField = defineField({
     }),
     // Table (via @sanity/table — cells are plain strings, not Portable Text)
     defineArrayMember({type: 'table'}),
+    // Raw HTML / MDX passthrough — content is written verbatim into the rendered page.
+    // Use for: Docusaurus <Tabs>, <details>, custom HTML, or any markup not
+    // expressible as standard Portable Text blocks.
+    // On the live site this renders as raw HTML inside the markdown file.
+    defineArrayMember({
+      type: 'object',
+      name: 'rawHtml',
+      title: 'Raw HTML / MDX',
+      fields: [
+        {
+          name: 'html',
+          type: 'text',
+          title: 'HTML / MDX',
+          description:
+            'Paste raw HTML or Docusaurus MDX markup. Rendered verbatim on the live site.',
+          rows: 10,
+        },
+      ],
+      preview: {
+        select: {html: 'html'},
+        prepare({html}: {html?: string}) {
+          return {title: `[HTML] ${html?.slice(0, 80) ?? ''}`}
+        },
+      },
+    }),
   ],
 })
