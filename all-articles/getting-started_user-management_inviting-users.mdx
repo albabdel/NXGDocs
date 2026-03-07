@@ -1,0 +1,127 @@
+---
+title: "Inviting Users"
+description: "Step-by-step tutorial to onboarding new team members and managing multi-tenant access."
+tags:
+  - role:admin
+  - category:tutorial
+  - difficulty:beginner
+  - platform:GCXONE
+sidebar_position: 5
+last_updated: 2025-12-28
+---
+
+import Callout from '@site/src/components/Callout';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+# Inviting Users to GCXONE
+
+Onboarding new team members is handled through an automated email workflow. This ensures that every user securely verifies their identity and sets their own private credentials.
+
+---
+
+## Step 1: Navigate to Users
+
+1. Open the **Settings**
+2. Click on the **Users**
+3. Click **Invite new user** to start adding a new user
+
+---
+
+## Step 2: Enter User Information
+
+Fill in the required fields:
+
+**Personal Information:**
+- **First Name**
+- **Last Name**
+- **Email Address** (required - serves as login ID and must be unique)
+- **Phone Number** (optional - for SMS alerts)
+
+**Address Information** (optional):
+- Street Name
+- Building Number
+- Zip Code
+- City
+- Country
+
+---
+
+## Step 3: Configure Account Settings
+
+**Role Assignment:**
+- Select the role that defines what this user can access (e.g., "End User", "Admin", "Operator", etc.)
+- Each role determines which features and actions the user can access
+
+**Customer Group** (optional):
+- If you want to restrict this user to specific customer(s), select a Customer Group
+- If no Customer Group is selected, the user will have the default access defined in their role
+
+**Session Timeout:**
+- Set the session timeout period (default: 30 minutes)
+- Range: 30-1440 minutes (0.5-24 hours)
+
+---
+
+## Step 4: Send Invitation
+
+Click **Submit**. The user will receive two automated emails:
+
+1. **Email Confirmation**: Verifies the email is active.
+2. **Password Setup Link**: Allows the user to create their secure password.
+
+---
+
+## What Happens Next?
+
+Once you click **Submit**, the user will receive two emails. The account setup process works as follows:
+
+1. The user receives an email titled "Changing your password for the nxgen NXGEN application".
+2. They click the password reset link in the email.
+3. They create a new password for their account.
+4. Upon first login, they are directed to the appropriate section based on their role:
+   - If Dashboard is enabled in their role, they land on Dashboard.
+   - If Dashboard is not enabled, they land on the first accessible section (e.g., Configuration).
+
+---
+
+## Multi-Organization Access
+
+Users invited to multiple tenants use the same email address. Upon login, they are prompted to select which organization to access. They can switch between tenants anytime via **Settings** and **Switch Tenant**.
+
+- **Single Identity**: They only need one password.
+- **Tenant Selection**: Upon login, they will be prompted to choose which organization they want to access for that session.
+- **Switching**: They can switch between tenants anytime via **Settings** and **Switch Tenant**.
+
+---
+
+## Troubleshooting
+
+<Callout type="warning" title="Invitation Links Expire">
+For security, the password setup link expires after **24 hours**. If a user misses this window, you must **Resend Invitation** from the Users table.
+</Callout>
+
+- **Email Not Received**: Ask the user to check their Spam/Junk folder for mail from `@nxgen.cloud`.
+- **Login Issues**: Ensure the user clicked the **Verification Link** in the first email before attempting to use the password setup link.
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "Roles and Access Levels",
+    description: "Choosing the right scope for a new user."
+  },
+  {
+    title: "Customer Groups",
+    description: "Restricting client visibility."
+  },
+  {
+    title: "Managing Users",
+    description: "Editing or removing active user accounts."
+  }
+]} />
+
+---
+
+**Next:** 

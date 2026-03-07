@@ -1,0 +1,100 @@
+---
+title: "Senstar Integration"
+description: "How to configure Senstar Symphony Server for perimeter security monitoring and encoded RTSP streaming in GCXONE."
+tags:
+  - role:admin
+  - category:tutorial
+  - difficulty:advanced
+  - platform:senstar
+sidebar_position: 12
+last_updated: 2025-12-28
+---
+
+# 🛡️ Senstar Integration
+
+**Senstar Symphony** provides advanced perimeter security solutions. Integrating Senstar with GCXONE requires a specialized **Password Encoder** for RTSP streams and the activation of **Event Polling** to ensure a consistent flow of alerts from the Symphony Server.
+
+import Callout from '@site/src/components/Callout';
+import Steps from '@site/src/components/Steps';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## 📋 Prerequisites
+
+- **Senstar Symphony Server:** Installed and operational on a local server.
+- **Universal Proxy URL:** `https://universalproxy.nxgen.cloud/` (Used for cloud handshake).
+- **Admin Access:** To the Symphony Server configuration portal.
+
+---
+
+## 🚦 Device Profile
+
+| Feature | Requirement | Notes |
+| :--- | :--- | :--- |
+| **Auth Type** | Encoded | RTSP passwords must be pre-hashed using the Senstar utility. |
+| **Event Sync** | Polling | GCXONE polls the server every **10 seconds** for new alerts. |
+| **Proxy** | Mandatory | Requires `SenStar_Device_Custom_baseUrl` global property. |
+| **Live View** | RTSP | Requires the encoded password in the "Streaming Key" field. |
+
+---
+
+## 🛠️ Configuration Steps
+
+<Steps>
+
+### 1. Global Proxy Configuration
+GCXONE uses a universal proxy to communicate with Senstar clusters.
+1. Log in to **GCXONE** → **Service Provider Overview**.
+2. Click **Edit** → **Additional Settings** → **Custom Property**.
+3. Add a new String property:
+   - **Name:** `SenStar_Device_Custom_baseUrl`
+   - **Value:** `https://universalproxy.nxgen.cloud/`
+
+### 2. Generate Encoded Streaming Password
+Senstar does not accept plain-text passwords for RTSP. You must use the local utility:
+1. On the Senstar Server, navigate to: `C:\Program Files\Senstar\Symphony Server V7\_Tools\`.
+2. Run **PasswordEncoder.exe**.
+3. Enter your device password and copy the resulting hash.
+4. <Callout type="important">Save this hash; you will paste it into the "Streaming Key" field in the next step.</Callout>
+
+### 3. Symphony Rule Creation
+Alarms will NOT flow to GCXONE unless a Rule is active in Symphony.
+1. Open the **Symphony Client** and navigate to **Server Configuration** → **Rules**.
+2. Create a new Rule (e.g., "Perimeter Intrusion").
+3. Associate an **Event** (Video Analytic) with an **Action Set**.
+4. Ensure the rule is **Enabled** and scheduled.
+
+### 4. Final Discovery in GCXONE
+1. Log in to **GCXONE** → **Sites** → **Devices**.
+2. Click **Add Device** and select **Senstar**.
+3. **HTTP Port:** Default is **5000**.
+4. **Streaming Key:** Paste the **Encoded Password** from Step 2.
+5. **Event Polling:** Toggle this **ON** to enable the 10-second alert refresh.
+6. Click **Discover**.
+
+</Steps>
+
+---
+
+## 💡 Troubleshooting
+
+- **Live View Black Screen:** Verify the RTSP stream works in VLC first. If VLC fails, the encoded password may be for a different user or the RTSP port is blocked.
+- **Rules Not Triggering:** Check the Senstar Symphony logs. If the event is triggered but the rule doesn't fire, verify the "Action Set" is correctly linked.
+- **Empty Sensor List:** Ensure the **SenStar_Device_Custom_baseUrl** is set correctly at the Service Provider level. Discovery will fail without this proxy routing.
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "VMS Integration Overview",
+    url: "/docs/platform-fundamentals/monitoring/vms-service",
+    description: "Architectural overview of server-based VMS links."
+  },
+  {
+    title: "Required Ports",
+    description: "Default ports for Symphony (5000) and RTSP (554)."
+  }
+]} />

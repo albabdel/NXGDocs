@@ -2,13 +2,11 @@ import React, { useState, useMemo } from 'react';
 import Layout from '@theme/Layout';
 import { motion } from 'framer-motion';
 import Link from '@docusaurus/Link';
+import GradientText from '@site/src/components/GradientText';
 import {
     Users,
     Shield,
     UserPlus,
-    Key,
-    Lock,
-    Unlock,
     Settings,
     Search,
     Filter,
@@ -17,26 +15,17 @@ import {
     Home,
     UserCheck,
     UserCog,
-    UsersIcon,
     ShieldCheck,
-    ShieldAlert,
     Building2,
-    MapPin,
-    Layers,
-    Eye,
-    EyeOff,
-    Clock,
-    Mail,
     CheckCircle2,
     AlertTriangle,
     FileText,
-    BarChart3,
     Activity,
-    Zap,
-    Target,
     Crown,
     User,
-    Briefcase
+    Briefcase,
+    BookOpen,
+    ArrowRight
 } from 'lucide-react';
 
 // User Management Feature Data
@@ -50,52 +39,59 @@ type UserFeature = {
 };
 
 const userFeatures: UserFeature[] = [
-    // Permissions & Security
+    // Role Management
     {
-        title: 'Password Policies',
-        description: 'Enforce strong password requirements including complexity rules, expiration policies, and password history tracking.',
-        category: 'Permissions & Security',
-        icon: <Lock className="w-6 h-6" />,
+        title: 'Roles and Access Levels',
+        description: 'Understanding default roles, permission scopes, and the three-tier access level hierarchy (Service Provider, Customer, Site).',
+        category: 'Role Management',
+        link: '/docs/getting-started/user-management/roles-and-access-levels',
+        icon: <ShieldCheck className="w-6 h-6" />,
         level: 'basic'
     },
     {
-        title: 'Two-Factor Authentication (2FA)',
-        description: 'Optional 2FA enforcement for enhanced account security with support for authenticator apps and SMS verification.',
-        category: 'Permissions & Security',
-        icon: <ShieldAlert className="w-6 h-6" />,
-        level: 'advanced'
-    },
-    {
-        title: 'Single Sign-On (SSO)',
-        description: 'Enterprise SSO integration with SAML 2.0 and OAuth 2.0 for seamless authentication across corporate identity providers.',
-        category: 'Permissions & Security',
-        icon: <Key className="w-6 h-6" />,
-        level: 'advanced'
+        title: 'Creating and Configuring Roles',
+        description: 'Step-by-step guide to creating custom roles, configuring privileges, setting access levels, and managing session timeouts.',
+        category: 'Role Management',
+        link: '/docs/getting-started/user-management/creating-roles',
+        icon: <Shield className="w-6 h-6" />,
+        level: 'intermediate'
     },
 
-    // Monitoring & Audit
+    // User Administration
     {
-        title: 'User Activity Logging',
-        description: 'Complete audit trail of user actions including logins, configuration changes, alarm actions, and data access for compliance.',
-        category: 'Monitoring & Audit',
-        link: '#',
+        title: 'Inviting Users',
+        description: 'Complete workflow for onboarding new team members, configuring account settings, and managing multi-organization access.',
+        category: 'User Administration',
+        link: '/docs/getting-started/user-management/inviting-users',
+        icon: <UserPlus className="w-6 h-6" />,
+        level: 'basic'
+    },
+    {
+        title: 'Managing Users',
+        description: 'How to edit user roles, update Customer Groups, manage account status, and handle user lifecycle changes.',
+        category: 'User Administration',
+        link: '/docs/getting-started/user-management/managing-users',
+        icon: <UserCog className="w-6 h-6" />,
+        level: 'basic'
+    },
+
+    // Customer Groups
+    {
+        title: 'Customer Groups',
+        description: 'Segregate client data, manage regional access, and separate production from test environments using Customer Groups.',
+        category: 'Customer Groups',
+        link: '/docs/getting-started/user-management/customer-groups',
+        icon: <Building2 className="w-6 h-6" />,
+        level: 'intermediate'
+    },
+
+    // Operator Management
+    {
+        title: 'Talos User Management',
+        description: 'Configure operator behaviors, alarm groups, and workflow-specific roles in the Talos alarm processing interface.',
+        category: 'Operator Management',
+        link: '/docs/getting-started/user-management/talos-user-management',
         icon: <Activity className="w-6 h-6" />,
-        level: 'advanced'
-    },
-    {
-        title: 'User Analytics',
-        description: 'Dashboard analytics showing user login patterns, feature usage, session duration, and role distribution metrics.',
-        category: 'Monitoring & Audit',
-        link: '#',
-        icon: <BarChart3 className="w-6 h-6" />,
-        level: 'advanced'
-    },
-    {
-        title: 'Access Reports',
-        description: 'Generate detailed reports on user access patterns, permission changes, and role assignments for security audits.',
-        category: 'Monitoring & Audit',
-        link: '#',
-        icon: <FileText className="w-6 h-6" />,
         level: 'intermediate'
     },
 ];
@@ -142,9 +138,7 @@ const categories = [
     { name: 'Role Management', icon: <ShieldCheck className="w-5 h-5" />, count: userFeatures.filter(f => f.category === 'Role Management').length },
     { name: 'User Administration', icon: <UserPlus className="w-5 h-5" />, count: userFeatures.filter(f => f.category === 'User Administration').length },
     { name: 'Customer Groups', icon: <Building2 className="w-5 h-5" />, count: userFeatures.filter(f => f.category === 'Customer Groups').length },
-    { name: 'Permissions & Security', icon: <Lock className="w-5 h-5" />, count: userFeatures.filter(f => f.category === 'Permissions & Security').length },
     { name: 'Operator Management', icon: <UserCog className="w-5 h-5" />, count: userFeatures.filter(f => f.category === 'Operator Management').length },
-    { name: 'Monitoring & Audit', icon: <Activity className="w-5 h-5" />, count: userFeatures.filter(f => f.category === 'Monitoring & Audit').length },
 ];
 
 // Level badges
@@ -184,10 +178,17 @@ export default function UserManagementHub() {
                 backgroundColor: 'var(--ifm-background-color)',
                 borderColor: 'var(--ifm-color-emphasis-200)'
             }}>
-                <div className="absolute inset-0 opacity-5" style={{
+                {/* Very subtle dot pattern - matching theme */}
+                <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.03]" style={{
                     backgroundImage: 'radial-gradient(circle at 2px 2px, var(--ifm-color-emphasis-300) 1px, transparent 0)',
                     backgroundSize: '32px 32px'
                 }} />
+                
+                {/* Very subtle radial gradient overlay - matching theme */}
+                <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.03]" style={{
+                    background: 'radial-gradient(ellipse at top, rgba(200, 148, 70, 0.03) 0%, transparent 70%)'
+                }} />
+                
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pb-24">
                     {/* Breadcrumb */}
                     <nav className="flex items-center gap-2 text-sm mb-8" style={{ color: 'var(--ifm-color-content-secondary)' }}>
@@ -205,23 +206,35 @@ export default function UserManagementHub() {
                         transition={{ duration: 0.5 }}
                         className="text-center"
                     >
-                        <div className="flex justify-center mb-6">
-                            <div className="p-4 rounded-2xl" style={{
-                                backgroundColor: 'var(--ifm-color-emphasis-100)',
-                                border: '1px solid var(--ifm-color-emphasis-200)'
-                            }}>
-                                <Users className="w-16 h-16 text-[#E8B058]" />
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6" style={{ color: 'var(--ifm-color-content)' }}>
+                            User <GradientText>Management</GradientText>
+                        </h1>
+                        <p className="text-xl sm:text-2xl mb-8 max-w-3xl mx-auto" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                            Complete guide to roles, permissions, access control, and user administration in GCXONE
+                        </p>
+                        <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700 max-w-3xl mx-auto shadow-lg">
+                            <p className="text-base mb-4" style={{ color: 'var(--ifm-color-content)' }}>
+                                Learn how to configure role-based access control (RBAC), create custom roles, manage customer groups, and onboard team members with proper permissions.
+                            </p>
+                            <div className="flex flex-wrap justify-center gap-4 text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                                <div className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-4 h-4 text-green-500" />
+                                    <span>Role-Based Access Control</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-4 h-4 text-green-500" />
+                                    <span>Customer Groups</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-4 h-4 text-green-500" />
+                                    <span>User Administration</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-4 h-4 text-green-500" />
+                                    <span>Talos Integration</span>
+                                </div>
                             </div>
                         </div>
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6" style={{ color: 'var(--ifm-color-content)' }}>
-                            User Management
-                        </h1>
-                        <p className="text-xl sm:text-2xl mb-8 max-w-3xl mx-auto text-[#E8B058]">
-                            Role-based access control and permissions
-                        </p>
-                        <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                            Comprehensive RBAC system with custom roles, granular permissions, customer groups, and multi-organization access for enterprise security.
-                        </p>
                     </motion.div>
                 </div>
             </div>
@@ -235,10 +248,10 @@ export default function UserManagementHub() {
                     className="grid grid-cols-1 md:grid-cols-4 gap-6"
                 >
                     {[
-                        { icon: <Users className="w-6 h-6" />, label: 'Total Features', value: userFeatures.length },
-                        { icon: <ShieldCheck className="w-6 h-6" />, label: 'Role Features', value: userFeatures.filter(f => f.category === 'Role Management').length },
-                        { icon: <UserPlus className="w-6 h-6" />, label: 'Admin Features', value: userFeatures.filter(f => f.category === 'User Administration').length },
-                        { icon: <Lock className="w-6 h-6" />, label: 'Security Features', value: userFeatures.filter(f => f.category === 'Permissions & Security').length },
+                        { icon: <BookOpen className="w-6 h-6" />, label: 'Total Articles', value: userFeatures.length },
+                        { icon: <ShieldCheck className="w-6 h-6" />, label: 'Role Management', value: userFeatures.filter(f => f.category === 'Role Management').length },
+                        { icon: <UserPlus className="w-6 h-6" />, label: 'User Administration', value: userFeatures.filter(f => f.category === 'User Administration').length },
+                        { icon: <Building2 className="w-6 h-6" />, label: 'Customer Groups', value: userFeatures.filter(f => f.category === 'Customer Groups').length },
                     ].map((stat, index) => (
                         <div key={index} className="rounded-xl shadow-lg p-6" style={{
                             backgroundColor: 'var(--ifm-background-surface-color)',
@@ -376,8 +389,7 @@ export default function UserManagementHub() {
                             <button
                                 key={index}
                                 onClick={() => setSelectedCategory(category.name)}
-                                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${selectedCategory === category.name
-                                        ? 'shadow-md' : ''}
+                                className="flex items-center gap-2 px-4 py-2 rounded-lg transition-all"
                                 style={selectedCategory === category.name ? {
                                     backgroundColor: '#E8B058',
                                     color: '#000',
@@ -397,9 +409,6 @@ export default function UserManagementHub() {
                                         e.currentTarget.style.borderColor = 'var(--ifm-color-emphasis-200)';
                                     }
                                 }}
-                                style={{'
-                                        : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-500'
-                                    }`}
                             >
                                 {category.icon}
                                 <span className="font-medium">{category.name}</span>
@@ -429,7 +438,7 @@ export default function UserManagementHub() {
                             transition={{ duration: 0.3, delay: index * 0.05 }}
                         >
                             <Link
-                                to={feature.link}
+                                to={feature.link || '#'}
                                 className="block h-full rounded-xl shadow-md hover:shadow-xl transition-all group no-underline"
                                 style={{
                                     backgroundColor: 'var(--ifm-background-surface-color)',
@@ -463,8 +472,8 @@ export default function UserManagementHub() {
                                         {feature.description}
                                     </p>
                                     <div className="flex items-center text-sm font-medium" style={{ color: '#E8B058' }}>
-                                        Learn more
-                                        <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                                        Read article
+                                        <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                                     </div>
                                 </div>
                             </Link>
@@ -497,7 +506,7 @@ export default function UserManagementHub() {
                     </div>
                 )}
 
-                {/* Quick Links Section */}
+                {/* Quick Start Resources Section */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -513,6 +522,24 @@ export default function UserManagementHub() {
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {[
+                            {
+                                title: 'User Management Overview',
+                                description: 'Complete guide to user management, roles, permissions, and access control in GCXONE.',
+                                link: '/docs/getting-started/user-management/overview',
+                                icon: <BookOpen className="w-6 h-6" />
+                            },
+                            {
+                                title: 'Creating Your First Role',
+                                description: 'Step-by-step tutorial to create custom roles with specific permissions and access levels.',
+                                link: '/docs/getting-started/user-management/creating-roles',
+                                icon: <Shield className="w-6 h-6" />
+                            },
+                            {
+                                title: 'Inviting Your First User',
+                                description: 'Learn how to onboard new team members and configure their access permissions.',
+                                link: '/docs/getting-started/user-management/inviting-users',
+                                icon: <UserPlus className="w-6 h-6" />
+                            },
                         ].map((resource, index) => (
                             <Link
                                 key={index}
@@ -535,13 +562,112 @@ export default function UserManagementHub() {
                                 }}>
                                     {resource.icon}
                                 </div>
-                                <div>
-                                    <h3 className="font-semibold mb-1 transition-colors" style={{ color: 'var(--ifm-color-content)' }}>
+                                <div className="flex-1">
+                                    <h3 className="font-semibold mb-1 transition-colors group-hover:text-[#E8B058]" style={{ color: 'var(--ifm-color-content)' }}>
                                         {resource.title}
                                     </h3>
-                                    <p className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                                    <p className="text-sm mb-2" style={{ color: 'var(--ifm-color-content-secondary)' }}>
                                         {resource.description}
                                     </p>
+                                    <div className="flex items-center text-sm font-medium" style={{ color: '#E8B058' }}>
+                                        Read article
+                                        <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </motion.div>
+
+                {/* All Articles Section */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.9 }}
+                    className="mt-16"
+                >
+                    <h2 className="text-2xl font-bold mb-6" style={{ color: 'var(--ifm-color-content)' }}>
+                        All User Management Articles
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {[
+                            {
+                                title: 'User Management Overview',
+                                description: 'Complete guide to user management, roles, permissions, and access control in GCXONE and Talos.',
+                                link: '/docs/getting-started/user-management/overview',
+                                category: 'Getting Started'
+                            },
+                            {
+                                title: 'Roles and Access Levels',
+                                description: 'Detailed breakdown of default roles, permission scopes, and access levels in GCXONE.',
+                                link: '/docs/getting-started/user-management/roles-and-access-levels',
+                                category: 'Role Management'
+                            },
+                            {
+                                title: 'Creating and Configuring Roles',
+                                description: 'Complete guide to creating custom roles, configuring permissions, and managing roles in GCXONE.',
+                                link: '/docs/getting-started/user-management/creating-roles',
+                                category: 'Role Management'
+                            },
+                            {
+                                title: 'Customer Groups',
+                                description: 'How to use Customer Groups to segregate client data and manage regional access levels.',
+                                link: '/docs/getting-started/user-management/customer-groups',
+                                category: 'Customer Groups'
+                            },
+                            {
+                                title: 'Inviting Users',
+                                description: 'Step-by-step tutorial to onboarding new team members and managing multi-tenant access.',
+                                link: '/docs/getting-started/user-management/inviting-users',
+                                category: 'User Administration'
+                            },
+                            {
+                                title: 'Managing Users',
+                                description: 'How to edit user roles, update Customer Groups, and manage account status.',
+                                link: '/docs/getting-started/user-management/managing-users',
+                                category: 'User Administration'
+                            },
+                            {
+                                title: 'Talos User Management',
+                                description: 'How to configure operator behaviors, alarm groups, and workflow-specific roles in the Talos ecosystem.',
+                                link: '/docs/getting-started/user-management/talos-user-management',
+                                category: 'Operator Management'
+                            },
+                        ].map((article, index) => (
+                            <Link
+                                key={index}
+                                to={article.link}
+                                className="flex items-start gap-4 p-5 rounded-lg hover:shadow-md transition-all group no-underline"
+                                style={{
+                                    backgroundColor: 'var(--ifm-background-surface-color)',
+                                    border: '1px solid var(--ifm-color-emphasis-200)'
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.borderColor = '#E8B058';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.borderColor = 'var(--ifm-color-emphasis-200)';
+                                }}
+                            >
+                                <div className="flex-1">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <span className="text-xs font-semibold px-2 py-1 rounded" style={{
+                                            backgroundColor: 'rgba(232, 176, 88, 0.1)',
+                                            color: '#E8B058'
+                                        }}>
+                                            {article.category}
+                                        </span>
+                                    </div>
+                                    <h3 className="font-semibold mb-2 transition-colors group-hover:text-[#E8B058]" style={{ color: 'var(--ifm-color-content)' }}>
+                                        {article.title}
+                                    </h3>
+                                    <p className="text-sm mb-3" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                                        {article.description}
+                                    </p>
+                                    <div className="flex items-center text-sm font-medium" style={{ color: '#E8B058' }}>
+                                        Read article
+                                        <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                                    </div>
                                 </div>
                             </Link>
                         ))}

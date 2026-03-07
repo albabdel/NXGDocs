@@ -1,0 +1,91 @@
+---
+title: "Alarm Overflow"
+description: "Diagnosing and resolving blocked alarms due to high-volume overflow thresholds."
+tags:
+  - role:admin
+  - category:troubleshooting
+  - difficulty:advanced
+  - platform:talos
+sidebar_position: 4
+last_updated: 2025-12-28
+---
+
+# 🛡️ Alarm Overflow Protection
+
+To maintain platform stability, the system automatically suppresses signals when a device "floods" the cloud with too many events in a short window. This is a defensive measure to prevent a single faulty camera from slowing down response times for all other sites.
+
+import Callout from '@site/src/components/Callout';
+import Tabs from '@site/src/components/Tabs';
+import TabItem from '@site/src/components/Tabs/TabItem';
+import Steps from '@site/src/components/Steps';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## 🚦 Understanding Local vs. Site Thresholds
+
+Blocking occurs at two distinct layers:
+
+<Tabs defaultValue="genesis">
+  <TabItem value="genesis" label="🤖 Genesis Layer (Device)">
+    **Threshold:** 25 alarms per individual camera.  
+    **Window:** 5 minutes.  
+    **Effect:** Only the specific camera is blocked. Other cameras at the site remain active.
+  </TabItem>
+  <TabItem value="talos" label="🏢 Talos Layer (Site)">
+    **Threshold:** 25 alarms across the *entire site*.  
+    **Window:** 5 minutes.  
+    **Effect:** The entire site is suspended in the operator buffer. Look for the code `Alarm limit exceeded` in Talos logs.
+  </TabItem>
+</Tabs>
+
+---
+
+## 🛠️ Step-by-Step Recovery
+
+<Steps>
+
+### 1. Confirm the Block
+Navigate to the Genesis **Device Dashboard**. Filter for "Analytic" or "Motion" events. If you see a cluster of red markers or the message `Event Overflow`, the device is currently suppressed.
+
+### 2. Identify the Trigger
+Review the 5 minutes preceding the block. Are there shadows, spiders, or tree branches triggering constant motion? Basic **Motion Detection** is the #1 cause of overflow blocks.
+
+### 3. Switch to IVS (Recommended)
+Disable basic motion and enable **Intelligent Video System (IVS)** rules like:
+- **Intrusion Zones:** Only trigger if a person/vehicle enters a box.
+- **Line Crossing:** Only trigger if an object crosses a specific boundary.
+- **Human/Vehicle Filtering:** Genesis-side AI that discards non-human movement before it reaches the operator.
+
+### 4. Adjust Redundancy Timers
+If the device is sending duplicates, set the **Redundancy Timer** to 60 seconds. This prevents the system from counting the same event three times in a row.
+
+</Steps>
+
+---
+
+## 💡 Prevention Checklist
+
+- [ ] **Disable Motion:** Never use "Standard Motion" for critical outdoor areas.
+- [ ] **Use Schedules:** Arm the analytic rules only during active monitoring hours.
+- [ ] **Sensitivity Tuning:** Lower the threshold for "Minimum Duration" (e.g., must see an object for 2 seconds before alarming).
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "Time Sync Errors",
+    url: "/docs/getting-started/talos/time-sync-errors",
+    description: "Aligning timestamps across platforms."
+  },
+  {
+    title: "GCXONE & Talos Interaction",
+    description: "How event metadata is passed."
+  }
+]} />
+
+---
+
+**Next:** [Browser Cookie & Access Errors](/docs/getting-started/talos/browser-errors)

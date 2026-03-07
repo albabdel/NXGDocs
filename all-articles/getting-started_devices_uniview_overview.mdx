@@ -1,0 +1,96 @@
+---
+title: "Uniview Integration"
+description: "How to configure Uniview cameras and NVRs for ONVIF-based streaming and alarm reporting in GCXONE."
+tags:
+  - role:admin
+  - category:tutorial
+  - difficulty:intermediate
+  - platform:uniview
+sidebar_position: 14
+last_updated: 2025-12-28
+---
+
+# 📹 Uniview Integration
+
+**Uniview (UNV)** devices provide professional-grade video surveillance with a strong focus on **ONVIF** compatibility. This guide walks you through the essential network and time synchronization steps required to receive reliable alarms in GCXONE.
+
+import Callout from '@site/src/components/Callout';
+import Steps from '@site/src/components/Steps';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## 📋 Prerequisites
+
+- **Uniview IP Camera/NVR:** Powered on and reachable via its web interface.
+- **ONVIF Service:** Enabled in the device security settings.
+- **NTP Server:** Reachable by the device (e.g., `time1.nxgen.cloud`).
+
+---
+
+## 🚦 Device Profile
+
+| Feature | Support Level | Notes |
+| :--- | :--- | :--- |
+| **Protocol** | ONVIF / RTSP | Optimized for cross-VMS communication. |
+| **Sync** | NTP Mandatory | Required for correct event sequencing. |
+| **Alarms** | ✅ Supported | Smart events and I/O triggers. |
+| **Discovery** | Automatic | Pulls channel names and sensors via ONVIF. |
+
+---
+
+## 🛠️ Configuration Steps
+
+<Steps>
+
+### 1. Network Initialization
+Navigate to **Setup → Network → Network**.
+- Assign a **Static IP** to the device to prevent connection drops during router reboots.
+- Verify the DNS settings are correct (e.g., `8.8.8.8`) to ensure the device can reach the GCXONE cloud.
+
+![Uniview Network Setup](./images/Uniview%201.png)
+
+### 2. Time Synchronization (NTP)
+Navigate to **Setup → System → Time**.
+- Select the correct **Time Zone**.
+- Enable **NTP** and enter `time1.nxgen.cloud` or `pool.ntp.org`.
+- <Callout type="warning">Uniview devices with drifting clocks will fail to trigger alarms in GCXONE Video Activity, as the platform may interpret the signals as historical data.</Callout>
+
+### 3. Alarm Reporting
+Navigate to **Setup → Alarm → Motion Detection** (or **Smart Analytics**).
+1. Define your detection area.
+2. Under the **Action** or **Trigger Actions** tab, ensure that "Send to Management Platform" or "Log Report" is enabled.
+3. This flag forces the device to push a metadata signal during an event.
+
+### 4. Final Discovery in GCXONE
+1. Log in to **GCXONE** → **Sites** → **Devices**.
+2. Click **Add Device** and select **Uniview** or **ONVIF**.
+3. Enter the IP/Host and the credentials.
+4. Click **Discover**. GCXONE will map the Uniview alarm channels to virtual sensors automatically.
+
+</Steps>
+
+---
+
+## 💡 Troubleshooting
+
+- **"Device Offline" in GCXONE:** Check if you can reach the device via **HTTPS (443)** or **HTTP (80)**. Verify that port forwarding is correctly configured if the site uses a NAT router.
+- **Discovery Fails:** Ensure the **ONVIF** user is created separately if your firmware requires it. Some Uniview models need an "ONVIF specific" password that differs from the primary admin login.
+- **Laggy Live Stream:** Switch the GCXONE viewer to the **Sub-stream**. You can adjust the sub-stream bitrate in Uniview under **Setup → Video → Compression**.
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "ONVIF Protocol Overview",
+    url: "/docs/platform-fundamentals/protocols/onvif",
+    description: "Industry standards for IP camera communication."
+  },
+  {
+    title: "VLS Performance Tuning",
+    url: "/docs/platform-fundamentals/performance/vls-optimization",
+    description: "Optimizing high-bitrate Uniview streams."
+  }
+]} />

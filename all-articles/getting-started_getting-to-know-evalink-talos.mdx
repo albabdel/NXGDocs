@@ -1,0 +1,114 @@
+---
+title: "Getting to Know Talos"
+description: "A deep dive into the Talos interface, site management, and organizational hierarchy."
+tags:
+  - role:all
+  - category:tutorial
+  - difficulty:beginner
+  - platform:GCXONE
+sidebar_position: 15
+last_updated: 2025-12-28
+---
+
+# 🧭 Getting to Know Talos
+
+**Evalink Talos** is the primary interface where operators handle alarms and managers organize their customer base. This guide walks you through the core navigation and management concepts.
+
+import Callout from '@site/src/components/Callout';
+import Steps from '@site/src/components/Steps';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## 🏗️ Architecture & Reliability
+
+Talos is built on a **Cloud-Native Microservices** architecture. This means every feature—from alarm processing to site management—runs as an independent service on Amazon Web Services (AWS).
+
+- **Global Redundancy:** Servers are distributed across America, Europe, and Asia.
+- **Fail-Safe Processing:** If a specific microservice encounters an issue, the rest of the platform continues to operate without interruption.
+- **Silent Updates:** Security patches and feature releases are deployed remotely. When a major change occurs, you will see a prompt to **Reload Page** to apply the update immediately.
+
+---
+
+## 🖥️ Navigating the Dashboard
+
+When you log in, you are greeted with the **Main Dashboard**, providing a high-level overview of your security health.
+
+- **Alarm Queue:** Real-time view of incoming alerts.
+- **My Assigned Alarms:** Specifically tracks incidents currently under your review.
+- **What's New?** Click your **Profile Icon** → **What's New** to see the latest feature releases and security patches.
+
+---
+
+## 🏢 Understanding "Sites"
+
+In Talos, a **Site** is any entity that can generate an alarm. This could be a building, a specific floor, or even a personal panic button.
+
+<Callout type="info" title="Site Statuses">
+- **🟢 Active:** Fully operational. Alarms are processed and recorded.
+- **🔴 Inactive:** No alarms are accepted. These sites do **not** count toward your billing.
+- **🧪 Test Mode:** Used during maintenance. You can ignore motion alerts while keeping fire alarms active.
+</Callout>
+
+---
+
+## 📂 Organizing Your Workspace
+
+As your organization grows, use Talos's grouping features to keep your data structured:
+
+1. **Organizational Units:** The highest level (e.g., "North American Division").
+2. **Site Groups:** Regional or functional clusters (e.g., "Benelux Supermarkets").
+3. **Service Companies:** Link external technicians or guard services to specific sites for automated task routing.
+
+---
+
+## 🛠️ Step-by-Step: Creating a Site
+
+<Steps>
+
+### 1. Initiation
+On the **Sites** page, click **Create Site**.
+
+### 2. ID Selection
+- **Manual:** Type a descriptive name (e.g., "London HQ").
+- **Auto-Generated:** Click **Sequence** to have Talos provide a unique numeric ID (useful for large deployments).
+
+### 3. Settings & Address
+Scroll to the **Address** pane to enter the physical location. Ensure this exact address is used for .
+
+### 4. Custom Fields
+Add domain-specific data like "License Plate Number" or "Site Manager Cell" to use in automated workflows later.
+
+</Steps>
+
+---
+
+## 🔌 Virtual Devices & Connections
+
+The **Virtual Devices** tab lists all "receivers" or connection points in the Talos cloud.
+
+- **Green Icon:** Healthy connection.
+- **Red Icon:** Disconnected hardware.
+- **Dual Path (DP):** High-security devices using both Ethernet and Mobile/Cellular backups.
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "What is Evalink Talos?",
+    description: "Introductory platform overview."
+  },
+  {
+    title: "GCXONE & Talos Interaction",
+    description: "How site data synchronizes."
+  },
+  {
+    title: "Quick Start Checklist",
+    description: "Establishing your first live site."
+  }
+]} />
+
+---
+

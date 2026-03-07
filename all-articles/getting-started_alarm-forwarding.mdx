@@ -1,0 +1,107 @@
+---
+title: "Alarm Forwarding"
+description: "How to configure GCXONE to route alarm events to Primary, Traditional, or Technological monitoring backends."
+tags:
+  - role:admin
+  - category:how-to
+  - difficulty:intermediate
+  - platform:GCXONE
+sidebar_position: 17
+last_updated: 2025-12-28
+---
+
+# 🛰️ Alarm Forwarding Configuration
+
+GCXONE provides a modular pipeline for receiving, enriching, and forwarding alarms to any monitoring backend. This guide explains how to configure the three categories of alarm forwarders.
+
+import Callout from '@site/src/components/Callout';
+import Tabs from '@site/src/components/Tabs';
+import TabItem from '@site/src/components/Tabs/TabItem';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## 🏗️ Architecture Overview
+
+GCXONE is the "Field Intelligence Layer." It processes raw device signals (AI verification, health checks) and then forwards the enriched event to your Monitoring Station (CMS).
+
+<Callout type="info">
+**Multi-Forwarding:** You can enable multiple forwarders simultaneously (e.g., Talos for operators + Webhook for a custom dashboard + Email for the site manager).
+</Callout>
+
+---
+
+## 📋 Forwarder Categories
+
+<Tabs defaultValue="primary">
+  <TabItem value="primary" label="1. Primary CMS">
+    **Native API integration.** Tight coupling for bi-directional sync of sites, health, and video clips.
+    - **Current Support:** **Evalink Talos.**
+    - **Use Case:** When you want a seamless experience where operators never leave the CMS interface.
+  </TabItem>
+  <TabItem value="traditional" label="2. Traditional CMS">
+    **Protocol-based forwarding.** Connects to legacy or industry-standard receivers using DC-09 or proprietary SDKs.
+    - **Current Support:** IMMIX, ATS, Sur-Gard, AmWin, LISA.
+    - **Use Case:** When maintaining an existing monitoring infrastructure during a cloud migration.
+  </TabItem>
+  <TabItem value="tech" label="3. Technological">
+    **Custom API routing.** Flexibly route data to modern platforms using web technologies.
+    - **Current Support:** Webhooks, MQTT, Email, File Transfer.
+    - **Use Case:** For developers building custom dashboards or reporting tools.
+  </TabItem>
+</Tabs>
+
+---
+
+## ⚙️ How to Configure
+
+### 1. Webhook Forwarder (Custom Apps)
+1. Go to **Settings** → **Forwarders** → **Technological**.
+2. Enter your **Endpoint URL**.
+3. Select the **HTTP Method** (Standard is POST).
+4. Add any required **Auth Headers** (API Keys or Bearer Tokens).
+
+### 2. Primary CMS (Talos)
+1. Go to **Settings** → **Forwarders** → **Primary CMS**.
+2. Toggle **Evalink Talos** to ON.
+3. Authenticate with your Talos API credentials.
+4. Enable **Site Auto-Sync** to ensure new GCXONE sites are instantly created in Talos.
+
+---
+
+## 🚀 Common Use Cases
+
+### The "Migration" Strategy
+If you are moving from a legacy system (like AmWin) to the cloud (Talos):
+1. Enable the **AmWin** (Traditional) forwarder initially.
+2. Enable the **Talos** (Primary) forwarder in parallel.
+3. Gradually move sites to Talos and eventually disable the AmWin forwarder.
+
+### The "Tech-Forward" Strategy
+For developers building a custom mobile app for field guards:
+1. Enable the **MQTT** or **Webhook** forwarder.
+2. Filter the events to only forward "Verified Human Detected" signals to the custom app.
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "What is Evalink Talos?",
+    description: "Overview of the primary alarm engine."
+  },
+  {
+    title: "GCXONE & Talos Interaction",
+    description: "Deep dive into the sync logic."
+  },
+  {
+    title: "Webhooks Reference",
+    url: "/docs/api/webhooks",
+    description: "Technical payload specifications."
+  }
+]} />
+
+---
+
+**Next:** [Developer Tools & API Integration](/docs/api/overview)

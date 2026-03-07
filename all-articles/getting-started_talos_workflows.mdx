@@ -1,0 +1,104 @@
+---
+title: "Talos Workflows"
+description: "Step-by-step tutorial to creating automated alarm processing scenarios and navigating the operator buffer."
+tags:
+  - role:operator
+  - category:tutorial
+  - difficulty:intermediate
+  - platform:talos
+sidebar_position: 1
+last_updated: 2025-12-28
+---
+
+# ⚙️ Talos Workflows & Alarms
+
+Workflows are the "brain" of Talos. They define exactly how an incoming alarm should be handled—whether it's automatically closing a test signal or guiding an operator through a high-priority burglary response.
+
+import Callout from '@site/src/components/Callout';
+import Tabs from '@site/src/components/Tabs';
+import TabItem from '@site/src/components/Tabs/TabItem';
+import Steps from '@site/src/components/Steps';
+import RelatedArticles from '@site/src/components/RelatedArticles';
+
+---
+
+## 🏗️ How Workflows Lifecycle Works
+
+An alarm is always processed for a specific site. Talos searches for a matching workflow in this priority order:
+1. **Site Level** (Most specific)
+2. **Site Group**
+3. **Global/Company Level** (Default fallback)
+
+---
+
+## 🛠️ Step-by-Step: Creating a Workflow
+
+<Steps>
+
+### 1. Define Incoming Conditions
+Set the "Triggers" that activate the workflow:
+- **Alarm Code:** (e.g., `BA` for Burglary).
+- **Schedule:** (e.g., Only run during "After Hours").
+- **Logic:** Use **"All of"** (AND) for strict matching or **"One of"** (OR) for broad categories.
+
+### 2. Add Decision Nodes
+Ask the system (or the operator) a question:
+- **Automated Check:** Is the site currently armed?
+- **Manual Check:** Does the video show a human presence?
+
+### 3. Configure Actions
+What should happen next?
+- **Notifications:** Send an automated SMS or Email.
+- **Commands:** Trigger a siren or lock a door.
+- **Escalation:** Move the alarm to the priority operator queue.
+
+### 4. Close and Log
+Every workflow must end with a **Closing Status** (e.g., "False Alarm," "Police Dispatched"). This ensures cleaner reporting and audit trails.
+
+</Steps>
+
+---
+
+## 📋 The Operator Alarms Page
+
+The **Alarms** page is the central cockpit for monitoring staff.
+
+<Tabs defaultValue="buffer">
+  <TabItem value="buffer" label="📥 Alarm Buffer">
+    Located on the **Left Side**. This list shows all unassigned alarms that have arrived but haven't been picked up by an operator yet.
+  </TabItem>
+  <TabItem value="view" label="👥 Operator View">
+    Located on the **Right Side**. Displays columns for each online operator, showing their current active workload and status (Online/Offline).
+  </TabItem>
+  <TabItem value="tools" label="🛠️ Interaction Tools">
+    - **Bell Icon:** Trigger a manual test alarm to verify your workflow logic.
+    - **Phone Icon:** Manually start a "Call Workflow" when a customer calls the monitoring center directly.
+  </TabItem>
+</Tabs>
+
+---
+
+## 💡 Pro-Tip: Automated vs. Manual
+
+<Callout type="tip" title="Start with Automation">
+Use **Automated Workflows** for technical signals (like low battery). If the battery level doesn't restore after 2 hours, configure the workflow to "Jump" to a **Manual Workflow** for human intervention.
+</Callout>
+
+---
+
+## Related Articles
+
+<RelatedArticles articles={[
+  {
+    title: "Understanding Workflows",
+    description: "The link between GCXONE users and Talos roles."
+  },
+  {
+    title: "Site Management",
+    description: "Configuring the targets for your workflows."
+  }
+]} />
+
+---
+
+**Next:** 
