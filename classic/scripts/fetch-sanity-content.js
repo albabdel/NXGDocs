@@ -203,6 +203,7 @@ async function run() {
             const subDir = AUDIENCE_DIR_MAP[audience];
             if (!subDir) continue;
             const filePath = path.join(CACHE_ROOT, subDir, `${slug}.mdx`);
+            fs.mkdirSync(path.dirname(filePath), { recursive: true });
             fs.writeFileSync(filePath, content, 'utf8');
             console.log(`[sanity-content] Wrote doc → ${subDir}/${slug}.mdx`);
           }
@@ -210,6 +211,7 @@ async function run() {
           const frontmatter = buildGenericFrontmatter(doc);
           const content = frontmatter + (bodyMd ? '\n\n' + bodyMd : '');
           const filePath = path.join(CACHE_ROOT, 'docs', `${slug}.mdx`);
+          fs.mkdirSync(path.dirname(filePath), { recursive: true });
           fs.writeFileSync(filePath, content, 'utf8');
           console.log(`[sanity-content] Wrote ${type} → docs/${slug}.mdx`);
         }
