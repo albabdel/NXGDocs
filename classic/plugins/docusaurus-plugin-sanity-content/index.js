@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const { createClient } = require('@sanity/client');
 const { portableTextToMarkdown } = require('@portabletext/markdown');
-const imageUrlBuilder = require('@sanity/image-url');
+const { createImageUrlBuilder } = require('@sanity/image-url');
 
 // Audience → cache subdirectory mapping (LOCKED decision from Phase 2)
 const AUDIENCE_DIR_MAP = {
@@ -49,7 +49,7 @@ const QUERY_REFERENCE_PAGES = `*[_type == "referencePage" && defined(slug.curren
  * @returns {object} components object for portableTextToMarkdown
  */
 function buildComponents(client) {
-  const builder = imageUrlBuilder(client);
+  const builder = createImageUrlBuilder(client);
 
   return {
     types: {
@@ -177,154 +177,22 @@ function buildReferencePageFrontmatter(doc) {
 }
 
 module.exports = function (context, options) {
+  // Create cache dirs synchronously in the factory — plugin-content-docs validates
+  // path existence during its own factory call (parallel with ours via Promise.all),
+  // so directories must exist before we return the plugin object.
+  const cacheRoot = path.join(context.siteDir, '.sanity-cache');
+  for (const dir of ALL_CACHE_DIRS) {
+    fs.mkdirSync(path.join(cacheRoot, dir), { recursive: true });
+  }
+
   return {
     name: 'docusaurus-plugin-sanity-content',
 
     async loadContent() {
-      // 1. Validate required env vars
-      const projectId = process.env.SANITY_PROJECT_ID;
-      const apiToken = process.env.SANITY_API_TOKEN;
-
-      if (!projectId) {
-        throw new Error(
-          '[sanity-content] Missing required env var: SANITY_PROJECT_ID\n' +
-            'Set SANITY_PROJECT_ID to your Sanity project ID before running the build.'
-        );
-      }
-      if (!apiToken) {
-        throw new Error(
-          '[sanity-content] Missing required env var: SANITY_API_TOKEN\n' +
-            'Set SANITY_API_TOKEN to a Sanity read token before running the build.'
-        );
-      }
-
-      const dataset = process.env.SANITY_DATASET || 'production';
-      const cacheRoot = path.join(context.siteDir, '.sanity-cache');
-
-      // 2. Create all 6 cache subdirectories up front
-      for (const dir of ALL_CACHE_DIRS) {
-        fs.mkdirSync(path.join(cacheRoot, dir), { recursive: true });
-      }
-      console.log(`[sanity-content] Cache directories created at ${cacheRoot}`);
-
-      // 3. Create Sanity client
-      const client = createClient({
-        projectId,
-        dataset,
-        apiVersion: '2025-02-06',
-        useCdn: false,
-        token: apiToken,
-      });
-
-      const components = buildComponents(client);
-
-      // 4. Fetch docs
-      console.log('[sanity-content] Fetching doc documents...');
-      let docs;
-      try {
-        docs = await client.fetch(QUERY_DOCS);
-      } catch (err) {
-        throw new Error(`[sanity-content] Failed to fetch docs: ${err.message}`);
-      }
-      console.log(`[sanity-content] Fetched ${docs.length} doc(s)`);
-
-      for (const doc of docs) {
-        try {
-          const slug = doc.slug.current;
-          const frontmatter = buildDocFrontmatter(doc);
-          const bodyMd = serializeBody(doc.body, components);
-          const content = frontmatter + (bodyMd ? '\n' + bodyMd : '');
-
-          // Apply audience → directory mapping; default to ['all']
-          const audiences =
-            Array.isArray(doc.targetAudience) && doc.targetAudience.length > 0
-              ? doc.targetAudience
-              : ['all'];
-
-          for (const audience of audiences) {
-            const subDir = AUDIENCE_DIR_MAP[audience] || 'docs';
-            const filePath = path.join(cacheRoot, subDir, `${slug}.mdx`);
-            fs.writeFileSync(filePath, content, 'utf8');
-            console.log(`[sanity-content] Wrote doc → ${subDir}/${slug}.mdx (audience: ${audience})`);
-          }
-        } catch (err) {
-          console.warn(`[sanity-content] Warning: Failed to process doc "${doc?.slug?.current}": ${err.message}`);
-        }
-      }
-
-      // 5. Fetch release notes
-      console.log('[sanity-content] Fetching releaseNote documents...');
-      let releaseNotes;
-      try {
-        releaseNotes = await client.fetch(QUERY_RELEASE_NOTES);
-      } catch (err) {
-        throw new Error(`[sanity-content] Failed to fetch releaseNotes: ${err.message}`);
-      }
-      console.log(`[sanity-content] Fetched ${releaseNotes.length} releaseNote(s)`);
-
-      for (const doc of releaseNotes) {
-        try {
-          const slug = doc.slug.current;
-          const frontmatter = buildReleaseNoteFrontmatter(doc);
-          const bodyMd = serializeBody(doc.body, components);
-          const content = frontmatter + (bodyMd ? '\n' + bodyMd : '');
-          const filePath = path.join(cacheRoot, 'docs', `${slug}.mdx`);
-          fs.writeFileSync(filePath, content, 'utf8');
-          console.log(`[sanity-content] Wrote releaseNote → docs/${slug}.mdx`);
-        } catch (err) {
-          console.warn(`[sanity-content] Warning: Failed to process releaseNote "${doc?.slug?.current}": ${err.message}`);
-        }
-      }
-
-      // 6. Fetch articles
-      console.log('[sanity-content] Fetching article documents...');
-      let articles;
-      try {
-        articles = await client.fetch(QUERY_ARTICLES);
-      } catch (err) {
-        throw new Error(`[sanity-content] Failed to fetch articles: ${err.message}`);
-      }
-      console.log(`[sanity-content] Fetched ${articles.length} article(s)`);
-
-      for (const doc of articles) {
-        try {
-          const slug = doc.slug.current;
-          const frontmatter = buildArticleFrontmatter(doc);
-          const bodyMd = serializeBody(doc.body, components);
-          const content = frontmatter + (bodyMd ? '\n' + bodyMd : '');
-          const filePath = path.join(cacheRoot, 'docs', `${slug}.mdx`);
-          fs.writeFileSync(filePath, content, 'utf8');
-          console.log(`[sanity-content] Wrote article → docs/${slug}.mdx`);
-        } catch (err) {
-          console.warn(`[sanity-content] Warning: Failed to process article "${doc?.slug?.current}": ${err.message}`);
-        }
-      }
-
-      // 7. Fetch reference pages
-      console.log('[sanity-content] Fetching referencePage documents...');
-      let referencePages;
-      try {
-        referencePages = await client.fetch(QUERY_REFERENCE_PAGES);
-      } catch (err) {
-        throw new Error(`[sanity-content] Failed to fetch referencePages: ${err.message}`);
-      }
-      console.log(`[sanity-content] Fetched ${referencePages.length} referencePage(s)`);
-
-      for (const doc of referencePages) {
-        try {
-          const slug = doc.slug.current;
-          const frontmatter = buildReferencePageFrontmatter(doc);
-          const bodyMd = serializeBody(doc.body, components);
-          const content = frontmatter + (bodyMd ? '\n' + bodyMd : '');
-          const filePath = path.join(cacheRoot, 'docs', `${slug}.mdx`);
-          fs.writeFileSync(filePath, content, 'utf8');
-          console.log(`[sanity-content] Wrote referencePage → docs/${slug}.mdx`);
-        } catch (err) {
-          console.warn(`[sanity-content] Warning: Failed to process referencePage "${doc?.slug?.current}": ${err.message}`);
-        }
-      }
-
-      console.log('[sanity-content] Done — all content written to .sanity-cache/');
+      // Content is written by scripts/fetch-sanity-content.js (run as a pre-build step
+      // in build-with-memory.js) so that plugin-content-docs finds files at init time.
+      // This loadContent is a no-op — its only role is satisfying the plugin lifecycle.
+      return null;
 
       // Return null — files on disk are the deliverable
       return null;
