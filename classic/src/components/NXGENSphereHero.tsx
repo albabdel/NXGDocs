@@ -150,12 +150,12 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-opacity duration-500"
         style={{
           backgroundImage: 'url("/img/Background.jpg")',
-          opacity: isDark ? 0.8 : 0.15,
+          opacity: isDark ? 0.8 : 0.40,
           filter: isDark ? 'none' : 'sepia(20%) saturate(120%)'
         }}
       >
         {/* Adaptive Overlay for Text Readability */}
-        <div className={`absolute inset-0 transition-colors duration-500 ${isDark ? 'bg-black/40 backdrop-blur-sm' : 'bg-gradient-to-b from-white/40 via-transparent to-white/60'}`} />
+        <div className={`absolute inset-0 transition-colors duration-500 ${isDark ? 'bg-black/40 backdrop-blur-sm' : 'bg-gradient-to-b from-white/10 via-transparent to-white/25'}`} />
       </div>
 
       {/* Light Mode: Decorative geometric shapes */}
