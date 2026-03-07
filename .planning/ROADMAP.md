@@ -12,7 +12,7 @@ The project starts by excising five previous failed CMS integrations from the co
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [x] **Phase 1: Cleanup** - Remove all dead CMS code, consolidate CSS, and stabilize the build (completed 2026-03-07)
+- [x] **Phase 1: Cleanup** - Remove all dead CMS code, consolidate CSS, and stabilize the build (completed 2026-03-07)
 - [ ] **Phase 2: CMS Setup** - Create Sanity project, configure MCP server, and lock all content schemas
 - [ ] **Phase 3: Integration Pipeline** - Build the Docusaurus-Sanity plugin, rewrite feedback widget, and wire publish webhook
 - [ ] **Phase 4: Content Migration** - Move all MDX content into Sanity section by section with zero URL breakage
@@ -52,7 +52,12 @@ Plans:
   2. Sanity Studio is accessible at a public `*.sanity.studio` URL and an editor can log in and see all four document types (doc, releaseNote, article, reference)
   3. A test document can be created in Studio for each content type, saved as a draft, and published — all fields validate correctly and slugs follow the existing `/docs/...` URL pattern
   4. Environment variables `SANITY_PROJECT_ID`, `SANITY_DATASET`, and `SANITY_API_TOKEN` are set in Cloudflare Pages settings
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Scaffold Sanity Studio in studio/ subdirectory and register Sanity MCP server in Claude Code
+- [ ] 02-02-PLAN.md — Write all 4 content-type schemas (doc, releaseNote, article, reference) and deploy schema manifest
+- [ ] 02-03-PLAN.md — Deploy Studio to *.sanity.studio, set CF Pages env vars, human-verify full Studio flow
 
 ### Phase 3: Integration Pipeline
 **Goal**: Sanity content appears in the live site automatically when an editor clicks publish in Studio
@@ -94,7 +99,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Cleanup | 6/8 | Complete    | 2026-03-07 |
-| 2. CMS Setup | 0/TBD | Not started | - |
+| 2. CMS Setup | 0/3 | Not started | - |
 | 3. Integration Pipeline | 0/TBD | Not started | - |
 | 4. Content Migration | 0/TBD | Not started | - |
 | 5. Polish | 0/TBD | Not started | - |
