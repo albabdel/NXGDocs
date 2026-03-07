@@ -19,13 +19,6 @@ const config: Config = {
     {
       tagName: 'meta',
       attributes: {
-        name: 'algolia-site-verification',
-        content: '30877B7953347DD6',
-      },
-    },
-    {
-      tagName: 'meta',
-      attributes: {
         name: 'theme-color',
         content: '#E8B058',
       },
@@ -203,26 +196,14 @@ const config: Config = {
         breadcrumbs: true,
       },
     ],
+    // Pagefind: generates build/pagefind/ index via postBuild() lifecycle hook
+    './plugins/docusaurus-plugin-pagefind',
   ],
 
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: ['@docusaurus/theme-mermaid', '@getcanary/docusaurus-theme-search-pagefind'],
 
   themeConfig: {
     image: 'img/nxgen-social-card.jpg',
-
-    // Algolia DocSearch Configuration
-    // App ID and index unified with index-documentation.js (Phase 5 credential fix)
-    algolia: {
-      appId: process.env.ALGOLIA_APP_ID || '0QV3FAFAD5',
-      apiKey: process.env.ALGOLIA_API_KEY || 'faaa9ffb8640ba49520a0cf44dc9f7ef', // Search-only API key
-      indexName: process.env.ALGOLIA_INDEX_NAME || 'nxgen_docs',
-      contextualSearch: false, // Disabled: nxgen_docs index doesn't have docusaurus_tag facet configured
-      searchParameters: {
-        clickAnalytics: true,
-      },
-      searchPagePath: 'search',
-      insights: true,
-    },
 
     navbar: {
       // Navbar disabled - using custom Navbar component in Root.tsx
