@@ -211,16 +211,17 @@ const config: Config = {
     image: 'img/nxgen-social-card.jpg',
 
     // Algolia DocSearch Configuration
+    // App ID and index unified with index-documentation.js (Phase 5 credential fix)
     algolia: {
-      appId: process.env.ALGOLIA_APP_ID || 'V5T3AW2AU9',
+      appId: process.env.ALGOLIA_APP_ID || '0QV3FAFAD5',
       apiKey: process.env.ALGOLIA_API_KEY || 'faaa9ffb8640ba49520a0cf44dc9f7ef', // Search-only API key
-      indexName: process.env.ALGOLIA_INDEX_NAME || 'Documentation site',
-      contextualSearch: true,
+      indexName: process.env.ALGOLIA_INDEX_NAME || 'nxgen_docs',
+      contextualSearch: false, // Disabled: nxgen_docs index doesn't have docusaurus_tag facet configured
       searchParameters: {
-        clickAnalytics: true, // Enable click analytics to get queryID in search responses
+        clickAnalytics: true,
       },
       searchPagePath: 'search',
-      insights: true, // Enable search insights for event tracking
+      insights: true,
     },
 
     navbar: {
