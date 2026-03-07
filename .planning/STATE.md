@@ -102,7 +102,7 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-None yet.
+1. **Complete Phase 4 content migration to Sanity CMS** (area: planning) — `.planning/todos/pending/2026-03-07-complete-phase-4-content-migration-to-sanity-cms.md`
 
 ### Blockers/Concerns
 
