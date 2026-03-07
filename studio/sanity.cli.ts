@@ -7,4 +7,7 @@ export default defineCliConfig({
     dataset: process.env.SANITY_STUDIO_DATASET ?? 'production',
   },
   studioHost: 'nxgen-docs',
+  deployment: {
+    appId: 'iujgktgz8e37rt2letxkricl',
+  },
 })
