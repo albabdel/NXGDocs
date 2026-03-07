@@ -16,7 +16,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: CMS Setup** - Create Sanity project, configure MCP server, and lock all content schemas (completed 2026-03-07)
 - [x] **Phase 3: Integration Pipeline** - Build the Docusaurus-Sanity plugin, rewrite feedback widget, and wire publish webhook (completed 2026-03-07)
 - [ ] **Phase 4: Content Migration** - Move all MDX content into Sanity section by section with zero URL breakage
-- [x] **Phase 5: Polish** - Refine navigation, search UX, and visual consistency (completed 2026-03-07)
+- [x] **Phase 5: Polish** - Refine navigation, search UX, and visual consistency
+ (completed 2026-03-07)
 
 ## Phase Details
 
