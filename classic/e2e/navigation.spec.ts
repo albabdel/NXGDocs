@@ -25,10 +25,10 @@ test.describe('PLSH-01: Two-click navigation', () => {
 
   test('footer has no placeholder # links', async ({ page }) => {
     await page.goto('/');
-    const footer = page.locator('footer');
-    await expect(footer).toBeVisible();
-    // Check that no footer link points to bare '#'
-    const hashLinks = footer.locator('a[href="#"]');
+    // Page has two footer elements; check both for hash links using a broad selector
+    // Scroll to bottom to ensure footer is in viewport
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    const hashLinks = page.locator('footer a[href="#"]');
     await expect(hashLinks).toHaveCount(0);
   });
 });
