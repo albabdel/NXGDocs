@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Completed 05-polish/05-03-PLAN.md — checkpoint not approved, 3 gaps documented in SUMMARY
-last_updated: "2026-03-07T21:53:25.828Z"
-last_activity: 2026-03-07 — Phase 2 (CMS Setup) complete; Studio live, schemas deployed, CF Pages env vars set
+status: executing
+stopped_at: Completed 05-polish/05-05-PLAN.md
+last_updated: "2026-03-07T22:17:49.489Z"
+last_activity: 2026-03-07 — Phase 5 Plan 03 complete; Playwright suite green; human checkpoint found 3 gaps
 progress:
   total_phases: 5
-  completed_phases: 4
-  total_plans: 18
-  completed_plans: 18
+  completed_phases: 3
+  total_plans: 21
+  completed_plans: 19
   percent: 100
 ---
 
@@ -62,6 +62,7 @@ Progress: [██████████] 100%
 | Phase 03-integration-pipeline P02 | 4min | 2 tasks | 4 files |
 | Phase 03-integration-pipeline P04 | 1min | 2 tasks | 0 files |
 | Phase 05-polish P03 | 21min | 1 tasks | 4 files |
+| Phase 05-polish P05 | 5 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -103,6 +104,8 @@ Recent decisions affecting current work:
 - [Phase 05-polish]: Checkpoint not approved — 3 gaps identified: Pagefind migration (Gap 1), hero light mode design (Gap 2), general light mode contrast sweep (Gap 3)
 - [Phase 05-polish]: playwright.config.ts: admin:server webServer block removed — script not in package.json, Decap CMS not required for nav/search/visual e2e tests
 - [Phase 05-polish]: footer selector fix: toBeAttached() used instead of toBeVisible() — Docusaurus layout renders two footer elements, first is CSS-hidden
+- [Phase 05-polish]: Background image opacity set to 0.40 in light mode (raised from 0.15) — threshold above which Background.jpg is visually meaningful on warm cream base
+- [Phase 05-polish]: White overlay reduced from from-white/40...to-white/60 to from-white/10...to-white/25 — gradient no longer dominates top of hero
 
 ### Pending Todos
 
@@ -117,6 +120,6 @@ Recent decisions affecting current work:
 
 ## Session Continuity
 
-Last session: 2026-03-07T21:53:25.821Z
-Stopped at: Completed 05-polish/05-03-PLAN.md — checkpoint not approved, 3 gaps documented in SUMMARY
+Last session: 2026-03-07T22:17:49.483Z
+Stopped at: Completed 05-polish/05-05-PLAN.md
 Resume file: None

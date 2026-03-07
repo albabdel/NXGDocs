@@ -36,7 +36,7 @@
 ### Polish
 
 - [ ] **PLSH-01**: Navigation and search UX improved — sidebar structure refined, content discovery measurably faster
-- [ ] **PLSH-02**: Visual inconsistencies resolved — CSS cleaned up, design direction polished without changing the overall visual identity
+- [x] **PLSH-02**: Visual inconsistencies resolved — CSS cleaned up, design direction polished without changing the overall visual identity
 
 ## v2 Requirements
 
@@ -92,7 +92,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | MIGR-04 | Phase 4 | Pending |
 | MIGR-05 | Phase 4 | Pending |
 | PLSH-01 | Phase 5 | Pending |
-| PLSH-02 | Phase 5 | Pending |
+| PLSH-02 | Phase 5 | Complete |
 
 **Coverage:**
 - v1 requirements: 18 total

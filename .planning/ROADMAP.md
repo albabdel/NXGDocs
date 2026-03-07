@@ -117,4 +117,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. CMS Setup | 3/3 | Complete    | 2026-03-07 |
 | 3. Integration Pipeline | 4/4 | Complete   | 2026-03-07 |
 | 4. Content Migration | 0/TBD | Not started | - |
-| 5. Polish | 3/6 | In progress — 3 gap-closure plans needed | - |
+| 5. Polish | 4/6 | In Progress|  |
