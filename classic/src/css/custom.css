@@ -1779,6 +1779,10 @@ iframe[allowfullscreen]:fullscreen {
   color: #996B1F !important;
 }
 
+[data-theme='light'] .hover\:text-\[\#D4A047\]:hover {
+  color: var(--nxgen-gold-accessible-hover) !important;
+}
+
 /* --- Shadow Overrides --- */
 [data-theme='light'] .hover\:shadow-\[\#E8B058\]\/10:hover {
   --tw-shadow-color: rgba(153, 107, 31, 0.1) !important;
@@ -2856,6 +2860,14 @@ select.voc-input:focus {
   font-size: 1.1rem;
   color: rgba(255, 255, 255, 0.7);
   max-width: 80%;
+}
+
+[data-theme='light'] .voc-success-message p {
+  color: var(--ifm-color-content-secondary);
+}
+
+[data-theme='light'] .voc-success-message h3 {
+  color: var(--nxgen-gold-accessible);
 }
 
 /* Animations */
