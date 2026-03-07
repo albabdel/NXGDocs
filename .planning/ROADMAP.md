@@ -99,8 +99,8 @@ Plans:
 
 Plans:
 - [ ] 05-01-PLAN.md — Scaffold Playwright test specs (Wave 0); fix VoC modal light-mode invisible text; fix D4A047 link color override; resolve Footer placeholder # links
-- [ ] 05-02-PLAN.md — Resolve Algolia credential split-brain; unify appId + indexName across docusaurus.config.ts and algolia-config.json; confirm renderJavaScript on crawler
-- [ ] 05-03-PLAN.md — Human verification: confirm visual fixes in real browser (light mode), confirm footer links resolve, confirm Algolia search results after Phase 4 re-crawl
+- [ ] 05-02-PLAN.md — Replace Algolia with Pagefind: install docusaurus-pagefind, remove algolia themeConfig block, deprecate algolia-config.json and index-documentation.js; update search spec selectors
+- [ ] 05-03-PLAN.md — Human verification: confirm visual fixes in real browser (light mode), confirm footer links resolve, confirm Pagefind search returns results after Phase 4 deploy
 
 ## Progress
 
