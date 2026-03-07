@@ -30,3 +30,6 @@ yarn-error.log*
 *.avi
 *.mov
 *.mkv
+
+# Sanity build-time content cache (generated artifact — not source)
+.sanity-cache/
