@@ -99,7 +99,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Cleanup | 6/8 | Complete    | 2026-03-07 |
-| 2. CMS Setup | 0/3 | Not started | - |
+| 2. CMS Setup | 2/3 | In Progress|  |
 | 3. Integration Pipeline | 0/TBD | Not started | - |
 | 4. Content Migration | 0/TBD | Not started | - |
 | 5. Polish | 0/TBD | Not started | - |

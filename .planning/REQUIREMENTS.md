@@ -16,7 +16,7 @@
 
 - [ ] **CMS-01**: Sanity MCP server configured and operational so Claude can create/update schemas, query content, and manage the Sanity project without manual dashboard interaction
 - [ ] **CMS-02**: Sanity project created with cloud-hosted Studio accessible at a public URL
-- [ ] **CMS-03**: Content schemas defined for all 4 content types: product documentation, release notes, long-form articles, and reference pages — with slug fields matching existing URL patterns
+- [x] **CMS-03**: Content schemas defined for all 4 content types: product documentation, release notes, long-form articles, and reference pages — with slug fields matching existing URL patterns
 
 ### Content Integration
 
@@ -82,7 +82,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INTG-04 | Phase 1 | Complete |
 | CMS-01 | Phase 2 | Pending |
 | CMS-02 | Phase 2 | Pending |
-| CMS-03 | Phase 2 | Pending |
+| CMS-03 | Phase 2 | Complete |
 | INTG-01 | Phase 3 | Pending |
 | INTG-02 | Phase 3 | Pending |
 | INTG-03 | Phase 3 | Complete |

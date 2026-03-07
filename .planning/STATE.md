@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Phase 2 context gathered
-last_updated: "2026-03-07T04:19:18.321Z"
+stopped_at: Completed 02-cms-setup 02-02-PLAN.md
+last_updated: "2026-03-07T07:09:00.758Z"
 last_activity: 2026-03-06 — Roadmap created; 5 phases derived from 18 v1 requirements
 progress:
   total_phases: 5
   completed_phases: 1
-  total_plans: 8
-  completed_plans: 8
+  total_plans: 11
+  completed_plans: 10
   percent: 17
 ---
 
@@ -56,6 +56,7 @@ Progress: [██░░░░░░░░] 17%
 | Phase 01-cleanup P06 | 3min | 2 tasks | 5 files |
 | Phase 01-cleanup P04 | 70 | 2 tasks | 1 files |
 | Phase 01-cleanup P05 | 29 | 2 tasks | 135 files |
+| Phase 02-cms-setup P02 | 42 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -83,6 +84,9 @@ Recent decisions affecting current work:
 - [Phase 01-cleanup]: CSS stops at 3531 lines (not 2000): remaining rules are all live Docusaurus theme elements — plan stopping condition 'only genuinely-shared rules remain' met
 - [Phase 01-cleanup]: Create docs/support/contact.md stub as target for 92 broken support-ticket links rather than mass link removal
 - [Phase 01-cleanup]: onBrokenLinks set to throw: build now fails on any future broken internal link - regression gate active
+- [Phase 02-cms-setup]: referencePage not reference: Sanity reserves 'reference' as a built-in type — document type renamed to 'referencePage'; Phase 3 GROQ must use _type == 'referencePage'
+- [Phase 02-cms-setup]: Shared bodyField pattern: portableText.ts exports one bodyField imported by all 4 document types, preventing copy-paste drift
+- [Phase 02-cms-setup]: Callout body uses type: 'text' not nested array: nested Portable Text inside defineArrayMember causes Studio recursion issues
 
 ### Pending Todos
 
@@ -96,6 +100,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-07T04:19:18.319Z
-Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-cms-setup/02-CONTEXT.md
+Last session: 2026-03-07T07:09:00.756Z
+Stopped at: Completed 02-cms-setup 02-02-PLAN.md
+Resume file: None
