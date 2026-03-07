@@ -94,16 +94,7 @@ const config: Config = {
     [
       'classic',
       {
-        docs: {
-          sidebarPath: './sidebars.ts',
-          routeBasePath: 'docs', // Serve docs at /docs
-          showLastUpdateTime: false, // Disabled for Vercel builds (no git access)
-          showLastUpdateAuthor: false,
-          editUrl: undefined, // Disable "Edit this page" to avoid git dependency
-          sidebarCollapsible: true,
-          sidebarCollapsed: true,
-          breadcrumbs: true,
-        },
+        docs: false,
         blog: false, // Disable blog
         theme: {
           customCss: './src/css/custom.css',
@@ -199,7 +190,7 @@ const config: Config = {
       {
         id: 'sanity-docs',
         path: '.sanity-cache/docs',
-        routeBasePath: 'sanity-docs',
+        routeBasePath: 'docs',
         sidebarPath: undefined,  // auto-generated sidebar — no manual sidebars file needed
         showLastUpdateTime: false,
         showLastUpdateAuthor: false,

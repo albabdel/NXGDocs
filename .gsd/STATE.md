@@ -4,7 +4,12 @@
 Project initialized for Phase 4: Content Migration.
 
 # Blockers & Known Issues
-- We need the SANITY_API_TOKEN to actually push documents to Sanity. I'll need to ask the user to set it or provide it securely.
+- We need the `SANITY_API_TOKEN` to actually execute Phase 2 and push documents to Sanity. The script is working locally in dry-run mode.
 
 # Decisions Made
-- Will write a migration script instead of manual uploading, using `frontmatter` parsing and writing to Sanity API.
+- Wrote a migration script (`classic/scripts/migrate-to-sanity.js`) that uses `marked` and `@sanity/block-tools` to convert Markdown to Portable Text.
+
+# Next Steps
+- Execute `migrate-to-sanity.js` with `SANITY_API_TOKEN`.
+- Once files are successfully in Sanity, delete the MDX files from `classic/docs/`.
+- Update `docusaurus.config.ts` route logic (Phase 3).
