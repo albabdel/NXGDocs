@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 03-integration-pipeline/03-01-PLAN.md
-last_updated: "2026-03-07T11:21:52.695Z"
+stopped_at: "Checkpoint: 03-integration-pipeline/03-02-PLAN.md Task 3 human-verify"
+last_updated: "2026-03-07T11:26:47.586Z"
 last_activity: 2026-03-07 — Phase 2 (CMS Setup) complete; Studio live, schemas deployed, CF Pages env vars set
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 15
-  completed_plans: 12
+  completed_plans: 13
   percent: 100
 ---
 
@@ -59,6 +59,7 @@ Progress: [██████████] 100%
 | Phase 02-cms-setup P02 | 42 | 2 tasks | 6 files |
 | Phase 02-cms-setup P03 | 20min | 2 tasks | 0 files |
 | Phase 03-integration-pipeline P01 | 1 | 2 tasks | 5 files |
+| Phase 03-integration-pipeline P02 | 4min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -93,6 +94,8 @@ Recent decisions affecting current work:
 - [Phase 02-cms-setup]: referencePage confirmed as Phase 3 GROQ contract via human Studio verification — Phase 3 must use _type == referencePage in all queries — Sanity reserves reference as a built-in cross-document reference type; referencePage is the actual document type name after Plan 02 rename
 - [Phase 03-integration-pipeline]: Install @sanity/client and @portabletext/markdown into classic/ (not root/studio) — plugin runs inside Docusaurus build process
 - [Phase 03-integration-pipeline]: Use test.skip for page-presence Playwright test until Plan 02 plugin is complete — Nyquist scaffold before implementation
+- [Phase 03-integration-pipeline]: portableTextToMarkdown is the correct export from @portabletext/markdown v1 (not toMarkdown)
+- [Phase 03-integration-pipeline]: docusaurus-plugin-sanity-content must be first in plugins[] — Docusaurus runs loadContent() in order, so cache must be populated before plugin-content-docs reads it
 
 ### Pending Todos
 
@@ -106,6 +109,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-07T11:21:52.693Z
-Stopped at: Completed 03-integration-pipeline/03-01-PLAN.md
+Last session: 2026-03-07T11:26:47.583Z
+Stopped at: Checkpoint: 03-integration-pipeline/03-02-PLAN.md Task 3 human-verify
 Resume file: None
