@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 02-cms-setup 02-02-PLAN.md
-last_updated: "2026-03-07T07:09:00.758Z"
+stopped_at: Completed 02-cms-setup 02-03-PLAN.md
+last_updated: "2026-03-07T07:21:47.640Z"
 last_activity: 2026-03-06 — Roadmap created; 5 phases derived from 18 v1 requirements
 progress:
   total_phases: 5
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 11
-  completed_plans: 10
+  completed_plans: 11
   percent: 17
 ---
 
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-06)
 
 **Core value:** Non-technical editors can open a web UI, write content, and publish it — without a developer as a bottleneck.
-**Current focus:** Phase 1 — Cleanup
+**Current focus:** Phase 3 — Integration Pipeline
 
 ## Current Position
 
-Phase: 1 of 5 (Cleanup)
+Phase: 3 of 5 (Integration Pipeline)
 Plan: 0 of TBD in current phase
 Status: Ready to plan
-Last activity: 2026-03-06 — Roadmap created; 5 phases derived from 18 v1 requirements
+Last activity: 2026-03-07 — Phase 2 (CMS Setup) complete; Studio live, schemas deployed, CF Pages env vars set
 
-Progress: [██░░░░░░░░] 17%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -57,6 +57,7 @@ Progress: [██░░░░░░░░] 17%
 | Phase 01-cleanup P04 | 70 | 2 tasks | 1 files |
 | Phase 01-cleanup P05 | 29 | 2 tasks | 135 files |
 | Phase 02-cms-setup P02 | 42 | 2 tasks | 6 files |
+| Phase 02-cms-setup P03 | 20min | 2 tasks | 0 files |
 
 ## Accumulated Context
 
@@ -87,6 +88,8 @@ Recent decisions affecting current work:
 - [Phase 02-cms-setup]: referencePage not reference: Sanity reserves 'reference' as a built-in type — document type renamed to 'referencePage'; Phase 3 GROQ must use _type == 'referencePage'
 - [Phase 02-cms-setup]: Shared bodyField pattern: portableText.ts exports one bodyField imported by all 4 document types, preventing copy-paste drift
 - [Phase 02-cms-setup]: Callout body uses type: 'text' not nested array: nested Portable Text inside defineArrayMember causes Studio recursion issues
+- [Phase 02-cms-setup]: Studio URL confirmed as nxgen-docs.sanity.studio — hostname was available, no alternate needed — CF Pages uses unprefixed SANITY_* vars (not SANITY_STUDIO_*) for Phase 3 plugin build-time access — two separate namespaces for two separate consumers
+- [Phase 02-cms-setup]: referencePage confirmed as Phase 3 GROQ contract via human Studio verification — Phase 3 must use _type == referencePage in all queries — Sanity reserves reference as a built-in cross-document reference type; referencePage is the actual document type name after Plan 02 rename
 
 ### Pending Todos
 
@@ -100,6 +103,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-07T07:09:00.756Z
-Stopped at: Completed 02-cms-setup 02-02-PLAN.md
+Last session: 2026-03-07T07:21:08.662Z
+Stopped at: Completed 02-cms-setup 02-03-PLAN.md
 Resume file: None
