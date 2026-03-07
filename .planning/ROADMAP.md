@@ -12,7 +12,7 @@ The project starts by excising five previous failed CMS integrations from the co
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Cleanup** - Remove all dead CMS code, consolidate CSS, and stabilize the build
+- [x] **Phase 1: Cleanup** - Remove all dead CMS code, consolidate CSS, and stabilize the build (completed 2026-03-07)
 - [ ] **Phase 2: CMS Setup** - Create Sanity project, configure MCP server, and lock all content schemas
 - [ ] **Phase 3: Integration Pipeline** - Build the Docusaurus-Sanity plugin, rewrite feedback widget, and wire publish webhook
 - [ ] **Phase 4: Content Migration** - Move all MDX content into Sanity section by section with zero URL breakage
@@ -93,7 +93,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Cleanup | 6/8 | In Progress (gap closure)|  |
+| 1. Cleanup | 6/8 | Complete    | 2026-03-07 |
 | 2. CMS Setup | 0/TBD | Not started | - |
 | 3. Integration Pipeline | 0/TBD | Not started | - |
 | 4. Content Migration | 0/TBD | Not started | - |
