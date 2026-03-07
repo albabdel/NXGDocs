@@ -202,18 +202,18 @@ async function run() {
           for (const audience of audiences) {
             const subDir = AUDIENCE_DIR_MAP[audience];
             if (!subDir) continue;
-            const filePath = path.join(CACHE_ROOT, subDir, `${slug}.mdx`);
+            const filePath = path.join(CACHE_ROOT, subDir, `${slug}.md`);
             fs.mkdirSync(path.dirname(filePath), { recursive: true });
             fs.writeFileSync(filePath, content, 'utf8');
-            console.log(`[sanity-content] Wrote doc → ${subDir}/${slug}.mdx`);
+            console.log(`[sanity-content] Wrote doc → ${subDir}/${slug}.md`);
           }
         } else {
           const frontmatter = buildGenericFrontmatter(doc);
           const content = frontmatter + (bodyMd ? '\n\n' + bodyMd : '');
-          const filePath = path.join(CACHE_ROOT, 'docs', `${slug}.mdx`);
+          const filePath = path.join(CACHE_ROOT, 'docs', `${slug}.md`);
           fs.mkdirSync(path.dirname(filePath), { recursive: true });
           fs.writeFileSync(filePath, content, 'utf8');
-          console.log(`[sanity-content] Wrote ${type} → docs/${slug}.mdx`);
+          console.log(`[sanity-content] Wrote ${type} → docs/${slug}.md`);
         }
       } catch (err) {
         console.warn(`[sanity-content] Warning: Failed to process ${type} "${doc?.slug?.current}": ${err.message}`);

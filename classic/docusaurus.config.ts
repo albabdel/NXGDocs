@@ -68,6 +68,9 @@ const config: Config = {
 
   // Handle broken markdown images (pre-existing issues with missing images in docs)
   markdown: {
+    // .md files → CommonMark (safe for AI-generated/migrated content with {} chars)
+    // .mdx files → MDX (for hand-authored pages with React components)
+    format: 'detect',
     hooks: {
       onBrokenMarkdownImages: (image, file, options) => {
         console.warn(`[Warning] Broken image "${image}" in ${file.path}`);
