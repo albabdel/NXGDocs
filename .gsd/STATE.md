@@ -4,12 +4,13 @@
 Project initialized for Phase 4: Content Migration.
 
 # Blockers & Known Issues
-- We need the `SANITY_API_TOKEN` to actually execute Phase 2 and push documents to Sanity. The script is working locally in dry-run mode.
+- None. Phase 4 Content migration completely executed successfully.
 
 # Decisions Made
-- Wrote a migration script (`classic/scripts/migrate-to-sanity.js`) that uses `marked` and `@sanity/block-tools` to convert Markdown to Portable Text.
+- Executed migration dynamically and correctly routed `slug.current`.
+- Configured Docusaurus to drop static docs and route all contents under Sanity plugin.
+- All legacy `.mdx` files have been removed from the `classic/docs` folder according to plan.
 
 # Next Steps
-- Execute `migrate-to-sanity.js` with `SANITY_API_TOKEN`.
-- Once files are successfully in Sanity, delete the MDX files from `classic/docs/`.
-- Update `docusaurus.config.ts` route logic (Phase 3).
+- Verify Cloudflare live staging.
+- /complete-milestone!
