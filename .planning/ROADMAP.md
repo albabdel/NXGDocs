@@ -67,7 +67,13 @@ Plans:
   1. Running `npm run build` locally fetches content from Sanity via GROQ and generates pages in `.sanity-cache/` — Sanity-sourced pages appear in the Docusaurus output alongside existing MDX pages
   2. Publishing a document in Sanity Studio triggers a Cloudflare Pages rebuild and the change appears on docs.nxgen.cloud within 5 minutes — no developer action required
   3. The feedback widget works correctly on Cloudflare Workers — it sends feedback via HTTP email API without using `nodemailer`, and no Vercel or Netlify function formats remain in the repo
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Install @sanity/client + @portabletext/markdown; add .sanity-cache/ to both .gitignore files; scaffold Playwright spec
+- [ ] 03-02-PLAN.md — Build docusaurus-plugin-sanity-content (GROQ fetch → Portable Text → MDX); register in docusaurus.config.ts first; human-verify end-to-end build
+- [ ] 03-03-PLAN.md — Create Cloudflare Pages deploy hook and register Sanity GROQ webhook; human-verify Studio publish triggers live rebuild
+- [ ] 03-04-PLAN.md — Verify feedback widget end-to-end: confirm ZEPTO_API_KEY set, smoke-test live endpoint, confirm email delivery
 
 ### Phase 4: Content Migration
 **Goal**: All reader-facing content lives in Sanity, no live URL returns 404, and editors can manage everything from Studio
@@ -100,6 +106,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Cleanup | 6/8 | Complete    | 2026-03-07 |
 | 2. CMS Setup | 3/3 | Complete    | 2026-03-07 |
-| 3. Integration Pipeline | 0/TBD | Not started | - |
+| 3. Integration Pipeline | 0/4 | Not started | - |
 | 4. Content Migration | 0/TBD | Not started | - |
 | 5. Polish | 0/TBD | Not started | - |
