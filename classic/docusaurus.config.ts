@@ -117,6 +117,7 @@ const config: Config = {
   ],
 
   plugins: [
+    './plugins/docusaurus-plugin-sanity-content',  // MUST be first — populates .sanity-cache/ before content-docs reads
     './plugins/docusaurus-plugin-last-update',
     // Internal docs plugin (keeping for now)
     [
@@ -185,6 +186,22 @@ const config: Config = {
         routeBasePath: 'operator-minimal',
         sidebarPath: './sidebars-operator-minimal.ts',
         showLastUpdateTime: false, // Disabled for Vercel builds (no git access)
+        showLastUpdateAuthor: false,
+        editUrl: undefined,
+        sidebarCollapsible: true,
+        sidebarCollapsed: true,
+        breadcrumbs: true,
+      },
+    ],
+    // Sanity CMS content — populated at build time by docusaurus-plugin-sanity-content
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'sanity-docs',
+        path: '.sanity-cache/docs',
+        routeBasePath: 'sanity-docs',
+        sidebarPath: undefined,  // auto-generated sidebar — no manual sidebars file needed
+        showLastUpdateTime: false,
         showLastUpdateAuthor: false,
         editUrl: undefined,
         sidebarCollapsible: true,
