@@ -66,39 +66,69 @@ async function run() {
     }
   }
 
-  const components = {
-    types: {
-      code: ({ value }) =>
-        `\`\`\`${value.language || 'text'}\n${value.code || ''}\n\`\`\`\n`,
-      callout: ({ value }) =>
-        `:::${value.type || 'note'}\n\n${String(value.body || '')}\n\n:::\n`,
-      image: ({ value }) => {
-        const url = value.asset ? sanityImageUrl(value.asset) : '';
-        const alt = value.alt || '';
-        const caption = value.caption || '';
-        return url ? `![${alt}](${url}${caption ? ` "${caption}"` : ''})\n` : '';
-      },
-    },
-    marks: {
-      underline: ({ children }) => `<u>${children}</u>`,
-      link: ({ value, children }) => {
-        const href = value?.href || '';
-        const target = value?.blank ? ' target="_blank"' : '';
-        return target
-          ? `<a href="${href}"${target}>${children}</a>`
-          : `[${children}](${href})`;
-      },
+  // @portabletext/markdown v1 does NOT call components.types handlers for non-block types
+  // (image, code, callout etc.). It JSON-dumps unknown types as code fences instead.
+  // Fix: iterate blocks manually and only pass _type=="block" arrays to the library.
+  const markMarks = {
+    underline: ({ children }) => `<u>${children}</u>`,
+    link: ({ value, children }) => {
+      const href = value?.href || '';
+      const target = value?.blank ? ' target="_blank"' : '';
+      return target
+        ? `<a href="${href}"${target}>${children}</a>`
+        : `[${children}](${href})`;
     },
   };
 
+  function serializeCustomBlock(block) {
+    const t = block._type;
+    if (t === 'image') {
+      const url = block.asset ? sanityImageUrl(block) : '';
+      const alt = block.alt || '';
+      const caption = block.caption ? ` "${block.caption}"` : '';
+      return url ? `![${alt}](${url}${caption})\n` : '';
+    }
+    if (t === 'code') {
+      return `\`\`\`${block.language || 'text'}\n${block.code || ''}\n\`\`\`\n`;
+    }
+    if (t === 'callout') {
+      return `:::${block.type || 'note'}\n\n${String(block.body || '')}\n\n:::\n`;
+    }
+    if (t === 'table' && Array.isArray(block.rows) && block.rows.length > 0) {
+      const rows = block.rows.map((r) => '| ' + (r.cells || []).join(' | ') + ' |');
+      const cols = (block.rows[0].cells || []).length;
+      rows.splice(1, 0, '| ' + Array(cols).fill('---').join(' | ') + ' |');
+      return rows.join('\n') + '\n';
+    }
+    return ''; // silently drop unknown custom types
+  }
+
   function serializeBody(body) {
     if (!body || !Array.isArray(body)) return '';
-    try {
-      return portableTextToMarkdown(body, { components });
-    } catch (err) {
-      console.warn(`[sanity-content] Serialize warning: ${err.message}`);
-      return '';
+    const parts = [];
+    // Group consecutive standard blocks so portableTextToMarkdown handles lists/headings correctly
+    let blockRun = [];
+    const flushRun = () => {
+      if (blockRun.length === 0) return;
+      try {
+        const md = portableTextToMarkdown(blockRun, { components: { marks: markMarks } });
+        if (md) parts.push(md);
+      } catch (err) {
+        console.warn(`[sanity-content] Serialize warning: ${err.message}`);
+      }
+      blockRun = [];
+    };
+    for (const block of body) {
+      if (block._type === 'block') {
+        blockRun.push(block);
+      } else {
+        flushRun();
+        const custom = serializeCustomBlock(block);
+        if (custom) parts.push(custom);
+      }
     }
+    flushRun();
+    return parts.join('\n');
   }
 
   function escapeYaml(str) {
