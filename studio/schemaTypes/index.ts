@@ -1,3 +1,6 @@
-// studio/schemaTypes/index.ts
-// Schema types — populated in Plan 02
-export const schemaTypes: unknown[] = []
+import {docType} from './doc'
+import {releaseNoteType} from './releaseNote'
+import {articleType} from './article'
+import {referenceType} from './reference'
+
+export const schemaTypes = [docType, releaseNoteType, articleType, referenceType]
