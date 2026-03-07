@@ -1,3 +1,8 @@
 name = "nxgen"
 compatibility_date = "2024-01-01"
 pages_build_output_dir = "classic/build"
+
+[vars]
+SANITY_PROJECT_ID = "fjjuacab"
+SANITY_DATASET = "production"
+# SANITY_API_TOKEN is set as a secret in Cloudflare Pages dashboard (not committed)

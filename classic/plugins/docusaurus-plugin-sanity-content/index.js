@@ -182,7 +182,18 @@ module.exports = function (context, options) {
   // so directories must exist before we return the plugin object.
   const cacheRoot = path.join(context.siteDir, '.sanity-cache');
   for (const dir of ALL_CACHE_DIRS) {
-    fs.mkdirSync(path.join(cacheRoot, dir), { recursive: true });
+    const dirPath = path.join(cacheRoot, dir);
+    fs.mkdirSync(dirPath, { recursive: true });
+    // Always ensure at least one file exists so plugin-content-docs never fails
+    // on an empty directory — real content is written by fetch-sanity-content.js
+    const placeholder = path.join(dirPath, '_placeholder.mdx');
+    if (!fs.existsSync(placeholder)) {
+      fs.writeFileSync(
+        placeholder,
+        '---\ntitle: "Sanity Content"\nhide_table_of_contents: true\ndraft: true\n---\n\nContent from Sanity will appear here once documents are published.\n',
+        'utf8'
+      );
+    }
   }
 
   return {
