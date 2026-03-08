@@ -3502,9 +3502,9 @@ button[class*="copyButton"][class*="copyButtonCopied"] {
   box-shadow: 0 0 10px rgba(200, 148, 70, 0.4);
 }
 
-/* TOC container styling */
+/* TOC container styling — push down to clear fixed search bar (top:12px) + ThemeToggle (top:16px, 40px tall) */
 .theme-doc-toc-desktop {
-  padding-top: 1rem;
+  padding-top: 4rem;
 }
 
 /* Share Section - Positioned above TOC */

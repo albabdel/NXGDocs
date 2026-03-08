@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import Link from '@docusaurus/Link';
 import { useColorMode } from '@docusaurus/theme-common';
 import { motion } from 'framer-motion';
-import { Search, ArrowRight, ExternalLink } from 'lucide-react';
+import { ArrowRight, ExternalLink, BookOpen, Shield, Wrench, Users } from 'lucide-react';
 
 /**
  * NXGEN Premium Hero Component
@@ -265,30 +265,33 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
           </p>
         </motion.div>
 
-        {/* Search Interface */}
+        {/* Explore Documentation */}
         <motion.div variants={itemVariants} className="w-full max-w-2xl mb-10">
-          <button
-            onClick={onOpenSearch}
-            className={`w-full flex items-center gap-4 p-1.5 pr-2 border rounded-full transition-all duration-300 group text-left ${isDark
-              ? 'bg-black/40 backdrop-blur-xl border-white/10 hover:border-[#E8B058]/60 shadow-xl'
-              : 'bg-white border-[#E8B058]/20 hover:border-[#E8B058]/60 shadow-lg hover:shadow-xl'
-              }`}
-            style={!isDark ? { boxShadow: '0 4px 20px rgba(139, 90, 43, 0.08), 0 2px 8px rgba(0,0,0,0.04)' } : {}}
-          >
-            <div className={`flex items-center justify-center w-12 h-12 rounded-full ${isDark ? 'bg-white/10 text-[#E8B058]' : 'bg-[#E8B058] text-white'}`}>
-              <Search className="w-5 h-5" />
+          <div className="flex flex-col items-center gap-3">
+            <p className={`text-xs font-semibold uppercase tracking-widest ${isDark ? 'text-gray-500' : 'text-[#C89446]/70'}`}>
+              Explore Documentation
+            </p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {[
+                { label: 'Getting Started', to: '/getting-started', icon: BookOpen },
+                { label: 'Admin Guides', to: '/role-admin', icon: Shield },
+                { label: 'Operators', to: '/operator', icon: Wrench },
+                { label: 'Managers', to: '/manager', icon: Users },
+              ].map(({ label, to, icon: Icon }) => (
+                <Link
+                  key={to}
+                  to={to}
+                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium transition-all duration-200 no-underline hover:scale-[1.03] ${isDark
+                    ? 'bg-white/5 border-white/10 text-gray-300 hover:bg-white/10 hover:border-[#E8B058]/40 hover:text-white'
+                    : 'bg-white border-[#E8B058]/25 text-[#8B5A2B] hover:bg-[#FFFBF5] hover:border-[#E8B058] shadow-sm'
+                  }`}
+                >
+                  <Icon className="w-3.5 h-3.5 opacity-70" />
+                  {label}
+                </Link>
+              ))}
             </div>
-            <div className="flex-1">
-              <span className={`text-base font-medium transition-colors ${isDark ? 'text-gray-300 group-hover:text-white' : 'text-[#4A4A4A] group-hover:text-[#1A1A1A]'}`}>How can we help?</span>
-            </div>
-            <div className={`hidden md:flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-medium ${isDark
-              ? 'bg-white/5 border-white/5 text-gray-400'
-              : 'bg-[#FFFBF5] border-[#E8B058]/20 text-[#8B5A2B]'
-              }`}>
-              <span>Shortcuts</span>
-              <kbd className={`font-sans px-1.5 rounded ${isDark ? 'bg-white/10 text-gray-300' : 'bg-white text-[#8B5A2B] shadow-sm border border-[#E8B058]/20'}`}>⌘ K</kbd>
-            </div>
-          </button>
+          </div>
         </motion.div>
 
         {/* Action Buttons */}
