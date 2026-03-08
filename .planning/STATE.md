@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 05-polish/05-05-PLAN.md
-last_updated: "2026-03-07T22:17:49.489Z"
-last_activity: 2026-03-07 — Phase 5 Plan 03 complete; Playwright suite green; human checkpoint found 3 gaps
+status: checkpoint
+stopped_at: 05-polish/05-06-PLAN.md Task 2 — awaiting human visual verification (Phase 5 sign-off)
+last_updated: "2026-03-08T00:00:00Z"
+last_activity: 2026-03-08 — Phase 5 Plan 06 Task 1 complete; light mode contrast sweep done; checkpoint:human-verify pending
 progress:
   total_phases: 5
   completed_phases: 3
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-03-06)
 ## Current Position
 
 Phase: 5 of 5 (Polish)
-Plan: 3 of 6 in current phase (3 gap-closure plans remaining: 05-04, 05-05, 05-06)
-Status: In progress — checkpoint not approved
-Last activity: 2026-03-07 — Phase 5 Plan 03 complete; Playwright suite green; human checkpoint found 3 gaps
+Plan: 6 of 6 in current phase (gap-closure plans 05-04, 05-05 complete; 05-06 Task 1 complete, Task 2 is human checkpoint)
+Status: Checkpoint — awaiting human Phase 5 visual sign-off
+Last activity: 2026-03-08 — Light mode contrast sweep complete; all #E8B058 text instances confirmed covered; checkpoint:human-verify gate reached
 
 Progress: [██████████] 100%
 
@@ -106,6 +106,8 @@ Recent decisions affecting current work:
 - [Phase 05-polish]: footer selector fix: toBeAttached() used instead of toBeVisible() — Docusaurus layout renders two footer elements, first is CSS-hidden
 - [Phase 05-polish]: Background image opacity set to 0.40 in light mode (raised from 0.15) — threshold above which Background.jpg is visually meaningful on warm cream base
 - [Phase 05-polish]: White overlay reduced from from-white/40...to-white/60 to from-white/10...to-white/25 — gradient no longer dominates top of hero
+- [Phase 05-polish]: Light mode contrast sweep (05-06): all 4 #E8B058 instances in index.tsx confirmed covered — 3 text instances by line 1753 override, 1 decorative gradient needing no override
+- [Phase 05-polish]: NXGENSphereHero Reimagined. subtitle already conditionally uses text-[#996B1F] directly in light mode — no CSS override needed for this element
 
 ### Pending Todos
 
@@ -116,10 +118,10 @@ Recent decisions affecting current work:
 - [Pre-Phase 1]: Dead `prebuild` hook calls `fetchHygraphContent.js` — remove from `package.json` on day one before any other build attempts
 - [Pre-Phase 1]: Storyblok pages and lib must be deleted atomically — delete pages first, then components, then lib, then npm packages; partial deletion causes TypeScript module resolution errors
 - [Pre-Phase 4]: Decision required before Phase 2 schema work — whether to keep, consolidate, or remove the six role-based `@docusaurus/plugin-content-docs` instances; affects `targetAudience` field design in Sanity schema
-- [Phase 05-polish]: Phase 5 sign-off blocked — 3 gaps need gap-closure plans: 05-04 (Pagefind migration), 05-05 (hero light mode redesign), 05-06 (light mode contrast sweep #E8B058)
+- [Phase 05-polish]: Phase 5 sign-off at human checkpoint — gap-closure plans 05-04, 05-05, 05-06 Task 1 all complete; awaiting human visual verification of hero, headings, VoC modal, and Pagefind search UI
 
 ## Session Continuity
 
-Last session: 2026-03-07T22:17:49.483Z
-Stopped at: Completed 05-polish/05-05-PLAN.md
+Last session: 2026-03-08T00:00:00Z
+Stopped at: 05-polish/05-06-PLAN.md Task 2 — checkpoint:human-verify (Phase 5 final sign-off)
 Resume file: None

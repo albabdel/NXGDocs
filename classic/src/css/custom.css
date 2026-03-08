@@ -1783,6 +1783,9 @@ iframe[allowfullscreen]:fullscreen {
   color: var(--nxgen-gold-accessible-hover) !important;
 }
 
+/* Phase 5 gap-closure sweep complete: all #E8B058 text instances on home page path
+   confirmed covered by overrides above. Date: 2026-03-08 */
+
 /* --- Shadow Overrides --- */
 [data-theme='light'] .hover\:shadow-\[\#E8B058\]\/10:hover {
   --tw-shadow-color: rgba(153, 107, 31, 0.1) !important;

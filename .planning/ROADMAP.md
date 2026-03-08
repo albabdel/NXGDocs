@@ -102,9 +102,9 @@ Plans:
 - [x] 05-01-PLAN.md — Scaffold Playwright test specs (Wave 0); fix VoC modal light-mode invisible text; fix D4A047 link color override; resolve Footer placeholder # links
 - [x] 05-02-PLAN.md — Algolia credential unification (App ID + indexName unified to match indexer script; contextualSearch disabled)
 - [x] 05-03-PLAN.md — Run Playwright suite (8 passed, 1 skipped); human verification checkpoint — NOT approved, 3 gaps identified
-- [ ] 05-04-PLAN.md — [GAP] Complete Pagefind migration: postbuild script, @getcanary/docusaurus-theme-search-pagefind, remove Algolia themeConfig block, update search.spec.ts selectors
-- [ ] 05-05-PLAN.md — [GAP] Hero light mode redesign: increase background.jpg opacity, reduce white overlay, accessible gold on light background
-- [ ] 05-06-PLAN.md — [GAP] Light mode contrast sweep: index.tsx + custom.css #E8B058 → accessible token for light mode; re-run human verification checkpoint
+- [x] 05-04-PLAN.md — [GAP] Complete Pagefind migration: postbuild script, @getcanary/docusaurus-theme-search-pagefind, remove Algolia themeConfig block, update search.spec.ts selectors
+- [x] 05-05-PLAN.md — [GAP] Hero light mode redesign: increase background.jpg opacity, reduce white overlay, accessible gold on light background
+- [ ] 05-06-PLAN.md — [GAP] Light mode contrast sweep: index.tsx + custom.css #E8B058 → accessible token for light mode; re-run human verification checkpoint (Task 1 complete, Task 2 checkpoint pending)
 
 ## Progress
 
@@ -117,4 +117,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. CMS Setup | 3/3 | Complete    | 2026-03-07 |
 | 3. Integration Pipeline | 4/4 | Complete   | 2026-03-07 |
 | 4. Content Migration | 0/TBD | Not started | - |
-| 5. Polish | 4/6 | In Progress|  |
+| 5. Polish | 5/6 | Checkpoint — awaiting human sign-off |  |
