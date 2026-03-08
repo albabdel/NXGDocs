@@ -196,11 +196,21 @@ const config: Config = {
         breadcrumbs: true,
       },
     ],
-    // Pagefind: generates build/pagefind/ index via postBuild() lifecycle hook
-    './plugins/docusaurus-plugin-pagefind',
   ],
 
-  themes: ['@docusaurus/theme-mermaid', '@getcanary/docusaurus-theme-search-pagefind'],
+  themes: [
+    '@docusaurus/theme-mermaid',
+    [
+      '@easyops-cn/docusaurus-search-local',
+      {
+        hashed: true,
+        indexBlog: false,
+        indexDocs: true,
+        docsRouteBasePath: ['/', '/role-admin', '/internal'],
+        language: ['en'],
+      },
+    ],
+  ],
 
   themeConfig: {
     image: 'img/nxgen-social-card.jpg',

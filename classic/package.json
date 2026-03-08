@@ -20,12 +20,12 @@
     "test:e2e:debug": "playwright test --debug"
   },
   "dependencies": {
-    "@getcanary/docusaurus-theme-search-pagefind": "^1.0.2",
     "@cloudinary/react": "^1.14.3",
     "@cloudinary/url-gen": "^1.22.0",
     "@docusaurus/core": "^3.9.2",
     "@docusaurus/preset-classic": "^3.9.2",
     "@docusaurus/theme-mermaid": "^3.8.1",
+    "@easyops-cn/docusaurus-search-local": "^0.55.1",
     "@google/generative-ai": "^0.24.1",
     "@mdx-js/react": "^3.0.0",
     "@portabletext/markdown": "^1.1.4",
