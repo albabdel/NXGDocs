@@ -10,14 +10,20 @@ export default function LayoutWrapper(props: Props): JSX.Element {
   const shareSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Inject ShareSection right before TOC on desktop
+    // Inject ShareSection inside TOC container, above "ON THIS PAGE", on desktop
     if (typeof window !== 'undefined' && window.innerWidth >= 997) {
       const tocContainer = document.querySelector('.theme-doc-toc-desktop');
       const shareSection = shareSectionRef.current;
-      
-      if (tocContainer && shareSection && shareSection.parentNode !== tocContainer.parentNode) {
-        // Move ShareSection to be a sibling right before TOC
-        tocContainer.parentNode?.insertBefore(shareSection, tocContainer);
+
+      if (tocContainer && shareSection && shareSection.parentNode !== tocContainer) {
+        // Place inside TOC container so it benefits from padding-top clearance,
+        // positioned before .table-of-contents so it sits right above "ON THIS PAGE"
+        const tocList = tocContainer.querySelector('.table-of-contents');
+        if (tocList) {
+          tocContainer.insertBefore(shareSection, tocList);
+        } else {
+          tocContainer.prepend(shareSection);
+        }
       }
     }
   }, []);
