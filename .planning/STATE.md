@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: checkpoint
-stopped_at: 05-polish/05-06-PLAN.md Task 2 — awaiting human visual verification (Phase 5 sign-off)
+status: complete
+stopped_at: milestone complete
 last_updated: "2026-03-08T00:00:00Z"
-last_activity: 2026-03-08 — Phase 5 Plan 06 Task 1 complete; light mode contrast sweep done; checkpoint:human-verify pending
+last_activity: 2026-03-08 — Phase 5 checkpoint approved; Phase 4 confirmed complete; v1.0 milestone done
 progress:
   total_phases: 5
-  completed_phases: 3
+  completed_phases: 5
   total_plans: 21
-  completed_plans: 19
+  completed_plans: 21
   percent: 100
 ---
 
@@ -21,48 +21,24 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-06)
 
 **Core value:** Non-technical editors can open a web UI, write content, and publish it — without a developer as a bottleneck.
-**Current focus:** Phase 5 — Polish (gap-closure plans needed)
+**Current focus:** Milestone v1.0 complete
 
 ## Current Position
 
-Phase: 5 of 5 (Polish)
-Plan: 6 of 6 in current phase (gap-closure plans 05-04, 05-05 complete; 05-06 Task 1 complete, Task 2 is human checkpoint)
-Status: Checkpoint — awaiting human Phase 5 visual sign-off
-Last activity: 2026-03-08 — Light mode contrast sweep complete; all #E8B058 text instances confirmed covered; checkpoint:human-verify gate reached
+Phase: 5 of 5 — ALL PHASES COMPLETE
+Status: Milestone v1.0 complete
+Last activity: 2026-03-08 — Phase 5 human checkpoint approved; Phase 4 content migration confirmed complete
 
 Progress: [██████████] 100%
 
-## Performance Metrics
+## Milestone Summary
 
-**Velocity:**
-- Total plans completed: 0
-- Average duration: -
-- Total execution time: 0 hours
-
-**By Phase:**
-
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| - | - | - | - |
-
-**Recent Trend:**
-- Last 5 plans: -
-- Trend: -
-
-*Updated after each plan completion*
-| Phase 01-cleanup P01 | 6 | 2 tasks | 35 files |
-| Phase 01-cleanup P02 | 8min | 2 tasks | 24 files |
-| Phase 01-cleanup P03 | 16min | 2 tasks | 3 files |
-| Phase 01-cleanup P06 | 3min | 2 tasks | 5 files |
-| Phase 01-cleanup P04 | 70 | 2 tasks | 1 files |
-| Phase 01-cleanup P05 | 29 | 2 tasks | 135 files |
-| Phase 02-cms-setup P02 | 42 | 2 tasks | 6 files |
-| Phase 02-cms-setup P03 | 20min | 2 tasks | 0 files |
-| Phase 03-integration-pipeline P01 | 1 | 2 tasks | 5 files |
-| Phase 03-integration-pipeline P02 | 4min | 2 tasks | 4 files |
-| Phase 03-integration-pipeline P04 | 1min | 2 tasks | 0 files |
-| Phase 05-polish P03 | 21min | 1 tasks | 4 files |
-| Phase 05-polish P05 | 5 | 1 tasks | 1 files |
+All 5 phases of v1.0 complete:
+- Phase 1 (Cleanup): Dead CMS code removed, CSS consolidated, build stabilized
+- Phase 2 (CMS Setup): Sanity Studio deployed, all 4 schemas locked
+- Phase 3 (Integration Pipeline): Docusaurus-Sanity plugin built, publish webhook wired
+- Phase 4 (Content Migration): All MDX content migrated to Sanity
+- Phase 5 (Polish): Search (docusaurus-search-local), hero redesign, light mode contrast, visual consistency
 
 ## Accumulated Context
 
@@ -108,20 +84,21 @@ Recent decisions affecting current work:
 - [Phase 05-polish]: White overlay reduced from from-white/40...to-white/60 to from-white/10...to-white/25 — gradient no longer dominates top of hero
 - [Phase 05-polish]: Light mode contrast sweep (05-06): all 4 #E8B058 instances in index.tsx confirmed covered — 3 text instances by line 1753 override, 1 decorative gradient needing no override
 - [Phase 05-polish]: NXGENSphereHero Reimagined. subtitle already conditionally uses text-[#996B1F] directly in light mode — no CSS override needed for this element
+- [Phase 05-polish]: Search: switched from @getcanary/docusaurus-theme-search-pagefind (shadow DOM, invisible modal) to @easyops-cn/docusaurus-search-local v0.55.1; docsPluginIdForPreferredVersion: 'sanity-docs' required (no default plugin ID); SearchBar rendered in Root.tsx with fixed positioning (navbar CSS-hidden globally)
+- [Phase 05-polish]: Hero "How can we help?" search button replaced with "Explore Documentation" quick-link pills
+- [Phase 05-polish]: ShareSection moved inside .theme-doc-toc-desktop container (not sibling) so padding-top clearance applies; sits directly above "ON THIS PAGE"
+- [Phase 05-polish]: Phase 5 human checkpoint approved 2026-03-08
 
 ### Pending Todos
 
-1. **Complete Phase 4 content migration to Sanity CMS** (area: planning) — `.planning/todos/pending/2026-03-07-complete-phase-4-content-migration-to-sanity-cms.md`
+None — milestone v1.0 complete.
 
 ### Blockers/Concerns
 
-- [Pre-Phase 1]: Dead `prebuild` hook calls `fetchHygraphContent.js` — remove from `package.json` on day one before any other build attempts
-- [Pre-Phase 1]: Storyblok pages and lib must be deleted atomically — delete pages first, then components, then lib, then npm packages; partial deletion causes TypeScript module resolution errors
-- [Pre-Phase 4]: Decision required before Phase 2 schema work — whether to keep, consolidate, or remove the six role-based `@docusaurus/plugin-content-docs` instances; affects `targetAudience` field design in Sanity schema
-- [Phase 05-polish]: Phase 5 sign-off at human checkpoint — gap-closure plans 05-04, 05-05, 05-06 Task 1 all complete; awaiting human visual verification of hero, headings, VoC modal, and Pagefind search UI
+None.
 
 ## Session Continuity
 
 Last session: 2026-03-08T00:00:00Z
-Stopped at: 05-polish/05-06-PLAN.md Task 2 — checkpoint:human-verify (Phase 5 final sign-off)
+Stopped at: Milestone v1.0 complete
 Resume file: None

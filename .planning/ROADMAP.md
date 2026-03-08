@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Cleanup** - Remove all dead CMS code, consolidate CSS, and stabilize the build (completed 2026-03-07)
 - [x] **Phase 2: CMS Setup** - Create Sanity project, configure MCP server, and lock all content schemas (completed 2026-03-07)
 - [x] **Phase 3: Integration Pipeline** - Build the Docusaurus-Sanity plugin, rewrite feedback widget, and wire publish webhook (completed 2026-03-07)
-- [ ] **Phase 4: Content Migration** - Move all MDX content into Sanity section by section with zero URL breakage
+- [x] **Phase 4: Content Migration** - Move all MDX content into Sanity section by section with zero URL breakage (completed 2026-03-08)
 - [x] **Phase 5: Polish** - Refine navigation, search UX, and visual consistency
  (completed 2026-03-07)
 
@@ -104,7 +104,7 @@ Plans:
 - [x] 05-03-PLAN.md — Run Playwright suite (8 passed, 1 skipped); human verification checkpoint — NOT approved, 3 gaps identified
 - [x] 05-04-PLAN.md — [GAP] Complete Pagefind migration: postbuild script, @getcanary/docusaurus-theme-search-pagefind, remove Algolia themeConfig block, update search.spec.ts selectors
 - [x] 05-05-PLAN.md — [GAP] Hero light mode redesign: increase background.jpg opacity, reduce white overlay, accessible gold on light background
-- [ ] 05-06-PLAN.md — [GAP] Light mode contrast sweep: index.tsx + custom.css #E8B058 → accessible token for light mode; re-run human verification checkpoint (Task 1 complete, Task 2 checkpoint pending)
+- [x] 05-06-PLAN.md — [GAP] Light mode contrast sweep: index.tsx + custom.css #E8B058 → accessible token for light mode; re-run human verification checkpoint (approved 2026-03-08)
 
 ## Progress
 
@@ -116,5 +116,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Cleanup | 6/8 | Complete    | 2026-03-07 |
 | 2. CMS Setup | 3/3 | Complete    | 2026-03-07 |
 | 3. Integration Pipeline | 4/4 | Complete   | 2026-03-07 |
-| 4. Content Migration | 0/TBD | Not started | - |
-| 5. Polish | 5/6 | Checkpoint — awaiting human sign-off |  |
+| 4. Content Migration | TBD/TBD | Complete | 2026-03-08 |
+| 5. Polish | 6/6 | Complete | 2026-03-08 |
