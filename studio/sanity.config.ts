@@ -133,7 +133,9 @@ const initialValueTemplates = [
 const PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'https://gcxone.pages.dev'
 
 function getPreviewPath(document: {slug?: {current?: string}; _type?: string; _id?: string}): string {
-  const slug = document?.slug?.current || document?._id?.replace('drafts.', '') || ''
+  const slug = document?.slug?.current
+  if (!slug) return ''
+  
   const type = document?._type || 'doc'
 
   switch (type) {
@@ -145,7 +147,7 @@ function getPreviewPath(document: {slug?: {current?: string}; _type?: string; _i
     case 'landingPage':
       return `/${slug}`
     case 'referencePage':
-      return `/reference/${slug}`
+      return `/docs/${slug}`
     default:
       return `/docs/${slug}`
   }
@@ -160,27 +162,24 @@ export default defineConfig({
 
   plugins: [
     presentationTool({
-      title: 'Visual Editor',
+      title: 'Preview Site',
       previewUrl: {
-        previewMode: {
-          enable: true,
-        },
         origin: PREVIEW_URL,
         locate: {
           doc: (document: any) => ({
-            url: `${PREVIEW_URL}${getPreviewPath(document)}?preview=true`,
+            url: `${PREVIEW_URL}${getPreviewPath(document)}`,
           }),
           article: (document: any) => ({
-            url: `${PREVIEW_URL}${getPreviewPath(document)}?preview=true`,
+            url: `${PREVIEW_URL}${getPreviewPath(document)}`,
           }),
           releaseNote: (document: any) => ({
-            url: `${PREVIEW_URL}${getPreviewPath(document)}?preview=true`,
+            url: `${PREVIEW_URL}${getPreviewPath(document)}`,
           }),
           landingPage: (document: any) => ({
-            url: `${PREVIEW_URL}${getPreviewPath(document)}?preview=true`,
+            url: `${PREVIEW_URL}${getPreviewPath(document)}`,
           }),
           referencePage: (document: any) => ({
-            url: `${PREVIEW_URL}${getPreviewPath(document)}?preview=true`,
+            url: `${PREVIEW_URL}${getPreviewPath(document)}`,
           }),
         },
       },

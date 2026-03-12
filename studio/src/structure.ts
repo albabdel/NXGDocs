@@ -17,21 +17,26 @@ const SIDEBAR_PREVIEW_INFO = `
 const BASE_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'https://gcxone.pages.dev'
 
 function getPreviewUrl(document: any): string {
-  const slug = document?.slug?.current || document?._id?.replace('drafts.', '') || ''
+  const slug = document?.slug?.current || ''
   const type = document?._type || 'doc'
+  const status = document?.status || 'draft'
+
+  if (!slug) {
+    return BASE_URL
+  }
 
   switch (type) {
     case 'doc':
     case 'article':
-      return `${BASE_URL}/docs/${slug}?preview=true`
+      return `${BASE_URL}/docs/${slug}`
     case 'releaseNote':
-      return `${BASE_URL}/releases/${slug}?preview=true`
+      return `${BASE_URL}/releases/${slug}`
     case 'landingPage':
-      return `${BASE_URL}/${slug}?preview=true`
+      return `${BASE_URL}/${slug}`
     case 'referencePage':
-      return `${BASE_URL}/reference/${slug}?preview=true`
+      return `${BASE_URL}/docs/${slug}`
     default:
-      return `${BASE_URL}/docs/${slug}?preview=true`
+      return `${BASE_URL}/docs/${slug}`
   }
 }
 
