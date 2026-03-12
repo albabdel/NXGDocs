@@ -132,6 +132,25 @@ const initialValueTemplates = [
 
 const PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'https://gcxone.pages.dev'
 
+function getPreviewPath(document: {slug?: {current?: string}; _type?: string; _id?: string}): string {
+  const slug = document?.slug?.current || document?._id?.replace('drafts.', '') || ''
+  const type = document?._type || 'doc'
+
+  switch (type) {
+    case 'doc':
+    case 'article':
+      return `/docs/${slug}`
+    case 'releaseNote':
+      return `/releases/${slug}`
+    case 'landingPage':
+      return `/${slug}`
+    case 'referencePage':
+      return `/reference/${slug}`
+    default:
+      return `/docs/${slug}`
+  }
+}
+
 export default defineConfig({
   name: 'nxgen-docs',
   title: 'NXGEN Docs',
@@ -147,6 +166,23 @@ export default defineConfig({
           enable: true,
         },
         origin: PREVIEW_URL,
+        locate: {
+          doc: (document: any) => ({
+            url: `${PREVIEW_URL}${getPreviewPath(document)}?preview=true`,
+          }),
+          article: (document: any) => ({
+            url: `${PREVIEW_URL}${getPreviewPath(document)}?preview=true`,
+          }),
+          releaseNote: (document: any) => ({
+            url: `${PREVIEW_URL}${getPreviewPath(document)}?preview=true`,
+          }),
+          landingPage: (document: any) => ({
+            url: `${PREVIEW_URL}${getPreviewPath(document)}?preview=true`,
+          }),
+          referencePage: (document: any) => ({
+            url: `${PREVIEW_URL}${getPreviewPath(document)}?preview=true`,
+          }),
+        },
       },
     }),
 

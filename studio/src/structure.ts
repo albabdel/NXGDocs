@@ -14,23 +14,24 @@ const SIDEBAR_PREVIEW_INFO = `
 </div>
 `
 
-function getPreviewUrl(document: {slug?: {current?: string}; _type?: string}, documentId: string): string {
-  const slug = document?.slug?.current || documentId
-  const baseUrl = process.env.SANITY_STUDIO_PREVIEW_URL || 'https://gcxone.pages.dev'
-  
-  const type = document?._type
+const BASE_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'https://gcxone.pages.dev'
+
+function getPreviewUrl(document: any): string {
+  const slug = document?.slug?.current || document?._id?.replace('drafts.', '') || ''
+  const type = document?._type || 'doc'
+
   switch (type) {
     case 'doc':
     case 'article':
-      return `${baseUrl}/docs/${slug}?preview=true`
+      return `${BASE_URL}/docs/${slug}?preview=true`
     case 'releaseNote':
-      return `${baseUrl}/releases/${slug}?preview=true`
+      return `${BASE_URL}/releases/${slug}?preview=true`
     case 'landingPage':
-      return `${baseUrl}/${slug}?preview=true`
+      return `${BASE_URL}/${slug}?preview=true`
     case 'referencePage':
-      return `${baseUrl}/reference/${slug}?preview=true`
+      return `${BASE_URL}/reference/${slug}?preview=true`
     default:
-      return `${baseUrl}/docs/${slug}?preview=true`
+      return `${BASE_URL}/docs/${slug}?preview=true`
   }
 }
 
@@ -41,7 +42,7 @@ function documentWithPreviewViews(S: any) {
       .component(Iframe)
       .title('Preview')
       .options({
-        url: (documentId: string, document: any) => getPreviewUrl(document, documentId),
+        url: (options: {document: any}) => getPreviewUrl(options.document),
         showDisplayUrl: true,
         reloadOnPublish: true,
       })
