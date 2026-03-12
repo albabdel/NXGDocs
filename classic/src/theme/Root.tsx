@@ -8,14 +8,12 @@ import AlgoliaInsights from '../components/AlgoliaInsights';
 // @ts-ignore
 import SearchBar from '@theme/SearchBar';
 
-// Default implementation, that you can customize
 export default function Root({ children }: { children: React.ReactNode }) {
   return (
     <>
       <AlgoliaInsights />
       <BackgroundPattern />
       <ScrollProgress />
-      {/* Search bar — rendered outside hidden navbar so it's always accessible */}
       <div style={{
         position: 'fixed',
         top: '12px',

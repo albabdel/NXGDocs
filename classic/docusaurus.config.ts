@@ -105,6 +105,7 @@ const config: Config = {
 
   plugins: [
     './plugins/docusaurus-plugin-sanity-content',  // MUST be first — populates .sanity-cache/ before content-docs reads
+    './plugins/docusaurus-plugin-sanity-landing-pages',  // Landing pages from Sanity
     './plugins/docusaurus-plugin-last-update',
     // Internal docs plugin (keeping for now)
     [
@@ -114,7 +115,7 @@ const config: Config = {
         path: 'docs-internal',
         routeBasePath: 'internal',
         sidebarPath: './sidebars-internal.ts',
-        showLastUpdateTime: true,
+        showLastUpdateTime: false, // Disabled for Vercel builds (no git access)
         showLastUpdateAuthor: false,
         editUrl: undefined,
       },
@@ -187,7 +188,7 @@ const config: Config = {
         id: 'sanity-docs',
         path: '.sanity-cache/docs',
         routeBasePath: 'docs',
-        sidebarPath: undefined,  // auto-generated sidebar — no manual sidebars file needed
+        sidebarPath: './sidebars.ts',
         showLastUpdateTime: false,
         showLastUpdateAuthor: false,
         editUrl: undefined,

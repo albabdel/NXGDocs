@@ -33,3 +33,6 @@ yarn-error.log*
 
 # Sanity build-time content cache (generated artifact — not source)
 .sanity-cache/
+.sanity-landing-pages/
+.sanity-backups/
+.sanity-version-history/

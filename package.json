@@ -8,7 +8,12 @@
     "build": "cd classic && npm ci --prefer-offline --no-audit --silent && npm run build",
     "build:fast": "cd classic && (test -d node_modules || npm ci --prefer-offline --no-audit --silent) && npm run build",
     "start": "cd classic && npm start",
-    "serve": "cd classic && npm run serve"
+    "serve": "cd classic && npm run serve",
+    "sidebar:seed": "node scripts/seed-sidebar-config.js",
+    "sidebar:reconcile": "node scripts/reconcile-sanity-sidebar.js",
+    "sidebar:reconcile:apply": "node scripts/reconcile-sanity-sidebar.js --apply",
+    "sidebar:generate": "node scripts/generate-sidebars-from-sanity.js",
+    "sanity:fetch": "node classic/scripts/fetch-sanity-content.js"
   },
   "repository": {
     "type": "git",
@@ -32,5 +37,10 @@
     "dotenv": "^17.2.3",
     "gray-matter": "^4.0.3",
     "pdf-parse": "^2.4.5"
+  },
+  "devDependencies": {
+    "@sanity/client": "^7.17.0",
+    "jsdom": "^28.1.0",
+    "mammoth": "^1.11.0"
   }
 }

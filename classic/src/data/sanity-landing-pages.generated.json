@@ -1,0 +1,1015 @@
+[
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "href": "/docs",
+        "label": "Docs"
+      },
+      {
+        "label": "Breakthroughs"
+      }
+    ],
+    "description": "Ten core services that define how GCXONE monitors, correlates, and responds at scale",
+    "hero": {
+      "badge": {
+        "icon": "FileText",
+        "text": "Landing Page"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Breakthroughs",
+      "subheadline": "Ten core services that define how GCXONE monitors, correlates, and responds at scale"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "standard",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/docs/breakthroughs) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "docs/breakthroughs"
+    },
+    "status": "published",
+    "title": "Breakthroughs"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "label": "Getting Started"
+      }
+    ],
+    "description": "Guided onboarding for GCXONE - complete setup path to operational readiness",
+    "hero": {
+      "badge": {
+        "icon": "Rocket",
+        "text": "Quick Start"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Getting Started",
+      "subheadline": "Guided onboarding for GCXONE - complete setup path to operational readiness"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "quick-start",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/getting-started) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "getting-started"
+    },
+    "status": "published",
+    "title": "Getting Started"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "label": "Integration Hub"
+      }
+    ],
+    "description": "Discover all supported devices and integrations in GCXONE",
+    "hero": {
+      "badge": {
+        "icon": "FileText",
+        "text": "Landing Page"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Integration Hub",
+      "subheadline": "Discover all supported devices and integrations in GCXONE"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "standard",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/integration-hub) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "integration-hub"
+    },
+    "status": "published",
+    "title": "Integration Hub"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "label": "Internal Releases"
+      }
+    ],
+    "description": "Internal release notes and sprint documentation",
+    "hero": {
+      "badge": {
+        "icon": "Shield",
+        "text": "Internal Releases"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Internal Releases",
+      "subheadline": "Internal release notes and sprint documentation"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "internal-releases",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/internal-releases) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "internal-releases"
+    },
+    "status": "published",
+    "title": "Internal Releases"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "href": "/internal-releases",
+        "label": "Internal Releases"
+      },
+      {
+        "label": "Sprint 2025.12-A - Internal Releases"
+      }
+    ],
+    "description": "Detailed release notes for Sprint 2025.12-A",
+    "hero": {
+      "badge": {
+        "icon": "Shield",
+        "text": "Internal Releases"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Sprint 2025.12-A - Internal Releases",
+      "subheadline": "Detailed release notes for Sprint 2025.12-A"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "internal-releases",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/internal-releases/sprint-2025-12-b) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "internal-releases/sprint-2025-12-b"
+    },
+    "status": "published",
+    "title": "Sprint 2025.12-A - Internal Releases"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "href": "/internal-releases",
+        "label": "Internal Releases"
+      },
+      {
+        "label": "Sprint 2026.01-A - Internal Releases"
+      }
+    ],
+    "description": "Detailed release notes for Sprint 2026.01-A",
+    "hero": {
+      "badge": {
+        "icon": "Shield",
+        "text": "Internal Releases"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Sprint 2026.01-A - Internal Releases",
+      "subheadline": "Detailed release notes for Sprint 2026.01-A"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "internal-releases",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/internal-releases/sprint-2026-01-a) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "internal-releases/sprint-2026-01-a"
+    },
+    "status": "published",
+    "title": "Sprint 2026.01-A - Internal Releases"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "href": "/quick-start",
+        "label": "Quick Start"
+      },
+      {
+        "label": "Device Integration Guide"
+      }
+    ],
+    "description": "Complete guide to connecting devices to GCXONE platform",
+    "hero": {
+      "badge": {
+        "icon": "Rocket",
+        "text": "Quick Start"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Device Integration Guide",
+      "subheadline": "Complete guide to connecting devices to GCXONE platform"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "quick-start",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/quick-start/device-integration) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "quick-start/device-integration"
+    },
+    "status": "published",
+    "title": "Device Integration Guide"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "href": "/quick-start",
+        "label": "Quick Start"
+      },
+      {
+        "label": "Quick Start Guide"
+      }
+    ],
+    "description": "Get up and running with GCXONE in 5-10 minutes - Complete step-by-step guide from first login to full monitoring capability",
+    "hero": {
+      "badge": {
+        "icon": "Rocket",
+        "text": "Quick Start"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Quick Start Guide",
+      "subheadline": "Get up and running with GCXONE in 5-10 minutes - Complete step-by-step guide from first login to full monitoring capability"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "quick-start",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/quick-start/guide) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "quick-start/guide"
+    },
+    "status": "published",
+    "title": "Quick Start Guide"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "href": "/quick-start",
+        "label": "Quick Start"
+      },
+      {
+        "label": "Platform Overview"
+      }
+    ],
+    "description": "Complete guide to NXGEN GCXONE architecture, hierarchy model, and core capabilities",
+    "hero": {
+      "badge": {
+        "icon": "Rocket",
+        "text": "Quick Start"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Platform Overview",
+      "subheadline": "Complete guide to NXGEN GCXONE architecture, hierarchy model, and core capabilities"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "quick-start",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/quick-start/platform-overview) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "quick-start/platform-overview"
+    },
+    "status": "published",
+    "title": "Platform Overview"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "label": "Release Notes"
+      }
+    ],
+    "description": "Latest updates, new features, and improvements to GCXONE",
+    "hero": {
+      "badge": {
+        "icon": "Calendar",
+        "text": "Release Notes"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Release Notes",
+      "subheadline": "Latest updates, new features, and improvements to GCXONE"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "releases",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/releases) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "releases"
+    },
+    "status": "published",
+    "title": "Release Notes"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "href": "/releases",
+        "label": "Releases"
+      },
+      {
+        "label": "Sprint 2025.12-B Release Notes"
+      }
+    ],
+    "description": "Latest features and improvements in Sprint 2025.12-B",
+    "hero": {
+      "badge": {
+        "icon": "Calendar",
+        "text": "Release Notes"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Sprint 2025.12-B Release Notes",
+      "subheadline": "Latest features and improvements in Sprint 2025.12-B"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "releases",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/releases/sprint-2025-12-b) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "releases/sprint-2025-12-b"
+    },
+    "status": "published",
+    "title": "Sprint 2025.12-B Release Notes"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "label": "Product Roadmap"
+      }
+    ],
+    "description": "GCXONE Product Roadmap - Preview of upcoming features and improvements",
+    "hero": {
+      "badge": {
+        "icon": "FileText",
+        "text": "Landing Page"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Product Roadmap",
+      "subheadline": "GCXONE Product Roadmap - Preview of upcoming features and improvements"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "standard",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/roadmap) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "roadmap"
+    },
+    "status": "published",
+    "title": "Product Roadmap"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "href": "/roles",
+        "label": "Roles"
+      },
+      {
+        "label": "Admin Workspace"
+      }
+    ],
+    "description": "Complete administrative control center for GCXONE platform management",
+    "hero": {
+      "badge": {
+        "icon": "Users",
+        "text": "Role Workspace"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Admin Workspace",
+      "subheadline": "Complete administrative control center for GCXONE platform management"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "role",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/roles/admin) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "roles/admin"
+    },
+    "status": "published",
+    "title": "Admin Workspace"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "href": "/roles",
+        "label": "Roles"
+      },
+      {
+        "label": "Installer Toolkit"
+      }
+    ],
+    "description": "Technical resources and field tools for GCXONE site commissioning and device integration",
+    "hero": {
+      "badge": {
+        "icon": "Users",
+        "text": "Role Workspace"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Installer Toolkit",
+      "subheadline": "Technical resources and field tools for GCXONE site commissioning and device integration"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "role",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/roles/installer) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "roles/installer"
+    },
+    "status": "published",
+    "title": "Installer Toolkit"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "href": "/roles",
+        "label": "Roles"
+      },
+      {
+        "label": "Manager Overview"
+      }
+    ],
+    "description": "Strategic insights, performance analytics, and team management for GCXONE operations leaders",
+    "hero": {
+      "badge": {
+        "icon": "Users",
+        "text": "Role Workspace"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Manager Overview",
+      "subheadline": "Strategic insights, performance analytics, and team management for GCXONE operations leaders"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "role",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/roles/manager) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "roles/manager"
+    },
+    "status": "published",
+    "title": "Manager Overview"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "href": "/roles",
+        "label": "Roles"
+      },
+      {
+        "label": "Operator Workspace"
+      }
+    ],
+    "description": "Mission control center for real-time monitoring, alarm response, and security operations",
+    "hero": {
+      "badge": {
+        "icon": "Users",
+        "text": "Role Workspace"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Operator Workspace",
+      "subheadline": "Mission control center for real-time monitoring, alarm response, and security operations"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "role",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/roles/operator) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "roles/operator"
+    },
+    "status": "published",
+    "title": "Operator Workspace"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "label": "Towers"
+      }
+    ],
+    "description": "Complete guide to managing and configuring mobile towers in GCXONE",
+    "hero": {
+      "badge": {
+        "icon": "RadioTower",
+        "text": "Tower Guide"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Towers",
+      "subheadline": "Complete guide to managing and configuring mobile towers in GCXONE"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "tower-guide",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/towers) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "towers"
+    },
+    "status": "published",
+    "title": "Towers"
+  }
+]

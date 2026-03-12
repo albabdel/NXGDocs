@@ -23,15 +23,5 @@
         }
       ]
     }
-  ],
-  "env": {
-    "HYGRAPH_ENDPOINT": "@hygraph_endpoint",
-    "HYGRAPH_TOKEN": "@hygraph_token"
-  },
-  "build": {
-    "env": {
-      "HYGRAPH_ENDPOINT": "@hygraph_endpoint",
-      "HYGRAPH_TOKEN": "@hygraph_token"
-    }
-  }
+  ]
 }
