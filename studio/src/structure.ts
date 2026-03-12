@@ -1,5 +1,4 @@
 import {createElement} from 'react'
-import {Iframe} from 'sanity-plugin-iframe-pane'
 
 const SIDEBAR_PREVIEW_INFO = `
 <div style="padding: 1.5rem; max-width: 600px;">
@@ -13,47 +12,6 @@ const SIDEBAR_PREVIEW_INFO = `
   </p>
 </div>
 `
-
-const BASE_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'https://gcxone.pages.dev'
-
-function getPreviewUrl(document: any): string {
-  const slug = document?.slug?.current || ''
-  const type = document?._type || 'doc'
-  const status = document?.status || 'draft'
-
-  if (!slug) {
-    return BASE_URL
-  }
-
-  switch (type) {
-    case 'doc':
-    case 'article':
-      return `${BASE_URL}/docs/${slug}`
-    case 'releaseNote':
-      return `${BASE_URL}/releases/${slug}`
-    case 'landingPage':
-      return `${BASE_URL}/${slug}`
-    case 'referencePage':
-      return `${BASE_URL}/docs/${slug}`
-    default:
-      return `${BASE_URL}/docs/${slug}`
-  }
-}
-
-function documentWithPreviewViews(S: any) {
-  return [
-    S.view.form().title('Edit'),
-    S.view
-      .component(Iframe)
-      .title('Preview')
-      .options({
-        url: (options: {document: any}) => getPreviewUrl(options.document),
-        showDisplayUrl: true,
-        reloadOnPublish: true,
-      })
-      .icon(() => '👁️'),
-  ]
-}
 
 function buildCategoryHierarchy(S: any, categoryId: string) {
   return S.documentList()
@@ -175,12 +133,6 @@ export const deskStructure = (S: any) =>
             .schemaType('doc')
             .filter('_type == "doc"')
             .defaultOrdering([{field: 'title', direction: 'asc'}])
-            .child(documentId =>
-              S.document()
-                .schemaType('doc')
-                .documentId(documentId)
-                .views(documentWithPreviewViews(S))
-            )
         ),
 
       S.listItem()
@@ -297,12 +249,6 @@ export const deskStructure = (S: any) =>
             .schemaType('landingPage')
             .filter('_type == "landingPage"')
             .defaultOrdering([{field: 'title', direction: 'asc'}])
-            .child(documentId =>
-              S.document()
-                .schemaType('landingPage')
-                .documentId(documentId)
-                .views(documentWithPreviewViews(S))
-            )
         ),
 
       S.listItem()
@@ -315,12 +261,6 @@ export const deskStructure = (S: any) =>
             .schemaType('article')
             .filter('_type == "article"')
             .defaultOrdering([{field: 'title', direction: 'asc'}])
-            .child(documentId =>
-              S.document()
-                .schemaType('article')
-                .documentId(documentId)
-                .views(documentWithPreviewViews(S))
-            )
         ),
 
       S.listItem()
@@ -333,12 +273,6 @@ export const deskStructure = (S: any) =>
             .schemaType('releaseNote')
             .filter('_type == "releaseNote"')
             .defaultOrdering([{field: 'publishedAt', direction: 'desc'}])
-            .child(documentId =>
-              S.document()
-                .schemaType('releaseNote')
-                .documentId(documentId)
-                .views(documentWithPreviewViews(S))
-            )
         ),
 
       S.listItem()
@@ -351,12 +285,6 @@ export const deskStructure = (S: any) =>
             .schemaType('referencePage')
             .filter('_type == "referencePage"')
             .defaultOrdering([{field: 'title', direction: 'asc'}])
-            .child(documentId =>
-              S.document()
-                .schemaType('referencePage')
-                .documentId(documentId)
-                .views(documentWithPreviewViews(S))
-            )
         ),
 
       S.divider(),

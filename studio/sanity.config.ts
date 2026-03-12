@@ -1,37 +1,19 @@
-// studio/sanity.config.ts
-import {defineConfig, type DocumentBadgeComponent, type DocumentActionsComponent} from 'sanity'
+// studio/sanity.config.ts - Minimal configuration for faster builds
+import {defineConfig, type DocumentBadgeComponent} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
-import {presentationTool} from 'sanity/presentation'
 import {codeInput} from '@sanity/code-input'
 import {table} from '@sanity/table'
-import {media} from 'sanity-plugin-media'
 import {colorInput} from '@sanity/color-input'
-import {assist} from '@sanity/assist'
 import {dashboardTool, projectInfoWidget, projectUsersWidget} from '@sanity/dashboard'
 import {documentListWidget} from 'sanity-plugin-dashboard-widget-document-list'
-import {documentInternationalization} from '@sanity/document-internationalization'
-import {contentGraphView} from 'sanity-plugin-graph-view'
-import {tableOfContentsPlugin} from 'sanity-plugin-table-of-contents'
 import {unsplashAssetSource} from 'sanity-plugin-asset-source-unsplash'
-import {references} from 'sanity-plugin-references'
-import {internationalizedArray} from 'sanity-plugin-internationalized-array'
-import {muxInput} from 'sanity-plugin-mux-input'
 import {iconPicker} from 'sanity-plugin-icon-picker'
-import {imageHotspotArrayPlugin} from 'sanity-plugin-hotspot-array'
+import {muxInput} from 'sanity-plugin-mux-input'
 import {schemaTypes} from './schemaTypes'
 import {deskStructure} from './src/structure'
 import {NxgenLogo} from './src/components/NxgenBranding'
 import {duplicateAction, exportMarkdownAction, exportJSONAction, publishToAllAction, archiveAction} from './src/documentActions'
-
-const SUPPORTED_LANGUAGES = [
-  {id: 'en', title: 'English', isDefault: true},
-  {id: 'es', title: 'Spanish'},
-  {id: 'fr', title: 'French'},
-  {id: 'de', title: 'German'},
-  {id: 'ja', title: 'Japanese'},
-  {id: 'zh', title: 'Chinese'},
-]
 
 const StatusBadge: DocumentBadgeComponent = ({published, draft}) => {
   const doc = published || draft
@@ -81,14 +63,6 @@ const initialValueTemplates = [
     },
   },
   {
-    id: 'reference-page-default',
-    title: 'Reference Page',
-    schemaType: 'referencePage',
-    value: {
-      status: 'draft',
-    },
-  },
-  {
     id: 'landing-page-default',
     title: 'Landing Page',
     schemaType: 'landingPage',
@@ -98,60 +72,7 @@ const initialValueTemplates = [
       showBackground: true,
     },
   },
-  {
-    id: 'landing-page-quick-start',
-    title: 'Quick Start Landing Page',
-    schemaType: 'landingPage',
-    value: {
-      status: 'draft',
-      layoutType: 'quick-start',
-      showBackground: true,
-    },
-  },
-  {
-    id: 'landing-page-releases',
-    title: 'Release Notes Landing Page',
-    schemaType: 'landingPage',
-    value: {
-      status: 'draft',
-      layoutType: 'releases',
-      showBackground: true,
-    },
-  },
-  {
-    id: 'landing-page-internal-releases',
-    title: 'Internal Releases Landing Page',
-    schemaType: 'landingPage',
-    value: {
-      status: 'draft',
-      layoutType: 'internal-releases',
-      showBackground: true,
-    },
-  },
 ]
-
-const PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'https://gcxone.pages.dev'
-
-function getPreviewPath(document: {slug?: {current?: string}; _type?: string; _id?: string}): string {
-  const slug = document?.slug?.current
-  if (!slug) return ''
-  
-  const type = document?._type || 'doc'
-
-  switch (type) {
-    case 'doc':
-    case 'article':
-      return `/docs/${slug}`
-    case 'releaseNote':
-      return `/releases/${slug}`
-    case 'landingPage':
-      return `/${slug}`
-    case 'referencePage':
-      return `/docs/${slug}`
-    default:
-      return `/docs/${slug}`
-  }
-}
 
 export default defineConfig({
   name: 'nxgen-docs',
@@ -161,37 +82,12 @@ export default defineConfig({
   token: process.env.SANITY_API_TOKEN,
 
   plugins: [
-    presentationTool({
-      title: 'Preview Site',
-      previewUrl: {
-        origin: PREVIEW_URL,
-        locate: {
-          doc: (document: any) => ({
-            url: `${PREVIEW_URL}${getPreviewPath(document)}`,
-          }),
-          article: (document: any) => ({
-            url: `${PREVIEW_URL}${getPreviewPath(document)}`,
-          }),
-          releaseNote: (document: any) => ({
-            url: `${PREVIEW_URL}${getPreviewPath(document)}`,
-          }),
-          landingPage: (document: any) => ({
-            url: `${PREVIEW_URL}${getPreviewPath(document)}`,
-          }),
-          referencePage: (document: any) => ({
-            url: `${PREVIEW_URL}${getPreviewPath(document)}`,
-          }),
-        },
-      },
-    }),
-
     structureTool({
       structure: deskStructure,
     }),
 
     visionTool({
       defaultApiVersion: '2024-01-01',
-      defaultDataset: 'production',
     }),
 
     codeInput({
@@ -200,29 +96,21 @@ export default defineConfig({
         {name: 'typescript', title: 'TypeScript'},
         {name: 'python', title: 'Python'},
         {name: 'json', title: 'JSON'},
-        {name: 'css', title: 'CSS'},
-        {name: 'html', title: 'HTML'},
         {name: 'bash', title: 'Bash'},
-        {name: 'markdown', title: 'Markdown'},
         {name: 'yaml', title: 'YAML'},
-        {name: 'sql', title: 'SQL'},
       ],
     }),
 
     table(),
 
-    media({
-      csrfToken: process.env.SANITY_API_TOKEN,
-    }),
-
     colorInput(),
 
-    assist({
-      defineFieldAssistConfigs: (fieldDef) => {
-        return {
-          field: fieldDef,
-        }
-      },
+    iconPicker(),
+
+    muxInput({
+      mp4Support: 'standard',
+      muxToken: process.env.SANITY_STUDIO_MUX_TOKEN_ID,
+      muxSecretKey: process.env.SANITY_STUDIO_MUX_SECRET_KEY,
     }),
 
     dashboardTool({
@@ -250,16 +138,8 @@ export default defineConfig({
           filter: 'status == "draft"',
         }),
         documentListWidget({
-          title: 'In Review',
-          layout: {width: 'half'},
-          order: '_updatedAt desc',
-          limit: 5,
-          types: ['doc', 'article', 'landingPage'],
-          filter: 'status == "review"',
-        }),
-        documentListWidget({
           title: 'Recently Published',
-          layout: {width: 'full'},
+          layout: {width: 'half'},
           order: '_updatedAt desc',
           limit: 5,
           types: ['doc', 'article', 'landingPage', 'releaseNote'],
@@ -267,46 +147,6 @@ export default defineConfig({
         }),
       ],
     }),
-
-    documentInternationalization({
-      supportedLanguages: SUPPORTED_LANGUAGES,
-      schemaTypes: ['doc', 'article', 'landingPage', 'releaseNote'],
-    }),
-
-    internationalizedArray({
-      languages: SUPPORTED_LANGUAGES,
-      defaultLanguages: ['en'],
-    }),
-
-    contentGraphView({
-      query: `*[_type in ["doc", "article", "landingPage", "releaseNote", "sidebarCategory"]]{
-        _id, _type, title, slug, status,
-        "references": *[references(^._id)]{_id, _type, title}
-      }`,
-    }),
-
-    tableOfContentsPlugin({
-      documentTypes: ['doc', 'article', 'landingPage', 'releaseNote'],
-      fieldNames: ['content', 'body', 'description', 'sections'],
-    }),
-
-    references({
-      exclude: ['media.tag', 'sanity.imageAsset', 'sanity.fileAsset'],
-    }),
-
-    muxInput({
-      mp4Support: 'standard',
-      additionalFields: [
-        {name: 'title', type: 'string', title: 'Title'},
-        {name: 'description', type: 'text', title: 'Description'},
-      ],
-      muxToken: process.env.SANITY_STUDIO_MUX_TOKEN_ID,
-      muxSecretKey: process.env.SANITY_STUDIO_MUX_SECRET_KEY,
-    }),
-
-    iconPicker(),
-
-    imageHotspotArrayPlugin({}),
   ],
 
   form: {
@@ -339,13 +179,6 @@ export default defineConfig({
         ]
       }
       return prev
-    },
-    newDocumentOptions: (prev, {creationContext}) => {
-      const {type} = creationContext
-      return prev.filter((template) => {
-        if (type === 'global') return true
-        return template.templateId?.startsWith(type as string) ?? true
-      })
     },
   },
 
