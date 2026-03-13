@@ -92,7 +92,7 @@ type StepsSection = SectionBase & { _type: 'landingSectionSteps'; phases: StepPh
 type CapabilitiesSection = SectionBase & { _type: 'landingSectionCapabilities'; capabilities: FeatureItem[] };
 type HierarchySection = SectionBase & { _type: 'landingSectionHierarchy'; levels: HierarchyLevel[]; benefits?: HierarchyBenefit[] };
 type TabsSection = SectionBase & { _type: 'landingSectionTabs'; tabs: TabItem[] };
-type ReleasesSection = SectionBase & { _type: 'landingSectionReleases'; showCurrentSprint?: boolean; showCompleted?: boolean; showRoadmapLink?: boolean; releaseType?: 'customer' | 'internal' };
+type ReleasesSection = SectionBase & { _type: 'landingSectionReleases'; showCurrentSprint?: boolean; showCompleted?: boolean; showRoadmapLink?: boolean };
 type ContentGridSection = SectionBase & { _type: 'landingSectionContentGrid'; columns?: number; items: ContentGridItem[] };
 type CTASection = SectionBase & { _type: 'landingSectionCTA'; buttons?: { label: string; href: string; variant?: string }[] };
 type CustomSection = SectionBase & { _type: 'landingSectionCustom'; customBody?: any[] };
@@ -128,17 +128,11 @@ function normalizeRouteSlug(value: unknown): string {
   return raw.trim().replace(/^\/+/, '').replace(/\/+$/, '');
 }
 
-function isInternalReleaseNote(note: ReleaseNoteDoc): boolean {
-  const slug = normalizeRouteSlug(note.slug).toLowerCase();
-  return slug.includes('internal');
-}
-
-function releasePathForNote(note: ReleaseNoteDoc, releaseType?: 'customer' | 'internal'): string {
+function releasePathForNote(note: ReleaseNoteDoc): string {
   const normalizedSlug = normalizeRouteSlug(note.slug);
-  if (!normalizedSlug) return releaseType === 'internal' ? '/internal-releases' : '/releases';
+  if (!normalizedSlug) return '/releases';
   if (normalizedSlug.includes('/')) return `/${normalizedSlug}`;
-  const base = releaseType === 'internal' ? '/internal-releases' : '/releases';
-  return `${base}/${normalizedSlug}`;
+  return `/releases/${normalizedSlug}`;
 }
 
 function formatReleaseDate(dateString?: string): string {
@@ -148,22 +142,14 @@ function formatReleaseDate(dateString?: string): string {
   return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(date);
 }
 
-function getSectionReleaseNotes(releaseType?: 'customer' | 'internal'): ReleaseNoteDoc[] {
-  const all = (Array.isArray(releaseNotes) ? releaseNotes : [])
+function getSectionReleaseNotes(): ReleaseNoteDoc[] {
+  return (Array.isArray(releaseNotes) ? releaseNotes : [])
     .filter((note: any) => String(note?.status || '').toLowerCase() === 'published')
     .sort((a: any, b: any) => {
       const aTime = new Date(a?.publishedAt || 0).getTime();
       const bTime = new Date(b?.publishedAt || 0).getTime();
       return bTime - aTime;
     }) as ReleaseNoteDoc[];
-
-  if (releaseType === 'internal') {
-    const internal = all.filter(isInternalReleaseNote);
-    return internal.length > 0 ? internal : all;
-  }
-
-  const customer = all.filter((note) => !isInternalReleaseNote(note));
-  return customer.length > 0 ? customer : all;
 }
 
 function resolveImageLikeUrl(value: any): string {
@@ -714,9 +700,8 @@ function ReleasesSection({ section }: { section: ReleasesSection }) {
     showCurrentSprint = true,
     showCompleted = true,
     showRoadmapLink,
-    releaseType,
   } = section;
-  const notes = getSectionReleaseNotes(releaseType).slice(0, 8);
+  const notes = getSectionReleaseNotes().slice(0, 8);
   const current = notes[0];
   const completed = notes.slice(showCurrentSprint ? 1 : 0);
 
@@ -727,9 +712,7 @@ function ReleasesSection({ section }: { section: ReleasesSection }) {
         <div className="space-y-4">
           <div className="p-8 bg-[#202020] border border-white/10 rounded-xl">
             <p className="text-white/70">
-              {releaseType === 'internal'
-                ? 'No internal published release notes found yet in Sanity.'
-                : 'No customer published release notes found yet in Sanity.'}
+              No published release notes found yet in Sanity.
             </p>
           </div>
         </div>
@@ -745,7 +728,7 @@ function ReleasesSection({ section }: { section: ReleasesSection }) {
                 </div>
                 <span className="text-sm text-white/60">{formatReleaseDate(current.publishedAt)}</span>
               </div>
-              <Link to={releasePathForNote(current, releaseType)} className="no-underline">
+              <Link to={releasePathForNote(current)} className="no-underline">
                 <h3 className="text-xl font-semibold text-white hover:text-[#E8B058] transition-colors">{current.title || 'Untitled release'}</h3>
               </Link>
               <div className="flex items-center gap-3 text-sm text-white/70 mt-2 flex-wrap">
@@ -759,7 +742,7 @@ function ReleasesSection({ section }: { section: ReleasesSection }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {completed.map((note, idx) => (
                 <div key={idx} className="p-5 bg-[#202020] border border-white/10 rounded-xl hover:border-[#E8B058]/30 transition-all">
-                  <Link to={releasePathForNote(note, releaseType)} className="no-underline">
+                  <Link to={releasePathForNote(note)} className="no-underline">
                     <h4 className="text-base font-semibold text-white hover:text-[#E8B058] transition-colors">{note.title || 'Untitled release'}</h4>
                   </Link>
                   <div className="text-xs text-white/60 mt-2">

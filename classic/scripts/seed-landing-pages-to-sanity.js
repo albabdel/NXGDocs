@@ -46,7 +46,6 @@ function guessTitleFromRoute(route) {
 function inferLayoutType(route) {
   if (route.startsWith('/roles/')) return 'role';
   if (route.startsWith('/quick-start/') || route === '/getting-started') return 'quick-start';
-  if (route.startsWith('/internal-releases')) return 'internal-releases';
   if (route.startsWith('/releases')) return 'releases';
   if (route === '/towers') return 'tower-guide';
   return 'standard';
@@ -56,7 +55,6 @@ function inferBadge(layoutType) {
   if (layoutType === 'role') return { icon: 'Users', text: 'Role Workspace' };
   if (layoutType === 'quick-start') return { icon: 'Rocket', text: 'Quick Start' };
   if (layoutType === 'releases') return { icon: 'Calendar', text: 'Release Notes' };
-  if (layoutType === 'internal-releases') return { icon: 'Shield', text: 'Internal Releases' };
   if (layoutType === 'tower-guide') return { icon: 'RadioTower', text: 'Tower Guide' };
   return { icon: 'FileText', text: 'Landing Page' };
 }

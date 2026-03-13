@@ -1,5 +1,72 @@
 [
   {
+    "breadcrumbs": null,
+    "description": "Get started with NXGEN quickly with our comprehensive quick start guides and tutorials.",
+    "hero": {
+      "badge": {
+        "icon": "Zap",
+        "text": "10 min setup"
+      },
+      "ctaButtons": [
+        {
+          "_key": "cta1",
+          "href": "/docs/quick-start-guide",
+          "label": "Start Tutorial",
+          "variant": "primary"
+        },
+        {
+          "_key": "cta2",
+          "href": "/docs/video-tutorials",
+          "label": "Watch Demo",
+          "variant": "secondary"
+        }
+      ],
+      "headline": "Get Started with NXGEN",
+      "subheadline": "Everything you need to set up, configure, and master the NXGEN platform"
+    },
+    "lastUpdated": null,
+    "layoutType": "quick-start",
+    "publishedAt": null,
+    "sections": [
+      {
+        "_key": "features1",
+        "_type": "landingSectionFeatures",
+        "columns": 3,
+        "features": [
+          {
+            "_key": "feat1",
+            "color": "#10B981",
+            "description": "Learn the basics of monitoring and responding to events",
+            "icon": "User",
+            "title": "For Operators"
+          },
+          {
+            "_key": "feat2",
+            "color": "#6366F1",
+            "description": "Configure users, devices, and system settings",
+            "icon": "Settings",
+            "title": "For Admins"
+          },
+          {
+            "_key": "feat3",
+            "color": "#F59E0B",
+            "description": "Set up reports, dashboards, and analytics",
+            "icon": "BarChart",
+            "title": "For Managers"
+          }
+        ],
+        "title": "Quick Start Paths"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "quick-start"
+    },
+    "status": "published",
+    "title": "Quick Start"
+  },
+  {
     "breadcrumbs": [
       {
         "href": "/",
@@ -173,185 +240,6 @@
     },
     "status": "published",
     "title": "Integration Hub"
-  },
-  {
-    "breadcrumbs": [
-      {
-        "href": "/",
-        "label": "Home"
-      },
-      {
-        "label": "Internal Releases"
-      }
-    ],
-    "description": "Internal release notes and sprint documentation",
-    "hero": {
-      "badge": {
-        "icon": "Shield",
-        "text": "Internal Releases"
-      },
-      "ctaButtons": [
-        {
-          "href": "/docs",
-          "label": "Browse Documentation",
-          "variant": "primary"
-        }
-      ],
-      "headline": "Internal Releases",
-      "subheadline": "Internal release notes and sprint documentation"
-    },
-    "lastUpdated": "2026-03-12",
-    "layoutType": "internal-releases",
-    "publishedAt": "2026-03-12",
-    "sections": [
-      {
-        "_type": "landingSectionCustom",
-        "customBody": [
-          {
-            "_type": "block",
-            "children": [
-              {
-                "_type": "span",
-                "marks": [],
-                "text": "This landing page route (/internal-releases) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
-              }
-            ],
-            "markDefs": [],
-            "style": "normal"
-          }
-        ],
-        "title": "Migration Notice"
-      }
-    ],
-    "showBackground": true,
-    "slug": {
-      "_type": "slug",
-      "current": "internal-releases"
-    },
-    "status": "published",
-    "title": "Internal Releases"
-  },
-  {
-    "breadcrumbs": [
-      {
-        "href": "/",
-        "label": "Home"
-      },
-      {
-        "href": "/internal-releases",
-        "label": "Internal Releases"
-      },
-      {
-        "label": "Sprint 2025.12-A - Internal Releases"
-      }
-    ],
-    "description": "Detailed release notes for Sprint 2025.12-A",
-    "hero": {
-      "badge": {
-        "icon": "Shield",
-        "text": "Internal Releases"
-      },
-      "ctaButtons": [
-        {
-          "href": "/docs",
-          "label": "Browse Documentation",
-          "variant": "primary"
-        }
-      ],
-      "headline": "Sprint 2025.12-A - Internal Releases",
-      "subheadline": "Detailed release notes for Sprint 2025.12-A"
-    },
-    "lastUpdated": "2026-03-12",
-    "layoutType": "internal-releases",
-    "publishedAt": "2026-03-12",
-    "sections": [
-      {
-        "_type": "landingSectionCustom",
-        "customBody": [
-          {
-            "_type": "block",
-            "children": [
-              {
-                "_type": "span",
-                "marks": [],
-                "text": "This landing page route (/internal-releases/sprint-2025-12-b) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
-              }
-            ],
-            "markDefs": [],
-            "style": "normal"
-          }
-        ],
-        "title": "Migration Notice"
-      }
-    ],
-    "showBackground": true,
-    "slug": {
-      "_type": "slug",
-      "current": "internal-releases/sprint-2025-12-b"
-    },
-    "status": "published",
-    "title": "Sprint 2025.12-A - Internal Releases"
-  },
-  {
-    "breadcrumbs": [
-      {
-        "href": "/",
-        "label": "Home"
-      },
-      {
-        "href": "/internal-releases",
-        "label": "Internal Releases"
-      },
-      {
-        "label": "Sprint 2026.01-A - Internal Releases"
-      }
-    ],
-    "description": "Detailed release notes for Sprint 2026.01-A",
-    "hero": {
-      "badge": {
-        "icon": "Shield",
-        "text": "Internal Releases"
-      },
-      "ctaButtons": [
-        {
-          "href": "/docs",
-          "label": "Browse Documentation",
-          "variant": "primary"
-        }
-      ],
-      "headline": "Sprint 2026.01-A - Internal Releases",
-      "subheadline": "Detailed release notes for Sprint 2026.01-A"
-    },
-    "lastUpdated": "2026-03-12",
-    "layoutType": "internal-releases",
-    "publishedAt": "2026-03-12",
-    "sections": [
-      {
-        "_type": "landingSectionCustom",
-        "customBody": [
-          {
-            "_type": "block",
-            "children": [
-              {
-                "_type": "span",
-                "marks": [],
-                "text": "This landing page route (/internal-releases/sprint-2026-01-a) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
-              }
-            ],
-            "markDefs": [],
-            "style": "normal"
-          }
-        ],
-        "title": "Migration Notice"
-      }
-    ],
-    "showBackground": true,
-    "slug": {
-      "_type": "slug",
-      "current": "internal-releases/sprint-2026-01-a"
-    },
-    "status": "published",
-    "title": "Sprint 2026.01-A - Internal Releases"
   },
   {
     "breadcrumbs": [
