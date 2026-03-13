@@ -1,642 +1,534 @@
-# Architecture Patterns: Docusaurus + Sanity CMS Integration
+# Architecture Research
 
-**Domain:** Headless CMS integration for static documentation site
-**Researched:** 2026-03-06
-**Confidence:** HIGH (Sanity API, Docusaurus plugin lifecycle, Cloudflare Pages hooks — all well-documented, stable patterns)
-
----
-
-## Recommended Architecture
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                        AUTHORING PLANE                              │
-│                                                                     │
-│   ┌─────────────────┐      ┌──────────────────────────────────┐    │
-│   │  Sanity Studio  │─────▶│  Sanity Cloud (Content Lake)     │    │
-│   │  (web UI)       │ CRUD │  - GROQ query API                │    │
-│   │  sanity.io/...  │      │  - CDN API (api.sanity.io/cdn)   │    │
-│   └─────────────────┘      │  - Webhook delivery              │    │
-│                             └──────────────┬─────────────────┘    │
-└────────────────────────────────────────────│────────────────────────┘
-                                             │ HTTP POST webhook
-                                             │ (on document publish)
-┌────────────────────────────────────────────▼────────────────────────┐
-│                        BUILD PLANE                                  │
-│                                                                     │
-│   ┌──────────────────────────────────────────────────────────────┐  │
-│   │  Cloudflare Pages Build                                      │  │
-│   │                                                              │  │
-│   │  1. Plugin: docusaurus-plugin-sanity                        │  │
-│   │     └─ loadContent(): GROQ → fetch all docs from Sanity     │  │
-│   │     └─ contentLoaded(): write MDX files to .sanity-cache/   │  │
-│   │                                                              │  │
-│   │  2. Docusaurus @plugin-content-docs reads:                  │  │
-│   │     ├─ classic/docs/  (git MDX — legacy, being migrated)    │  │
-│   │     └─ .sanity-cache/ (generated MDX from Sanity)           │  │
-│   │                                                              │  │
-│   │  3. Build produces static HTML into /build                  │  │
-│   │                                                              │  │
-│   │  4. Algolia crawler or docusaurus-search-algolia runs       │  │
-│   │     and re-indexes from built HTML                           │  │
-│   └──────────────────────────────────────────────────────────────┘  │
-│                                                                     │
-└──────────────────────────────┬──────────────────────────────────────┘
-                               │ Deploy
-┌──────────────────────────────▼──────────────────────────────────────┐
-│                       DELIVERY PLANE                                │
-│                                                                     │
-│   Cloudflare Pages CDN → docs.nxgen.cloud                          │
-│   (static HTML, CSS, JS — fully cacheable, no server runtime)      │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
+**Domain:** Docusaurus SSG + Sanity CMS — v1.1 Releases & Roadmap milestone
+**Researched:** 2026-03-13
+**Confidence:** HIGH (based on direct codebase inspection of all relevant files)
 
 ---
 
-## Component Boundaries
+## Standard Architecture
 
-| Component | Responsibility | Owns | Communicates With |
-|-----------|---------------|------|-------------------|
-| **Sanity Studio** | Content authoring UI | Document editing, publish actions, media uploads | Sanity Content Lake (HTTPS/REST) |
-| **Sanity Content Lake** | Content storage + API | GROQ query API, CDN API, webhook dispatch | Studio (inbound), Docusaurus build (outbound fetch), Cloudflare Pages (outbound webhook) |
-| **docusaurus-plugin-sanity** | Content bridge | GROQ queries at build time, MDX file generation | Sanity API (inbound), Docusaurus lifecycle (outbound) |
-| **Docusaurus build** | Site compilation | Static HTML generation, sidebar construction, routing | plugin-sanity (content), Cloudinary (images), Algolia (search config) |
-| **Cloudflare Pages** | Hosting + CI | Build environment, deploy hook endpoint, CDN | Sanity webhook (inbound), built assets (outbound to CDN) |
-| **Algolia** | Search index | Search index, query API | Docusaurus build (re-index on rebuild), DocSearch UI component (query-time) |
-| **Cloudinary** | Image CDN | Image storage, transformation URLs | Docusaurus components (image URLs embedded in content) |
+### System Overview
+
+```
+┌──────────────────────────────────────────────────────────────────────┐
+│                        SANITY STUDIO (studio/)                        │
+│  ┌─────────────────────┐  ┌──────────────────┐  ┌─────────────────┐  │
+│  │  release (NEW)      │  │  roadmapItem     │  │  doc / article  │  │
+│  │  - title            │  │  (NEW schema)    │  │  (existing,     │  │
+│  │  - sprintId         │  │  - title         │  │   unchanged)    │  │
+│  │  - publishedAt      │  │  - status        │  │                 │  │
+│  │  - items[] (array)  │  │  - businessValue │  │                 │  │
+│  │    - title          │  │  - changeType    │  │                 │  │
+│  │    - description    │  │  - uiChange flag │  │                 │  │
+│  │    - type           │  │  - uxFixes flag  │  │                 │  │
+│  │    - screenshot?    │  │  - entities[]    │  │                 │  │
+│  │    - video?         │  │  - releaseRef?   │  │                 │  │
+│  └─────────────────────┘  └──────────────────┘  └─────────────────┘  │
+│                                                                        │
+│  releaseNote.ts → DELETED. Replaced entirely by release.ts above.     │
+└──────────────────────┬───────────────────────────────────────────────┘
+                       |
+                       |  Sanity publish fires webhook
+                       |
+                       v
+┌──────────────────────────────────────────────────────────────────────┐
+│              CLOUDFLARE PAGES BUILD PIPELINE                          │
+│                                                                        │
+│  webhook received -> Cloudflare Pages triggers rebuild                 │
+│                                                                        │
+│  Pre-build:  node classic/scripts/fetch-sanity-content.js             │
+│    GROQ existing:  docs, articles, referencePages                      │
+│    GROQ existing:  landingPages -> .sanity-landing-pages/ + JSON       │
+│    GROQ NEW:       release      -> src/data/sanity-releases.json       │
+│    GROQ NEW:       roadmapItem  -> src/data/sanity-roadmap.json        │
+│    MDX output:     .sanity-cache/{audience}/*.md  (docs only)         │
+│                                                                        │
+│  Build:      npx docusaurus build                                      │
+│    - plugin-content-docs reads .sanity-cache/ for /docs/*             │
+│    - src/pages/*.tsx compiled with JSON imports baked in               │
+└──────────────────────┬───────────────────────────────────────────────┘
+                       |
+                       v
+┌──────────────────────────────────────────────────────────────────────┐
+│                  STATIC SITE OUTPUT (deployed to Cloudflare CDN)       │
+│                                                                        │
+│  /releases     custom React page - reads sanity-releases.json         │
+│  /roadmap      custom React page - reads sanity-roadmap.json          │
+│  /             hero banner reads releases[0] from sanity-releases.json │
+│  /docs/*       MDX docs via plugin-content-docs (unchanged pipeline)   │
+│                                                                        │
+│  Client-side:  search/filter on /roadmap runs entirely in browser      │
+│                (no API calls; full dataset in JS bundle)               │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+### Component Responsibilities
+
+| Component | Status | Responsibility | Location |
+|-----------|--------|---------------|----------|
+| `releaseNote.ts` | DELETED | Replaced by `release.ts` | `studio/schemaTypes/` |
+| `release.ts` | NEW | One doc per sprint; items as inline array | `studio/schemaTypes/` |
+| `roadmapItem.ts` | NEW | Individual roadmap item; optional ref to release | `studio/schemaTypes/` |
+| `studio/schemaTypes/index.ts` | MODIFIED | Swap releaseNoteType, add roadmapItemType | `studio/schemaTypes/` |
+| `fetch-sanity-content.js` | MODIFIED | Add two new GROQ queries + JSON output | `classic/scripts/` |
+| `sanity-releases.generated.json` | NEW | Build artifact; all release data for /releases | `classic/src/data/` |
+| `sanity-roadmap.generated.json` | NEW | Build artifact; all roadmap items for /roadmap | `classic/src/data/` |
+| `src/pages/releases.tsx` | REPLACED | Custom React page; reads sanity-releases JSON | `classic/src/pages/` |
+| `src/pages/roadmap.tsx` | REPLACED | Custom React page; reads sanity-roadmap JSON | `classic/src/pages/` |
+| `NXGENSphereHero.tsx` | MODIFIED | Banner chip reads releases[0] from JSON | `classic/src/components/` |
+| `src/pages/index.tsx` | MODIFIED | "Recent Releases" section reads releases[0..1] | `classic/src/pages/` |
+| `src/legacy-pages/releases.tsx` | DELETED | Replaced by CMS-backed page | `classic/src/legacy-pages/` |
+| `src/data/roadmap.ts` | DELETED | Replaced by sanity-roadmap.generated.json | `classic/src/data/` |
 
 ---
 
-## Data Flow: Content Editor to Live Page
+## Recommended Project Structure
 
 ```
-Editor action in Sanity Studio
-        │
-        │ (1) Editor writes content, sets status to Published
-        ▼
-Sanity Content Lake stores document
-        │
-        │ (2) Sanity fires HTTP POST webhook to:
-        │     https://pages.cloudflare.com/api/v1/pages/hooks/{token}
-        ▼
-Cloudflare Pages receives webhook → triggers new build
-        │
-        │ (3) Build starts: node scripts/build-with-memory.js
-        │     → docusaurus build
-        │
-        │ (4) docusaurus-plugin-sanity.loadContent() runs:
-        │     GROQ query to api.sanity.io/cdn/v2024-01-01/data/query/{dataset}
-        │     → returns all published documents for each content type
-        │
-        │ (5) plugin.contentLoaded():
-        │     writes fetched content as .mdx files to .sanity-cache/
-        │     (or directly injects via addRoute / createData)
-        │
-        │ (6) @docusaurus/plugin-content-docs processes:
-        │     - .sanity-cache/ (Sanity-sourced docs)
-        │     - classic/docs/  (remaining git-sourced docs)
-        │     → generates sidebar, routes, page HTML
-        │
-        │ (7) Algolia crawler re-indexes built HTML
-        │     (or: docsearch-scraper runs against deployed URL post-deploy)
-        │
-        ▼
-Cloudflare Pages deploys static build → CDN propagation (~30s)
-        │
-        ▼
-docs.nxgen.cloud serves updated content
+classic/
+├── scripts/
+│   └── fetch-sanity-content.js         # MODIFIED: new queries + JSON output
+│
+├── src/
+│   ├── data/
+│   │   ├── sanity-releases.generated.json      # NEW: written at build time
+│   │   ├── sanity-roadmap.generated.json       # NEW: written at build time
+│   │   ├── sanity-release-notes.generated.json # KEEP or DELETE (now superseded)
+│   │   └── sanity-landing-pages.generated.json # UNCHANGED
+│   │
+│   ├── pages/
+│   │   ├── releases.tsx         # REPLACED: reads sanity-releases JSON
+│   │   ├── roadmap.tsx          # REPLACED: reads sanity-roadmap JSON
+│   │   └── index.tsx            # MODIFIED: hero + recent releases from JSON
+│   │
+│   └── components/
+│       └── NXGENSphereHero.tsx  # MODIFIED: latest release from JSON import
+│
+studio/
+└── schemaTypes/
+    ├── releaseNote.ts           # DELETED
+    ├── release.ts               # NEW
+    ├── roadmapItem.ts           # NEW
+    └── index.ts                 # MODIFIED
 ```
 
-**End-to-end publish latency:** ~2-4 minutes (Sanity publish → Cloudflare build ~90s → CDN propagation ~30s).
+### Structure Rationale
+
+- **`sanity-releases.generated.json` and `sanity-roadmap.generated.json`:** Follow the established pattern of `sanity-landing-pages.generated.json`. Written at build time by the fetch script; imported as static JSON by React pages. Zero runtime API calls. Zero SSG compatibility issues.
+- **Releases as a custom React page (not MDX docs):** The new schema has `items[]` — an array with per-item screenshots and video. MDX docs render one `body` field per document. There is no reasonable way to render a structured items array through the Portable Text to MDX pipeline. A custom page with a direct JSON import is the correct approach. This is already the pattern used by `roadmap.tsx`.
+- **Roadmap items as JSON (not MDX):** Roadmap items are structured data rows — title, status, flags, reference. Running them through the MDX pipeline (GROQ → Portable Text → MDX → sidebar) adds complexity for zero benefit. The filter/search UI requires the full dataset in memory anyway.
 
 ---
 
-## Sanity Content Schema Design
+## Architectural Patterns
 
-Four content types map to the existing doc sections.
+### Pattern 1: Build-Time JSON as the SSG-Safe Data Contract
 
-### Type 1: `doc` (Core Documentation)
+**What:** `fetch-sanity-content.js` runs before `docusaurus build`, executes GROQ queries, and writes typed JSON files to `src/data/`. React pages import these files with static TypeScript `import` statements. No runtime API calls. No SSR.
 
-Covers: getting-started, features, devices, admin-guide, operator-guide, installer-guide, platform-fundamentals, alarm-management, device-integration, reporting, troubleshooting, support.
+**When to use:** All Sanity data that needs to power a custom React page (not an MDX doc). Already established for landing pages and release note metadata.
 
-```typescript
-// schemas/doc.ts
-{
-  name: 'doc',
-  title: 'Documentation Article',
-  type: 'document',
-  fields: [
-    { name: 'title',           type: 'string',   validation: required },
-    { name: 'slug',            type: 'slug',     options: { source: 'title' } },
-    { name: 'description',     type: 'text',     rows: 2 },
-    { name: 'section',         type: 'string',
-      options: { list: ['getting-started','features','devices','admin-guide',
-                         'operator-guide','installer-guide','platform-fundamentals',
-                         'alarm-management','device-integration','reporting',
-                         'troubleshooting','support'] }
-    },
-    { name: 'sidebarPosition', type: 'number' },
-    { name: 'tags',            type: 'array', of: [{ type: 'string' }] },
-    { name: 'body',            type: 'array', of: [{ type: 'block' }, { type: 'image' }, { type: 'code' }] },
-    { name: 'lastUpdated',     type: 'date' },
-  ]
-}
-```
+**Trade-offs:** Extremely fast page loads. Perfect Cloudflare Pages compatibility. Zero runtime API cost. Content is only as fresh as the last build — acceptable because a Sanity publish webhook triggers a new build, and the pipeline completes in under 3 minutes.
 
-### Type 2: `releaseNote` (Release Notes)
+**Example — adding releases to fetch-sanity-content.js:**
+```javascript
+// In fetch-sanity-content.js
 
-Covers: release-notes section. Versioned, date-stamped entries.
+const RELEASES_GENERATED_FILE = path.join(
+  SITE_DIR, 'src', 'data', 'sanity-releases.generated.json'
+);
 
-```typescript
-// schemas/releaseNote.ts
-{
-  name: 'releaseNote',
-  title: 'Release Note',
-  type: 'document',
-  fields: [
-    { name: 'version',      type: 'string',  validation: required },  // e.g. "2026.01-A"
-    { name: 'releaseDate',  type: 'date',    validation: required },
-    { name: 'title',        type: 'string' },                          // e.g. "Sprint 2026.01-A Release"
-    { name: 'slug',         type: 'slug',    options: { source: 'version' } },
-    { name: 'summary',      type: 'text',    rows: 3 },
-    { name: 'highlights',   type: 'array',   of: [{ type: 'string' }] },
-    { name: 'body',         type: 'array',   of: [{ type: 'block' }] },
-    { name: 'tags',         type: 'array',   of: [{ type: 'string' }] },
-  ],
-  orderings: [{ title: 'Release Date, Newest', by: [{ field: 'releaseDate', direction: 'desc' }] }]
-}
-```
+const ROADMAP_GENERATED_FILE = path.join(
+  SITE_DIR, 'src', 'data', 'sanity-roadmap.generated.json'
+);
 
-### Type 3: `article` (Long-Form Knowledge Base / Breakthroughs)
-
-Covers: knowledge-base, breakthroughs sections. More editorial, less structured.
-
-```typescript
-// schemas/article.ts
-{
-  name: 'article',
-  title: 'Article',
-  type: 'document',
-  fields: [
-    { name: 'title',       type: 'string',  validation: required },
-    { name: 'slug',        type: 'slug',    options: { source: 'title' } },
-    { name: 'description', type: 'text',    rows: 2 },
-    { name: 'category',    type: 'string',
-      options: { list: ['knowledge-base', 'breakthroughs', 'internal'] }
-    },
-    { name: 'author',      type: 'string' },
-    { name: 'publishedAt', type: 'date' },
-    { name: 'featuredImage', type: 'image',
-      options: { hotspot: true },
-      fields: [{ name: 'cloudinaryUrl', type: 'url' }]  // override with Cloudinary URL
-    },
-    { name: 'tags',        type: 'array',   of: [{ type: 'string' }] },
-    { name: 'body',        type: 'array',   of: [{ type: 'block' }, { type: 'image' }, { type: 'code' }] },
-  ]
-}
-```
-
-### Type 4: `reference` (Glossary, Quick Reference, Compliance)
-
-Covers: knowledge-base/glossary, knowledge-base/quick-reference, knowledge-base/compliance.
-
-```typescript
-// schemas/reference.ts
-{
-  name: 'reference',
-  title: 'Reference Entry',
-  type: 'document',
-  fields: [
-    { name: 'title',      type: 'string',  validation: required },
-    { name: 'slug',       type: 'slug',    options: { source: 'title' } },
-    { name: 'refType',    type: 'string',
-      options: { list: ['glossary', 'quick-reference', 'compliance', 'faq'] }
-    },
-    { name: 'term',       type: 'string' },   // for glossary entries
-    { name: 'definition', type: 'text' },     // for glossary entries
-    { name: 'body',       type: 'array',  of: [{ type: 'block' }] },
-    { name: 'tags',       type: 'array',  of: [{ type: 'string' }] },
-  ]
-}
-```
-
-### Shared: `blockContent` portable text configuration
-
-Standard Sanity portable text with additions for documentation use:
-
-```typescript
-// schemas/blockContent.ts — custom marks and types
-{
-  name: 'blockContent',
-  type: 'array',
-  of: [
-    {
-      type: 'block',
-      marks: {
-        decorators: ['strong', 'em', 'code', 'underline', 'strike-through'],
-        annotations: [
-          { name: 'link', type: 'object', fields: [{ name: 'href', type: 'url' }] },
-          { name: 'internalLink', type: 'object', fields: [{ name: 'slug', type: 'string' }] },
-        ]
-      },
-      styles: ['normal', 'h1', 'h2', 'h3', 'h4', 'blockquote'],
-    },
-    { type: 'image', options: { hotspot: true } },
-    { type: 'code', options: { language: 'typescript', withFilename: true } },  // @sanity/code-input
-  ]
-}
-```
-
----
-
-## How Docusaurus Sources Content from Sanity
-
-### Recommended Approach: Custom Docusaurus Plugin (MDX Generation Strategy)
-
-Docusaurus does not have a first-party Sanity integration. Two approaches exist:
-
-**Option A: Generate MDX files at build time** (recommended for this project)
-
-A custom plugin runs in the Docusaurus `loadContent` lifecycle, fetches from Sanity, and writes `.mdx` files into a temp directory. The existing `@docusaurus/plugin-content-docs` instance then reads from that directory exactly as it reads from `classic/docs/`.
-
-```typescript
-// classic/plugins/docusaurus-plugin-sanity/index.ts
-import { createClient } from '@sanity/client'
-import { toMarkdown } from '@portabletext/to-markdown'
-import fs from 'fs/promises'
-import path from 'path'
-
-export default function sanityCmsPlugin(context, options) {
-  return {
-    name: 'docusaurus-plugin-sanity',
-
-    async loadContent() {
-      const client = createClient({
-        projectId: process.env.SANITY_PROJECT_ID,
-        dataset: process.env.SANITY_DATASET ?? 'production',
-        apiVersion: '2024-01-01',
-        useCdn: true,           // CDN API: fast reads, ~60s eventual consistency
-        token: undefined,       // public read; no token needed for published content
-      })
-
-      const docs = await client.fetch(`*[_type == "doc" && !(_id in path("drafts.**"))] | order(sidebarPosition asc) { _id, title, slug, section, sidebarPosition, description, tags, body, lastUpdated }`)
-      const releaseNotes = await client.fetch(`*[_type == "releaseNote"] | order(releaseDate desc) { _id, version, releaseDate, title, slug, summary, body }`)
-      const articles = await client.fetch(`*[_type == "article"] | order(publishedAt desc) { _id, title, slug, category, description, body, tags, publishedAt }`)
-      const references = await client.fetch(`*[_type == "reference"] | order(title asc) { _id, title, slug, refType, term, definition, body, tags }`)
-
-      return { docs, releaseNotes, articles, references }
-    },
-
-    async contentLoaded({ content, actions }) {
-      const cacheDir = path.join(context.siteDir, '.sanity-cache')
-      await fs.mkdir(cacheDir, { recursive: true })
-
-      // Write each doc as an MDX file with Docusaurus-compatible frontmatter
-      for (const doc of content.docs) {
-        const mdx = toDocusaurusMdx(doc)
-        const filePath = path.join(cacheDir, doc.section, `${doc.slug.current}.mdx`)
-        await fs.mkdir(path.dirname(filePath), { recursive: true })
-        await fs.writeFile(filePath, mdx, 'utf8')
-      }
-
-      // Same for releaseNotes, articles, references...
+function getReleasesQuery(includeDrafts) {
+  const filter = statusFilterClause(includeDrafts);
+  return `*[_type == "release" && ${filter}] | order(publishedAt desc) {
+    _id, title, slug, sprintId, publishedAt,
+    items[] {
+      _key, title, description, type,
+      "screenshotUrl": screenshot.asset->url,
+      videoUrl
     }
-  }
+  }`;
 }
 
-function toDocusaurusMdx(doc) {
-  const frontmatter = [
-    '---',
-    `title: "${doc.title.replace(/"/g, '\\"')}"`,
-    doc.description ? `description: "${doc.description.replace(/"/g, '\\"')}"` : '',
-    doc.sidebarPosition ? `sidebar_position: ${doc.sidebarPosition}` : '',
-    doc.lastUpdated ? `last_updated: ${doc.lastUpdated}` : '',
-    doc.tags?.length ? `tags:\n${doc.tags.map(t => `  - ${t}`).join('\n')}` : '',
-    '---',
-    '',
-  ].filter(Boolean).join('\n')
-
-  const body = toMarkdown(doc.body ?? [])
-  return frontmatter + body
+function getRoadmapQuery(includeDrafts) {
+  const filter = statusFilterClause(includeDrafts);
+  return `*[_type == "roadmapItem" && ${filter}] | order(_createdAt desc) {
+    _id, title, status, businessValue, changeType,
+    uiChange, uxFixes, entities,
+    "releaseSlug": releaseRef->slug.current
+  }`;
 }
 ```
 
-**Option B: addRoute / createData (in-memory injection)**
+**Example — consuming in a React page:**
+```typescript
+// src/pages/releases.tsx
+import releases from '../data/sanity-releases.generated.json';
 
-Use Docusaurus `addRoute` + `createData` to inject pages without writing files. Appropriate when content types don't map to standard docs hierarchy (e.g., custom landing pages). More complex; not recommended for the main doc sections which rely on sidebar auto-generation.
+export default function ReleasesPage() {
+  return (
+    // releases is typed, bundled at build time, zero fetch latency
+    releases.map(release => <ReleaseCard key={release._id} release={release} />)
+  );
+}
+```
 
-**Decision: Use Option A for docs/release-notes/articles/reference, Option B only for custom standalone pages (e.g., a /changelog landing page).**
+### Pattern 2: Client-Side Filter on Build-Time Data
 
-### GROQ Query Design
+**What:** All data is in the page bundle at build time. Search and filter operate in the browser via React `useState` + `useMemo`. No API calls at filter time.
 
-Always filter draft documents out of build-time queries:
+**When to use:** Datasets small enough to ship in-bundle — dozens to a few hundred items. Both the roadmap and releases qualify. A year of bi-weekly releases is 26 records. A roadmap rarely exceeds a few hundred items.
 
+**Trade-offs:** Zero filter latency (no network round-trip). Works offline. Full dataset is in the HTML payload — fine at this scale; would need pagination beyond ~500 items. The existing legacy roadmap page already uses exactly this pattern.
+
+**Example (adapted from existing legacy roadmap.tsx):**
+```typescript
+const filteredItems = useMemo(() => {
+  return roadmapItems.filter(item => {
+    const matchesSearch = searchQuery === '' ||
+      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.businessValue?.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesStatus = selectedStatus === 'All' || item.status === selectedStatus;
+    return matchesSearch && matchesStatus;
+  });
+}, [searchQuery, selectedStatus, roadmapItems]);
+```
+
+### Pattern 3: Hero Banner via Static JSON Import (Not Client-Side Fetch)
+
+**What:** The hero banner in `NXGENSphereHero.tsx` currently hardcodes `"Sprint 2025.12-B is live"` (line 418). Replace this string with a read from `releases[0]` via a static import of the JSON file.
+
+**Why not client-side fetch:** SSG pages are rendered to static HTML at build time. A client-side `fetch()` causes a hydration flash — the server HTML shows nothing, then data appears after JS runs. This is a visible flash directly in the hero on every page load. Unacceptable.
+
+**Why not a Cloudflare Function:** Adding a Function for a banner title adds operational complexity, introduces a runtime dependency, and violates the "no runtime infrastructure" constraint. The data is already available in the JSON that the build script writes.
+
+**How it works:**
+```typescript
+// src/components/NXGENSphereHero.tsx
+import releasesData from '../data/sanity-releases.generated.json';
+
+// releases are already sorted desc by publishedAt in the GROQ query
+const latestRelease = releasesData[0];
+const bannerText = latestRelease
+  ? `${latestRelease.title} is live`
+  : 'Latest release';
+```
+
+When a new release is published in Sanity, the webhook triggers a rebuild. The GROQ query runs, the JSON updates with the new release at index 0, and the new banner text appears in the deployed build — typically within 2-3 minutes of hitting "Publish" in Studio.
+
+### Pattern 4: Roadmap Item → Release Cross-Reference via Slug
+
+**What:** The `roadmapItem` schema has an optional `releaseRef` Sanity reference. In GROQ, resolve this to a slug string so the frontend can render a deep-link without needing to look up the release document separately.
+
+**Example GROQ projection:**
 ```groq
-// Published-only filter (critical — drafts have _id prefixed with "drafts.")
-*[_type == "doc" && !(_id in path("drafts.**"))]
-```
-
-Use the CDN API (`useCdn: true`) for build-time fetches. This hits Sanity's globally distributed read replica and is faster and cheaper. Eventual consistency (~60s) is acceptable since we control rebuild timing via webhook.
-
----
-
-## Webhook Flow: Sanity Publish to Cloudflare Deploy
-
-```
-Sanity Studio: editor clicks "Publish"
-        │
-        │ Sanity fires webhook:
-        │   POST https://pages.cloudflare.com/api/v1/pages/hooks/{deploy-hook-token}
-        │   Content-Type: application/json
-        │   Body: { _type, _id, eventType: "create"|"update"|"delete" }
-        │
-        ▼
-Cloudflare Pages Deploy Hook endpoint
-        │  (no authentication needed on Cloudflare side — token in URL is the secret)
-        │
-        ▼
-Cloudflare Pages queues a new build
-        │
-        ▼
-Build runs (identical to git-push triggered build):
-  npm run build → node scripts/build-with-memory.js → docusaurus build
-        │
-        ▼
-On success: new deployment activates on docs.nxgen.cloud
-```
-
-### Sanity Webhook Configuration (via Sanity MCP or Studio Settings)
-
-```
-Name: Cloudflare Pages Rebuild
-URL: https://pages.cloudflare.com/api/v1/pages/hooks/[TOKEN]
-Trigger on: publish
-Document filter: _type in ["doc", "releaseNote", "article", "reference"]
-Method: POST
-Secret: [set in Cloudflare, verified via HMAC header in Cloudflare Worker if hardening is needed]
-```
-
-### Webhook Hardening (optional, phase 2)
-
-For production security, add a Cloudflare Worker as a relay that:
-1. Receives Sanity webhook with HMAC signature header (`sanity-webhook-signature`)
-2. Verifies signature using shared secret
-3. Forwards to Cloudflare Pages deploy hook only if valid
-
-This prevents unauthorized deploys if the Cloudflare Pages hook URL leaks. Not required for initial integration — prioritize it if the site becomes publicly high-traffic.
-
----
-
-## Algolia Re-indexing on Rebuild
-
-Algolia DocSearch is configured in `docusaurus.config.ts` and already working. Re-indexing behavior depends on which Algolia plan is in use:
-
-**Algolia DocSearch (free tier — current setup):**
-- Algolia's crawler re-indexes on a schedule (daily) OR can be triggered manually via Algolia dashboard
-- The crawler hits the live URL (`docs.nxgen.cloud`) after deploy completes
-- No code change needed — crawler runs independently of build
-- Limitation: index lags behind by up to 24h without manual trigger
-
-**Algolia Crawler API (paid or DocSearch Pro):**
-- Trigger re-crawl via HTTP POST to crawler API after each Cloudflare deploy
-- Can be done in a Cloudflare Pages build hook (post-deploy step)
-
-**Recommended action for this project:** Keep existing DocSearch crawler as-is for initial Sanity integration. Add a post-deploy Algolia crawler trigger as a follow-up if search freshness becomes an issue.
-
----
-
-## Build Order Dependencies
-
-This is the strict dependency graph. Each item requires all items above it to exist.
-
-```
-Level 0 — Prerequisites (must exist before any other work):
-  ├── Sanity project created (projectId, dataset)
-  ├── SANITY_PROJECT_ID env var set in Cloudflare Pages
-  └── SANITY_DATASET env var set in Cloudflare Pages
-
-Level 1 — Schema (defines the data contract):
-  ├── Sanity schemas defined and deployed to Content Lake
-  │   (doc, releaseNote, article, reference, blockContent)
-  └── Sanity Studio deployed and accessible (for content team)
-
-Level 2 — Content Bridge (build-time fetching):
-  ├── docusaurus-plugin-sanity written and registered in docusaurus.config.ts
-  ├── @sanity/client installed in classic/package.json
-  ├── @portabletext/to-markdown installed (portable text → MDX conversion)
-  └── .sanity-cache/ added to .gitignore
-
-Level 3 — Build Verification:
-  ├── Local build succeeds with Sanity content (npm run build in classic/)
-  └── At least one test document in Sanity renders correctly
-
-Level 4 — Cloudflare Integration:
-  ├── Cloudflare Pages deploy hook created (generates token URL)
-  ├── Sanity webhook configured pointing to Cloudflare hook URL
-  └── End-to-end test: publish in Studio → verify Cloudflare build triggers
-
-Level 5 — Content Migration:
-  ├── Existing MDX files imported into Sanity (migration script)
-  ├── Git-sourced docs deprecated (docs path redirected to Sanity-sourced)
-  └── URL continuity verified (all existing /docs/... paths still resolve)
-```
-
----
-
-## Migration Strategy: MDX Files into Sanity
-
-### Phase A: Parallel operation (zero risk)
-
-During integration, run both sources simultaneously:
-- Git MDX files continue to serve existing docs at existing URLs
-- Sanity plugin writes to `.sanity-cache/` which feeds a NEW doc instance (`id: 'sanity-docs'`)
-- New Sanity docs appear at `/sanity-docs/...` initially — invisible to end users, verifiable by team
-
-This allows testing the Sanity pipeline without touching production URLs.
-
-### Phase B: Section-by-section migration
-
-Migrate one section at a time, not all content at once:
-
-```
-Recommended order:
-1. release-notes     — low volume, structured, easiest to migrate
-2. knowledge-base    — reference-style, simpler body content
-3. getting-started   — high traffic, verify carefully before cutover
-4. features/devices  — largest sections, migrate last
-```
-
-For each section:
-1. Run migration script: read MDX frontmatter + body → create Sanity document via API
-2. Verify rendered output matches original (visual diff)
-3. Switch Docusaurus plugin config to serve that section from `.sanity-cache/` instead of `classic/docs/`
-4. Remove original MDX file from git (or archive to `docs-backup/`)
-
-### Migration Script Pattern
-
-```typescript
-// scripts/migrate-to-sanity.ts
-import { createClient } from '@sanity/client'
-import { fromMarkdown } from 'mdast-util-from-markdown'
-import matter from 'gray-matter'
-import fs from 'fs/promises'
-import path from 'path'
-
-const client = createClient({
-  projectId: process.env.SANITY_PROJECT_ID,
-  dataset: 'production',
-  apiVersion: '2024-01-01',
-  token: process.env.SANITY_WRITE_TOKEN,  // write token only needed for migration
-  useCdn: false,
-})
-
-async function migrateMdxFile(filePath: string, section: string) {
-  const raw = await fs.readFile(filePath, 'utf8')
-  const { data: frontmatter, content } = matter(raw)
-
-  // Convert markdown body to Sanity portable text blocks
-  // (use @portabletext/to-markdown in reverse: markdown → blocks)
-  // or use 'sanity-markdown-to-blocks' package
-
-  const doc = {
-    _type: 'doc',
-    title: frontmatter.title,
-    slug: { _type: 'slug', current: path.basename(filePath, '.mdx') },
-    section,
-    sidebarPosition: frontmatter.sidebar_position,
-    description: frontmatter.description,
-    tags: frontmatter.tags ?? [],
-    lastUpdated: frontmatter.last_updated,
-    body: convertMarkdownToPortableText(content),
-  }
-
-  return client.create(doc)
+*[_type == "roadmapItem"] {
+  ...,
+  "releaseSlug": releaseRef->slug.current
 }
 ```
 
-### MDX Components Handling
-
-Current MDX files use inline JSX extensively (custom `<section>`, `<div>`, layout components). Sanity portable text does not natively store JSX.
-
-**Strategy for JSX-heavy files:**
-- Store raw MDX as a `text` field in Sanity as a transitional approach
-- Render it via `@mdx-js/mdx` in the plugin's contentLoaded step
-- Gradually replace JSX-heavy sections with portable text + standard Docusaurus admonitions
-- Target state: no JSX in Sanity content; all formatting via portable text marks and block types
-
-This is the highest-effort part of migration and should be scoped per section.
-
----
-
-## Anti-Patterns to Avoid
-
-### Anti-Pattern 1: Runtime API Calls from Browser
-
-**What:** Fetching from Sanity API at page load time (client-side)
-**Why bad:** Exposes project credentials, breaks offline/CDN use, kills search indexing, defeats static site benefits
-**Instead:** All Sanity fetches in `loadContent()` — build time only. Pages are static HTML.
-
-### Anti-Pattern 2: Using Draft Documents in Build
-
-**What:** Omitting `!(_id in path("drafts.**"))` from GROQ queries
-**Why bad:** Unpublished draft content appears on live site
-**Instead:** Always filter drafts. Sanity separates drafts (`drafts.{id}`) from published (`{id}`) at the ID level.
-
-### Anti-Pattern 3: Direct Docusaurus Docs Path Pointing to Sanity Cache
-
-**What:** Configuring `path: '.sanity-cache'` as the only docs path while content is still being migrated
-**Why bad:** Any GROQ failure or Sanity API outage during build = empty docs site
-**Instead:** Run parallel paths during transition; add build-time guard that fails hard if Sanity returns zero documents.
-
+**Frontend consumption:**
 ```typescript
-if (content.docs.length === 0) {
-  throw new Error('Sanity returned 0 docs — aborting build to prevent empty deploy')
-}
+// In /roadmap page
+{item.releaseSlug && item.status === 'Shipped' && (
+  <Link to={`/releases#${item.releaseSlug}`}>View release notes</Link>
+)}
 ```
 
-### Anti-Pattern 4: Hardcoding Sanity Project ID
-
-**What:** `projectId: 'abc123'` in source code
-**Why bad:** Leaks project info; can't change without code deploy; fails in CI without env setup
-**Instead:** `process.env.SANITY_PROJECT_ID` always. Set in Cloudflare Pages environment variables and local `.env`.
-
-### Anti-Pattern 5: Single Monolithic GROQ Query
-
-**What:** One massive GROQ query fetching all content types and all fields
-**Why bad:** Slow, fragile, hard to debug, fetches unused fields
-**Instead:** One GROQ query per content type, projection-optimized (fetch only fields actually used).
+The `/releases` page renders each release with `id={release.slug.current}` on its container element, making these anchor links work without any routing changes.
 
 ---
 
-## Scalability Considerations
+## Data Flow
 
-| Concern | Current scale (~200 docs) | At 2,000 docs | At 20,000 docs |
-|---------|--------------------------|---------------|----------------|
-| GROQ query speed | <1s per type | 2-5s total | Use pagination with `[0..500]` slices |
-| Build time | ~90s | ~120s | Consider incremental builds (Docusaurus 4 roadmap) |
-| Sanity CDN cache freshness | 60s lag acceptable | 60s lag acceptable | Use Live API for instant freshness if needed |
-| Algolia index size | Fine | Fine | DocSearch limits apply; evaluate Algolia Crawler plan |
+### Release Data Flow (Build Time)
 
----
-
-## Environment Variables Required
-
-| Variable | Where Set | Purpose |
-|----------|-----------|---------|
-| `SANITY_PROJECT_ID` | Cloudflare Pages + local `.env` | Identifies Sanity project |
-| `SANITY_DATASET` | Cloudflare Pages + local `.env` | `production` or `staging` |
-| `SANITY_WRITE_TOKEN` | Local `.env` only (migration only) | Write access for migration script; never in CF |
-| `ALGOLIA_APP_ID` | Already set in CF | Existing |
-| `ALGOLIA_API_KEY` | Already set in CF | Existing |
-| `CLOUDINARY_CLOUD_NAME` | Already set in CF | Existing |
-
----
-
-## Docusaurus Config Changes Required
-
-```typescript
-// docusaurus.config.ts additions
-
-plugins: [
-  // NEW: Sanity content bridge
-  ['./plugins/docusaurus-plugin-sanity', {
-    projectId: process.env.SANITY_PROJECT_ID,
-    dataset: process.env.SANITY_DATASET ?? 'production',
-    cacheDir: '.sanity-cache',
-  }],
-
-  // EXISTING: plugin-content-docs for default docs instance
-  // ADD: path includes .sanity-cache subdirs per section
-  // (or run as separate docs instance during migration)
-
-  // REMOVE (dead weight — Phase 1 cleanup):
-  // storyblok, hygraph, strapi, payload integrations
-],
+```
+Editor publishes "release" document in Sanity Studio
+    |
+    | (Sanity fires webhook to Cloudflare Pages deploy hook)
+    v
+Cloudflare Pages triggers rebuild
+    |
+    v
+node scripts/fetch-sanity-content.js
+    |
+    |-- GROQ: *[_type == "release"] | order(publishedAt desc)
+    |   projections: title, slug, sprintId, publishedAt,
+    |                items[]{title, description, type, screenshotUrl, videoUrl}
+    |
+    v
+src/data/sanity-releases.generated.json  <-- written to disk
+    |
+    v
+docusaurus build: React pages compiled with JSON baked into bundle
+    |
+    |-- src/pages/releases.tsx         imports JSON -> renders /releases
+    |-- NXGENSphereHero.tsx            reads releases[0] -> hero banner chip
+    |-- src/pages/index.tsx            reads releases[0..1] -> "Recent Releases"
+    |
+    v
+Static HTML + JS deployed to Cloudflare CDN
+User sees latest release data in every page -- no client-side fetch required
 ```
 
+### Roadmap Data Flow (Build Time + Client-Side Filter)
+
+```
+Editor publishes/updates "roadmapItem" documents in Sanity Studio
+    |
+    | (webhook -> rebuild)
+    v
+node scripts/fetch-sanity-content.js
+    |
+    |-- GROQ: *[_type == "roadmapItem"] | order(_createdAt desc)
+    |   projections: all fields + "releaseSlug": releaseRef->slug.current
+    |
+    v
+src/data/sanity-roadmap.generated.json  <-- written to disk
+    |
+    v
+docusaurus build: full roadmap dataset bundled into /roadmap page
+    |
+    v
+Browser: user loads /roadmap
+    |
+    |-- Full dataset already in JS bundle (no fetch needed at runtime)
+    |-- useState: searchQuery, selectedStatus, other filters
+    |-- useMemo: filter in-memory on every state change
+    |
+    v
+Filtered list rendered with zero network latency
+```
+
+### What Does Not Change in the Existing Pipeline
+
+The following existing data flows are unaffected by this milestone:
+
+- GROQ queries for `doc`, `article`, `referencePage` types
+- MDX file generation into `.sanity-cache/{audience}/*.md`
+- `plugin-content-docs` instances reading `.sanity-cache/`
+- `sanity-landing-pages.generated.json` and the `SanityLandingPageRoute` component
+- The `docusaurus-plugin-sanity-content` plugin's `index.js` (remains a no-op shim)
+- Cloudflare Pages webhook configuration (already triggers on any Sanity publish)
+
 ---
 
-## Confidence Assessment
+## Integration Points
 
-| Area | Confidence | Source |
-|------|------------|--------|
-| Docusaurus plugin lifecycle (loadContent/contentLoaded) | HIGH | Docusaurus 3.x official docs, stable since v2 |
-| Sanity GROQ API + CDN API | HIGH | Sanity official docs, widely used pattern |
-| Cloudflare Pages deploy hooks | HIGH | Cloudflare Pages official docs, standard feature |
-| @portabletext/to-markdown conversion | MEDIUM | Package exists and is maintained; JSX conversion complexity is real |
-| Algolia re-indexing behavior | MEDIUM | Depends on DocSearch plan tier; crawler schedule not under our control |
-| Migration script: markdown → portable text | LOW-MEDIUM | Lossy conversion for JSX-heavy MDX; needs per-file verification |
+### How New Schemas Interact With the Existing Plugin
+
+The plugin (`docusaurus-plugin-sanity-content/index.js`) has a no-op `loadContent()`. The real work is in `scripts/fetch-sanity-content.js`. This is the only file that needs to change in the data pipeline.
+
+Required changes to `fetch-sanity-content.js`:
+1. Add `RELEASES_GENERATED_FILE` and `ROADMAP_GENERATED_FILE` constants
+2. Add GROQ queries for `release` and `roadmapItem` types (inside `getQueries()` or as separate functions)
+3. Add `fetchReleases()` and `fetchRoadmapItems()` functions modeled on existing `fetchLandingPages()`
+4. Call both at the end of `run()`, alongside `fetchLandingPages()`
+5. Remove the `releaseNote` type from `getQueries()` once `release` schema is in place
+
+No changes to the plugin's `index.js` are needed. No changes to `docusaurus.config.ts` are needed. No new Docusaurus plugin instances are needed.
+
+### Schema Migration: releaseNote -> release
+
+The existing `releaseNote` schema has `title`, `slug`, `version`, `sprintId`, `publishedAt`, `changeType`, `affectedAreas`, `status`, and a single `body` (Portable Text). The new `release` schema replaces this with `items[]` (an inline array of structured objects).
+
+The current fetch script has a `releaseNote` GROQ query that writes both MDX files to `.sanity-cache/docs/` and a `sanity-release-notes.generated.json` metadata file. Both outputs become obsolete when the schema is replaced:
+
+- The MDX files for release notes are no longer needed (releases move to a custom React page)
+- The `sanity-release-notes.generated.json` file can be deleted (superseded by `sanity-releases.generated.json`)
+
+There is currently one live release note document in Sanity (the JSON file is empty `[]`). No migration of existing content is required.
+
+### External Services
+
+| Service | Integration Pattern | Notes |
+|---------|---------------------|-------|
+| Sanity Content API | GROQ at build time via `@sanity/client` | Add two new queries; no new auth required |
+| Sanity Asset CDN | `asset->url` in GROQ projection | Screenshots in release items resolve to CDN URLs inline; no URL builder logic needed in fetch script |
+| Cloudflare Pages | Webhook -> rebuild | No change; existing webhook covers all Sanity document types |
+| Cloudflare Functions | Existing: page-feedback.ts, voc-feedback.ts | No new Functions needed for this milestone |
+| Cloudinary | Docs images only | Not involved in releases or roadmap; release items use Sanity assets directly |
+
+### Internal Boundaries
+
+| Boundary | Communication | Notes |
+|----------|---------------|-------|
+| `fetch-sanity-content.js` -> `src/data/*.json` | File write at build time | One-way; script writes, pages read via static import |
+| `src/pages/releases.tsx` -> `sanity-releases.generated.json` | Static TypeScript import | JSON bundled at build time; no runtime fetch |
+| `src/pages/roadmap.tsx` -> `sanity-roadmap.generated.json` | Static TypeScript import | Replaces current import from `src/data/roadmap.ts` |
+| `NXGENSphereHero.tsx` -> `sanity-releases.generated.json` | Static TypeScript import | Reads `releases[0]` for banner chip text |
+| `src/pages/index.tsx` -> `sanity-releases.generated.json` | Static TypeScript import | Replaces hardcoded `recentReleases` array in index.tsx lines 105-119 |
+| `roadmapItem` schema -> `release` schema | Sanity reference field | Resolved to slug string in GROQ; frontend uses as anchor link |
+
+---
+
+## Suggested Build Order
+
+The following sequence respects dependencies between components. Each step assumes the previous step is complete and verified.
+
+### Step 1: Sanity Schema — Replace and Add
+
+**Dependencies:** None. Self-contained in `studio/`.
+
+1. Delete `studio/schemaTypes/releaseNote.ts`
+2. Create `studio/schemaTypes/release.ts` — document type with `items[]` array
+3. Create `studio/schemaTypes/roadmapItem.ts` — document type with `releaseRef` reference field
+4. Update `studio/schemaTypes/index.ts` — remove `releaseNoteType`, add `releaseType` and `roadmapItemType`
+5. Verify: open Sanity Studio, confirm `release` and `roadmapItem` appear as document types
+6. Create one test release with 2-3 items, create 3-5 test roadmap items (various statuses)
+
+**Why first:** Every downstream step depends on having schema documents to query. Steps 2-5 have no data to work with until this is done.
+
+### Step 2: Fetch Script — New GROQ Queries + JSON Output
+
+**Dependencies:** Step 1 complete with test documents in Sanity.
+
+1. Add `RELEASES_GENERATED_FILE` and `ROADMAP_GENERATED_FILE` path constants
+2. Add GROQ query for `release` type with `items[]` and nested `screenshot.asset->url`
+3. Add GROQ query for `roadmapItem` type with `releaseRef->slug.current` projection
+4. Add `fetchReleases()` and `fetchRoadmapItems()` functions
+5. Call both at end of `run()`
+6. Remove `releaseNote` from `getQueries()` (or comment out during transition)
+7. Run script locally: `node classic/scripts/fetch-sanity-content.js`
+8. Verify `src/data/sanity-releases.generated.json` and `src/data/sanity-roadmap.generated.json` contain correct data
+
+**Why second:** The React pages (Steps 3 and 4) import these JSON files. Without them, TypeScript compilation fails.
+
+### Step 3: /releases Page — Replace Legacy Implementation
+
+**Dependencies:** Step 2 (JSON files must exist with correct structure).
+
+1. Replace `src/pages/releases.tsx` — remove `SanityLandingPageRoute` wrapper; write a full custom React page
+2. Import `sanity-releases.generated.json` with a typed interface
+3. Render releases in reverse-chronological order (already sorted by GROQ)
+4. Per-release: header with title, date, sprint ID; per-item: type badge, title, description, optional screenshot image, optional video
+5. Add `id={release.slug.current}` to each release container (for deep-links from roadmap)
+6. Delete or archive `src/legacy-pages/releases.tsx` and `src/pages/releases/` sprint files
+
+**Note on page approach:** Do not route releases through `plugin-content-docs`. The per-item rich media layout cannot be achieved through the Portable Text to MDX pipeline. The existing `/roadmap` page is a custom React page for exactly this reason — follow the same pattern.
+
+### Step 4: /roadmap Page — Replace Static Data Source
+
+**Dependencies:** Step 2 (roadmap JSON must exist).
+
+1. Replace `src/pages/roadmap.tsx` — remove `SanityLandingPageRoute` wrapper; write a full custom React page
+2. Import `sanity-roadmap.generated.json` with typed interface
+3. Adapt existing legacy roadmap filter/search logic to new schema field names
+4. Map status values to the new vocabulary: `Planned`, `In Progress`, `Shipped`
+5. Render "View release notes" link for items where `status === 'Shipped' && item.releaseSlug`
+6. Delete `src/data/roadmap.ts` (static TypeScript data file no longer needed)
+
+### Step 5: Hero Banner + Home Page Recent Releases
+
+**Dependencies:** Step 2 (releases JSON must exist). Independent of Steps 3 and 4.
+
+1. In `NXGENSphereHero.tsx` (line 418): replace hardcoded `"Sprint 2025.12-B is live"` with `${releases[0]?.title ?? 'Latest release'} is live`
+2. Add static import at top of `NXGENSphereHero.tsx`: `import releasesData from '../data/sanity-releases.generated.json'`
+3. In `src/pages/index.tsx` (lines 105-119): replace hardcoded `recentReleases` array with `releasesData.slice(0, 2)` mapped to the `Resource` type
+
+**Why last:** This is cosmetic. It depends on Step 2 but has no blocking relationship with Steps 3 or 4.
+
+### Step 6: Cleanup and URL Verification
+
+**Dependencies:** Steps 3-5 complete and deployed.
+
+1. Verify `/releases` renders correctly from Sanity data
+2. Verify `/roadmap` renders correctly from Sanity data
+3. Verify `/` hero banner shows latest release from Sanity
+4. Verify `/releases#sprint-2026-01-a` anchor links work from roadmap "Shipped" items
+5. Delete `src/data/sanity-release-notes.generated.json` and remove it from `fetch-sanity-content.js`
+6. Archive or delete `src/pages/internal-releases/` if no longer needed
+7. Confirm no broken links from `/internal-releases/` (add Cloudflare `_redirects` if needed)
+
+---
+
+## Anti-Patterns
+
+### Anti-Pattern 1: Client-Side Fetch for the Hero Banner
+
+**What people do:** `useEffect(() => { fetch('https://...api.sanity.io/...').then(setLatestRelease) }, [])` in `NXGENSphereHero.tsx`.
+
+**Why it's wrong:** SSG pages render to static HTML at build time. The first paint shows the HTML without any client data. The `useEffect` fires only after JavaScript hydrates, causing a visible flash where the banner shows empty or stale content. For a component rendered immediately on page load, this is noticeable. Additionally, this introduces a runtime API dependency requiring CORS headers or a proxy — complexity not justified for a single string.
+
+**Do this instead:** Static import of the pre-built JSON file. The string is baked into the HTML at build time. Zero flash. Zero runtime API dependency.
+
+### Anti-Pattern 2: Routing Releases Through plugin-content-docs
+
+**What people do:** Write one MDX file per release to `.sanity-cache/docs/releases/sprint-xxx.md`, register a "releases" docs plugin instance, let Docusaurus handle routing.
+
+**Why it's wrong:** The new `release` schema has `items[]` — an array of structured objects each with a type badge, screenshot, and optional video. The MDX pipeline renders one `body` Portable Text field per document. There is no clean way to serialize an items array through Portable Text into MDX that preserves the structured layout. The result would be fragile markdown with hardcoded sub-sections and no type-safe rendering.
+
+**Do this instead:** A custom React page at `src/pages/releases.tsx` that imports the JSON directly and renders items with full control over layout — type badge chip, `<img>` for screenshot, `<video>` or `<iframe>` for video. This is already how `roadmap.tsx` works.
+
+### Anti-Pattern 3: One Sanity Document Per Release Item
+
+**What people do:** Create a `releaseItem` document type and cross-reference items from the release document via a `references()` array.
+
+**Why it's wrong:** Each sprint has 5-20 items. Editors must create 5-20 separate Studio documents per sprint, navigate between them to reorder, and manage reference arrays manually. Studio UX becomes a drag-and-drop nightmare. Ordering becomes a separate operation. The relationship between items and their release is maintained through references rather than co-location.
+
+**Do this instead:** Items as an inline `array` field directly on the `release` document. Sanity's array field UI handles drag-and-drop reordering natively. All items are authored in a single document edit session.
+
+### Anti-Pattern 4: Keeping roadmap.ts as a Parallel Data Source
+
+**What people do:** Add new roadmap items to `src/data/roadmap.ts` (the existing static TypeScript file) as a "quick fix" before the Sanity schema is ready, intending to migrate later.
+
+**Why it's wrong:** Creates dual-source-of-truth immediately. When Sanity data lands, merging static file content back into Sanity is manual and error-prone. The existing `roadmap.ts` uses different status vocabulary (`Launched`, `In Development`, `Beta`, `Planning`, `Coming Soon`) than the new schema defines (`Planned`, `In Progress`, `Shipped`). Reconciling this later adds unnecessary risk.
+
+**Do this instead:** Delete `roadmap.ts` in the same commit that introduces `sanity-roadmap.generated.json`. Seed historical roadmap data directly into Sanity Studio as part of Step 1. There is no reason to maintain both simultaneously.
+
+### Anti-Pattern 5: Adding a Cloudflare Function for Roadmap Search
+
+**What people do:** Create a Cloudflare Function that queries Sanity at runtime, enabling "real-time" search.
+
+**Why it's wrong:** The existing roadmap dataset fits comfortably in a JavaScript bundle. The legacy `roadmap.tsx` already does client-side filtering on a similar dataset. A Cloudflare Function adds deployment complexity, a runtime failure mode, cold start latency, and an API billing surface. For a dataset of dozens to hundreds of items, in-browser filtering is faster than a network round-trip to a Function.
+
+**Do this instead:** Client-side filter on the bundled JSON. If the roadmap ever exceeds ~500 items, revisit — but at bi-weekly cadence that threshold is years away.
+
+---
+
+## Scaling Considerations
+
+This site is internal product documentation for a team of editors and a public customer audience. Scaling to millions of users is not a relevant concern. The relevant operational constraints are:
+
+| Concern | Current | With Releases + Roadmap | Assessment |
+|---------|---------|------------------------|------------|
+| Build time | ~60-90s (fetch + Docusaurus) | +5-15s for two new GROQ queries | Acceptable |
+| JSON bundle size | landing pages JSON is small | 26 releases/year at ~5KB each = ~130KB/year | Well within budget |
+| Roadmap bundle | N/A (static TS file) | 100-200 items at ~1KB each = ~200KB | Fine for client-side filtering |
+| Cloudflare Functions | 2 existing | No new Functions this milestone | No change |
+| Sanity API quota | Low-volume build-time fetches | 2 additional GROQ queries per build | Negligible |
+| Content freshness | Rebuild on publish | Same; webhook already configured | No change |
+
+If the roadmap grows beyond ~500 items in a single page, introduce pagination in the React component (slice the imported JSON, render a "Load more" control). The JSON import approach accommodates this without any pipeline changes.
 
 ---
 
 ## Sources
 
-- Docusaurus Plugin Lifecycle: https://docusaurus.io/docs/api/plugin-methods/lifecycle-apis (loadContent, contentLoaded)
-- Sanity GROQ API: https://www.sanity.io/docs/groq
-- Sanity CDN API: https://www.sanity.io/docs/api-cdn
-- Sanity Webhooks: https://www.sanity.io/docs/webhooks
-- Cloudflare Pages Deploy Hooks: https://developers.cloudflare.com/pages/configuration/deploy-hooks/
-- @portabletext/to-markdown: https://github.com/portabletext/to-markdown
-- @sanity/client: https://www.sanity.io/docs/js-client
-- Sanity draft document filtering: https://www.sanity.io/docs/drafts (published docs have no "drafts." prefix)
+All findings are based on direct inspection of the following files:
+
+- `classic/scripts/fetch-sanity-content.js` — the authoritative data pipeline (all GROQ queries, all JSON output logic)
+- `classic/plugins/docusaurus-plugin-sanity-content/index.js` — confirms plugin is a thin shim; no-op `loadContent()`
+- `studio/schemaTypes/releaseNote.ts` — current schema being replaced
+- `studio/schemaTypes/index.ts` — current schema registry
+- `classic/src/pages/releases.tsx` — current implementation (thin SanityLandingPageRoute wrapper)
+- `classic/src/pages/roadmap.tsx` — current implementation (thin SanityLandingPageRoute wrapper)
+- `classic/src/legacy-pages/releases.tsx` — legacy static implementation with hardcoded data
+- `classic/src/legacy-pages/roadmap.tsx` — legacy filter/search pattern to be adapted
+- `classic/src/components/NXGENSphereHero.tsx` — hardcoded banner text at line 418
+- `classic/src/pages/index.tsx` — hardcoded recentReleases array at lines 105-119
+- `classic/src/components/SanityLandingPageRoute.tsx` — JSON-backed page pattern
+- `classic/src/data/sanity-releases.generated.json` — currently empty `[]`
+- `.planning/PROJECT.md` — constraints (no backend, Cloudflare Pages, webhook rebuilds, no SSR)
+
+---
+
+*Architecture research for: NXGEN GCXONE Docs — v1.1 Releases & Roadmap*
+*Researched: 2026-03-13*

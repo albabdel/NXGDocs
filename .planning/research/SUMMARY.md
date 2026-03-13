@@ -1,17 +1,17 @@
 # Project Research Summary
 
-**Project:** NXGen/GCXONE Documentation Platform — Sanity CMS Integration
-**Domain:** Brownfield headless CMS integration for static documentation site
-**Researched:** 2026-03-06
+**Project:** NXGEN GCXONE Documentation Platform — v1.1 Releases & Roadmap
+**Domain:** Brownfield feature addition to a live Docusaurus 3 + Sanity CMS documentation site
+**Researched:** 2026-03-13
 **Confidence:** HIGH
 
 ## Executive Summary
 
-This is a brownfield project with a functioning Docusaurus 3.x documentation site already deployed to Cloudflare Pages at docs.nxgen.cloud. The site works for readers — search, navigation, dark mode, role-based instances, and 100+ articles are all in place. The gap is editor workflow: content today requires a developer to edit MDX files and push to git. The project adds Sanity as a headless CMS so non-technical editors can write and publish without developer involvement. The core value proposition is single-sentence: editor writes in Sanity Studio, clicks publish, site rebuilds automatically within 5 minutes.
+This is a brownfield v1.1 addition to a fully operational documentation platform. The core infrastructure — Docusaurus 3, Sanity Studio, the `fetch-sanity-content.js` pre-build pipeline, Cloudflare Pages hosting, and the webhook-triggered rebuild workflow — is production-proven and requires no architectural changes. The three features in scope (Sanity-driven release notes with per-item rich media, a Sanity-driven public roadmap with search and status filtering, and a dynamic hero banner showing the latest release) can all be implemented using zero new npm packages. Every library needed is already installed.
 
-The recommended approach is strictly build-time integration. Sanity content is fetched at build time via a custom Docusaurus plugin using GROQ queries, written to a `.sanity-cache/` directory, and consumed by the existing Docusaurus docs pipeline. Sanity webhooks trigger Cloudflare Pages rebuild on publish. No runtime server, no client-side API calls, no embedded Studio — all three would add complexity without benefit on a static site. The only new production dependency is `@sanity/client`. Everything else — Algolia, Cloudinary, Docusaurus — remains unchanged.
+The recommended approach is strictly build-time: Sanity data is fetched via GROQ at build time into static JSON files, which React pages import directly. Client-side filter and search on the roadmap operate against the fully bundled dataset using `useState` + `useMemo`. No runtime API calls, no SSR, no Cloudflare Functions. This preserves the static site constraint and matches every established pattern in the existing codebase. The single most important architectural decision is replacing the flat `releaseNote` Sanity schema with a new `release` schema that treats each sprint as one document containing an `items[]` inline array — this enables per-item screenshots, video embeds, and metadata without the editorial overhead of managing cross-referenced documents.
 
-The biggest risk is not the Sanity integration itself; it is the accumulated dead weight from four previous failed CMS integrations (Storyblok, TinaCMS, Hygraph, Strapi, Payload). Dead packages inflate build times toward Cloudflare's 20-minute timeout, dead scripts in `prebuild` hooks can silently fail, and dead pages cause TypeScript compile errors during cleanup. The mandatory first phase is cleanup: audit and remove all dead code before adding any new code. A clean build is the prerequisite for a stable Sanity integration.
+The primary risk in this milestone is the schema migration from `releaseNote` to `release`. Sanity documents are not schema-bound: existing documents survive a type rename, but Studio breaks on them, and the fetch script silently returns empty results because `build.sh` swallows non-zero exit codes with `|| true`. This pitfall is well-understood and has a clear prevention strategy: the migration must be a single atomic sequence — add the new schema alongside the old, migrate documents, update all four registration sites in Studio config, update GROQ queries, then delete the old schema. The second major risk is the `SanityLandingPageRoute` fallback pattern currently used by both `releases.tsx` and `roadmap.tsx`: those wrappers must be replaced entirely, not extended, or the pages will silently render stale hardcoded content after v1.1 deploys.
 
 ---
 
@@ -19,219 +19,171 @@ The biggest risk is not the Sanity integration itself; it is the accumulated dea
 
 ### Recommended Stack
 
-The core framework (Docusaurus 3.x, TypeScript 5.x, React 18.x) stays exactly as-is. No migration, no version changes. The only addition is `@sanity/client` v6 for build-time GROQ queries, and optionally `@portabletext/react` or `@portabletext/to-markdown` for rendering Sanity Portable Text as MDX. Sanity Studio v3 runs as a completely separate deployment (Sanity-hosted at `your-project.sanity.studio`) — it is never embedded in the Docusaurus build. Cloudinary stays as the image CDN; Sanity's asset pipeline is not used. Algolia DocSearch stays unchanged — it crawls the static HTML output and requires no CMS-layer changes.
+No new dependencies are required for any core v1.1 feature. The entire implementation uses packages already in `classic/package.json` and `studio/package.json`. The single integration point for new data is `classic/scripts/fetch-sanity-content.js`: two new GROQ queries are added to its `run()` function, producing two new generated JSON files (`sanity-releases.generated.json` and `sanity-roadmap.generated.json`). React pages import these files with static TypeScript `import` statements — the data is baked into the page bundle at build time.
 
-**Core technologies:**
-- `@sanity/client` v6: Build-time GROQ queries — official SDK, lightweight, no runtime server needed
-- `@portabletext/to-markdown`: Portable Text to MDX conversion — needed in the content bridge plugin
-- Sanity Studio v3: Authoring UI — deployed separately at `sanity.studio`, never bundled with Docusaurus
-- Cloudflare Pages Deploy Hook: Rebuild trigger — event-driven, instant, no scheduled builds
-- Sanity Webhooks (GROQ-filtered): Publish-to-rebuild pipeline — fires only on document publish, not draft saves
+**Core technologies (all already installed):**
 
-**Dead packages to remove immediately:**
-- `@storyblok/react`, `storyblok-js-client`, `tinacms`, `@hygraph/*`, `@strapi/*`, `payload`, `@payloadcms/*`
-- `@tiptap/*` (7 packages), `@dnd-kit/*` (3 packages), `monaco-editor`, `@monaco-editor/react`
-- `express`, `cors`, `body-parser`, `graphql`, `@graphql-codegen/*`, `apollo-client`, `urql`
-- `@vercel/node` (referenced in dead feedback API), `nodemailer` (not supported in Cloudflare Workers)
+- **Sanity Studio ^5.13.0** — schema authoring for `release` (replaces `releaseNote`) and new `roadmapItem` document types; `defineArrayMember` pattern already used in `portableText-ultimate.ts`
+- **`@sanity/client` ^7.16.0** — GROQ queries in the pre-build fetch script; two new queries added, no config changes
+- **React `useState` + `useMemo` ^18.3.1** — client-side filter and search on the roadmap page; zero library additions needed
+- **Tailwind CSS ^3.4.18** — styling for all new components; already used on every page
+- **`lucide-react` ^0.554.0** — icons in filter bar and status badges; already used throughout
+- **`framer-motion` ^12.23.25** — existing hero animation unchanged; no new animation work
+- **`sanity-plugin-mux-input` ^2.17.0** — video support in release items; already installed in Studio
+- **Docusaurus ^3.9.2** — no config changes needed; new features are custom React pages, not doc-tree content
+
+**Explicitly avoid:** `Fuse.js`/fuzzy search (overkill for this dataset scale), `@portabletext/react` as a parallel rendering path unless release item descriptions require rich Portable Text (see Gaps section), runtime `useEffect + fetch()` in any hero or page component (causes hydration flash), Cloudflare Functions for roadmap data (operational complexity for no benefit), and separate `releaseItem` document type (creates editorial UX nightmare vs. inline array).
 
 ### Expected Features
 
-The core editorial workflow is almost entirely handled by Sanity out of the box — rich text editor, draft/publish states, slug auto-generation, required field validation, image upload, revision history. The integration work is wiring the plumbing (webhook → Cloudflare deploy, GROQ fetch → MDX generation, slug matching → zero 404s), not building editor features.
+The legacy `/releases` and `/roadmap` pages are already feature-rich in the hardcoded implementation. The v1.1 gap is that both are driven by static TypeScript data files rather than Sanity, and neither has the cross-linking between shipped roadmap items and their corresponding release notes.
 
-**Must have (table stakes — MVP):**
-- Sanity schemas for all four content types: `doc`, `releaseNote`, `article`, `reference`
-- Build-time GROQ fetch via custom Docusaurus plugin (replaces MDX-from-git for CMS-managed content)
-- Publish webhook wired to Cloudflare Pages deploy hook (the core automation)
-- Slug validation matching existing `/docs/...` URL structure (zero 404s during migration)
-- Required field validation in Studio: title, slug, content body, category
-- Image upload in Studio routing to Cloudinary
+**Must have — table stakes for release notes (v1.1 launch):**
+- Reverse-chronological list of sprint releases driven by Sanity (replaces hardcoded `releases.tsx`)
+- Per-sprint detail page at `/releases/[slug]` with all items, types, and metadata
+- Item-level grouping within a sprint (items array, not flat prose)
+- Screenshot support per release item (Sanity image assets, CDN URLs resolved at build time)
+- Video embed per release item (YouTube/Vimeo iframe or Mux — already wired in Studio)
+- Change-type badges (New, Fix, Improvement) on index and item level
+- Stable permalinks per sprint entry; "Latest" badge on index; empty state guard
 
-**Should have (differentiators):**
-- Role-based `targetAudience` field on documents (existing role routing continues from file content during transition)
-- Structured `releaseNote` schema with `version` + `sprintId` + `releaseDate` (sprint-versioned nav)
-- Content freshness date rendered from Sanity `_updatedAt` (trust signal for security platform operators)
-- Inline callout/warning block types in Portable Text (maps to Docusaurus admonitions)
-- Linked cross-references between docs via Sanity reference fields
-- Feedback widget adapted to Cloudflare Functions (already partially implemented)
+**Must have — table stakes for roadmap (v1.1 launch):**
+- Status filter (Planned / In Progress / Shipped) and text search driven by Sanity data
+- Per-item business value statement, change type, UI change flag, entities impacted
+- Shipped items link to the corresponding sprint release note — the single highest-value differentiator in the competitive set
+- Results count, empty state with "Clear filters", "last updated" timestamp from Sanity `_updatedAt`
 
-**Defer to post-MVP:**
-- Live preview before publish (useful but non-blocking; requires a Docusaurus preview route + Sanity preview secret)
-- Webhook hardening via Cloudflare Worker HMAC proxy (optional security hardening)
-- Post-deploy Algolia crawler API trigger (Algolia daily crawl is sufficient initially)
-- Content scheduling (out of scope per PROJECT.md)
-- Multi-language / i18n (out of scope per PROJECT.md)
+**Must have — hero banner (v1.1 launch):**
+- Dynamic "Sprint X is live" chip reading from `sanity-releases.generated.json[0]` — replaces the hardcoded `"Sprint 2025.12-B is live"` string at `NXGENSphereHero.tsx` line 418
+
+**Should have — add after v1.1 validation (P2):**
+- Affected-areas filter on releases index (once editors have populated 5+ entries consistently)
+- Docs reference link per release item (`docsRef` reference field)
+- Change-type filter on roadmap (once 20+ items with consistent tagging exist)
+
+**Defer to v1.2+:**
+- RSS feed for releases (requires new build plugin; no equivalent in current codebase)
+- Year/quarter filter on releases index (only useful with 2+ years of data)
+- Mux video playback in the browser (YouTube/Vimeo embed is sufficient for v1.1)
+
+**Anti-features (deliberately not building):**
+- Voting/upvoting on roadmap items — requires auth and server; explicit anti-feature
+- Email subscription to releases — requires mailing list infrastructure out of scope
+- Real-time roadmap updates — static site; webhook rebuild is the correct update cadence
+- Kanban/board view — high complexity, negligible value for a public read-only audience
+- Zoho Sprints integration — explicit out-of-scope decision; fragile API dependency
 
 ### Architecture Approach
 
-The architecture has three planes: Authoring (Sanity Studio + Content Lake), Build (Cloudflare Pages running Docusaurus with a custom Sanity plugin), and Delivery (Cloudflare Pages CDN serving static HTML). The content bridge is a custom Docusaurus plugin (`docusaurus-plugin-sanity`) that runs in the `loadContent` lifecycle, fires GROQ queries against the Sanity CDN API, converts Portable Text to MDX, writes files to `.sanity-cache/`, and lets the existing `@docusaurus/plugin-content-docs` process them alongside legacy git-sourced MDX. Migration runs section-by-section using a parallel-source strategy: new Sanity docs appear at a shadow path first, then cut over one section at a time, never touching production URLs until verified.
+The architecture is a proven three-layer pipeline: Sanity Studio (content authoring) → `fetch-sanity-content.js` (build-time GROQ + JSON generation) → Docusaurus React pages (static import of generated JSON). This pipeline is already proven for landing pages and existing release metadata. The v1.1 addition extends it with two new GROQ queries and two new generated files, then replaces the `SanityLandingPageRoute`-wrapped placeholder pages with purpose-built React components that own their data directly.
 
-**Major components:**
-1. **Sanity Studio** — editor authoring UI; deployed at `your-project.sanity.studio`; communicates only with Sanity Content Lake
-2. **Sanity Content Lake** — document storage, GROQ API, CDN API, webhook dispatch
-3. **`docusaurus-plugin-sanity`** — custom build-time content bridge; the only new code component to write
-4. **Cloudflare Pages Build** — runs Docusaurus, hosts plugin, receives Sanity webhooks via deploy hook
-5. **Cloudinary** — image CDN; URLs stored as strings in Sanity documents; no pipeline changes
-6. **Algolia DocSearch** — crawls static HTML output post-deploy; no CMS-layer changes
+**Major components and their responsibilities:**
+
+1. **`studio/schemaTypes/release.ts` (NEW)** — one Sanity document per sprint; `items[]` inline array with per-item title, description, change type, affected areas, optional screenshot, optional video; replaces `releaseNote.ts`
+2. **`studio/schemaTypes/roadmapItem.ts` (NEW)** — flat document with status, businessValue, changeType, uiChange flag, entitiesImpacted array, optional `releaseRef` reference resolved to slug string in GROQ
+3. **`classic/scripts/fetch-sanity-content.js` (MODIFIED)** — adds `fetchReleases()` and `fetchRoadmapItems()` functions; writes two new generated JSON files; removes the obsolete `releaseNote` GROQ query
+4. **`classic/src/pages/releases.tsx` (REPLACED)** — standalone React page importing `sanity-releases.generated.json`; renders sprint list with per-item media; each release container carries `id={slug}` for anchor deep-links from roadmap
+5. **`classic/src/pages/roadmap.tsx` (REPLACED)** — standalone React page importing `sanity-roadmap.generated.json`; `useState` + `useMemo` filter/search adapted from existing `legacy-pages/roadmap.tsx` pattern
+6. **`classic/src/components/NXGENSphereHero.tsx` (MODIFIED)** — static import of `sanity-releases.generated.json`; renders `releases[0].displayTitle` in the "What's New" chip; removes hardcoded sprint string
+7. **`classic/src/pages/index.tsx` (MODIFIED)** — replaces hardcoded `recentReleases` array (lines 105–119) with `releasesData.slice(0, 2)`
 
 **Key patterns:**
-- All Sanity fetches in `loadContent()` only — never client-side
-- Always filter drafts: `!(_id in path("drafts.**"))` in every GROQ query
-- Zero-document guard: abort build if Sanity returns 0 docs to prevent empty site deploys
-- One GROQ query per content type (not a monolithic query)
-- Environment variables via `SANITY_PROJECT_ID`, `SANITY_DATASET`, `SANITY_API_TOKEN` — never hardcoded
+- Build-time JSON as the SSG-safe data contract — no runtime API calls anywhere in the site
+- Client-side filter on fully bundled dataset — no Cloudflare Function, no network round-trip
+- Roadmap-to-release cross-link via resolved slug string (`"releaseSlug": releaseRef->slug.current` in GROQ) — never pass raw `_ref` objects to the frontend
+- Items as an inline `array` field on the `release` document — editorial drag-and-drop reordering is native in Sanity's array UI; separate cross-referenced documents are not needed and create authoring friction
 
 ### Critical Pitfalls
 
-1. **Dead `prebuild` hook calls a Hygraph script that no longer has its env vars** — Remove `"prebuild": "npm run fetch-content"` from `package.json` on day one of cleanup. Re-add only once the Sanity fetch script exists and has a graceful fallback for missing env vars.
+1. **Schema rename before atomic migration breaks Studio and silently empties fetch output** — Execute as a single atomic sequence: add new `release` schema alongside old `releaseNote`, migrate existing documents via GROQ patch, update all four registration sites in `sanity.config.ts`, `structure.ts`, and `schemaTypes/index.ts`, update GROQ queries, then delete the old schema. Never rename first and migrate later. (PITFALLS.md Pitfall 1)
 
-2. **Bloated `node_modules` drives build toward Cloudflare's 20-minute timeout** — Remove dead CMS packages before adding Sanity. The repo has 65+ production dependencies including 7 Tiptap packages, 3 DnD Kit packages, 3 TSParticles packages, and multiple dead CMS SDKs. `build-with-memory.js` already forces `--max-old-space-size=4096` — the build is already under memory pressure.
+2. **`build.sh`'s `|| true` flag makes empty-content deploys invisible** — During migration work, temporarily enable strict mode (`SANITY_FETCH_STRICT=true`). Add a post-fetch assertion that generated JSON files are non-empty when the corresponding schema type has published documents. Cloudflare Pages shows a green build even when releases/roadmap data is an empty array. (PITFALLS.md Pitfall 2)
 
-3. **Storyblok pages and lib must be deleted atomically** — Delete `src/pages/storyblok-example.tsx` and `storyblok-preview.tsx` first, then `src/components/storyblok/`, then `src/lib/storyblok.ts`, then remove npm packages. Any partial deletion creates TypeScript import errors that read as unrelated module resolution failures.
+3. **GROQ reference fields missing the `->` dereference operator deliver opaque `_ref` strings to the frontend** — Always use `"releaseSlug": releaseRef->slug.current` in projections; guard null-checks in the component for unpublished or deleted referenced documents; never expose raw `{ _ref: "..." }` objects to React. (PITFALLS.md Pitfall 3)
 
-4. **MDX-to-Sanity migration silently strips custom JSX components** — Sanity Portable Text cannot natively represent Docusaurus components (`<Tabs>`, `<Callout>`, `<Steps>`, `<Admonition>`). Audit component usage before any migration. Design custom Portable Text block types for each component. Never run bulk migration before validating 2-3 representative documents end-to-end.
+4. **`SanityLandingPageRoute` fallback silently renders legacy hardcoded content** — Replace `releases.tsx` and `roadmap.tsx` entirely; do not extend the wrapper. The wrapper falls back to the legacy component when no `landingPage` document with the matching slug exists — which is always true for these dedicated-purpose pages. (PITFALLS.md Pitfall 5)
 
-5. **Sanity schema changes after content entry destroy field visibility** — Field renames/removals in the Sanity schema orphan existing document data (data is preserved but invisible in Studio and returns null from GROQ). Finalize schema before editors begin entering real content. During development, iterate freely; after content entry begins, treat schema as locked.
-
-6. **Feedback widget is split across Vercel and Netlify function formats, neither of which runs on Cloudflare Workers** — Rewrite `functions/page-feedback.ts` using the Workers API (`Request`/`Response`). Replace `nodemailer` with a `fetch()`-based transactional email HTTP API. Test with `wrangler pages dev`.
+5. **Hero banner wired with `useEffect + fetch()` instead of static JSON import** — `useEffect + fetch()` in a Docusaurus static page causes a visible hydration flash. Use a static `import` of the pre-built JSON so the string is baked into HTML at build time with zero client-side fetch. (PITFALLS.md Pitfall 4)
 
 ---
 
 ## Implications for Roadmap
 
-Based on research, the dependency graph is clear and forces a specific phase order. Cleanup must come first — not as optional housekeeping, but because the dead code creates real build risk that will undermine every subsequent phase. Schema design must precede content migration. Parallel-source migration must precede URL cutover.
+The ARCHITECTURE.md file provides an explicit 6-step build order that research across all four files independently confirms. The sequencing is unambiguous: schema and data pipeline must come before frontend pages, frontend pages before cosmetic polish, cleanup last. No phase has ambiguous ordering and no phase requires additional research before implementation can begin.
 
-### Phase 1: Codebase Cleanup and Stabilization
+### Phase 1: Sanity Schema Migration and Data Pipeline
 
-**Rationale:** Dead CMS code creates active build risk (timeout, failed hooks, TypeScript errors). This is not optional prep — it is the prerequisite for all other work. The Cloudflare Pages build is already under memory pressure with 65+ dependencies. Adding Sanity integration on top of dead packages is a recipe for build failures with no clear error messages.
+**Rationale:** Every downstream component depends on having Sanity documents to query and generated JSON files to import. TypeScript compilation of the React pages fails without the JSON files. The schema migration carries the highest risk in the milestone — it involves four registration sites, an atomic document migration, and a verification step that must confirm non-zero document counts before the old schema is deleted.
 
-**Delivers:** Clean, stable build; no dead CMS packages; correct Cloudflare Pages build command; all broken link suppression replaced with explicit warnings; feedback widget rewritten for Cloudflare Workers.
+**Delivers:** New `release` schema with `items[]` array live in Studio; new `roadmapItem` schema live in Studio; `fetch-sanity-content.js` extended with two new GROQ queries; `sanity-releases.generated.json` and `sanity-roadmap.generated.json` written with verified test data; old `releaseNote` schema cleanly removed; fallback empty-array JSON files committed to git for fresh-clone builds; Cloudflare Pages webhook filter scoped to published document types only (not draft saves).
 
-**Addresses:** Table stakes publish workflow (clean build pipeline)
+**Features addressed (from FEATURES.md):** Schema fields for all P1 features — items array with screenshot/video on release, businessValue/changeType/uiChange/entitiesImpacted/releaseRef on roadmapItem, displayTitle distinct from internal sprintId.
 
-**Avoids:**
-- Pitfall 1: Remove `prebuild` hook immediately
-- Pitfall 2: Remove dead packages before build times balloon
-- Pitfall 3: Delete Storyblok code atomically
-- Pitfall 7: Rewrite feedback widget for Cloudflare Workers
-- Pitfall 11: Fix Cloudflare Pages build command (not reading `netlify.toml`)
-- Pitfall 13: Delete `sanitize.ts` with Storyblok code
+**Pitfalls to avoid:** Schema-rename-before-migration (Pitfall 1); silent empty deploy via `|| true` (Pitfall 2); missing fallback JSON in git (Integration Gotcha); Portable Text body serialization mismatch for rich media (Pitfall 6); `releaseNote` references remaining in all four Studio registration sites; webhook firing on draft saves.
 
-**Research flag:** SKIP — standard cleanup patterns, no research needed.
+**Research flag:** No additional research needed. All patterns are instantiated directly from existing codebase code. The atomic migration checklist in PITFALLS.md is the execution guide.
 
 ---
 
-### Phase 2: Sanity Schema Design and Studio Setup
+### Phase 2: Releases Page and Roadmap Page
 
-**Rationale:** Schema is the data contract for everything that follows. The custom Docusaurus plugin is written against the schema. The migration script is written against the schema. If schema changes after content entry begins, data is orphaned. This phase must be completed and validated with test documents before any content migration begins.
+**Rationale:** With verified JSON data on disk, both pages can be built in parallel. They share the same data-import pattern and are independent of each other at the page level, though the roadmap page's "Shipped" cross-links require the `releaseSlug` GROQ dereference from Phase 1 to be verified working. Both pages are replacements of the `SanityLandingPageRoute` wrapper, not extensions — this is the most common mistake to avoid.
 
-**Delivers:** Sanity project created; all four schemas deployed (`doc`, `releaseNote`, `article`, `reference`); `blockContent` Portable Text config with custom block types for callouts, code, and cross-references; Studio accessible at `your-project.sanity.studio`; environment variables set in Cloudflare Pages.
+**Delivers:** `/releases` index page driven by Sanity with sprint cards, change-type badges, and per-sprint detail pages at `/releases/[slug]` with per-item screenshots and video embeds; `/roadmap` page driven by Sanity with status filter and text search; Shipped roadmap items linking to `/releases#[slug]`; deletion of `src/data/roadmap.ts` and archival of `src/legacy-pages/releases.tsx`.
 
-**Addresses:**
-- Schema for all four content types (MVP feature)
-- Role-based `targetAudience` field
-- Structured `releaseNote` schema with version/sprint fields
-- Inline callout/warning block types
+**Features addressed:** All P1 features — Sanity-driven releases index, release detail pages, per-item rich media, Sanity-driven roadmap with filter/search, Shipped-to-release cross-link (primary differentiator), status badges, business value, change type, UI change flag, entities impacted, results count, empty state, "last updated" timestamp.
 
-**Avoids:**
-- Pitfall 10: Schema locked before content entry begins; use Sanity MCP server for schema operations
-- Pitfall 4: Custom Portable Text blocks designed upfront (no silent JSX stripping on migration)
+**Stack used:** React `useState` + `useMemo` for roadmap filter; Tailwind for badge/grid styling; `lucide-react` for search/filter icons; Sanity image CDN URLs (resolved in GROQ) for screenshots; YouTube/Vimeo iframe for video embeds.
 
-**Research flag:** NEEDS DEEPER RESEARCH during planning — specifically, how to represent Docusaurus `<Tabs>` and `<Steps>` in Portable Text custom block types. This is the most ambiguous technical decision in the project.
+**Pitfalls to avoid:** Missing `->` dereference in GROQ for releaseRef (Pitfall 3); `SanityLandingPageRoute` wrapper not fully replaced (Pitfall 5); dual data source by keeping `roadmap.ts` alongside Sanity data (Pitfall 4 — delete in same commit); Zoho internal status labels exposed in public roadmap (UX Pitfalls); `useMemo` missing on roadmap filter causing input lag at scale.
+
+**Research flag:** No additional research needed. The existing `legacy-pages/roadmap.tsx` filter/search pattern is the direct implementation template. ARCHITECTURE.md Steps 3 and 4 provide exact implementation notes.
 
 ---
 
-### Phase 3: Docusaurus-Sanity Content Bridge (Build Pipeline)
+### Phase 3: Hero Banner and Home Page Dynamic Data
 
-**Rationale:** The content bridge plugin is the core technical deliverable of this project. It runs only once all prerequisites are met: clean build (Phase 1), schema deployed with test content (Phase 2), and environment variables configured.
+**Rationale:** This phase depends on Phase 1 (JSON file must exist with correct shape) but is independent of Phase 2. It is cosmetic and low-risk. Implementing it after Phase 1 is verified ensures the hero reads from a JSON structure that has already been confirmed correct by integration testing.
 
-**Delivers:** `docusaurus-plugin-sanity` custom plugin; GROQ queries for all four content types with draft filter; Portable Text to MDX conversion; `.sanity-cache/` directory populated at build time; zero-document guard preventing empty deploys; local build verified with Sanity content.
+**Delivers:** `NXGENSphereHero.tsx` "What's New" chip reads `sanity-releases.generated.json[0].displayTitle` dynamically — hardcoded sprint string at line 418 is removed; `index.tsx` recent-releases section reads `releasesData.slice(0, 2)` instead of a hardcoded array; `displayTitle` field on the `release` schema provides customer-facing language distinct from the internal `sprintId`.
 
-**Uses:**
-- `@sanity/client` v6 (only new production dependency)
-- `@portabletext/to-markdown` for Portable Text conversion
-- Docusaurus `loadContent`/`contentLoaded` lifecycle hooks
-- `SANITY_PROJECT_ID`, `SANITY_DATASET`, `SANITY_API_TOKEN` env vars (Cloudflare Pages)
+**Features addressed:** Hero banner latest release badge (P1, PROJECT.md explicit requirement); dynamic recent releases on home page.
 
-**Implements:** `docusaurus-plugin-sanity` architecture component; parallel-source strategy (shadow path `.sanity-cache/` alongside `classic/docs/`)
+**Pitfalls to avoid:** `useEffect + fetch()` in hero component (Pitfall 4 — must use static import, never runtime fetch); hydration flash on first paint; hardcoded sprint string remaining in component after v1.1 (`grep -n "Sprint" NXGENSphereHero.tsx` check from PITFALLS.md checklist).
 
-**Avoids:**
-- Pitfall 5: Fetch script wraps all errors in try/catch; falls back to empty data (MDX files continue to serve)
-- Anti-pattern: No runtime API calls from browser; all fetches in `loadContent()` only
-
-**Research flag:** NEEDS DEEPER RESEARCH — specifically, `@portabletext/to-markdown` conversion fidelity for complex content (nested lists, code blocks, custom block types). Test with real content samples before committing to this approach.
+**Research flag:** No additional research needed. The implementation is a three-line change in `NXGENSphereHero.tsx` and a four-line change in `index.tsx`. ARCHITECTURE.md Pattern 3 gives the exact code.
 
 ---
 
-### Phase 4: Publish Pipeline (Webhook Integration)
+### Phase 4: Cleanup and URL Verification
 
-**Rationale:** This phase wires the editorial workflow end-to-end. Phase 3 proved the build works; this phase makes it trigger automatically on publish.
+**Rationale:** Post-deployment verification and deletion of now-dead code. Skipping this phase leaves technical debt (superseded generated files, orphaned legacy pages) and risks 404s on previously valid URLs such as `/internal-releases/`.
 
-**Delivers:** Cloudflare Pages Deploy Hook URL generated; Sanity webhook configured pointing to deploy hook with GROQ document-type filter; end-to-end test verified (publish in Studio → Cloudflare build triggered → content live within 5 minutes).
+**Delivers:** Deletion of `src/data/sanity-release-notes.generated.json` (superseded by `sanity-releases.generated.json`); deletion of `src/pages/internal-releases/` with Cloudflare `_redirects` entries if needed; verified anchor links for `/releases#[slug]` deep-links from roadmap Shipped items; confirmed webhook scoping (build logs show triggers only on publish, not draft saves); full "Looks Done But Isn't" checklist from PITFALLS.md executed.
 
-**Uses:**
-- Cloudflare Pages deploy hook (dashboard configuration, no code)
-- Sanity webhook with GROQ filter: `_type in ["doc", "releaseNote", "article", "reference"]`
+**Pitfalls to avoid:** Webhook firing on draft saves causing spurious rebuilds; broken 404s on archived `/internal-releases/` paths; legacy page components deleted before confirmed as dead (keep `legacy-pages/` as rollback reference until deployment is stable).
 
-**Avoids:**
-- Pitfall 14: Deploy Hook URL stored only in Sanity dashboard, never committed to repo
-- Build webhook GROQ filter prevents rebuilds on draft saves
-
-**Research flag:** SKIP — fully documented pattern, Cloudflare and Sanity official docs cover this completely.
-
----
-
-### Phase 5: Content Migration (MDX to Sanity)
-
-**Rationale:** Content migration is last because it depends on a verified pipeline (Phases 3-4) and a stable schema (Phase 2). Migration is the highest-risk phase because it touches existing reader-facing URLs. Section-by-section approach with URL continuity verification eliminates the risk.
-
-**Delivers:** Migration script (`scripts/migrate-to-sanity.ts`) reading MDX frontmatter + content and creating Sanity documents; content migrated section by section in this order: (1) release-notes, (2) knowledge-base, (3) getting-started, (4) features/devices; URL continuity verified after each section (all `/docs/...` paths resolve); git-sourced MDX files archived after verified cutover; Algolia re-crawl triggered after each batch.
-
-**Addresses:**
-- Stable reader URLs (zero 404s)
-- Content freshness date from `_updatedAt`
-- All content types visible in Docusaurus
-
-**Avoids:**
-- Pitfall 4: Custom JSX components (`<Tabs>`, `<Callout>`) handled per the block types designed in Phase 2
-- Pitfall 8: Manual Algolia re-crawl triggered after each section migration
-- Pitfall 9: Role-based docs instances — decide before migration whether to keep or consolidate
-
-**Research flag:** NEEDS DEEPER RESEARCH — specifically, the markdown-to-Portable-Text conversion library. Options include `sanity-markdown-to-blocks`, `mdast-util-to-portable-text`, and manual conversion scripts. Each has different fidelity tradeoffs for the JSX-heavy MDX files in this project.
-
----
-
-### Phase 6: Polish and Hardening
-
-**Rationale:** Post-migration, the pipeline is live. This phase addresses deferred differentiators and operational hardening.
-
-**Delivers:** Live preview feature (Docusaurus preview route + Sanity preview secret); webhook hardening via Cloudflare Worker HMAC relay (optional); post-deploy Algolia crawler API trigger; `onBrokenLinks` set to `'throw'` as a permanent quality gate; `targetAudience` field wired to role-based Docusaurus instances.
-
-**Avoids:**
-- Pitfall 4: `onBrokenLinks: 'throw'` is the end-state quality gate (set to `'warn'` during cleanup, `'throw'` here)
-
-**Research flag:** SKIP for most items. Live preview pattern is well-documented in Sanity docs. Cloudflare Worker HMAC relay is standard Workers code.
+**Research flag:** No additional research needed. PITFALLS.md "Looks Done But Isn't" checklist is the execution guide.
 
 ---
 
 ### Phase Ordering Rationale
 
-- Phase 1 before all others: Dead code creates active build risk; any new integration added before cleanup will fail in non-obvious ways
-- Phase 2 before Phase 3: Plugin code is written against schema; schema must be stable before plugin is coded
-- Phase 3 before Phase 4: Webhook is useless if the build pipeline does not already consume Sanity content
-- Phase 5 after Phases 3-4 are verified: Content migration is irreversible; only migrate once the full pipeline is proven
-- Phase 6 last: Hardening and polish belong after the core functionality is stable
+- **Schema before pipeline, pipeline before pages** reflects the compile-time dependency chain independently confirmed across STACK.md, FEATURES.md, and ARCHITECTURE.md: React pages cannot compile without JSON files; JSON files cannot be generated without schema documents.
+- **Phases 2 and 3 can run in parallel** after Phase 1 is verified: the releases page and roadmap page are independent of each other; the hero banner is independent of both pages; all three only share the Phase 1 prerequisite of a valid `sanity-releases.generated.json`.
+- **Pitfall 1 (atomic schema migration) forces Phase 1 to be treated as a single verified pass**, not an incremental one. The team cannot move to Phase 2 until GROQ Vision confirms zero `releaseNote` documents remain and the fetch script logs a non-zero count for the `release` type.
+- **The `|| true` build flag (Pitfall 2) means Phase 1 must include a strict-mode verification run** before handing off to Phase 2, otherwise Phase 2 begins on silently empty JSON data.
 
 ### Research Flags
 
-**Phases needing deeper research during planning:**
-- **Phase 2 (Schema Design):** How to represent Docusaurus `<Tabs>` and `<Steps>` in Sanity Portable Text custom block types — no established precedent; requires experimentation
-- **Phase 3 (Content Bridge):** `@portabletext/to-markdown` conversion fidelity for complex content — test with real content samples before committing
-- **Phase 5 (Content Migration):** markdown-to-Portable-Text library selection — `sanity-markdown-to-blocks` vs `mdast-util-to-portable-text` vs manual; JSX-heavy MDX files make this the most ambiguous technical choice
+Phases needing deeper research during planning:
+- **None.** All four research files are grounded in direct codebase inspection of the live production system. All implementation patterns are already present in the codebase. The roadmapper can structure phases directly from this summary without additional research passes.
 
-**Phases with standard, well-documented patterns (safe to skip research-phase):**
-- **Phase 1 (Cleanup):** Standard `npm uninstall` and dead code removal; no novel patterns
-- **Phase 4 (Webhook):** Fully documented in Cloudflare Pages and Sanity official docs; configure, don't code
-- **Phase 6 (Polish):** Sanity live preview pattern is extensively documented; Cloudflare Worker HMAC relay is standard
+Phases with well-documented, proven patterns (no research-phase needed):
+- **Phase 1:** `defineArrayMember` schema pattern, atomic migration checklist, GROQ query extension — all sourced from live code.
+- **Phase 2:** Client-side filter pattern is a direct copy-adaptation of `legacy-pages/roadmap.tsx`. React page pattern follows `SanityLandingPageRoute.tsx` and `index.tsx`.
+- **Phase 3:** Three-line component change with exact code provided in ARCHITECTURE.md Pattern 3.
+- **Phase 4:** Execution checklist provided verbatim in PITFALLS.md "Looks Done But Isn't" section.
 
 ---
 
@@ -239,56 +191,53 @@ Based on research, the dependency graph is clear and forces a specific phase ord
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | `@sanity/client` v6, Docusaurus 3.x, Cloudflare Pages deploy hooks — all official docs, stable APIs. MCP server package name needs verification at implementation time. |
-| Features | HIGH | Based on direct codebase inspection + domain knowledge of Sanity Studio capabilities. Feature scope derived from actual project files and PROJECT.md constraints. |
-| Architecture | HIGH | Docusaurus plugin lifecycle, Sanity GROQ API, Cloudflare deploy hooks — all well-documented. Portable Text → MDX conversion fidelity is MEDIUM (JSX complexity real). |
-| Pitfalls | HIGH | All 7 critical pitfalls are directly evidenced in specific files and line numbers in the codebase. Not inferred — verified. |
+| Stack | HIGH | All decisions derived from live `package.json` files and running production code. No inference required. |
+| Features | HIGH (codebase) / MEDIUM (benchmarks) | Table stakes and P1 features derived from direct legacy page inspection. Competitor analysis (Linear, Vercel, Intercom) drawn from training data cutoff August 2025 — treat as directional, not authoritative. |
+| Architecture | HIGH | All patterns grounded in direct inspection of 13+ live source files. No architecture decision requires new technology or an untested pattern. |
+| Pitfalls | HIGH | Every critical pitfall traceable to a specific file and line number in the live codebase. Mitigation steps are verified, not speculative. |
 
-**Overall confidence:** HIGH
+**Overall confidence: HIGH**
 
 ### Gaps to Address
 
-- **Portable Text to MDX conversion for JSX-heavy files:** The `@portabletext/to-markdown` package handles prose well but custom Docusaurus components (`<Tabs>`, `<Steps>`, `<Admonition>`) must be represented as custom block types in the schema and handled in the conversion step. The exact implementation requires experimentation — no off-the-shelf solution covers all of Docusaurus's custom components. **Handle during Phase 2 and Phase 3 planning.**
+- **`displayTitle` vs. `sprintId` UX field:** PITFALLS.md flags that external customers do not understand internal sprint naming conventions (e.g., "Sprint 2025.12-B"). The `release` schema needs a `displayTitle` field for customer-facing language distinct from `sprintId`. This field is absent from the existing `releaseNote` schema and must be added as a required field in Phase 1. Editors need a brief authoring note explaining the distinction. Decide in Phase 1 requirements whether `displayTitle` is required or optional with `sprintId` as fallback.
 
-- **`@sanity/mcp-server` exact CLI invocation:** The MCP server package name is `@sanity/mcp-server` but the exact CLI flags may have evolved since the August 2025 knowledge cutoff. Verify against `sanity.io/docs/mcp` or the npm registry before Phase 2. **Handle at start of Phase 2.**
+- **`@portabletext/react` dependency decision:** PITFALLS.md Pitfall 6 flags that rendering rich release item descriptions (inline images, video embeds as blocks) through the existing `serializeBody()` Markdown pipeline is lossy. If release item descriptions are simple prose, the existing serializer is sufficient and no new package is needed. If they use rich Portable Text blocks (image arrays, video embeds), `@portabletext/react` is needed — and it is not currently in `classic/package.json`. Validate during Phase 1 schema design: if item descriptions will be plain text plus links only, no new dependency. If rich blocks, add the dependency before Phase 2 begins.
 
-- **Role-based docs instances (Phase 5 decision):** The six `@docusaurus/plugin-content-docs` instances (`docs`, `internal`, `admin`, `manager`, `operator`, `operator-minimal`) are mostly empty shells. Whether to keep, consolidate, or remove them affects the Sanity schema (`targetAudience` field design) and the migration strategy. **This decision must be made during Phase 1 planning before any schema work begins.**
+- **Projected release date format on roadmap:** PITFALLS.md flags that storing `projectedRelease` as a human string ("Q2 2026") prevents programmatic sorting and causes silent staleness erosion. Adding a `lastReviewedAt` ISO date field alongside the human string is recommended. Decide during Phase 1 requirements whether this is in-scope for v1.1 or deferred to v1.2.
 
-- **Algolia DocSearch plan tier:** The behavior of Algolia re-indexing post-deploy depends on whether the project is on the free DocSearch tier (daily scheduled crawl, no API trigger) or a paid plan (API-triggered crawl). Verify in the Algolia dashboard. **Handle during Phase 3 planning.**
+- **Webhook filter scope:** The current Cloudflare Pages webhook may not be scoped — it could fire on draft saves of all document types. PITFALLS.md Integration Gotcha recommends scoping to published `release` and `roadmapItem` documents only. Verify current webhook configuration in Sanity dashboard before Phase 1 begins and update if needed.
 
 ---
 
 ## Sources
 
-### Primary (HIGH confidence)
+### Primary (HIGH confidence — direct codebase inspection)
 
-- `classic/package.json` — direct inspection; confirms Docusaurus 3.9.2, dead CMS packages, memory-constrained build script
-- `classic/docusaurus.config.ts` — direct inspection; confirms Algolia, 6 docs plugin instances, `onBrokenLinks: 'ignore'`, role-based routing
-- `classic/docs/` directory structure — direct inspection; 100+ articles across 15+ sections
-- Sanity client v6 docs: https://www.sanity.io/docs/js-client
-- Docusaurus Plugin Lifecycle API: https://docusaurus.io/docs/api/plugin-methods/lifecycle-apis
-- Cloudflare Pages Deploy Hooks: https://developers.cloudflare.com/pages/configuration/deploy-hooks/
-- Sanity Webhooks: https://www.sanity.io/docs/webhooks
-- Sanity GROQ API: https://www.sanity.io/docs/groq
-- Sanity Studio v3: https://www.sanity.io/docs/studio
-- Sanity draft document filtering: https://www.sanity.io/docs/drafts
-- @portabletext/to-markdown: https://github.com/portabletext/to-markdown
-- Algolia DocSearch: https://docsearch.algolia.com/docs/what-is-docsearch
+- `classic/package.json` — verified installed versions for all frontend dependencies
+- `studio/package.json` — verified Studio plugin versions including `sanity-plugin-mux-input`
+- `classic/scripts/fetch-sanity-content.js` — authoritative data pipeline; all GROQ patterns, serialization, backup system, `|| true` flag
+- `studio/schemaTypes/releaseNote.ts` — current schema being replaced; field inventory
+- `studio/schemaTypes/portableText-ultimate.ts` — `defineArrayMember` usage pattern (directly reusable)
+- `studio/schemaTypes/index.ts` — all type registrations; four sites requiring update on migration
+- `studio/sanity.config.ts` — initial value templates, document actions, dashboard widgets (lines 60, 130, 145, 170)
+- `studio/src/structure.ts` — sidebar entry and Published filter referencing `releaseNote`
+- `classic/src/components/NXGENSphereHero.tsx` line 418 — hardcoded sprint string to replace
+- `classic/src/pages/releases.tsx` + `classic/src/pages/roadmap.tsx` — current `SanityLandingPageRoute` wrapper pattern to replace
+- `classic/src/legacy-pages/releases.tsx` + `classic/src/legacy-pages/roadmap.tsx` — legacy implementations to adapt
+- `classic/src/data/roadmap.ts` — existing static TypeScript roadmap data; internal Zoho labels to strip before exposing publicly
+- `classic/src/pages/index.tsx` lines 105–119 — hardcoded `recentReleases` array
+- `build.sh` line 19 — `|| true` flag on fetch-content step
+- `.planning/PROJECT.md` — v1.1 feature requirements and constraints (no backend, static site, webhook rebuilds)
 
-### Secondary (MEDIUM confidence)
+### Secondary (MEDIUM confidence — training data benchmarks)
 
-- `classic/scripts/fetchHygraphContent.js` — evidence of prebuild hook pattern and previous failed CMS fetch implementation
-- `classic/src/lib/storyblok.ts`, `classic/src/pages/storyblok-example.tsx` — evidence of atomic deletion requirement
-- `classic/api/page-feedback.ts`, `netlify/functions/page-feedback.mjs` — evidence of platform-split feedback function
-- `classic/scripts/build-with-memory.js` — evidence of existing memory pressure (`--max-old-space-size=4096`)
-
-### Tertiary (LOW confidence — needs validation at implementation)
-
-- Sanity MCP Server: https://www.sanity.io/docs/mcp — newer feature; package name and CLI flags need verification
-- `@portabletext/to-markdown` conversion fidelity for JSX-heavy MDX — inferred from package documentation; requires testing with real content
-- markdown-to-Portable-Text library options for migration script — multiple packages exist (`sanity-markdown-to-blocks`, `mdast-util-to-portable-text`); selection requires evaluation against actual content samples
+- Linear changelog (linear.app/changelog) — "Released in" pattern for shipped items
+- Vercel changelog (vercel.com/changelog) — per-item media and per-entry permalink pattern
+- Intercom changelog (intercom.com/changelog) — category-based filtering pattern
+- Canny.io — upvoting anti-feature reference; corroborates deliberate exclusion from scope
 
 ---
 
-*Research completed: 2026-03-06*
+*Research completed: 2026-03-13*
 *Ready for roadmap: yes*

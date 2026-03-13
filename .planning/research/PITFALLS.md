@@ -1,358 +1,283 @@
-# Domain Pitfalls
+# Pitfalls Research
 
-**Domain:** Docusaurus documentation site — brownfield cleanup + Sanity CMS integration on Cloudflare Pages
-**Researched:** 2026-03-06
-**Confidence:** HIGH (all pitfalls grounded in direct codebase evidence; confirmed against Docusaurus v3, Sanity v3, and Cloudflare Pages documentation)
+**Domain:** SSG (Docusaurus) + Headless CMS (Sanity) — Releases & Public Roadmap (v1.1 milestone)
+**Researched:** 2026-03-13
+**Confidence:** HIGH (all pitfalls grounded in direct codebase inspection of the v1.0-completed system; no training-data guesses)
+
+> Note: This file supersedes the v1.0 pitfalls document. The v1.0 pitfalls (dead CMS code, build pipeline, Storyblok removal, etc.) are resolved and archived. This document focuses exclusively on the v1.1 additions: schema migration, releases page, roadmap page, hero banner dynamic data, rich media in releases, and cross-document linking.
 
 ---
 
 ## Critical Pitfalls
 
-Mistakes that cause build failures, broken deployments, or require rewrites.
+### Pitfall 1: Removing `releaseNote` from the schema before migrating existing documents
+
+**What goes wrong:**
+The current schema registers `releaseNoteType` in four places: `schemaTypes/index.ts`, `sanity.config.ts` (initial value templates on line 60, document actions list on line 170, dashboard widget `types` arrays on lines 130 and 145), and `studio/src/structure.ts` (two list items: the "Release Notes" sidebar entry and the "Published > Release Notes" filter). If the type name is changed or the file is deleted while Sanity still holds documents of `_type == "releaseNote"`, Studio breaks with "Unknown document type" errors on every existing release note. The structure sidebar becomes unusable.
+
+Simultaneously, `fetch-sanity-content.js` line 72 queries `_type == "releaseNote"`. After the rename, this query returns zero results. The script writes an empty `sanity-release-notes.generated.json` without error — and because `build.sh` runs `npm run fetch-content || true`, the build still succeeds. The `/releases` page silently falls back to the legacy component.
+
+**Why it happens:**
+Developers rename the schema type first (the obvious first step) and plan to migrate documents later. In Sanity, documents are not schema-bound — existing `releaseNote` documents survive in the dataset — but Studio can no longer display them.
+
+**How to avoid:**
+Execute the migration as a single atomic sequence:
+1. Keep `releaseNoteType` registered as-is (do not touch it yet)
+2. Add the new `release` schema type alongside it
+3. Migrate existing `releaseNote` documents to `release` using the Sanity CLI or MCP mutations: `*[_type == "releaseNote"]` patched with `_type: "release"` and any new required fields populated
+4. Update the GROQ query in `fetch-sanity-content.js` from `_type == "releaseNote"` to `_type == "release"`
+5. Update all four registration sites in `sanity.config.ts`, `structure.ts`, and `index.ts`
+6. Verify the fetch returns expected counts, then delete the old `releaseNote` schema file
+
+**Warning signs:**
+- Studio shows "Unknown document type" on any document in the Release Notes section
+- `sanity-release-notes.generated.json` contains `[]` after a deploy
+- The `/releases` page shows the legacy hardcoded sprint content instead of Sanity data
+- `fetch-sanity-content.js` build log line reads `-> 0 releaseNote document(s)`
+
+**Phase to address:** Phase 1 — Sanity schema migration
 
 ---
 
-### Pitfall 1: The `prebuild` Hook Still Calls Dead CMS Code
+### Pitfall 2: The `|| true` flag in `build.sh` makes empty-content deploys invisible
 
-**What goes wrong:** The current `package.json` has `"prebuild": "npm run fetch-content"` which executes `scripts/fetchHygraphContent.js`. On Cloudflare Pages the Hygraph env vars are absent, so the script exits early — but only because it contains a manual guard. Any cleanup that removes the guard (or replaces the script with a Sanity fetch that lacks a similar guard) will cause the build to fail if `SANITY_PROJECT_ID` is also absent from the Cloudflare Pages environment variables at time of first deploy.
+**What goes wrong:**
+`build.sh` line 19 reads `npm run fetch-content || true`. This means any non-zero exit from the fetch script is swallowed — the build continues. If a GROQ query is wrong, credentials are invalid, or a new schema type returns zero results because documents have not been migrated yet, the build succeeds and deploys an empty or stale site. The Cloudflare Pages dashboard shows a green build. No one knows the content is missing until a user visits the page.
 
-**Why it happens:** The prebuild hook is a global side-effect that runs unconditionally before every `npm run build`. It was written for Hygraph, survived every CMS switch because it gracefully no-ops, and will be forgotten when adding the Sanity fetch equivalent.
+This is especially dangerous for the hero banner: `NXGENSphereHero.tsx` line 418 currently has `Sprint 2025.12-B is live` hardcoded. If the dynamic fetch fails, the banner stays at that string indefinitely.
 
-**Consequences:** Cloudflare Pages build fails on the first push after Sanity integration begins because the old fetch-content script is gone but the new one has no graceful fallback, or the new script throws on missing env vars.
+**Why it happens:**
+The `|| true` was added to prevent build failures during Sanity outages — a legitimate production safeguard. It becomes a trap during schema migrations when empty results are a symptom of a bug, not a Sanity outage.
 
-**Evidence in codebase:**
-- `classic/package.json` line 22: `"prebuild": "npm run fetch-content"`
-- `classic/scripts/fetchHygraphContent.js` lines 9-13: guard that exits 0 when env vars are missing
-- `classic/netlify.toml` line 2: `command = "npm run sync:storyblok:safe && npm run build"` — a second stale build command referencing a completely different CMS sync script
+**How to avoid:**
+- During active schema migration work: temporarily use `npm run sanity:pull:strict` (sets `SANITY_FETCH_STRICT=true`) in the build command to surface warnings as hard failures. Revert to `|| true` once migration is confirmed stable.
+- Add a post-fetch validation check: after the fetch, assert that `sanity-release-notes.generated.json` is non-empty if the `release` schema type exists and has published documents. The fetch script already logs document counts — pipe these to a check.
+- For the hero banner: treat the latest-release data as required. If the generated file is empty, the build step should warn loudly (log a WARN line) even if it does not abort.
 
-**Prevention:**
-- During cleanup phase, remove `"prebuild"` from `package.json` entirely until Sanity integration is ready
-- The Sanity fetch script must wrap its entire body in a `try/catch` and exit with code 0 (not code 1) when `SANITY_PROJECT_ID` is missing, printing a clear warning
-- After Sanity is wired in, change the build command in Cloudflare Pages dashboard to include the Sanity fetch explicitly: `node scripts/fetchSanityContent.js && docusaurus build`
+**Warning signs:**
+- `sanity-release-notes.generated.json` is `[]` after deploy
+- `sanity-landing-pages.generated.json` is `[]` after deploy
+- Cloudflare Pages build log shows `-> 0 X document(s)` for a type that should have data
+- The `/releases` or `/roadmap` pages render legacy fallback content on the live site
 
-**Detection:** Build fails with exit code 1 during the `npm run fetch-content` step in Cloudflare Pages build logs.
-
-**Phase:** Cleanup phase — remove prebuild hook on day one of cleanup. Re-add only when Sanity script exists and is guarded.
-
----
-
-### Pitfall 2: Removing a Storyblok Import Silently Breaks `src/lib/storyblok.ts` Consumers
-
-**What goes wrong:** `classic/src/lib/storyblok.ts` is imported by `storyblok-example.tsx` and `storyblok-preview.tsx`. Both are routed pages (`/storyblok-example`, `/storyblok-preview`) that Docusaurus compiles to static HTML at build time. If the pages are deleted but the lib file is left, TypeScript still compiles cleanly — no error. If the lib file is deleted first but the pages remain, the build throws a TypeScript import error that looks like an unrelated module resolution failure.
-
-**Why it happens:** Docusaurus compiles all `.tsx` files under `src/pages/` automatically. There is no opt-out. Partial deletion (lib without consumers, or consumers without lib) always leaves a broken state.
-
-**Consequences:** Build error that is confusing because the error message points to a TypeScript import, not to "you have a Storyblok page that shouldn't exist." The non-technical user sees an intimidating wall of TypeScript errors.
-
-**Evidence in codebase:**
-- `classic/src/pages/storyblok-example.tsx` line 3: `import { getStory } from '../lib/storyblok';`
-- `classic/src/pages/storyblok-preview.tsx` line 4: `import { useLocation } from '@docusaurus/router';` (uses Storyblok bridge via window.storyblok)
-- `classic/src/lib/storyblok.ts` — full file imports `@storyblok/react`, `storyblok-js-client`, and all five component files under `src/components/storyblok/`
-
-**Prevention:** Delete the entire Storyblok surface in one atomic operation, in this order:
-1. `src/pages/storyblok-example.tsx`
-2. `src/pages/storyblok-preview.tsx`
-3. `src/components/storyblok/` (entire directory)
-4. `src/lib/storyblok.ts`
-5. Then remove `@storyblok/js`, `@storyblok/react`, `storyblok-js-client` from `package.json`
-
-Run `npm run build` locally after each group to verify no compile errors before proceeding.
-
-**Detection:** TypeScript error `Cannot find module '../lib/storyblok'` or `Module '@storyblok/react' not found` during build.
-
-**Phase:** Cleanup phase — one of the first tasks, immediately after audit.
+**Phase to address:** Phase 1 — Build pipeline hardening; revisit in every phase that introduces new GROQ queries
 
 ---
 
-### Pitfall 3: Cloudflare Pages Build Timeout from Bloated `node_modules`
+### Pitfall 3: Cross-document Sanity references not dereferenced in GROQ — opaque `_ref` strings reach the frontend
 
-**What goes wrong:** Cloudflare Pages has a 20-minute build timeout. The current `package.json` has approximately 65+ production dependencies including heavyweight packages (`@mui/material`, `framer-motion`, `@tiptap/*` x7, `@tsparticles/*` x3, `pdf-parse`, `jspdf`, `html2canvas`, `@dnd-kit/*` x3, `graphql`, `graphql-request`, `express`, `nodemailer`). Many of these are dead weight from past CMS experiments. `npm install` of this dependency set alone can approach 3–5 minutes on a cold Cloudflare build. Combined with a 4GB memory-constrained `docusaurus build`, the entire pipeline frequently approaches or exceeds the limit.
+**What goes wrong:**
+A Sanity `reference` field stores only `{ _ref: "abc123" }` in the document. If the GROQ projection does not use the `->` dereference operator, the generated JSON passes this opaque object to the frontend. The React component receives `{ _ref: "abc123..." }` where it expects `{ title: "Sprint 2026-01-A", slug: { current: "sprint-2026-01-a" } }`. The "View Release" link on a shipped roadmap item either renders as `undefined`, `[object Object]`, or crashes with a null-access error.
 
-**Why it happens:** Each failed CMS integration added packages but no one cleaned them up. The `build-with-memory.js` script already hard-codes `--max-old-space-size=4096` because the build was already OOM-crashing.
+This is invisible in Studio because Studio resolves references natively for editors. The bug only appears in the built site.
 
-**Consequences:** Build times out. Cloudflare Pages shows a generic "Build failed" with no useful error. The non-technical user cannot diagnose it.
+**Why it happens:**
+Developers write the schema, test references in Studio (where they look correct), then write the GROQ query without the `->` operator, not realizing the frontend sees raw `_ref` strings.
 
-**Evidence in codebase:**
-- `classic/package.json`: `@tiptap/react`, `@tiptap/extension-image`, `@tiptap/extension-link`, `@tiptap/extension-table`, `@tiptap/extension-table-cell`, `@tiptap/extension-table-header`, `@tiptap/extension-table-row`, `@tiptap/starter-kit` — all Tiptap packages, no Tiptap usage found in `src/`
-- `classic/package.json`: `@dnd-kit/core`, `@dnd-kit/sortable`, `@dnd-kit/utilities` — drag-and-drop library with no current usage visible in active pages
-- `classic/package.json`: `@mui/material`, `@emotion/react`, `@emotion/styled` — full MUI stack; single-page use cannot justify the bundle cost
-- `classic/package.json`: `@tsparticles/engine`, `@tsparticles/react`, `@tsparticles/slim` — particle animations
-- `classic/scripts/build-with-memory.js`: `--max-old-space-size=4096` indicates existing memory pressure
+**How to avoid:**
+Always use one of two approaches — never mix them:
 
-**Prevention:**
-- Remove dead CMS packages in cleanup phase before any new packages are added
-- After cleanup, benchmark build time locally and on Cloudflare Pages before proceeding to Sanity integration
-- When adding Sanity, only add: `@sanity/client` and `next-sanity` (or `groq`) — do not add `sanity` (the Studio package) to this repo; Studio runs separately at `your-project.sanity.studio`
-- Use `npm ls --depth=0` after cleanup to verify package count dropped significantly
+Option A (reference + dereference in GROQ): Store a `reference` field pointing to the `release` document. In the GROQ projection, dereference: `linkedRelease->{ title, "slug": slug.current }`. Add a null-guard in the React component for the case where the referenced document is unpublished or deleted.
 
-**Detection:** Cloudflare Pages build log shows timeout after ~20 minutes, or the build log ends abruptly without a `Built in Xms` line from Docusaurus.
+Option B (slug string + optional reference): Store both a `releaseSlug` string field (used by the frontend for URL construction — always a plain string) and an optional `linkedRelease` reference field (used only for Studio navigation). The frontend reads only the slug string; the reference is irrelevant to the build output. This is more resilient because if the referenced document is deleted, the slug string still renders a link (which may 404, but is not a runtime crash).
 
-**Phase:** Cleanup phase — dependency audit and removal is the highest-ROI single action.
+Option B is recommended for this project given the build-time SSG pattern.
 
----
+**Warning signs:**
+- Roadmap page renders `[object Object]` or an empty string where the release link should appear
+- Browser console errors: `Cannot read properties of null (reading 'slug')` or `Cannot read properties of undefined (reading 'current')`
+- `sanity-release-notes.generated.json` contains objects with `_ref` strings rather than titles and slugs
 
-### Pitfall 4: `onBrokenLinks: 'ignore'` Hiding Real Breakage That Cleanup Will Expose
-
-**What goes wrong:** The current config has `onBrokenLinks: 'ignore'`, `onBrokenMarkdownLinks: 'ignore'`, and `onBrokenAnchors: 'ignore'`. This was set to allow deployment despite known broken links. When cleanup removes pages (Storyblok pages, dead role docs), some of those removed pages are likely referenced by sidebar entries, MDX cross-links, or navigation items. Removing the dead pages without finding and fixing those references means links that were already broken become newly broken in a different way — and because the setting is `ignore`, the build still succeeds, so no one knows.
-
-**Why it happens:** `ignore` is a one-way ratchet. Once set, nobody is motivated to audit. Each CMS experiment added more internal links that pointed to pages the previous CMS was supposed to serve, and those links were never cleaned up.
-
-**Consequences:** Users click links to `/storyblok-example`, `/storyblok-preview`, or other deleted pages and get a blank 404 page. The Algolia crawler may also index broken anchor fragments, polluting search results.
-
-**Evidence in codebase:**
-- `classic/docusaurus.config.ts` lines 65–67: all three broken-link settings set to `'ignore'`
-- `classic/src/pages/storyblok-example.tsx` and `storyblok-preview.tsx` are accessible live pages at known URLs — if any nav link points to them, deleting the files silently drops those links
-
-**Prevention:**
-- Before deleting any page, run `grep -r "storyblok-example\|storyblok-preview" classic/src classic/docs` to find all references
-- After cleanup, temporarily change `onBrokenLinks` to `'warn'` (not `'throw'` yet — too aggressive) and run a local build to surface what's broken
-- Fix all warnings before switching to `'throw'` permanently at end of cleanup phase
-- Do NOT switch to `'throw'` mid-cleanup — the cleanup will temporarily introduce new broken links and the build needs to keep succeeding
-
-**Detection:** Build log shows `[WARNING] Docs found broken links` or users report 404s after cleanup deploys.
-
-**Phase:** Cleanup phase — audit references before deleting files; switch to `'throw'` at end of cleanup as a quality gate.
+**Phase to address:** Phase 2 — Roadmap schema design and frontend wiring
 
 ---
 
-### Pitfall 5: Sanity Content Fetched at Build Time Has No Fallback When Sanity API is Unreachable
+### Pitfall 4: Hero banner hardcoded sprint text — SSG cannot self-update without dynamic data injection
 
-**What goes wrong:** The chosen architecture is "Docusaurus fetches from Sanity at build time, webhook triggers rebuild on publish." If the Sanity API is down, rate-limited, or the project ID is wrong when Cloudflare Pages builds, the fetch script fails and the build fails. This is a single point of failure with no fallback. The site goes undeployable until the API issue is resolved.
+**What goes wrong:**
+`NXGENSphereHero.tsx` line 418 contains `Sprint 2025.12-B is live` hardcoded in JSX. When v1.1 ships a new release, this text does not update. A developer must manually edit the file and push a commit — defeating the purpose of a CMS-managed release workflow.
 
-**Why it happens:** Build-time data fetching gives you a fast, cacheable static site — but it couples the deploy pipeline to the CMS availability. Every previous CMS integration in this project used the same pattern and fell apart at the data-fetching step.
+The failure mode if someone wires this to `useEffect + fetch()` instead of the correct build-time pattern: the banner shows a loading state (or old text) until JavaScript hydrates the component, creating a flash of stale content. This is unnecessary and adds complexity — the Sanity webhook already triggers a full rebuild on every publish.
 
-**Consequences:** A content editor clicks "Publish" in Sanity Studio, Cloudflare Pages triggers a rebuild, the Sanity API returns a 503, the build fails, and the content never goes live. The non-technical user sees a failed build with no obvious cause.
+**Why it happens:**
+Developers reach for `useEffect + fetch()` as the React way to make data dynamic, forgetting that Docusaurus pages are pre-rendered at build time and all Sanity data is already available via generated JSON files.
 
-**Prevention:**
-- The Sanity fetch script must catch all errors and fall back to existing MDX files: if `SANITY_PROJECT_ID` is missing or the API call fails, log a warning and return empty data (let Docusaurus build from the existing MDX files in the repo)
-- Add a `SANITY_FETCH_REQUIRED=false` environment variable — defaults to `false` so build succeeds without Sanity; set to `true` only once Sanity is fully confirmed working
-- Use Sanity's CDN endpoint (`cdn.sanity.io`) rather than the primary API for reads; it has much higher availability
-- In Sanity fetch script, set a timeout of 10 seconds per request to prevent the script from hanging indefinitely
+**How to avoid:**
+Extend `fetch-sanity-content.js` to derive the latest release from `sanity-release-notes.generated.json` (already written) and write a `sanity-hero-data.generated.json` containing `{ latestRelease: { displayTitle: "...", date: "...", slug: "..." } }`. Import this file statically in `NXGENSphereHero.tsx`. The import is resolved at build time — zero client-side fetch, no hydration flash, and the data is always current because every publish triggers a rebuild.
 
-**Detection:** Build log shows `fetch failed` or a timeout error in the Sanity fetch script output.
+**Warning signs:**
+- `NXGENSphereHero.tsx` contains a hardcoded sprint identifier string (search for `Sprint` in the file)
+- A `useEffect` + `fetch()` pattern appears in any top-level Docusaurus page component
+- The "What's New" chip text flickers or shows a loading state on first paint
+- The chip text differs between a fresh page load and a reload (hydration mismatch)
 
-**Phase:** Sanity integration phase — write the fetch script with graceful degradation from day one.
-
----
-
-### Pitfall 6: MDX-to-Sanity Migration Destroying Formatting That Doesn't Round-Trip
-
-**What goes wrong:** The current content is MDX with custom Docusaurus components (`<Tabs>`, `<TabItem>`, `<Callout>`, `<Steps>`, `<CodeBlock>`, `<Admonition>`) embedded inline. Sanity's Portable Text format cannot natively represent these components. A naive migration that imports the MDX content into Sanity as a rich text body will silently drop all JSX component usages, leaving pages stripped of their tabs, callouts, and step-by-step formatting.
-
-**Why it happens:** Portable Text is a JSON-based structured content format — it has nodes for paragraphs, headings, lists, links, and images, but not for arbitrary JSX. Custom components must be represented as custom Portable Text annotations or block types, which requires schema design upfront.
-
-**Consequences:** After migration, a "Firewall Configuration" page that had a multi-tab interface with per-device instructions shows up as plain paragraphs with the tab labels missing. The content appears but is structurally wrong.
-
-**Evidence in codebase:**
-- `classic/docs/getting-started/` contains `.mdx` files (not `.md`) confirming JSX component usage
-- `classic/src/components/` directory contains `Tabs/`, `Callout/`, `Steps/`, `CodeBlock/` components that MDX pages import
-- The Hygraph migration script (`classic/scripts/fetchHygraphContent.js`) attempted a `richTextToMarkdown()` function — evidence that this round-trip problem was already encountered once before with Hygraph's rich text format
-
-**Prevention:**
-- Before migration, audit every MDX file for custom component usage: `grep -r "import\|<Tabs\|<Steps\|<Callout\|<Admonition" classic/docs/` to count occurrences
-- Design Sanity schemas with explicit custom block types for each component type used in docs before migrating any content
-- Consider a hybrid approach: keep MDX files for complex pages that use many custom components; use Sanity only for content-heavy pages (articles, release notes, device guides) that are mostly prose
-- Never run bulk migration until the Sanity schema has been validated with 2–3 representative documents
-
-**Detection:** After migration, render a migrated page and compare it to the original MDX page side-by-side. Missing tabs, steps, or callouts are immediately visible.
-
-**Phase:** Sanity integration phase — schema design must precede any content migration.
+**Phase to address:** Phase 3 — Hero banner dynamic data
 
 ---
 
-### Pitfall 7: The Feedback Widget API Will Break When Moving from Netlify Functions to Cloudflare Pages
+### Pitfall 5: `SanityLandingPageRoute` fallback silently renders legacy content for the new dedicated pages
 
-**What goes wrong:** The page feedback system has two separate implementations that are already platform-split: `classic/api/page-feedback.ts` (Vercel-style handler using `@vercel/node` types) and `netlify/functions/page-feedback.mjs` (Netlify Functions-style handler). The project is deploying to Cloudflare Pages, which uses Cloudflare Functions (Workers-based) with a completely different runtime API — no `VercelRequest`/`VercelResponse`, no Netlify `event`/`context` pattern, no Node.js `nodemailer` (Workers environment). If the feedback widget is not adapted to Cloudflare Functions, it silently stops working: the widget renders, the user submits feedback, the API call fails with a 404 or 500, and no feedback is received.
+**What goes wrong:**
+`releases.tsx` and `roadmap.tsx` both use `SanityLandingPageRoute` with a legacy page as fallback. The pattern is: look for a `landingPage` document with the matching slug in Sanity; if not found, render the legacy component. For v1.1, the releases and roadmap pages are not `landingPage` documents — they are purpose-built pages reading from `sanity-release-notes.generated.json` and a new `sanity-roadmap.generated.json`. If these pages are not replaced but only extended, the `SanityLandingPageRoute` wrapper will continue to check for a non-existent `landingPage` slug and fall back to the legacy component — silently rendering old hardcoded content even after v1.1 is deployed.
 
-**Why it happens:** The project has already migrated hosting at least once (Vercel to Netlify judging by both API files existing), and the API function was partially migrated but the Cloudflare Pages adapter was never written.
+**Why it happens:**
+The `SanityLandingPageRoute` wrapper was the correct v1.0 migration pattern for landing pages. It is wrong for v1.1 dedicated pages. The pattern looks like it should "just work" because it did in v1.0.
 
-**Consequences:** Feedback submissions fail silently. No data loss (no database), but the VoC (Voice of Customer) widget becomes decorative.
+**How to avoid:**
+For v1.1, replace the contents of `releases.tsx` and `roadmap.tsx` entirely. Remove the `SanityLandingPageRoute` import and replace it with a direct-import component that reads the dedicated generated JSON files. Do NOT delete the legacy components in `legacy-pages/` until the new pages are confirmed live and correct — they serve as a rollback reference.
 
-**Evidence in codebase:**
-- `classic/api/page-feedback.ts` imports `@vercel/node` — this is a devDependency in `package.json`
-- `netlify/functions/page-feedback.mjs` uses Netlify Functions API (`event.httpMethod`, `event.body`)
-- Neither file uses Cloudflare Workers API (`Request`/`Response` web standard, `env` bindings)
-- `classic/netlify.toml` exists, but no `wrangler.toml` or `functions/` directory under `classic/` for Cloudflare Pages
+**Warning signs:**
+- After v1.1 deploys, `releases.tsx` still imports `SanityLandingPageRoute`
+- The live `/releases` page shows the old hardcoded sprint-2025-12-B content instead of Sanity data
+- Sanity Studio has no `landingPage` document with slug `releases` but the page still renders content (from the legacy fallback)
 
-**Prevention:**
-- During cleanup phase, decide on one feedback mechanism and write it as a Cloudflare Pages Function in `classic/functions/page-feedback.ts` using the Workers API
-- Cloudflare Workers does not support `nodemailer` (no TCP sockets) — use `fetch()` to call a transactional email HTTP API (Resend, SendGrid, or ZeptoMail's HTTP API) instead
-- Test the function locally using `wrangler pages dev` before deploying
-- Remove `classic/api/` directory and `netlify/functions/` once the Cloudflare version is confirmed working
-
-**Detection:** Submit a test feedback entry after deploy; check Cloudflare Pages Functions log for 404 or runtime errors.
-
-**Phase:** Cleanup phase — adapt or replace the feedback function before it gets more buried.
+**Phase to address:** Phase 1 — Page routing replacement (part of the schema migration phase)
 
 ---
 
-## Moderate Pitfalls
+### Pitfall 6: Portable Text body field on release items — `serializeCustomBlock` must be extended for new block types
 
-### Pitfall 8: Algolia Re-Crawl Fails After Content Structure Changes
+**What goes wrong:**
+`fetch-sanity-content.js` serializes Portable Text to Markdown via `serializeBody()`. Any `_type` not handled by `serializeCustomBlock()` produces an empty string and a warning counter increment. If the new `release` schema adds item-level blocks (e.g., a `screenshotGallery` array, a `videoEmbed` inline block) that are not explicitly handled in `serializeCustomBlock`, those blocks render as blank in the built Markdown. The bug is silent — no build error.
 
-**What goes wrong:** Algolia DocSearch crawls the live site URL (`docs.nxgen.cloud`) on a schedule. If cleanup removes or restructures docs sections (e.g., removing the role-based doc instances at `/role-admin`, `/manager`, `/operator`, `/operator-minimal`) and those paths were previously indexed, old search results will point to pages that now 404. Algolia does not automatically remove stale records from past crawls — it only adds/updates on the next crawl.
+For releases rendered as a React page (not MDX), serializing to Markdown and then parsing Markdown back is an unnecessary lossy step. Rich media (video, image galleries) should be passed as raw Portable Text JSON and rendered directly with `@portabletext/react`.
 
-**Why it happens:** DocSearch's crawler config is set on the Algolia side and the project has limited control over it without accessing the Algolia dashboard. The crawler config includes URL patterns — if pages are removed, those patterns still get crawled and the crawler may report errors rather than removing records.
+**Why it happens:**
+The existing pattern was designed for doc pages that become Markdown files. Release notes pages are better served as React components reading JSON directly — the Markdown intermediate format loses rich media fidelity.
 
-**Consequences:** After cleanup, a user searching for "operator guide" sees results pointing to `/operator/index` which no longer exists.
+**How to avoid:**
+For the `release` schema type, store the full Portable Text body array in `sanity-release-notes.generated.json` (not converted to Markdown). Render it on the `/releases` page using `@portabletext/react` with custom components for each block type. The fetch script already writes a metadata-only version to the JSON for the releases list — add a `body` key with the raw Portable Text array.
 
-**Prevention:**
-- Before removing any routed docs instance (role-based docs), check if it has an active Algolia crawl pattern by examining the Algolia crawler config in the Algolia dashboard
-- After any major structural change, manually trigger an Algolia re-crawl from the Algolia dashboard (not just wait for the scheduled crawl)
-- When content moves from MDX files to Sanity, verify the final URLs are identical before triggering a re-crawl — if the URLs change, Algolia re-indexes from scratch and search has a gap period
+If Markdown output is needed for some use case, extend `serializeCustomBlock` to handle each new block type before shipping.
 
-**Detection:** After deploy, test 5–10 searches and click the results; any 404 from a search result indicates stale Algolia index.
+**Warning signs:**
+- Release note pages render blank sections where screenshots or video embeds should appear
+- `fetch-sanity-content.js` build log shows warning lines for unhandled block types (look for `Serialize warning:` lines)
+- The release notes JSON contains truncated body content
 
-**Phase:** Cleanup phase and Sanity integration phase — trigger a manual re-crawl at the end of each phase.
-
----
-
-### Pitfall 9: Multiple `@docusaurus/plugin-content-docs` Instances Make Sidebar Management Brittle
-
-**What goes wrong:** The `docusaurus.config.ts` registers six separate docs plugin instances (`docs`, `internal`, `admin`, `manager`, `operator`, `operator-minimal`), each with its own sidebar file. Each sidebar file must stay in sync with the actual directory structure under its `path`. If cleanup removes `docs-admin/` but leaves `sidebars-admin.ts` registered, the build throws `Cannot read properties of undefined` when Docusaurus tries to resolve the sidebar against the missing directory.
-
-**Why it happens:** Role-based documentation instances were added as an experiment. Each required its own docs directory, sidebar config, and routing base path. The directories have almost no content (only `index.md` files in `docs-admin`, `docs-operator`, `docs-operator-minimal`), but the plugin registrations remain.
-
-**Evidence in codebase:**
-- `classic/docusaurus.config.ts` lines 122–195: five extra `@docusaurus/plugin-content-docs` instances
-- `classic/docs-admin/index.md`: only file in the directory — confirms these are empty shells
-- `classic/docs-operator/index.md`, `classic/docs-operator-minimal/index.md`: same
-
-**Prevention:**
-- Decide during planning whether role-based docs are kept or removed
-- If removing: delete both the plugin registration from `docusaurus.config.ts` AND the corresponding `docs-*` directory AND the `sidebars-*.ts` file in one commit
-- If keeping: ensure each docs directory has at least one non-index document, or Docusaurus will warn about empty sidebars
-
-**Detection:** Build error `Error: Failed to load preset @docusaurus/preset-classic` or `Cannot read properties of undefined (reading 'type')` when a registered docs plugin path is missing or empty.
-
-**Phase:** Cleanup phase — resolve role-based docs decision before any other cleanup.
+**Phase to address:** Phase 1 — Release schema design and fetch script extension
 
 ---
 
-### Pitfall 10: Sanity Schema Changes After Content Is Entered Are Destructive
+## Technical Debt Patterns
 
-**What goes wrong:** Sanity allows you to rename or remove schema fields without warning. If a field is renamed in the schema (e.g., `body` renamed to `content`) after editors have entered content, the old field's data is preserved in the document but becomes invisible in the Studio. The Docusaurus fetch query using GROQ still references the old field name and gets `null`, rendering pages blank. This is not reversible without a data migration script.
-
-**Why it happens:** Sanity treats schema as a presentation layer — the underlying NDJSON documents are not transformed when the schema changes. The studio just stops showing the old field. The data is not deleted, but it becomes orphaned.
-
-**Consequences:** After a schema rename during development, 50 articles that were written using the old field name have their body content return `null` from GROQ queries. The pages deploy as blank.
-
-**Prevention:**
-- Treat the initial Sanity schema as locked once content editors begin entering real content — design it carefully upfront using the MCP server before any content is entered
-- When a schema change is required: (1) add the new field, (2) write a migration script using the Sanity CLI to copy old-field data to new-field data for all existing documents, (3) verify migration, (4) remove the old field
-- During development (before any content is entered) schema changes are free — iterate as much as needed
-- Use Sanity's `validation` rules to enforce required fields so content gaps are caught in Studio before publishing
-
-**Phase:** Sanity integration phase — get schema right before content entry begins.
+| Shortcut | Immediate Benefit | Long-term Cost | When Acceptable |
+|----------|-------------------|----------------|-----------------|
+| Keep `\|\| true` in `build.sh` unconditionally | Build never aborts due to Sanity outage | Silent empty-content deploys during schema migrations | Acceptable in steady-state production; disable temporarily during migration work |
+| Keep roadmap data in `src/data/roadmap.ts` (TypeScript file) instead of Sanity | No Sanity API call; git-based updates | Non-technical editors cannot update the roadmap without a developer | Never acceptable after v1.1 if the goal is editor-managed content |
+| Use slug strings for release cross-links instead of Sanity references | No GROQ dereferencing complexity; resilient to document deletion | Slug drift: if a release slug changes, roadmap items silently point to 404s | Acceptable if slugs are treated as stable identifiers enforced by validation rules |
+| Write full Portable Text body into the releases generated JSON | One fetch pass, simpler fetch script | Large JSON file slows build and page load if releases accumulate many images | Acceptable for up to ~30 rich releases; split per-release for larger catalogs |
+| Add `useEffect + fetch()` for hero banner dynamic data | Quick to implement | Hydration flash; unnecessary on SSG; breaks without JS | Never on Docusaurus static pages |
+| Store `projectedRelease` dates as human strings ("Q2 2026") instead of ISO dates | Easy for editors to author | Cannot sort or filter programmatically; dates go stale silently | Acceptable for display-only roadmap; add a machine-readable `estimatedDate` ISO field alongside |
 
 ---
 
-### Pitfall 11: Cloudflare Pages Ignores `netlify.toml` Silently
+## Integration Gotchas
 
-**What goes wrong:** The project has `classic/netlify.toml` which defines the build command as `npm run sync:storyblok:safe && npm run build`. Cloudflare Pages does not read `netlify.toml` — it uses its own build configuration set in the dashboard or `wrangler.toml`. If the Cloudflare Pages dashboard is configured to use the same build command as Netlify used, the `npm run sync:storyblok:safe` step will fail (the script doesn't exist in a clean state or requires a Storyblok token).
-
-**Why it happens:** The project was previously deployed to Netlify and the build command was never updated in the Cloudflare Pages dashboard when the hosting was switched.
-
-**Evidence in codebase:**
-- `classic/netlify.toml` line 2: `command = "npm run sync:storyblok:safe && npm run build"` — references a Storyblok-specific script
-- `classic/package.json` `scripts`: `"sync:storyblok:safe"` exists but calls `syncStoryblokSafe.js` which requires a Storyblok token
-
-**Prevention:**
-- Verify the build command set in the Cloudflare Pages dashboard — it should be `cd classic && npm run build` (or the equivalent simple build command)
-- The `netlify.toml` file can remain in the repo for historical reference but should be renamed to `netlify.toml.disabled` or deleted during cleanup to avoid confusion
-- Do not rely on any file-based build config for Cloudflare Pages — set the build command explicitly in the Cloudflare Pages dashboard
-
-**Detection:** Cloudflare Pages build log shows `Error: Script not found: sync:storyblok:safe` or the Storyblok sync script runs and fails because `STORYBLOK_ACCESS_TOKEN` is not set in Cloudflare Pages environment.
-
-**Phase:** Cleanup phase — fix build command in Cloudflare Pages dashboard on day one.
+| Integration | Common Mistake | Correct Approach |
+|-------------|----------------|------------------|
+| Sanity schema → fetch script | Adding new schema fields without updating the GROQ projection in `fetch-sanity-content.js` | Every new Sanity field must be explicitly named in the GROQ projection; Sanity does not auto-include added fields |
+| Sanity → Cloudflare Pages webhook | Assuming every Sanity publish triggers exactly one build, or that drafts do not trigger the webhook | Configure the Sanity webhook with a filter: `_type in ["release", "roadmapItem"] && !(_id in path("drafts.**"))` to prevent spurious rebuilds on draft saves |
+| `sanity-release-notes.generated.json` → React import | Assuming the file always exists on a fresh clone | The file is created by `fetch-sanity-content.js`. On a fresh clone before the script runs, the import fails at build time. Commit a `[]` fallback file to git |
+| Mux video in release items | Uploading video to generic Sanity asset pipeline using `enhancedVideoType` | `sanity-plugin-mux-input` is already installed in `studio/sanity.config.ts`. Use the Mux block type for streaming video — it handles playback, thumbnails, and CDN delivery natively |
+| `docusaurus-search-local` + roadmap filter | Assuming the plugin's search index covers dynamically filtered roadmap items | `docusaurus-search-local` indexes static Docusaurus pages, not React component state. The roadmap search/filter must be a separate in-component `useState` + `useMemo` implementation (as the existing `legacy-pages/roadmap.tsx` already does correctly) — do not try to integrate with the docs search plugin |
+| Sanity structure.ts + new types | Adding new schema types to `schemaTypes/index.ts` without adding them to `structure.ts` | New types appear in the auto-generated fallback list at the bottom of the Studio sidebar. Add explicit list items in `structure.ts` for `release` and `roadmapItem` so they appear in the correct grouped position |
 
 ---
 
-## Minor Pitfalls
+## Performance Traps
 
-### Pitfall 12: 3,832-Line CSS File Breaks When Dead Component Classes Are Deleted
-
-**What goes wrong:** `classic/src/css/custom.css` has 3,832 lines. A significant portion defines styles for components that were added during the CMS experiments (Storyblok component styles, Tiptap editor styles, Monaco editor overrides, MUI component overrides). Deleting components without deleting their CSS rules leaves dead CSS — harmless but adds to bundle size. Deleting CSS rules without verifying they are not used by kept components will break visual layouts silently (no build error).
-
-**Prevention:**
-- Use a CSS coverage tool (Chrome DevTools Coverage tab) on the live site before cleanup to identify unused CSS rules
-- When removing a component directory, search `custom.css` for CSS classes that include the component name before deleting
-- Do not attempt to clean the full 3,832 lines in one pass — clean CSS in the same PR as the component that owns it
-
-**Detection:** After cleanup deploy, visually audit key pages in both light and dark mode. Missing padding, borders, or colors indicate CSS rules were deleted that were still needed.
-
-**Phase:** Cleanup phase — clean CSS alongside component removal, not separately.
+| Trap | Symptoms | Prevention | When It Breaks |
+|------|----------|------------|----------------|
+| All roadmap items animating with `initial/animate` stagger simultaneously | Page jank or dropped frames on first render | Use `whileInView` + `viewport={{ once: true }}` for below-the-fold cards (the backlog section in legacy roadmap already does this correctly); do not stagger more than 20 items | Beyond ~50 items all animating on mount |
+| Embedding full Portable Text body in `sanity-release-notes.generated.json` | JSON file grows to 1MB+; slower Docusaurus build; slower page load | Separate the metadata (for the releases list) from the full body (for the detail view). For a single-page releases view, use lazy accordion expansion so only visible content is parsed | When release body includes many images/embeds; at ~25+ rich releases |
+| Client-side text search across all roadmap items on every keystroke without `useMemo` | Input lag as the roadmap grows | Use `useMemo` for the filtered array (the legacy implementation does this correctly). When a status filter is active, apply it before the text search — short-circuit on the smaller array | Beyond ~200 items with complex compound filters |
+| Importing all of `sanity-landing-pages.generated.json` in a component that only needs one page | Entire landing pages dataset included in every component bundle that imports it | The file is only imported in `SanityLandingPageRoute.tsx`, which is route-level — acceptable. If new components import it for other reasons, extract a per-slug file at build time instead | At 50+ landing pages with large section arrays |
 
 ---
 
-### Pitfall 13: `DOMPurify` in `sanitize.ts` Crashes at Build Time (SSG Context)
+## Security Mistakes
 
-**What goes wrong:** `classic/src/lib/sanitize.ts` imports `DOMPurify` from `dompurify`. `DOMPurify` requires a DOM environment. During Docusaurus SSG (server-side generation), components run in Node.js without a browser DOM. If any component that calls `sanitizeHTML()` or `sanitizeRichText()` is rendered during SSG, the build throws `ReferenceError: window is not defined`.
-
-**Why it happens:** `sanitizeRichText` was written for Storyblok's rich text output — it was always called client-side in the Storyblok example page. If future Sanity content rendering adopts this function for sanitizing Portable Text HTML output, the build will crash because Sanity content is rendered during SSG.
-
-**Prevention:**
-- Do not use `sanitizeHTML()` on content fetched at build time — Sanity Portable Text is already structured JSON, not raw HTML, so sanitization is unnecessary
-- If HTML sanitization is ever needed at build time, use `sanitize-html` (pure Node.js) instead of `dompurify` (DOM-dependent)
-- The `sanitize.ts` file can be deleted entirely during cleanup once Storyblok code is gone; it has no other consumers
-
-**Detection:** Build error `ReferenceError: window is not defined` pointing to a file that imports `dompurify`.
-
-**Phase:** Cleanup phase — delete `sanitize.ts` when deleting Storyblok code.
+| Mistake | Risk | Prevention |
+|---------|------|------------|
+| Using a Sanity `editor` or `administrator` token in the Cloudflare Pages build environment | Write-capable token exposed in build logs or misconfigured CF Pages settings | Use a read-only `viewer` token for `SANITY_API_TOKEN` in the Cloudflare Pages environment variables. The fetch script only reads — it never needs write access |
+| Exposing internal sprint identifiers, assignee names, or Zoho item IDs in the public roadmap JSON | Internal workflow data visible in page source and network requests | The current `roadmap.ts` data contains `assignees` and internal Zoho ID formats (e.g., `"TW-I13"`). Strip these from the Sanity roadmap schema or exclude them from the GROQ projection before they appear in the generated JSON |
+| `rawHtml` Portable Text block type in release notes rendered via `dangerouslySetInnerHTML` | XSS if an editor pastes malicious HTML into a rawHtml block | `portableText-ultimate.ts` defines a `rawHtml` block type. Audit whether this type is included in the new `release` and `roadmapItem` schemas. If not needed, exclude it. If included, sanitize the HTML output at render time using `sanitize-html` (not `dompurify` — SSG context has no DOM) |
 
 ---
 
-### Pitfall 14: Sanity Webhook to Cloudflare Pages Requires a Deploy Hook URL, Not a Webhook Secret
+## UX Pitfalls
 
-**What goes wrong:** Teams configuring "Sanity publishes → Cloudflare Pages rebuilds" often set up a Sanity webhook with a secret header, expecting Cloudflare Pages to validate it. Cloudflare Pages does not have an incoming webhook endpoint with secret validation — it has a "Deploy Hook" which is a plain HTTPS URL that triggers a rebuild when POSTed to. The Sanity webhook must target this deploy hook URL directly. If the deploy hook URL is exposed (e.g., committed to the repo), anyone can trigger unlimited rebuilds, consuming the Cloudflare Pages free tier build minutes.
-
-**Prevention:**
-- Generate the Cloudflare Pages Deploy Hook URL from the Cloudflare Pages dashboard (Settings > Builds & Deployments > Deploy Hooks)
-- Store the Deploy Hook URL as a Sanity webhook destination — set it only in the Sanity dashboard, never commit it to the repo
-- Sanity webhooks support a filter so only published content events trigger the hook: use `_type == "article" && delta::changedAny(@)` to avoid unnecessary rebuilds from draft saves
-
-**Detection:** Check Cloudflare Pages build history — if builds are triggering more than expected (e.g., on every Sanity save, not just on publishes), the webhook filter is wrong.
-
-**Phase:** Sanity integration phase — configure webhook after Sanity project is created.
+| Pitfall | User Impact | Better Approach |
+|---------|-------------|-----------------|
+| Roadmap shows "Projected Release: Q2 2026" on items that did not ship by Q2 | Customers lose trust; the roadmap feels abandoned or dishonest | Add a `lastReviewedAt` date field. Display "Estimated Q2 2026 — last reviewed March 2026" so customers can see the estimate is actively maintained, not forgotten |
+| Status values copied from Zoho Sprints internal labels ("To do", "In Staging", "In Progress") | Customers see internal workflow jargon | Map Zoho statuses to public-facing labels in the Sanity schema: "To do" → "Planned", "In Staging" → "In Progress", "Done" → "Shipped". The Sanity schema stores the public label; Zoho sync is out of scope |
+| Shipped roadmap item has no link to the release note where the feature was documented | Customers cannot find where a shipped feature was documented | Add a Sanity validation rule: when `status == "Shipped"`, the `releaseSlug` field is required. Editors cannot publish a shipped item without linking it |
+| Hero banner "What's New" chip shows internal sprint identifier ("Sprint 2025.12-B") to external customers | Customers do not understand internal sprint naming conventions | The `release` schema needs a `displayTitle` field (e.g., "December 2025 Release") distinct from the internal `sprintId` field. The hero uses `displayTitle`; the internal sprint ID is editor-facing only |
+| Releases page shows only the most recent sprint with no way to browse older releases | Customers cannot audit what changed 3 months ago | Default view: last 3–4 releases expanded; older releases collapsed with a "Show earlier releases" disclosure. Do not paginate — a single-page accordion is simpler and works without routing complexity |
 
 ---
 
-### Pitfall 15: `process.env.STORYBLOK_ACCESS_TOKEN` Reference in a Client-Side Page
+## "Looks Done But Isn't" Checklist
 
-**What goes wrong:** `classic/src/pages/storyblok-preview.tsx` line 45 reads `process.env.STORYBLOK_ACCESS_TOKEN` directly in client-side code. In Docusaurus, `process.env` variables are only inlined at build time for variables prefixed with `DOCUSAURUS_` (or configured explicitly). `STORYBLOK_ACCESS_TOKEN` is not prefixed, so this expression evaluates to `undefined` at runtime and the preview component shows an error state. This is a pre-existing bug, but it demonstrates a pattern that must not be repeated with Sanity — Sanity's API token must never be referenced in client-side component code.
-
-**Prevention:**
-- Sanity read operations from the frontend must use the public dataset token (not the editor token) when making client-side queries
-- All build-time Sanity fetches use the token from a server-side script where `process.env` works correctly
-- After Storyblok pages are deleted, this pattern is gone — do not re-introduce it
-
-**Detection:** Browser console shows `SANITY_TOKEN is undefined` after deploy.
-
-**Phase:** Sanity integration phase — review all env var references before deploying.
+- [ ] **Schema migration complete:** Verify `*[_type == "releaseNote"] | count` in GROQ Vision returns 0 before removing the `releaseNoteType` schema file.
+- [ ] **Hero banner dynamic:** Search for hardcoded sprint text: `grep -n "Sprint" classic/src/components/NXGENSphereHero.tsx`. The file should contain no hardcoded sprint identifiers after v1.1.
+- [ ] **Fetch script GROQ updated:** Verify `fetch-sanity-content.js` queries `_type == "release"` not `_type == "releaseNote"` after migration.
+- [ ] **All four registration sites updated in Studio:** `schemaTypes/index.ts`, `sanity.config.ts` (initial value template, document actions, two dashboard widget `types` arrays), `structure.ts` (sidebar entry and Published filter entry) — all reference the new type name.
+- [ ] **Roadmap cross-links resolve:** Open any shipped roadmap item on the live site. Confirm the "View Release" link resolves to a real `/releases/[slug]` URL — not `undefined`, `#`, or `[object Object]`.
+- [ ] **Fallback JSON files in git:** `git ls-files classic/src/data/sanity-roadmap.generated.json` returns the file. It exists as an empty array so fresh clones build without running the fetch script first.
+- [ ] **Webhook filter scoped:** The Cloudflare Pages deploy hook in Sanity only fires on published documents of the new types — not on draft saves of all document types.
+- [ ] **Legacy page components not deleted:** `classic/src/legacy-pages/releases.tsx` and `classic/src/legacy-pages/roadmap.tsx` still exist as rollback references. They are no longer imported as active fallbacks by the new page components, but they exist in the repo.
+- [ ] **`SanityLandingPageRoute` removed from releases and roadmap:** `releases.tsx` and `roadmap.tsx` do not import `SanityLandingPageRoute`. Both are now standalone components importing from dedicated generated JSON files.
+- [ ] **Rich media renders in release notes:** Open a release note that contains an image array and/or a video embed in the built site. Both render correctly — not as blank sections.
 
 ---
 
-## Phase-Specific Warnings
+## Recovery Strategies
 
-| Phase Topic | Likely Pitfall | Mitigation |
-|-------------|---------------|------------|
-| Remove `prebuild` hook | Build fails if Cloudflare Pages still runs `npm run fetch-content` | Remove the script reference immediately; update Cloudflare Pages build command in dashboard |
-| Delete Storyblok pages | TypeScript import errors if lib file is deleted before consumers | Delete pages first, then lib, then components, then npm packages |
-| Remove dead npm packages | `npm run build` fails if a non-obvious transitive dependency was depended on | Test build locally after each batch of package removals |
-| Repair `onBrokenLinks` | Switching to `'throw'` mid-cleanup breaks the build on legitimate WIP | Stay on `'warn'` during cleanup; switch to `'throw'` only as a final cleanup gate |
-| Remove role-based docs instances | Docusaurus throws if plugin instance is registered but directory is missing | Delete plugin registration and docs directory in the same commit |
-| Adapt feedback widget for Cloudflare | `nodemailer` not available in Cloudflare Workers runtime | Rewrite using `fetch()` to an HTTP email API; test with `wrangler pages dev` |
-| Design Sanity schema | Renaming fields after content entry destroys editor data visibility | Finalize schema before any content is entered; use MCP server for all schema operations |
-| Migrate MDX to Sanity | Custom JSX components (`<Tabs>`, `<Callout>`) silently stripped | Audit component usage first; design Portable Text custom blocks for each |
-| Switch Algolia index after URL changes | Old records point to deleted pages for days until next crawl | Manually trigger re-crawl in Algolia dashboard after each major structural deploy |
-| First Cloudflare Pages deploy with Sanity | Fetch script crashes if `SANITY_PROJECT_ID` not yet set in CF env vars | Write fetch script with graceful fallback when env vars are missing |
+| Pitfall | Recovery Cost | Recovery Steps |
+|---------|---------------|----------------|
+| Schema type deleted while documents still exist | MEDIUM | Re-add the old type as a stub (just `name` and `type: "document"` and a title field). Studio can open documents again. Export via `sanity dataset export`. Re-migrate to the new type. |
+| Deployed with empty `sanity-release-notes.generated.json` | LOW | Restore from `.sanity-backups/` (the fetch script maintains up to 10 timestamped backups). Run `npm run sanity:pull` locally, commit the regenerated file, push to trigger a new build. |
+| Hero banner stuck on old sprint text after v1.1 | LOW | Update the release `displayTitle` field in Studio and re-publish — the webhook triggers a rebuild and the banner updates automatically (if the dynamic pattern was implemented correctly). |
+| Roadmap cross-links broken (null reference) | LOW | In Studio: open the affected roadmap item, set the `releaseSlug` string field. Re-publish. The link resolves after the next webhook-triggered build. |
+| `SanityLandingPageRoute` fallback rendering legacy content | LOW | Confirm: (a) Does a `landingPage` document with slug `"releases"` exist in Sanity? Delete it if it was a v1.0 placeholder. (b) Has `releases.tsx` been updated to remove the `SanityLandingPageRoute` wrapper? Deploy after fix. |
+| Build fails after schema rename — GROQ query mismatch | LOW | Revert the GROQ query in `fetch-sanity-content.js` to use the old type name. Fix the schema rename and query update together as one atomic change. |
+
+---
+
+## Pitfall-to-Phase Mapping
+
+| Pitfall | Prevention Phase | Verification |
+|---------|------------------|--------------|
+| Schema type rename breaks documents and queries | Phase 1: Schema migration | GROQ Vision: `*[_type == "releaseNote"] \| count` returns 0; fetch log shows expected non-zero count for `release` type |
+| Silent empty-content deploy from `\|\| true` | Phase 1: Build pipeline hardening | Run `npm run sanity:pull:strict` — zero warnings. Generated JSON files are non-empty. |
+| Cross-references not dereferenced in GROQ | Phase 2: Roadmap schema + frontend wiring | Shipped roadmap items on `/roadmap` show a valid href linking to `/releases/[slug]` |
+| Hero banner hardcoded text | Phase 3: Hero banner dynamic data | `grep -n "Sprint" src/components/NXGENSphereHero.tsx` returns no hardcoded sprint strings |
+| `SanityLandingPageRoute` wrapping dedicated pages | Phase 1: Page routing replacement | `releases.tsx` and `roadmap.tsx` do not import `SanityLandingPageRoute` |
+| Portable Text body not extended for rich media | Phase 1: Release schema + fetch script | Release notes with images and video embeds render correctly in the built site |
+| Internal labels in public roadmap | Phase 2: Roadmap schema design | All `status` values in Sanity are public-facing labels ("Planned", "In Progress", "Shipped") — no Zoho internal labels |
+| Stale projected-release dates | Phase 2: Roadmap schema design | Schema includes `lastReviewedAt` date field; roadmap page renders it alongside the estimate |
+| Fallback JSON files missing from git | Phase 1: Schema migration | `git ls-files classic/src/data/sanity-roadmap.generated.json` confirms the file is tracked |
+| Webhook firing on draft saves | Phase 1: Build pipeline hardening | Cloudflare Pages build history shows builds triggered only on publish events, not on draft saves |
 
 ---
 
 ## Sources
 
-- Direct codebase analysis: `classic/package.json`, `classic/docusaurus.config.ts`, `classic/netlify.toml`, `classic/scripts/fetchHygraphContent.js`, `classic/scripts/build-with-memory.js`, `classic/src/lib/storyblok.ts`, `classic/src/lib/sanitize.ts`, `classic/src/pages/storyblok-example.tsx`, `classic/src/pages/storyblok-preview.tsx`, `classic/api/page-feedback.ts`, `netlify/functions/page-feedback.mjs`
-- Docusaurus v3 documentation: SSG environment constraints, plugin-content-docs multi-instance behavior, broken link handling
-- Sanity v3 documentation: Portable Text format, GROQ query language, schema migration patterns, webhook configuration
-- Cloudflare Pages documentation: 20-minute build limit, Deploy Hooks (not incoming webhooks), Cloudflare Functions (Workers runtime — no Node.js APIs like TCP sockets or `nodemailer`)
-- Confidence: HIGH for pitfalls 1–7 (all directly evidenced in codebase); HIGH for pitfalls 8–11 (well-documented platform behavior); MEDIUM for pitfalls 12–15 (platform behavior known, specific triggers inferred from code patterns)
+- Direct codebase inspection: `studio/schemaTypes/releaseNote.ts` — current schema structure and field names
+- Direct codebase inspection: `studio/schemaTypes/index.ts` — all type registrations
+- Direct codebase inspection: `studio/sanity.config.ts` — all four places where `releaseNote` is referenced (initial value template line 60, document actions line 170, dashboard widget lines 130 and 145)
+- Direct codebase inspection: `studio/src/structure.ts` — two list items referencing `releaseNote` (sidebar entry and Published filter)
+- Direct codebase inspection: `classic/scripts/fetch-sanity-content.js` — full implementation including GROQ queries (line 72), `|| true` fallback, backup system, and `serializeCustomBlock` handlers
+- Direct codebase inspection: `classic/src/components/NXGENSphereHero.tsx` line 418 — hardcoded sprint string
+- Direct codebase inspection: `classic/src/pages/releases.tsx` and `classic/src/pages/roadmap.tsx` — current `SanityLandingPageRoute` wrapper pattern
+- Direct codebase inspection: `classic/src/legacy-pages/roadmap.tsx` — existing filter/search implementation using `useState` + `useMemo` (correct pattern)
+- Direct codebase inspection: `classic/src/data/roadmap.ts` — internal Zoho status labels and assignee data in the current hardcoded roadmap
+- Direct codebase inspection: `build.sh` line 19 — `|| true` flag on fetch-content step
+- Direct codebase inspection: `classic/package.json` — `sanity-plugin-mux-input` already a dependency in studio; `@portabletext/react` not yet a dependency in classic (would be needed for direct Portable Text rendering)
+- Project documentation: `.planning/PROJECT.md`
+
+---
+*Pitfalls research for: Docusaurus SSG + Sanity CMS — Releases & Public Roadmap (v1.1)*
+*Researched: 2026-03-13*
