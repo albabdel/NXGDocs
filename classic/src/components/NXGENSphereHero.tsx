@@ -1,18 +1,31 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import Link from '@docusaurus/Link';
 import { useColorMode } from '@docusaurus/theme-common';
-import { motion } from 'framer-motion';
-import { ArrowRight, ExternalLink, BookOpen, Shield, Wrench, Users } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { ArrowRight, ExternalLink, Sparkles } from 'lucide-react';
+import releasesData from '../data/sanity-releases.generated.json';
 
 /**
  * NXGEN Premium Hero Component
- * 
+ *
  * Features:
- * - Custom Background Image (Background.jpg) with Linear Fade Blending
- * - Canvas-based Particle Animation (Adaptive Color)
- * - Light/Dark Mode Support
- * - Restored identity (XO Logo linked to nxgen.io)
+ * - Background.jpg with refined radial vignette overlay
+ * - IoT network graph particle animation (connected nodes with golden lines)
+ * - Light/Dark mode support
+ * - Badge chip, headline, subtext, quick nav, CTAs, stats row
+ * - Dynamic latest release display from Sanity
  */
+
+// Type for release data from Sanity
+interface Release {
+  _id: string;
+  displayTitle: string;
+  sprintId?: string;
+  slug: { current: string };
+  publishedAt: string;
+  summary?: string;
+  items: Array<{ _key: string; title: string }>;
+}
 
 interface Props {
   onOpenSearch?: () => void;
@@ -23,7 +36,7 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
   const isDark = colorMode === 'dark';
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Particle Animation System
+  // IoT Network Graph Particle System
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -34,20 +47,15 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
     let animationFrameId: number;
     let particles: Particle[] = [];
 
-    // Configuration - Different behavior for light/dark modes
-    const particleCount = isDark ? 80 : 60;
-    // Gold for Dark Mode, Deep bronze/amber for Light Mode with higher visibility
-    const particleColor = isDark ? '232, 176, 88' : '139, 90, 43';
-    // Larger particles in light mode for visibility
-    const baseSize = isDark ? 0.5 : 1.2;
-    const sizeRange = isDark ? 2 : 2.5;
-    // Higher base alpha in light mode
-    const baseAlpha = isDark ? 0.2 : 0.4;
-    const alphaRange = isDark ? 0.5 : 0.5;
+    const goldDark = '232, 176, 88';
+    const goldLight = '139, 90, 43';
+    const particleColor = isDark ? goldDark : goldLight;
+    const particleCount = isDark ? 50 : 35;
+    const maxDist = 140;
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      canvas.width = canvas.offsetWidth || window.innerWidth;
+      canvas.height = canvas.offsetHeight || window.innerHeight;
     };
 
     class Particle {
@@ -61,16 +69,17 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-        this.size = Math.random() * sizeRange + baseSize;
-        this.alpha = Math.random() * alphaRange + baseAlpha;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = (Math.random() - 0.5) * 0.3;
+        this.size = Math.random() * 1.5 + 0.5;
+        this.alpha = isDark
+          ? Math.random() * 0.45 + 0.2
+          : Math.random() * 0.5 + 0.3;
       }
 
       update() {
         this.x += this.vx;
         this.y += this.vy;
-
         if (this.x < 0) this.x = canvas.width;
         if (this.x > canvas.width) this.x = 0;
         if (this.y < 0) this.y = canvas.height;
@@ -86,23 +95,39 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
       }
     }
 
+    const drawConnections = () => {
+      if (!ctx) return;
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < maxDist) {
+            const alpha = (1 - dist / maxDist) * (isDark ? 0.18 : 0.14);
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(${particleColor}, ${alpha})`;
+            ctx.lineWidth = 0.6;
+            ctx.stroke();
+          }
+        }
+      }
+    };
+
     const init = () => {
       resizeCanvas();
-      particles = [];
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
-      }
+      particles = Array.from({ length: particleCount }, () => new Particle());
     };
 
     const animate = () => {
       if (!ctx || !canvas) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach(particle => {
-        particle.update();
-        particle.draw();
+      particles.forEach(p => {
+        p.update();
+        p.draw();
       });
-
+      drawConnections();
       animationFrameId = requestAnimationFrame(animate);
     };
 
@@ -114,108 +139,179 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [isDark]); // Re-run when mode changes to update color
+  }, [isDark]);
+
+  const prefersReducedMotion = useReducedMotion();
 
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2
-      }
-    }
+      transition: { staggerChildren: 0.14, delayChildren: 0.15 },
+    },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 36 },
     show: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as any }
-    }
+      transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as any },
+    },
   };
 
+  // Floating orb animation variants
+  const orbVariants = {
+    animate1: prefersReducedMotion ? {} : {
+      x: [0, 60, -40, 0],
+      y: [0, -50, 30, 0],
+      scale: [1, 1.08, 0.95, 1],
+      transition: { duration: 18, repeat: Infinity, ease: 'easeInOut' },
+    },
+    animate2: prefersReducedMotion ? {} : {
+      x: [0, -70, 50, 0],
+      y: [0, 40, -60, 0],
+      scale: [1, 0.92, 1.1, 1],
+      transition: { duration: 22, repeat: Infinity, ease: 'easeInOut', delay: 3 },
+    },
+    animate3: prefersReducedMotion ? {} : {
+      x: [0, 40, -20, 0],
+      y: [0, -30, 50, 0],
+      scale: [1, 1.05, 0.97, 1],
+      transition: { duration: 15, repeat: Infinity, ease: 'easeInOut', delay: 6 },
+    },
+  };
+
+  const stats = [
+    { value: '10', label: 'Breakthroughs' },
+    { value: '4', label: 'User Roles' },
+    { value: '50+', label: 'Integrations' },
+    { value: '24/7', label: 'Monitoring' },
+  ];
+
   return (
-    <div className={`relative overflow-hidden min-h-[85vh] flex flex-col items-center justify-center border-b transition-colors duration-500 ${isDark ? 'bg-black border-white/5' : 'border-[#E8B058]/20'}`}
+    <div
+      className="relative overflow-hidden flex flex-col items-center justify-center"
       style={{
-        background: isDark 
-          ? '#000000' 
-          : 'linear-gradient(135deg, #FFFBF5 0%, #FFF8EE 25%, #FFFDF9 50%, #FEF9F0 75%, #FFFBF5 100%)'
+        minHeight: '90vh',
+        background: isDark
+          ? '#000000'
+          : 'linear-gradient(160deg, #FFFBF5 0%, #FFF4E0 50%, #FFFBF5 100%)',
+        borderBottom: isDark
+          ? '1px solid rgba(255,255,255,0.05)'
+          : '1px solid rgba(232,176,88,0.15)',
       }}
     >
 
-      {/* 1. Background Image Layer - Different treatment for light mode */}
+      {/* 1. Background image */}
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-opacity duration-500"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: 'url("/img/Background.jpg")',
-          opacity: isDark ? 0.8 : 0.40,
-          filter: isDark ? 'none' : 'sepia(20%) saturate(120%)'
+          opacity: isDark ? 0.5 : 0.22,
+          filter: isDark ? 'none' : 'sepia(15%) saturate(110%)',
         }}
-      >
-        {/* Adaptive Overlay for Text Readability */}
-        <div className={`absolute inset-0 transition-colors duration-500 ${isDark ? 'bg-black/40 backdrop-blur-sm' : 'bg-gradient-to-b from-white/10 via-transparent to-white/25'}`} />
-      </div>
+      />
 
-      {/* Light Mode: Decorative geometric shapes */}
-      {!isDark && (
-        <>
-          {/* Top-left decorative circle */}
-          <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full opacity-30 pointer-events-none z-0"
-            style={{
-              background: 'radial-gradient(circle, rgba(232, 176, 88, 0.3) 0%, transparent 70%)'
-            }}
-          />
-          {/* Bottom-right decorative circle */}
-          <div className="absolute -bottom-48 -right-48 w-[500px] h-[500px] rounded-full opacity-25 pointer-events-none z-0"
-            style={{
-              background: 'radial-gradient(circle, rgba(232, 176, 88, 0.25) 0%, transparent 70%)'
-            }}
-          />
-          {/* Subtle diagonal lines pattern */}
-          <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
-            style={{
-              backgroundImage: 'repeating-linear-gradient(45deg, #8B5A2B 0, #8B5A2B 1px, transparent 1px, transparent 60px)',
-              backgroundSize: '60px 60px'
-            }}
-          />
-          {/* Golden accent line at top */}
-          <div className="absolute top-0 left-0 right-0 h-1 z-20"
-            style={{
-              background: 'linear-gradient(90deg, transparent 0%, #E8B058 20%, #C89446 50%, #E8B058 80%, transparent 100%)'
-            }}
-          />
-        </>
+      {/* 2. Dark mode: radial vignette overlay */}
+      {isDark && (
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 80% 60% at 50% 40%, transparent 0%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0.92) 100%)',
+          }}
+        />
       )}
 
-      {/* 2. "Fade to Bottom" Linear Gradient Blending */}
-      {/* This creates the seamless transition to the page background */}
-      <div
-        className="absolute inset-x-0 bottom-0 h-40 z-1 pointer-events-none"
+      {/* 3. Animated floating gold orbs (both modes) */}
+      <motion.div
+        className="absolute rounded-full pointer-events-none"
         style={{
-          background: isDark 
+          width: '600px',
+          height: '600px',
+          top: '-15%',
+          left: '-12%',
+          background: isDark
+            ? 'radial-gradient(circle, rgba(232,176,88,0.09) 0%, transparent 65%)'
+            : 'radial-gradient(circle, rgba(232,176,88,0.13) 0%, transparent 65%)',
+          filter: 'blur(40px)',
+        }}
+        animate={orbVariants.animate1}
+      />
+      <motion.div
+        className="absolute rounded-full pointer-events-none"
+        style={{
+          width: '700px',
+          height: '700px',
+          bottom: '-20%',
+          right: '-15%',
+          background: isDark
+            ? 'radial-gradient(circle, rgba(200,148,70,0.07) 0%, transparent 60%)'
+            : 'radial-gradient(circle, rgba(200,148,70,0.10) 0%, transparent 60%)',
+          filter: 'blur(50px)',
+        }}
+        animate={orbVariants.animate2}
+      />
+      <motion.div
+        className="absolute rounded-full pointer-events-none"
+        style={{
+          width: '350px',
+          height: '350px',
+          top: '30%',
+          right: '10%',
+          background: isDark
+            ? 'radial-gradient(circle, rgba(232,176,88,0.05) 0%, transparent 60%)'
+            : 'radial-gradient(circle, rgba(232,176,88,0.08) 0%, transparent 60%)',
+          filter: 'blur(30px)',
+        }}
+        animate={orbVariants.animate3}
+      />
+
+      {/* Top accent bar (light mode) */}
+      {!isDark && (
+        <div
+          className="absolute top-0 left-0 right-0 h-[2px] z-20 pointer-events-none"
+          style={{
+            background:
+              'linear-gradient(90deg, transparent 0%, #E8B058 25%, #C89446 50%, #E8B058 75%, transparent 100%)',
+          }}
+        />
+      )}
+
+      {/* 4. Network canvas */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 pointer-events-none"
+        style={{ width: '100%', height: '100%', opacity: isDark ? 0.75 : 0.9 }}
+      />
+
+      {/* 5. Bottom fade blend */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-52 pointer-events-none"
+        style={{
+          background: isDark
             ? 'linear-gradient(to bottom, transparent, #000000)'
-            : 'linear-gradient(to bottom, transparent 0%, rgba(255,251,245,0.5) 50%, #FFFBF5 100%)'
+            : 'linear-gradient(to bottom, transparent, #FFFBF5)',
         }}
       />
 
-      {/* 3. Particle Canvas */}
-      <canvas
-        ref={canvasRef}
-        className={`absolute inset-0 z-1 pointer-events-none ${isDark ? 'opacity-60' : 'opacity-80'}`}
-      />
-
-      {/* 4. Content Container */}
+      {/* 6. Content */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="show"
-        className="relative z-10 w-full max-w-5xl px-6 flex flex-col items-center text-center"
+        className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center text-center py-20"
+        style={{
+          /* Subtle glass panel behind the content in dark mode */
+          ...(isDark ? {
+            background: 'radial-gradient(ellipse 70% 80% at 50% 50%, rgba(232,176,88,0.025) 0%, transparent 70%)',
+          } : {}),
+        }}
       >
 
-        {/* Identity (XO Logo) */}
-        <motion.div variants={itemVariants} className="mb-8 group">
+        {/* Logo */}
+        <motion.div variants={itemVariants} className="mb-7 group">
           <a
             href="https://nxgen.io"
             target="_blank"
@@ -226,98 +322,194 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
             <img
               src="/img/xo-logo.png"
               alt="GCXONE"
-              className="w-24 md:w-32 relative z-10 drop-shadow-2xl hover:scale-105 transition-transform duration-300"
+              className="w-20 md:w-24 relative z-10 drop-shadow-2xl hover:scale-105 transition-transform duration-300"
               onError={(e) => {
                 const target = e.currentTarget;
-                if (target.src.includes('xo-logo.png')) {
-                  target.src = '/img/Xo.png';
-                } else if (target.src.includes('Xo.png')) {
-                  target.src = '/img/XoLogo.png';
-                } else {
-                  target.style.display = 'none';
-                }
+                if (target.src.includes('xo-logo.png')) target.src = '/img/Xo.png';
+                else if (target.src.includes('Xo.png')) target.src = '/img/XoLogo.png';
+                else target.style.display = 'none';
               }}
             />
-            <div className="mt-4 flex items-center justify-center gap-1.5 text-[#E8B058] text-[10px] md:text-xs tracking-[0.4em] font-bold uppercase opacity-80 group-hover:opacity-100 transition-opacity">
+            <div
+              className={`mt-3 flex items-center justify-center gap-1 text-[10px] tracking-[0.4em] font-semibold uppercase opacity-70 group-hover:opacity-100 transition-opacity ${
+                isDark ? 'text-[#E8B058]' : 'text-[#996B1F]'
+              }`}
+            >
               <span>By NXGEN</span>
-              <ExternalLink className="w-3 h-3 opacity-50" />
+              <ExternalLink className="w-2.5 h-2.5" />
             </div>
           </a>
         </motion.div>
 
-        {/* Hero Headline */}
-        <motion.h1 variants={itemVariants} className={`text-5xl md:text-7xl font-semibold tracking-tight mb-6 ${isDark ? 'drop-shadow-2xl' : ''}`}>
-          <span className={`bg-clip-text text-transparent bg-gradient-to-b ${isDark ? 'from-white via-white to-white/70' : 'from-[#1A1A1A] via-[#2D2D2D] to-[#4A4A4A]'}`}>
+        {/* Badge chip */}
+        <motion.div variants={itemVariants} className="mb-6">
+          <span
+            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide border ${
+              isDark
+                ? 'bg-[#E8B058]/10 border-[#E8B058]/25 text-[#E8B058]'
+                : 'bg-[#E8B058]/10 border-[#E8B058]/30 text-[#7A5518]'
+            }`}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E8B058] animate-pulse flex-shrink-0" />
+            GCXONE Documentation
+          </span>
+        </motion.div>
+
+        {/* Headline */}
+        <motion.h1
+          variants={itemVariants}
+          className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-5 leading-[1.05]"
+        >
+          <span className={isDark ? 'text-white' : 'text-[#0F0F0F]'}>
             Intelligent Monitoring
           </span>
-          <span className={`block mt-2 text-3xl md:text-4xl font-light italic ${isDark ? 'text-[#E8B058]' : 'text-[#996B1F]'}`}
-            style={!isDark ? { textShadow: '0 1px 2px rgba(0,0,0,0.05)' } : {}}
+          <br />
+          <span
+            style={{
+              backgroundImage:
+                'linear-gradient(135deg, #E8B058 0%, #C89446 40%, #D4A547 70%, #E8B058 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
           >
             Reimagined.
           </span>
         </motion.h1>
 
         {/* Subtext */}
-        <motion.div variants={itemVariants} className="max-w-2xl mx-auto mb-10">
-          <p className={`text-lg font-light leading-relaxed ${isDark ? 'text-gray-300 drop-shadow-sm' : 'text-[#4A4A4A]'}`}>
-            Experience the next generation of unified security and IoT management.
-            <br className="hidden md:block" /> Powerful, intuitive, and designed for scale.
-          </p>
-        </motion.div>
+        <motion.p
+          variants={itemVariants}
+          className={`text-base md:text-lg font-light leading-relaxed max-w-xl mb-9 ${
+            isDark ? 'text-gray-400' : 'text-[#5A5A5A]'
+          }`}
+        >
+          The complete technical reference for GCXONE — unified security, IoT
+          management, and real-time monitoring at scale.
+        </motion.p>
 
-        {/* Explore Documentation */}
-        <motion.div variants={itemVariants} className="w-full max-w-2xl mb-10">
-          <div className="flex flex-col items-center gap-3">
-            <p className={`text-xs font-semibold uppercase tracking-widest ${isDark ? 'text-gray-500' : 'text-[#C89446]/70'}`}>
-              Explore Documentation
-            </p>
-            <div className="flex flex-wrap justify-center gap-2">
-              {[
-                { label: 'Getting Started', to: '/getting-started', icon: BookOpen },
-                { label: 'Admin Guides', to: '/role-admin', icon: Shield },
-                { label: 'Operators', to: '/operator', icon: Wrench },
-                { label: 'Managers', to: '/manager', icon: Users },
-              ].map(({ label, to, icon: Icon }) => (
-                <Link
-                  key={to}
-                  to={to}
-                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium transition-all duration-200 no-underline hover:scale-[1.03] ${isDark
-                    ? 'bg-white/5 border-white/10 text-gray-300 hover:bg-white/10 hover:border-[#E8B058]/40 hover:text-white'
-                    : 'bg-white border-[#E8B058]/25 text-[#8B5A2B] hover:bg-[#FFFBF5] hover:border-[#E8B058] shadow-sm'
-                  }`}
+        {/* What's New announcement chip */}
+        <motion.div variants={itemVariants} className="mb-8">
+          {(() => {
+            // Get latest release dynamically from Sanity data
+            const latestRelease = (releasesData as Release[])[0];
+            const releaseLink = latestRelease ? `/releases/${latestRelease.slug.current}` : '/releases';
+            const releaseText = latestRelease
+              ? `${latestRelease.displayTitle} is live`
+              : 'Latest updates available';
+
+            return (
+              <Link
+                to={releaseLink}
+                className="group inline-flex items-center gap-2.5 no-underline"
+              >
+                <span
+                  className="relative inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-medium overflow-hidden"
+                  style={{
+                    background: isDark
+                      ? 'rgba(232,176,88,0.06)'
+                      : 'rgba(232,176,88,0.08)',
+                    border: `1px solid ${isDark ? 'rgba(232,176,88,0.22)' : 'rgba(200,148,70,0.28)'}`,
+                    color: isDark ? '#E8B058' : '#7A5518',
+                  }}
                 >
-                  <Icon className="w-3.5 h-3.5 opacity-70" />
-                  {label}
-                </Link>
-              ))}
-            </div>
-          </div>
+                  {/* Shimmer sweep */}
+                  <motion.span
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background:
+                        'linear-gradient(105deg, transparent 35%, rgba(232,176,88,0.18) 50%, transparent 65%)',
+                      backgroundSize: '200% 100%',
+                    }}
+                    animate={prefersReducedMotion ? {} : { backgroundPosition: ['200% 0', '-200% 0'] }}
+                    transition={{ duration: 2.8, repeat: Infinity, ease: 'linear', repeatDelay: 1.5 }}
+                  />
+
+                  {/* "New" badge */}
+                  <span
+                    className="relative inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide"
+                    style={{
+                      background: isDark ? '#E8B058' : '#C89446',
+                      color: '#000',
+                    }}
+                  >
+                    <Sparkles className="w-2.5 h-2.5" />
+                    New
+                  </span>
+
+                  <span className="relative">{releaseText}</span>
+
+                  <ArrowRight
+                    className="relative w-3 h-3 opacity-60 transition-transform duration-200 group-hover:translate-x-0.5"
+                  />
+                </span>
+              </Link>
+            );
+          })()}
         </motion.div>
 
-        {/* Action Buttons */}
-        <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-4">
-
-          <Link to="/getting-started" 
-            className={`w-full sm:w-auto min-w-[200px] group relative inline-flex items-center justify-center gap-2.5 px-8 py-4 font-bold rounded-2xl transition-all duration-300 no-underline hover:scale-[1.02] ${isDark ? 'bg-[#E8B058] text-black shadow-lg hover:shadow-xl' : 'bg-[#C89446] text-white shadow-lg hover:shadow-xl'}`}
-            style={!isDark ? { boxShadow: '0 4px 14px rgba(200, 148, 70, 0.35)' } : {}}
+        {/* CTA buttons */}
+        <motion.div
+          variants={itemVariants}
+          className="flex flex-col sm:flex-row items-center gap-3 mb-0"
+        >
+          <Link
+            to="/getting-started"
+            className={`hero-btn-primary inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-semibold no-underline transition-all duration-200 hover:-translate-y-0.5 group ${
+              isDark
+                ? 'bg-[#E8B058] text-black hover:bg-[#D4A047]'
+                : 'bg-[#C89446] text-white hover:bg-[#B58237]'
+            }`}
+            style={{
+              boxShadow: isDark
+                ? '0 4px 20px rgba(232,176,88,0.28)'
+                : '0 4px 20px rgba(200,148,70,0.32)',
+            }}
           >
-            <span className="relative z-10 flex items-center gap-2 transition-all duration-300 group-hover:gap-3">
-              Get Started
-              <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-            </span>
+            Get Started
+            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
 
-          <Link to="/integration-hub" className={`w-full sm:w-auto min-w-[200px] group inline-flex items-center justify-center gap-2.5 px-8 py-4 border font-medium rounded-2xl transition-all hover:-translate-y-0.5 no-underline ${isDark
-            ? 'bg-white/5 hover:bg-white/10 border-white/10 hover:border-white/30 text-white backdrop-blur-md'
-            : 'bg-white hover:bg-[#FFFBF5] border-[#E8B058]/30 hover:border-[#E8B058] text-[#8B5A2B] shadow-md hover:shadow-lg'
-            }`}>
-            <span>Integration Hub</span>
+          <Link
+            to="/integration-hub"
+            className={`inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-medium no-underline border transition-all duration-200 hover:-translate-y-0.5 ${
+              isDark
+                ? 'hero-btn-secondary-dark bg-white/5 backdrop-blur-sm border-white/10 text-white hover:bg-white/10 hover:border-white/25'
+                : 'hero-btn-secondary-light bg-white/70 backdrop-blur-sm border-[#E8B058]/30 text-[#5A3B10] hover:border-[#E8B058]/60 shadow-md'
+            }`}
+          >
+            Integration Hub
           </Link>
+        </motion.div>
 
+        {/* Stats row */}
+        <motion.div
+          variants={itemVariants}
+          className={`mt-10 pt-8 w-full max-w-lg flex items-center justify-center gap-6 sm:gap-10 ${
+            isDark ? 'border-t border-white/[0.06]' : 'border-t border-[#E8B058]/12'
+          }`}
+        >
+          {stats.map(({ value, label }) => (
+            <div key={label} className="text-center">
+              <div
+                className={`text-xl font-bold tabular-nums ${
+                  isDark ? 'text-[#E8B058]' : 'text-[#C89446]'
+                }`}
+              >
+                {value}
+              </div>
+              <div
+                className={`text-xs mt-0.5 ${
+                  isDark ? 'text-gray-600' : 'text-[#999]'
+                }`}
+              >
+                {label}
+              </div>
+            </div>
+          ))}
         </motion.div>
 
       </motion.div>
-
     </div>
   );
 }
