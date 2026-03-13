@@ -1,37 +1,37 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: complete
-stopped_at: milestone complete
-last_updated: "2026-03-08T00:00:00Z"
-last_activity: 2026-03-08 — Phase 5 checkpoint approved; Phase 4 confirmed complete; v1.0 milestone done
+milestone: v1.1
+milestone_name: Releases & Roadmap
+status: in_progress
+stopped_at: defining requirements
+last_updated: "2026-03-13T00:00:00Z"
+last_activity: 2026-03-13 — Milestone v1.1 started; requirements being defined
 progress:
-  total_phases: 5
-  completed_phases: 5
-  total_plans: 21
-  completed_plans: 21
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-06)
+See: .planning/PROJECT.md (updated 2026-03-13)
 
 **Core value:** Non-technical editors can open a web UI, write content, and publish it — without a developer as a bottleneck.
-**Current focus:** Milestone v1.0 complete
+**Current focus:** Milestone v1.1 — Releases & Roadmap
 
 ## Current Position
 
-Phase: 5 of 5 — ALL PHASES COMPLETE
-Status: Milestone v1.0 complete
-Last activity: 2026-03-08 — Phase 5 human checkpoint approved; Phase 4 content migration confirmed complete
+Phase: Not started (defining requirements)
+Status: Defining requirements
+Last activity: 2026-03-13 — Milestone v1.1 started
 
-Progress: [██████████] 100%
+Progress: [░░░░░░░░░░] 0%
 
-## Milestone Summary
+## Previous Milestone Summary (v1.0)
 
 All 5 phases of v1.0 complete:
 - Phase 1 (Cleanup): Dead CMS code removed, CSS consolidated, build stabilized
@@ -91,7 +91,7 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-None — milestone v1.0 complete.
+None yet — requirements being defined.
 
 ### Blockers/Concerns
 
@@ -99,6 +99,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-08T00:00:00Z
-Stopped at: Milestone v1.0 complete
+Last session: 2026-03-13T00:00:00Z
+Stopped at: Requirements definition in progress
 Resume file: None

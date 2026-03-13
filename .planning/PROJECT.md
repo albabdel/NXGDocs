@@ -8,26 +8,52 @@ A public knowledge base for the NXGEN GCXONE platform, built on Docusaurus and d
 
 Non-technical editors can open a web UI, write content, and publish it — without a developer as a bottleneck.
 
+## Current Milestone: v1.1 Releases & Roadmap
+
+**Goal:** Give customers a proper public releases page and a browseable product roadmap — both managed entirely through Sanity Studio.
+
+**Target features:**
+- Bi-weekly release entries (one doc per sprint, items inside) with text, screenshots, and/or video per item
+- Public /releases page replacing legacy /releases and /internal-releases/
+- Hero banner dynamically shows latest release title + date from Sanity
+- Public /roadmap page with search, items tagged by status (Planned / In Progress / Shipped)
+- Roadmap item fields: business value, change type, UI change, UX fixes, entities impacted
+- Shipped roadmap items link to their release note
+
 ## Requirements
 
 ### Validated
 
-(None yet — ship to validate)
+- ✓ Sanity CMS integrated as content source — v1.0
+- ✓ Content editable via Sanity Studio web UI — v1.0
+- ✓ Publishing in Sanity triggers automatic Cloudflare Pages rebuild — v1.0
+- ✓ All dead CMS code removed — v1.0
+- ✓ Unused dependencies removed — v1.0
+- ✓ Broken links resolved — v1.0
+- ✓ CSS consolidated — v1.0
+- ✓ Search and navigation improved — v1.0
+- ✓ Visual polish — v1.0
 
 ### Active
 
-- [ ] Sanity CMS integrated as content source for all content types
-- [ ] Content editable via Sanity Studio web UI (write, click publish)
-- [ ] Publishing in Sanity triggers automatic Cloudflare Pages rebuild
-- [ ] All dead CMS code removed (Storyblok, TinaCMS, Hygraph, Strapi, Payload, Tiptap, Monaco)
-- [ ] Unused dependencies audited and removed (~60+ packages → lean bundle)
-- [ ] Component library simplified and documented (50+ → only what's actually used)
-- [ ] Broken links resolved (currently ignored with `onBrokenLinks: 'ignore'`)
-- [ ] 3,800-line CSS cleaned and consolidated
-- [ ] Search and navigation improved — users find content faster
-- [ ] Content structure and sidebar organization refined
-- [ ] Visual polish — current direction refined, inconsistencies fixed
-- [ ] Sanity schemas configured via MCP (Claude handles technical setup)
+- [ ] Release entries managed in Sanity (one doc per sprint, items as array)
+- [ ] Each release item supports text, screenshots, and/or video
+- [ ] Public /releases page displays all releases in reverse-chronological order
+- [ ] Hero banner shows latest release title + date, dynamically pulled from Sanity
+- [ ] Legacy /releases and /internal-releases/ replaced and archived
+- [ ] Public /roadmap page displays all backlog items with status filter and search
+- [ ] Roadmap items have: title, status, business value, change type, UI change flag, UX fixes flag, entities impacted
+- [ ] Shipped roadmap items link to their corresponding release note
+
+### Out of Scope
+
+- Mobile app — web-first
+- Multi-language support — disabled in current config, not a priority
+- Self-hosted CMS — no backend for the user to configure
+- Building a new frontend from scratch — polish and extend what exists
+- Real-time collaborative editing — not needed for solo/small team
+- Zoho Sprints sync — too complex for now; Sanity Studio is the source of truth
+- Private/internal roadmap view — public only for v1.1
 
 ### Out of Scope
 
@@ -44,9 +70,10 @@ Non-technical editors can open a web UI, write content, and publish it — witho
 - **Previous CMS attempts**: Hygraph, Storyblok, Strapi, TinaCMS, Payload — all abandoned due to configuration complexity
 - **Editing workflow today**: Edit MDX files in VS Code, commit, deploy — too technical
 - **Images**: Cloudinary (keep — working well)
-- **Search**: Algolia (keep — working well)
+- **Search**: docusaurus-search-local (replaced Algolia in v1.0 — working well)
 - **Code style**: Vibe-coded, maintained via Claude — favor simple, readable over clever
-- **Codebase health**: Significant dead weight from past experiments; deep clean is a prerequisite before adding anything new
+- **Codebase health**: Clean after v1.0 — dead code removed, CSS consolidated, Sanity integrated and live
+- **Release cadence**: Bi-weekly sprints (e.g. Sprint 2025.12-A/B) — existing Sprint 2025.12-A and B to be archived
 
 ## Constraints
 
@@ -66,5 +93,8 @@ Non-technical editors can open a web UI, write content, and publish it — witho
 | Keep Cloudinary + Algolia | Both are working integrations worth preserving | — Pending |
 | Docusaurus fetches from Sanity at build time | Keeps static site benefits; webhook triggers rebuild on publish | — Pending |
 
+| Replace releaseNote schema with release (one doc, items array) | Single doc per sprint matches bi-weekly publish workflow; simpler Studio UX | — Pending |
+| Roadmap in Sanity, no Zoho sync | Too complex to sync; Sanity Studio is the editing surface the user already knows | — Pending |
+
 ---
-*Last updated: 2026-03-06 after initialization*
+*Last updated: 2026-03-13 after v1.1 milestone start*
