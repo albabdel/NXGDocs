@@ -105,9 +105,9 @@ Plans:
 
 **Phase Numbering:** v1.1 starts at 6 (continuing from v1.0 which ended at 5).
 
-- [ ] **Phase 6: Schema & Data Pipeline** - Replace releaseNote schema, add roadmapItem schema, and extend the fetch pipeline to produce verified JSON for all downstream pages
-- [ ] **Phase 7: Releases Page** - Replace the hardcoded releases page with a Sanity-driven index and per-sprint detail pages with full rich media support
-- [ ] **Phase 8: Roadmap Page & Hero Banner** - Replace the hardcoded roadmap page with a Sanity-driven, filterable page and wire the hero banner to show the latest release dynamically
+- [x] **Phase 6: Schema & Data Pipeline** - Replace releaseNote schema, add roadmapItem schema, and extend the fetch pipeline to produce verified JSON for all downstream pages
+- [x] **Phase 7: Releases Page** - Replace the hardcoded releases page with a Sanity-driven index and per-sprint detail pages with full rich media support
+- [x] **Phase 8: Roadmap Page & Hero Banner** - Replace the hardcoded roadmap page with a Sanity-driven, filterable page and wire the hero banner to show the latest release dynamically
 - [ ] **Phase 9: Cleanup & URL Continuity** - Remove legacy pages and dead files, verify all URL patterns resolve correctly, and confirm no 404s were introduced
 
 ## Phase Details
@@ -122,7 +122,12 @@ Plans:
   3. Running the build locally produces non-empty `sanity-releases.generated.json` and `sanity-roadmap.generated.json` files — confirmed by log output showing document counts greater than zero
   4. The old `releaseNote` schema and its GROQ query are fully removed — no references remain in Studio config, structure, or schemaTypes index
   5. Sample data (2-3 sprint releases with items, 5-8 roadmap items covering all three statuses) is present in Sanity Studio and visible in GROQ Vision
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [x] 06-01-PLAN.md — Create release.ts and roadmapItem.ts schemas; atomic migration updating all 7 registration sites; delete releaseNote.ts
+- [x] 06-02-PLAN.md — Extend fetch-sanity-content.js with fetchReleases() and fetchRoadmapItems(); create fallback JSON files
+- [x] 06-03-PLAN.md — Enter sample content (3 releases, 7 roadmap items); verify GROQ references; run smoke tests
 
 ### Phase 7: Releases Page
 **Goal**: Visitors can browse all published sprint releases at /releases, click into any release for the full detail view with screenshots and video, and the most recent release is visually distinguished
@@ -136,8 +141,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 07-01-PLAN.md — Releases index page: replace SanityLandingPageRoute with direct JSON import; render reverse-chronological list with cards and "Latest" badge
-- [ ] 07-02-PLAN.md — Release detail page: dynamic [slug] route with items, screenshots, video embeds, affected-areas tags
+- [x] 07-01-PLAN.md — Releases index page: replace SanityLandingPageRoute with direct JSON import; render reverse-chronological list with cards and "Latest" badge
+- [x] 07-02-PLAN.md — Release detail page: dynamic [slug] route with items, screenshots, video embeds, affected-areas tags
 
 ### Phase 8: Roadmap Page & Hero Banner
 **Goal**: Visitors can find and explore roadmap items by status or keyword at /roadmap, shipped items link back to their release notes, and the home page hero banner dynamically shows the latest sprint name from Sanity
@@ -149,7 +154,11 @@ Plans:
   3. Expanding a roadmap item reveals its business value, change type, UI change flag, entities impacted, and projected release date; a Shipped item shows a "Released in [Sprint X]" link that navigates to the correct release detail page
   4. The roadmap page footer shows "Last updated: [date]" pulled from Sanity
   5. The hero banner on the home page shows the latest published sprint title and date — the string is not hardcoded and updates automatically when a new release is published in Sanity
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [x] 08-01-PLAN.md — Roadmap page with status filtering, keyword search, expandable items, and "Last updated" footer
+- [x] 08-02-PLAN.md — Hero banner dynamic update: latest release displayTitle replaces hardcoded text; home page releases section uses Sanity data
 
 ### Phase 9: Cleanup & URL Continuity
 **Goal**: No legacy pages or dead files remain in the codebase, and every previously valid URL still resolves correctly — visitors and search engines encounter no 404s from the migration
@@ -173,7 +182,7 @@ v1.0 complete. v1.1 executes: 6 → 7 → 8 (parallel after 6) → 9
 | 3. Integration Pipeline | v1.0 | 4/4 | Complete | 2026-03-07 |
 | 4. Content Migration | v1.0 | TBD/TBD | Complete | 2026-03-08 |
 | 5. Polish | v1.0 | 6/6 | Complete | 2026-03-08 |
-| 6. Schema & Data Pipeline | v1.1 | 2/3 | In Progress | - |
-| 7. Releases Page | v1.1 | 2/2 | Planned | 2026-03-13 |
-| 8. Roadmap Page & Hero Banner | v1.1 | 0/TBD | Not started | - |
+| 6. Schema & Data Pipeline | v1.1 | 3/3 | Complete | 2026-03-13 |
+| 7. Releases Page | v1.1 | 2/2 | Complete | 2026-03-13 |
+| 8. Roadmap Page & Hero Banner | v1.1 | 2/2 | Complete | 2026-03-13 |
 | 9. Cleanup & URL Continuity | v1.1 | 0/TBD | Not started | - |

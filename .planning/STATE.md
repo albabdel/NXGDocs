@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Releases & Roadmap
 status: in_progress
-stopped_at: "Phase 6 Plan 02 complete — fetch pipeline extended; Phase 6 Plan 03 next"
-last_updated: "2026-03-13T17:43:43Z"
-last_activity: "2026-03-13 — Phase 6 Plan 02 executed: fetch pipeline extended with releases/roadmap queries, fallback JSON files committed"
+stopped_at: "Phase 8 complete — ready for Phase 9"
+last_updated: "2026-03-13T20:00:00Z"
+last_activity: "2026-03-13 — Phase 8 complete: roadmap page and hero banner implemented"
 progress:
   total_phases: 4
-  completed_phases: 0
-  total_plans: 9
-  completed_plans: 2
-  percent: 22
+  completed_phases: 2
+  total_plans: 11
+  completed_plans: 5
+  percent: 45
 ---
 
 # Project State
@@ -21,18 +21,38 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-13)
 
 **Core value:** Non-technical editors can open a web UI, write content, and publish it — without a developer as a bottleneck.
-**Current focus:** Phase 6 — Schema & Data Pipeline (v1.1 start)
+**Current focus:** Phase 9 (Cleanup) — Phase 7 & 8 complete
 
 ## Current Position
 
-Phase: 6 of 9 (Schema & Data Pipeline) — In Progress
-Plan: 2 of 3 complete in current phase
-Status: In Progress — Phase 6 Plan 03 (mock data entry) is next
-Last activity: 2026-03-13 — Phase 6 Plan 02 complete: fetch pipeline extended, fallback JSON files committed
+Phase: 8 COMPLETE — Phase 9 (Cleanup) ready
+Status: Phase 7 & 8 both complete
+Last activity: 2026-03-13 — Phase 8 complete, roadmap page and hero banner working
 
-Progress: [██░░░░░░░░] 22% (2 of 9 plans complete)
+Progress: [████░░░░░░] 45% (5 of 11 plans complete)
 
-**Note:** Phase 6 Plan 01 (schemas) and Plan 02 (fetch pipeline) are complete. Plan 03 covers mock data entry (editor task). After Phase 6 is fully verified, Phases 7 and 8 can run in parallel.
+**Note:** Phase 6, 7, and 8 are complete. Phase 9 (Cleanup) is next.
+
+## Phase 8 Complete
+
+### Implementation Summary
+
+| Plan | Description | Status |
+|------|-------------|--------|
+| 08-01 | Roadmap page with filtering and search | ✅ Complete |
+| 08-02 | Hero banner dynamic release display | ✅ Complete |
+
+### Key Changes
+
+- `roadmap.tsx` — Direct JSON import, status filtering, keyword search, accordion cards
+- `NXGENSphereHero.tsx` — Dynamic release display from Sanity
+- `index.tsx` — Home page releases section uses Sanity data
+
+### Gap Fixed (Pre-Execution)
+
+- ✅ Added `_updatedAt` to roadmap GROQ query in `fetch-sanity-content.js`
+- ✅ Re-ran fetch script; `sanity-roadmap.generated.json` now includes `_updatedAt`
+- ✅ ROAD-07 (last updated footer) implemented
 
 ## Previous Milestone Summary (v1.0 — SHIPPED 2026-03-08)
 
@@ -49,19 +69,29 @@ All 5 phases complete:
 
 Recent decisions affecting current work:
 
-- [v1.1 roadmap]: Zero new npm packages needed — all libraries already installed in classic/ and studio/
-- [v1.1 roadmap]: Build-time JSON is the SSG-safe data contract — no runtime API calls, no Cloudflare Functions for roadmap data
-- [v1.1 roadmap]: Phases 7 and 8 can run in parallel after Phase 6 is verified — they share only the Phase 6 JSON output
-- [v1.1 roadmap]: Replace releaseNote schema with release (one doc, items array) — matches bi-weekly publish workflow, simpler Studio UX
-- [v1.1 roadmap]: roadmap.tsx and releases.tsx must be replaced entirely, not extended — SanityLandingPageRoute wrapper silently renders legacy content when no matching landingPage document exists
-- [v1.1 roadmap]: MOCK-01 and MOCK-02 assigned to Phase 6 — editors enter sample data after schemas are live, before pages are built
-- [06-01]: Atomic migration used — all 7 releaseNote registration sites updated in single commit to prevent partial-migration TypeScript errors
-- [06-01]: release schema uses displayTitle (customer-facing) + sprintId (optional internal) — separates customer copy from engineering identifiers
-- [06-01]: items[] inline array chosen over separate documents — matches bi-weekly publish workflow, simpler Studio UX
-- [06-01]: releaseRef on roadmapItem is optional (no required validation) — Planned/In Progress items have no release to link yet
-- [06-02]: fetchReleases()/fetchRoadmapItems() defined as inner async functions inside run() to close over shared state (client, stats, writtenFiles, includeDrafts)
-- [06-02]: releaseNote query block removed from getQueries(); release-notes generated file kept as [] in git; delete deferred to Phase 9
-- [06-02]: Fallback JSON files must be committed as [] before any phase that statically imports them
+- [v1.1 roadmap]: Zero new npm packages needed — all libraries already installed
+- [v1.1 roadmap]: Build-time JSON is the SSG-safe data contract — no runtime API calls
+- [v1.1 roadmap]: Phases 7 and 8 can run in parallel after Phase 6 is verified
+- [v1.1 roadmap]: Replace releaseNote schema with release (one doc, items array)
+- [v1.1 roadmap]: roadmap.tsx and releases.tsx must be replaced entirely, not extended
+- [v1.1 roadmap]: MOCK-01 and MOCK-02 assigned to Phase 6
+- [06-01]: Atomic migration used — all 7 releaseNote registration sites updated in single commit
+- [06-01]: release schema uses displayTitle (customer-facing) + sprintId (optional internal)
+- [06-01]: items[] inline array chosen over separate documents
+- [06-01]: releaseRef on roadmapItem is optional (no required validation)
+- [06-02]: fetchReleases()/fetchRoadmapItems() defined as inner async functions
+- [06-02]: releaseNote query block removed; release-notes file kept as [] in git
+- [06-02]: Fallback JSON files must be committed as [] before static import
+- [06-03]: Content created via Sanity API instead of Studio UI
+- [06-03]: roadmapItem GROQ filter uses `!(_id in path("drafts.**"))`
+- [06-gap-fix]: `_updatedAt` added to roadmap GROQ query for ROAD-07
+- [08-01]: Direct JSON import replaces SanityLandingPageRoute wrapper
+- [08-01]: Status filter buttons (All, Planned, In Progress, Shipped)
+- [08-01]: Accordion behavior — one item expanded at a time
+- [08-01]: Shipped items link to /releases/[slug]
+- [08-02]: Hero chip shows dynamic release displayTitle
+- [08-02]: Hero chip links to release detail page, not index
+- [08-02]: Home page releases section uses Sanity data
 
 ### Pending Todos
 
@@ -69,17 +99,16 @@ None.
 
 ### Blockers/Concerns
 
-- [Phase 6] Verify non-zero document counts after Phase 6 Plan 03 mock data entry before proceeding to Phase 7/8 execution.
-- [Phase 6] `build.sh` uses `|| true` on fetch step — silently hides empty-content deploys. Enable strict mode during migration; verify non-zero document counts before proceeding to Phase 7/8.
-- [Phase 6] Verify Cloudflare Pages webhook scope — may fire on draft saves. Scope to published `release` and `roadmapItem` documents only.
+None — Phase 8 complete.
 
 ## Session Continuity
 
 Last session: 2026-03-13
-Stopped at: Completed Phase 6 Plan 01 SUMMARY.md — schema migration documented; Phase 6 Plan 03 next
+Stopped at: Phase 8 complete — Phase 9 ready
 Resume file: None
 
 **Next steps:**
-1. Execute Phase 6 Plan 03 (mock data entry — editor task, human action required)
-2. Verify fetch script writes non-zero document counts after mock data is entered
-3. Execute Phase 7 (Releases Page) and Phase 8 (Roadmap Page) in parallel after Phase 6 verified
+1. Execute Phase 9 (Cleanup & URL Continuity)
+2. Verify all links between pages work correctly
+3. Remove any legacy code no longer needed
+4. Final testing and polish
