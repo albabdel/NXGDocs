@@ -55,12 +55,10 @@ const initialValueTemplates = [
     },
   },
   {
-    id: 'release-note-default',
-    title: 'Release Note',
-    schemaType: 'releaseNote',
-    value: {
-      status: 'draft',
-    },
+    id: 'sprint-release-default',
+    title: 'Sprint Release',
+    schemaType: 'release',
+    value: {},
   },
   {
     id: 'landing-page-default',
@@ -127,7 +125,7 @@ export default defineConfig({
           layout: {width: 'full'},
           order: '_updatedAt desc',
           limit: 10,
-          types: ['doc', 'article', 'landingPage', 'releaseNote'],
+          types: ['doc', 'article', 'landingPage', 'release', 'roadmapItem'],
         }),
         documentListWidget({
           title: 'Drafts',
@@ -142,7 +140,7 @@ export default defineConfig({
           layout: {width: 'half'},
           order: '_updatedAt desc',
           limit: 5,
-          types: ['doc', 'article', 'landingPage', 'releaseNote'],
+          types: ['doc', 'article', 'landingPage', 'release', 'roadmapItem'],
           filter: 'status == "published"',
         }),
       ],
@@ -167,7 +165,7 @@ export default defineConfig({
   document: {
     badges: [StatusBadge],
     actions: (prev, {schemaType}) => {
-      const typesWithCustomActions = ['doc', 'article', 'releaseNote', 'landingPage', 'referencePage']
+      const typesWithCustomActions = ['doc', 'article', 'release', 'roadmapItem', 'landingPage', 'referencePage']
       if (typesWithCustomActions.includes(schemaType as string)) {
         return [
           ...prev,

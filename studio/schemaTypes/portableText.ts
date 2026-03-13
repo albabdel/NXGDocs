@@ -95,7 +95,7 @@ export const bodyField = defineField({
                   {type: 'doc'},
                   {type: 'article'},
                   {type: 'referencePage'},
-                  {type: 'releaseNote'},
+                  {type: 'release'},
                 ],
               },
             ],

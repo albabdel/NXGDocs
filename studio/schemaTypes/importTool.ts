@@ -118,7 +118,8 @@ export const importJobType = defineType({
             list: [
               {title: '📄 Documentation Page', value: 'doc'},
               {title: '📰 Article', value: 'article'},
-              {title: '📋 Release Note', value: 'releaseNote'},
+              {title: '🚢 Sprint Release', value: 'release'},
+              {title: '🗺️ Roadmap Item', value: 'roadmapItem'},
               {title: '📖 Reference Page', value: 'referencePage'},
             ],
           },
@@ -210,7 +211,7 @@ export const importJobType = defineType({
               name: 'document',
               title: 'Document',
               type: 'reference',
-              to: [{type: 'doc'}, {type: 'article'}, {type: 'releaseNote'}, {type: 'referencePage'}],
+              to: [{type: 'doc'}, {type: 'article'}, {type: 'release'}, {type: 'roadmapItem'}, {type: 'referencePage'}],
             }),
             defineField({
               name: 'originalName',
@@ -628,7 +629,7 @@ export const contentTemplateType = defineType({
         list: [
           {title: 'Documentation Page', value: 'doc'},
           {title: 'Article', value: 'article'},
-          {title: 'Release Note', value: 'releaseNote'},
+          {title: 'Sprint Release', value: 'release'},
           {title: 'Reference Page', value: 'referencePage'},
         ],
       },

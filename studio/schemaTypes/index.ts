@@ -1,5 +1,6 @@
 import {docType} from './doc'
-import {releaseNoteType} from './releaseNote'
+import {releaseType} from './release'
+import {roadmapItemType} from './roadmapItem'
 import {articleType} from './article'
 import {referenceType} from './reference'
 import {folderType, documentFolderType} from './folder'
@@ -44,7 +45,8 @@ import {
 export const schemaTypes = [
   // Original document types
   docType,
-  releaseNoteType,
+  releaseType,
+  roadmapItemType,
   articleType,
   referenceType,
   

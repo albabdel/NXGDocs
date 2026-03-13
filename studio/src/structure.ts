@@ -226,12 +226,12 @@ export const deskStructure = (S: any) =>
                     .defaultOrdering([{field: '_updatedAt', direction: 'desc'}])
                 ),
               S.listItem()
-                .title('Release Notes')
+                .title('Sprint Releases')
                 .child(
                   S.documentList()
-                    .title('Published Release Notes')
-                    .schemaType('releaseNote')
-                    .filter('_type == "releaseNote" && status == "published"')
+                    .title('Published Sprint Releases')
+                    .schemaType('release')
+                    .filter('_type == "release"')
                     .defaultOrdering([{field: 'publishedAt', direction: 'desc'}])
                 ),
             ])
@@ -264,15 +264,27 @@ export const deskStructure = (S: any) =>
         ),
 
       S.listItem()
-        .title('Release Notes')
-        .icon(() => '📋')
-        .schemaType('releaseNote')
+        .title('Sprint Releases')
+        .icon(() => '🚢')
+        .schemaType('release')
         .child(
           S.documentList()
-            .title('All Release Notes')
-            .schemaType('releaseNote')
-            .filter('_type == "releaseNote"')
+            .title('All Sprint Releases')
+            .schemaType('release')
+            .filter('_type == "release"')
             .defaultOrdering([{field: 'publishedAt', direction: 'desc'}])
+        ),
+
+      S.listItem()
+        .title('Roadmap Items')
+        .icon(() => '🗺️')
+        .schemaType('roadmapItem')
+        .child(
+          S.documentList()
+            .title('All Roadmap Items')
+            .schemaType('roadmapItem')
+            .filter('_type == "roadmapItem"')
+            .defaultOrdering([{field: '_createdAt', direction: 'desc'}])
         ),
 
       S.listItem()
@@ -324,7 +336,8 @@ export const deskStructure = (S: any) =>
           ![
             'doc',
             'article',
-            'releaseNote',
+            'release',
+            'roadmapItem',
             'referencePage',
             'folder',
             'tag',

@@ -61,7 +61,7 @@ export const enhancedBlockContent = [
                 {type: 'doc'},
                 {type: 'article'},
                 {type: 'referencePage'},
-                {type: 'releaseNote'},
+                {type: 'release'},
               ],
             },
             {name: 'anchor', type: 'string', title: 'Anchor (optional)'},

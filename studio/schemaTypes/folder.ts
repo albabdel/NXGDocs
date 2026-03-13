@@ -192,7 +192,8 @@ export const documentFolderType = defineType({
       const typeEmoji: Record<string, string> = {
         doc: '📄',
         article: '📰',
-        releaseNote: '📋',
+        release: '🚢',
+        roadmapItem: '🗺️',
         referencePage: '📖',
       }
       const statusEmoji: Record<string, string> = {
@@ -230,7 +231,8 @@ export const documentFolderType = defineType({
         list: [
           {title: '📄 Documentation Page', value: 'doc'},
           {title: '📰 Article', value: 'article'},
-          {title: '📋 Release Note', value: 'releaseNote'},
+          {title: '🚢 Sprint Release', value: 'release'},
+          {title: '🗺️ Roadmap Item', value: 'roadmapItem'},
           {title: '📖 Reference Page', value: 'referencePage'},
         ],
       },
@@ -296,7 +298,7 @@ export const documentFolderType = defineType({
               name: 'reference',
               title: 'Internal Reference',
               type: 'reference',
-              to: [{type: 'doc'}, {type: 'article'}, {type: 'releaseNote'}, {type: 'referencePage'}, {type: 'folder'}],
+              to: [{type: 'doc'}, {type: 'article'}, {type: 'release'}, {type: 'roadmapItem'}, {type: 'referencePage'}, {type: 'folder'}],
             }),
             defineField({
               name: 'file',
