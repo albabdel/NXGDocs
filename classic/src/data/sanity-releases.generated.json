@@ -1,1 +1,129 @@
-[]
+[
+  {
+    "_id": "release-2026-03-a",
+    "displayTitle": "March 2026 Release A",
+    "items": [
+      {
+        "_key": "item1",
+        "affectedAreas": [
+          "alarm-management"
+        ],
+        "changeType": "improvement",
+        "description": null,
+        "screenshotUrl": null,
+        "title": "New alarm grouping view",
+        "videoUrl": null
+      },
+      {
+        "_key": "item2",
+        "affectedAreas": [
+          "alarm-management"
+        ],
+        "changeType": "improvement",
+        "description": null,
+        "screenshotUrl": null,
+        "title": "Bulk acknowledge alarms",
+        "videoUrl": null
+      },
+      {
+        "_key": "item3",
+        "affectedAreas": [
+          "reporting"
+        ],
+        "changeType": "fix",
+        "description": null,
+        "screenshotUrl": null,
+        "title": "Report filter persistence",
+        "videoUrl": null
+      }
+    ],
+    "publishedAt": "2026-03-07",
+    "slug": {
+      "_type": "slug",
+      "current": "sprint-2026-03-a"
+    },
+    "sprintId": "Sprint 2026.03-A",
+    "summary": "Alarm management improvements and new reporting filters for faster incident response."
+  },
+  {
+    "_id": "release-2026-02-b",
+    "displayTitle": "February 2026 Release B",
+    "items": [
+      {
+        "_key": "item1",
+        "affectedAreas": [
+          "devices"
+        ],
+        "changeType": "feature",
+        "description": null,
+        "screenshotUrl": null,
+        "title": "Bulk device configuration",
+        "videoUrl": null
+      },
+      {
+        "_key": "item2",
+        "affectedAreas": [
+          "installer-guide"
+        ],
+        "changeType": "improvement",
+        "description": null,
+        "screenshotUrl": null,
+        "title": "Installer guide restructure",
+        "videoUrl": null
+      },
+      {
+        "_key": "item3",
+        "affectedAreas": [
+          "platform-fundamentals"
+        ],
+        "changeType": "fix",
+        "description": null,
+        "screenshotUrl": null,
+        "title": "Platform SSO login fix",
+        "videoUrl": null
+      }
+    ],
+    "publishedAt": "2026-02-21",
+    "slug": {
+      "_type": "slug",
+      "current": "sprint-2026-02-b"
+    },
+    "sprintId": "Sprint 2026.02-B",
+    "summary": "Device configuration and operator guide updates."
+  },
+  {
+    "_id": "release-2026-02-a",
+    "displayTitle": "February 2026 Release A",
+    "items": [
+      {
+        "_key": "item1",
+        "affectedAreas": [
+          "api"
+        ],
+        "changeType": "improvement",
+        "description": null,
+        "screenshotUrl": null,
+        "title": "Webhook retry logic",
+        "videoUrl": null
+      },
+      {
+        "_key": "item2",
+        "affectedAreas": [
+          "knowledge-base"
+        ],
+        "changeType": "improvement",
+        "description": null,
+        "screenshotUrl": null,
+        "title": "Knowledge base search index",
+        "videoUrl": null
+      }
+    ],
+    "publishedAt": "2026-02-07",
+    "slug": {
+      "_type": "slug",
+      "current": "sprint-2026-02-a"
+    },
+    "sprintId": "Sprint 2026.02-A",
+    "summary": "API integrations and knowledge base improvements."
+  }
+]

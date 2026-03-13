@@ -1,1 +1,105 @@
-[]
+[
+  {
+    "_id": "roadmap-7",
+    "businessValue": "Reduces missed alarms during shift changeover — top feedback item from Q4 customer survey.",
+    "changeType": "feature",
+    "description": "Structured handover notes field that operators complete at end-of-shift, attached to the active alarm queue state.",
+    "entitiesImpacted": [
+      "Alarm Management",
+      "Operators"
+    ],
+    "projectedRelease": "Q4 2026",
+    "releaseSlug": null,
+    "status": "Planned",
+    "title": "Operator shift handover notes",
+    "uiChange": true
+  },
+  {
+    "_id": "roadmap-6",
+    "businessValue": "Eliminates 4+ hours/month of manual report preparation for compliance teams.",
+    "changeType": "feature",
+    "description": "Schedule and auto-generate compliance reports in PDF format on a weekly or monthly cadence.",
+    "entitiesImpacted": [
+      "Reporting",
+      "Admin"
+    ],
+    "projectedRelease": "Q3 2026",
+    "releaseSlug": null,
+    "status": "Planned",
+    "title": "Automated compliance report generation",
+    "uiChange": true
+  },
+  {
+    "_id": "roadmap-5",
+    "businessValue": "Opens the platform to Spanish-speaking operators; required for two pending enterprise contracts.",
+    "changeType": "feature",
+    "description": "UI language switching for English and Spanish — targeted at Latin American market.",
+    "entitiesImpacted": [
+      "Platform Fundamentals",
+      "Operators"
+    ],
+    "projectedRelease": "Q3 2026",
+    "releaseSlug": null,
+    "status": "Planned",
+    "title": "Multi-language support (Phase 1)",
+    "uiChange": true
+  },
+  {
+    "_id": "roadmap-4",
+    "businessValue": "Prevents unexpected API throttling by giving integrators real-time usage visibility.",
+    "changeType": "improvement",
+    "description": "Show current API usage and rate limit status in the developer dashboard.",
+    "entitiesImpacted": [
+      "API / Integrations"
+    ],
+    "projectedRelease": "Q2 2026",
+    "releaseSlug": null,
+    "status": "In Progress",
+    "title": "API rate limit visibility",
+    "uiChange": false
+  },
+  {
+    "_id": "roadmap-3",
+    "businessValue": "Reduces manual data export effort by 60% for weekly reporting workflows.",
+    "changeType": "feature",
+    "description": "Date range, custom field filters, and filter preset saving for reports.",
+    "entitiesImpacted": [
+      "Reporting"
+    ],
+    "projectedRelease": "Q2 2026",
+    "releaseSlug": null,
+    "status": "In Progress",
+    "title": "Advanced reporting filters",
+    "uiChange": true
+  },
+  {
+    "_id": "roadmap-2",
+    "businessValue": "Reduces mean time to acknowledge alarms by 40% in high-volume environments.",
+    "changeType": "improvement",
+    "description": "Group active alarms by zone or device type for faster operator triage.",
+    "entitiesImpacted": [
+      "Alarm Management",
+      "Operators"
+    ],
+    "projectedRelease": "Q1 2026",
+    "releaseSlug": "sprint-2026-03-a",
+    "status": "Shipped",
+    "title": "New alarm grouping view",
+    "uiChange": true
+  },
+  {
+    "_id": "roadmap-1",
+    "businessValue": "Reduces device setup time by 80% for deployments with 50+ devices.",
+    "changeType": "feature",
+    "description": "Allow operators to configure multiple devices simultaneously from a single panel — reduces setup time for large deployments.",
+    "entitiesImpacted": [
+      "Devices",
+      "Admin"
+    ],
+    "projectedRelease": "Q1 2026",
+    "releaseSlug": "sprint-2026-02-b",
+    "status": "Shipped",
+    "title": "Bulk device configuration",
+    "uiChange": true
+  }
+]

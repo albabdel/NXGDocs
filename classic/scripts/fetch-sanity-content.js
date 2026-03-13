@@ -275,7 +275,7 @@ function getReleasesQuery(includeDrafts) {
 }
 
 function getRoadmapQuery(includeDrafts) {
-  const filter = statusFilterClause(includeDrafts);
+  const filter = includeDrafts ? 'true' : '!(_id in path("drafts.**"))';
   return `*[_type == "roadmapItem" && ${filter}] | order(_createdAt desc) {
     _id,
     title,
