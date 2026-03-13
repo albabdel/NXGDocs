@@ -106,6 +106,7 @@ const config: Config = {
   plugins: [
     './plugins/docusaurus-plugin-sanity-content',  // MUST be first — populates .sanity-cache/ before content-docs reads
     './plugins/docusaurus-plugin-sanity-landing-pages',  // Landing pages from Sanity
+    './plugins/docusaurus-plugin-release-pages',   // Release detail pages from Sanity
     './plugins/docusaurus-plugin-last-update',
     // Internal docs plugin (keeping for now)
     [
