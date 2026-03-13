@@ -3,8 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import NXGEN Sphere Background Styles */
-@import './sphere-background.css';
 
 /** 
  * NXGEN GCXONE Documentation Design System 
@@ -3553,4 +3551,105 @@ button[class*="copyButton"][class*="copyButtonCopied"] {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* ============================================================
+   GLASSMORPHISM SYSTEM
+   Applied globally to cards, surfaces, and key UI elements.
+   ============================================================ */
+
+/* -- Navbar glass -- */
+.navbar {
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+}
+
+[data-theme='dark'] .navbar {
+  background: rgba(0, 0, 0, 0.65) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04), 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='light'] .navbar {
+  background: rgba(255, 251, 245, 0.72) !important;
+  border-bottom: 1px solid rgba(232, 176, 88, 0.12) !important;
+  box-shadow: 0 1px 0 rgba(232, 176, 88, 0.08), 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* -- Card glass surfaces -- */
+[data-theme='dark'] .card,
+[data-theme='dark'] [class*="FeatureCard"],
+[data-theme='dark'] [class*="QuickLink"] {
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  background: rgba(255, 255, 255, 0.025) !important;
+  border-color: rgba(255, 255, 255, 0.07) !important;
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+[data-theme='dark'] .card:hover,
+[data-theme='dark'] [class*="FeatureCard"]:hover {
+  background: rgba(255, 255, 255, 0.045) !important;
+  border-color: rgba(232, 176, 88, 0.18) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(232, 176, 88, 0.08) !important;
+}
+
+[data-theme='light'] .card,
+[data-theme='light'] [class*="FeatureCard"],
+[data-theme='light'] [class*="QuickLink"] {
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  background: rgba(255, 255, 255, 0.72) !important;
+  border-color: rgba(232, 176, 88, 0.12) !important;
+}
+
+[data-theme='light'] .card:hover,
+[data-theme='light'] [class*="FeatureCard"]:hover {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border-color: rgba(232, 176, 88, 0.28) !important;
+  box-shadow: 0 8px 32px rgba(200, 148, 70, 0.1), 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* -- Sidebar glass -- */
+[data-theme='dark'] .theme-doc-sidebar-container {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.5) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+[data-theme='light'] .theme-doc-sidebar-container {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 251, 245, 0.8) !important;
+  border-right: 1px solid rgba(232, 176, 88, 0.1) !important;
+}
+
+/* -- Table of Contents glass -- */
+[data-theme='dark'] .table-of-contents {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* -- Hero button hover color fix (override Docusaurus global a:hover) -- */
+.hero-btn-primary:hover,
+a.hero-btn-primary:hover {
+  color: #000 !important;
+  text-decoration: none !important;
+}
+.hero-btn-secondary-dark:hover,
+a.hero-btn-secondary-dark:hover {
+  color: #fff !important;
+  text-decoration: none !important;
+}
+.hero-btn-secondary-light:hover,
+a.hero-btn-secondary-light:hover {
+  color: #5A3B10 !important;
+  text-decoration: none !important;
+}
+
+/* Ensure all no-underline buttons keep their text color on hover */
+a.no-underline[class*="bg-[#E8B058]"]:hover,
+a.no-underline[class*="bg-[#C89446]"]:hover {
+  color: inherit !important;
 }

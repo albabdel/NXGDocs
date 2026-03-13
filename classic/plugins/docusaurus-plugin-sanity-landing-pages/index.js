@@ -16,6 +16,7 @@ const path = require('path');
 
 const LANDING_PAGES_CACHE_DIR = '.sanity-landing-pages';
 const STATIC_PAGE_EXTENSIONS = ['.tsx', '.ts', '.jsx', '.js', '.mdx', '.md'];
+const EXCLUDED_ROUTE_PREFIXES = ['/internal-releases'];
 
 module.exports = function (context, options) {
   const cacheDir = path.join(context.siteDir, LANDING_PAGES_CACHE_DIR);
@@ -75,6 +76,11 @@ module.exports = function (context, options) {
         if (!slug) continue;
 
         const routePath = slug.startsWith('/') ? slug : `/${slug}`;
+
+        if (EXCLUDED_ROUTE_PREFIXES.some((prefix) => routePath === prefix || routePath.startsWith(`${prefix}/`))) {
+          console.log(`[sanity-landing-pages] Skipping excluded route: ${routePath}`);
+          continue;
+        }
 
         if (staticPageExistsForRoute(routePath)) {
           console.log(`[sanity-landing-pages] Skipping route with static page owner: ${routePath}`);

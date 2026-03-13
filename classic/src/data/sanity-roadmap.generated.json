@@ -1,6 +1,7 @@
 [
   {
     "_id": "roadmap-7",
+    "_updatedAt": "2026-03-13T18:16:54Z",
     "businessValue": "Reduces missed alarms during shift changeover — top feedback item from Q4 customer survey.",
     "changeType": "feature",
     "description": "Structured handover notes field that operators complete at end-of-shift, attached to the active alarm queue state.",
@@ -16,6 +17,7 @@
   },
   {
     "_id": "roadmap-6",
+    "_updatedAt": "2026-03-13T18:16:53Z",
     "businessValue": "Eliminates 4+ hours/month of manual report preparation for compliance teams.",
     "changeType": "feature",
     "description": "Schedule and auto-generate compliance reports in PDF format on a weekly or monthly cadence.",
@@ -31,6 +33,7 @@
   },
   {
     "_id": "roadmap-5",
+    "_updatedAt": "2026-03-13T18:16:52Z",
     "businessValue": "Opens the platform to Spanish-speaking operators; required for two pending enterprise contracts.",
     "changeType": "feature",
     "description": "UI language switching for English and Spanish — targeted at Latin American market.",
@@ -46,6 +49,7 @@
   },
   {
     "_id": "roadmap-4",
+    "_updatedAt": "2026-03-13T18:16:51Z",
     "businessValue": "Prevents unexpected API throttling by giving integrators real-time usage visibility.",
     "changeType": "improvement",
     "description": "Show current API usage and rate limit status in the developer dashboard.",
@@ -60,6 +64,7 @@
   },
   {
     "_id": "roadmap-3",
+    "_updatedAt": "2026-03-13T18:16:50Z",
     "businessValue": "Reduces manual data export effort by 60% for weekly reporting workflows.",
     "changeType": "feature",
     "description": "Date range, custom field filters, and filter preset saving for reports.",
@@ -74,6 +79,7 @@
   },
   {
     "_id": "roadmap-2",
+    "_updatedAt": "2026-03-13T18:16:49Z",
     "businessValue": "Reduces mean time to acknowledge alarms by 40% in high-volume environments.",
     "changeType": "improvement",
     "description": "Group active alarms by zone or device type for faster operator triage.",
@@ -89,6 +95,7 @@
   },
   {
     "_id": "roadmap-1",
+    "_updatedAt": "2026-03-13T18:16:48Z",
     "businessValue": "Reduces device setup time by 80% for deployments with 50+ devices.",
     "changeType": "feature",
     "description": "Allow operators to configure multiple devices simultaneously from a single panel — reduces setup time for large deployments.",

@@ -545,6 +545,83 @@
     }
 }
 
+/* === NEW SECTION STYLES === */
+
+/* Section badge chip */
+.sectionBadge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ifm-color-primary);
+    background: color-mix(in srgb, var(--ifm-color-primary) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ifm-color-primary) 25%, transparent);
+}
+
+/* Numbered quick start link wrapper */
+.numberedLink {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+}
+
+.numberedLink > a,
+.numberedLink > *:not(.numberBadge) {
+    flex: 1;
+}
+
+.numberBadge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    flex-shrink: 0;
+    font-size: 0.65rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--ifm-color-primary);
+    opacity: 0.55;
+    margin-right: 0.5rem;
+    padding-top: 0.25rem;
+    user-select: none;
+}
+
+/* Release card wrapper with accent bar */
+.releaseCard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.releaseAccent {
+    position: absolute;
+    left: 0;
+    top: 0.75rem;
+    bottom: 0.75rem;
+    width: 2.5px;
+    border-radius: 9999px;
+    background: linear-gradient(to bottom, #E8B058, #C89446);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.releaseCard > *:last-child {
+    padding-left: 0.5rem;
+}
+
+/* CTA card */
+.ctaCard {
+    box-shadow: 0 0 80px rgba(232, 176, 88, 0.06), 0 20px 60px rgba(0,0,0,0.08);
+    transition: box-shadow 0.3s ease;
+}
+
+.ctaCard:hover {
+    box-shadow: 0 0 100px rgba(232, 176, 88, 0.10), 0 20px 80px rgba(0,0,0,0.12);
+}
+
 /* === PRINT STYLES === */
 @media print {
     .main::before {

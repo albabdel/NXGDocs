@@ -278,6 +278,7 @@ function getRoadmapQuery(includeDrafts) {
   const filter = includeDrafts ? 'true' : '!(_id in path("drafts.**"))';
   return `*[_type == "roadmapItem" && ${filter}] | order(_createdAt desc) {
     _id,
+    _updatedAt,
     title,
     description,
     status,

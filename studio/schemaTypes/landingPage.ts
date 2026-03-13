@@ -69,7 +69,6 @@ export const landingPageType = defineType({
           {title: 'Standard Landing Page', value: 'standard'},
           {title: 'Quick Start Page', value: 'quick-start'},
           {title: 'Release Notes Page', value: 'releases'},
-          {title: 'Internal Releases Page', value: 'internal-releases'},
           {title: 'Tower Guide Page', value: 'tower-guide'},
           {title: 'Role Page', value: 'role'},
         ],

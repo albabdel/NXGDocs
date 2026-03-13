@@ -59,11 +59,6 @@ export default function Footer(): JSX.Element {
                   Features
                 </Link>
               </li>
-              <li>
-                <Link to="/docs/troubleshooting" className={styles.footerLink}>
-                  Troubleshooting
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -72,9 +67,15 @@ export default function Footer(): JSX.Element {
             <h4 className={styles.sectionTitle}>Resources</h4>
             <ul className={styles.linksList}>
               <li>
-                <Link to="/support/contact" className={styles.footerLink}>
+                <a
+                  href="https://nxgen.cloud/support"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.footerLink}
+                >
                   Support Center
-                </Link>
+                  <ExternalLink className={styles.externalIcon} />
+                </a>
               </li>
               <li>
                 <Link to="/releases" className={styles.footerLink}>
