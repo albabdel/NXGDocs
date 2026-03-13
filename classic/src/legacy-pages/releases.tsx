@@ -26,6 +26,9 @@ type Release = {
 };
 
 // Customer-facing releases data
+// Note: This is a legacy fallback page. The main releases page uses Sanity data.
+// Sprint 2025.12-B is kept here for backward compatibility with the legacy route.
+// Sprint 2025.12-A has been archived (no route exists for it).
 const releases: Release[] = [
     {
         id: 'sprint-2025-12-b',
@@ -41,20 +44,6 @@ const releases: Release[] = [
             'Performance optimizations reducing page load times by 40%'
         ],
         link: '/releases/sprint-2025-12-b'
-    },
-    {
-        id: 'sprint-2025-12-a',
-        title: 'Sprint 2025.12-A',
-        date: 'December 1, 2025',
-        description: 'Initial release with core features and foundational improvements',
-        status: 'released',
-        highlights: [
-            'Core platform features and foundational architecture',
-            'Initial device integration support',
-            'Basic alarm management capabilities',
-            'User management and role-based access control'
-        ],
-        link: '/releases'
     }
 ];
 
