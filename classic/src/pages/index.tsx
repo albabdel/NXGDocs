@@ -9,21 +9,21 @@ import {
     Wrench,
     HelpCircle,
     PlayCircle,
-    FileText,
     ShieldCheck,
     Cpu,
-    Camera,
     Wifi,
     Bell,
     Zap,
     Radio,
     ArrowUpRight,
+    Circle,
 } from 'lucide-react';
 import FeatureCard from '../components/FeatureCard';
 import QuickLink from '../components/QuickLink';
 import NXGENSphereHero from '../components/NXGENSphereHero';
 import styles from './index.module.css';
 import releasesData from '../data/sanity-releases.generated.json';
+import roadmapData from '../data/sanity-roadmap.generated.json';
 
 // --- Data ---
 
@@ -44,6 +44,15 @@ type Release = {
     publishedAt: string;
     summary?: string;
     items: Array<{ _key: string; title: string }>;
+};
+
+type RoadmapItem = {
+    _id: string;
+    title: string;
+    status: 'Planned' | 'In Progress' | 'Shipped';
+    projectedRelease: string;
+    description: string;
+    changeType: string;
 };
 
 const quickStartLinks: Resource[] = [
@@ -114,28 +123,12 @@ const roleCards: Resource[] = [
     },
 ];
 
-// Generate recent releases from Sanity data
-const getRecentReleases = (): Resource[] => {
-    const releases = releasesData as Release[];
-    if (releases.length === 0) {
-        // Fallback when no releases exist
-        return [{
-            title: 'Releases',
-            description: 'View all product updates and release notes',
-            link: '/releases',
-            icon: <FileText className="w-5 h-5" />,
-        }];
-    }
-    return releases.slice(0, 2).map((release, index) => ({
-        title: release.displayTitle,
-        description: release.summary || `Release with ${release.items.length} updates`,
-        link: `/releases/${release.slug.current}`,
-        icon: <FileText className="w-5 h-5" />,
-        badge: index === 0 ? 'Latest' : undefined,
-    }));
+const getUpcomingRoadmapItems = (): RoadmapItem[] => {
+    const items = roadmapData as RoadmapItem[];
+    return items.filter(item => item.status !== 'Shipped').slice(0, 3);
 };
 
-const recentReleases: Resource[] = getRecentReleases();
+const upcomingRoadmapItems = getUpcomingRoadmapItems();
 
 const featuredFeatures: Resource[] = [
     {
@@ -182,7 +175,7 @@ const helpResources: Resource[] = [
         title: 'Release Notes',
         description: 'Latest updates and releases',
         link: '#',
-        icon: <FileText className="w-5 h-5" />,
+        icon: <PlayCircle className="w-5 h-5" />,
     },
     {
         title: 'Product Roadmap',
@@ -290,18 +283,81 @@ export default function Home(): React.JSX.Element {
                             </Link>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            {recentReleases.map((item) => (
-                                <div key={item.title} className={styles.releaseCard}>
-                                    <div className={styles.releaseAccent} />
-                                    <FeatureCard
-                                        title={item.title}
-                                        description={item.description}
-                                        icon={item.icon}
-                                        link={item.link}
-                                        badge={item.badge}
-                                    />
-                                </div>
+                            {(releasesData as Release[]).slice(0, 2).map((release, index) => (
+                                <Link
+                                    key={release._id}
+                                    to={`/releases/${release.slug.current}`}
+                                    className={`${styles.releaseCardNew} no-underline group`}
+                                >
+                                    <div className={styles.releaseCardTopBar} />
+                                    <div className={styles.releaseCardBody}>
+                                        <div className="flex items-start justify-between gap-3 mb-3">
+                                            <span className={styles.releaseMetaDate}>
+                                                {new Date(release.publishedAt).toLocaleDateString('en-US', {
+                                                    month: 'long',
+                                                    day: 'numeric',
+                                                    year: 'numeric',
+                                                })}
+                                                {release.sprintId && (
+                                                    <span className={styles.sprintId}> · {release.sprintId}</span>
+                                                )}
+                                            </span>
+                                            {index === 0 && (
+                                                <span className={styles.latestBadge}>Latest</span>
+                                            )}
+                                        </div>
+                                        <h4 className={`${styles.releaseTitleNew} group-hover:text-[#E8B058] transition-colors`}>
+                                            {release.displayTitle}
+                                        </h4>
+                                        <p className={styles.releaseDescNew}>
+                                            {release.summary || `${release.items.length} updates in this release`}
+                                        </p>
+                                        <span className={styles.releaseReadMore}>
+                                            Read release notes
+                                            <ArrowUpRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                                        </span>
+                                    </div>
+                                </Link>
                             ))}
+                        </div>
+
+                        {/* Coming Soon / Roadmap preview */}
+                        <div className="mt-12">
+                            <div className="flex items-end justify-between mb-6">
+                                <div>
+                                    <h3 className="text-xl font-semibold mb-1" style={{ color: 'var(--ifm-color-content)' }}>
+                                        Coming Soon
+                                    </h3>
+                                    <p className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                                        Preview of upcoming features and improvements
+                                    </p>
+                                </div>
+                                <Link
+                                    to="/roadmap"
+                                    className="inline-flex items-center gap-1.5 text-[#E8B058] hover:text-[#D4A047] transition-colors text-sm font-medium no-underline group"
+                                >
+                                    View Roadmap
+                                    <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                                </Link>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                {upcomingRoadmapItems.map((item) => (
+                                    <div key={item._id} className={styles.roadmapCardNew}>
+                                        <div className={`${styles.roadmapCardStripe} ${item.status === 'In Progress' ? styles.roadmapStripeActive : ''}`} />
+                                        <div className={styles.roadmapCardContent}>
+                                            <div className="flex items-center justify-between mb-3">
+                                                <span className={`${styles.roadmapStatusBadge} ${item.status === 'In Progress' ? styles.roadmapStatusActive : ''}`}>
+                                                    <Circle className="w-1.5 h-1.5 fill-current" />
+                                                    {item.status}
+                                                </span>
+                                                <span className={styles.roadmapQuarterLabel}>{item.projectedRelease}</span>
+                                            </div>
+                                            <h4 className={styles.roadmapItemTitleNew}>{item.title}</h4>
+                                            <p className={styles.roadmapItemDescNew}>{item.description}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </section>
 

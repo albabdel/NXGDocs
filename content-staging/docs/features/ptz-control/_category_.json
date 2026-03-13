@@ -1,8 +1,0 @@
-{
-  "label": "PTZ Control",
-  "position": 22,
-  "link": {
-    "type": "generated-index",
-    "description": "Complete documentation for PTZ Control"
-  }
-}

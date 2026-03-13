@@ -8,9 +8,14 @@ import {
     Calendar,
     Package,
     ArrowRight,
-    Sparkles
+    Sparkles,
+    Map as MapIcon,
+    Layers,
+    Zap,
+    CheckCircle2
 } from 'lucide-react';
 import releasesData from '../data/sanity-releases.generated.json';
+import roadmapData from '../data/sanity-roadmap.generated.json';
 
 // Type definitions matching the JSON structure from Phase 6
 interface ReleaseItem {
@@ -37,6 +42,30 @@ interface Release {
 }
 
 type ReleasesArray = Release[];
+
+type RoadmapStatus = 'Planned' | 'In Progress' | 'Shipped';
+type ChangeType = 'feature' | 'improvement' | 'fix' | 'breaking';
+
+interface RoadmapItem {
+    _id: string;
+    title: string;
+    status: RoadmapStatus;
+    projectedRelease: string;
+    changeType: ChangeType;
+}
+
+const roadmapStatusConfig: Record<RoadmapStatus, { icon: React.ReactNode; colorClass: string }> = {
+    'Planned': { icon: <Layers className="w-4 h-4" />, colorClass: 'text-yellow-400' },
+    'In Progress': { icon: <Zap className="w-4 h-4" />, colorClass: 'text-blue-400' },
+    'Shipped': { icon: <CheckCircle2 className="w-4 h-4" />, colorClass: 'text-green-400' },
+};
+
+function getUpcomingRoadmapItems(limit: number = 4): RoadmapItem[] {
+    const items = roadmapData as RoadmapItem[];
+    return items
+        .filter(item => item.status === 'Planned' || item.status === 'In Progress')
+        .slice(0, limit);
+}
 
 // Change type badge configuration
 const changeTypeConfig: Record<string, { label: string; bgClass: string; textClass: string }> = {
@@ -113,10 +142,18 @@ export default function ReleasesPage() {
                         <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
                             Release Notes
                         </h1>
-                        <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
+                        <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed mb-8">
                             Stay up to date with the latest features, improvements, and enhancements to the GCXONE platform.
                             We release updates twice monthly to continuously improve your experience.
                         </p>
+                        <Link
+                            to="/roadmap"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-[#E8B058]/10 border border-[#E8B058]/30 rounded-lg text-[#E8B058] font-medium hover:bg-[#E8B058]/20 transition-colors no-underline"
+                        >
+                            <MapIcon className="w-5 h-5" />
+                            View Product Roadmap
+                            <ArrowRight className="w-4 h-4" />
+                        </Link>
                     </motion.div>
 
                     {/* Releases List */}
@@ -230,6 +267,63 @@ export default function ReleasesPage() {
                             </div>
                         </motion.section>
                     )}
+
+                    {/* What's Coming Next - Roadmap Preview */}
+                    <motion.section
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
+                        className="mb-32"
+                    >
+                        <div className="mb-8">
+                            <h2 className="text-3xl font-bold text-white mb-2">What's Coming Next</h2>
+                            <p className="text-white/70">
+                                Preview upcoming features on our roadmap
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {getUpcomingRoadmapItems().map((item, idx) => (
+                                <motion.div
+                                    key={item._id}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4, delay: idx * 0.1 }}
+                                    viewport={{ once: true }}
+                                    className="p-6 bg-[#202020] rounded-xl border border-white/10 hover:border-[#E8B058]/50 transition-all duration-300"
+                                >
+                                    <div className="flex items-start justify-between gap-4 mb-4">
+                                        <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+                                        <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 ${roadmapStatusConfig[item.status].colorClass}`}>
+                                            {roadmapStatusConfig[item.status].icon}
+                                            <span className="text-sm font-medium">{item.status}</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-4 text-sm text-white/60">
+                                        <div className="flex items-center gap-2">
+                                            <Calendar className="w-4 h-4" />
+                                            <span>{item.projectedRelease}</span>
+                                        </div>
+                                        <span className={`px-2 py-0.5 text-xs rounded-full border ${changeTypeConfig[item.changeType]?.bgClass || 'bg-white/10'} ${changeTypeConfig[item.changeType]?.textClass || 'text-white/70'}`}>
+                                            {changeTypeConfig[item.changeType]?.label || item.changeType}
+                                        </span>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+
+                        <div className="mt-8 text-center">
+                            <Link
+                                to="/roadmap"
+                                className="inline-flex items-center gap-2 px-6 py-3 bg-[#E8B058]/10 border border-[#E8B058]/30 rounded-lg text-[#E8B058] font-medium hover:bg-[#E8B058]/20 transition-colors no-underline"
+                            >
+                                <MapIcon className="w-5 h-5" />
+                                View Full Roadmap
+                                <ArrowRight className="w-4 h-4" />
+                            </Link>
+                        </div>
+                    </motion.section>
 
                     {/* Info Section */}
                     <motion.div

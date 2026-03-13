@@ -56,15 +56,15 @@ const config: Config = {
   projectName: 'nxgen-docs',
 
   onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
   onBrokenAnchors: 'warn',
 
-  // Handle broken markdown images (pre-existing issues with missing images in docs)
+  // Handle broken markdown links/images (pre-existing issues in migrated content)
   markdown: {
     // .md files → CommonMark (safe for AI-generated/migrated content with {} chars)
     // .mdx files → MDX (for hand-authored pages with React components)
     format: 'detect',
     hooks: {
+      onBrokenMarkdownLinks: 'warn',
       onBrokenMarkdownImages: (image, file, options) => {
         console.warn(`[Warning] Broken image "${image}" in ${file.path}`);
         return;
@@ -116,7 +116,7 @@ const config: Config = {
         path: 'docs-internal',
         routeBasePath: 'internal',
         sidebarPath: './sidebars-internal.ts',
-        showLastUpdateTime: false, // Disabled for Vercel builds (no git access)
+        showLastUpdateTime: false,
         showLastUpdateAuthor: false,
         editUrl: undefined,
       },
@@ -129,7 +129,7 @@ const config: Config = {
         path: 'docs-admin',
         routeBasePath: 'role-admin',
         sidebarPath: './sidebars-admin.ts',
-        showLastUpdateTime: false, // Disabled for Vercel builds (no git access)
+        showLastUpdateTime: false,
         showLastUpdateAuthor: false,
         editUrl: undefined,
         sidebarCollapsible: true,
@@ -144,7 +144,7 @@ const config: Config = {
         path: 'docs-manager',
         routeBasePath: 'manager',
         sidebarPath: './sidebars-manager.ts',
-        showLastUpdateTime: false, // Disabled for Vercel builds (no git access)
+        showLastUpdateTime: false,
         showLastUpdateAuthor: false,
         editUrl: undefined,
         sidebarCollapsible: true,
@@ -159,7 +159,7 @@ const config: Config = {
         path: 'docs-operator',
         routeBasePath: 'operator',
         sidebarPath: './sidebars-operator.ts',
-        showLastUpdateTime: false, // Disabled for Vercel builds (no git access)
+        showLastUpdateTime: false,
         showLastUpdateAuthor: false,
         editUrl: undefined,
         sidebarCollapsible: true,
@@ -174,7 +174,7 @@ const config: Config = {
         path: 'docs-operator-minimal',
         routeBasePath: 'operator-minimal',
         sidebarPath: './sidebars-operator-minimal.ts',
-        showLastUpdateTime: false, // Disabled for Vercel builds (no git access)
+        showLastUpdateTime: false,
         showLastUpdateAuthor: false,
         editUrl: undefined,
         sidebarCollapsible: true,

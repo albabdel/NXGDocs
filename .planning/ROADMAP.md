@@ -108,7 +108,8 @@ Plans:
 - [x] **Phase 6: Schema & Data Pipeline** - Replace releaseNote schema, add roadmapItem schema, and extend the fetch pipeline to produce verified JSON for all downstream pages
 - [x] **Phase 7: Releases Page** - Replace the hardcoded releases page with a Sanity-driven index and per-sprint detail pages with full rich media support
 - [x] **Phase 8: Roadmap Page & Hero Banner** - Replace the hardcoded roadmap page with a Sanity-driven, filterable page and wire the hero banner to show the latest release dynamically
-- [ ] **Phase 9: Cleanup & URL Continuity** - Remove legacy pages and dead files, verify all URL patterns resolve correctly, and confirm no 404s were introduced
+- [x] **Phase 9: Cleanup & URL Continuity** - Remove legacy pages and dead files, verify all URL patterns resolve correctly, and confirm no 404s were introduced
+- [ ] **Phase 10: Deep Cleanup** - Remove all dead CMS artifacts (Hygraph, Strapi, Payload, Vercel, Netlify), legacy scripts, build logs, and documentation from failed CMS attempts
 
 ## Phase Details
 
@@ -170,6 +171,23 @@ Plans:
   3. Sprint 2025.12-A and Sprint 2025.12-B are no longer visible on the public /releases index — they are archived and do not appear in the Sanity-driven page output
 **Plans**: TBD
 
+### Phase 10: Deep Cleanup
+**Goal**: Remove all dead CMS artifacts, legacy scripts, build logs, and documentation from 4+ failed CMS attempts (Hygraph, Storyblok, Strapi, Payload) and platform migrations (Vercel, Netlify) — codebase contains only active Sanity-related files
+**Depends on**: Phase 9
+**Requirements**: CLEN-01 (extended), ARCH-01
+**Success Criteria** (what must be TRUE):
+  1. No dead dot-directories remain (classic/.netlify, classic/.storyblok, classic/.vercel, classic/_migrated_content)
+  2. No dead staging directories remain (content-staging/, Implementation plan/)
+  3. No dead Hygraph/Strapi/Payload scripts remain in classic/scripts/ or scripts/
+  4. No build logs or temp .txt/.log files remain in classic/
+  5. No dead config files remain (vercel.json, netlify.toml.disabled, algolia-config.json, image-mapping.json)
+  6. No dead documentation files remain (ALGOLIA_*.md, CMS_*.md, E2E_*.md, etc.)
+  7. npm run build exits 0 with no errors
+**Plans**: 1 plan
+
+Plans:
+- [ ] 10-01-PLAN.md — Delete all dead directories, scripts, configs, docs, logs; clean docusaurus.config.ts comments; verify build
+
 ## Progress
 
 **Execution Order:**
@@ -185,4 +203,5 @@ v1.0 complete. v1.1 executes: 6 → 7 → 8 (parallel after 6) → 9
 | 6. Schema & Data Pipeline | v1.1 | 3/3 | Complete | 2026-03-13 |
 | 7. Releases Page | v1.1 | 2/2 | Complete | 2026-03-13 |
 | 8. Roadmap Page & Hero Banner | v1.1 | 2/2 | Complete | 2026-03-13 |
-| 9. Cleanup & URL Continuity | v1.1 | 0/TBD | Not started | - |
+| 9. Cleanup & URL Continuity | v1.1 | 3/3 | Complete | 2026-03-13 |
+| 10. Deep Cleanup | v1.1 | 0/1 | In progress | - |

@@ -1,8 +1,0 @@
-{
-  "label": "Devices",
-  "position": 4,
-  "link": {
-    "type": "generated-index",
-    "description": "Device configuration guides for all supported devices"
-  }
-}
