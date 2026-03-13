@@ -3,11 +3,11 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Releases & Roadmap
 status: in_progress
-stopped_at: defining requirements
+stopped_at: roadmap created, ready to plan Phase 6
 last_updated: "2026-03-13T00:00:00Z"
-last_activity: 2026-03-13 — Milestone v1.1 started; requirements being defined
+last_activity: 2026-03-13 — v1.1 roadmap created; 26 requirements mapped to Phases 6-9
 progress:
-  total_phases: 0
+  total_phases: 4
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -21,19 +21,20 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-13)
 
 **Core value:** Non-technical editors can open a web UI, write content, and publish it — without a developer as a bottleneck.
-**Current focus:** Milestone v1.1 — Releases & Roadmap
+**Current focus:** Phase 6 — Schema & Data Pipeline (v1.1 start)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Status: Defining requirements
-Last activity: 2026-03-13 — Milestone v1.1 started
+Phase: 6 of 9 (Schema & Data Pipeline)
+Plan: 0 of TBD in current phase
+Status: Ready to plan
+Last activity: 2026-03-13 — v1.1 roadmap created; 26 requirements mapped across Phases 6-9
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [░░░░░░░░░░] 0% (v1.1 not started)
 
-## Previous Milestone Summary (v1.0)
+## Previous Milestone Summary (v1.0 — SHIPPED 2026-03-08)
 
-All 5 phases of v1.0 complete:
+All 5 phases complete:
 - Phase 1 (Cleanup): Dead CMS code removed, CSS consolidated, build stabilized
 - Phase 2 (CMS Setup): Sanity Studio deployed, all 4 schemas locked
 - Phase 3 (Integration Pipeline): Docusaurus-Sanity plugin built, publish webhook wired
@@ -44,61 +45,28 @@ All 5 phases of v1.0 complete:
 
 ### Decisions
 
-Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
-- [Roadmap]: Merged Phase 3 (plugin) and Phase 4 (webhook) from research into one Integration Pipeline phase — they share the same env vars and are verified together end-to-end
-- [Roadmap]: INTG-04 (broken links) assigned to Phase 1 (Cleanup) not Phase 3 — it is a cleanup concern that unblocks stable builds, not a CMS concern
-- [Research flag]: Phase 2 requires experimentation on how Docusaurus `<Tabs>` and `<Steps>` map to Sanity Portable Text custom block types — resolve during Phase 2 planning
-- [Research flag]: Phase 4 requires evaluation of markdown-to-Portable-Text library (`sanity-markdown-to-blocks` vs `mdast-util-to-portable-text` vs manual) — JSX-heavy MDX makes this the most ambiguous technical choice
-- [Phase 01-cleanup]: Delete sanitize.ts: SSG-unsafe DOMPurify wrapper whose only consumer was Storyblok
-- [Phase 01-cleanup]: Delete scripts/lib/markdown-to-richtext.js: sole consumer (migrate-articles) was deleted in same plan
-- [Phase 01-cleanup]: Keep index:algolia in package.json scripts despite not being in explicit target shape — plan says preserve Algolia scripts
-- [Phase 01-cleanup]: All 15 components confirmed orphaned via grep before deletion - no active callers in pages/, theme/, or docs/
-- [Phase 01-cleanup]: CSS custom.css baseline for Plan 04: 3,832 lines - deleted components used CSS modules not global rules, no global CSS removal needed
-- [Phase 01-cleanup]: Keep framer-motion: 25+ active import calls across pages/ and components/ - confirmed active library
-- [Phase 01-cleanup]: Keep nodemailer + @types/nodemailer: reserved for Plan 01-06 Cloudflare Pages Function
-- [Phase 01-cleanup]: Delete src/i18n/index.ts: orphaned module with no consumers, references now-removed packages
-- [Phase 01-cleanup]: Use ZeptoMail HTTP API (fetch) for page feedback emails: Cloudflare Workers have no TCP socket support, making nodemailer SMTP incompatible
-- [Phase 01-cleanup]: Delete classic/api/page-feedback.ts (Vercel) and netlify/functions/page-feedback.mjs: both platform-incompatible with Cloudflare Pages and now superseded by classic/functions/page-feedback.ts
-- [Phase 01-cleanup]: ZEPTO_API_KEY must be added to Cloudflare Pages env vars; SMTP_USER/SMTP_PASS no longer needed by feedback function
-- [Phase 01-cleanup]: CSS feature card global rules confirmed dead: active components use CSS modules; global .feature-card system removed as orphaned
-- [Phase 01-cleanup]: CSS stops at 3531 lines (not 2000): remaining rules are all live Docusaurus theme elements — plan stopping condition 'only genuinely-shared rules remain' met
-- [Phase 01-cleanup]: Create docs/support/contact.md stub as target for 92 broken support-ticket links rather than mass link removal
-- [Phase 01-cleanup]: onBrokenLinks set to throw: build now fails on any future broken internal link - regression gate active
-- [Phase 02-cms-setup]: referencePage not reference: Sanity reserves 'reference' as a built-in type — document type renamed to 'referencePage'; Phase 3 GROQ must use _type == 'referencePage'
-- [Phase 02-cms-setup]: Shared bodyField pattern: portableText.ts exports one bodyField imported by all 4 document types, preventing copy-paste drift
-- [Phase 02-cms-setup]: Callout body uses type: 'text' not nested array: nested Portable Text inside defineArrayMember causes Studio recursion issues
-- [Phase 02-cms-setup]: Studio URL confirmed as nxgen-docs.sanity.studio — hostname was available, no alternate needed — CF Pages uses unprefixed SANITY_* vars (not SANITY_STUDIO_*) for Phase 3 plugin build-time access — two separate namespaces for two separate consumers
-- [Phase 02-cms-setup]: referencePage confirmed as Phase 3 GROQ contract via human Studio verification — Phase 3 must use _type == referencePage in all queries — Sanity reserves reference as a built-in cross-document reference type; referencePage is the actual document type name after Plan 02 rename
-- [Phase 03-integration-pipeline]: Install @sanity/client and @portabletext/markdown into classic/ (not root/studio) — plugin runs inside Docusaurus build process
-- [Phase 03-integration-pipeline]: Use test.skip for page-presence Playwright test until Plan 02 plugin is complete — Nyquist scaffold before implementation
-- [Phase 03-integration-pipeline]: portableTextToMarkdown is the correct export from @portabletext/markdown v1 (not toMarkdown)
-- [Phase 03-integration-pipeline]: docusaurus-plugin-sanity-content must be first in plugins[] — Docusaurus runs loadContent() in order, so cache must be populated before plugin-content-docs reads it
-- [Phase 03-integration-pipeline]: Task 2 smoke test deferred until ZEPTO_API_KEY confirmed in CF Pages production — email delivery requires live deployment
-- [Phase 03-integration-pipeline]: netlify/ directory exists as empty untracked git dir — no function files, plan intent met
-- [Phase 05-polish]: Checkpoint not approved — 3 gaps identified: Pagefind migration (Gap 1), hero light mode design (Gap 2), general light mode contrast sweep (Gap 3)
-- [Phase 05-polish]: playwright.config.ts: admin:server webServer block removed — script not in package.json, Decap CMS not required for nav/search/visual e2e tests
-- [Phase 05-polish]: footer selector fix: toBeAttached() used instead of toBeVisible() — Docusaurus layout renders two footer elements, first is CSS-hidden
-- [Phase 05-polish]: Background image opacity set to 0.40 in light mode (raised from 0.15) — threshold above which Background.jpg is visually meaningful on warm cream base
-- [Phase 05-polish]: White overlay reduced from from-white/40...to-white/60 to from-white/10...to-white/25 — gradient no longer dominates top of hero
-- [Phase 05-polish]: Light mode contrast sweep (05-06): all 4 #E8B058 instances in index.tsx confirmed covered — 3 text instances by line 1753 override, 1 decorative gradient needing no override
-- [Phase 05-polish]: NXGENSphereHero Reimagined. subtitle already conditionally uses text-[#996B1F] directly in light mode — no CSS override needed for this element
-- [Phase 05-polish]: Search: switched from @getcanary/docusaurus-theme-search-pagefind (shadow DOM, invisible modal) to @easyops-cn/docusaurus-search-local v0.55.1; docsPluginIdForPreferredVersion: 'sanity-docs' required (no default plugin ID); SearchBar rendered in Root.tsx with fixed positioning (navbar CSS-hidden globally)
-- [Phase 05-polish]: Hero "How can we help?" search button replaced with "Explore Documentation" quick-link pills
-- [Phase 05-polish]: ShareSection moved inside .theme-doc-toc-desktop container (not sibling) so padding-top clearance applies; sits directly above "ON THIS PAGE"
-- [Phase 05-polish]: Phase 5 human checkpoint approved 2026-03-08
+- [v1.1 roadmap]: Zero new npm packages needed — all libraries already installed in classic/ and studio/
+- [v1.1 roadmap]: Build-time JSON is the SSG-safe data contract — no runtime API calls, no Cloudflare Functions for roadmap data
+- [v1.1 roadmap]: Phases 7 and 8 can run in parallel after Phase 6 is verified — they share only the Phase 6 JSON output
+- [v1.1 roadmap]: Replace releaseNote schema with release (one doc, items array) — matches bi-weekly publish workflow, simpler Studio UX
+- [v1.1 roadmap]: roadmap.tsx and releases.tsx must be replaced entirely, not extended — SanityLandingPageRoute wrapper silently renders legacy content when no matching landingPage document exists
+- [v1.1 roadmap]: MOCK-01 and MOCK-02 assigned to Phase 6 — editors enter sample data after schemas are live, before pages are built
 
 ### Pending Todos
 
-None yet — requirements being defined.
+None.
 
 ### Blockers/Concerns
 
-None.
+- [Phase 6] Schema migration is highest-risk step: must be atomic — add new schema, migrate docs, update all 4 registration sites in Studio config, update GROQ queries, delete old schema. Never rename first.
+- [Phase 6] `build.sh` uses `|| true` on fetch step — silently hides empty-content deploys. Enable strict mode during migration; verify non-zero document counts before proceeding to Phase 7/8.
+- [Phase 6] Decide before planning: is `displayTitle` required or optional with `sprintId` as fallback?
+- [Phase 6] Verify Cloudflare Pages webhook scope — may fire on draft saves. Scope to published `release` and `roadmapItem` documents only.
 
 ## Session Continuity
 
-Last session: 2026-03-13T00:00:00Z
-Stopped at: Requirements definition in progress
+Last session: 2026-03-13
+Stopped at: Roadmap created for v1.1 (Phases 6-9). No planning started yet.
 Resume file: None

@@ -1,25 +1,14 @@
 # Roadmap: NXGEN GCXONE Documentation Platform
 
-## Overview
+## Milestones
 
-The project starts by excising five previous failed CMS integrations from the codebase, leaving a clean Docusaurus build. Sanity CMS is then configured via MCP, schemas are locked, and a custom build-time plugin wires Sanity content into Docusaurus alongside a webhook that triggers automatic Cloudflare Pages rebuilds on publish. All existing MDX content is migrated to Sanity section by section with zero URL breakage. A final polish phase tightens navigation, search, and visual consistency. At completion, a non-technical editor can write in Sanity Studio and have changes live on docs.nxgen.cloud within minutes — no developer involvement.
+- v1.0 MVP - Phases 1-5 (shipped 2026-03-08)
+- v1.1 Releases & Roadmap - Phases 6-9 (in progress)
 
 ## Phases
 
-**Phase Numbering:**
-- Integer phases (1, 2, 3): Planned milestone work
-- Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
-
-Decimal phases appear between their surrounding integers in numeric order.
-
-- [x] **Phase 1: Cleanup** - Remove all dead CMS code, consolidate CSS, and stabilize the build (completed 2026-03-07)
-- [x] **Phase 2: CMS Setup** - Create Sanity project, configure MCP server, and lock all content schemas (completed 2026-03-07)
-- [x] **Phase 3: Integration Pipeline** - Build the Docusaurus-Sanity plugin, rewrite feedback widget, and wire publish webhook (completed 2026-03-07)
-- [x] **Phase 4: Content Migration** - Move all MDX content into Sanity section by section with zero URL breakage (completed 2026-03-08)
-- [x] **Phase 5: Polish** - Refine navigation, search UX, and visual consistency
- (completed 2026-03-07)
-
-## Phase Details
+<details>
+<summary>v1.0 MVP (Phases 1-5) - SHIPPED 2026-03-08</summary>
 
 ### Phase 1: Cleanup
 **Goal**: The Docusaurus build is clean, fast, and free of dead CMS code — a stable foundation for Sanity integration
@@ -35,14 +24,14 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 8 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Delete Storyblok files (atomic import-order deletion) and remove dead CMS scripts + prebuild hook from package.json
-- [ ] 01-02-PLAN.md — Audit and delete confirmed-orphaned components; remove co-located CSS rules
-- [ ] 01-03-PLAN.md — Remove all dead npm packages in verified batches (Storyblok, Tiptap, Monaco, GraphQL, dnd-kit, tsparticles, MUI, i18n, PDF)
-- [ ] 01-04-PLAN.md — Final CSS consolidation pass to under 2,000 lines; human visual spot-check
-- [ ] 01-05-PLAN.md — Upgrade onBrokenLinks to 'warn' → fix all broken links → elevate to 'throw'
-- [ ] 01-06-PLAN.md — Rewrite feedback widget as Cloudflare Pages Function (ZeptoMail HTTP API); delete dead Netlify/Vercel files; remove nodemailer
-- [ ] 01-07-PLAN.md — [GAP] Delete 10 remaining orphaned components (BackToTop, Badge, Collapsible, EnhancedFeatureCard, ErrorBoundary, FeaturesGrid, PrevNext, QuickLinks, Skeleton, VideoEmbed)
-- [ ] 01-08-PLAN.md — [GAP] Delete classic/api/feedback.ts and netlify/functions/storyblok-to-gitlab.mjs; create voc-feedback Cloudflare Pages Function; update VoCModal fetch URL
+- [x] 01-01-PLAN.md — Delete Storyblok files (atomic import-order deletion) and remove dead CMS scripts + prebuild hook from package.json
+- [x] 01-02-PLAN.md — Audit and delete confirmed-orphaned components; remove co-located CSS rules
+- [x] 01-03-PLAN.md — Remove all dead npm packages in verified batches (Storyblok, Tiptap, Monaco, GraphQL, dnd-kit, tsparticles, MUI, i18n, PDF)
+- [x] 01-04-PLAN.md — Final CSS consolidation pass to under 2,000 lines; human visual spot-check
+- [x] 01-05-PLAN.md — Upgrade onBrokenLinks to 'warn' → fix all broken links → elevate to 'throw'
+- [x] 01-06-PLAN.md — Rewrite feedback widget as Cloudflare Pages Function (ZeptoMail HTTP API); delete dead Netlify/Vercel files; remove nodemailer
+- [x] 01-07-PLAN.md — [GAP] Delete 10 remaining orphaned components (BackToTop, Badge, Collapsible, EnhancedFeatureCard, ErrorBoundary, FeaturesGrid, PrevNext, QuickLinks, Skeleton, VideoEmbed)
+- [x] 01-08-PLAN.md — [GAP] Delete classic/api/feedback.ts and netlify/functions/storyblok-to-gitlab.mjs; create voc-feedback Cloudflare Pages Function; update VoCModal fetch URL
 
 ### Phase 2: CMS Setup
 **Goal**: Sanity is ready for content — MCP operational, Studio accessible, and all four schemas locked before any content is entered
@@ -56,9 +45,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Scaffold Sanity Studio in studio/ subdirectory and register Sanity MCP server in Claude Code
-- [ ] 02-02-PLAN.md — Write all 4 content-type schemas (doc, releaseNote, article, reference) and deploy schema manifest
-- [ ] 02-03-PLAN.md — Deploy Studio to *.sanity.studio, set CF Pages env vars, human-verify full Studio flow
+- [x] 02-01-PLAN.md — Scaffold Sanity Studio in studio/ subdirectory and register Sanity MCP server in Claude Code
+- [x] 02-02-PLAN.md — Write all 4 content-type schemas (doc, releaseNote, article, reference) and deploy schema manifest
+- [x] 02-03-PLAN.md — Deploy Studio to *.sanity.studio, set CF Pages env vars, human-verify full Studio flow
 
 ### Phase 3: Integration Pipeline
 **Goal**: Sanity content appears in the live site automatically when an editor clicks publish in Studio
@@ -71,10 +60,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — Install @sanity/client + @portabletext/markdown; add .sanity-cache/ to both .gitignore files; scaffold Playwright spec
-- [ ] 03-02-PLAN.md — Build docusaurus-plugin-sanity-content (GROQ fetch → Portable Text → MDX); register in docusaurus.config.ts first; human-verify end-to-end build
-- [ ] 03-03-PLAN.md — Create Cloudflare Pages deploy hook and register Sanity GROQ webhook; human-verify Studio publish triggers live rebuild
-- [ ] 03-04-PLAN.md — Verify feedback widget end-to-end: confirm ZEPTO_API_KEY set, smoke-test live endpoint, confirm email delivery
+- [x] 03-01-PLAN.md — Install @sanity/client + @portabletext/markdown; add .sanity-cache/ to both .gitignore files; scaffold Playwright spec
+- [x] 03-02-PLAN.md — Build docusaurus-plugin-sanity-content (GROQ fetch → Portable Text → MDX); register in docusaurus.config.ts first; human-verify end-to-end build
+- [x] 03-03-PLAN.md — Create Cloudflare Pages deploy hook and register Sanity GROQ webhook; human-verify Studio publish triggers live rebuild
+- [x] 03-04-PLAN.md — Verify feedback widget end-to-end: confirm ZEPTO_API_KEY set, smoke-test live endpoint, confirm email delivery
 
 ### Phase 4: Content Migration
 **Goal**: All reader-facing content lives in Sanity, no live URL returns 404, and editors can manage everything from Studio
@@ -106,15 +95,81 @@ Plans:
 - [x] 05-05-PLAN.md — [GAP] Hero light mode redesign: increase background.jpg opacity, reduce white overlay, accessible gold on light background
 - [x] 05-06-PLAN.md — [GAP] Light mode contrast sweep: index.tsx + custom.css #E8B058 → accessible token for light mode; re-run human verification checkpoint (approved 2026-03-08)
 
+</details>
+
+---
+
+### v1.1 Releases & Roadmap (In Progress)
+
+**Milestone Goal:** Give customers a public releases page and browseable product roadmap, both managed through Sanity Studio — editors publish content, the site rebuilds automatically.
+
+**Phase Numbering:** v1.1 starts at 6 (continuing from v1.0 which ended at 5).
+
+- [ ] **Phase 6: Schema & Data Pipeline** - Replace releaseNote schema, add roadmapItem schema, and extend the fetch pipeline to produce verified JSON for all downstream pages
+- [ ] **Phase 7: Releases Page** - Replace the hardcoded releases page with a Sanity-driven index and per-sprint detail pages with full rich media support
+- [ ] **Phase 8: Roadmap Page & Hero Banner** - Replace the hardcoded roadmap page with a Sanity-driven, filterable page and wire the hero banner to show the latest release dynamically
+- [ ] **Phase 9: Cleanup & URL Continuity** - Remove legacy pages and dead files, verify all URL patterns resolve correctly, and confirm no 404s were introduced
+
+## Phase Details
+
+### Phase 6: Schema & Data Pipeline
+**Goal**: Editors can create sprint releases and roadmap items in Sanity Studio, and the build pipeline produces verified JSON files containing that data — every downstream page has correct data to import
+**Depends on**: Phase 5
+**Requirements**: SCHEMA-01, SCHEMA-02, SCHEMA-03, SCHEMA-04, MOCK-01, MOCK-02
+**Success Criteria** (what must be TRUE):
+  1. Editor can open Sanity Studio, create a new sprint release document with an array of items (each with title, body, change type, affected areas, optional screenshot, optional video embed URL), and publish it without errors
+  2. Editor can create a roadmap item with all fields populated (title, description, status, business value, change type, UI change flag, entities impacted, projected release date) and link a Shipped item to a specific sprint release
+  3. Running the build locally produces non-empty `sanity-releases.generated.json` and `sanity-roadmap.generated.json` files — confirmed by log output showing document counts greater than zero
+  4. The old `releaseNote` schema and its GROQ query are fully removed — no references remain in Studio config, structure, or schemaTypes index
+  5. Sample data (2-3 sprint releases with items, 5-8 roadmap items covering all three statuses) is present in Sanity Studio and visible in GROQ Vision
+**Plans**: TBD
+
+### Phase 7: Releases Page
+**Goal**: Visitors can browse all published sprint releases at /releases, click into any release for the full detail view with screenshots and video, and the most recent release is visually distinguished
+**Depends on**: Phase 6
+**Requirements**: REL-01, REL-02, REL-03, REL-04, REL-05, REL-06, REL-07, REL-08, REL-09
+**Success Criteria** (what must be TRUE):
+  1. Visiting /releases shows a reverse-chronological list of sprint releases driven by Sanity data — each card shows sprint ID, publish date, summary, and change-type badges, and the most recent release carries a "Latest" badge
+  2. Clicking any release card opens the full detail page at /releases/[slug] — every item in that sprint shows its title, body text, change-type tag, and affected-areas tags
+  3. Release items with screenshots display the images inline on the detail page; items with video embed URLs display the embedded player
+  4. Release items that reference a documentation page show a "Read the docs" link that navigates to the correct page
+**Plans**: TBD
+
+### Phase 8: Roadmap Page & Hero Banner
+**Goal**: Visitors can find and explore roadmap items by status or keyword at /roadmap, shipped items link back to their release notes, and the home page hero banner dynamically shows the latest sprint name from Sanity
+**Depends on**: Phase 6
+**Requirements**: ROAD-01, ROAD-02, ROAD-03, ROAD-04, ROAD-05, ROAD-06, ROAD-07, HERO-01
+**Success Criteria** (what must be TRUE):
+  1. Visiting /roadmap shows all roadmap items from Sanity — user can filter by status (Planned / In Progress / Shipped) and the results update immediately without a page reload
+  2. User can type a keyword in the search box and roadmap items filter to show only those whose title or description match — a results count is visible and an empty state with "Clear filters" appears when nothing matches
+  3. Expanding a roadmap item reveals its business value, change type, UI change flag, entities impacted, and projected release date; a Shipped item shows a "Released in [Sprint X]" link that navigates to the correct release detail page
+  4. The roadmap page footer shows "Last updated: [date]" pulled from Sanity
+  5. The hero banner on the home page shows the latest published sprint title and date — the string is not hardcoded and updates automatically when a new release is published in Sanity
+**Plans**: TBD
+
+### Phase 9: Cleanup & URL Continuity
+**Goal**: No legacy pages or dead files remain in the codebase, and every previously valid URL still resolves correctly — visitors and search engines encounter no 404s from the migration
+**Depends on**: Phase 7, Phase 8
+**Requirements**: ARCH-01, ARCH-02, ARCH-03
+**Success Criteria** (what must be TRUE):
+  1. Navigating to /internal-releases/ returns a redirect or clean 404 — the legacy page component is deleted from the codebase
+  2. All previously valid sprint URLs (e.g. /releases/sprint-2025-12-b) resolve to the correct page — a URL sweep of known legacy paths finds zero new 404s
+  3. Sprint 2025.12-A and Sprint 2025.12-B are no longer visible on the public /releases index — they are archived and do not appear in the Sanity-driven page output
+**Plans**: TBD
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
+v1.0 complete. v1.1 executes: 6 → 7 → 8 (parallel after 6) → 9
 
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Cleanup | 6/8 | Complete    | 2026-03-07 |
-| 2. CMS Setup | 3/3 | Complete    | 2026-03-07 |
-| 3. Integration Pipeline | 4/4 | Complete   | 2026-03-07 |
-| 4. Content Migration | TBD/TBD | Complete | 2026-03-08 |
-| 5. Polish | 6/6 | Complete | 2026-03-08 |
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 1. Cleanup | v1.0 | 8/8 | Complete | 2026-03-07 |
+| 2. CMS Setup | v1.0 | 3/3 | Complete | 2026-03-07 |
+| 3. Integration Pipeline | v1.0 | 4/4 | Complete | 2026-03-07 |
+| 4. Content Migration | v1.0 | TBD/TBD | Complete | 2026-03-08 |
+| 5. Polish | v1.0 | 6/6 | Complete | 2026-03-08 |
+| 6. Schema & Data Pipeline | v1.1 | 0/TBD | Not started | - |
+| 7. Releases Page | v1.1 | 0/TBD | Not started | - |
+| 8. Roadmap Page & Hero Banner | v1.1 | 0/TBD | Not started | - |
+| 9. Cleanup & URL Continuity | v1.1 | 0/TBD | Not started | - |

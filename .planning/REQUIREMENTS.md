@@ -81,40 +81,40 @@ Deferred to v1.2 or later.
 
 ## Traceability
 
-Populated during roadmap creation.
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SCHEMA-01 | — | Pending |
-| SCHEMA-02 | — | Pending |
-| SCHEMA-03 | — | Pending |
-| SCHEMA-04 | — | Pending |
-| REL-01 | — | Pending |
-| REL-02 | — | Pending |
-| REL-03 | — | Pending |
-| REL-04 | — | Pending |
-| REL-05 | — | Pending |
-| REL-06 | — | Pending |
-| REL-07 | — | Pending |
-| REL-08 | — | Pending |
-| REL-09 | — | Pending |
-| ROAD-01 | — | Pending |
-| ROAD-02 | — | Pending |
-| ROAD-03 | — | Pending |
-| ROAD-04 | — | Pending |
-| ROAD-05 | — | Pending |
-| ROAD-06 | — | Pending |
-| ROAD-07 | — | Pending |
-| HERO-01 | — | Pending |
-| ARCH-01 | — | Pending |
-| ARCH-02 | — | Pending |
-| ARCH-03 | — | Pending |
+| SCHEMA-01 | Phase 6 | Pending |
+| SCHEMA-02 | Phase 6 | Pending |
+| SCHEMA-03 | Phase 6 | Pending |
+| SCHEMA-04 | Phase 6 | Pending |
+| MOCK-01 | Phase 6 | Pending |
+| MOCK-02 | Phase 6 | Pending |
+| REL-01 | Phase 7 | Pending |
+| REL-02 | Phase 7 | Pending |
+| REL-03 | Phase 7 | Pending |
+| REL-04 | Phase 7 | Pending |
+| REL-05 | Phase 7 | Pending |
+| REL-06 | Phase 7 | Pending |
+| REL-07 | Phase 7 | Pending |
+| REL-08 | Phase 7 | Pending |
+| REL-09 | Phase 7 | Pending |
+| ROAD-01 | Phase 8 | Pending |
+| ROAD-02 | Phase 8 | Pending |
+| ROAD-03 | Phase 8 | Pending |
+| ROAD-04 | Phase 8 | Pending |
+| ROAD-05 | Phase 8 | Pending |
+| ROAD-06 | Phase 8 | Pending |
+| ROAD-07 | Phase 8 | Pending |
+| HERO-01 | Phase 8 | Pending |
+| ARCH-01 | Phase 9 | Pending |
+| ARCH-02 | Phase 9 | Pending |
+| ARCH-03 | Phase 9 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 26 total
-- Mapped to phases: 0 (roadmapper will assign)
-- Unmapped: 26 ⚠️ (pending roadmap creation)
+- Mapped to phases: 26
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-13*
-*Last updated: 2026-03-13 after initial v1.1 definition*
+*Last updated: 2026-03-13 — traceability populated after roadmap creation*
