@@ -9,9 +9,9 @@ Requirements for the Releases & Roadmap milestone.
 
 ### Schema
 
-- [ ] **SCHEMA-01**: Editor can create a sprint release in Sanity Studio as one document with an array of items inside it
+- [x] **SCHEMA-01**: Editor can create a sprint release in Sanity Studio as one document with an array of items inside it
 - [ ] **SCHEMA-02**: Each release item has: title, body (rich text), change type tag, affected areas tags, optional screenshots, optional video embed URL, optional link to a docs page
-- [ ] **SCHEMA-03**: Editor can create a roadmap item in Sanity Studio with: title, description, status (Planned / In Progress / Shipped), business value, change type, UI change flag, entities impacted, projected release date
+- [x] **SCHEMA-03**: Editor can create a roadmap item in Sanity Studio with: title, description, status (Planned / In Progress / Shipped), business value, change type, UI change flag, entities impacted, projected release date
 - [ ] **SCHEMA-04**: A Shipped roadmap item can reference the specific sprint release it landed in
 
 ### Releases
@@ -83,9 +83,9 @@ Deferred to v1.2 or later.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SCHEMA-01 | Phase 6 | Pending |
+| SCHEMA-01 | Phase 6 | Complete |
 | SCHEMA-02 | Phase 6 | Pending |
-| SCHEMA-03 | Phase 6 | Pending |
+| SCHEMA-03 | Phase 6 | Complete |
 | SCHEMA-04 | Phase 6 | Pending |
 | MOCK-01 | Phase 6 | Pending |
 | MOCK-02 | Phase 6 | Pending |

@@ -133,7 +133,11 @@ Plans:
   2. Clicking any release card opens the full detail page at /releases/[slug] — every item in that sprint shows its title, body text, change-type tag, and affected-areas tags
   3. Release items with screenshots display the images inline on the detail page; items with video embed URLs display the embedded player
   4. Release items that reference a documentation page show a "Read the docs" link that navigates to the correct page
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 07-01-PLAN.md — Releases index page: replace SanityLandingPageRoute with direct JSON import; render reverse-chronological list with cards and "Latest" badge
+- [ ] 07-02-PLAN.md — Release detail page: dynamic [slug] route with items, screenshots, video embeds, affected-areas tags
 
 ### Phase 8: Roadmap Page & Hero Banner
 **Goal**: Visitors can find and explore roadmap items by status or keyword at /roadmap, shipped items link back to their release notes, and the home page hero banner dynamically shows the latest sprint name from Sanity
@@ -169,7 +173,7 @@ v1.0 complete. v1.1 executes: 6 → 7 → 8 (parallel after 6) → 9
 | 3. Integration Pipeline | v1.0 | 4/4 | Complete | 2026-03-07 |
 | 4. Content Migration | v1.0 | TBD/TBD | Complete | 2026-03-08 |
 | 5. Polish | v1.0 | 6/6 | Complete | 2026-03-08 |
-| 6. Schema & Data Pipeline | v1.1 | 0/TBD | Not started | - |
-| 7. Releases Page | v1.1 | 0/TBD | Not started | - |
+| 6. Schema & Data Pipeline | 1/3 | In Progress|  | - |
+| 7. Releases Page | v1.1 | 2/2 | Planned | 2026-03-13 |
 | 8. Roadmap Page & Hero Banner | v1.1 | 0/TBD | Not started | - |
 | 9. Cleanup & URL Continuity | v1.1 | 0/TBD | Not started | - |
