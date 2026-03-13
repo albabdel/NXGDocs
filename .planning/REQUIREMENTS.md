@@ -1,104 +1,120 @@
-# Requirements: NXGEN GCXONE Documentation Platform
+# Requirements: NXGEN GCXONE Documentation Platform — v1.1
 
-**Defined:** 2026-03-06
+**Defined:** 2026-03-13
 **Core Value:** Non-technical editors can open a web UI, write content, and publish it — without a developer as a bottleneck.
 
-## v1 Requirements
+## v1.1 Requirements
 
-### Cleanup
+Requirements for the Releases & Roadmap milestone.
 
-- [x] **CLEN-01**: Codebase builds cleanly after removing all dead CMS packages (Storyblok, TinaCMS, Hygraph, Strapi, Payload, Tiptap, Monaco, Express, GraphQL client, and their transitive dependencies)
-- [x] **CLEN-02**: Cloudflare Pages build no longer calls `fetchHygraphContent.js` or any legacy prebuild hooks
-- [x] **CLEN-03**: Unused React components identified and removed — only components actively rendered in the site remain
-- [x] **CLEN-04**: CSS consolidated from ~3,800 lines to a maintainable stylesheet with dead rules removed and visual design preserved
+### Schema
 
-### CMS Setup
+- [ ] **SCHEMA-01**: Editor can create a sprint release in Sanity Studio as one document with an array of items inside it
+- [ ] **SCHEMA-02**: Each release item has: title, body (rich text), change type tag, affected areas tags, optional screenshots, optional video embed URL, optional link to a docs page
+- [ ] **SCHEMA-03**: Editor can create a roadmap item in Sanity Studio with: title, description, status (Planned / In Progress / Shipped), business value, change type, UI change flag, entities impacted, projected release date
+- [ ] **SCHEMA-04**: A Shipped roadmap item can reference the specific sprint release it landed in
 
-- [x] **CMS-01**: Sanity MCP server configured and operational so Claude can create/update schemas, query content, and manage the Sanity project without manual dashboard interaction
-- [x] **CMS-02**: Sanity project created with cloud-hosted Studio accessible at a public URL
-- [x] **CMS-03**: Content schemas defined for all 4 content types: product documentation, release notes, long-form articles, and reference pages — with slug fields matching existing URL patterns
+### Releases
 
-### Content Integration
+- [ ] **REL-01**: User can view a reverse-chronological list of all published sprint releases at /releases
+- [ ] **REL-02**: Each release card on the index shows: sprint ID, publish date, summary, and change-type badges
+- [ ] **REL-03**: The most recent release is marked with a "Latest" badge on the index page
+- [ ] **REL-04**: User can click a release card to view the full sprint detail page at /releases/[slug]
+- [ ] **REL-05**: Each item on a sprint detail page displays its title, body, and change-type tag
+- [ ] **REL-06**: Each release item can display one or more screenshots inline
+- [ ] **REL-07**: Each release item can display a video embed (YouTube/Vimeo)
+- [ ] **REL-08**: Each release item can display affected-areas tags
+- [ ] **REL-09**: Each release item can optionally link to a related documentation page ("Read the docs →")
 
-- [x] **INTG-01**: Custom Docusaurus plugin fetches content from Sanity at build time via GROQ and generates MDX files — Docusaurus renders them as normal pages
-- [ ] **INTG-02**: Sanity publish event triggers Cloudflare Pages rebuild via deploy hook — live site updates within minutes of clicking publish in Studio
-- [x] **INTG-03**: Feedback widget rewritten to use `fetch()` to an HTTP email API — works on Cloudflare Workers (removes `nodemailer` dependency)
-- [x] **INTG-04**: Broken links audited and resolved — `onBrokenLinks` upgraded from `'ignore'` to at minimum `'warn'`
+### Roadmap
 
-### Content Migration
+- [ ] **ROAD-01**: User can view all roadmap items at /roadmap (Sanity-driven, replaces legacy hardcoded page)
+- [ ] **ROAD-02**: User can filter roadmap items by status (Planned / In Progress / Shipped)
+- [ ] **ROAD-03**: User can search roadmap items by keyword (searches title and description)
+- [ ] **ROAD-04**: User can expand a roadmap item to see: business value, change type, UI change flag, entities impacted, and projected release
+- [ ] **ROAD-05**: A Shipped roadmap item shows a "Released in [Sprint X] →" link to the corresponding release detail page
+- [ ] **ROAD-06**: The roadmap page shows a results count and a "no results" empty state when filters match nothing
+- [ ] **ROAD-07**: The roadmap page footer shows "Last updated: [date]" pulled from Sanity
 
-- [ ] **MIGR-01**: All product documentation MDX files migrated to Sanity with slug continuity (existing `/docs/...` URLs remain valid)
-- [ ] **MIGR-02**: All release notes and sprint update content migrated to Sanity
-- [ ] **MIGR-03**: All long-form articles migrated to Sanity
-- [ ] **MIGR-04**: All reference pages (specs, glossary, tables) migrated to Sanity
-- [ ] **MIGR-05**: Zero 404s introduced — all live URLs verified functional after migration
+### Hero Banner
 
-### Polish
+- [ ] **HERO-01**: The hero banner on the home page shows the latest published release title and date, dynamically pulled from Sanity at build time
 
-- [ ] **PLSH-01**: Navigation and search UX improved — sidebar structure refined, content discovery measurably faster
-- [x] **PLSH-02**: Visual inconsistencies resolved — CSS cleaned up, design direction polished without changing the overall visual identity
+### Mock Data
 
-## v2 Requirements
+- [ ] **MOCK-01**: 2–3 sample sprint release documents created in Sanity Studio with real-looking content (sprint title, date, 3–4 items each with text, at least one screenshot placeholder, at least one video embed)
+- [ ] **MOCK-02**: 5–8 sample roadmap items created in Sanity Studio covering all three statuses (Planned, In Progress, Shipped), with all fields populated — at least one Shipped item linked to a mock sprint release
 
-### CMS Enhancements
+### Cleanup & URL Continuity
 
-- **CMS-V2-01**: Cloudinary asset source plugin in Sanity Studio — images uploaded in Studio go to Cloudinary automatically
-- **CMS-V2-02**: Live preview in Sanity Studio — editors see how pages look before publishing
-- **CMS-V2-03**: Role-based content targeting — `targetAudience` field routes docs to correct reader role
+- [ ] **ARCH-01**: Legacy /internal-releases/ page is removed
+- [ ] **ARCH-02**: Existing sprint URL patterns (e.g. /releases/sprint-2025-12-b) continue to resolve after migration — no 404s introduced
+- [ ] **ARCH-03**: Existing Sprint 2025.12-A and Sprint 2025.12-B entries are archived (removed from public site)
 
-### Content Quality
+## Future Requirements
 
-- **QUAL-V2-01**: `onBrokenLinks` upgraded to `'throw'` — build fails on any broken link
-- **QUAL-V2-02**: Algolia crawler reconfigured to reflect new Sanity-sourced content structure
+Deferred to v1.2 or later.
 
-### Component Library
+### Releases
 
-- **COMP-V2-01**: Component library documented — each component has usage notes and props listed
-- **COMP-V2-02**: Performance audit — bundle size measured and optimized post-cleanup
+- **REL-F01**: Affected-areas filter chip group on /releases index (useful once 5+ releases with consistent tagging exist)
+- **REL-F02**: Change-type filter on /releases index
+- **REL-F03**: RSS feed for release notes
+
+### Roadmap
+
+- **ROAD-F01**: Year/quarter filter on /roadmap (useful once 2+ years of releases exist)
+- **ROAD-F02**: Kanban/board view (customer audience needs to read, not manage)
 
 ## Out of Scope
 
 | Feature | Reason |
 |---------|--------|
-| Multi-language support | Disabled in current config; not a priority for current audience |
-| Mobile app | Web-first; native app is a separate project |
-| Real-time collaborative editing | Not needed for solo/small team workflow |
-| Self-hosted CMS | User cannot maintain backend infrastructure |
-| Custom Studio plugins | Anti-feature — previous complexity was the root cause of 5 failed CMS attempts |
-| Content approval/review workflow | Overkill for single editor; adds friction to publish flow |
-| Scheduled publishing | Not in scope for v1 |
-| Rebuilding frontend from scratch | Polish and extend what exists |
+| Voting / upvoting on roadmap | Requires authentication + server infrastructure — static site |
+| Email subscription to releases | Requires mailing list service — operational overhead |
+| Comments on release entries | Requires authentication + storage |
+| Zoho Sprints sync | Explicitly out of scope; Sanity Studio is source of truth |
+| Private/internal roadmap view | Requires authentication; public only for v1.1 |
+| Real-time roadmap updates | Static site — Cloudflare Pages; webhook rebuild is the update mechanism |
+| Auto-generated release notes from git | Commit messages are developer notes, not customer copy |
+| Mux video (full streaming) | YouTube/Vimeo embed sufficient; Mux adds streaming costs |
 
 ## Traceability
 
-Which phases cover which requirements. Updated during roadmap creation.
+Populated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CLEN-01 | Phase 1 | Complete |
-| CLEN-02 | Phase 1 | Complete |
-| CLEN-03 | Phase 1 | Complete |
-| CLEN-04 | Phase 1 | Complete |
-| INTG-04 | Phase 1 | Complete |
-| CMS-01 | Phase 2 | Complete |
-| CMS-02 | Phase 2 | Complete |
-| CMS-03 | Phase 2 | Complete |
-| INTG-01 | Phase 3 | Complete |
-| INTG-02 | Phase 3 | Pending |
-| INTG-03 | Phase 3 | Complete |
-| MIGR-01 | Phase 4 | Pending |
-| MIGR-02 | Phase 4 | Pending |
-| MIGR-03 | Phase 4 | Pending |
-| MIGR-04 | Phase 4 | Pending |
-| MIGR-05 | Phase 4 | Pending |
-| PLSH-01 | Phase 5 | Pending |
-| PLSH-02 | Phase 5 | Complete |
+| SCHEMA-01 | — | Pending |
+| SCHEMA-02 | — | Pending |
+| SCHEMA-03 | — | Pending |
+| SCHEMA-04 | — | Pending |
+| REL-01 | — | Pending |
+| REL-02 | — | Pending |
+| REL-03 | — | Pending |
+| REL-04 | — | Pending |
+| REL-05 | — | Pending |
+| REL-06 | — | Pending |
+| REL-07 | — | Pending |
+| REL-08 | — | Pending |
+| REL-09 | — | Pending |
+| ROAD-01 | — | Pending |
+| ROAD-02 | — | Pending |
+| ROAD-03 | — | Pending |
+| ROAD-04 | — | Pending |
+| ROAD-05 | — | Pending |
+| ROAD-06 | — | Pending |
+| ROAD-07 | — | Pending |
+| HERO-01 | — | Pending |
+| ARCH-01 | — | Pending |
+| ARCH-02 | — | Pending |
+| ARCH-03 | — | Pending |
 
 **Coverage:**
-- v1 requirements: 18 total
-- Mapped to phases: 18
-- Unmapped: 0 ✓
+- v1.1 requirements: 26 total
+- Mapped to phases: 0 (roadmapper will assign)
+- Unmapped: 26 ⚠️ (pending roadmap creation)
 
 ---
-*Requirements defined: 2026-03-06*
-*Last updated: 2026-03-07 — CMS-01, CMS-02, CMS-03 marked complete after Phase 2 completion*
+*Requirements defined: 2026-03-13*
+*Last updated: 2026-03-13 after initial v1.1 definition*
