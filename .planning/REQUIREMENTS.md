@@ -16,40 +16,40 @@ Requirements for the Releases & Roadmap milestone.
 
 ### Releases
 
-- [ ] **REL-01**: User can view a reverse-chronological list of all published sprint releases at /releases
-- [ ] **REL-02**: Each release card on the index shows: sprint ID, publish date, summary, and change-type badges
-- [ ] **REL-03**: The most recent release is marked with a "Latest" badge on the index page
-- [ ] **REL-04**: User can click a release card to view the full sprint detail page at /releases/[slug]
-- [ ] **REL-05**: Each item on a sprint detail page displays its title, body, and change-type tag
-- [ ] **REL-06**: Each release item can display one or more screenshots inline
-- [ ] **REL-07**: Each release item can display a video embed (YouTube/Vimeo)
-- [ ] **REL-08**: Each release item can display affected-areas tags
-- [ ] **REL-09**: Each release item can optionally link to a related documentation page ("Read the docs →")
+- [x] **REL-01**: User can view a reverse-chronological list of all published sprint releases at /releases
+- [x] **REL-02**: Each release card on the index shows: sprint ID, publish date, summary, and change-type badges
+- [x] **REL-03**: The most recent release is marked with a "Latest" badge on the index page
+- [x] **REL-04**: User can click a release card to view the full sprint detail page at /releases/[slug]
+- [x] **REL-05**: Each item on a sprint detail page displays its title, body, and change-type tag
+- [x] **REL-06**: Each release item can display one or more screenshots inline
+- [x] **REL-07**: Each release item can display a video embed (YouTube/Vimeo)
+- [x] **REL-08**: Each release item can display affected-areas tags
+- [x] **REL-09**: Each release item can optionally link to a related documentation page ("Read the docs →")
 
 ### Roadmap
 
-- [ ] **ROAD-01**: User can view all roadmap items at /roadmap (Sanity-driven, replaces legacy hardcoded page)
-- [ ] **ROAD-02**: User can filter roadmap items by status (Planned / In Progress / Shipped)
-- [ ] **ROAD-03**: User can search roadmap items by keyword (searches title and description)
-- [ ] **ROAD-04**: User can expand a roadmap item to see: business value, change type, UI change flag, entities impacted, and projected release
-- [ ] **ROAD-05**: A Shipped roadmap item shows a "Released in [Sprint X] →" link to the corresponding release detail page
-- [ ] **ROAD-06**: The roadmap page shows a results count and a "no results" empty state when filters match nothing
-- [ ] **ROAD-07**: The roadmap page footer shows "Last updated: [date]" pulled from Sanity
+- [x] **ROAD-01**: User can view all roadmap items at /roadmap (Sanity-driven, replaces legacy hardcoded page)
+- [x] **ROAD-02**: User can filter roadmap items by status (Planned / In Progress / Shipped)
+- [x] **ROAD-03**: User can search roadmap items by keyword (searches title and description)
+- [x] **ROAD-04**: User can expand a roadmap item to see: business value, change type, UI change flag, entities impacted, and projected release
+- [x] **ROAD-05**: A Shipped roadmap item shows a "Released in [Sprint X] →" link to the corresponding release detail page
+- [x] **ROAD-06**: The roadmap page shows a results count and a "no results" empty state when filters match nothing
+- [x] **ROAD-07**: The roadmap page footer shows "Last updated: [date]" pulled from Sanity
 
 ### Hero Banner
 
-- [ ] **HERO-01**: The hero banner on the home page shows the latest published release title and date, dynamically pulled from Sanity at build time
+- [x] **HERO-01**: The hero banner on the home page shows the latest published release title and date, dynamically pulled from Sanity at build time
 
 ### Mock Data
 
-- [ ] **MOCK-01**: 2–3 sample sprint release documents created in Sanity Studio with real-looking content (sprint title, date, 3–4 items each with text, at least one screenshot placeholder, at least one video embed)
-- [ ] **MOCK-02**: 5–8 sample roadmap items created in Sanity Studio covering all three statuses (Planned, In Progress, Shipped), with all fields populated — at least one Shipped item linked to a mock sprint release
+- [x] **MOCK-01**: 2–3 sample sprint release documents created in Sanity Studio with real-looking content (sprint title, date, 3–4 items each with text, at least one screenshot placeholder, at least one video embed)
+- [x] **MOCK-02**: 5–8 sample roadmap items created in Sanity Studio covering all three statuses (Planned, In Progress, Shipped), with all fields populated — at least one Shipped item linked to a mock sprint release
 
 ### Cleanup & URL Continuity
 
-- [ ] **ARCH-01**: Legacy /internal-releases/ page is removed
-- [ ] **ARCH-02**: Existing sprint URL patterns (e.g. /releases/sprint-2025-12-b) continue to resolve after migration — no 404s introduced
-- [ ] **ARCH-03**: Existing Sprint 2025.12-A and Sprint 2025.12-B entries are archived (removed from public site)
+- [x] **ARCH-01**: Legacy /internal-releases/ page is removed
+- [x] **ARCH-02**: Existing sprint URL patterns (e.g. /releases/sprint-2025-12-b) continue to resolve after migration — no 404s introduced
+- [x] **ARCH-03**: Existing Sprint 2025.12-A and Sprint 2025.12-B entries are archived (removed from public site)
 
 ## Future Requirements
 
