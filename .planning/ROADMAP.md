@@ -173,7 +173,7 @@ v1.0 complete. v1.1 executes: 6 → 7 → 8 (parallel after 6) → 9
 | 3. Integration Pipeline | v1.0 | 4/4 | Complete | 2026-03-07 |
 | 4. Content Migration | v1.0 | TBD/TBD | Complete | 2026-03-08 |
 | 5. Polish | v1.0 | 6/6 | Complete | 2026-03-08 |
-| 6. Schema & Data Pipeline | 1/3 | In Progress|  | - |
+| 6. Schema & Data Pipeline | v1.1 | 2/3 | In Progress | - |
 | 7. Releases Page | v1.1 | 2/2 | Planned | 2026-03-13 |
 | 8. Roadmap Page & Hero Banner | v1.1 | 0/TBD | Not started | - |
 | 9. Cleanup & URL Continuity | v1.1 | 0/TBD | Not started | - |

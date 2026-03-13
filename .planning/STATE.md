@@ -55,6 +55,10 @@ Recent decisions affecting current work:
 - [v1.1 roadmap]: Replace releaseNote schema with release (one doc, items array) — matches bi-weekly publish workflow, simpler Studio UX
 - [v1.1 roadmap]: roadmap.tsx and releases.tsx must be replaced entirely, not extended — SanityLandingPageRoute wrapper silently renders legacy content when no matching landingPage document exists
 - [v1.1 roadmap]: MOCK-01 and MOCK-02 assigned to Phase 6 — editors enter sample data after schemas are live, before pages are built
+- [06-01]: Atomic migration used — all 7 releaseNote registration sites updated in single commit to prevent partial-migration TypeScript errors
+- [06-01]: release schema uses displayTitle (customer-facing) + sprintId (optional internal) — separates customer copy from engineering identifiers
+- [06-01]: items[] inline array chosen over separate documents — matches bi-weekly publish workflow, simpler Studio UX
+- [06-01]: releaseRef on roadmapItem is optional (no required validation) — Planned/In Progress items have no release to link yet
 - [06-02]: fetchReleases()/fetchRoadmapItems() defined as inner async functions inside run() to close over shared state (client, stats, writtenFiles, includeDrafts)
 - [06-02]: releaseNote query block removed from getQueries(); release-notes generated file kept as [] in git; delete deferred to Phase 9
 - [06-02]: Fallback JSON files must be committed as [] before any phase that statically imports them
@@ -72,7 +76,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-03-13
-Stopped at: Completed Phase 6 Plan 02 — fetch pipeline extended with releases/roadmap queries
+Stopped at: Completed Phase 6 Plan 01 SUMMARY.md — schema migration documented; Phase 6 Plan 03 next
 Resume file: None
 
 **Next steps:**
