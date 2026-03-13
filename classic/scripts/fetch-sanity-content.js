@@ -28,6 +28,18 @@ const RELEASE_NOTES_GENERATED_FILE = path.join(
   'data',
   'sanity-release-notes.generated.json'
 );
+const RELEASES_GENERATED_FILE = path.join(
+  SITE_DIR,
+  'src',
+  'data',
+  'sanity-releases.generated.json'
+);
+const ROADMAP_GENERATED_FILE = path.join(
+  SITE_DIR,
+  'src',
+  'data',
+  'sanity-roadmap.generated.json'
+);
 const BACKUP_ROOT = path.join(SITE_DIR, '.sanity-backups');
 const VERSION_HISTORY_DIR = path.join(SITE_DIR, '.sanity-version-history');
 const DEFAULT_BACKUP_KEEP = 10;
@@ -65,12 +77,6 @@ function getQueries(includeDrafts) {
         "categorySlug": sidebarCategory->slug.current,
         "categoryTitle": sidebarCategory->title,
         "coverImageUrl": coverImage.asset->url
-      }`,
-    },
-    {
-      type: 'releaseNote',
-      query: `*[_type == "releaseNote" && ${filter}] | order(publishedAt desc) {
-        title, slug, sprintId, publishedAt, body, version, changeType, affectedAreas, status
       }`,
     },
     {
@@ -154,6 +160,8 @@ function createBackupSnapshot(runId, keepBackups) {
     { source: LANDING_PAGES_CACHE_DIR, name: 'sanity-landing-pages', kind: 'directory' },
     { source: LANDING_PAGES_GENERATED_FILE, name: 'sanity-landing-pages.generated.json', kind: 'file' },
     { source: RELEASE_NOTES_GENERATED_FILE, name: 'sanity-release-notes.generated.json', kind: 'file' },
+    { source: RELEASES_GENERATED_FILE, name: 'sanity-releases.generated.json', kind: 'file' },
+    { source: ROADMAP_GENERATED_FILE, name: 'sanity-roadmap.generated.json', kind: 'file' },
   ].filter((entry) =>
     entry.kind === 'directory' ? isDirectoryNonEmpty(entry.source) : isFilePresent(entry.source)
   );
@@ -245,6 +253,43 @@ function escapeHtmlAttr(str) {
   return escapeHtml(str).replace(/"/g, '&quot;');
 }
 
+function getReleasesQuery(includeDrafts) {
+  const filter = statusFilterClause(includeDrafts);
+  return `*[_type == "release" && ${filter}] | order(publishedAt desc) {
+    _id,
+    displayTitle,
+    sprintId,
+    slug,
+    publishedAt,
+    summary,
+    items[] {
+      _key,
+      title,
+      description,
+      changeType,
+      affectedAreas,
+      "screenshotUrl": screenshot.asset->url,
+      videoUrl
+    }
+  }`;
+}
+
+function getRoadmapQuery(includeDrafts) {
+  const filter = statusFilterClause(includeDrafts);
+  return `*[_type == "roadmapItem" && ${filter}] | order(_createdAt desc) {
+    _id,
+    title,
+    description,
+    status,
+    businessValue,
+    changeType,
+    uiChange,
+    entitiesImpacted,
+    projectedRelease,
+    "releaseSlug": releaseRef->slug.current
+  }`;
+}
+
 async function run() {
   const projectId = process.env.SANITY_PROJECT_ID;
   const apiToken = process.env.SANITY_API_TOKEN;
@@ -257,7 +302,6 @@ async function run() {
   const runId = formatRunId(runStartedAt);
   const queries = getQueries(includeDrafts);
   const writtenFiles = [];
-  const generatedReleaseNotes = [];
   const stats = {
     fetched: {},
     written: {
@@ -268,6 +312,8 @@ async function run() {
       referencePage: 0,
       landingPageJson: 0,
       placeholders: 0,
+      release: 0,
+      roadmapItem: 0,
     },
     warnings: 0,
   };
@@ -801,24 +847,8 @@ async function run() {
             console.log(`[sanity-content] Wrote doc -> ${subDir}/${safeSlug}.md`);
           }
         } else {
-          if (type === 'releaseNote') {
-            generatedReleaseNotes.push({
-              title: doc.title,
-              slug: doc.slug,
-              sprintId: doc.sprintId,
-              version: doc.version,
-              publishedAt: doc.publishedAt,
-              changeType: doc.changeType,
-              affectedAreas: doc.affectedAreas,
-              status: doc.status,
-            });
-          }
-
           const extra = {};
-          if (type === 'releaseNote') {
-            extra.version = doc.version;
-            extra.sprintId = doc.sprintId;
-          } else if (type === 'article') {
+          if (type === 'article') {
             extra.author = doc.author;
           } else if (type === 'referencePage') {
             extra.apiVersion = doc.apiVersion;
@@ -838,14 +868,6 @@ async function run() {
     }
   }
 
-  writeTrackedFile(
-    RELEASE_NOTES_GENERATED_FILE,
-    JSON.stringify(generatedReleaseNotes, null, 2),
-    writtenFiles
-  );
-  stats.written.releaseNoteJson += 1;
-  console.log('[sanity-content] Wrote release notes -> src/data/sanity-release-notes.generated.json');
-
   // Ensure plugin-content-docs never fails on empty cache dirs.
   for (const dir of ALL_CACHE_DIRS) {
     const dirPath = path.join(CACHE_ROOT, dir);
@@ -863,7 +885,51 @@ async function run() {
     }
   }
 
+  async function fetchReleases() {
+    console.log('[sanity-content] Fetching releases...');
+    let releases;
+    try {
+      releases = await client.fetch(getReleasesQuery(includeDrafts));
+    } catch (err) {
+      stats.warnings += 1;
+      console.warn(`[sanity-content] Warning: Failed to fetch releases: ${err.message}`);
+      releases = [];
+    }
+    stats.fetched.release = releases.length;
+    console.log(`[sanity-content] -> ${releases.length} release(s)`);
+    writeTrackedFile(
+      RELEASES_GENERATED_FILE,
+      JSON.stringify(releases, null, 2),
+      writtenFiles
+    );
+    stats.written.releaseJson = (stats.written.releaseJson || 0) + 1;
+    console.log('[sanity-content] Wrote releases -> src/data/sanity-releases.generated.json');
+  }
+
+  async function fetchRoadmapItems() {
+    console.log('[sanity-content] Fetching roadmap items...');
+    let items;
+    try {
+      items = await client.fetch(getRoadmapQuery(includeDrafts));
+    } catch (err) {
+      stats.warnings += 1;
+      console.warn(`[sanity-content] Warning: Failed to fetch roadmap items: ${err.message}`);
+      items = [];
+    }
+    stats.fetched.roadmapItem = items.length;
+    console.log(`[sanity-content] -> ${items.length} roadmap item(s)`);
+    writeTrackedFile(
+      ROADMAP_GENERATED_FILE,
+      JSON.stringify(items, null, 2),
+      writtenFiles
+    );
+    stats.written.roadmapJson = (stats.written.roadmapJson || 0) + 1;
+    console.log('[sanity-content] Wrote roadmap items -> src/data/sanity-roadmap.generated.json');
+  }
+
   await fetchLandingPages();
+  await fetchReleases();
+  await fetchRoadmapItems();
 
   const manifest = {
     runId,
