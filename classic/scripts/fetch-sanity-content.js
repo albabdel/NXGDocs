@@ -13,6 +13,21 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
+// Load .env.local if present
+const envLocalPath = path.join(__dirname, '..', '.env.local');
+if (fs.existsSync(envLocalPath)) {
+  const envContent = fs.readFileSync(envLocalPath, 'utf8');
+  for (const line of envContent.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const eqIdx = trimmed.indexOf('=');
+    if (eqIdx === -1) continue;
+    const key = trimmed.slice(0, eqIdx).trim();
+    const value = trimmed.slice(eqIdx + 1).trim();
+    if (key && !(key in process.env)) process.env[key] = value;
+  }
+}
+
 const SITE_DIR = path.join(__dirname, '..');
 const CACHE_ROOT = path.join(SITE_DIR, '.sanity-cache');
 const LANDING_PAGES_CACHE_DIR = path.join(SITE_DIR, '.sanity-landing-pages');
@@ -702,10 +717,6 @@ async function run() {
     if (doc.sidebarPosition != null) lines.push(`sidebar_position: ${doc.sidebarPosition}`);
     if (doc.sidebarLabel) {
       lines.push(`sidebar_label: "${escapeYaml(doc.sidebarLabel)}"`);
-    } else if (doc.categoryTitle) {
-      lines.push(`sidebar_label: "${escapeYaml(doc.categoryTitle)}"`);
-    } else if (doc.category) {
-      lines.push(`sidebar_label: "${escapeYaml(doc.category)}"`);
     }
     if (doc.categorySlug) lines.push(`sidebar_class: "${escapeYaml(doc.categorySlug)}"`);
     if (doc.hideFromSidebar) lines.push('hide_from_sidebar: true');

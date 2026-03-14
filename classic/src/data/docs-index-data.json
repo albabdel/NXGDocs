@@ -1,0 +1,704 @@
+{
+  "generatedAt": "2026-03-14T19:22:08.643Z",
+  "summary": {
+    "totalCategories": 20,
+    "totalDocs": 1,
+    "totalLandingPages": 24,
+    "recentlyUpdatedCount": 0
+  },
+  "sidebarCategories": [
+    {
+      "id": "cRCWWHCoYT1iLGWljwp0dI",
+      "title": "Getting Started",
+      "slug": "getting-started",
+      "description": "Start here to learn the basics of NXGEN GCXONE platform",
+      "icon": "🚀",
+      "position": 1,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "all"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    },
+    {
+      "id": "IBca9v7KzaRGEX2JGCJL4S",
+      "title": "Platform Overview",
+      "slug": "platform-overview",
+      "description": "Comprehensive overview of the NXGEN monitoring platform architecture",
+      "icon": "🏢",
+      "position": 2,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "all"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    },
+    {
+      "id": "IBca9v7KzaRGEX2JFvG1pZ",
+      "title": "Devices",
+      "slug": "devices",
+      "description": "Device configuration guides for all supported devices",
+      "icon": "📱",
+      "position": 3,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "all"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 1
+    },
+    {
+      "id": "IBca9v7KzaRGEX2JGCJLDo",
+      "title": "Monitoring Stations",
+      "slug": "monitoring-stations",
+      "description": "Configure and manage monitoring stations and sites",
+      "icon": "📡",
+      "position": 3,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "operator",
+        "manager",
+        "admin"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    },
+    {
+      "id": "IBca9v7KzaRGEX2JFvG1yv",
+      "title": "Features",
+      "slug": "features",
+      "description": "Feature guides and configuration",
+      "icon": "⚡",
+      "position": 4,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "all"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    },
+    {
+      "id": "cRCWWHCoYT1iLGWlk8bGP4",
+      "title": "Devices & Equipment",
+      "slug": "devices-equipment",
+      "description": "Configuration guides for all supported devices and equipment",
+      "icon": "📹",
+      "position": 4,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "all"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    },
+    {
+      "id": "IBca9v7KzaRGEX2JGCJLYr",
+      "title": "Alerts & Notifications",
+      "slug": "alerts-notifications",
+      "description": "Configure alerts, notifications, and alarm management",
+      "icon": "🔔",
+      "position": 5,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "operator",
+        "manager",
+        "admin"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    },
+    {
+      "id": "cRCWWHCoYT1iLGWlk8bGa8",
+      "title": "Integrations",
+      "slug": "integrations",
+      "description": "Third-party integrations and system connections",
+      "icon": "🔗",
+      "position": 6,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "admin",
+        "manager"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    },
+    {
+      "id": "cRCWWHCoYT1iLGWljxw82g",
+      "title": "Installer Guide",
+      "slug": "installer-guide",
+      "description": "Installation and deployment procedures",
+      "icon": null,
+      "position": 7,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "all"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    },
+    {
+      "id": "category-api-reference",
+      "title": "API Reference",
+      "slug": "api-reference",
+      "description": "Developer documentation and API reference",
+      "icon": "📚",
+      "position": 7,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "admin",
+        "internal"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    },
+    {
+      "id": "IBca9v7KzaRGEX2JFvG1gD",
+      "title": "Admin Guide",
+      "slug": "admin-guide",
+      "description": "System administration and configuration guides",
+      "icon": "🛡️",
+      "position": 8,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "admin"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    },
+    {
+      "id": "cRCWWHCoYT1iLGWljxw8Dk",
+      "title": "Platform Fundamentals",
+      "slug": "platform-fundamentals",
+      "description": "Core platform architecture and concepts",
+      "icon": null,
+      "position": 8,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "all"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    },
+    {
+      "id": "0fSOg91zcHoT9UesrB2Dfk",
+      "title": "Reporting",
+      "slug": "reporting",
+      "description": "Reporting setup and usage",
+      "icon": null,
+      "position": 9,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "all"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    },
+    {
+      "id": "IBca9v7KzaRGEX2JGCJLpE",
+      "title": "Best Practices",
+      "slug": "best-practices",
+      "description": "Recommended practices and optimization guides",
+      "icon": "✅",
+      "position": 9,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "all"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    },
+    {
+      "id": "IBca9v7KzaRGEX2JGCJLya",
+      "title": "Troubleshooting",
+      "slug": "troubleshooting",
+      "description": "Common issues and their solutions",
+      "icon": "🔧",
+      "position": 10,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "all"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    },
+    {
+      "id": "IBca9v7KzaRGEX2JFx19Iq",
+      "title": "Support",
+      "slug": "support",
+      "description": "Support and contact information",
+      "icon": null,
+      "position": 11,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "all"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    },
+    {
+      "id": "IBca9v7KzaRGEX2JGCJMXf",
+      "title": "Release Notes",
+      "slug": "release-notes",
+      "description": "Platform updates and version history",
+      "icon": "📝",
+      "position": 11,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "all"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    },
+    {
+      "id": "IBca9v7KzaRGEX2JFvG28H",
+      "title": "Alarm Management",
+      "slug": "alarm-management",
+      "description": "Comprehensive guide to managing alarms, codes, priorities, and alarm workflows in GCXONE",
+      "icon": "🔔",
+      "position": 12,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "operator",
+        "manager",
+        "admin"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    },
+    {
+      "id": "IBca9v7KzaRGEX2JFx1860",
+      "title": "Operator Guide",
+      "slug": "operator-guide",
+      "description": "Essential guide for operators using GCXONE for daily monitoring and alarm handling",
+      "icon": "🖥️",
+      "position": 13,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "operator",
+        "manager"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    },
+    {
+      "id": "cRCWWHCoYT1iLGWljxw8ec",
+      "title": "Knowledge Base",
+      "slug": "knowledge-base",
+      "description": "Reference documentation, FAQs, glossary, and compliance information",
+      "icon": "📚",
+      "position": 14,
+      "parentId": null,
+      "parentTitle": null,
+      "targetAudience": [
+        "all"
+      ],
+      "collapsed": false,
+      "collapsible": true,
+      "link": {
+        "type": "generated-index"
+      },
+      "docCount": 0
+    }
+  ],
+  "landingPages": [
+    {
+      "id": "landingPage.roles-admin",
+      "title": "Admin Workspace",
+      "slug": "roles/admin",
+      "description": "Complete administrative control center for GCXONE platform management",
+      "layoutType": "role",
+      "status": "published",
+      "publishedAt": "2026-03-12",
+      "lastUpdated": "2026-03-12",
+      "heroHeadline": "Admin Workspace",
+      "heroSubheadline": "Complete administrative control center for GCXONE platform management"
+    },
+    {
+      "id": "landing-page-alerts",
+      "title": "Alert Management",
+      "slug": "alerts",
+      "description": "Comprehensive alert management for critical infrastructure. Intelligent alerting, multi-channel notifications, and automated escalation workflows.",
+      "layoutType": "standard",
+      "status": "published",
+      "publishedAt": "2026-03-14",
+      "lastUpdated": "2026-03-14",
+      "heroHeadline": "Never Miss a Critical Alert",
+      "heroSubheadline": "Intelligent alerting reduces noise by 90% while ensuring critical issues reach the right people instantly. Configure once, respond faster."
+    },
+    {
+      "id": "drafts.landingPage.docs-breakthroughs",
+      "title": "Breakthroughs",
+      "slug": "docs/breakthroughs",
+      "description": "Ten core services that define how GCXONE monitors, correlates, and responds at scale",
+      "layoutType": "standard",
+      "status": "published",
+      "publishedAt": "2026-03-12",
+      "lastUpdated": "2026-03-12",
+      "heroHeadline": "Breakthroughs",
+      "heroSubheadline": "Ten core services that define how GCXONE monitors, correlates, and responds at scale"
+    },
+    {
+      "id": "landingPage.docs-breakthroughs",
+      "title": "Breakthroughs",
+      "slug": "docs/breakthroughs",
+      "description": "Ten core services that define how GCXONE monitors, correlates, and responds at scale",
+      "layoutType": "standard",
+      "status": "published",
+      "publishedAt": "2026-03-12",
+      "lastUpdated": "2026-03-12",
+      "heroHeadline": "Breakthroughs",
+      "heroSubheadline": "Ten core services that define how GCXONE monitors, correlates, and responds at scale"
+    },
+    {
+      "id": "landingPage.quick-start-device-integration",
+      "title": "Device Integration Guide",
+      "slug": "quick-start/device-integration",
+      "description": "Complete guide to connecting devices to GCXONE platform",
+      "layoutType": "quick-start",
+      "status": "published",
+      "publishedAt": "2026-03-12",
+      "lastUpdated": "2026-03-12",
+      "heroHeadline": "Device Integration Guide",
+      "heroSubheadline": "Complete guide to connecting devices to GCXONE platform"
+    },
+    {
+      "id": "landing-page-getting-started",
+      "title": "Getting Started",
+      "slug": "getting-started",
+      "description": "Your complete guide to getting started with GCXONE - from first login to full operational readiness",
+      "layoutType": "quick-start",
+      "status": "published",
+      "publishedAt": "2026-03-14",
+      "lastUpdated": "2026-03-14",
+      "heroHeadline": "Welcome to GCXONE",
+      "heroSubheadline": "Your complete guide to getting started with the next-generation monitoring platform"
+    },
+    {
+      "id": "landingPage.roles-installer",
+      "title": "Installer Toolkit",
+      "slug": "roles/installer",
+      "description": "Technical resources and field tools for GCXONE site commissioning and device integration",
+      "layoutType": "role",
+      "status": "published",
+      "publishedAt": "2026-03-12",
+      "lastUpdated": "2026-03-12",
+      "heroHeadline": "Installer Toolkit",
+      "heroSubheadline": "Technical resources and field tools for GCXONE site commissioning and device integration"
+    },
+    {
+      "id": "landingPage.integration-hub",
+      "title": "Integration Hub",
+      "slug": "integration-hub",
+      "description": "Discover all supported devices and integrations in GCXONE",
+      "layoutType": "standard",
+      "status": "published",
+      "publishedAt": "2026-03-12",
+      "lastUpdated": "2026-03-12",
+      "heroHeadline": "Integration Hub",
+      "heroSubheadline": "Discover all supported devices and integrations in GCXONE"
+    },
+    {
+      "id": "landing-page-integrations",
+      "title": "Integrations Hub",
+      "slug": "integrations",
+      "description": "Connect NXGEN with your existing systems. Native integrations for video, IoT protocols, cloud services, and notification channels.",
+      "layoutType": "standard",
+      "status": "published",
+      "publishedAt": "2026-03-14",
+      "lastUpdated": "2026-03-14",
+      "heroHeadline": "Connect Everything",
+      "heroSubheadline": "NXGEN integrates with your existing infrastructure out of the box. From video systems to IoT sensors, cloud platforms to incident management tools."
+    },
+    {
+      "id": "landingPage.internal-releases",
+      "title": "Internal Releases",
+      "slug": "internal-releases",
+      "description": "Internal release notes and sprint documentation",
+      "layoutType": "internal-releases",
+      "status": "published",
+      "publishedAt": "2026-03-12",
+      "lastUpdated": "2026-03-12",
+      "heroHeadline": "Internal Releases",
+      "heroSubheadline": "Internal release notes and sprint documentation"
+    },
+    {
+      "id": "landingPage.roles-manager",
+      "title": "Manager Overview",
+      "slug": "roles/manager",
+      "description": "Strategic insights, performance analytics, and team management for GCXONE operations leaders",
+      "layoutType": "role",
+      "status": "published",
+      "publishedAt": "2026-03-12",
+      "lastUpdated": "2026-03-12",
+      "heroHeadline": "Manager Overview",
+      "heroSubheadline": "Strategic insights, performance analytics, and team management for GCXONE operations leaders"
+    },
+    {
+      "id": "landing-page-monitoring-stations",
+      "title": "Monitoring Stations",
+      "slug": "monitoring-stations",
+      "description": "Complete tower and site monitoring solution. Track equipment health, environmental conditions, and security status across your entire infrastructure.",
+      "layoutType": "tower-guide",
+      "status": "published",
+      "publishedAt": "2026-03-14",
+      "lastUpdated": "2026-03-14",
+      "heroHeadline": "Monitor Every Site, Anywhere",
+      "heroSubheadline": "From remote cell towers to urban data centers, NXGEN provides comprehensive site monitoring with real-time visibility into equipment health, environmental conditions, and security status."
+    },
+    {
+      "id": "landingPage.roles-operator",
+      "title": "Operator Workspace",
+      "slug": "roles/operator",
+      "description": "Mission control center for real-time monitoring, alarm response, and security operations",
+      "layoutType": "role",
+      "status": "published",
+      "publishedAt": "2026-03-12",
+      "lastUpdated": "2026-03-12",
+      "heroHeadline": "Operator Workspace",
+      "heroSubheadline": "Mission control center for real-time monitoring, alarm response, and security operations"
+    },
+    {
+      "id": "landing-page-platform-overview",
+      "title": "Platform Overview",
+      "slug": "platform-overview",
+      "description": "Comprehensive monitoring platform for tower sites, data centers, and critical infrastructure. Real-time visibility, intelligent alerting, and seamless integrations.",
+      "layoutType": "standard",
+      "status": "published",
+      "publishedAt": "2026-03-14",
+      "lastUpdated": "2026-03-14",
+      "heroHeadline": "Complete Infrastructure Visibility",
+      "heroSubheadline": "Monitor thousands of sites from a single pane of glass. NXGEN Technology AG delivers enterprise-grade monitoring for towers, data centers, and critical infrastructure."
+    },
+    {
+      "id": "landingPage.quick-start-platform-overview",
+      "title": "Platform Overview",
+      "slug": "quick-start/platform-overview",
+      "description": "Complete guide to NXGEN GCXONE architecture, hierarchy model, and core capabilities",
+      "layoutType": "quick-start",
+      "status": "published",
+      "publishedAt": "2026-03-12",
+      "lastUpdated": "2026-03-12",
+      "heroHeadline": "Platform Overview",
+      "heroSubheadline": "Complete guide to NXGEN GCXONE architecture, hierarchy model, and core capabilities"
+    },
+    {
+      "id": "landingPage.roadmap",
+      "title": "Product Roadmap",
+      "slug": "roadmap",
+      "description": "GCXONE Product Roadmap - Preview of upcoming features and improvements",
+      "layoutType": "standard",
+      "status": "published",
+      "publishedAt": "2026-03-12",
+      "lastUpdated": "2026-03-12",
+      "heroHeadline": "Product Roadmap",
+      "heroSubheadline": "GCXONE Product Roadmap - Preview of upcoming features and improvements"
+    },
+    {
+      "id": "landing-quick-start",
+      "title": "Quick Start",
+      "slug": "quick-start",
+      "description": "Get started with NXGEN quickly with our comprehensive quick start guides and tutorials.",
+      "layoutType": "quick-start",
+      "status": "published",
+      "publishedAt": null,
+      "lastUpdated": null,
+      "heroHeadline": "Get Started with NXGEN",
+      "heroSubheadline": "Everything you need to set up, configure, and master the NXGEN platform"
+    },
+    {
+      "id": "landing-page-quick-start",
+      "title": "Quick Start Guide",
+      "slug": "quick-start",
+      "description": "Get up and running with NXGEN in minutes. Step-by-step guides for administrators, managers, and operators.",
+      "layoutType": "quick-start",
+      "status": "published",
+      "publishedAt": "2026-03-14",
+      "lastUpdated": "2026-03-14",
+      "heroHeadline": "Start Monitoring in Minutes",
+      "heroSubheadline": "Whether you are an administrator setting up the platform, a manager configuring alerts, or an operator responding to incidents, we have guides tailored for you."
+    },
+    {
+      "id": "landingPage.quick-start-guide",
+      "title": "Quick Start Guide",
+      "slug": "quick-start/guide",
+      "description": "Get up and running with GCXONE in 5-10 minutes - Complete step-by-step guide from first login to full monitoring capability",
+      "layoutType": "quick-start",
+      "status": "published",
+      "publishedAt": "2026-03-12",
+      "lastUpdated": "2026-03-12",
+      "heroHeadline": "Quick Start Guide",
+      "heroSubheadline": "Get up and running with GCXONE in 5-10 minutes - Complete step-by-step guide from first login to full monitoring capability"
+    },
+    {
+      "id": "landingPage.releases",
+      "title": "Release Notes",
+      "slug": "releases",
+      "description": "Latest updates, new features, and improvements to GCXONE",
+      "layoutType": "releases",
+      "status": "published",
+      "publishedAt": "2026-03-12",
+      "lastUpdated": "2026-03-12",
+      "heroHeadline": "Release Notes",
+      "heroSubheadline": "Latest updates, new features, and improvements to GCXONE"
+    },
+    {
+      "id": "landingPage.internal-releases-sprint-2025-12-b",
+      "title": "Sprint 2025.12-A - Internal Releases",
+      "slug": "internal-releases/sprint-2025-12-b",
+      "description": "Detailed release notes for Sprint 2025.12-A",
+      "layoutType": "internal-releases",
+      "status": "published",
+      "publishedAt": "2026-03-12",
+      "lastUpdated": "2026-03-12",
+      "heroHeadline": "Sprint 2025.12-A - Internal Releases",
+      "heroSubheadline": "Detailed release notes for Sprint 2025.12-A"
+    },
+    {
+      "id": "landingPage.releases-sprint-2025-12-b",
+      "title": "Sprint 2025.12-B Release Notes",
+      "slug": "releases/sprint-2025-12-b",
+      "description": "Latest features and improvements in Sprint 2025.12-B",
+      "layoutType": "releases",
+      "status": "published",
+      "publishedAt": "2026-03-12",
+      "lastUpdated": "2026-03-12",
+      "heroHeadline": "Sprint 2025.12-B Release Notes",
+      "heroSubheadline": "Latest features and improvements in Sprint 2025.12-B"
+    },
+    {
+      "id": "landingPage.internal-releases-sprint-2026-01-a",
+      "title": "Sprint 2026.01-A - Internal Releases",
+      "slug": "internal-releases/sprint-2026-01-a",
+      "description": "Detailed release notes for Sprint 2026.01-A",
+      "layoutType": "internal-releases",
+      "status": "published",
+      "publishedAt": "2026-03-12",
+      "lastUpdated": "2026-03-12",
+      "heroHeadline": "Sprint 2026.01-A - Internal Releases",
+      "heroSubheadline": "Detailed release notes for Sprint 2026.01-A"
+    },
+    {
+      "id": "landingPage.towers",
+      "title": "Towers",
+      "slug": "towers",
+      "description": "Complete guide to managing and configuring mobile towers in GCXONE",
+      "layoutType": "tower-guide",
+      "status": "published",
+      "publishedAt": "2026-03-12",
+      "lastUpdated": "2026-03-12",
+      "heroHeadline": "Towers",
+      "heroSubheadline": "Complete guide to managing and configuring mobile towers in GCXONE"
+    }
+  ],
+  "docsIndexConfig": null,
+  "recentlyUpdatedDocs": [],
+  "articleCountsByCategory": [
+    {
+      "category": "devices",
+      "count": 1
+    }
+  ],
+  "articleCountsByAudience": [
+    {
+      "audience": "all",
+      "count": 1
+    }
+  ]
+}

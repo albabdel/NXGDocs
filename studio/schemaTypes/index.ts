@@ -53,6 +53,7 @@ import {
   onboardingPhaseType,
   onboardingStepType,
 } from './gettingStartedPage'
+import {docsIndexConfigType} from './docsIndexConfig'
 
 export const schemaTypes = [
   // Original document types
@@ -73,6 +74,7 @@ export const schemaTypes = [
   // Landing pages
   landingPageType,
   gettingStartedPageType,
+  docsIndexConfigType,
   
   // Landing page sections
   landingSectionVideo,

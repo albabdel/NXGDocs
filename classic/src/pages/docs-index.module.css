@@ -1,0 +1,115 @@
+.main {
+  min-height: 100vh;
+  background-color: var(--ifm-background-color);
+}
+
+.footerCta {
+  margin-top: 3rem;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-background-surface-color);
+  text-align: center;
+}
+
+[data-theme='dark'] .footerCta {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.footerCtaContent {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.footerCtaTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--ifm-color-content);
+}
+
+.footerCtaText {
+  font-size: 0.875rem;
+  color: var(--ifm-color-content-secondary);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.footerCtaButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.footerCtaPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background: #E8B058;
+  color: #000;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(232, 176, 88, 0.25);
+}
+
+.footerCtaPrimary:hover {
+  background: #D4A047;
+  text-decoration: none;
+  color: #000;
+  transform: translateY(-1px);
+}
+
+.footerCtaSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  color: var(--ifm-color-content);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  transition: all 0.2s ease;
+}
+
+[data-theme='dark'] .footerCtaSecondary {
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.footerCtaSecondary:hover {
+  border-color: #E8B058;
+  text-decoration: none;
+}
+
+[data-theme='dark'] .footerCtaSecondary:hover {
+  border-color: rgba(232, 176, 88, 0.5);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 640px) {
+  .footerCta {
+    padding: 1.5rem;
+  }
+
+  .footerCtaTitle {
+    font-size: 1.125rem;
+  }
+
+  .footerCtaButtons {
+    flex-direction: column;
+  }
+
+  .footerCtaPrimary,
+  .footerCtaSecondary {
+    width: 100%;
+  }
+}

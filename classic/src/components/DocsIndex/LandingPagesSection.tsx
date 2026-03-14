@@ -1,0 +1,177 @@
+import React from 'react';
+import Link from '@docusaurus/Link';
+import { useColorMode } from '@docusaurus/theme-common';
+import { motion } from 'framer-motion';
+import { ExternalLink, ArrowRight, FileText, Clock } from 'lucide-react';
+
+interface LandingPageItem {
+  title: string;
+  description: string;
+  slug: { current: string };
+  lastUpdated: string;
+  status: string;
+  hero?: {
+    badge?: { icon: string; text: string };
+    headline: string;
+    subheadline?: string;
+  };
+  layoutType?: string;
+}
+
+interface LandingPagesSectionProps {
+  landingPages: LandingPageItem[];
+}
+
+export default function LandingPagesSection({ landingPages }: LandingPagesSectionProps) {
+  const { colorMode } = useColorMode();
+  const isDark = colorMode === 'dark';
+
+  const publishedPages = landingPages.filter(page => page.status === 'published');
+  const pageGroups: Record<string, LandingPageItem[]> = {};
+
+  publishedPages.forEach(page => {
+    const type = page.layoutType || 'standard';
+    if (!pageGroups[type]) pageGroups[type] = [];
+    pageGroups[type].push(page);
+  });
+
+  const formatLastUpdated = (dateStr: string): string => {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  };
+
+  const getLayoutLabel = (type: string): string => {
+    const labels: Record<string, string> = {
+      'standard': 'Feature Pages',
+      'quick-start': 'Quick Start',
+      'tower-guide': 'Tower Guides',
+    };
+    return labels[type] || 'Landing Pages';
+  };
+
+  return (
+    <section className="mb-16">
+      <div className="flex items-end justify-between mb-8">
+        <div>
+          <span
+            className={`inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase mb-3 ${
+              isDark
+                ? 'bg-[#E8B058]/10 text-[#E8B058] border border-[#E8B058]/20'
+                : 'bg-[#E8B058]/10 text-[#7A5518] border border-[#E8B058]/25'
+            }`}
+          >
+            Featured Pages
+          </span>
+          <h2
+            className="text-2xl font-bold"
+            style={{ color: 'var(--ifm-color-content)' }}
+          >
+            All Landing Pages
+          </h2>
+          <p
+            className="text-sm mt-1"
+            style={{ color: 'var(--ifm-color-content-secondary)' }}
+          >
+            Comprehensive guides and feature documentation
+          </p>
+        </div>
+      </div>
+
+      <div className="space-y-6">
+        {Object.entries(pageGroups).map(([type, pages], groupIndex) => (
+          <div key={type}>
+            <h3
+              className={`text-sm font-semibold mb-3 ${
+                isDark ? 'text-white/60' : 'text-[#5A3B10]/60'
+              }`}
+            >
+              {getLayoutLabel(type)}
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {pages.map((page, index) => (
+                <motion.div
+                  key={page.slug.current}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  whileHover={{ y: -3 }}
+                >
+                  <Link
+                    to={`/${page.slug.current}`}
+                    className="block p-5 rounded-xl border no-underline group transition-all duration-200 h-full"
+                    style={{
+                      background: isDark
+                        ? 'rgba(255,255,255,0.025)'
+                        : 'rgba(255,255,255,0.65)',
+                      borderColor: isDark
+                        ? 'rgba(255,255,255,0.07)'
+                        : 'rgba(232,176,88,0.12)',
+                    }}
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        {page.hero?.badge && (
+                          <span
+                            className={`px-2 py-0.5 text-[10px] font-medium rounded-full ${
+                              isDark
+                                ? 'bg-[#E8B058]/10 text-[#E8B058] border border-[#E8B058]/20'
+                                : 'bg-[#E8B058]/8 text-[#7A5518] border border-[#E8B058]/15'
+                            }`}
+                          >
+                            {page.hero.badge.text}
+                          </span>
+                        )}
+                      </div>
+                      <ExternalLink
+                        className="w-3.5 h-3.5 opacity-0 group-hover:opacity-60 transition-opacity"
+                        style={{ color: 'var(--ifm-color-content-secondary)' }}
+                      />
+                    </div>
+
+                    <h4
+                      className="font-semibold mb-1.5 group-hover:text-[#E8B058] transition-colors"
+                      style={{ color: 'var(--ifm-color-content)' }}
+                    >
+                      {page.hero?.headline || page.title}
+                    </h4>
+
+                    <p
+                      className="text-xs leading-relaxed mb-3 line-clamp-2"
+                      style={{ color: 'var(--ifm-color-content-secondary)' }}
+                    >
+                      {page.description}
+                    </p>
+
+                    <div className="flex items-center justify-between">
+                      <span
+                        className={`flex items-center gap-1 text-[10px] ${
+                          isDark ? 'text-white/40' : 'text-[#5A3B10]/50'
+                        }`}
+                      >
+                        <Clock className="w-3 h-3" />
+                        {formatLastUpdated(page.lastUpdated)}
+                      </span>
+                      <span
+                        className={`flex items-center gap-1 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity ${
+                          isDark ? 'text-[#E8B058]' : 'text-[#7A5518]'
+                        }`}
+                      >
+                        View
+                        <ArrowRight className="w-3 h-3" />
+                      </span>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
