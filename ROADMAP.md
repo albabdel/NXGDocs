@@ -251,39 +251,35 @@ Complete rework of the NXGEN Technology AG documentation platform for B2B SaaS m
 **Status:** Complete
 **Objective:** Add PDF download functionality with NXGEN template branding
 
+**Architecture:**
+- Build-time PDF generation using Puppeteer (not client-side)
+- PDFs pre-generated at build, served as static files
+- Images render correctly (Puppeteer is a real browser)
+- Works with GitLab Pages static hosting
+
 **Deliverables:**
-- [x] DownloadPDF React component with amber styling
-- [x] Auto-extract article content from DOM
-- [x] Generate PDF with NXGEN branding from docx template
-- [x] NXGEN logo extracted from template and added to header
-- [x] Image to base64 conversion for all images
-- [x] Page numbers, article title in header, date in footer
-- [x] Loading/success/error states
-- [x] Integration with DocItem (appears in TOC and header)
-- [x] Works on all documentation pages
-- [x] Template styling: gold (#C9A227), Arial font, proper margins
+- [x] Puppeteer PDF generation script
+- [x] NXGEN branded PDF template (gold #C9A227, Arial font)
+- [x] NXGEN logo in PDF header
+- [x] Images properly rendered in PDFs
+- [x] 26 PDFs generated at build time
+- [x] DownloadPDF component links to static PDFs
 
 **Components Created:**
-- `classic/src/components/DownloadPDF/index.tsx`
-- `classic/src/components/DownloadPDF/styles.module.css`
-- `classic/src/components/DownloadPDF/pdf-template.ts`
-- `classic/src/utils/pdf-images.ts` (base64 image conversion)
-- `classic/src/utils/pdf-template.ts` (NXGEN styling config)
-- `classic/src/utils/nxgen-pdf-template.json` (template data)
+- `classic/scripts/generate-pdfs.js` (Puppeteer PDF generator)
+- `scripts/pdf-template.html` (NXGEN branded template)
+- `classic/src/components/DownloadPDF/index.tsx` (download button)
 
 **Assets Added:**
 - `classic/static/img/nxgen-pdf-logo.png` (from docx template)
-
-**Scripts Created:**
-- `scripts/extract-docx-template.js`
-- `scripts/analyze-template-styles.js`
-
-**Integration:**
-- `classic/src/theme/DocItem/Layout/index.tsx`
-- `classic/src/theme/DocItem/Content/index.tsx`
+- `classic/static/pdfs/*.pdf` (generated at build, gitignored)
 
 **Dependencies Added:**
-- html2pdf.js (client-side PDF generation)
+- puppeteer (dev dependency for build-time PDF generation)
+
+**Integration:**
+- Build script runs PDF generation
+- DownloadPDF component links to `/pdfs/{slug}.pdf`
 
 ---
 
