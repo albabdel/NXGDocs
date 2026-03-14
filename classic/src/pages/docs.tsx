@@ -735,21 +735,27 @@ export default function DocsIndex(): React.JSX.Element {
                     </motion.section>
                 </div>
 
-                {/* Quick Access to Main Landing - Fixed Bottom Right */}
-                <div className="fixed bottom-6 right-6 z-40">
+                {/* Quick Access to Main Landing - Fixed Top Right */}
+                <div style={{
+                    position: 'fixed',
+                    top: '80px',
+                    right: '24px',
+                    zIndex: 9999,
+                }}>
                     <Link
                         to="/"
                         className="flex items-center gap-2 px-4 py-2.5 rounded-xl border shadow-lg transition-all duration-200 hover:scale-105 no-underline group"
                         style={{
-                            background: isDark ? 'rgba(32, 32, 32, 0.95)' : 'rgba(255, 255, 255, 0.95)',
-                            borderColor: isDark ? 'rgba(232, 176, 88, 0.2)' : 'rgba(232, 176, 88, 0.15)',
+                            background: isDark ? 'rgba(32, 32, 32, 0.98)' : 'rgba(255, 255, 255, 0.98)',
+                            borderColor: '#E8B058',
+                            borderWidth: '2px',
                             backdropFilter: 'blur(12px)',
-                            boxShadow: isDark ? '0 8px 32px rgba(0, 0, 0, 0.4)' : '0 8px 32px rgba(0, 0, 0, 0.1)',
+                            boxShadow: '0 4px 20px rgba(232, 176, 88, 0.3)',
                         }}
                     >
-                        <Home className="w-4 h-4 text-[#E8B058]" />
-                        <span className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>
-                            Return to Home
+                        <Home className="w-5 h-5 text-[#E8B058]" />
+                        <span className="text-sm font-semibold" style={{ color: '#E8B058' }}>
+                            Home
                         </span>
                     </Link>
                 </div>
