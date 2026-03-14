@@ -10,45 +10,6 @@ interface DownloadPDFProps {
   className?: string;
 }
 
-function extractArticleContent(): { title: string; content: string; slug: string } {
-  const articleEl = document.querySelector('.theme-doc-markdown');
-  if (!articleEl) {
-    return {
-      title: document.title.replace(' | NXGEN GCXONE Documentation', '').trim(),
-      content: '<p>Content not available</p>',
-      slug: window.location.pathname.split('/').filter(Boolean).pop() || 'document',
-    };
-  }
-
-  const titleEl = articleEl.querySelector('h1');
-  const title = titleEl?.textContent || document.title.replace(' | NXGEN GCXONE Documentation', '').trim();
-
-  const contentClone = articleEl.cloneNode(true) as HTMLElement;
-  const h1InClone = contentClone.querySelector('h1');
-  if (h1InClone) h1InClone.remove();
-
-  contentClone.querySelectorAll('button, .copy-button, [role="tablist"], .tabs-container, video, iframe').forEach(el => el.remove());
-
-  contentClone.querySelectorAll('a[href]').forEach(link => {
-    const href = link.getAttribute('href');
-    if (href && !href.startsWith('#') && !href.startsWith('javascript:')) {
-      const span = document.createElement('span');
-      span.textContent = link.textContent;
-      link.replaceWith(span);
-    }
-  });
-
-  contentClone.querySelectorAll('img').forEach(img => {
-    img.style.maxWidth = '180mm';
-    img.style.height = 'auto';
-  });
-
-  const content = contentClone.innerHTML;
-  const slug = window.location.pathname.split('/').filter(Boolean).pop() || 'document';
-
-  return { title, content, slug };
-}
-
 function DownloadPDFInner({ title: propTitle, content: propContent, slug: propSlug, className }: DownloadPDFProps) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -62,84 +23,104 @@ function DownloadPDFInner({ title: propTitle, content: propContent, slug: propSl
     try {
       const html2pdf = (await import('html2pdf.js')).default;
 
-      const { title: extractedTitle, content: extractedContent, slug: extractedSlug } = extractArticleContent();
+      // Find article content
+      let articleEl = document.querySelector('.theme-doc-markdown') || 
+                      document.querySelector('article') ||
+                      document.querySelector('.markdown');
+      
+      if (!articleEl) {
+        throw new Error('Could not find article content');
+      }
 
-      const title = propTitle || extractedTitle;
-      const content = propContent || extractedContent;
-      const slug = propSlug || extractedSlug;
-
-      const cleanTitle = title.replace(/<[^>]*>/g, '').trim();
+      // Get title
+      const titleEl = articleEl.querySelector('h1');
+      const title = propTitle || titleEl?.textContent || document.title.replace(' | NXGEN GCXONE Documentation', '').trim();
+      const slug = propSlug || window.location.pathname.split('/').filter(Boolean).pop() || 'document';
       const sanitizedSlug = slug.replace(/[^a-zA-Z0-9-_]/g, '-');
 
-      const pdfContainer = document.createElement('div');
-      pdfContainer.className = 'nxgen-pdf-container';
+      // Clone and clean content
+      const clone = articleEl.cloneNode(true) as HTMLElement;
+      clone.querySelectorAll('button, .copy-button, [role="tablist"], .tabs, video, iframe, .theme-code-block').forEach(el => el.remove());
+      
+      // Convert links to plain text
+      clone.querySelectorAll('a').forEach(link => {
+        const span = document.createElement('span');
+        span.textContent = link.textContent;
+        link.replaceWith(span);
+      });
 
-      const header = document.createElement('div');
-      header.className = 'nxgen-pdf-header';
-      header.innerHTML = `
-        <div class="nxgen-pdf-brand">
-          <span class="nxgen-pdf-logo">NXGEN</span>
-          <span class="nxgen-pdf-divider">|</span>
-          <span class="nxgen-pdf-product">GCXONE</span>
-        </div>
-        <h1 class="nxgen-pdf-title">${cleanTitle}</h1>
-        <div class="nxgen-pdf-meta">
-          <span class="nxgen-pdf-date">${new Date().toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-          })}</span>
+      // Create print container
+      const printContainer = document.createElement('div');
+      printContainer.id = 'pdf-print-container';
+      printContainer.innerHTML = `
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; background: white; color: #1a1a1a;">
+          <header style="border-bottom: 3px solid #E8B058; padding-bottom: 20px; margin-bottom: 30px;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+              <span style="font-size: 20px; font-weight: 800; color: #E8B058;">NXGEN</span>
+              <span style="color: #ccc;">|</span>
+              <span style="font-size: 16px; font-weight: 600; color: #666;">GCXONE Documentation</span>
+            </div>
+            <h1 style="font-size: 28px; font-weight: 700; margin: 0; color: #1a1a1a;">${title}</h1>
+            <p style="font-size: 12px; color: #888; margin-top: 10px; margin-bottom: 0;">
+              Generated on ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </p>
+          </header>
+          <main style="line-height: 1.7; font-size: 14px;">
+            ${clone.innerHTML}
+          </main>
+          <footer style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 40px; font-size: 11px; color: #888;">
+            <p style="margin: 0;">© ${new Date().getFullYear()} NXGEN Technology AG. All rights reserved.</p>
+            <p style="margin: 5px 0 0 0; word-break: break-all;">${window.location.href}</p>
+          </footer>
         </div>
       `;
 
-      const contentWrapper = document.createElement('div');
-      contentWrapper.className = 'nxgen-pdf-content';
-      contentWrapper.innerHTML = content;
+      // Add to DOM (must be visible for html2canvas)
+      printContainer.style.cssText = 'position: absolute; left: 0; top: 0; width: 100%; background: white; z-index: 10000;';
+      document.body.appendChild(printContainer);
 
-      const footer = document.createElement('div');
-      footer.className = 'nxgen-pdf-footer';
-      footer.innerHTML = `
-        <div class="nxgen-pdf-copyright">© ${new Date().getFullYear()} NXGEN. All rights reserved.</div>
-        <div class="nxgen-pdf-url">${window.location.href}</div>
-      `;
+      // Wait for images to load
+      const images = printContainer.querySelectorAll('img');
+      await Promise.all(Array.from(images).map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(resolve => {
+          img.onload = resolve;
+          img.onerror = resolve;
+          setTimeout(resolve, 2000);
+        });
+      }));
 
-      pdfContainer.appendChild(header);
-      pdfContainer.appendChild(contentWrapper);
-      pdfContainer.appendChild(footer);
-
-      document.body.appendChild(pdfContainer);
+      const element = printContainer.firstElementChild as HTMLElement;
 
       const opt = {
-        margin: [20, 15, 20, 15] as [number, number, number, number],
+        margin: 10,
         filename: `${sanitizedSlug}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
+        image: { type: 'jpeg', quality: 0.95 },
         html2canvas: { 
           scale: 2,
           useCORS: true,
           allowTaint: true,
-          logging: false,
-          letterRendering: true,
+          scrollY: 0,
+          scrollX: 0,
         },
         jsPDF: { 
-          unit: 'mm' as const, 
-          format: 'a4' as const, 
-          orientation: 'portrait' as const,
+          unit: 'mm', 
+          format: 'a4', 
+          orientation: 'portrait',
         },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] as string[] },
       };
 
-      await html2pdf().set(opt).from(pdfContainer).save();
+      await html2pdf().set(opt).from(element).save();
 
-      document.body.removeChild(pdfContainer);
+      // Cleanup
+      document.body.removeChild(printContainer);
       
       setStatus('success');
       setTimeout(() => setStatus('idle'), 3000);
     } catch (err) {
       console.error('PDF generation failed:', err);
       setStatus('error');
-      setErrorMessage('Failed to generate PDF. Please try again.');
+      setErrorMessage(err instanceof Error ? err.message : 'Failed to generate PDF. Please try again.');
       setTimeout(() => {
         setStatus('idle');
         setErrorMessage(null);
