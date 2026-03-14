@@ -1138,7 +1138,7 @@
           "variant": "primary"
         },
         {
-          "href": "#integrations",
+          "href": "#station-integrations",
           "label": "Integration Options",
           "variant": "outline"
         }
@@ -1287,7 +1287,7 @@
         "title": "Station Types"
       },
       {
-        "_key": "station-integrations",
+        "_key": "integrations",
         "_type": "landingSectionContentGrid",
         "columns": 2,
         "description": "Connect with your existing systems and protocols out of the box.",
@@ -1601,11 +1601,6 @@
           "href": "#operator",
           "label": "Operator Guide",
           "variant": "secondary"
-        },
-        {
-          "href": "/video-tutorials",
-          "label": "Watch Demo",
-          "variant": "secondary"
         }
       ],
       "headline": "Start Monitoring in Minutes",
@@ -1896,6 +1891,84 @@
           }
         ],
         "title": "Quick Start Paths"
+      },
+      {
+        "_key": "quickstart-features",
+        "_type": "landingSectionFeatures",
+        "columns": 3,
+        "description": "Choose your path to get up and running quickly",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Learn the basics of the platform and its capabilities",
+            "icon": "Compass",
+            "title": "Platform Overview"
+          },
+          {
+            "color": "#10B981",
+            "description": "Connect your first devices and start monitoring",
+            "icon": "Cpu",
+            "title": "Device Integration"
+          },
+          {
+            "color": "#8B5CF6",
+            "description": "Step-by-step guide for new users",
+            "icon": "BookOpen",
+            "title": "Quick Start Guide"
+          }
+        ],
+        "title": "Getting Started Paths"
+      },
+      {
+        "_key": "quickstart-content",
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Everything you need to get started",
+        "items": [
+          {
+            "description": "Access the platform and configure your account",
+            "icon": "LogIn",
+            "link": "/docs/getting-started/first-time-login--access",
+            "title": "First-Time Login"
+          },
+          {
+            "description": "Configure your hierarchy and structure",
+            "icon": "Building2",
+            "link": "/docs/getting-started/organization--hierarchy-setup",
+            "title": "Organization Setup"
+          },
+          {
+            "description": "Invite team members and assign roles",
+            "icon": "Users",
+            "link": "/docs/getting-started/user-management-setup",
+            "title": "User Management"
+          },
+          {
+            "description": "Complete onboarding checklist",
+            "icon": "CheckSquare",
+            "link": "/docs/getting-started/quick-start-checklist",
+            "title": "Checklist"
+          }
+        ],
+        "title": "Essential Resources"
+      },
+      {
+        "_key": "quickstart-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/quick-start/guide",
+            "label": "Start Here",
+            "variant": "primary"
+          },
+          {
+            "href": "/getting-started",
+            "label": "Watch Videos",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Start using the platform with our comprehensive quick start resources.",
+        "title": "Begin Your Journey"
       }
     ],
     "showBackground": true,
@@ -1941,22 +2014,68 @@
     "publishedAt": "2026-03-12",
     "sections": [
       {
-        "_type": "landingSectionCustom",
-        "customBody": [
+        "_key": "breakthroughs-features",
+        "_type": "landingSectionFeatures",
+        "columns": 3,
+        "description": "Explore the latest breakthroughs and innovations in our platform",
+        "features": [
           {
-            "_type": "block",
-            "children": [
-              {
-                "_type": "span",
-                "marks": [],
-                "text": "This landing page route (/docs/breakthroughs) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
-              }
-            ],
-            "markDefs": [],
-            "style": "normal"
+            "color": "#8B5CF6",
+            "description": "Advanced machine learning algorithms for predictive monitoring and anomaly detection",
+            "icon": "Brain",
+            "title": "AI-Powered Analytics"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "Lightning-fast data processing with sub-second latency for critical alerts",
+            "icon": "Zap",
+            "title": "Real-time Processing"
+          },
+          {
+            "color": "#10B981",
+            "description": "Distributed computing capabilities for local processing and reduced cloud dependency",
+            "icon": "Server",
+            "title": "Edge Computing"
           }
         ],
-        "title": "Migration Notice"
+        "title": "Innovation Highlights"
+      },
+      {
+        "_key": "breakthroughs-stats",
+        "_type": "landingSectionStats",
+        "stats": [
+          {
+            "label": "Faster Detection",
+            "value": "10x"
+          },
+          {
+            "label": "Reduced Downtime",
+            "value": "45%"
+          },
+          {
+            "label": "Active Deployments",
+            "value": "500+"
+          }
+        ],
+        "title": "Impact Metrics"
+      },
+      {
+        "_key": "breakthroughs-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/docs",
+            "label": "View Documentation",
+            "variant": "primary"
+          },
+          {
+            "href": "/contact",
+            "label": "Contact Sales",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Learn how our latest breakthroughs can transform your monitoring operations.",
+        "title": "Discover Our Innovations"
       }
     ],
     "showBackground": true,
@@ -1998,22 +2117,88 @@
     "publishedAt": "2026-03-12",
     "sections": [
       {
-        "_type": "landingSectionCustom",
-        "customBody": [
+        "_key": "integration-features",
+        "_type": "landingSectionFeatures",
+        "columns": 4,
+        "description": "Connect with a wide range of devices, protocols, and third-party systems",
+        "features": [
           {
-            "_type": "block",
-            "children": [
-              {
-                "_type": "span",
-                "marks": [],
-                "text": "This landing page route (/integration-hub) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
-              }
-            ],
-            "markDefs": [],
-            "style": "normal"
+            "color": "#3B82F6",
+            "description": "Support for SNMP, Modbus, OPC-UA, MQTT, and custom protocols",
+            "icon": "Cpu",
+            "title": "Device Protocols"
+          },
+          {
+            "color": "#10B981",
+            "description": "RESTful APIs and webhooks for seamless third-party connections",
+            "icon": "Code",
+            "title": "API Integrations"
+          },
+          {
+            "color": "#8B5CF6",
+            "description": "Pre-built connectors for popular monitoring and IoT platforms",
+            "icon": "Plug",
+            "title": "Data Connectors"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "Build custom drivers for proprietary equipment and legacy systems",
+            "icon": "Wrench",
+            "title": "Custom Drivers"
           }
         ],
-        "title": "Migration Notice"
+        "title": "Integration Capabilities"
+      },
+      {
+        "_key": "integration-content",
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Step-by-step guides for common integration scenarios",
+        "items": [
+          {
+            "description": "Configure SNMP polling for network devices and sensors",
+            "icon": "Network",
+            "link": "/docs/integrations/snmp",
+            "title": "SNMP Integration"
+          },
+          {
+            "description": "Connect Modbus-enabled equipment and controllers",
+            "icon": "Settings",
+            "link": "/docs/integrations/modbus",
+            "title": "Modbus Setup"
+          },
+          {
+            "description": "Complete API reference with examples and SDKs",
+            "icon": "Book",
+            "link": "/docs/api",
+            "title": "API Documentation"
+          },
+          {
+            "description": "Set up real-time event notifications via webhooks",
+            "icon": "Bell",
+            "link": "/docs/integrations/webhooks",
+            "title": "Webhook Configuration"
+          }
+        ],
+        "title": "Integration Guides"
+      },
+      {
+        "_key": "integration-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/integrations",
+            "label": "Browse Integrations",
+            "variant": "primary"
+          },
+          {
+            "href": "/docs/api",
+            "label": "API Reference",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Connect your devices and systems to unlock powerful monitoring capabilities.",
+        "title": "Start Integrating"
       }
     ],
     "showBackground": true,
@@ -2055,22 +2240,94 @@
     "publishedAt": "2026-03-12",
     "sections": [
       {
-        "_type": "landingSectionCustom",
-        "customBody": [
+        "_key": "releases-features",
+        "_type": "landingSectionFeatures",
+        "columns": 3,
+        "description": "Track our internal development progress and upcoming features",
+        "features": [
           {
-            "_type": "block",
-            "children": [
-              {
-                "_type": "span",
-                "marks": [],
-                "text": "This landing page route (/internal-releases) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
-              }
-            ],
-            "markDefs": [],
-            "style": "normal"
+            "color": "#8B5CF6",
+            "description": "Major new capabilities and enhancements",
+            "icon": "Sparkles",
+            "title": "Feature Releases"
+          },
+          {
+            "color": "#10B981",
+            "description": "Resolved issues and stability improvements",
+            "icon": "Bug",
+            "title": "Bug Fixes"
+          },
+          {
+            "color": "#3B82F6",
+            "description": "Speed and efficiency optimizations",
+            "icon": "Gauge",
+            "title": "Performance Updates"
           }
         ],
-        "title": "Migration Notice"
+        "title": "Release Categories"
+      },
+      {
+        "_key": "releases-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/internal-releases/current",
+            "label": "Current Sprint",
+            "variant": "primary"
+          },
+          {
+            "href": "/internal-releases/archive",
+            "label": "Release History",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Stay up to date with the newest features and improvements.",
+        "title": "View Latest Releases"
+      },
+      {
+        "_key": "internal-features",
+        "_type": "landingSectionFeatures",
+        "columns": 3,
+        "description": "Track our internal development progress and upcoming features",
+        "features": [
+          {
+            "color": "#8B5CF6",
+            "description": "Major new capabilities and enhancements",
+            "icon": "Sparkles",
+            "title": "Feature Releases"
+          },
+          {
+            "color": "#10B981",
+            "description": "Resolved issues and stability improvements",
+            "icon": "Bug",
+            "title": "Bug Fixes"
+          },
+          {
+            "color": "#3B82F6",
+            "description": "Speed and efficiency optimizations",
+            "icon": "Gauge",
+            "title": "Performance Updates"
+          }
+        ],
+        "title": "Release Categories"
+      },
+      {
+        "_key": "internal-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/internal-releases/current",
+            "label": "Current Sprint",
+            "variant": "primary"
+          },
+          {
+            "href": "/internal-releases/archive",
+            "label": "Release History",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Stay up to date with the newest features and improvements.",
+        "title": "View Latest Releases"
       }
     ],
     "showBackground": true,
@@ -2132,6 +2389,51 @@
           }
         ],
         "title": "Migration Notice"
+      },
+      {
+        "_key": "sprint-features",
+        "_type": "landingSectionFeatures",
+        "columns": 3,
+        "description": "Key deliverables from this sprint",
+        "features": [
+          {
+            "color": "#8B5CF6",
+            "description": "Enhanced widget library and performance optimizations",
+            "icon": "LayoutDashboard",
+            "title": "Dashboard Improvements"
+          },
+          {
+            "color": "#3B82F6",
+            "description": "New endpoints and improved response times",
+            "icon": "Code",
+            "title": "API Enhancements"
+          },
+          {
+            "color": "#10B981",
+            "description": "Resolved issues and stability improvements",
+            "icon": "Check",
+            "title": "Bug Fixes"
+          }
+        ],
+        "title": "Sprint Highlights"
+      },
+      {
+        "_key": "sprint-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/internal-releases",
+            "label": "Release Archive",
+            "variant": "primary"
+          },
+          {
+            "href": "/roadmap",
+            "label": "Roadmap",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Browse the complete release history and upcoming sprints.",
+        "title": "View All Internal Releases"
       }
     ],
     "showBackground": true,
@@ -2193,6 +2495,51 @@
           }
         ],
         "title": "Migration Notice"
+      },
+      {
+        "_key": "sprint-features",
+        "_type": "landingSectionFeatures",
+        "columns": 3,
+        "description": "Key deliverables from this sprint",
+        "features": [
+          {
+            "color": "#8B5CF6",
+            "description": "Additional protocol support and connectors",
+            "icon": "Plug",
+            "title": "New Integrations"
+          },
+          {
+            "color": "#3B82F6",
+            "description": "Improved mobile experience and offline support",
+            "icon": "Smartphone",
+            "title": "Mobile Updates"
+          },
+          {
+            "color": "#10B981",
+            "description": "Speed optimizations and reduced latency",
+            "icon": "Gauge",
+            "title": "Performance"
+          }
+        ],
+        "title": "Sprint Highlights"
+      },
+      {
+        "_key": "sprint-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/internal-releases",
+            "label": "Release Archive",
+            "variant": "primary"
+          },
+          {
+            "href": "/roadmap",
+            "label": "Roadmap",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Browse the complete release history and upcoming sprints.",
+        "title": "View All Internal Releases"
       }
     ],
     "showBackground": true,
@@ -2210,7 +2557,7 @@
         "label": "Home"
       },
       {
-        "href": "/quick-start",
+        "href": "/getting-started",
         "label": "Quick Start"
       },
       {
@@ -2238,22 +2585,88 @@
     "publishedAt": "2026-03-12",
     "sections": [
       {
-        "_type": "landingSectionCustom",
-        "customBody": [
+        "_key": "device-features",
+        "_type": "landingSectionFeatures",
+        "columns": 4,
+        "description": "Follow these steps to connect your devices",
+        "features": [
           {
-            "_type": "block",
-            "children": [
-              {
-                "_type": "span",
-                "marks": [],
-                "text": "This landing page route (/quick-start/device-integration) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
-              }
-            ],
-            "markDefs": [],
-            "style": "normal"
+            "color": "#3B82F6",
+            "description": "Choose the appropriate communication protocol for your device",
+            "icon": "Settings",
+            "title": "1. Select Protocol"
+          },
+          {
+            "color": "#10B981",
+            "description": "Set up device parameters and connection settings",
+            "icon": "Cpu",
+            "title": "2. Configure Device"
+          },
+          {
+            "color": "#8B5CF6",
+            "description": "Define data points and monitoring parameters",
+            "icon": "Map",
+            "title": "3. Map Points"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "Test connectivity and validate data flow",
+            "icon": "CheckCircle",
+            "title": "4. Verify Data"
           }
         ],
-        "title": "Migration Notice"
+        "title": "Integration Steps"
+      },
+      {
+        "_key": "device-content",
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Helpful resources for device integration",
+        "items": [
+          {
+            "description": "Complete guide to supported protocols",
+            "icon": "Book",
+            "link": "/docs/integrations/protocols",
+            "title": "Protocol Reference"
+          },
+          {
+            "description": "Pre-configured templates for common devices",
+            "icon": "Copy",
+            "link": "/docs/integrations/templates",
+            "title": "Device Templates"
+          },
+          {
+            "description": "Common issues and solutions",
+            "icon": "HelpCircle",
+            "link": "/docs/integrations/troubleshooting",
+            "title": "Troubleshooting"
+          },
+          {
+            "description": "Tips for optimal device configuration",
+            "icon": "Lightbulb",
+            "link": "/docs/integrations/best-practices",
+            "title": "Best Practices"
+          }
+        ],
+        "title": "Integration Resources"
+      },
+      {
+        "_key": "device-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/integrations",
+            "label": "View All Protocols",
+            "variant": "primary"
+          },
+          {
+            "href": "/docs/api",
+            "label": "API Reference",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Start integrating your devices with our comprehensive guides.",
+        "title": "Ready to Connect?"
       }
     ],
     "showBackground": true,
@@ -2271,7 +2684,7 @@
         "label": "Home"
       },
       {
-        "href": "/quick-start",
+        "href": "/getting-started",
         "label": "Quick Start"
       },
       {
@@ -2315,6 +2728,125 @@
           }
         ],
         "title": "Migration Notice"
+      },
+      {
+        "_key": "guide-steps",
+        "_type": "landingSectionSteps",
+        "description": "Follow these steps to get fully operational",
+        "phases": [
+          {
+            "description": "Get access and configure your account",
+            "phaseNumber": 1,
+            "steps": [
+              {
+                "description": "Access the platform with your credentials",
+                "stepNumber": 1,
+                "title": "First Login"
+              },
+              {
+                "description": "Configure your user profile and preferences",
+                "stepNumber": 2,
+                "title": "Profile Setup"
+              },
+              {
+                "description": "Set up two-factor authentication",
+                "stepNumber": 3,
+                "title": "Security"
+              }
+            ],
+            "title": "Account Setup"
+          },
+          {
+            "description": "Build your monitoring structure",
+            "phaseNumber": 2,
+            "steps": [
+              {
+                "description": "Set up regions, clusters, and sites",
+                "stepNumber": 4,
+                "title": "Create Hierarchy"
+              },
+              {
+                "description": "Invite team members and assign roles",
+                "stepNumber": 5,
+                "title": "Add Users"
+              },
+              {
+                "description": "Set up access controls",
+                "stepNumber": 6,
+                "title": "Configure Permissions"
+              }
+            ],
+            "title": "Organization"
+          },
+          {
+            "description": "Connect your infrastructure",
+            "phaseNumber": 3,
+            "steps": [
+              {
+                "description": "Connect sensors and equipment",
+                "stepNumber": 7,
+                "title": "Add Devices"
+              },
+              {
+                "description": "Set up alarm rules",
+                "stepNumber": 8,
+                "title": "Configure Alerts"
+              },
+              {
+                "description": "Build monitoring views",
+                "stepNumber": 9,
+                "title": "Create Dashboards"
+              }
+            ],
+            "title": "Integration"
+          }
+        ],
+        "title": "Your Onboarding Journey"
+      },
+      {
+        "_key": "guide-features",
+        "_type": "landingSectionFeatures",
+        "columns": 3,
+        "description": "After completing basic setup, explore these features",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Create custom dashboards for your specific needs",
+            "icon": "LayoutDashboard",
+            "title": "Advanced Dashboards"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "Configure sophisticated alert conditions and routing",
+            "icon": "Bell",
+            "title": "Alert Rules"
+          },
+          {
+            "color": "#10B981",
+            "description": "Generate operational reports and analytics",
+            "icon": "FileBarChart",
+            "title": "Reports"
+          }
+        ],
+        "title": "Next Steps"
+      },
+      {
+        "_key": "guide-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/docs",
+            "label": "View Full Documentation",
+            "variant": "primary"
+          },
+          {
+            "href": "/support",
+            "label": "Contact Support",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Complete your setup and start monitoring your infrastructure.",
+        "title": "Ready to Go Live?"
       }
     ],
     "showBackground": true,
@@ -2332,7 +2864,7 @@
         "label": "Home"
       },
       {
-        "href": "/quick-start",
+        "href": "/getting-started",
         "label": "Quick Start"
       },
       {
@@ -2360,22 +2892,101 @@
     "publishedAt": "2026-03-12",
     "sections": [
       {
-        "_type": "landingSectionCustom",
-        "customBody": [
+        "_key": "platform-features",
+        "_type": "landingSectionFeatures",
+        "columns": 3,
+        "description": "Discover the powerful features of our monitoring platform",
+        "features": [
           {
-            "_type": "block",
-            "children": [
-              {
-                "_type": "span",
-                "marks": [],
-                "text": "This landing page route (/quick-start/platform-overview) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
-              }
-            ],
-            "markDefs": [],
-            "style": "normal"
+            "color": "#3B82F6",
+            "description": "Live data visualization with customizable dashboards",
+            "icon": "Activity",
+            "title": "Real-time Monitoring"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "Intelligent alerting with escalation and routing",
+            "icon": "Bell",
+            "title": "Alert Management"
+          },
+          {
+            "color": "#10B981",
+            "description": "Trend analysis and historical data reporting",
+            "icon": "TrendingUp",
+            "title": "Historical Analysis"
           }
         ],
-        "title": "Migration Notice"
+        "title": "Core Capabilities"
+      },
+      {
+        "_key": "platform-steps",
+        "_type": "landingSectionSteps",
+        "description": "Your journey to operational excellence",
+        "phases": [
+          {
+            "description": "Set up your basic platform configuration",
+            "phaseNumber": 1,
+            "steps": [
+              {
+                "description": "Sign up and verify your account",
+                "stepNumber": 1,
+                "title": "Create Account"
+              },
+              {
+                "description": "Configure basic platform settings",
+                "stepNumber": 2,
+                "title": "Initial Setup"
+              },
+              {
+                "description": "Invite team members and assign roles",
+                "stepNumber": 3,
+                "title": "Team Setup"
+              }
+            ],
+            "title": "Foundation"
+          },
+          {
+            "description": "Build your monitoring infrastructure",
+            "phaseNumber": 2,
+            "steps": [
+              {
+                "description": "Set up regions, clusters, and sites",
+                "stepNumber": 4,
+                "title": "Create Hierarchy"
+              },
+              {
+                "description": "Connect your monitoring equipment",
+                "stepNumber": 5,
+                "title": "Add Devices"
+              },
+              {
+                "description": "Set up alarm rules and notifications",
+                "stepNumber": 6,
+                "title": "Configure Alerts"
+              }
+            ],
+            "title": "Configuration"
+          }
+        ],
+        "title": "Getting Started"
+      },
+      {
+        "_key": "platform-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/docs",
+            "label": "Full Documentation",
+            "variant": "primary"
+          },
+          {
+            "href": "/demo",
+            "label": "Watch Demo",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Discover how our platform can transform your operations.",
+        "title": "Explore the Platform"
       }
     ],
     "showBackground": true,
@@ -2417,22 +3028,103 @@
     "publishedAt": "2026-03-12",
     "sections": [
       {
-        "_type": "landingSectionCustom",
-        "customBody": [
+        "_key": "releases-features",
+        "_type": "landingSectionFeatures",
+        "columns": 3,
+        "description": "Key features from our latest releases",
+        "features": [
           {
-            "_type": "block",
-            "children": [
-              {
-                "_type": "span",
-                "marks": [],
-                "text": "This landing page route (/releases) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
-              }
-            ],
-            "markDefs": [],
-            "style": "normal"
+            "color": "#8B5CF6",
+            "description": "New dashboard widgets and customization options",
+            "icon": "LayoutDashboard",
+            "title": "Enhanced Dashboard"
+          },
+          {
+            "color": "#3B82F6",
+            "description": "Improved mobile experience with offline support",
+            "icon": "Smartphone",
+            "title": "Mobile App Update"
+          },
+          {
+            "color": "#10B981",
+            "description": "New API version with expanded capabilities",
+            "icon": "Code",
+            "title": "API v2"
           }
         ],
-        "title": "Migration Notice"
+        "title": "Recent Highlights"
+      },
+      {
+        "_key": "releases-tabs",
+        "_type": "landingSectionTabs",
+        "description": "Browse releases by category",
+        "tabs": [
+          {
+            "content": {
+              "description": "Significant feature updates and enhancements",
+              "items": [
+                {
+                  "description": "Complete platform redesign",
+                  "icon": "Rocket",
+                  "status": "Latest",
+                  "title": "v3.0 Platform Launch"
+                },
+                {
+                  "description": "Advanced analytics capabilities",
+                  "icon": "Chart",
+                  "status": "Stable",
+                  "title": "v2.5 Analytics Suite"
+                }
+              ],
+              "title": "Major Releases"
+            },
+            "icon": "Sparkles",
+            "id": "major",
+            "label": "Major Releases"
+          },
+          {
+            "content": {
+              "description": "Incremental improvements and features",
+              "items": [
+                {
+                  "description": "Speed and reliability improvements",
+                  "icon": "Zap",
+                  "status": "Current",
+                  "title": "v3.1 Performance Boost"
+                },
+                {
+                  "description": "Resolved issues and stability",
+                  "icon": "Check",
+                  "status": "Patch",
+                  "title": "v3.0.5 Bug Fixes"
+                }
+              ],
+              "title": "Minor Updates"
+            },
+            "icon": "RefreshCw",
+            "id": "minor",
+            "label": "Minor Updates"
+          }
+        ],
+        "title": "Release Archives"
+      },
+      {
+        "_key": "releases-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/releases/archive",
+            "label": "View All Releases",
+            "variant": "primary"
+          },
+          {
+            "href": "/subscribe",
+            "label": "Subscribe",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Subscribe to release notifications and stay informed.",
+        "title": "Stay Updated"
       }
     ],
     "showBackground": true,
@@ -2494,6 +3186,51 @@
           }
         ],
         "title": "Migration Notice"
+      },
+      {
+        "_key": "sprint-features",
+        "_type": "landingSectionFeatures",
+        "columns": 3,
+        "description": "Key deliverables from this sprint",
+        "features": [
+          {
+            "color": "#8B5CF6",
+            "description": "Enhanced widget library and performance optimizations",
+            "icon": "LayoutDashboard",
+            "title": "Dashboard Improvements"
+          },
+          {
+            "color": "#3B82F6",
+            "description": "New endpoints and improved response times",
+            "icon": "Code",
+            "title": "API Enhancements"
+          },
+          {
+            "color": "#10B981",
+            "description": "Resolved issues and stability improvements",
+            "icon": "Check",
+            "title": "Bug Fixes"
+          }
+        ],
+        "title": "Sprint Highlights"
+      },
+      {
+        "_key": "sprint-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/internal-releases",
+            "label": "Release Archive",
+            "variant": "primary"
+          },
+          {
+            "href": "/roadmap",
+            "label": "Roadmap",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Browse the complete release history and upcoming sprints.",
+        "title": "View All Internal Releases"
       }
     ],
     "showBackground": true,
@@ -2535,22 +3272,114 @@
     "publishedAt": "2026-03-12",
     "sections": [
       {
-        "_type": "landingSectionCustom",
-        "customBody": [
+        "_key": "roadmap-features",
+        "_type": "landingSectionFeatures",
+        "columns": 4,
+        "description": "See what we are building next",
+        "features": [
           {
-            "_type": "block",
-            "children": [
-              {
-                "_type": "span",
-                "marks": [],
-                "text": "This landing page route (/roadmap) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
-              }
-            ],
-            "markDefs": [],
-            "style": "normal"
+            "color": "#8B5CF6",
+            "description": "Intelligent recommendations and automated workflows",
+            "icon": "Bot",
+            "title": "AI Assistant"
+          },
+          {
+            "color": "#3B82F6",
+            "description": "Deeper insights with predictive analytics",
+            "icon": "TrendingUp",
+            "title": "Advanced Analytics"
+          },
+          {
+            "color": "#10B981",
+            "description": "Native mobile apps with enhanced features",
+            "icon": "Smartphone",
+            "title": "Mobile Redesign"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "Expanded protocol support and easier setup",
+            "icon": "Plug",
+            "title": "Integration Hub 2.0"
           }
         ],
-        "title": "Migration Notice"
+        "title": "Upcoming Features"
+      },
+      {
+        "_key": "roadmap-steps",
+        "_type": "landingSectionSteps",
+        "description": "Our planned release schedule",
+        "phases": [
+          {
+            "description": "Foundation improvements",
+            "phaseNumber": 1,
+            "steps": [
+              {
+                "description": "Core platform optimization",
+                "stepNumber": 1,
+                "title": "Performance Engine"
+              },
+              {
+                "description": "New API endpoints and features",
+                "stepNumber": 2,
+                "title": "API Expansion"
+              }
+            ],
+            "title": "Q1 2026"
+          },
+          {
+            "description": "User experience enhancements",
+            "phaseNumber": 2,
+            "steps": [
+              {
+                "description": "Redesigned dashboard builder",
+                "stepNumber": 3,
+                "title": "Dashboard 2.0"
+              },
+              {
+                "description": "Native mobile applications",
+                "stepNumber": 4,
+                "title": "Mobile Update"
+              }
+            ],
+            "title": "Q2 2026"
+          },
+          {
+            "description": "Intelligence features",
+            "phaseNumber": 3,
+            "steps": [
+              {
+                "description": "Machine learning capabilities",
+                "stepNumber": 5,
+                "title": "AI Integration"
+              },
+              {
+                "description": "Workflow automation engine",
+                "stepNumber": 6,
+                "title": "Automation"
+              }
+            ],
+            "title": "Q3 2026"
+          }
+        ],
+        "title": "Development Timeline"
+      },
+      {
+        "_key": "roadmap-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/feedback",
+            "label": "Submit Feature Request",
+            "variant": "primary"
+          },
+          {
+            "href": "/roadmap/full",
+            "label": "View Full Roadmap",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Share your feedback and help us prioritize upcoming features.",
+        "title": "Shape Our Future"
       }
     ],
     "showBackground": true,
@@ -2596,22 +3425,88 @@
     "publishedAt": "2026-03-12",
     "sections": [
       {
-        "_type": "landingSectionCustom",
-        "customBody": [
+        "_key": "admin-features",
+        "_type": "landingSectionFeatures",
+        "columns": 4,
+        "description": "Powerful tools for platform administration",
+        "features": [
           {
-            "_type": "block",
-            "children": [
-              {
-                "_type": "span",
-                "marks": [],
-                "text": "This landing page route (/roles/admin) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
-              }
-            ],
-            "markDefs": [],
-            "style": "normal"
+            "color": "#3B82F6",
+            "description": "Create users, assign roles, and manage permissions",
+            "icon": "Users",
+            "title": "User Management"
+          },
+          {
+            "color": "#10B981",
+            "description": "Configure hierarchy, regions, and site structure",
+            "icon": "Building2",
+            "title": "Organization Setup"
+          },
+          {
+            "color": "#8B5CF6",
+            "description": "Global settings, integrations, and security policies",
+            "icon": "Settings",
+            "title": "System Config"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "Complete activity tracking and compliance reporting",
+            "icon": "FileText",
+            "title": "Audit Logs"
           }
         ],
-        "title": "Migration Notice"
+        "title": "Admin Capabilities"
+      },
+      {
+        "_key": "admin-content",
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Essential documentation for administrators",
+        "items": [
+          {
+            "description": "Create and manage user accounts and permissions",
+            "icon": "User",
+            "link": "/docs/admin/users",
+            "title": "User Management"
+          },
+          {
+            "description": "Define roles with granular permissions",
+            "icon": "Shield",
+            "link": "/docs/admin/roles",
+            "title": "Role Configuration"
+          },
+          {
+            "description": "Set up your monitoring hierarchy",
+            "icon": "Building",
+            "link": "/docs/admin/organization",
+            "title": "Organization Structure"
+          },
+          {
+            "description": "Configure authentication and security policies",
+            "icon": "Lock",
+            "link": "/docs/admin/security",
+            "title": "Security Settings"
+          }
+        ],
+        "title": "Admin Guides"
+      },
+      {
+        "_key": "admin-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/docs/admin",
+            "label": "View Admin Docs",
+            "variant": "primary"
+          },
+          {
+            "href": "/status",
+            "label": "System Status",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Access comprehensive guides for all admin functions.",
+        "title": "Admin Documentation"
       }
     ],
     "showBackground": true,
@@ -2657,22 +3552,82 @@
     "publishedAt": "2026-03-12",
     "sections": [
       {
-        "_type": "landingSectionCustom",
-        "customBody": [
+        "_key": "installer-features",
+        "_type": "landingSectionFeatures",
+        "columns": 3,
+        "description": "Everything you need for successful installations",
+        "features": [
           {
-            "_type": "block",
-            "children": [
-              {
-                "_type": "span",
-                "marks": [],
-                "text": "This landing page route (/roles/installer) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
-              }
-            ],
-            "markDefs": [],
-            "style": "normal"
+            "color": "#3B82F6",
+            "description": "Quick site creation and configuration wizards",
+            "icon": "MapPin",
+            "title": "Site Setup"
+          },
+          {
+            "color": "#10B981",
+            "description": "Bulk device onboarding and template management",
+            "icon": "Cpu",
+            "title": "Device Provisioning"
+          },
+          {
+            "color": "#8B5CF6",
+            "description": "Automated testing and verification workflows",
+            "icon": "CheckSquare",
+            "title": "Validation Tools"
           }
         ],
-        "title": "Migration Notice"
+        "title": "Installer Tools"
+      },
+      {
+        "_key": "installer-content",
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Step-by-step guides for installers",
+        "items": [
+          {
+            "description": "Complete guide to creating and configuring sites",
+            "icon": "Building",
+            "link": "/docs/installer/site-setup",
+            "title": "Site Setup Guide"
+          },
+          {
+            "description": "Add devices using templates or manual configuration",
+            "icon": "Plus",
+            "link": "/docs/installer/device-onboarding",
+            "title": "Device Onboarding"
+          },
+          {
+            "description": "Verify installations meet requirements",
+            "icon": "ClipboardCheck",
+            "link": "/docs/installer/commissioning",
+            "title": "Commissioning Checklist"
+          },
+          {
+            "description": "Common issues and solutions for installers",
+            "icon": "Wrench",
+            "link": "/docs/installer/troubleshooting",
+            "title": "Troubleshooting"
+          }
+        ],
+        "title": "Installation Guides"
+      },
+      {
+        "_key": "installer-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/docs/installer",
+            "label": "View Installer Docs",
+            "variant": "primary"
+          },
+          {
+            "href": "/templates",
+            "label": "Device Templates",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Access all the tools and guides you need for successful installations.",
+        "title": "Start Installing"
       }
     ],
     "showBackground": true,
@@ -2718,22 +3673,88 @@
     "publishedAt": "2026-03-12",
     "sections": [
       {
-        "_type": "landingSectionCustom",
-        "customBody": [
+        "_key": "manager-features",
+        "_type": "landingSectionFeatures",
+        "columns": 4,
+        "description": "Tools for managing operations and teams",
+        "features": [
           {
-            "_type": "block",
-            "children": [
-              {
-                "_type": "span",
-                "marks": [],
-                "text": "This landing page route (/roles/manager) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
-              }
-            ],
-            "markDefs": [],
-            "style": "normal"
+            "color": "#3B82F6",
+            "description": "Track KPIs and operational performance",
+            "icon": "TrendingUp",
+            "title": "Performance Metrics"
+          },
+          {
+            "color": "#10B981",
+            "description": "Monitor team activities and workload distribution",
+            "icon": "Users",
+            "title": "Team Oversight"
+          },
+          {
+            "color": "#8B5CF6",
+            "description": "Create custom reports for stakeholders",
+            "icon": "FileBarChart",
+            "title": "Report Builder"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "Configure escalation rules and response protocols",
+            "icon": "Bell",
+            "title": "Alert Management"
           }
         ],
-        "title": "Migration Notice"
+        "title": "Manager Dashboard"
+      },
+      {
+        "_key": "manager-content",
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Documentation for operational managers",
+        "items": [
+          {
+            "description": "Configure manager dashboards and views",
+            "icon": "LayoutDashboard",
+            "link": "/docs/manager/dashboards",
+            "title": "Dashboard Guide"
+          },
+          {
+            "description": "Create and schedule operational reports",
+            "icon": "FileText",
+            "link": "/docs/manager/reporting",
+            "title": "Reporting"
+          },
+          {
+            "description": "Manage team assignments and schedules",
+            "icon": "Users",
+            "link": "/docs/manager/team",
+            "title": "Team Management"
+          },
+          {
+            "description": "Operational excellence guidelines",
+            "icon": "Lightbulb",
+            "link": "/docs/manager/best-practices",
+            "title": "Best Practices"
+          }
+        ],
+        "title": "Manager Resources"
+      },
+      {
+        "_key": "manager-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/docs/manager",
+            "label": "View Manager Docs",
+            "variant": "primary"
+          },
+          {
+            "href": "/reports",
+            "label": "Reports Library",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Access comprehensive guides for operational management.",
+        "title": "Manager Documentation"
       }
     ],
     "showBackground": true,
@@ -2779,22 +3800,88 @@
     "publishedAt": "2026-03-12",
     "sections": [
       {
-        "_type": "landingSectionCustom",
-        "customBody": [
+        "_key": "operator-features",
+        "_type": "landingSectionFeatures",
+        "columns": 4,
+        "description": "Essential tools for daily monitoring operations",
+        "features": [
           {
-            "_type": "block",
-            "children": [
-              {
-                "_type": "span",
-                "marks": [],
-                "text": "This landing page route (/roles/operator) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
-              }
-            ],
-            "markDefs": [],
-            "style": "normal"
+            "color": "#3B82F6",
+            "description": "Real-time dashboards with live data streams",
+            "icon": "Activity",
+            "title": "Live Monitoring"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "Acknowledge, investigate, and resolve alerts",
+            "icon": "BellRing",
+            "title": "Alert Handling"
+          },
+          {
+            "color": "#10B981",
+            "description": "View device health and connectivity status",
+            "icon": "Cpu",
+            "title": "Device Status"
+          },
+          {
+            "color": "#8B5CF6",
+            "description": "Complete history of events and actions taken",
+            "icon": "History",
+            "title": "Event Log"
           }
         ],
-        "title": "Migration Notice"
+        "title": "Operator Tools"
+      },
+      {
+        "_key": "operator-content",
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Learn how to use the platform effectively",
+        "items": [
+          {
+            "description": "Introduction to real-time monitoring",
+            "icon": "Eye",
+            "link": "/docs/operator/monitoring",
+            "title": "Monitoring Basics"
+          },
+          {
+            "description": "How to handle and resolve alerts",
+            "icon": "AlertTriangle",
+            "link": "/docs/operator/alerts",
+            "title": "Alert Response"
+          },
+          {
+            "description": "Find and use the information you need",
+            "icon": "Compass",
+            "link": "/docs/operator/dashboards",
+            "title": "Dashboard Navigation"
+          },
+          {
+            "description": "Best practices for shift transitions",
+            "icon": "Repeat",
+            "link": "/docs/operator/handover",
+            "title": "Shift Handover"
+          }
+        ],
+        "title": "Operator Guides"
+      },
+      {
+        "_key": "operator-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/docs/operator",
+            "label": "View Operator Docs",
+            "variant": "primary"
+          },
+          {
+            "href": "/docs/operator/quick-ref",
+            "label": "Quick Reference",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Access training materials and quick reference guides.",
+        "title": "Operator Training"
       }
     ],
     "showBackground": true,
@@ -2836,22 +3923,88 @@
     "publishedAt": "2026-03-12",
     "sections": [
       {
-        "_type": "landingSectionCustom",
-        "customBody": [
+        "_key": "towers-features",
+        "_type": "landingSectionFeatures",
+        "columns": 4,
+        "description": "Comprehensive monitoring for telecommunications towers",
+        "features": [
           {
-            "_type": "block",
-            "children": [
-              {
-                "_type": "span",
-                "marks": [],
-                "text": "This landing page route (/towers) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
-              }
-            ],
-            "markDefs": [],
-            "style": "normal"
+            "color": "#3B82F6",
+            "description": "Environmental sensors, power systems, and equipment status",
+            "icon": "RadioTower",
+            "title": "Site Monitoring"
+          },
+          {
+            "color": "#10B981",
+            "description": "Generator, UPS, and solar panel monitoring",
+            "icon": "Battery",
+            "title": "Power Management"
+          },
+          {
+            "color": "#8B5CF6",
+            "description": "Access control, cameras, and intrusion detection",
+            "icon": "Shield",
+            "title": "Security Systems"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "RAN, backhaul, and transmission monitoring",
+            "icon": "Network",
+            "title": "Network Equipment"
           }
         ],
-        "title": "Migration Notice"
+        "title": "Tower Monitoring"
+      },
+      {
+        "_key": "towers-content",
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Documentation and guides for tower monitoring",
+        "items": [
+          {
+            "description": "Configure a new tower site for monitoring",
+            "icon": "Building",
+            "link": "/docs/towers/site-setup",
+            "title": "Tower Site Setup"
+          },
+          {
+            "description": "Connect environmental and power sensors",
+            "icon": "Thermometer",
+            "link": "/docs/towers/sensors",
+            "title": "Sensor Integration"
+          },
+          {
+            "description": "Set up tower-specific alert rules",
+            "icon": "Bell",
+            "link": "/docs/towers/alerts",
+            "title": "Alert Configuration"
+          },
+          {
+            "description": "Tower performance reports and trends",
+            "icon": "Chart",
+            "link": "/docs/towers/reports",
+            "title": "Reports & Analytics"
+          }
+        ],
+        "title": "Tower Resources"
+      },
+      {
+        "_key": "towers-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/docs/towers",
+            "label": "View Tower Docs",
+            "variant": "primary"
+          },
+          {
+            "href": "/integrations",
+            "label": "Integration Hub",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Set up comprehensive monitoring for your tower infrastructure.",
+        "title": "Start Monitoring Towers"
       }
     ],
     "showBackground": true,

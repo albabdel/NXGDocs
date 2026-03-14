@@ -11,6 +11,24 @@ const sidebars: SidebarsConfig = {
       type: "doc",
       id: "index",
       label: "Home"
+    },
+    {
+      type: "category",
+      label: "🗂️ Uncategorized",
+      collapsible: true,
+      collapsed: false,
+      link: {
+        type: "generated-index",
+        description: "Docs automatically included in production sidebar without explicit sidebarCategory references.",
+        slug: "/uncategorized"
+      },
+      items: [
+        {
+          type: "doc",
+          id: "index",
+          label: "Documentation Home"
+        }
+      ]
     }
   ],
 };

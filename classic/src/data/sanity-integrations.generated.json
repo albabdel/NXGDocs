@@ -160,10 +160,10 @@
     "documentation": {
       "_type": "documentationInfo",
       "configurationArticle": {
-        "_ref": "doc-devices-avigilon",
+        "_ref": "doc-devices-avigilon-unity",
         "_type": "reference"
       },
-      "helpManualUrl": "/docs/devices/avigilon",
+      "helpManualUrl": "/docs/devices/avigilon-unity",
       "helpdeskUrl": null
     },
     "gcxReady": "full",
@@ -528,10 +528,10 @@
     "documentation": {
       "_type": "documentationInfo",
       "configurationArticle": {
-        "_ref": "InLhWtnsHQv1E9Zm2EvHcU",
+        "_ref": "doc-devices-dahua-air-shield",
         "_type": "reference"
       },
-      "helpManualUrl": "/docs/devices/dahua",
+      "helpManualUrl": "/docs/devices/dahua-air-shield",
       "helpdeskUrl": null
     },
     "gcxReady": "none",
@@ -712,10 +712,10 @@
     "documentation": {
       "_type": "documentationInfo",
       "configurationArticle": {
-        "_ref": "InLhWtnsHQv1E9Zm2EvHcU",
+        "_ref": "doc-devices-dahua-pir-cam",
         "_type": "reference"
       },
-      "helpManualUrl": "/docs/devices/dahua",
+      "helpManualUrl": "/docs/devices/dahua-pir-cam",
       "helpdeskUrl": null
     },
     "gcxReady": "none",
@@ -938,10 +938,10 @@
     "documentation": {
       "_type": "documentationInfo",
       "configurationArticle": {
-        "_ref": "doc-devices-eneo",
+        "_ref": "doc-devices-eneoip",
         "_type": "reference"
       },
-      "helpManualUrl": "/docs/devices/eneo",
+      "helpManualUrl": "/docs/devices/eneoip",
       "helpdeskUrl": null
     },
     "gcxReady": "none",
@@ -1442,10 +1442,10 @@
     "documentation": {
       "_type": "documentationInfo",
       "configurationArticle": {
-        "_ref": "doc-devices-honeywell",
+        "_ref": "doc-devices-adpro",
         "_type": "reference"
       },
-      "helpManualUrl": "/docs/devices/honeywell",
+      "helpManualUrl": "/docs/devices/adpro",
       "helpdeskUrl": null
     },
     "gcxReady": "full",
@@ -2204,11 +2204,13 @@
     "deviceHealthFeatures": null,
     "deviceType": "camera",
     "documentation": {
+      "_type": "documentationInfo",
       "configurationArticle": {
-        "_ref": "doc-devices-vivotek",
+        "_ref": "doc-devices-vivotek-onpremise",
         "_type": "reference"
       },
-      "helpManualUrl": "/docs/devices/vivotek"
+      "helpManualUrl": "/docs/devices/vivotek-onpremise",
+      "helpdeskUrl": null
     },
     "gcxReady": "none",
     "localModeFeatures": null,
@@ -2248,11 +2250,13 @@
     "deviceHealthFeatures": null,
     "deviceType": "nvr",
     "documentation": {
+      "_type": "documentationInfo",
       "configurationArticle": {
-        "_ref": "doc-devices-vivotek",
+        "_ref": "doc-devices-vivotek-onpremise",
         "_type": "reference"
       },
-      "helpManualUrl": "/docs/devices/vivotek"
+      "helpManualUrl": "/docs/devices/vivotek-onpremise",
+      "helpdeskUrl": null
     },
     "gcxReady": "none",
     "localModeFeatures": null,
