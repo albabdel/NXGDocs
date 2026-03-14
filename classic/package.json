@@ -5,7 +5,8 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start --host 0.0.0.0",
-    "build": "node scripts/build-with-memory.js && node scripts/generate-pdfs.js",
+    "build": "node scripts/build-with-memory.js",
+    "build:pdf": "node scripts/build-with-memory.js && node scripts/generate-pdfs.js",
     "sanity:pull": "node scripts/fetch-sanity-content.js",
     "sanity:pull:strict": "node -e \"process.env.SANITY_FETCH_STRICT='true'; require('./scripts/fetch-sanity-content').run().catch((err)=>{console.error(err.message); process.exit(1);});\"",
     "sanity:pull:preview": "node -e \"process.env.SANITY_INCLUDE_DRAFTS='true'; require('./scripts/fetch-sanity-content').run().catch((err)=>{console.error(err.message); process.exit(1);});\"",
