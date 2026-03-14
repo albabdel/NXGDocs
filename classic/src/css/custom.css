@@ -3653,3 +3653,42 @@ a.no-underline[class*="bg-[#E8B058]"]:hover,
 a.no-underline[class*="bg-[#C89446]"]:hover {
   color: inherit !important;
 }
+
+/* === DOWNLOAD PDF BUTTON - Global Positioning === */
+.download-pdf-global {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-default);
+}
+
+[data-theme='dark'] .download-pdf-global {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='light'] .download-pdf-global {
+  border-top-color: #E5E7EB;
+}
+
+.share-section-global {
+  margin-bottom: 1rem;
+}
+
+/* Position download button in TOC on desktop */
+@media (min-width: 997px) {
+  .theme-doc-toc-desktop .download-pdf-global {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-default);
+  }
+
+  [data-theme='dark'] .theme-doc-toc-desktop .download-pdf-global {
+    border-top-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Hide download button on mobile (will show in article footer) */
+@media (max-width: 996px) {
+  .theme-doc-toc-desktop .download-pdf-global {
+    display: none;
+  }
+}

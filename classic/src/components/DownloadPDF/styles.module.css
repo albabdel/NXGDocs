@@ -1,0 +1,315 @@
+.downloadPDF {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.downloadButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.125rem;
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, #D4A574 100%);
+  color: #000000;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(200, 148, 70, 0.3);
+  min-width: 140px;
+}
+
+.downloadButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(200, 148, 70, 0.4);
+}
+
+.downloadButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.downloadButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.downloadButton.loading {
+  background: linear-gradient(135deg, #9CA3AF 0%, #6B7280 100%);
+  box-shadow: 0 2px 8px rgba(107, 114, 128, 0.3);
+}
+
+.downloadButton.success {
+  background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+}
+
+.downloadButton.error {
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.errorMessage {
+  padding: 0.5rem 0.75rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 6px;
+  color: #DC2626;
+  font-size: 0.8125rem;
+  max-width: 280px;
+}
+
+.loadingFallback {
+  padding: 0.625rem 1.125rem;
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, #D4A574 100%);
+  color: #000000;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  min-width: 140px;
+  text-align: center;
+}
+
+[data-theme='dark'] .downloadButton {
+  background: linear-gradient(135deg, #C89446 0%, #E0B688 100%);
+  color: #000000;
+}
+
+[data-theme='dark'] .downloadButton:hover:not(:disabled) {
+  box-shadow: 0 4px 16px rgba(200, 148, 70, 0.5);
+}
+
+[data-theme='light'] .downloadButton {
+  background: linear-gradient(135deg, #996B1F 0%, #C89446 100%);
+  color: #FFFFFF;
+}
+
+[data-theme='light'] .downloadButton:hover:not(:disabled) {
+  box-shadow: 0 4px 16px rgba(153, 107, 31, 0.4);
+}
+
+[data-theme='dark'] .errorMessage {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #F87171;
+}
+
+[data-theme='light'] .errorMessage {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.2);
+  color: #DC2626;
+}
+
+:global(.nxgen-pdf-container) {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  width: 210mm;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #FFFFFF;
+  color: #1A1A1A;
+}
+
+:global(.nxgen-pdf-header) {
+  padding: 12mm 15mm;
+  border-bottom: 3px solid #C89446;
+  margin-bottom: 5mm;
+}
+
+:global(.nxgen-pdf-brand) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+:global(.nxgen-pdf-logo) {
+  font-size: 16pt;
+  font-weight: 800;
+  color: #C89446;
+  letter-spacing: -0.02em;
+}
+
+:global(.nxgen-pdf-divider) {
+  color: #D1D5DB;
+  font-weight: 300;
+}
+
+:global(.nxgen-pdf-product) {
+  font-size: 14pt;
+  font-weight: 600;
+  color: #6B7280;
+}
+
+:global(.nxgen-pdf-title) {
+  font-size: 24pt;
+  font-weight: 800;
+  color: #1A1A1A;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+:global(.nxgen-pdf-meta) {
+  display: flex;
+  gap: 15px;
+  font-size: 10pt;
+  color: #6B7280;
+}
+
+:global(.nxgen-pdf-date) {
+  color: #9CA3AF;
+}
+
+:global(.nxgen-pdf-content) {
+  padding: 10mm 15mm;
+  line-height: 1.6;
+}
+
+:global(.nxgen-pdf-content h1) {
+  font-size: 24pt;
+  font-weight: 800;
+  color: #1A1A1A;
+  margin: 0 0 8mm 0;
+  padding-bottom: 4mm;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+:global(.nxgen-pdf-content h2) {
+  font-size: 18pt;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin: 8mm 0 4mm 0;
+  padding-bottom: 2mm;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+:global(.nxgen-pdf-content h3) {
+  font-size: 14pt;
+  font-weight: 600;
+  color: #374151;
+  margin: 6mm 0 3mm 0;
+}
+
+:global(.nxgen-pdf-content h4) {
+  font-size: 12pt;
+  font-weight: 600;
+  color: #4B5563;
+  margin: 4mm 0 2mm 0;
+}
+
+:global(.nxgen-pdf-content p) {
+  font-size: 11pt;
+  color: #374151;
+  margin: 0 0 3mm 0;
+}
+
+:global(.nxgen-pdf-content ul),
+:global(.nxgen-pdf-content ol) {
+  margin: 0 0 3mm 0;
+  padding-left: 5mm;
+}
+
+:global(.nxgen-pdf-content li) {
+  font-size: 11pt;
+  color: #374151;
+  margin: 1mm 0;
+}
+
+:global(.nxgen-pdf-content code) {
+  font-family: 'JetBrains Mono', 'SF Mono', monospace;
+  font-size: 10pt;
+  background: #F5F5F7;
+  padding: 0.5mm 1.5mm;
+  border-radius: 2mm;
+  border: 1px solid #E5E7EB;
+}
+
+:global(.nxgen-pdf-content pre) {
+  background: #F5F5F7;
+  border: 1px solid #E5E7EB;
+  border-radius: 4mm;
+  padding: 3mm;
+  margin: 3mm 0;
+  overflow-x: auto;
+}
+
+:global(.nxgen-pdf-content pre code) {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+:global(.nxgen-pdf-content table) {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 3mm 0;
+  font-size: 10pt;
+}
+
+:global(.nxgen-pdf-content th) {
+  background: #F9FAFB;
+  font-weight: 600;
+  padding: 2mm;
+  border: 1px solid #E5E7EB;
+  text-align: left;
+}
+
+:global(.nxgen-pdf-content td) {
+  padding: 2mm;
+  border: 1px solid #E5E7EB;
+}
+
+:global(.nxgen-pdf-content img) {
+  max-width: 100%;
+  height: auto;
+  margin: 3mm 0;
+  border-radius: 2mm;
+}
+
+:global(.nxgen-pdf-content .admonition) {
+  padding: 3mm;
+  margin: 3mm 0;
+  border-left: 3px solid #C89446;
+  background: rgba(200, 148, 70, 0.1);
+  border-radius: 2mm;
+}
+
+:global(.nxgen-pdf-content .tabs-container) {
+  display: none;
+}
+
+:global(.nxgen-pdf-footer) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5mm 15mm;
+  border-top: 1px solid #E5E7EB;
+  background: #F9FAFB;
+  font-size: 9pt;
+  color: #6B7280;
+}
+
+:global(.nxgen-pdf-copyright) {
+  font-weight: 500;
+}
+
+:global(.nxgen-pdf-url) {
+  font-size: 8pt;
+  max-width: 50%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
