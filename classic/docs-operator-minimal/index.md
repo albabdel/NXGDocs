@@ -23,4 +23,4 @@ This streamlined guide provides essential information for basic monitoring and a
 
 ## Getting Started
 
-For full documentation, visit the [GCXONE Documentation](/docs/getting-started/first-time-login).
+For full documentation, visit the [GCXONE Documentation](/docs/getting-started/first-time-login--access).

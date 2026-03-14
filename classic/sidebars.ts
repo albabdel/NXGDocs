@@ -19,7 +19,7 @@ const sidebars: SidebarsConfig = {
       collapsed: false,
       link: {
         type: "generated-index",
-        description: "Get started with NXGEN GCXONE platform",
+        description: "Start here to learn the basics of NXGEN GCXONE platform",
         slug: "/getting-started"
       },
       items: [
@@ -52,6 +52,24 @@ const sidebars: SidebarsConfig = {
           type: "doc",
           id: "getting-started/quick-start-checklist",
           label: "Quick Start Checklist"
+        }
+      ]
+    },
+    {
+      type: "category",
+      label: "RocketLaunch Getting Started",
+      collapsible: true,
+      collapsed: false,
+      items: [
+        {
+          type: "doc",
+          id: "quick-start-guide",
+          label: "Quick Start Guide"
+        },
+        {
+          type: "doc",
+          id: "platform-architecture-overview",
+          label: "Platform Architecture Overview"
         }
       ]
     },

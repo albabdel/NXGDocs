@@ -775,7 +775,7 @@ Account Format: [Your Site ID Format]`} />
                         {/* Quick Links */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             {[
-                                { title: 'Manage Users', icon: <Users className="w-5 h-5" />, link: '/docs/getting-started/user-management/talos-user-management', desc: 'User permissions' }
+                                { title: 'Manage Users', icon: <Users className="w-5 h-5" />, link: '/docs/getting-started/user-management-setup', desc: 'User permissions' }
                             ].map(item => (
                                 <Link
                                     key={item.title}

@@ -1,0 +1,2314 @@
+[
+  {
+    "_id": "device-integration-ajax-hik",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "None",
+      "eventIntegrationMethod": "SIA DC09 Protocol packets",
+      "genesisPorts": "None",
+      "integrationProtocol": "AJAX Cloud REST API",
+      "loginSecurity": "HTTPS REST",
+      "videoStreaming": "N/A"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "other",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "doc-devices-uniview",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/uniview",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "AJAX",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "ajax-hik"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-auraigateway-iot-mining",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": "FFT C# API",
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "gateway",
+    "documentation": {
+      "configurationArticle": {
+        "_ref": "doc-devices-auraigateway",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/auraigateway"
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Auraigateway",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "auraigateway-iot-mining"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-autoaid-iot",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": "Auto Aid HTTP API",
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "gateway",
+    "documentation": {
+      "configurationArticle": {
+        "_ref": "doc-devices-autoaid",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/autoaid"
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Autoaid",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "autoaid-iot"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-avigilon-unity-vms",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": null,
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "vms",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "doc-devices-avigilon",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/avigilon",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Avigilon Unity",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "avigilon-unity-vms"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-avigilon-vms",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "Avigilon: TCP:38880 Avigilon VMS: MT playground must be enabled. Port 8443 Avigilon Appliance: 443",
+      "eventIntegrationMethod": "No manual configuration needed. Two Options 1. Automatic Webhook registration, 2. Event polling from UI",
+      "genesisPorts": "None",
+      "integrationProtocol": "Avigilon HTTP API (for Cloud), C# SDK (for Local mode) WebHook Callback (event)",
+      "loginSecurity": "Standard User Profile - View permissions to Camera config, Control commands,",
+      "videoStreaming": "HTTP"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "vms",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "doc-devices-avigilon",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/avigilon",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Avigilon",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "avigilon-vms"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-axis-cs-pro-vms",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "Axis Cam Station: 29204",
+      "eventIntegrationMethod": "Callback - Webhook",
+      "genesisPorts": "None",
+      "integrationProtocol": "Axis HTTP API Callback webhook(event)",
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "vms",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "GIKqHwCOFsUvADyic7i293",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/axis-cs-pro",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "AXIS CS Pro",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "axis-cs-pro-vms"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-axis-ip-camera-ip-camera",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "Axis ip camera: 443, RTSP: 554",
+      "eventIntegrationMethod": "Webhook configuration from IPCamera rules to push video clip to genesis",
+      "genesisPorts": "None",
+      "integrationProtocol": "Axis HTTP API WebHook Callback (event)",
+      "loginSecurity": "Operaotr permissions",
+      "videoStreaming": "RTSP"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "camera",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "G7Tfo59YVwcDW2O5CERluF",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/axis-ip-camera",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Axis IP Camera",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "axis-ip-camera-ip-camera"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-axiscamerastation-vms",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "Axis Cam Station: xxxx",
+      "eventIntegrationMethod": "Axis Camera Station HTTP API",
+      "genesisPorts": "None",
+      "integrationProtocol": "Axis HTTP API Callback webhook(event)",
+      "loginSecurity": "Operator permissions",
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "vms",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "InLhWtnsHQv1E9Zm2EvH6J",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/axis-camera-station",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "AxisCameraStation",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "axiscamerastation-vms"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-axxon-vms",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "Axxon HTTP(S) Port: 80/443",
+      "eventIntegrationMethod": "No Manual configuration needed. Automatic websocket subscription to pull events.",
+      "genesisPorts": "None",
+      "integrationProtocol": "Axxon HTTP API Websocket Subscription (events)",
+      "loginSecurity": "Operaotr permissions",
+      "videoStreaming": "RTSP"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "vms",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "G7Tfo59YVwcDW2O5CERm4P",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/axxon",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Axxon",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "axxon-vms"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-bosch-not-supported",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": "-",
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "other",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "doc-devices-bosch",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/bosch",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Bosch",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "bosch-not-supported"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-camect-ai-box",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": "Manual setup of NXGEN/IMMIX Genesis TCP IP and port needed",
+      "genesisPorts": "Genesis Camect ReceiverIP/Port HTTP(S) port: 80/443",
+      "integrationProtocol": "Camect HTTP API (Cloud) TCP Receiver (events)",
+      "loginSecurity": "Operaotr permissions",
+      "videoStreaming": "RTSP"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "other",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "GIKqHwCOFsUvADyic7i4Hy",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/camect",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Camect",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "camect-ai-box"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-dahua-air-shield-iot-air-horn",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": null,
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "other",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "InLhWtnsHQv1E9Zm2EvHcU",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/dahua",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Dahua Air Shield",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "dahua-air-shield-iot-air-horn"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-dahua-cloud-arc-p2p-cloud-vms",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": "Transition to scaled",
+      "api": "API",
+      "singleton": "Singleton"
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": null,
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "vms",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "InLhWtnsHQv1E9Zm2EvHcU",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/dahua",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Dahua Cloud ARC",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "dahua-cloud-arc-p2p-cloud-vms"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-dahua-cloud-p2p-cloud-vms",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": "Transition to scaled",
+      "api": "API",
+      "singleton": "Singleton"
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": null,
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "vms",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "InLhWtnsHQv1E9Zm2EvHcU",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/dahua",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Dahua Cloud",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "dahua-cloud-p2p-cloud-vms"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-dahua-dahua-nvr-and-ip-camera-nvr",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": "Dahua NVR and IP Camera",
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "Port 37777 / need http or https to access web interface",
+      "eventIntegrationMethod": "No Configuration needed on device. Automatically subscribed",
+      "genesisPorts": "None",
+      "integrationProtocol": "Dahua .Net NetSDK (for both Cloud and Local) Dahua .Net Subscription (events)",
+      "loginSecurity": "Operator Perminissions in the dvice",
+      "videoStreaming": "RTSP"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "nvr",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "InLhWtnsHQv1E9Zm2EvHcU",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/dahua",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Dahua",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "dahua-dahua-nvr-and-ip-camera-nvr"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-dahua-pir-cam-pir-cam",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": null,
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "camera",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "InLhWtnsHQv1E9Zm2EvHcU",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/dahua",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Dahua PIR CAM",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "dahua-pir-cam-pir-cam"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-davantis-ai-box",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "HTTP: 21000",
+      "eventIntegrationMethod": "Event polling",
+      "genesisPorts": null,
+      "integrationProtocol": "HTTP",
+      "loginSecurity": "STANDARD OPERTAOR ROLE",
+      "videoStreaming": "JPEG"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "other",
+    "documentation": {
+      "configurationArticle": {
+        "_ref": "doc-devices-davantis",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/davantis"
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Davantis",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "davantis-ai-box"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-eagleeye-nvr",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": "Eagle Eye HTTP API",
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "nvr",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "InLhWtnsHQv1E9Zm2EvHh0",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/eagle-eye",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Eagleeye",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "eagleeye-nvr"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-efoy-router",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": "EFOY Cloud API",
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "gateway",
+    "documentation": {
+      "configurationArticle": {
+        "_ref": "doc-devices-efoy",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/efoy"
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "EFOY",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "efoy-router"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-eneo-nvr",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "Deafult Port:80",
+      "eventIntegrationMethod": "ENEO MIP Component SDK",
+      "genesisPorts": null,
+      "integrationProtocol": "ENEO C# SDK .NET SDK Subscription (events)",
+      "loginSecurity": null,
+      "videoStreaming": "SDK"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "nvr",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "doc-devices-eneo",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/eneo",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "ENEO",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "eneo-nvr"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-eneoip-nvr",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": "Event polling",
+      "genesisPorts": null,
+      "integrationProtocol": "ENEO HTTPS API",
+      "loginSecurity": null,
+      "videoStreaming": "RTSP"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "nvr",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "doc-devices-eneo",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/eneo",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "ENEOIP",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "eneoip-nvr"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-essence-my-sheild-pir-cam",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": "My Sheild HTTP API",
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "camera",
+    "documentation": {
+      "configurationArticle": {
+        "_ref": "doc-devices-essence-my-shield",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/essence-my-shield"
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Essence My Sheild",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "essence-my-sheild-pir-cam"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-ganz-ai-box",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "Genesis Ganz receiver DNS/Port HTTP(S) Port: 80/443",
+      "eventIntegrationMethod": "Manual configuration of webhook needed to push to NXGen proxy API",
+      "genesisPorts": "None",
+      "integrationProtocol": "Ganz HTTP API WebHook Callback (event)",
+      "loginSecurity": "Operaotr permissions",
+      "videoStreaming": "RTSP"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "other",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "doc-devices-ganz",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/ganz",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Ganz",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "ganz-ai-box"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-genesisaudio-sip-twillio",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": "Twillio HTTP API",
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "audio",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "drafts.GIKqHwCOFsUvADyic7i6Dv",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/genesis-audio",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "GenesisAudio",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "genesisaudio-sip-twillio"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-geutebr-ck-vms",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": "Event polling",
+      "genesisPorts": null,
+      "integrationProtocol": "HTTP API",
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "vms",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "doc-devices-geutebruck",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/geutebruck",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Geutebrück",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "geutebr-ck-vms"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-hanwha-techwin-old-hanwha-nvr",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": "Old Hanwha",
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "HTTP(S) PORT: 80/443 RTSP Port: 554",
+      "eventIntegrationMethod": "Events not supported with current version",
+      "genesisPorts": "None",
+      "integrationProtocol": "Hanwha SUNAPI",
+      "loginSecurity": "Operaotr permissions",
+      "videoStreaming": "RTSP"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "nvr",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "GIKqHwCOFsUvADyic7i6dr",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/hanwha-device-configuration",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Hanwha-Techwin",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "hanwha-techwin-old-hanwha-nvr"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-heitel-nvr",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "TCP",
+      "eventIntegrationMethod": "Heitel Camcontrol TCP PROTOCOL",
+      "genesisPorts": "None",
+      "integrationProtocol": "Heitel TCP Protocol TCP Receiver (Events)",
+      "loginSecurity": "Operaotr permissions",
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "nvr",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "doc-devices-heitel",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/heitel",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Heitel",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "heitel-nvr"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-hikvision-hikproconnect-p2p-cloud-vms",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": "HikProConnect",
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "NA",
+      "eventIntegrationMethod": null,
+      "genesisPorts": "HPP Streaming DNS, port range",
+      "integrationProtocol": "Hikconnect HTTP API, C# SDK",
+      "loginSecurity": "STANDARD OPERTAOR ROLE",
+      "videoStreaming": "JPEG"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "vms",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "GIKqHwCOFsUvADyic7i7aD",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/hikvision",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Hikvision",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "hikvision-hikproconnect-p2p-cloud-vms"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-hikvision-hikvision-ip-camera-ipc",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": "Hikvision IP Camera",
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "Control Port: 8000 HTTP Port: 80/HTTPS Port: 443 RTSP Port: Nil",
+      "eventIntegrationMethod": "No Configuration needed. ISAPI Event API Subscription.",
+      "genesisPorts": "None",
+      "integrationProtocol": "Http HcNetSDK (for Cloud) .NET HcNetSDK (for Local) ISAPI Mutipart callback (events)",
+      "loginSecurity": "Operator Permissions, ISAPI protocol must be enabled.",
+      "videoStreaming": "HcNetSDK"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "camera",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "GIKqHwCOFsUvADyic7i7aD",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/hikvision",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Hikvision",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "hikvision-hikvision-ip-camera-ipc"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-hikvision-hikvision-nvr-nvr",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": "Hikvision NVR",
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "Control Port: 8000 HTTP Port: 80/HTTPS Port: 443 RTSP Port: 554",
+      "eventIntegrationMethod": "No Configuration needed. ISAPI Event API Subscription.",
+      "genesisPorts": "None",
+      "integrationProtocol": "Http ISAPI (for Cloud) .NET HcNetSDK (for Local) ISAPI Mutipart callback (events)",
+      "loginSecurity": "Operator Permissions, ISAPI protocol must be enabled.",
+      "videoStreaming": "RTSP"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "nvr",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "GIKqHwCOFsUvADyic7i7aD",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/hikvision",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Hikvision",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "hikvision-hikvision-nvr-nvr"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-honeywell-35-series-nvr",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": "35 Series",
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": "Not supported yet",
+      "genesisPorts": "None",
+      "integrationProtocol": "C# SDK",
+      "loginSecurity": "STANDARD OPERTAOR ROLE",
+      "videoStreaming": "SDK"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "nvr",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "doc-devices-honeywell",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/honeywell",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Honeywell",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "honeywell-35-series-nvr"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-honeywell-adpro-nvr",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": "ADPRO",
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "RTSP Port:554 Control port:2000 Audio Port: 3000",
+      "eventIntegrationMethod": "Configuration needed on Device. TCP Push to Genesis ADPRO Receiver",
+      "genesisPorts": "Genesis Adpro Receiver: IP Address: (specific to tenant) Port 10000",
+      "integrationProtocol": "ADPRO SDK (for both Cloud and Local) TCP Receiver (events)",
+      "loginSecurity": "Operator Previeldge",
+      "videoStreaming": "RTSP, SDK image streaming"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "nvr",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "doc-devices-honeywell",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/honeywell",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Honeywell",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "honeywell-adpro-nvr"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-innovi-ai-cloud",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": "Innovi HTTP API",
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "vms",
+    "documentation": {
+      "configurationArticle": {
+        "_ref": "doc-devices-innovi",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/innovi"
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Innovi",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "innovi-ai-cloud"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-milestone-vms",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "Port: 12345, Event port: 22331 Streaming port:",
+      "eventIntegrationMethod": "Milestone MIP Component SDK",
+      "genesisPorts": "None",
+      "integrationProtocol": "Milestone C# SDK .NET SDK Subscription (events)",
+      "loginSecurity": "Operaotr permissions. Add host entry if necessary",
+      "videoStreaming": "TCP JPEG, Raw"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "vms",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "IBca9v7KzaRGEX2JFoJjPn",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/milestone-gcx-one",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Milestone",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "milestone-vms"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-miwi-urmet-grundig-nvr-ip-camera",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "HTTP Port",
+      "eventIntegrationMethod": "Callback - Webhook",
+      "genesisPorts": "None",
+      "integrationProtocol": "HTTP API",
+      "loginSecurity": "csrftoken and Cookie based Authentication",
+      "videoStreaming": "?"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "nvr",
+    "documentation": {
+      "configurationArticle": {
+        "_ref": "doc-devices-miwi-urmet-grundig",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/miwi-urmet-grundig"
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Miwi Urmet/Grundig",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "miwi-urmet-grundig-nvr-ip-camera"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-mobotix-ip-camera",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": ".",
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "camera",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "doc-devices-mobotix",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/mobotix",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Mobotix",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "mobotix-ip-camera"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-netvu-ip-camera",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "Mobile Bridge Port: 8433, RTSP Port:8488 Password encrypt using Senstar Password exe",
+      "eventIntegrationMethod": "Event polling",
+      "genesisPorts": "None",
+      "integrationProtocol": "HTTP API, RTSP for streaming",
+      "loginSecurity": "STANDARD OPERTAOR ROLE",
+      "videoStreaming": "RTSP"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "camera",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "doc-devices-netvu",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/netvu",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "NetVu",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "netvu-ip-camera"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-nxg-cloud-nvr-nxgcloudnvr-nvr",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": "no change",
+      "api": "API",
+      "singleton": "Scaled"
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "HTTP PORT: 7001 RTSP Port: 7001",
+      "eventIntegrationMethod": "Manual Configuration of Rules needed on device for every event code using the Immix protocol",
+      "genesisPorts": "None",
+      "integrationProtocol": "NXWitness HTTP API WebHook Callback (event)",
+      "loginSecurity": "Operaotr permissions",
+      "videoStreaming": "RTSP"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "nvr",
+    "documentation": {
+      "configurationArticle": {
+        "_ref": "doc-devices-nxg-cloud-nvr",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/nxg-cloud-nvr"
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "NXG Cloud NVR, NxgCloudNvr",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "nxg-cloud-nvr-nxgcloudnvr-nvr"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-nxwitness-hanwha-nvr",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": "no change",
+      "api": "API",
+      "singleton": "Scaled"
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "HTTP PORT: 7001 RTSP Port: 7001",
+      "eventIntegrationMethod": "Manual Configuration of Rules needed on device for every event code using the Immix protocol",
+      "genesisPorts": "None",
+      "integrationProtocol": "NXWitness HTTP API WebHook Callback (event)",
+      "loginSecurity": "Operaotr permissions",
+      "videoStreaming": "RTSP"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "nvr",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "GIKqHwCOFsUvADyic7i6dr",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/hanwha-device-configuration",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "NXWitness, HANWHA",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "nxwitness-hanwha-nvr"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-onvif-ip-camera",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": "-",
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "camera",
+    "documentation": {
+      "configurationArticle": {
+        "_ref": "doc-devices-onvif",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/onvif"
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Onvif",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "onvif-ip-camera"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-reconeyez-pir-cam",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": "Reconeyes HTTP API",
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "camera",
+    "documentation": {
+      "configurationArticle": {
+        "_ref": "doc-devices-reconeyez",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/reconeyez"
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Reconeyez",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "reconeyez-pir-cam"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-rosenberger-iot-battery-mgmt",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": "Resenberget MQTT API",
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "gateway",
+    "documentation": {
+      "configurationArticle": {
+        "_ref": "doc-devices-rosenberger",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/rosenberger"
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Rosenberger",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "rosenberger-iot-battery-mgmt"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-senstar-nvr",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "Mobile Bridge Port: 8433, RTSP Port:8488 Password encrypt using Senstar Password exe",
+      "eventIntegrationMethod": "Event polling",
+      "genesisPorts": "None",
+      "integrationProtocol": "HTTP API, RTSP for streaming",
+      "loginSecurity": "STANDARD OPERTAOR ROLE",
+      "videoStreaming": "RTSP"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "nvr",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "InLhWtnsHQv1E9Zm2EvI86",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/senstar",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "SenStar",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "senstar-nvr"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-spykebox-nvr",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": "no change",
+      "api": "API",
+      "singleton": "Scaled"
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "HTTP PORT: 7001 RTSP Port: 7001",
+      "eventIntegrationMethod": "Manual Configuration of Rules needed on device for every event code using the Immix protocol",
+      "genesisPorts": "None",
+      "integrationProtocol": "NXWitness HTTP API WebHook Callback (event)",
+      "loginSecurity": "Operaotr permissions",
+      "videoStreaming": "RTSP"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "nvr",
+    "documentation": {
+      "configurationArticle": {
+        "_ref": "doc-devices-spykebox",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/spykebox"
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "SPYKEBOX",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "spykebox-nvr"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-teltonika-iot-router",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": "Teltonika HTTP API",
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "gateway",
+    "documentation": {
+      "configurationArticle": {
+        "_ref": "doc-devices-teltonika-iot",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/teltonika-iot"
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Teltonika-IOT",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "teltonika-iot-router"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-uniview-nvr",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "RTSP",
+      "eventIntegrationMethod": "Uniview HTTP API",
+      "genesisPorts": "None",
+      "integrationProtocol": "Uniview C# SDK .NET SDK Subscription (events)",
+      "loginSecurity": "Operaotr permissions",
+      "videoStreaming": "RTSP"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "nvr",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "doc-devices-uniview",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/uniview",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Uniview",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "uniview-nvr"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-viasys-shieldbox-cloud-nvr",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "https",
+      "eventIntegrationMethod": "Webhook call back from Viasys for event push. Viasys and MrHill API to integrate from Genesis",
+      "genesisPorts": "None",
+      "integrationProtocol": "Viasys HTTP API WebHook Callback (API Cusrtomer)",
+      "loginSecurity": "None. Genesis Device GUID is the authkey",
+      "videoStreaming": "mjpeg"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "nvr",
+    "documentation": {
+      "configurationArticle": {
+        "_ref": "doc-devices-viasys-shieldbox",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/viasys-shieldbox"
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Viasys/ShieldBox",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "viasys-shieldbox-cloud-nvr"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-victron-router",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": "Victron VRM Cloud API",
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "gateway",
+    "documentation": {
+      "_type": "documentationInfo",
+      "configurationArticle": {
+        "_ref": "GIKqHwCOFsUvADyic7i9WA",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/victron",
+      "helpdeskUrl": null
+    },
+    "gcxReady": "full",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Victron",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "victron-router"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-vivotek-onpremise-vivotek-ipc-ipc",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": "Vivotek IPC",
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "HTTP Port RTSP Port",
+      "eventIntegrationMethod": "Callback - Webhook",
+      "genesisPorts": null,
+      "integrationProtocol": "VIVOTEK CGI API",
+      "loginSecurity": null,
+      "videoStreaming": "RTSP"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "camera",
+    "documentation": {
+      "configurationArticle": {
+        "_ref": "doc-devices-vivotek",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/vivotek"
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Vivotek OnPremise",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "vivotek-onpremise-vivotek-ipc-ipc"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-vivotek-onpremise-vivotek-nvr-nvr",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": "Vivotek NVR",
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": "HTTP Port RTSP Port",
+      "eventIntegrationMethod": "Callback - Webhook",
+      "genesisPorts": null,
+      "integrationProtocol": "VIVOTEK C# SDK .NET SDK",
+      "loginSecurity": null,
+      "videoStreaming": "RTSP"
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "nvr",
+    "documentation": {
+      "configurationArticle": {
+        "_ref": "doc-devices-vivotek",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/vivotek"
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Vivotek OnPremise",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "vivotek-onpremise-vivotek-nvr-nvr"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  },
+  {
+    "_id": "device-integration-vivotek-vortex-cloud-vms",
+    "_type": "deviceIntegration",
+    "architecture": {
+      "_type": "architectureInfo",
+      "action": null,
+      "api": null,
+      "singleton": null
+    },
+    "brand": null,
+    "cameraHealthFeatures": null,
+    "cloudModeFeatures": null,
+    "connectivity": {
+      "_type": "connectivityInfo",
+      "customerPorts": null,
+      "eventIntegrationMethod": null,
+      "genesisPorts": null,
+      "integrationProtocol": null,
+      "loginSecurity": null,
+      "videoStreaming": null
+    },
+    "description": null,
+    "deviceHealthFeatures": null,
+    "deviceType": "vms",
+    "documentation": {
+      "configurationArticle": {
+        "_ref": "doc-devices-vivotek-vortex",
+        "_type": "reference"
+      },
+      "helpManualUrl": "/docs/devices/vivotek-vortex"
+    },
+    "gcxReady": "none",
+    "localModeFeatures": null,
+    "logoUrl": null,
+    "manufacturer": "Vivotek Vortex",
+    "name": null,
+    "notesAndIssues": null,
+    "slug": {
+      "_type": "slug",
+      "current": "vivotek-vortex-cloud-vms"
+    },
+    "status": "published",
+    "timelapseFeatures": null
+  }
+]

@@ -1,13 +1,119 @@
 # ROADMAP.md
 
-> **Current Phase**: Enterprise Search Complete
-> **Milestone**: v1.0 (Content Migration)
+> **Current Phase**: Integration Hub (Phase 4)
+> **Milestone**: v1.1 (Sanity Enhancement)
 > **Updated**: 2026-03-14
 
 ## Must-Haves (from SPEC)
 - [x] Migrate all (~177) MDX/MD files from `classic/docs/` to appropriate Sanity types
 - [x] Reconfigure Docusaurus routing so Sanity content serves at `/docs/...`
 - [x] Zero new 404s on the live environment
+- [x] Enhanced Sanity schemas for device profiles, integrations, alerts
+- [x] Multi-audience sidebar navigation
+- [x] Content seeding for landing pages and tags
+
+---
+
+## Sanity Enhancement Initiative
+
+### Phase 1: Sanity Schema Enhancement
+**Status**: ✅ Complete
+**Objective**: Extend Sanity CMS with new document types for device profiles, monitoring stations, alerts, integrations, and API references.
+
+**Deliverables**:
+- [x] Created `deviceProfile` schema - [schema file](../sanity/schemas/deviceProfile.ts)
+- [x] Created `monitoringStation` schema - [schema file](../sanity/schemas/monitoringStation.ts)
+- [x] Created `alertTemplate` schema - [schema file](../sanity/schemas/alertTemplate.ts)
+- [x] Created `integration` schema - [schema file](../sanity/schemas/integration.ts)
+- [x] Created `apiReference` schema - [schema file](../sanity/schemas/apiReference.ts)
+- [x] Created `seoDefaults` singleton schema - [schema file](../sanity/schemas/seoDefaults.ts)
+- [x] Updated `schemaTypes/index.ts` with all exports
+- [x] Updated desk structure for new document types
+
+---
+
+### Phase 2: Sidebar & Navigation
+**Status**: ✅ Complete
+**Objective**: Build comprehensive multi-audience navigation system with categorized sidebar structure.
+
+**Deliverables**:
+- [x] Created 11 root sidebar categories
+- [x] Created 99 subcategories across all categories
+- [x] Created 5 audience-specific sidebar configurations:
+  - `all` - General audience
+  - `admin` - System administrators
+  - `manager` - Operations managers
+  - `operator` - Day-to-day operators
+  - `internal` - Internal team members
+- [x] Seed script: [scripts/seed-sidebar-categories.js](../scripts/seed-sidebar-categories.js)
+
+**Files**:
+- `sanity/schemas/sidebarCategory.ts`
+- `sanity/schemas/sidebarSubcategory.ts`
+- `sanity/schemas/audienceSidebar.ts`
+- `scripts/seed-sidebar-categories.js`
+
+---
+
+### Phase 3: Content Seeding
+**Status**: ✅ Complete
+**Objective**: Populate Sanity with initial content for landing pages, tags, templates, and SEO defaults.
+
+**Deliverables**:
+- [x] 5 new landing pages:
+  - Platform Overview
+  - Monitoring Stations
+  - Quick Start
+  - Integrations
+  - Alerts
+- [x] 8 tag groups with 81 tags
+- [x] 10 alert templates
+- [x] SEO defaults with JSON-LD schemas
+- [x] Seed scripts created for all content types
+
+**Files**:
+- `scripts/seed-landing-pages.js`
+- `scripts/seed-tags.js`
+- `scripts/seed-alert-templates.js`
+- `scripts/seed-seo-defaults.js`
+
+---
+
+### Phase 4: Integration Hub
+**Status**: ✅ Complete
+**Objective**: Build searchable integration hub from Excel matrix data.
+
+**Deliverables**:
+- [x] Parse Excel integration matrix
+- [x] Create `deviceIntegration` schema (737 lines)
+- [x] Seed 51 device integrations from Excel data
+- [x] Build searchable integration hub page (1186 lines)
+- [x] CSS module with dark theme (1669 lines)
+- [x] Generate manufacturer logos (47 SVGs)
+- [x] Seed configuration articles (8 articles)
+- [x] Map documentation links to integrations
+
+**Files Created**:
+- `sanity/schemas/deviceIntegration.ts` - Schema definition
+- `scripts/seed-device-integrations.js` - Data seeding script
+- `scripts/generate-manufacturer-logos.js` - Logo generation
+- `scripts/seed-configuration-articles.js` - Article seeding
+- `classic/src/pages/integration-hub.tsx` - Hub page component
+- `classic/src/pages/integration-hub.module.css` - Styles
+- `classic/static/img/manufacturers/*.svg` - 47 logo files
+
+---
+
+## Progress Summary
+
+| Phase | Status | Description |
+|-------|--------|-------------|
+| 1: Schema Enhancement | ✅ | 5 new schemas + SEO defaults |
+| 2: Sidebar & Navigation | ✅ | 11 categories, 99 subcategories, 5 audiences |
+| 3: Content Seeding | ✅ | Landing pages, tags, templates, SEO |
+| 4: Integration Hub | ✅ | 51 devices, searchable hub page, 47 logos |
+
+---
 
 ## Phases
 

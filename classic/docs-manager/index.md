@@ -28,4 +28,4 @@ As a Manager, you have access to team oversight, reporting, and operational moni
 
 ## Getting Started
 
-For full documentation, visit the [GCXONE Documentation](/docs/getting-started/first-time-login).
+For full documentation, visit the [GCXONE Documentation](/docs/getting-started/first-time-login--access).

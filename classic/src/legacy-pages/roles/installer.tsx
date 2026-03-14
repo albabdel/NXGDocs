@@ -378,14 +378,14 @@ export default function InstallerLandingPage() {
                                     title: 'Common Issues',
                                     description: 'Quick fixes for frequently encountered problems',
                                     icon: <AlertTriangle className="w-6 h-6" />,
-                                    link: '/docs/getting-started/troubleshooting/overflow-thresholds',
+                                    link: '/docs/alarm-management',
                                     items: ['Device offline', 'Stream quality issues', 'Network connectivity', 'Authentication failures']
                                 },
                                 {
                                     title: 'Diagnostic Procedures',
                                     description: 'Step-by-step troubleshooting workflows',
                                     icon: <ClipboardList className="w-6 h-6" />,
-                                    link: '/docs/getting-started/troubleshooting/overflow-thresholds',
+                                    link: '/docs/alarm-management',
                                     items: ['Network testing', 'Device health checks', 'Log analysis', 'Performance monitoring']
                                 },
                                 {

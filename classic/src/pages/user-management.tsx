@@ -44,7 +44,7 @@ const userFeatures: UserFeature[] = [
         title: 'Roles and Access Levels',
         description: 'Understanding default roles, permission scopes, and the three-tier access level hierarchy (Service Provider, Customer, Site).',
         category: 'Role Management',
-        link: '/docs/getting-started/user-management/roles-and-access-levels',
+        link: '/docs/getting-started/user-management-setup',
         icon: <ShieldCheck className="w-6 h-6" />,
         level: 'basic'
     },
@@ -52,7 +52,7 @@ const userFeatures: UserFeature[] = [
         title: 'Creating and Configuring Roles',
         description: 'Step-by-step guide to creating custom roles, configuring privileges, setting access levels, and managing session timeouts.',
         category: 'Role Management',
-        link: '/docs/getting-started/user-management/creating-roles',
+        link: '/docs/getting-started/user-management-setup',
         icon: <Shield className="w-6 h-6" />,
         level: 'intermediate'
     },
@@ -62,7 +62,7 @@ const userFeatures: UserFeature[] = [
         title: 'Inviting Users',
         description: 'Complete workflow for onboarding new team members, configuring account settings, and managing multi-organization access.',
         category: 'User Administration',
-        link: '/docs/getting-started/user-management/inviting-users',
+        link: '/docs/getting-started/user-management-setup',
         icon: <UserPlus className="w-6 h-6" />,
         level: 'basic'
     },
@@ -70,7 +70,7 @@ const userFeatures: UserFeature[] = [
         title: 'Managing Users',
         description: 'How to edit user roles, update Customer Groups, manage account status, and handle user lifecycle changes.',
         category: 'User Administration',
-        link: '/docs/getting-started/user-management/managing-users',
+        link: '/docs/getting-started/user-management-setup',
         icon: <UserCog className="w-6 h-6" />,
         level: 'basic'
     },
@@ -80,7 +80,7 @@ const userFeatures: UserFeature[] = [
         title: 'Customer Groups',
         description: 'Segregate client data, manage regional access, and separate production from test environments using Customer Groups.',
         category: 'Customer Groups',
-        link: '/docs/getting-started/user-management/customer-groups',
+        link: '/docs/getting-started/user-management-setup',
         icon: <Building2 className="w-6 h-6" />,
         level: 'intermediate'
     },
@@ -90,7 +90,7 @@ const userFeatures: UserFeature[] = [
         title: 'Talos User Management',
         description: 'Configure operator behaviors, alarm groups, and workflow-specific roles in the Talos alarm processing interface.',
         category: 'Operator Management',
-        link: '/docs/getting-started/user-management/talos-user-management',
+        link: '/docs/getting-started/user-management-setup',
         icon: <Activity className="w-6 h-6" />,
         level: 'intermediate'
     },
@@ -525,19 +525,19 @@ export default function UserManagementHub() {
                             {
                                 title: 'User Management Overview',
                                 description: 'Complete guide to user management, roles, permissions, and access control in GCXONE.',
-                                link: '/docs/getting-started/user-management/overview',
+                                link: '/docs/getting-started/user-management-setup',
                                 icon: <BookOpen className="w-6 h-6" />
                             },
                             {
                                 title: 'Creating Your First Role',
                                 description: 'Step-by-step tutorial to create custom roles with specific permissions and access levels.',
-                                link: '/docs/getting-started/user-management/creating-roles',
+                                link: '/docs/getting-started/user-management-setup',
                                 icon: <Shield className="w-6 h-6" />
                             },
                             {
                                 title: 'Inviting Your First User',
                                 description: 'Learn how to onboard new team members and configure their access permissions.',
-                                link: '/docs/getting-started/user-management/inviting-users',
+                                link: '/docs/getting-started/user-management-setup',
                                 icon: <UserPlus className="w-6 h-6" />
                             },
                         ].map((resource, index) => (
@@ -594,43 +594,43 @@ export default function UserManagementHub() {
                             {
                                 title: 'User Management Overview',
                                 description: 'Complete guide to user management, roles, permissions, and access control in GCXONE and Talos.',
-                                link: '/docs/getting-started/user-management/overview',
+                                link: '/docs/getting-started/user-management-setup',
                                 category: 'Getting Started'
                             },
                             {
                                 title: 'Roles and Access Levels',
                                 description: 'Detailed breakdown of default roles, permission scopes, and access levels in GCXONE.',
-                                link: '/docs/getting-started/user-management/roles-and-access-levels',
+                                link: '/docs/getting-started/user-management-setup',
                                 category: 'Role Management'
                             },
                             {
                                 title: 'Creating and Configuring Roles',
                                 description: 'Complete guide to creating custom roles, configuring permissions, and managing roles in GCXONE.',
-                                link: '/docs/getting-started/user-management/creating-roles',
+                                link: '/docs/getting-started/user-management-setup',
                                 category: 'Role Management'
                             },
                             {
                                 title: 'Customer Groups',
                                 description: 'How to use Customer Groups to segregate client data and manage regional access levels.',
-                                link: '/docs/getting-started/user-management/customer-groups',
+                                link: '/docs/getting-started/user-management-setup',
                                 category: 'Customer Groups'
                             },
                             {
                                 title: 'Inviting Users',
                                 description: 'Step-by-step tutorial to onboarding new team members and managing multi-tenant access.',
-                                link: '/docs/getting-started/user-management/inviting-users',
+                                link: '/docs/getting-started/user-management-setup',
                                 category: 'User Administration'
                             },
                             {
                                 title: 'Managing Users',
                                 description: 'How to edit user roles, update Customer Groups, and manage account status.',
-                                link: '/docs/getting-started/user-management/managing-users',
+                                link: '/docs/getting-started/user-management-setup',
                                 category: 'User Administration'
                             },
                             {
                                 title: 'Talos User Management',
                                 description: 'How to configure operator behaviors, alarm groups, and workflow-specific roles in the Talos ecosystem.',
-                                link: '/docs/getting-started/user-management/talos-user-management',
+                                link: '/docs/getting-started/user-management-setup',
                                 category: 'Operator Management'
                             },
                         ].map((article, index) => (

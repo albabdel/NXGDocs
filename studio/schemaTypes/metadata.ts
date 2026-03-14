@@ -1,5 +1,137 @@
 import {defineType, defineField} from 'sanity'
 
+export const seoDefaultsType = defineType({
+  name: 'seoDefaults',
+  title: 'SEO Defaults',
+  type: 'document',
+  __singleton: true,
+  fields: [
+    defineField({
+      name: 'defaultMetaTitleTemplate',
+      title: 'Default Meta Title Template',
+      type: 'string',
+      description: 'Template for meta titles. Use {title} as placeholder for page title, {site} for site name',
+      initialValue: '{title} | NXGEN Technology AG',
+    }),
+    defineField({
+      name: 'defaultMetaDescription',
+      title: 'Default Meta Description',
+      type: 'text',
+      rows: 3,
+      description: 'Default meta description for pages without custom descriptions (150-160 characters)',
+      validation: (rule) => rule.max(200).warning('Longer than 160 characters'),
+    }),
+    defineField({
+      name: 'defaultKeywords',
+      title: 'Default Keywords',
+      type: 'array',
+      of: [{type: 'string'}],
+      options: {
+        layout: 'tags',
+      },
+      description: 'Default keywords applied to all pages',
+    }),
+    defineField({
+      name: 'primaryKeywords',
+      title: 'Primary Keywords',
+      type: 'array',
+      of: [{type: 'string'}],
+      options: {
+        layout: 'tags',
+      },
+      description: 'Primary B2B SaaS SEO keywords for NXGEN monitoring platform',
+    }),
+    defineField({
+      name: 'secondaryKeywords',
+      title: 'Secondary Keywords',
+      type: 'array',
+      of: [{type: 'string'}],
+      options: {
+        layout: 'tags',
+      },
+      description: 'Secondary SEO keywords for related features',
+    }),
+    defineField({
+      name: 'industryKeywords',
+      title: 'Industry Keywords',
+      type: 'array',
+      of: [{type: 'string'}],
+      options: {
+        layout: 'tags',
+      },
+      description: 'Industry-specific SEO keywords',
+    }),
+    defineField({
+      name: 'ogImageDefault',
+      title: 'Default Open Graph Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      description: 'Default image for social sharing (1200x630 recommended)',
+    }),
+    defineField({
+      name: 'organizationSchema',
+      title: 'Organization Schema (JSON-LD)',
+      type: 'text',
+      rows: 15,
+      description: 'JSON-LD structured data for Organization schema',
+    }),
+    defineField({
+      name: 'softwareApplicationSchema',
+      title: 'Software Application Schema (JSON-LD)',
+      type: 'text',
+      rows: 15,
+      description: 'JSON-LD structured data for SoftwareApplication schema',
+    }),
+    defineField({
+      name: 'siteName',
+      title: 'Site Name',
+      type: 'string',
+      description: 'Site name used in meta titles and schema markup',
+      initialValue: 'NXGEN Technology AG',
+    }),
+    defineField({
+      name: 'siteUrl',
+      title: 'Site URL',
+      type: 'url',
+      description: 'Base URL for the site (used in canonical URLs and schema)',
+    }),
+    defineField({
+      name: 'twitterSite',
+      title: 'Twitter Site Account',
+      type: 'string',
+      description: '@username of the site Twitter account',
+    }),
+    defineField({
+      name: 'facebookAppId',
+      title: 'Facebook App ID',
+      type: 'string',
+      description: 'Facebook App ID for Open Graph insights',
+    }),
+    defineField({
+      name: 'locale',
+      title: 'Default Locale',
+      type: 'string',
+      description: 'Default locale for the site',
+      initialValue: 'en_US',
+    }),
+    defineField({
+      name: 'robotsTxt',
+      title: 'Custom robots.txt Directives',
+      type: 'text',
+      rows: 5,
+      description: 'Additional robots.txt directives (appended to defaults)',
+    }),
+  ],
+  preview: {
+    prepare: () => ({
+      title: 'SEO Defaults',
+      subtitle: 'Site-wide SEO configuration',
+    }),
+  },
+})
+
 export const seoMetadataType = defineType({
   name: 'seoMetadata',
   title: 'SEO Metadata',

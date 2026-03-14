@@ -22,12 +22,12 @@ export default function AlgoliaInsights() {
     const appId = 
       (window as any).ALGOLIA_APP_ID || 
       (window as any).__docusaurus?.config?.themeConfig?.algolia?.appId ||
-      'V5T3AW2AU9';
-    
-    const apiKey = 
-      (window as any).ALGOLIA_API_KEY || 
+      '0QV3FAFAD5';
+
+    const apiKey =
+      (window as any).ALGOLIA_API_KEY ||
       (window as any).__docusaurus?.config?.themeConfig?.algolia?.apiKey ||
-      'faaa9ffb8640ba49520a0cf44dc9f7ef';
+      'f479e424871288c2e571a23557f7a62b';
 
     // Initialize Algolia Insights
     aa('init', {

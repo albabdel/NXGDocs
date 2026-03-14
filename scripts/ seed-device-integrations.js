@@ -1,0 +1,1 @@
+C:\Users\abdel\.gemini\antigravity\scratch\nxgen-docs\scripts\seed-device-integrations.js

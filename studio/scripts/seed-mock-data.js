@@ -383,7 +383,7 @@ const exampleLandingPage = {
     },
     ctaButtons: [
       { _key: 'cta1', label: 'Start Tutorial', href: '/docs/quick-start-guide', variant: 'primary' },
-      { _key: 'cta2', label: 'Watch Demo', href: '/docs/video-tutorials', variant: 'secondary' },
+      { _key: 'cta2', label: 'Watch Demo', href: '/video-tutorials', variant: 'secondary' },
     ],
   },
   sections: [

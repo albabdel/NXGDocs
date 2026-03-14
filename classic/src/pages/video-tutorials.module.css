@@ -1,0 +1,161 @@
+.videoCard {
+    position: relative;
+    border-radius: 16px;
+    background: var(--ifm-background-surface-color);
+    border: 1px solid var(--ifm-color-emphasis-200);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.5s ease-out backwards;
+}
+
+.videoCard:hover {
+    border-color: rgba(232, 176, 88, 0.35);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    transform: translateY(-4px);
+}
+
+[data-theme='dark'] .videoCard {
+    background: #1a1a1a;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='dark'] .videoCard:hover {
+    border-color: rgba(232, 176, 88, 0.35);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.thumbnailContainer {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.videoCard:hover .thumbnail {
+    transform: scale(1.05);
+}
+
+.playOverlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.videoCard:hover .playOverlay {
+    opacity: 1;
+}
+
+.playOverlay svg {
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+    transition: transform 0.2s ease;
+}
+
+.videoCard:hover .playOverlay svg {
+    transform: scale(1.1);
+}
+
+.durationBadge {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    color: white;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+}
+
+.videoContent {
+    padding: 1.25rem;
+}
+
+.videoTitle {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ifm-color-content);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.4;
+    transition: color 0.2s ease;
+}
+
+.videoCard:hover .videoTitle {
+    color: #E8B058;
+}
+
+.videoDescription {
+    font-size: 0.875rem;
+    color: var(--ifm-color-content-secondary);
+    line-height: 1.6;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .videoCard {
+        border-radius: 12px;
+    }
+
+    .thumbnailContainer {
+        aspect-ratio: 16 / 9;
+    }
+
+    .videoContent {
+        padding: 1rem;
+    }
+
+    .videoTitle {
+        font-size: 0.9rem;
+    }
+
+    .videoDescription {
+        font-size: 0.8rem;
+    }
+
+    .playOverlay svg {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media print {
+    .videoCard {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+
+    .playOverlay {
+        display: none;
+    }
+}

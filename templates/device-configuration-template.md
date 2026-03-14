@@ -274,7 +274,7 @@ If you encounter issues during configuration, see the [Troubleshooting Guide](./
 - [[Device Name] Overview](./overview.md)
 - [[Device Name] Troubleshooting](./troubleshooting.md)
 - [Firewall Configuration](/docs/getting-started/firewall-configuration)
-- [Network Requirements](/docs/getting-started/required-ports)
+- [Network Requirements](/docs/getting-started/pre-deployment-requirements)
 
 ## Change Log
 

@@ -91,7 +91,7 @@ For detailed step-by-step instructions, see the [Configuration Guide](./configur
 - [[Device Name] Configuration](./configuration.md)
 - [[Device Name] Troubleshooting](./troubleshooting.md)
 - [Firewall Configuration](/docs/getting-started/firewall-configuration)
-- [Required Ports](/docs/getting-started/required-ports)
+- [Required Ports](/docs/getting-started/pre-deployment-requirements)
 - [Standard Device Onboarding Process](/docs/device-integration/standard-device-onboarding-process)
 
 ## Change Log

@@ -4,8 +4,15 @@ import {roadmapItemType} from './roadmapItem'
 import {articleType} from './article'
 import {referenceType} from './reference'
 import {folderType, documentFolderType} from './folder'
+import {deviceProfileType} from './deviceProfile'
+import {monitoringStationType} from './monitoringStation'
+import {alertTemplateType} from './alertTemplate'
+import {integrationType} from './integration'
+import {deviceIntegrationType} from './deviceIntegration'
+import {apiReferenceType} from './apiReference'
 import {tagType, tagGroupType} from './tags'
 import {
+  seoDefaultsType,
   seoMetadataType,
   analyticsMetadataType,
   publishingMetadataType,
@@ -41,6 +48,11 @@ import {
   landingSectionCTA,
   landingSectionCustom,
 } from './landingPage'
+import {
+  gettingStartedPageType,
+  onboardingPhaseType,
+  onboardingStepType,
+} from './gettingStartedPage'
 
 export const schemaTypes = [
   // Original document types
@@ -50,8 +62,17 @@ export const schemaTypes = [
   articleType,
   referenceType,
   
+  // NXGEN Monitoring Station types
+  deviceProfileType,
+  monitoringStationType,
+  alertTemplateType,
+  integrationType,
+  deviceIntegrationType,
+  apiReferenceType,
+  
   // Landing pages
   landingPageType,
+  gettingStartedPageType,
   
   // Landing page sections
   landingSectionVideo,
@@ -64,6 +85,10 @@ export const schemaTypes = [
   landingSectionContentGrid,
   landingSectionCTA,
   landingSectionCustom,
+  
+  // Getting Started page components
+  onboardingPhaseType,
+  onboardingStepType,
   
   // Folder and organization
   folderType,
@@ -78,6 +103,7 @@ export const schemaTypes = [
   sidebarConfigType,
   
   // Metadata objects
+  seoDefaultsType,
   seoMetadataType,
   analyticsMetadataType,
   publishingMetadataType,

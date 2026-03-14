@@ -28,4 +28,4 @@ As an Operator, you monitor live feeds, respond to alarms, and manage day-to-day
 
 ## Getting Started
 
-For full documentation, visit the [GCXONE Documentation](/docs/getting-started/first-time-login).
+For full documentation, visit the [GCXONE Documentation](/docs/getting-started/first-time-login--access).

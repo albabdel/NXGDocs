@@ -17,7 +17,7 @@ export const onboardingPhases: OnboardingPhase[] = [
                 description: 'Access your GCXONE account and set up authentication',
                 type: StepType.ACTION,
                 roles: [UserRole.ADMIN, UserRole.OPERATOR, UserRole.INSTALLER, UserRole.MANAGER],
-                actionLink: '/docs/getting-started/first-time-login',
+                actionLink: '/docs/getting-started/first-time-login--access',
                 learningContent: {
                     videoId: 'I7dccOLTOsk',
                     title: 'First-Time Login & Setup',
@@ -26,27 +26,12 @@ export const onboardingPhases: OnboardingPhase[] = [
                 }
             },
             {
-                id: 'password-setup',
-                title: 'Configure Password Management',
-                description: 'Set up secure password policies',
-                type: StepType.ACTION,
-                roles: [UserRole.ADMIN],
-                roleSpecificTitle: {
-                    [UserRole.ADMIN]: 'Configure Password Management'
-                },
-                actionLink: '/docs/getting-started/password-management',
-                learningContent: {
-                    description: 'Learn how to update your password and set up password recovery options.',
-                    tips: ['Store your recovery codes in a secure location']
-                }
-            },
-            {
                 id: 'understand-gcxone',
                 title: 'Understand What is GCXONE',
                 description: 'Learn about the platform capabilities',
                 type: StepType.ACTION,
                 roles: [UserRole.ADMIN, UserRole.OPERATOR, UserRole.INSTALLER, UserRole.MANAGER],
-                actionLink: '/docs/getting-started/what-is-evalink-talos',
+                actionLink: '/docs/getting-started/what-is-gcxone',
                 learningContent: {
                     videoId: 'ER-tnAvGXow',
                     title: 'GCXONE Product Overview',
@@ -73,65 +58,15 @@ export const onboardingPhases: OnboardingPhase[] = [
         description: 'Learn the interface and navigation',
         steps: [
             {
-                id: 'key-benefits',
-                title: 'Explore Key Benefits',
-                description: 'Understand the value GCXONE brings',
-                type: StepType.ACTION,
-                roles: [UserRole.ADMIN, UserRole.MANAGER],
-                actionLink: '/docs/getting-started/key-benefits',
-                learningContent: {
-                    description: 'Discover how GCXONE transforms security monitoring operations.',
-                    tips: ['Share these benefits with your team to drive adoption']
-                }
-            },
-            {
-                id: 'cloud-architecture',
-                title: 'Understand Cloud Architecture',
-                description: 'Learn about GCXONE\'s infrastructure',
+                id: 'what-is-gcxone',
+                title: 'What is GCXONE?',
+                description: 'Introduction to the GCXONE platform',
                 type: StepType.ACTION,
                 roles: [UserRole.ADMIN, UserRole.INSTALLER],
-                actionLink: '/docs/getting-started/cloud-architecture',
+                actionLink: '/docs/getting-started/what-is-gcxone',
                 learningContent: {
-                    description: 'Understanding the cloud architecture helps with planning and troubleshooting.',
-                    warnings: ['Ensure your network supports cloud connectivity']
-                }
-            },
-            {
-                id: 'gcxone-talos',
-                title: 'Learn GCXONE & Talos Interaction',
-                description: 'Understand how GCXONE works with Talos',
-                type: StepType.ACTION,
-                roles: [UserRole.ADMIN, UserRole.OPERATOR, UserRole.INSTALLER],
-                actionLink: '/docs/getting-started/gcxone-talos-interaction',
-                learningContent: {
-                    videoId: 'p--04PIIO-M',
-                    title: 'Platform Walkthrough',
-                    description: 'A complete tour of the GCXONE interface and how it integrates with Talos.',
-                    tips: ['Talos is your edge device that connects to GCXONE cloud']
-                }
-            },
-            {
-                id: 'what-is-talos',
-                title: 'What is Evalink Talos?',
-                description: 'Introduction to the Talos edge device',
-                type: StepType.ACTION,
-                roles: [UserRole.ADMIN, UserRole.INSTALLER],
-                actionLink: '/docs/getting-started/what-is-evalink-talos',
-                learningContent: {
-                    description: 'Talos is the bridge between your on-site devices and GCXONE cloud.',
+                    description: 'GCXONE is the cloud platform for security monitoring and alarm management.',
                     tips: ['Each site typically requires one Talos unit']
-                }
-            },
-            {
-                id: 'know-talos',
-                title: 'Getting to Know Evalink Talos',
-                description: 'Deep dive into Talos features',
-                type: StepType.ACTION,
-                roles: [UserRole.INSTALLER, UserRole.ADMIN],
-                actionLink: '/docs/getting-started/getting-to-know-evalink-talos',
-                learningContent: {
-                    description: 'Detailed guide on Talos capabilities and configuration options.',
-                    tips: ['Talos handles local video storage and alarm processing']
                 }
             },
             {
@@ -144,7 +79,6 @@ export const onboardingPhases: OnboardingPhase[] = [
                     [UserRole.OPERATOR]: 'Learn the Operator Dashboard',
                     [UserRole.MANAGER]: 'Understand the Analytics Dashboard'
                 },
-                actionLink: '/docs/getting-started/gcxone-talos-interaction',
                 learningContent: {
                     videoId: 'AxHOF8cV88Q',
                     title: 'Dashboard Deep Dive',
@@ -164,63 +98,11 @@ export const onboardingPhases: OnboardingPhase[] = [
                 description: 'Open necessary ports for GCXONE',
                 type: StepType.ACTION,
                 roles: [UserRole.ADMIN, UserRole.INSTALLER],
-                actionLink: '/docs/getting-started/required-ports',
+                actionLink: '/docs/getting-started/pre-deployment-requirements',
                 learningContent: {
                     description: 'List of all ports that must be open for GCXONE to function properly.',
                     warnings: ['Work with your network team to configure firewall rules'],
                     tips: ['Document which ports are already open in your network']
-                }
-            },
-            {
-                id: 'firewall-config',
-                title: 'Set Up Firewall Rules',
-                description: 'Configure firewall for GCXONE traffic',
-                type: StepType.ACTION,
-                roles: [UserRole.ADMIN, UserRole.INSTALLER],
-                actionLink: '/docs/getting-started/firewall-configuration',
-                learningContent: {
-                    description: 'Step-by-step firewall configuration instructions for various firewalls.',
-                    warnings: ['Improper firewall configuration will prevent alarms from reaching GCXONE'],
-                    tips: ['Test connectivity after making changes']
-                }
-            },
-            {
-                id: 'ip-whitelist',
-                title: 'Configure IP Whitelisting',
-                description: 'Whitelist GCXONE IP addresses',
-                type: StepType.ACTION,
-                roles: [UserRole.ADMIN, UserRole.INSTALLER],
-                actionLink: '/docs/getting-started/ip-whitelisting',
-                learningContent: {
-                    description: 'Add GCXONE IP ranges to your firewall whitelist.',
-                    warnings: ['Keep this list updated as GCXONE infrastructure evolves'],
-                    tips: ['Subscribe to GCXONE notifications for IP changes']
-                }
-            },
-            {
-                id: 'bandwidth-check',
-                title: 'Verify Bandwidth Requirements',
-                description: 'Ensure sufficient network bandwidth',
-                type: StepType.ACTION,
-                roles: [UserRole.ADMIN, UserRole.INSTALLER],
-                actionLink: '/docs/getting-started/bandwidth-requirements',
-                learningContent: {
-                    description: 'Calculate and verify your network has sufficient bandwidth for video streaming.',
-                    tips: ['Plan for peak usage with multiple simultaneous video streams'],
-                    warnings: ['Insufficient bandwidth affects video quality and alarm delivery']
-                }
-            },
-            {
-                id: 'ntp-config',
-                title: 'Configure NTP Time Sync',
-                description: 'Set up accurate time synchronization',
-                type: StepType.ACTION,
-                roles: [UserRole.ADMIN, UserRole.INSTALLER],
-                actionLink: '/docs/getting-started/ntp-configuration',
-                learningContent: {
-                    description: 'Proper time synchronization is critical for alarm correlation and video playback.',
-                    warnings: ['Incorrect time can cause alarms to be mismatched with video footage'],
-                    tips: ['Use pool.ntp.org or your organization\'s NTP servers']
                 }
             }
         ]
@@ -236,23 +118,11 @@ export const onboardingPhases: OnboardingPhase[] = [
                 description: 'Create users and assign roles',
                 type: StepType.ACTION,
                 roles: [UserRole.ADMIN],
-                actionLink: '/docs/getting-started/user-management/overview',
+                actionLink: '/docs/getting-started/user-management-setup',
                 learningContent: {
                     description: 'Create operator accounts and configure role-based access control.',
                     tips: ['Follow principle of least privilege when assigning roles'],
                     warnings: ['Each operator should have their own account for audit purposes']
-                }
-            },
-            {
-                id: 'create-roles',
-                title: 'Configure User Roles',
-                description: 'Set up role-based permissions',
-                type: StepType.ACTION,
-                roles: [UserRole.ADMIN],
-                actionLink: '/docs/getting-started/user-management/creating-roles',
-                learningContent: {
-                    description: 'Define custom roles with specific permission sets.',
-                    tips: ['Create role templates for common job functions']
                 }
             },
             {
@@ -261,7 +131,7 @@ export const onboardingPhases: OnboardingPhase[] = [
                 description: 'Set up sites and assign Talos units',
                 type: StepType.ACTION,
                 roles: [UserRole.ADMIN, UserRole.INSTALLER],
-                actionLink: '/docs/getting-started/talos/site-management',
+                actionLink: '/docs/getting-started/organization--hierarchy-setup',
                 learningContent: {
                     description: 'Organize your deployment by sites and assign Talos units to each location.',
                     tips: ['Use clear naming conventions for sites (e.g., Building-Floor-Area)']
@@ -277,7 +147,7 @@ export const onboardingPhases: OnboardingPhase[] = [
                     [UserRole.INSTALLER]: 'Install and Connect Devices',
                     [UserRole.ADMIN]: 'Verify Device Connections'
                 },
-                actionLink: '/docs/getting-started/devices',
+                actionLink: '/docs/devices',
                 learningContent: {
                     description: 'Connect cameras, alarm panels, and other devices to Talos and GCXONE.',
                     tips: ['Test each device connection before proceeding'],
@@ -290,7 +160,7 @@ export const onboardingPhases: OnboardingPhase[] = [
                 description: 'Configure alarm routing and notifications',
                 type: StepType.ACTION,
                 roles: [UserRole.ADMIN, UserRole.INSTALLER],
-                actionLink: '/docs/getting-started/alarm-forwarding',
+                actionLink: '/docs/alarm-management',
                 learningContent: {
                     description: 'Route alarms to appropriate operators and configure notification preferences.',
                     warnings: ['Test alarm forwarding before going live'],
@@ -363,18 +233,6 @@ export const onboardingPhases: OnboardingPhase[] = [
                 }
             },
             {
-                id: 'troubleshooting-review',
-                title: 'Review Troubleshooting Resources',
-                description: 'Familiarize yourself with common issues',
-                type: StepType.ACTION,
-                roles: [UserRole.ADMIN, UserRole.INSTALLER],
-                actionLink: '/docs/getting-started/troubleshooting/browser-errors',
-                learningContent: {
-                    description: 'Learn how to diagnose and resolve common technical issues.',
-                    tips: ['Bookmark troubleshooting pages for quick reference']
-                }
-            },
-            {
                 id: 'operator-training',
                 title: 'Complete Operator Training',
                 description: 'Ensure all operators are trained',
@@ -434,7 +292,7 @@ export const systemHealthChecklist: SystemHealthItem[] = [
         status: SystemHealthStatus.OK,
         lastChecked: '10 mins ago',
         message: 'Accurate time correlation between alarms and video',
-        linkedStepId: 'ntp-config'
+        linkedStepId: 'required-ports'
     },
     {
         id: 'storage-healthy',

@@ -40,6 +40,12 @@ const ROADMAP_GENERATED_FILE = path.join(
   'data',
   'sanity-roadmap.generated.json'
 );
+const INTEGRATIONS_GENERATED_FILE = path.join(
+  SITE_DIR,
+  'src',
+  'data',
+  'sanity-integrations.generated.json'
+);
 const BACKUP_ROOT = path.join(SITE_DIR, '.sanity-backups');
 const VERSION_HISTORY_DIR = path.join(SITE_DIR, '.sanity-version-history');
 const DEFAULT_BACKUP_KEEP = 10;
@@ -162,6 +168,7 @@ function createBackupSnapshot(runId, keepBackups) {
     { source: RELEASE_NOTES_GENERATED_FILE, name: 'sanity-release-notes.generated.json', kind: 'file' },
     { source: RELEASES_GENERATED_FILE, name: 'sanity-releases.generated.json', kind: 'file' },
     { source: ROADMAP_GENERATED_FILE, name: 'sanity-roadmap.generated.json', kind: 'file' },
+    { source: INTEGRATIONS_GENERATED_FILE, name: 'sanity-integrations.generated.json', kind: 'file' },
   ].filter((entry) =>
     entry.kind === 'directory' ? isDirectoryNonEmpty(entry.source) : isFilePresent(entry.source)
   );
@@ -291,6 +298,32 @@ function getRoadmapQuery(includeDrafts) {
   }`;
 }
 
+function getDeviceIntegrationsQuery(includeDrafts) {
+  const filter = statusFilterClause(includeDrafts);
+  return `*[_type == "deviceIntegration" && ${filter}] | order(name asc) {
+    _id,
+    _type,
+    name,
+    slug,
+    manufacturer,
+    brand,
+    deviceType,
+    gcxReady,
+    status,
+    description,
+    cloudModeFeatures,
+    localModeFeatures,
+    deviceHealthFeatures,
+    cameraHealthFeatures,
+    timelapseFeatures,
+    connectivity,
+    documentation,
+    notesAndIssues,
+    architecture,
+    "logoUrl": logo.asset->url
+  }`;
+}
+
 async function run() {
   const projectId = process.env.SANITY_PROJECT_ID;
   const apiToken = process.env.SANITY_API_TOKEN;
@@ -315,6 +348,7 @@ async function run() {
       placeholders: 0,
       release: 0,
       roadmapItem: 0,
+      deviceIntegration: 0,
     },
     warnings: 0,
   };
@@ -928,9 +962,31 @@ async function run() {
     console.log('[sanity-content] Wrote roadmap items -> src/data/sanity-roadmap.generated.json');
   }
 
+  async function fetchDeviceIntegrations() {
+    console.log('[sanity-content] Fetching device integrations...');
+    let integrations;
+    try {
+      integrations = await client.fetch(getDeviceIntegrationsQuery(includeDrafts));
+    } catch (err) {
+      stats.warnings += 1;
+      console.warn(`[sanity-content] Warning: Failed to fetch device integrations: ${err.message}`);
+      integrations = [];
+    }
+    stats.fetched.deviceIntegration = integrations.length;
+    console.log(`[sanity-content] -> ${integrations.length} device integration(s)`);
+    writeTrackedFile(
+      INTEGRATIONS_GENERATED_FILE,
+      JSON.stringify(integrations, null, 2),
+      writtenFiles
+    );
+    stats.written.deviceIntegration += 1;
+    console.log('[sanity-content] Wrote device integrations -> src/data/sanity-integrations.generated.json');
+  }
+
   await fetchLandingPages();
   await fetchReleases();
   await fetchRoadmapItems();
+  await fetchDeviceIntegrations();
 
   const manifest = {
     runId,

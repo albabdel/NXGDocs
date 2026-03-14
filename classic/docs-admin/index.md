@@ -28,4 +28,4 @@ As a Company Admin, you have full access to system configuration, user managemen
 
 ## Getting Started
 
-For full documentation, visit the [GCXONE Documentation](/docs/getting-started/first-time-login).
+For full documentation, visit the [GCXONE Documentation](/docs/getting-started/first-time-login--access).

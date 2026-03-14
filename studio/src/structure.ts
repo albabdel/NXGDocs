@@ -302,6 +302,84 @@ export const deskStructure = (S: any) =>
       S.divider(),
 
       S.listItem()
+        .title('Technical Documentation')
+        .icon(() => '⚙️')
+        .child(
+          S.list()
+            .title('Technical Documentation')
+            .items([
+              S.listItem()
+                .title('Device Profiles')
+                .icon(() => '📱')
+                .schemaType('deviceProfile')
+                .child(
+                  S.documentList()
+                    .title('All Device Profiles')
+                    .schemaType('deviceProfile')
+                    .filter('_type == "deviceProfile"')
+                    .defaultOrdering([{field: 'title', direction: 'asc'}])
+                ),
+              S.listItem()
+                .title('Device Integrations')
+                .icon(() => '🔌')
+                .schemaType('deviceIntegration')
+                .child(
+                  S.documentList()
+                    .title('All Device Integrations')
+                    .schemaType('deviceIntegration')
+                    .filter('_type == "deviceIntegration"')
+                    .defaultOrdering([{field: 'title', direction: 'asc'}])
+                ),
+              S.listItem()
+                .title('Monitoring Stations')
+                .icon(() => '🗼')
+                .schemaType('monitoringStation')
+                .child(
+                  S.documentList()
+                    .title('All Monitoring Stations')
+                    .schemaType('monitoringStation')
+                    .filter('_type == "monitoringStation"')
+                    .defaultOrdering([{field: 'title', direction: 'asc'}])
+                ),
+              S.listItem()
+                .title('Alert Templates')
+                .icon(() => '🔔')
+                .schemaType('alertTemplate')
+                .child(
+                  S.documentList()
+                    .title('All Alert Templates')
+                    .schemaType('alertTemplate')
+                    .filter('_type == "alertTemplate"')
+                    .defaultOrdering([{field: 'title', direction: 'asc'}])
+                ),
+              S.listItem()
+                .title('Integrations')
+                .icon(() => '🔗')
+                .schemaType('integration')
+                .child(
+                  S.documentList()
+                    .title('All Integrations')
+                    .schemaType('integration')
+                    .filter('_type == "integration"')
+                    .defaultOrdering([{field: 'title', direction: 'asc'}])
+                ),
+              S.listItem()
+                .title('API Reference')
+                .icon(() => '📖')
+                .schemaType('apiReference')
+                .child(
+                  S.documentList()
+                    .title('All API Reference')
+                    .schemaType('apiReference')
+                    .filter('_type == "apiReference"')
+                    .defaultOrdering([{field: 'title', direction: 'asc'}])
+                ),
+            ])
+        ),
+
+      S.divider(),
+
+      S.listItem()
         .title('Organization')
         .icon(() => '🗂️')
         .child(
@@ -346,6 +424,12 @@ export const deskStructure = (S: any) =>
             'landingPage',
             'sidebarCategory',
             'sidebarConfig',
+            'deviceProfile',
+            'deviceIntegration',
+            'monitoringStation',
+            'alertTemplate',
+            'integration',
+            'apiReference',
           ].includes(item.getId() || '')
       ),
     ])

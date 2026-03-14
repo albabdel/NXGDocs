@@ -1,0 +1,3486 @@
+[
+  {
+    "manufacturer": "Honeywell",
+    "brand": "ADPRO",
+    "deviceType": "NVR",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "eventAck": "Supported",
+      "playAudio": "Supported",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "timeline": "Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Supported",
+      "heartbeat": "Supported",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": "Not Supported",
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "ADPRO SDK (for both Cloud and Local) TCP Receiver (events)",
+      "eventIntegrationMethod": "Configuration needed on Device. TCP Push to Genesis ADPRO Receiver",
+      "videoStreaming": "RTSP, SDK image streaming",
+      "loginSecurity": "Operator Previeldge",
+      "customerPorts": "RTSP Port:554 Control port:2000 Audio Port: 3000",
+      "genesisPorts": "Genesis Adpro Receiver: IP Address: (specific to tenant) Port 10000"
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": "RTSP Support to be tested",
+      "currentIssues": "* AudioFiles to Play mantained as Custom Settings * No time based Alarm Image pull available * Need TCP Port for SDK communication and RTSP Port for streaming purposes * Server Unit ID is used to identify the device which is an un-reliable integer number which has a high chance of duplication",
+      "dependencies": "* Video Streaming through Media Stream framework",
+      "commonIssues": "* Inactive/Disarmed devices alarms will still be forwarded to EventIngest * Event Log pulling is not available in any of the proxies * Bi-directional look-up need to be rock solid (genesis device id to device hub/camera unique id/channel id) * Alarm polling is not available for most of the device types. for existing device types that support polling, its design is not scalable, which causes too many server failures"
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Hikvision",
+    "brand": "Hikvision NVR",
+    "deviceType": "NVR",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "eventAck": "N/A",
+      "playAudio": "Not Supported",
+      "timeSync": "Supported"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "timeline": "Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": "Supported",
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "Http ISAPI (for Cloud) .NET HcNetSDK (for Local) ISAPI Mutipart callback (events)",
+      "eventIntegrationMethod": "No Configuration needed. ISAPI Event API Subscription.",
+      "videoStreaming": "RTSP",
+      "loginSecurity": "Operator Permissions, ISAPI protocol must be enabled.",
+      "customerPorts": "Control Port: 8000 HTTP Port: 80/HTTPS Port: 443 RTSP Port: 554",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/hikvision"
+      ],
+      "configArticleSlug": "hikvision",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": "* IP Camera timezone conflict in firmware * Unreliable RTSP streaming * Unreliable Heartbeat callback * ISAPI timeout is not handled properly * Require admin-equivalent priviledges to receive alarms * Needs TCP Port for two way audio, Http/s for rest of the functions and RTSP for streaming (No single Port access) * No Camera Unique Identifier avaialble in device level * Device alarm images and device metadata should be used for alarm processing * No device level arm/disarm",
+      "dependencies": "* ISAPI Based non-scalable alarm subscription",
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Hikvision",
+    "brand": "Hikvision IP Camera",
+    "deviceType": "IPC",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Plan in Future",
+      "eventAck": "N/A",
+      "playAudio": "Plan in Future",
+      "timeSync": "Supported"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "timeline": "Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Plan in Future",
+      "basicPlus": "Plan in Future",
+      "advanced": "Plan in Future"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": "Plan in Future",
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "Http HcNetSDK (for Cloud) .NET HcNetSDK (for Local) ISAPI Mutipart callback (events)",
+      "eventIntegrationMethod": "No Configuration needed. ISAPI Event API Subscription.",
+      "videoStreaming": "HcNetSDK",
+      "loginSecurity": "Operator Permissions, ISAPI protocol must be enabled.",
+      "customerPorts": "Control Port: 8000 HTTP Port: 80/HTTPS Port: 443 RTSP Port: Nil",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/hikvision"
+      ],
+      "configArticleSlug": "hikvision",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": "* IP Camera timezone conflict in firmware * Unreliable RTSP streaming * Unreliable Heartbeat callback * ISAPI timeout is not handled properly * Require admin-equivalent priviledges to receive alarms * Needs TCP Port for two way audio, Http/s for rest of the functions and RTSP for streaming (No single Port access) * No Camera Unique Identifier avaialble in device level * Device alarm images and device metadata should be used for alarm processing * No device level arm/disarm",
+      "dependencies": "* ISAPI Based non-scalable alarm subscription",
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Hikvision",
+    "brand": "HikProConnect",
+    "deviceType": "P2P Cloud VMS",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Plan in Future",
+      "eventAck": "Supported",
+      "playAudio": "Plan in Future",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Plan in Future",
+      "timeline": "Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Not Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Plan in Future",
+      "basicPlus": "Plan in Future",
+      "advanced": "Not Supported"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Plan in Future"
+    },
+    "connectivity": {
+      "integrationProtocol": "Hikconnect HTTP API, C# SDK",
+      "eventIntegrationMethod": null,
+      "videoStreaming": "JPEG",
+      "loginSecurity": "STANDARD OPERTAOR ROLE",
+      "customerPorts": "NA",
+      "genesisPorts": "HPP Streaming DNS, port range"
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/hikproconnect-troubleshoot"
+      ],
+      "configArticleSlug": "hikproconnect-troubleshoot",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Dahua",
+    "brand": "Dahua NVR and IP Camera",
+    "deviceType": "NVR",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "eventAck": "N/A",
+      "playAudio": "Not Supported",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "timeline": "Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": "Plan in Future",
+      "clipExport": "Plan in Future"
+    },
+    "connectivity": {
+      "integrationProtocol": "Dahua .Net NetSDK (for both Cloud and Local) Dahua .Net Subscription (events)",
+      "eventIntegrationMethod": "No Configuration needed on device. Automatically subscribed",
+      "videoStreaming": "RTSP",
+      "loginSecurity": "Operator Perminissions in the dvice",
+      "customerPorts": "Port 37777 / need http or https to access web interface",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/dahua"
+      ],
+      "configArticleSlug": "dahua",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": "* No Timesync option * No Heartbeat support * Needs TCP Port for all the key functions and RTSP for Streaming purposes (No single Port access) * Require admin-equivalent priviledges for most of the functions * No Camera Unique Identifier avaialble in device level * Device alarm images and device metadata should be used for alarm processing * No device level arm/disarm",
+      "dependencies": "* SDK Based non-scalable alarm subscription",
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Dahua Cloud",
+    "brand": null,
+    "deviceType": "P2P Cloud VMS",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Partially Supported",
+      "eventAck": "Not Supported",
+      "playAudio": "Not Supported",
+      "timeSync": "Not Supported"
+    },
+    "localMode": {
+      "live": "N/A",
+      "playback": "N/A",
+      "sdkAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "Plan in Future"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "Plan in Future",
+      "differentiation": null,
+      "highResSupport": "Not Supported",
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": null,
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/dahua"
+      ],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": "Singleton",
+      "api": "API",
+      "action": "Transition to scaled"
+    }
+  },
+  {
+    "manufacturer": "NXWitness, HANWHA",
+    "brand": null,
+    "deviceType": "NVR",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Plan in Future",
+      "eventAck": "N/A",
+      "playAudio": "Not Supported",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "Not Supported",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Supported",
+      "heartbeat": "Plan in Future",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": "Supported",
+      "clipExport": "Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "NXWitness HTTP API WebHook Callback (event)",
+      "eventIntegrationMethod": "Manual Configuration of Rules needed on device for every event code using the Immix protocol",
+      "videoStreaming": "RTSP",
+      "loginSecurity": "Operaotr permissions",
+      "customerPorts": "HTTP PORT: 7001 RTSP Port: 7001",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/hanwha-device-configuration"
+      ],
+      "configArticleSlug": "hanwha-device-configuration",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": "* Device alarm images and device metadata should be used for alarm processing * Alarm rule configuration is complex and human error prone. * No device level arm/disarm",
+      "dependencies": "* RTSP and HTTP Ports are same. So technically, its a single port device",
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": "Scaled",
+      "api": "API",
+      "action": "no change"
+    }
+  },
+  {
+    "manufacturer": "NXG Cloud NVR, NxgCloudNvr",
+    "brand": null,
+    "deviceType": "NVR",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Plan in Future",
+      "eventAck": "N/A",
+      "playAudio": "Not Supported",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "Not Supported",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Supported",
+      "heartbeat": "Plan in Future",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": "Supported",
+      "clipExport": "Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "NXWitness HTTP API WebHook Callback (event)",
+      "eventIntegrationMethod": "Manual Configuration of Rules needed on device for every event code using the Immix protocol",
+      "videoStreaming": "RTSP",
+      "loginSecurity": "Operaotr permissions",
+      "customerPorts": "HTTP PORT: 7001 RTSP Port: 7001",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": "* Device alarm images and device metadata should be used for alarm processing * Alarm rule configuration is complex and human error prone. * No device level arm/disarm",
+      "dependencies": "* RTSP and HTTP Ports are same. So technically, its a single port device",
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": "Scaled",
+      "api": "API",
+      "action": "no change"
+    }
+  },
+  {
+    "manufacturer": "SPYKEBOX",
+    "brand": null,
+    "deviceType": "NVR",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Plan in Future",
+      "eventAck": "N/A",
+      "playAudio": "Not Supported",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "Not Supported",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Supported",
+      "heartbeat": "Plan in Future",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": "Supported",
+      "clipExport": "Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "NXWitness HTTP API WebHook Callback (event)",
+      "eventIntegrationMethod": "Manual Configuration of Rules needed on device for every event code using the Immix protocol",
+      "videoStreaming": "RTSP",
+      "loginSecurity": "Operaotr permissions",
+      "customerPorts": "HTTP PORT: 7001 RTSP Port: 7001",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": "* Device alarm images and device metadata should be used for alarm processing * Alarm rule configuration is complex and human error prone. * No device level arm/disarm",
+      "dependencies": "* RTSP and HTTP Ports are same. So technically, its a single port device",
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": "Scaled",
+      "api": "API",
+      "action": "no change"
+    }
+  },
+  {
+    "manufacturer": "Hanwha-Techwin",
+    "brand": "Old Hanwha",
+    "deviceType": "NVR",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Not Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Not Supported",
+      "io": "Not Supported",
+      "eventAck": "N/A",
+      "playAudio": "Not Supported",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Not Supported",
+      "playback": "Not Supported",
+      "sdkAudio": "Not Supported",
+      "ptz": "Not Supported",
+      "io": "Not Supported",
+      "timeline": "Not Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Supported",
+      "heartbeat": "Not Supported",
+      "mobileApp": "Plan in Future"
+    },
+    "cameraHealth": {
+      "basic": "Plan in Future",
+      "basicPlus": "Plan in Future",
+      "advanced": "Plan in Future"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": "Supported",
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "Hanwha SUNAPI",
+      "eventIntegrationMethod": "Events not supported with current version",
+      "videoStreaming": "RTSP",
+      "loginSecurity": "Operaotr permissions",
+      "customerPorts": "HTTP(S) PORT: 80/443 RTSP Port: 554",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/hanwha-device-configuration"
+      ],
+      "configArticleSlug": "hanwha-device-configuration",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": "This integration was specifically done for Hesta. Features are limited to discovery, live, plaback and timeline to use the video device to look up during reception of intrusion events",
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Camect",
+    "brand": null,
+    "deviceType": "AI BOX",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Not Supported",
+      "timeline": "Not Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Not Supported",
+      "eventAck": "Supported",
+      "playAudio": "Not Supported",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Not Supported by Device",
+      "sdkAudio": "Supported",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Supported",
+      "heartbeat": "Supported",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": "Supported",
+      "clipExport": "Plan in Future"
+    },
+    "connectivity": {
+      "integrationProtocol": "Camect HTTP API (Cloud) TCP Receiver (events)",
+      "eventIntegrationMethod": "Manual setup of NXGEN/IMMIX Genesis TCP IP and port needed",
+      "videoStreaming": "RTSP",
+      "loginSecurity": "Operaotr permissions",
+      "customerPorts": null,
+      "genesisPorts": "Genesis Camect ReceiverIP/Port HTTP(S) port: 80/443"
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/camect"
+      ],
+      "configArticleSlug": "camect",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": "* Device metata should be used instead of metadata burnt images from Device Camect needs a dev environment",
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Ganz",
+    "brand": null,
+    "deviceType": "AI BOX",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Not Supported",
+      "timeline": "Not Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Not Supported",
+      "eventAck": "N/A",
+      "playAudio": "Not Supported",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Not Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Plan in Future"
+    },
+    "connectivity": {
+      "integrationProtocol": "Ganz HTTP API WebHook Callback (event)",
+      "eventIntegrationMethod": "Manual configuration of webhook needed to push to NXGen proxy API",
+      "videoStreaming": "RTSP",
+      "loginSecurity": "Operaotr permissions",
+      "customerPorts": "Genesis Ganz receiver DNS/Port HTTP(S) Port: 80/443",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": "* Device metata should be used instead of metadata burnt images from Device * Alarm rule configuration in device level is required which is human error prone. * Trigger health is not available",
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Avigilon",
+    "brand": null,
+    "deviceType": "VMS",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "eventAck": "Supported",
+      "playAudio": "Not Supported",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "timeline": "Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "Plan in Future"
+    },
+    "cameraHealth": {
+      "basic": "Plan in Future",
+      "basicPlus": "Plan in Future",
+      "advanced": "Plan in Future"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Plan in Future"
+    },
+    "connectivity": {
+      "integrationProtocol": "Avigilon HTTP API (for Cloud), C# SDK (for Local mode) WebHook Callback (event)",
+      "eventIntegrationMethod": "No manual configuration needed. Two Options 1. Automatic Webhook registration, 2. Event polling from UI",
+      "videoStreaming": "HTTP",
+      "loginSecurity": "Standard User Profile - View permissions to Camera config, Control commands,",
+      "customerPorts": "Avigilon: TCP:38880 Avigilon VMS: MT playground must be enabled. Port 8443 Avigilon Appliance: 443",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": "Avigilon does not support an RTSP source",
+      "currentIssues": "* No device level arm/disarm",
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Axxon",
+    "brand": null,
+    "deviceType": "VMS",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Not Supported",
+      "eventAck": "N/A",
+      "playAudio": "Not Supported",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "Not Supported",
+      "ptz": "Supported",
+      "io": "Plan in Future",
+      "timeline": "Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Not Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Plan in Future"
+    },
+    "connectivity": {
+      "integrationProtocol": "Axxon HTTP API Websocket Subscription (events)",
+      "eventIntegrationMethod": "No Manual configuration needed. Automatic websocket subscription to pull events.",
+      "videoStreaming": "RTSP",
+      "loginSecurity": "Operaotr permissions",
+      "customerPorts": "Axxon HTTP(S) Port: 80/443",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/axxon"
+      ],
+      "configArticleSlug": "axxon",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": "* Passwords might not support special characters @, # * Alarm polling is not reliable",
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Milestone",
+    "brand": null,
+    "deviceType": "VMS",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "eventAck": "N/A",
+      "playAudio": "Not Supported",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Plan in Future",
+      "timeline": "Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Not Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Plan in Future"
+    },
+    "connectivity": {
+      "integrationProtocol": "Milestone C# SDK .NET SDK Subscription (events)",
+      "eventIntegrationMethod": "Milestone MIP Component SDK",
+      "videoStreaming": "TCP JPEG, Raw",
+      "loginSecurity": "Operaotr permissions. Add host entry if necessary",
+      "customerPorts": "Port: 12345, Event port: 22331 Streaming port:",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/milestone-gcx-one"
+      ],
+      "configArticleSlug": "milestone-gcx-one",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": "Milestone does not support RTSP",
+      "currentIssues": "* SDK based non-scalable alarm subscription * SDK tied to Smart Client * SDK has multi feature access issues for a device. Every action needs to be sequenced",
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "AxisCameraStation",
+    "brand": null,
+    "deviceType": "VMS",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "eventAck": "N/A",
+      "playAudio": "Not Supported",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "N/A",
+      "ptz": "Supported",
+      "io": "Supported",
+      "timeline": "Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "N/A",
+      "heartbeat": "N/A",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Plan in Future"
+    },
+    "connectivity": {
+      "integrationProtocol": "Axis HTTP API Callback webhook(event)",
+      "eventIntegrationMethod": "Axis Camera Station HTTP API",
+      "videoStreaming": null,
+      "loginSecurity": "Operator permissions",
+      "customerPorts": "Axis Cam Station: xxxx",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/axis-camera-station"
+      ],
+      "configArticleSlug": "axis-camera-station",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": "Axis Camera station does not support RTSP",
+      "currentIssues": "* So far, no test device to test",
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Heitel",
+    "brand": null,
+    "deviceType": "NVR",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Not Supported",
+      "timeline": "Not Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "eventAck": "Not Supported",
+      "playAudio": "Not Supported",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "N/A",
+      "playback": "N/A",
+      "sdkAudio": "Not Supported",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Not Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "Plan in Future"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Not Supported"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "Heitel TCP Protocol TCP Receiver (Events)",
+      "eventIntegrationMethod": "Heitel Camcontrol TCP PROTOCOL",
+      "videoStreaming": null,
+      "loginSecurity": "Operaotr permissions",
+      "customerPorts": "TCP",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": "* Legacy. Need to suggest customers to replace Heitel with some other device types",
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Uniview",
+    "brand": null,
+    "deviceType": "NVR",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Plan in Future",
+      "eventAck": "N/A",
+      "playAudio": "Not Supported",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "timeline": "Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Not Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Plan in Future"
+    },
+    "connectivity": {
+      "integrationProtocol": "Uniview C# SDK .NET SDK Subscription (events)",
+      "eventIntegrationMethod": "Uniview HTTP API",
+      "videoStreaming": "RTSP",
+      "loginSecurity": "Operaotr permissions",
+      "customerPorts": "RTSP",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": "Thermal camera is not supported in Healthcheck Premium",
+      "currentIssues": "* SDK based non-scalable alarm subscription",
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Viasys/ShieldBox",
+    "brand": null,
+    "deviceType": "Cloud NVR",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "eventAck": "N/A",
+      "playAudio": "Not Supported",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "N/A",
+      "playback": "N/A",
+      "sdkAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Not Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "Plan in Future"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Not Supported"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "Viasys HTTP API WebHook Callback (API Cusrtomer)",
+      "eventIntegrationMethod": "Webhook call back from Viasys for event push. Viasys and MrHill API to integrate from Genesis",
+      "videoStreaming": "mjpeg",
+      "loginSecurity": "None. Genesis Device GUID is the authkey",
+      "customerPorts": "https",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/senstar"
+      ],
+      "configArticleSlug": "senstar",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Axis IP Camera",
+    "brand": null,
+    "deviceType": "IP Camera",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Plan in Future",
+      "eventAck": "N/A",
+      "playAudio": "Not Supported",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "Plan in Future",
+      "ptz": "Plan in Future",
+      "io": "Plan in Future",
+      "timeline": "Plan in Future"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Not Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Plan in Future"
+    },
+    "connectivity": {
+      "integrationProtocol": "Axis HTTP API WebHook Callback (event)",
+      "eventIntegrationMethod": "Webhook configuration from IPCamera rules to push video clip to genesis",
+      "videoStreaming": "RTSP",
+      "loginSecurity": "Operaotr permissions",
+      "customerPorts": "Axis ip camera: 443, RTSP: 554",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/axis-ip-camera"
+      ],
+      "configArticleSlug": "axis-ip-camera",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "SenStar",
+    "brand": null,
+    "deviceType": "NVR",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "eventAck": "Supported",
+      "playAudio": "Not Supported",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "Not Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "timeline": "Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "N/A",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Plan in Future"
+    },
+    "connectivity": {
+      "integrationProtocol": "HTTP API, RTSP for streaming",
+      "eventIntegrationMethod": "Event polling",
+      "videoStreaming": "RTSP",
+      "loginSecurity": "STANDARD OPERTAOR ROLE",
+      "customerPorts": "Mobile Bridge Port: 8433, RTSP Port:8488 Password encrypt using Senstar Password exe",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/senstar"
+      ],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "NetVu",
+    "brand": null,
+    "deviceType": "IP Camera",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Plan in Future",
+      "events": "Plan in Future",
+      "armDisarm": "Plan in Future",
+      "genesisAudio": "Supported",
+      "ptz": "Plan in Future",
+      "io": "Plan in Future",
+      "eventAck": "Plan in Future",
+      "playAudio": "Not Supported",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Not Supported",
+      "playback": "Not Supported",
+      "sdkAudio": "Supported",
+      "ptz": "Not Supported",
+      "io": "Not Supported",
+      "timeline": "Partially Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Plan in Future",
+      "heartbeat": "N/A",
+      "mobileApp": "Plan in Future"
+    },
+    "cameraHealth": {
+      "basic": "Plan in Future",
+      "basicPlus": "Plan in Future",
+      "advanced": "Plan in Future"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Plan in Future"
+    },
+    "connectivity": {
+      "integrationProtocol": "HTTP API, RTSP for streaming",
+      "eventIntegrationMethod": "Event polling",
+      "videoStreaming": "RTSP",
+      "loginSecurity": "STANDARD OPERTAOR ROLE",
+      "customerPorts": "Mobile Bridge Port: 8433, RTSP Port:8488 Password encrypt using Senstar Password exe",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/senstar"
+      ],
+      "configArticleSlug": "senstar",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Honeywell",
+    "brand": "35 Series",
+    "deviceType": "NVR",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Plan in Future",
+      "timeline": "Plan in Future",
+      "events": "Plan in Future",
+      "armDisarm": "Plan in Future",
+      "genesisAudio": "Supported",
+      "ptz": "Plan in Future",
+      "io": "Plan in Future",
+      "eventAck": "Plan in Future",
+      "playAudio": "Plan in Future",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Plan in Future",
+      "playback": "Plan in Future",
+      "sdkAudio": "Plan in Future",
+      "ptz": "Plan in Future",
+      "io": "Plan in Future",
+      "timeline": "Plan in Future"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "Supported",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Plan in Future"
+    },
+    "connectivity": {
+      "integrationProtocol": "C# SDK",
+      "eventIntegrationMethod": "Not supported yet",
+      "videoStreaming": "SDK",
+      "loginSecurity": "STANDARD OPERTAOR ROLE",
+      "customerPorts": null,
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Dahua Cloud ARC",
+    "brand": null,
+    "deviceType": "P2P Cloud VMS",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Not Supported",
+      "eventAck": "Not Supported",
+      "playAudio": "Not Supported",
+      "timeSync": "Not Supported"
+    },
+    "localMode": {
+      "live": "N/A",
+      "playback": "N/A",
+      "sdkAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "Plan in Future"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "Plan in Future",
+      "differentiation": null,
+      "highResSupport": "Not Supported",
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": null,
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/dahua-cloud-arc"
+      ],
+      "configArticleSlug": "dahua-cloud-arc",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": "Singleton",
+      "api": "API",
+      "action": "Transition to scaled"
+    }
+  },
+  {
+    "manufacturer": "Davantis",
+    "brand": null,
+    "deviceType": "AI BOX",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Plan in Future",
+      "live": "Plan in Future",
+      "playback": "Plan in Future",
+      "timeline": "Plan in Future",
+      "events": "Plan in Future",
+      "armDisarm": "Plan in Future",
+      "genesisAudio": "Supported",
+      "ptz": "Not Supported",
+      "io": "Plan in Future",
+      "eventAck": "Plan in Future",
+      "playAudio": "Not Supported",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Not Supported",
+      "playback": "Not Supported",
+      "sdkAudio": "Not Supported",
+      "ptz": "Not Supported",
+      "io": "Not Supported",
+      "timeline": "Not Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Not Supported",
+      "heartbeat": "Plan in Future",
+      "mobileApp": "Not Supported"
+    },
+    "cameraHealth": {
+      "basic": "Plan in Future",
+      "basicPlus": "Plan in Future",
+      "advanced": "Plan in Future"
+    },
+    "timelapse": {
+      "support": "Plan in Future",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "HTTP",
+      "eventIntegrationMethod": "Event polling",
+      "videoStreaming": "JPEG",
+      "loginSecurity": "STANDARD OPERTAOR ROLE",
+      "customerPorts": "HTTP: 21000",
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "GenesisAudio",
+    "brand": null,
+    "deviceType": "SIP Twillio",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "N/A",
+      "playback": "N/A",
+      "timeline": "N/A",
+      "events": "N/A",
+      "armDisarm": "N/A",
+      "genesisAudio": "Supported",
+      "ptz": "N/A",
+      "io": "N/A",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "N/A",
+      "playback": "N/A",
+      "sdkAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Not Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "N/A"
+    },
+    "cameraHealth": {
+      "basic": "N/A",
+      "basicPlus": "N/A",
+      "advanced": "N/A"
+    },
+    "timelapse": {
+      "support": "N/A",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "Twillio HTTP API",
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/genesis-audio"
+      ],
+      "configArticleSlug": "genesis-audio",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Teltonika-IOT",
+    "brand": null,
+    "deviceType": "Router",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "N/A",
+      "playback": "N/A",
+      "timeline": "N/A",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "N/A",
+      "ptz": "N/A",
+      "io": "Supported",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "N/A",
+      "playback": "N/A",
+      "sdkAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Not Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "N/A"
+    },
+    "cameraHealth": {
+      "basic": "N/A",
+      "basicPlus": "N/A",
+      "advanced": "N/A"
+    },
+    "timelapse": {
+      "support": "N/A",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "Teltonika HTTP API",
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/victron"
+      ],
+      "configArticleSlug": "victron",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "EFOY",
+    "brand": null,
+    "deviceType": "Router",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "N/A",
+      "playback": "N/A",
+      "timeline": "N/A",
+      "events": "Supported",
+      "armDisarm": "Plan in Future",
+      "genesisAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "N/A",
+      "playback": "N/A",
+      "sdkAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Not Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "N/A"
+    },
+    "cameraHealth": {
+      "basic": "N/A",
+      "basicPlus": "N/A",
+      "advanced": "N/A"
+    },
+    "timelapse": {
+      "support": "N/A",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "EFOY Cloud API",
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Victron",
+    "brand": null,
+    "deviceType": "Router",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "N/A",
+      "playback": "N/A",
+      "timeline": "N/A",
+      "events": "Supported",
+      "armDisarm": "Plan in Future",
+      "genesisAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "N/A",
+      "playback": "N/A",
+      "sdkAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Not Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "N/A"
+    },
+    "cameraHealth": {
+      "basic": "N/A",
+      "basicPlus": "N/A",
+      "advanced": "N/A"
+    },
+    "timelapse": {
+      "support": "N/A",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "Victron VRM Cloud API",
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/victron"
+      ],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "AJAX",
+    "brand": null,
+    "deviceType": "hik",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "N/A",
+      "playback": "N/A",
+      "timeline": "N/A",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "N/A",
+      "playback": "N/A",
+      "sdkAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Plan in Future",
+      "heartbeat": "N/A",
+      "mobileApp": "N/A"
+    },
+    "cameraHealth": {
+      "basic": "N/A",
+      "basicPlus": "N/A",
+      "advanced": "N/A"
+    },
+    "timelapse": {
+      "support": "N/A",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "AJAX Cloud REST API",
+      "eventIntegrationMethod": "SIA DC09 Protocol packets",
+      "videoStreaming": "N/A",
+      "loginSecurity": "HTTPS REST",
+      "customerPorts": "None",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/ajax"
+      ],
+      "configArticleSlug": "ajax",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": "Cloud Signalling - AJAX Cloud setup to send SIA DC09 alarms AJAX PIRCAM: Setup AJAX cloud signalling for sending AJAX PIR Cam images AJAX IP CAM: (photo mode) AJAX Beta for AJAX Cam to send 3 images. AJAX NVR: uses 3rd party CCTV cameras. photo mode of 3 pictures is NOT supported. this mode sends AJAX cloud URL only.",
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Essence My Sheild",
+    "brand": null,
+    "deviceType": "PIR CAM",
+    "gcxReady": "Check",
+    "cloudMode": {
+      "discovery": "Not Supported",
+      "live": "N/A",
+      "playback": "N/A",
+      "timeline": "N/A",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "N/A",
+      "playback": "N/A",
+      "sdkAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "N/A",
+      "heartbeat": "N/A",
+      "mobileApp": "N/A"
+    },
+    "cameraHealth": {
+      "basic": "N/A",
+      "basicPlus": "N/A",
+      "advanced": "N/A"
+    },
+    "timelapse": {
+      "support": "N/A",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "My Sheild HTTP API",
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Reconeyez",
+    "brand": null,
+    "deviceType": "PIR Cam",
+    "gcxReady": "46176",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "N/A",
+      "playback": "N/A",
+      "timeline": "Not Supported by Device",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "N/A",
+      "playback": "N/A",
+      "sdkAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Not Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "N/A"
+    },
+    "cameraHealth": {
+      "basic": "N/A",
+      "basicPlus": "N/A",
+      "advanced": "N/A"
+    },
+    "timelapse": {
+      "support": "N/A",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "Reconeyes HTTP API",
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/eagle-eye"
+      ],
+      "configArticleSlug": "eagle-eye",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Eagleeye",
+    "brand": null,
+    "deviceType": "NVR",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Plan in Future",
+      "timeline": "Plan in Future",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Plan in Future",
+      "ptz": "Plan in Future",
+      "io": "Plan in Future",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Plan in Future",
+      "playback": "Plan in Future",
+      "sdkAudio": "Plan in Future",
+      "ptz": "Plan in Future",
+      "io": "Plan in Future",
+      "timeline": "Plan in Future"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Plan in Future",
+      "heartbeat": "Plan in Future",
+      "mobileApp": "N/A"
+    },
+    "cameraHealth": {
+      "basic": "Plan in Future",
+      "basicPlus": "Plan in Future",
+      "advanced": "Plan in Future"
+    },
+    "timelapse": {
+      "support": "Plan in Future",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "Eagle Eye HTTP API",
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/eagle-eye"
+      ],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Innovi",
+    "brand": null,
+    "deviceType": "AI Cloud",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "N/A",
+      "playback": "N/A",
+      "timeline": "N/A",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "N/A",
+      "io": "N/A",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "N/A",
+      "playback": "N/A",
+      "sdkAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Not Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "N/A"
+    },
+    "cameraHealth": {
+      "basic": "N/A",
+      "basicPlus": "N/A",
+      "advanced": "N/A"
+    },
+    "timelapse": {
+      "support": "N/A",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "Innovi HTTP API",
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Rosenberger",
+    "brand": null,
+    "deviceType": "IOT battery Mgmt",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "N/A",
+      "playback": "N/A",
+      "timeline": "N/A",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "N/A",
+      "io": "N/A",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "N/A",
+      "playback": "N/A",
+      "sdkAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Not Supported",
+      "heartbeat": "N/A",
+      "mobileApp": "N/A"
+    },
+    "cameraHealth": {
+      "basic": "N/A",
+      "basicPlus": "N/A",
+      "advanced": "N/A"
+    },
+    "timelapse": {
+      "support": "N/A",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "Resenberget MQTT API",
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Autoaid",
+    "brand": null,
+    "deviceType": "IOT",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": null,
+      "live": "N/A",
+      "playback": "N/A",
+      "timeline": "N/A",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "N/A",
+      "io": "N/A",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "N/A",
+      "playback": "N/A",
+      "sdkAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "N/A",
+      "heartbeat": "N/A",
+      "mobileApp": "N/A"
+    },
+    "cameraHealth": {
+      "basic": "N/A",
+      "basicPlus": "N/A",
+      "advanced": "N/A"
+    },
+    "timelapse": {
+      "support": "N/A",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "Auto Aid HTTP API",
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Auraigateway",
+    "brand": null,
+    "deviceType": "IOT Mining",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Not Supported",
+      "live": "N/A",
+      "playback": "N/A",
+      "timeline": "N/A",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "N/A",
+      "io": "N/A",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "N/A",
+      "playback": "N/A",
+      "sdkAudio": "N/A",
+      "ptz": "N/A",
+      "io": "N/A",
+      "timeline": "N/A"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "N/A",
+      "heartbeat": "N/A",
+      "mobileApp": "N/A"
+    },
+    "cameraHealth": {
+      "basic": "N/A",
+      "basicPlus": "N/A",
+      "advanced": "N/A"
+    },
+    "timelapse": {
+      "support": "N/A",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "FFT C# API",
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Bosch",
+    "brand": null,
+    "deviceType": "Not supported",
+    "gcxReady": null,
+    "cloudMode": {
+      "discovery": "Not Supported",
+      "live": "Not Supported",
+      "playback": "Not Supported",
+      "timeline": "Not Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Not Supported",
+      "io": "Not Supported",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "Not Supported",
+      "playback": "Not Supported",
+      "sdkAudio": "Not Supported",
+      "ptz": "Not Supported",
+      "io": "Not Supported",
+      "timeline": "Not Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "N/A",
+      "heartbeat": "N/A",
+      "mobileApp": "N/A"
+    },
+    "cameraHealth": {
+      "basic": "Not Supported",
+      "basicPlus": "Not Supported",
+      "advanced": "Not Supported"
+    },
+    "timelapse": {
+      "support": "Not Supported",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "-",
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Onvif",
+    "brand": null,
+    "deviceType": "IP Camera",
+    "gcxReady": null,
+    "cloudMode": {
+      "discovery": "Plan in Future",
+      "live": "Plan in Future",
+      "playback": "Plan in Future",
+      "timeline": "Plan in Future",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Plan in Future",
+      "io": "Plan in Future",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Plan in Future",
+      "playback": "Plan in Future",
+      "sdkAudio": "Plan in Future",
+      "ptz": "Plan in Future",
+      "io": "Plan in Future",
+      "timeline": "Plan in Future"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "N/A",
+      "heartbeat": "N/A",
+      "mobileApp": "N/A"
+    },
+    "cameraHealth": {
+      "basic": "Plan in Future",
+      "basicPlus": "Plan in Future",
+      "advanced": "Plan in Future"
+    },
+    "timelapse": {
+      "support": "Plan in Future",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "-",
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Mobotix",
+    "brand": null,
+    "deviceType": "IP Camera",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Not Supported",
+      "timeline": "Not Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Plan in Future",
+      "io": "Plan in Future",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Plan in Future",
+      "playback": "Plan in Future",
+      "sdkAudio": "Plan in Future",
+      "ptz": "Plan in Future",
+      "io": "Plan in Future",
+      "timeline": "Plan in Future"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "N/A",
+      "heartbeat": "N/A",
+      "mobileApp": "N/A"
+    },
+    "cameraHealth": {
+      "basic": "Plan in Future",
+      "basicPlus": "Plan in Future",
+      "advanced": "Plan in Future"
+    },
+    "timelapse": {
+      "support": "Plan in Future",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": ".",
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/axis-cs-pro"
+      ],
+      "configArticleSlug": "axis-cs-pro",
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "ENEO",
+    "brand": null,
+    "deviceType": "NVR",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Not Supported",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "N/A",
+      "ptz": "Supported",
+      "io": "Not Supported",
+      "timeline": "Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "N/A",
+      "heartbeat": "N/A",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "N/A",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "ENEO C# SDK .NET SDK Subscription (events)",
+      "eventIntegrationMethod": "ENEO MIP Component SDK",
+      "videoStreaming": "SDK",
+      "loginSecurity": null,
+      "customerPorts": "Deafult Port:80",
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "ENEOIP",
+    "brand": null,
+    "deviceType": "NVR",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Not Supported",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "N/A",
+      "ptz": "Supported",
+      "io": "Not Supported",
+      "timeline": "Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "N/A",
+      "heartbeat": "N/A",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "N/A",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "ENEO HTTPS API",
+      "eventIntegrationMethod": "Event polling",
+      "videoStreaming": "RTSP",
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "AXIS CS Pro",
+    "brand": null,
+    "deviceType": "VMS",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Not Supported",
+      "eventAck": "Not Supported",
+      "playAudio": "Not Supported",
+      "timeSync": "Not Supported"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "Not Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "timeline": "Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "N/A",
+      "heartbeat": "N/A",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "Partially Supported",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Plan in Future"
+    },
+    "connectivity": {
+      "integrationProtocol": "Axis HTTP API Callback webhook(event)",
+      "eventIntegrationMethod": "Callback - Webhook",
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": "Axis Cam Station: 29204",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [
+        "/docs/devices/axis-cs-pro"
+      ],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Geutebrück",
+    "brand": null,
+    "deviceType": "VMS",
+    "gcxReady": "46176",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "eventAck": "Supported",
+      "playAudio": "Not Supported",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "Not Supported",
+      "ptz": "Supported",
+      "io": "Supported",
+      "timeline": "Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "N/A",
+      "heartbeat": "N/A",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "N/A",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Plan in Future"
+    },
+    "connectivity": {
+      "integrationProtocol": "HTTP API",
+      "eventIntegrationMethod": "Event polling",
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Miwi Urmet/Grundig",
+    "brand": null,
+    "deviceType": "NVR/IP Camera",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Plan in Future",
+      "playback": "Plan in Future",
+      "timeline": "Plan in Future",
+      "events": "Plan in Future",
+      "armDisarm": "Plan in Future",
+      "genesisAudio": "Not Supported",
+      "ptz": "Plan in Future",
+      "io": "Plan in Future",
+      "eventAck": "Not Supported",
+      "playAudio": "Plan in Future",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Plan in Future",
+      "playback": "Plan in Future",
+      "sdkAudio": "Plan in Future",
+      "ptz": "Plan in Future",
+      "io": "Plan in Future",
+      "timeline": "Plan in Future"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Plan in Future",
+      "heartbeat": "Plan in Future",
+      "mobileApp": "Plan in Future"
+    },
+    "cameraHealth": {
+      "basic": "Plan in Future",
+      "basicPlus": "Plan in Future",
+      "advanced": "Plan in Future"
+    },
+    "timelapse": {
+      "support": "Plan in Future",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Plan in Future"
+    },
+    "connectivity": {
+      "integrationProtocol": "HTTP API",
+      "eventIntegrationMethod": "Callback - Webhook",
+      "videoStreaming": "?",
+      "loginSecurity": "csrftoken and Cookie based Authentication",
+      "customerPorts": "HTTP Port",
+      "genesisPorts": "None"
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Avigilon Unity",
+    "brand": null,
+    "deviceType": "VMS",
+    "gcxReady": "Supported",
+    "cloudMode": {
+      "discovery": "Plan in Future",
+      "live": "Plan in Future",
+      "playback": "Plan in Future",
+      "timeline": "Plan in Future",
+      "events": "Plan in Future",
+      "armDisarm": "Plan in Future",
+      "genesisAudio": "Plan in Future",
+      "ptz": "Plan in Future",
+      "io": "Plan in Future",
+      "eventAck": "Plan in Future",
+      "playAudio": "Plan in Future",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Plan in Future",
+      "playback": "Plan in Future",
+      "sdkAudio": "Plan in Future",
+      "ptz": "Plan in Future",
+      "io": "Plan in Future",
+      "timeline": "Plan in Future"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Plan in Future",
+      "heartbeat": "Plan in Future",
+      "mobileApp": "Plan in Future"
+    },
+    "cameraHealth": {
+      "basic": "Plan in Future",
+      "basicPlus": "Plan in Future",
+      "advanced": "Plan in Future"
+    },
+    "timelapse": {
+      "support": "Plan in Future",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Plan in Future"
+    },
+    "connectivity": {
+      "integrationProtocol": null,
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Vivotek OnPremise",
+    "brand": "Vivotek NVR",
+    "deviceType": "NVR",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Plan in Future",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "N/A",
+      "ptz": "Supported",
+      "io": "N/A",
+      "timeline": "Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Plan in Future",
+      "heartbeat": "Plan in Future",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "N/A",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "VIVOTEK C# SDK .NET SDK",
+      "eventIntegrationMethod": "Callback - Webhook",
+      "videoStreaming": "RTSP",
+      "loginSecurity": null,
+      "customerPorts": "HTTP Port RTSP Port",
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Vivotek OnPremise",
+    "brand": "Vivotek IPC",
+    "deviceType": "IPC",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Plan in Future",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "Supported",
+      "playback": "Supported",
+      "sdkAudio": "N/A",
+      "ptz": "Supported",
+      "io": "N/A",
+      "timeline": "Supported"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Plan in Future",
+      "heartbeat": "Plan in Future",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "N/A",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": "VIVOTEK CGI API",
+      "eventIntegrationMethod": "Callback - Webhook",
+      "videoStreaming": "RTSP",
+      "loginSecurity": null,
+      "customerPorts": "HTTP Port RTSP Port",
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Vivotek Vortex",
+    "brand": null,
+    "deviceType": "Cloud VMS",
+    "gcxReady": "Not Supported",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Supported",
+      "playback": "Supported",
+      "timeline": "Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Supported",
+      "ptz": "Supported",
+      "io": "Plan in Future",
+      "eventAck": "N/A",
+      "playAudio": "N/A",
+      "timeSync": "N/A"
+    },
+    "localMode": {
+      "live": "Plan in Future",
+      "playback": "Plan in Future",
+      "sdkAudio": "Plan in Future",
+      "ptz": "Plan in Future",
+      "io": "Plan in Future",
+      "timeline": "Plan in Future"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Plan in Future",
+      "heartbeat": "Plan in Future",
+      "mobileApp": "Supported"
+    },
+    "cameraHealth": {
+      "basic": "Supported",
+      "basicPlus": "Supported",
+      "advanced": "Supported"
+    },
+    "timelapse": {
+      "support": "N/A",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": null
+    },
+    "connectivity": {
+      "integrationProtocol": null,
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Dahua PIR CAM",
+    "brand": null,
+    "deviceType": "PIR CAM",
+    "gcxReady": "Check",
+    "cloudMode": {
+      "discovery": "Plan in Future",
+      "live": "Plan in Future",
+      "playback": "Plan in Future",
+      "timeline": "Plan in Future",
+      "events": "Plan in Future",
+      "armDisarm": "Plan in Future",
+      "genesisAudio": "Plan in Future",
+      "ptz": "Plan in Future",
+      "io": "Plan in Future",
+      "eventAck": "Plan in Future",
+      "playAudio": "Plan in Future",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Plan in Future",
+      "playback": "Plan in Future",
+      "sdkAudio": "Plan in Future",
+      "ptz": "Plan in Future",
+      "io": "Plan in Future",
+      "timeline": "Plan in Future"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Plan in Future",
+      "heartbeat": "Plan in Future",
+      "mobileApp": "Plan in Future"
+    },
+    "cameraHealth": {
+      "basic": "Plan in Future",
+      "basicPlus": "Plan in Future",
+      "advanced": "Plan in Future"
+    },
+    "timelapse": {
+      "support": "Plan in Future",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": null,
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  },
+  {
+    "manufacturer": "Dahua Air Shield",
+    "brand": null,
+    "deviceType": "IOT Air Horn",
+    "gcxReady": "Check",
+    "cloudMode": {
+      "discovery": "Supported",
+      "live": "Not Supported",
+      "playback": "Not Supported",
+      "timeline": "Not Supported",
+      "events": "Supported",
+      "armDisarm": "Supported",
+      "genesisAudio": "Not Supported",
+      "ptz": "Not Supported",
+      "io": "Supported",
+      "eventAck": "Supported",
+      "playAudio": "Plan in Future",
+      "timeSync": "Plan in Future"
+    },
+    "localMode": {
+      "live": "Plan in Future",
+      "playback": "Plan in Future",
+      "sdkAudio": "Plan in Future",
+      "ptz": "Plan in Future",
+      "io": "Plan in Future",
+      "timeline": "Plan in Future"
+    },
+    "deviceHealth": {
+      "pollFromCloud": "Plan in Future",
+      "heartbeat": "Plan in Future",
+      "mobileApp": "Plan in Future"
+    },
+    "cameraHealth": {
+      "basic": "Plan in Future",
+      "basicPlus": "Plan in Future",
+      "advanced": "Plan in Future"
+    },
+    "timelapse": {
+      "support": "Plan in Future",
+      "differentiation": null,
+      "highResSupport": null,
+      "clipExport": "Not Supported"
+    },
+    "connectivity": {
+      "integrationProtocol": null,
+      "eventIntegrationMethod": null,
+      "videoStreaming": null,
+      "loginSecurity": null,
+      "customerPorts": null,
+      "genesisPorts": null
+    },
+    "documents": {
+      "helpManuals": [],
+      "helpdesk": []
+    },
+    "comments": {
+      "notes": null,
+      "currentIssues": null,
+      "dependencies": null,
+      "commonIssues": null
+    },
+    "architecture": {
+      "singleton": null,
+      "api": null,
+      "action": null
+    }
+  }
+]

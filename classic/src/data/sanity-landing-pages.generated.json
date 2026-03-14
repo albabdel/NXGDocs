@@ -1,5 +1,1840 @@
 [
   {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "label": "Alert Management"
+      }
+    ],
+    "description": "Comprehensive alert management for critical infrastructure. Intelligent alerting, multi-channel notifications, and automated escalation workflows.",
+    "hero": {
+      "badge": {
+        "icon": "BellRing",
+        "text": "Alert System"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs/alerts/setup",
+          "label": "Configure Alerts",
+          "variant": "primary"
+        },
+        {
+          "href": "#best-practices",
+          "label": "View Best Practices",
+          "variant": "outline"
+        }
+      ],
+      "headline": "Never Miss a Critical Alert",
+      "metrics": [
+        {
+          "color": "#10B981",
+          "icon": "Filter",
+          "label": "Noise Reduction",
+          "value": "90%"
+        },
+        {
+          "color": "#F59E0B",
+          "icon": "Zap",
+          "label": "Alert Latency",
+          "value": "<5 sec"
+        },
+        {
+          "color": "#3B82F6",
+          "icon": "Bell",
+          "label": "Channels",
+          "value": "12+"
+        }
+      ],
+      "subheadline": "Intelligent alerting reduces noise by 90% while ensuring critical issues reach the right people instantly. Configure once, respond faster."
+    },
+    "lastUpdated": "2026-03-14",
+    "layoutType": "standard",
+    "publishedAt": "2026-03-14",
+    "sections": [
+      {
+        "_key": "alert-types",
+        "_type": "landingSectionFeatures",
+        "columns": 4,
+        "description": "Flexible alert classification for appropriate response prioritization.",
+        "features": [
+          {
+            "color": "#EF4444",
+            "description": "Immediate action required. Service impact or safety risk. Auto-escalation enabled.",
+            "icon": "AlertOctagon",
+            "title": "Critical",
+            "value": "P1"
+          },
+          {
+            "color": "#F97316",
+            "description": "Urgent attention needed. Potential service degradation if unaddressed.",
+            "icon": "AlertTriangle",
+            "title": "High",
+            "value": "P2"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "Important but not urgent. Address within SLA timeframes.",
+            "icon": "AlertCircle",
+            "title": "Medium",
+            "value": "P3"
+          },
+          {
+            "color": "#3B82F6",
+            "description": "Informational alerts for awareness. No immediate action required.",
+            "icon": "Info",
+            "title": "Low",
+            "value": "P4"
+          }
+        ],
+        "title": "Alert Types & Severity"
+      },
+      {
+        "_key": "notification-channels",
+        "_type": "landingSectionFeatures",
+        "columns": 3,
+        "description": "Multi-channel alert delivery ensures your team gets notified.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Rich HTML emails with alert details, context, and action links.",
+            "icon": "Mail",
+            "title": "Email",
+            "value": "Native"
+          },
+          {
+            "color": "#10B981",
+            "description": "Text message alerts for critical incidents. Global coverage.",
+            "icon": "Smartphone",
+            "title": "SMS",
+            "value": "Native"
+          },
+          {
+            "color": "#EF4444",
+            "description": "Automated voice calls for critical alerts. Text-to-speech.",
+            "icon": "Phone",
+            "title": "Voice Call",
+            "value": "Native"
+          },
+          {
+            "color": "#4A154B",
+            "description": "Real-time notifications to Slack channels with interactive buttons.",
+            "icon": "MessageSquare",
+            "title": "Slack",
+            "value": "Native"
+          },
+          {
+            "color": "#5059C9",
+            "description": "Microsoft Teams notifications with adaptive cards.",
+            "icon": "Users",
+            "title": "Teams",
+            "value": "Native"
+          },
+          {
+            "color": "#06AC38",
+            "description": "Integration with PagerDuty for on-call management.",
+            "icon": "Phone",
+            "title": "PagerDuty",
+            "value": "Native"
+          },
+          {
+            "color": "#00C654",
+            "description": "Auto-create incidents in ServiceNow.",
+            "icon": "ClipboardList",
+            "title": "ServiceNow",
+            "value": "Native"
+          },
+          {
+            "color": "#8B5CF6",
+            "description": "Custom webhook endpoints for any integration.",
+            "icon": "Webhook",
+            "title": "Webhooks",
+            "value": "Native"
+          },
+          {
+            "color": "#EC4899",
+            "description": "iOS and Android push notifications via NXGEN app.",
+            "icon": "App",
+            "title": "Mobile Push",
+            "value": "Native"
+          }
+        ],
+        "title": "Notification Channels"
+      },
+      {
+        "_key": "escalation-steps",
+        "_type": "landingSectionSteps",
+        "description": "Automated escalation ensures critical alerts are never missed.",
+        "phases": [
+          {
+            "description": "Alert triggered by threshold breach or event",
+            "phaseNumber": 1,
+            "steps": [
+              {
+                "description": "System detects anomaly or receives external event and creates alert record.",
+                "stepNumber": 1,
+                "title": "Alert Generated"
+              },
+              {
+                "description": "Alert enriched with context: station info, related devices, historical data.",
+                "stepNumber": 2,
+                "title": "Enrichment"
+              },
+              {
+                "description": "Alert routed to appropriate team based on station assignment and alert type.",
+                "stepNumber": 3,
+                "title": "Routing"
+              }
+            ],
+            "title": "Initial Alert"
+          },
+          {
+            "description": "Initial notification and response window",
+            "phaseNumber": 2,
+            "steps": [
+              {
+                "description": "Primary on-call operator receives notification via configured channels.",
+                "stepNumber": 4,
+                "title": "Notification Sent"
+              },
+              {
+                "description": "Operator has configurable window (default: 15 min) to acknowledge alert.",
+                "stepNumber": 5,
+                "title": "Acknowledge Window"
+              },
+              {
+                "description": "Acknowledgment and response actions logged for audit trail.",
+                "stepNumber": 6,
+                "title": "Response Logged"
+              }
+            ],
+            "title": "First Response"
+          },
+          {
+            "description": "Automated escalation if unacknowledged",
+            "phaseNumber": 3,
+            "steps": [
+              {
+                "description": "If unacknowledged, alert escalated to secondary on-call or team lead.",
+                "stepNumber": 7,
+                "title": "Level 2 Escalation"
+              },
+              {
+                "description": "Critical alerts escalate to management after extended window.",
+                "stepNumber": 8,
+                "title": "Level 3 Escalation"
+              },
+              {
+                "description": "Non-critical alerts auto-resolve if conditions return to normal.",
+                "stepNumber": 9,
+                "title": "Auto-Resolution"
+              }
+            ],
+            "title": "Escalation"
+          }
+        ],
+        "title": "Escalation Workflows"
+      },
+      {
+        "_key": "best-practices",
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Optimize your alert configuration for maximum effectiveness.",
+        "items": [
+          {
+            "description": "Use correlation rules to group related alerts and prevent notification storms.",
+            "icon": "Filter",
+            "listItems": [
+              "Set appropriate thresholds",
+              "Use alert suppression windows",
+              "Configure maintenance windows",
+              "Enable smart grouping"
+            ],
+            "title": "Reduce Alert Noise"
+          },
+          {
+            "description": "Ensure alerts reach the right people at the right time.",
+            "icon": "Target",
+            "listItems": [
+              "Define clear on-call schedules",
+              "Use station-based routing",
+              "Configure escalation policies",
+              "Set business hours rules"
+            ],
+            "title": "Right-Size Routing"
+          },
+          {
+            "description": "Maintain audit trails and enable continuous improvement.",
+            "icon": "FileText",
+            "listItems": [
+              "Require acknowledgment notes",
+              "Track resolution times",
+              "Review alert metrics weekly",
+              "Tune thresholds monthly"
+            ],
+            "title": "Document Everything"
+          },
+          {
+            "description": "Ensure operators can respond effectively to any alert scenario.",
+            "icon": "Users",
+            "listItems": [
+              "Conduct regular drills",
+              "Review past incidents",
+              "Update runbooks",
+              "Share lessons learned"
+            ],
+            "title": "Train Your Team"
+          }
+        ],
+        "title": "Alert Best Practices"
+      },
+      {
+        "_key": "alerts-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/docs/alerts/setup",
+            "label": "Setup Alerts",
+            "variant": "primary"
+          },
+          {
+            "href": "/integrations#notifications",
+            "label": "View Integration Options",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Configure intelligent alerting that reduces noise while ensuring critical issues are never missed.",
+        "title": "Ready to Optimize Your Alerting?"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "alerts"
+    },
+    "status": "published",
+    "title": "Alert Management"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "label": "Getting Started"
+      }
+    ],
+    "description": "Your complete guide to getting started with GCXONE - from first login to full operational readiness",
+    "hero": {
+      "badge": {
+        "icon": "Rocket",
+        "text": "Welcome"
+      },
+      "ctaButtons": [
+        {
+          "href": "#overview-video",
+          "label": "Watch Overview",
+          "variant": "primary"
+        },
+        {
+          "href": "/docs",
+          "label": "Browse Docs",
+          "variant": "secondary"
+        }
+      ],
+      "headline": "Welcome to GCXONE",
+      "subheadline": "Your complete guide to getting started with the next-generation monitoring platform"
+    },
+    "lastUpdated": "2026-03-14",
+    "layoutType": "quick-start",
+    "publishedAt": "2026-03-14",
+    "sections": [
+      {
+        "_key": "hero-video",
+        "_type": "landingSectionVideo",
+        "description": "Get started with a comprehensive overview of GCXONE capabilities",
+        "title": "Platform Overview",
+        "videoDescription": "Introduction to GCXONE monitoring platform and core features",
+        "videoSource": "embed",
+        "videoTitle": "GCXONE Platform Overview",
+        "videoUrl": "https://www.youtube.com/watch?v=I7dccOLTOsk"
+      },
+      {
+        "_key": "quick-start-steps",
+        "_type": "landingSectionFeatures",
+        "columns": 4,
+        "description": "Follow these steps to get up and running quickly",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Get a complete overview of the platform and its capabilities",
+            "icon": "PlayCircle",
+            "link": "https://www.youtube.com/watch?v=ER-tnAvGXow",
+            "title": "Watch Overview Video",
+            "value": "10 min"
+          },
+          {
+            "color": "#10B981",
+            "description": "Set up your first-time login and security settings",
+            "icon": "User",
+            "link": "/docs/getting-started/first-time-login--access",
+            "title": "Configure Your Account",
+            "value": "Step 2"
+          },
+          {
+            "color": "#8B5CF6",
+            "description": "Create your hierarchy with regions, clusters, and sites",
+            "icon": "Building2",
+            "link": "/docs/getting-started/organization--hierarchy-setup",
+            "title": "Set Up Organization",
+            "value": "Step 3"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "Connect devices and start monitoring your infrastructure",
+            "icon": "Cpu",
+            "link": "/integration-hub",
+            "title": "Add Your First Device",
+            "value": "Step 4"
+          }
+        ],
+        "title": "Quick Start Steps"
+      },
+      {
+        "_key": "onboarding-phases",
+        "_type": "landingSectionSteps",
+        "description": "Complete these phases to achieve full operational readiness",
+        "phases": [
+          {
+            "description": "Get started with your first-time configuration",
+            "phaseNumber": 1,
+            "steps": [
+              {
+                "description": "Access the platform and complete initial authentication",
+                "stepNumber": 1,
+                "title": "First-time login"
+              },
+              {
+                "description": "Configure password policies and two-factor authentication",
+                "stepNumber": 2,
+                "title": "Security settings"
+              },
+              {
+                "description": "Set up your user profile and preferences",
+                "stepNumber": 3,
+                "title": "Profile configuration"
+              }
+            ],
+            "title": "Initial Setup"
+          },
+          {
+            "description": "Build your monitoring hierarchy",
+            "phaseNumber": 2,
+            "steps": [
+              {
+                "description": "Define your organizational structure with regions and clusters",
+                "stepNumber": 4,
+                "title": "Create hierarchy"
+              },
+              {
+                "description": "Set up geographic or operational zones for your sites",
+                "stepNumber": 5,
+                "title": "Define zones"
+              },
+              {
+                "description": "Add monitoring stations to your hierarchy",
+                "stepNumber": 6,
+                "title": "Set up sites"
+              }
+            ],
+            "title": "Organization Structure"
+          },
+          {
+            "description": "Configure access control and team members",
+            "phaseNumber": 3,
+            "steps": [
+              {
+                "description": "Define roles with appropriate permissions for your team",
+                "stepNumber": 7,
+                "title": "Create roles"
+              },
+              {
+                "description": "Send invitations to team members",
+                "stepNumber": 8,
+                "title": "Invite users"
+              },
+              {
+                "description": "Grant access to stations and features based on roles",
+                "stepNumber": 9,
+                "title": "Assign permissions"
+              }
+            ],
+            "title": "User Management"
+          },
+          {
+            "description": "Connect your monitoring equipment",
+            "phaseNumber": 4,
+            "steps": [
+              {
+                "description": "Register sensors, cameras, and controllers",
+                "stepNumber": 10,
+                "title": "Add devices"
+              },
+              {
+                "description": "Set up communication protocols and polling intervals",
+                "stepNumber": 11,
+                "title": "Configure settings"
+              },
+              {
+                "description": "Verify data is flowing correctly from all devices",
+                "stepNumber": 12,
+                "title": "Test connectivity"
+              }
+            ],
+            "title": "Device Integration"
+          },
+          {
+            "description": "Start monitoring and responding to events",
+            "phaseNumber": 5,
+            "steps": [
+              {
+                "description": "Configure alert rules and notification channels",
+                "stepNumber": 13,
+                "title": "Alarm processing"
+              },
+              {
+                "description": "Create custom dashboards for your monitoring needs",
+                "stepNumber": 14,
+                "title": "Dashboard setup"
+              },
+              {
+                "description": "Establish operational procedures for incident response",
+                "stepNumber": 15,
+                "title": "Monitoring workflows"
+              }
+            ],
+            "title": "Operations Ready"
+          }
+        ],
+        "title": "Onboarding Phases"
+      },
+      {
+        "_key": "video-resources",
+        "_type": "landingSectionTabs",
+        "description": "Watch these tutorials to learn about different aspects of GCXONE",
+        "tabs": [
+          {
+            "content": {
+              "description": "Learn how to access and configure your account",
+              "items": [
+                {
+                  "description": "Complete walkthrough of initial login process",
+                  "icon": "Play",
+                  "status": "YouTube",
+                  "title": "First-Time Login Setup",
+                  "value": "I7dccOLTOsk"
+                }
+              ],
+              "title": "First-Time Login Setup"
+            },
+            "icon": "LogIn",
+            "id": "login-setup",
+            "label": "First-Time Login"
+          },
+          {
+            "content": {
+              "description": "Comprehensive overview of platform features",
+              "items": [
+                {
+                  "description": "Full platform capabilities demonstration",
+                  "icon": "Play",
+                  "status": "YouTube",
+                  "title": "GCXONE Product Overview",
+                  "value": "ER-tnAvGXow"
+                }
+              ],
+              "title": "GCXONE Product Overview"
+            },
+            "icon": "LayoutDashboard",
+            "id": "product-overview",
+            "label": "Product Overview"
+          },
+          {
+            "content": {
+              "description": "Detailed navigation and feature exploration",
+              "items": [
+                {
+                  "description": "Guided tour of all major platform sections",
+                  "icon": "Play",
+                  "status": "YouTube",
+                  "title": "Platform Walkthrough",
+                  "value": "p--04PIIO-M"
+                }
+              ],
+              "title": "Platform Walkthrough"
+            },
+            "icon": "Compass",
+            "id": "platform-walkthrough",
+            "label": "Platform Walkthrough"
+          },
+          {
+            "content": {
+              "description": "Master dashboard creation and customization",
+              "items": [
+                {
+                  "description": "Advanced dashboard configuration techniques",
+                  "icon": "Play",
+                  "status": "YouTube",
+                  "title": "Dashboard Deep Dive",
+                  "value": "AxHOF8cV88Q"
+                }
+              ],
+              "title": "Dashboard Deep Dive"
+            },
+            "icon": "BarChart3",
+            "id": "dashboard-deep-dive",
+            "label": "Dashboard Deep Dive"
+          },
+          {
+            "content": {
+              "description": "Managing tower sites and equipment",
+              "items": [
+                {
+                  "description": "Complete guide to tower monitoring",
+                  "icon": "Play",
+                  "status": "YouTube",
+                  "title": "Tower Management",
+                  "value": "H2WhN1p3x9E"
+                }
+              ],
+              "title": "Tower Management"
+            },
+            "icon": "RadioTower",
+            "id": "tower-management",
+            "label": "Tower Management"
+          }
+        ],
+        "title": "Video Resources"
+      },
+      {
+        "_key": "featured-articles",
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Essential documentation to guide your onboarding journey",
+        "items": [
+          {
+            "description": "Introduction to the platform, its architecture, and core capabilities",
+            "icon": "FileText",
+            "link": "/docs/getting-started/what-is-gcxone",
+            "listItems": [
+              "Platform overview",
+              "Core features",
+              "Architecture basics"
+            ],
+            "title": "What is GCXONE"
+          },
+          {
+            "description": "Technical requirements and preparation checklist before deployment",
+            "icon": "ClipboardList",
+            "link": "/docs/getting-started/pre-deployment-requirements",
+            "listItems": [
+              "Network requirements",
+              "Hardware specs",
+              "Security considerations"
+            ],
+            "title": "Pre-deployment Requirements"
+          },
+          {
+            "description": "Step-by-step guide for your initial platform access and setup",
+            "icon": "LogIn",
+            "link": "/docs/getting-started/first-time-login--access",
+            "listItems": [
+              "Account activation",
+              "Password setup",
+              "Security settings"
+            ],
+            "title": "First-time Login & Access"
+          },
+          {
+            "description": "Configure your organizational structure and monitoring hierarchy",
+            "icon": "Building2",
+            "link": "/docs/getting-started/organization--hierarchy-setup",
+            "listItems": [
+              "Create organization",
+              "Define regions",
+              "Set up clusters"
+            ],
+            "title": "Organization & Hierarchy Setup"
+          },
+          {
+            "description": "Create roles, invite users, and configure permissions",
+            "icon": "Users",
+            "link": "/docs/getting-started/user-management-setup",
+            "listItems": [
+              "Role creation",
+              "User invitations",
+              "Permission assignment"
+            ],
+            "title": "User Management Setup"
+          },
+          {
+            "description": "Complete checklist to ensure successful onboarding",
+            "icon": "CheckSquare",
+            "link": "/docs/getting-started/quick-start-checklist",
+            "listItems": [
+              "Setup tasks",
+              "Configuration steps",
+              "Verification items"
+            ],
+            "title": "Quick Start Checklist"
+          }
+        ],
+        "title": "Featured Articles"
+      },
+      {
+        "_key": "getting-started-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/docs/getting-started/first-time-login--access",
+            "label": "Start Onboarding",
+            "variant": "primary"
+          },
+          {
+            "href": "/docs",
+            "label": "Browse All Docs",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Begin your GCXONE journey today with our comprehensive onboarding resources.",
+        "title": "Ready to Get Started?"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "getting-started"
+    },
+    "status": "published",
+    "title": "Getting Started"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "label": "Integrations"
+      }
+    ],
+    "description": "Connect NXGEN with your existing systems. Native integrations for video, IoT protocols, cloud services, and notification channels.",
+    "hero": {
+      "badge": {
+        "icon": "Plug",
+        "text": "Integrations"
+      },
+      "ctaButtons": [
+        {
+          "href": "#categories",
+          "label": "Browse All",
+          "variant": "primary"
+        },
+        {
+          "href": "/docs/api",
+          "label": "API Docs",
+          "variant": "outline"
+        }
+      ],
+      "headline": "Connect Everything",
+      "metrics": [
+        {
+          "color": "#3B82F6",
+          "icon": "Plug",
+          "label": "Integrations",
+          "value": "75+"
+        },
+        {
+          "color": "#10B981",
+          "icon": "Cpu",
+          "label": "Protocols",
+          "value": "15+"
+        },
+        {
+          "color": "#F59E0B",
+          "icon": "Code",
+          "label": "API Calls/day",
+          "value": "50M"
+        }
+      ],
+      "subheadline": "NXGEN integrates with your existing infrastructure out of the box. From video systems to IoT sensors, cloud platforms to incident management tools."
+    },
+    "lastUpdated": "2026-03-14",
+    "layoutType": "standard",
+    "publishedAt": "2026-03-14",
+    "sections": [
+      {
+        "_key": "featured-integrations",
+        "_type": "landingSectionFeatures",
+        "columns": 4,
+        "description": "Most popular integrations used by NXGEN customers.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Native integration with Dahua cameras and NVRs. Live view, playback, and alarm events.",
+            "icon": "Video",
+            "title": "Dahua",
+            "value": "Certified"
+          },
+          {
+            "color": "#EF4444",
+            "description": "Full support for Hikvision devices including smart events and ANPR.",
+            "icon": "Camera",
+            "title": "Hikvision",
+            "value": "Certified"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "Integration with Milestone XProtect for enterprise video management.",
+            "icon": "Videotape",
+            "title": "Milestone",
+            "value": "Certified"
+          },
+          {
+            "color": "#10B981",
+            "description": "Connect Genetec Security Center for unified security operations.",
+            "icon": "Disc",
+            "title": "Genetec",
+            "value": "Certified"
+          },
+          {
+            "color": "#8B5CF6",
+            "description": "Industrial protocol support for PLCs, RTUs, and SCADA systems.",
+            "icon": "Cpu",
+            "title": "Modbus",
+            "value": "Native"
+          },
+          {
+            "color": "#06B6D4",
+            "description": "Network device monitoring with support for all SNMP versions.",
+            "icon": "Network",
+            "title": "SNMP",
+            "value": "Native"
+          },
+          {
+            "color": "#F97316",
+            "description": "Cloud connector for AWS IoT Core and related services.",
+            "icon": "Cloud",
+            "title": "AWS IoT",
+            "value": "Native"
+          },
+          {
+            "color": "#4A154B",
+            "description": "Real-time alert notifications to Slack channels.",
+            "icon": "MessageSquare",
+            "title": "Slack",
+            "value": "Native"
+          }
+        ],
+        "title": "Featured Integrations"
+      },
+      {
+        "_key": "category-tabs",
+        "_type": "landingSectionTabs",
+        "description": "Browse integrations by category.",
+        "tabs": [
+          {
+            "content": {
+              "description": "Integrate CCTV and video surveillance platforms",
+              "items": [
+                {
+                  "description": "Cameras, NVRs, XVRs",
+                  "icon": "Video",
+                  "status": "Certified",
+                  "title": "Dahua"
+                },
+                {
+                  "description": "Full device support",
+                  "icon": "Camera",
+                  "status": "Certified",
+                  "title": "Hikvision"
+                },
+                {
+                  "description": "Axis cameras and encoders",
+                  "icon": "Circle",
+                  "status": "Certified",
+                  "title": "Axis"
+                },
+                {
+                  "description": "XProtect integration",
+                  "icon": "Videotape",
+                  "status": "Certified",
+                  "title": "Milestone"
+                },
+                {
+                  "description": "Security Center",
+                  "icon": "Disc",
+                  "status": "Certified",
+                  "title": "Genetec"
+                },
+                {
+                  "description": "Generic ONVIF support",
+                  "icon": "Scan",
+                  "status": "Compatible",
+                  "title": "ONVIF"
+                }
+              ],
+              "title": "Video Management Systems"
+            },
+            "icon": "Video",
+            "id": "video",
+            "label": "Video"
+          },
+          {
+            "content": {
+              "description": "Connect sensors and industrial equipment",
+              "items": [
+                {
+                  "description": "Industrial standard protocol",
+                  "icon": "Cpu",
+                  "status": "Native",
+                  "title": "Modbus TCP/RTU"
+                },
+                {
+                  "description": "Network device monitoring",
+                  "icon": "Network",
+                  "status": "Native",
+                  "title": "SNMP v1/v2c/v3"
+                },
+                {
+                  "description": "Lightweight pub/sub protocol",
+                  "icon": "Radio",
+                  "status": "Native",
+                  "title": "MQTT"
+                },
+                {
+                  "description": "Building automation",
+                  "icon": "Building2",
+                  "status": "Native",
+                  "title": "BACnet"
+                },
+                {
+                  "description": "Industrial connectivity",
+                  "icon": "Factory",
+                  "status": "Native",
+                  "title": "OPC-UA"
+                },
+                {
+                  "description": "Long-range IoT sensors",
+                  "icon": "Wifi",
+                  "status": "Native",
+                  "title": "LoRaWAN"
+                }
+              ],
+              "title": "IoT & Industrial Protocols"
+            },
+            "icon": "Cpu",
+            "id": "iot",
+            "label": "IoT"
+          },
+          {
+            "content": {
+              "description": "Connect to major cloud providers",
+              "items": [
+                {
+                  "description": "Amazon Web Services",
+                  "icon": "Cloud",
+                  "status": "Native",
+                  "title": "AWS IoT Core"
+                },
+                {
+                  "description": "Microsoft Azure",
+                  "icon": "Cloud",
+                  "status": "Native",
+                  "title": "Azure IoT Hub"
+                },
+                {
+                  "description": "Google Cloud Platform",
+                  "icon": "Cloud",
+                  "status": "Native",
+                  "title": "Google Cloud IoT"
+                },
+                {
+                  "description": "Time-series database",
+                  "icon": "Database",
+                  "status": "Native",
+                  "title": "InfluxDB"
+                },
+                {
+                  "description": "Visualization platform",
+                  "icon": "BarChart",
+                  "status": "Compatible",
+                  "title": "Grafana"
+                }
+              ],
+              "title": "Cloud Platforms"
+            },
+            "icon": "Cloud",
+            "id": "cloud",
+            "label": "Cloud"
+          },
+          {
+            "content": {
+              "description": "Alert delivery and incident management",
+              "items": [
+                {
+                  "description": "Direct notifications",
+                  "icon": "Mail",
+                  "status": "Native",
+                  "title": "Email/SMS"
+                },
+                {
+                  "description": "Channel notifications",
+                  "icon": "MessageSquare",
+                  "status": "Native",
+                  "title": "Slack"
+                },
+                {
+                  "description": "Team notifications",
+                  "icon": "Users",
+                  "status": "Native",
+                  "title": "Microsoft Teams"
+                },
+                {
+                  "description": "Incident management",
+                  "icon": "Phone",
+                  "status": "Native",
+                  "title": "PagerDuty"
+                },
+                {
+                  "description": "IT service management",
+                  "icon": "ClipboardList",
+                  "status": "Native",
+                  "title": "ServiceNow"
+                },
+                {
+                  "description": "Custom integrations",
+                  "icon": "Webhook",
+                  "status": "Native",
+                  "title": "Webhooks"
+                }
+              ],
+              "title": "Notification Channels"
+            },
+            "icon": "Bell",
+            "id": "notifications",
+            "label": "Notifications"
+          }
+        ],
+        "title": "Integration Categories"
+      },
+      {
+        "_key": "api-options",
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Build custom integrations with our comprehensive APIs.",
+        "items": [
+          {
+            "description": "Full-featured RESTful API for all platform operations. OpenAPI 3.0 specification available.",
+            "icon": "Code",
+            "link": "/docs/api/rest",
+            "listItems": [
+              "CRUD operations",
+              "Bulk imports",
+              "Real-time queries",
+              "Webhook callbacks"
+            ],
+            "title": "REST API"
+          },
+          {
+            "description": "Flexible query language for efficient data retrieval. Request exactly what you need.",
+            "icon": "Graphql",
+            "link": "/docs/api/graphql",
+            "listItems": [
+              "Flexible queries",
+              "Single endpoint",
+              "Type safety",
+              "Introspection"
+            ],
+            "title": "GraphQL API"
+          },
+          {
+            "description": "Event-driven notifications for real-time integrations.",
+            "icon": "Webhook",
+            "link": "/docs/api/webhooks",
+            "listItems": [
+              "Alert events",
+              "Status changes",
+              "Custom triggers",
+              "Retry logic"
+            ],
+            "title": "Webhooks"
+          },
+          {
+            "description": "Native SDKs for popular programming languages.",
+            "icon": "Download",
+            "link": "/docs/api/sdks",
+            "listItems": [
+              "JavaScript/Node.js",
+              "Python",
+              "Go",
+              "Java"
+            ],
+            "title": "SDKs"
+          }
+        ],
+        "title": "API Integration Options"
+      },
+      {
+        "_key": "integrations-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/contact",
+            "label": "Contact Us",
+            "variant": "primary"
+          },
+          {
+            "href": "/docs/api",
+            "label": "API Documentation",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Our team can help build integrations for your specific requirements.",
+        "title": "Need a Custom Integration?"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "integrations"
+    },
+    "status": "published",
+    "title": "Integrations Hub"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "label": "Monitoring Stations"
+      }
+    ],
+    "description": "Complete tower and site monitoring solution. Track equipment health, environmental conditions, and security status across your entire infrastructure.",
+    "hero": {
+      "badge": {
+        "icon": "RadioTower",
+        "text": "Tower Monitoring"
+      },
+      "ctaButtons": [
+        {
+          "href": "#station-types",
+          "label": "View Station Types",
+          "variant": "primary"
+        },
+        {
+          "href": "#integrations",
+          "label": "Integration Options",
+          "variant": "outline"
+        }
+      ],
+      "headline": "Monitor Every Site, Anywhere",
+      "metrics": [
+        {
+          "color": "#3B82F6",
+          "icon": "RadioTower",
+          "label": "Tower Sites",
+          "value": "8,200+"
+        },
+        {
+          "color": "#10B981",
+          "icon": "Cpu",
+          "label": "Active Sensors",
+          "value": "156K"
+        },
+        {
+          "color": "#F59E0B",
+          "icon": "Clock",
+          "label": "Avg Resolution",
+          "value": "<15 min"
+        }
+      ],
+      "subheadline": "From remote cell towers to urban data centers, NXGEN provides comprehensive site monitoring with real-time visibility into equipment health, environmental conditions, and security status."
+    },
+    "lastUpdated": "2026-03-14",
+    "layoutType": "tower-guide",
+    "publishedAt": "2026-03-14",
+    "sections": [
+      {
+        "_key": "station-hierarchy",
+        "_type": "landingSectionHierarchy",
+        "benefits": [
+          {
+            "description": "Drill down from organization to device level in seconds",
+            "icon": "Search",
+            "title": "Quick Navigation"
+          },
+          {
+            "description": "See status at any level with roll-up metrics",
+            "icon": "Layers",
+            "title": "Aggregated Views"
+          },
+          {
+            "description": "Control visibility by organizational scope",
+            "icon": "UserCheck",
+            "title": "Role-Based Access"
+          },
+          {
+            "description": "Adapt hierarchy to your operational needs",
+            "icon": "GitBranch",
+            "title": "Flexible Structure"
+          }
+        ],
+        "description": "Organize your infrastructure with our flexible 5-level hierarchy model.",
+        "levels": [
+          {
+            "color": "#3B82F6",
+            "description": "Top-level entity representing a company or business unit",
+            "icon": "Building2",
+            "level": "L1",
+            "title": "Organization"
+          },
+          {
+            "color": "#10B981",
+            "description": "Geographic or operational regions within an organization",
+            "icon": "Globe",
+            "level": "L2",
+            "title": "Region"
+          },
+          {
+            "color": "#8B5CF6",
+            "description": "Grouped sites sharing common infrastructure or management",
+            "icon": "Cluster",
+            "level": "L3",
+            "title": "Cluster"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "Individual monitoring station (tower, data center, facility)",
+            "icon": "RadioTower",
+            "level": "L4",
+            "title": "Station"
+          },
+          {
+            "color": "#EC4899",
+            "description": "Sensors, cameras, controllers, and equipment at each station",
+            "icon": "Cpu",
+            "level": "L5",
+            "title": "Device"
+          }
+        ],
+        "title": "Station Hierarchy"
+      },
+      {
+        "_key": "station-types",
+        "_type": "landingSectionFeatures",
+        "columns": 3,
+        "description": "Support for diverse infrastructure types with specialized monitoring capabilities.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Cell towers, radio sites, and broadcast facilities with generator, rectifier, and environmental monitoring.",
+            "icon": "RadioTower",
+            "link": "/docs/towers",
+            "title": "Telecom Towers"
+          },
+          {
+            "color": "#10B981",
+            "description": "Server rooms and data halls with power, cooling, and access control integration.",
+            "icon": "Server",
+            "link": "/docs/datacenters",
+            "title": "Data Centers"
+          },
+          {
+            "color": "#8B5CF6",
+            "description": "Factories, warehouses, and production facilities with equipment health monitoring.",
+            "icon": "Warehouse",
+            "link": "/docs/industrial",
+            "title": "Industrial Sites"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "Electrical substations with SCADA integration and transformer monitoring.",
+            "icon": "Zap",
+            "link": "/docs/substations",
+            "title": "Power Substations"
+          },
+          {
+            "color": "#06B6D4",
+            "description": "Commercial buildings with HVAC, lighting, and occupancy monitoring.",
+            "icon": "Building",
+            "link": "/docs/buildings",
+            "title": "Smart Buildings"
+          },
+          {
+            "color": "#EC4899",
+            "description": "Off-grid locations with solar power, satellite connectivity, and environmental sensors.",
+            "icon": "Satellite",
+            "link": "/docs/remote",
+            "title": "Remote Sites"
+          }
+        ],
+        "title": "Station Types"
+      },
+      {
+        "_key": "station-integrations",
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Connect with your existing systems and protocols out of the box.",
+        "items": [
+          {
+            "description": "Native integration with major VMS platforms and camera manufacturers.",
+            "icon": "Video",
+            "link": "/integrations#video",
+            "listItems": [
+              "Dahua",
+              "Hikvision",
+              "Axis",
+              "Milestone",
+              "Genetec"
+            ],
+            "title": "Video Management"
+          },
+          {
+            "description": "Support for industrial and building automation protocols.",
+            "icon": "Cpu",
+            "link": "/integrations#iot",
+            "listItems": [
+              "Modbus TCP/RTU",
+              "SNMP v1/v2c/v3",
+              "MQTT",
+              "BACnet",
+              "OPC-UA"
+            ],
+            "title": "IoT Protocols"
+          },
+          {
+            "description": "Seamless integration with major cloud platforms.",
+            "icon": "Cloud",
+            "link": "/integrations#cloud",
+            "listItems": [
+              "AWS IoT Core",
+              "Azure IoT Hub",
+              "Google Cloud IoT",
+              "Custom REST APIs"
+            ],
+            "title": "Cloud Services"
+          },
+          {
+            "description": "Multi-channel alerting and incident management.",
+            "icon": "Bell",
+            "link": "/integrations#notifications",
+            "listItems": [
+              "SMS/Email",
+              "Slack/Teams",
+              "PagerDuty",
+              "ServiceNow"
+            ],
+            "title": "Notification Systems"
+          }
+        ],
+        "title": "Integration Capabilities"
+      },
+      {
+        "_key": "station-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/quick-start",
+            "label": "Start Setup",
+            "variant": "primary"
+          },
+          {
+            "href": "/demo",
+            "label": "Request Demo",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Deploy monitoring across your entire infrastructure in days, not months.",
+        "title": "Ready to Monitor Your Sites?"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "monitoring-stations"
+    },
+    "status": "published",
+    "title": "Monitoring Stations"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "label": "Platform Overview"
+      }
+    ],
+    "description": "Comprehensive monitoring platform for tower sites, data centers, and critical infrastructure. Real-time visibility, intelligent alerting, and seamless integrations.",
+    "hero": {
+      "badge": {
+        "icon": "Cpu",
+        "text": "NXGEN Platform"
+      },
+      "ctaButtons": [
+        {
+          "href": "/quick-start",
+          "label": "Get Started",
+          "variant": "primary"
+        },
+        {
+          "href": "/docs/demo",
+          "label": "View Demo",
+          "variant": "secondary"
+        }
+      ],
+      "headline": "Complete Infrastructure Visibility",
+      "metrics": [
+        {
+          "color": "#3B82F6",
+          "icon": "RadioTower",
+          "label": "Stations Monitored",
+          "value": "12,500+"
+        },
+        {
+          "color": "#10B981",
+          "icon": "ShieldCheck",
+          "label": "Platform Uptime",
+          "value": "99.99%"
+        },
+        {
+          "color": "#F59E0B",
+          "icon": "BellRing",
+          "label": "Alerts Processed",
+          "value": "2.4M/mo"
+        },
+        {
+          "color": "#8B5CF6",
+          "icon": "Zap",
+          "label": "Response Time",
+          "value": "<100ms"
+        }
+      ],
+      "subheadline": "Monitor thousands of sites from a single pane of glass. NXGEN Technology AG delivers enterprise-grade monitoring for towers, data centers, and critical infrastructure."
+    },
+    "lastUpdated": "2026-03-14",
+    "layoutType": "standard",
+    "publishedAt": "2026-03-14",
+    "sections": [
+      {
+        "_key": "platform-features",
+        "_type": "landingSectionFeatures",
+        "columns": 4,
+        "description": "Built for scale, designed for operators. Our platform combines powerful monitoring with intuitive interfaces.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Monitor all your sites from a unified dashboard with real-time status updates and drill-down capabilities.",
+            "icon": "Globe",
+            "title": "Multi-Site Dashboard",
+            "value": "500+ sites"
+          },
+          {
+            "color": "#10B981",
+            "description": "AI-powered alert correlation reduces noise by 90%. Get notified only when it matters.",
+            "icon": "Bell",
+            "title": "Intelligent Alerting",
+            "value": "-90% noise"
+          },
+          {
+            "color": "#8B5CF6",
+            "description": "Seamless CCTV integration with live feeds, playback, and AI-powered video analytics.",
+            "icon": "Video",
+            "title": "Video Integration",
+            "value": "50+ cameras"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SOC 2 Type II certified with end-to-end encryption and role-based access control.",
+            "icon": "Shield",
+            "title": "Enterprise Security",
+            "value": "SOC 2"
+          },
+          {
+            "color": "#06B6D4",
+            "description": "Deploy on-premise or cloud. Auto-scaling infrastructure handles any load.",
+            "icon": "Cloud",
+            "title": "Cloud-Native",
+            "value": "99.99% SLA"
+          },
+          {
+            "color": "#EC4899",
+            "description": "RESTful APIs and webhooks for seamless integration with your existing tools.",
+            "icon": "Link",
+            "title": "API-First",
+            "value": "REST + GraphQL"
+          },
+          {
+            "color": "#84CC16",
+            "description": "Interactive maps with real-time station overlays, coverage areas, and incident visualization.",
+            "icon": "Map",
+            "title": "GIS Mapping",
+            "value": "Real-time"
+          },
+          {
+            "color": "#F97316",
+            "description": "Custom dashboards, trend analysis, and automated reporting for data-driven decisions.",
+            "icon": "BarChart3",
+            "title": "Advanced Analytics",
+            "value": "Custom KPIs"
+          }
+        ],
+        "title": "Why NXGEN?"
+      },
+      {
+        "_key": "platform-capabilities",
+        "_type": "landingSectionCapabilities",
+        "capabilities": [
+          {
+            "color": "#3B82F6",
+            "description": "Continuous monitoring with sub-second data collection and instant anomaly detection.",
+            "icon": "Activity",
+            "title": "Real-Time Monitoring",
+            "value": "24/7"
+          },
+          {
+            "color": "#10B981",
+            "description": "Support for multiple organizations with complete data isolation and independent configurations.",
+            "icon": "Users",
+            "title": "Multi-Tenant",
+            "value": "Unlimited"
+          },
+          {
+            "color": "#8B5CF6",
+            "description": "Automatic device and sensor discovery reduces setup time from days to minutes.",
+            "icon": "RefreshCw",
+            "title": "Auto-Discovery",
+            "value": "Zero-Config"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "Long-term data storage for compliance, trend analysis, and historical investigations.",
+            "icon": "Database",
+            "title": "Data Retention",
+            "value": "7 Years"
+          },
+          {
+            "color": "#06B6D4",
+            "description": "Distributed edge nodes ensure low-latency access from anywhere in the world.",
+            "icon": "Globe2",
+            "title": "Global Scale",
+            "value": "50+ Regions"
+          },
+          {
+            "color": "#EC4899",
+            "description": "Built-in compliance controls for telecommunications and critical infrastructure regulations.",
+            "icon": "Lock",
+            "title": "Compliance",
+            "value": "ISO 27001"
+          }
+        ],
+        "description": "Enterprise features designed for mission-critical monitoring operations.",
+        "title": "Platform Capabilities"
+      },
+      {
+        "_key": "platform-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/trial",
+            "label": "Start Free Trial",
+            "variant": "primary"
+          },
+          {
+            "href": "/contact",
+            "label": "Contact Sales",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Join hundreds of organizations using NXGEN to monitor their critical infrastructure.",
+        "title": "Ready to Transform Your Operations?"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "platform-overview"
+    },
+    "status": "published",
+    "title": "Platform Overview"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "label": "Quick Start"
+      }
+    ],
+    "description": "Get up and running with NXGEN in minutes. Step-by-step guides for administrators, managers, and operators.",
+    "hero": {
+      "badge": {
+        "icon": "Rocket",
+        "text": "Getting Started"
+      },
+      "ctaButtons": [
+        {
+          "href": "#admin",
+          "label": "Admin Guide",
+          "variant": "primary"
+        },
+        {
+          "href": "#operator",
+          "label": "Operator Guide",
+          "variant": "secondary"
+        }
+      ],
+      "headline": "Start Monitoring in Minutes",
+      "subheadline": "Whether you are an administrator setting up the platform, a manager configuring alerts, or an operator responding to incidents, we have guides tailored for you."
+    },
+    "lastUpdated": "2026-03-14",
+    "layoutType": "quick-start",
+    "publishedAt": "2026-03-14",
+    "sections": [
+      {
+        "_key": "admin-steps",
+        "_type": "landingSectionSteps",
+        "description": "Configure your NXGEN platform for your organization.",
+        "phases": [
+          {
+            "description": "Set up the foundation for your monitoring environment",
+            "phaseNumber": 1,
+            "steps": [
+              {
+                "description": "Define your organization structure with regions and clusters to match your operational footprint.",
+                "stepNumber": 1,
+                "title": "Create Organization"
+              },
+              {
+                "description": "Set up user accounts with appropriate role-based permissions (Admin, Manager, Operator, Viewer).",
+                "stepNumber": 2,
+                "title": "Configure Users & Roles"
+              },
+              {
+                "description": "Create alert policies with severity levels, notification channels, and escalation workflows.",
+                "stepNumber": 3,
+                "title": "Define Alert Rules"
+              }
+            ],
+            "title": "Initial Configuration"
+          },
+          {
+            "description": "Add your monitoring stations and devices",
+            "phaseNumber": 2,
+            "steps": [
+              {
+                "description": "Create station records with location, type, and ownership details. Use bulk import for large deployments.",
+                "stepNumber": 4,
+                "title": "Add Stations"
+              },
+              {
+                "description": "Configure device connections using SNMP, Modbus, MQTT, or API integrations. Auto-discovery available.",
+                "stepNumber": 5,
+                "title": "Connect Devices"
+              },
+              {
+                "description": "Confirm telemetry is flowing correctly and sensors are reporting expected values.",
+                "stepNumber": 6,
+                "title": "Verify Data Flow"
+              }
+            ],
+            "title": "Station Onboarding"
+          },
+          {
+            "description": "Connect your video surveillance systems",
+            "phaseNumber": 3,
+            "steps": [
+              {
+                "description": "Link your Video Management System (Dahua, Hikvision, Milestone, or generic ONVIF).",
+                "stepNumber": 7,
+                "title": "Configure VMS Connection"
+              },
+              {
+                "description": "Map cameras to stations for context-aware video access during incidents.",
+                "stepNumber": 8,
+                "title": "Associate Cameras"
+              },
+              {
+                "description": "Verify live view and playback functionality from the monitoring dashboard.",
+                "stepNumber": 9,
+                "title": "Test Video Feeds"
+              }
+            ],
+            "title": "Video Integration"
+          }
+        ],
+        "title": "Administrator Setup"
+      },
+      {
+        "_key": "role-tabs",
+        "_type": "landingSectionTabs",
+        "description": "Jump to the guide most relevant to your role.",
+        "tabs": [
+          {
+            "content": {
+              "description": "System configuration and user management",
+              "items": [
+                {
+                  "description": "Create and manage user accounts, assign roles",
+                  "icon": "Users",
+                  "status": "Required",
+                  "title": "User Management"
+                },
+                {
+                  "description": "Configure global platform settings and integrations",
+                  "icon": "Settings",
+                  "status": "Required",
+                  "title": "System Settings"
+                },
+                {
+                  "description": "Set retention policies for historical data",
+                  "icon": "Database",
+                  "status": "Recommended",
+                  "title": "Data Retention"
+                },
+                {
+                  "description": "Generate API keys for third-party integrations",
+                  "icon": "Key",
+                  "status": "Optional",
+                  "title": "API Access"
+                }
+              ],
+              "title": "Administrator Tasks"
+            },
+            "icon": "Shield",
+            "id": "admin",
+            "label": "Administrator"
+          },
+          {
+            "content": {
+              "description": "Configure monitoring policies and team workflows",
+              "items": [
+                {
+                  "description": "Define alert rules, thresholds, and severity levels",
+                  "icon": "Bell",
+                  "status": "Required",
+                  "title": "Alert Policies"
+                },
+                {
+                  "description": "Assign operators to stations and shifts",
+                  "icon": "Users2",
+                  "status": "Required",
+                  "title": "Team Assignment"
+                },
+                {
+                  "description": "Configure scheduled reports and dashboards",
+                  "icon": "FileText",
+                  "status": "Recommended",
+                  "title": "Reports"
+                },
+                {
+                  "description": "Set up escalation workflows for critical alerts",
+                  "icon": "GitBranch",
+                  "status": "Recommended",
+                  "title": "Escalation Rules"
+                }
+              ],
+              "title": "Manager Tasks"
+            },
+            "icon": "UserCog",
+            "id": "manager",
+            "label": "Manager"
+          },
+          {
+            "content": {
+              "description": "Daily monitoring and incident response",
+              "items": [
+                {
+                  "description": "Monitor real-time status of assigned stations",
+                  "icon": "Eye",
+                  "status": "Daily",
+                  "title": "View Dashboard"
+                },
+                {
+                  "description": "Respond to incoming alerts and document actions",
+                  "icon": "AlertTriangle",
+                  "status": "As Needed",
+                  "title": "Acknowledge Alerts"
+                },
+                {
+                  "description": "Review camera feeds for visual confirmation",
+                  "icon": "Video",
+                  "status": "As Needed",
+                  "title": "Check Video"
+                },
+                {
+                  "description": "Log incident details and resolution notes",
+                  "icon": "ClipboardList",
+                  "status": "Required",
+                  "title": "Update Tickets"
+                }
+              ],
+              "title": "Operator Tasks"
+            },
+            "icon": "Monitor",
+            "id": "operator",
+            "label": "Operator"
+          }
+        ],
+        "title": "Role-Based Quick Starts"
+      },
+      {
+        "_key": "video-tutorials",
+        "_type": "landingSectionVideo",
+        "description": "Watch step-by-step video guides for common tasks.",
+        "title": "Video Tutorials",
+        "videoDescription": "10-minute overview of platform setup and basic operations.",
+        "videoSource": "embed",
+        "videoTitle": "Getting Started with NXGEN",
+        "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      },
+      {
+        "_key": "quickstart-cta",
+        "_type": "landingSectionCTA",
+        "buttons": [
+          {
+            "href": "/support",
+            "label": "Contact Support",
+            "variant": "primary"
+          },
+          {
+            "href": "/docs",
+            "label": "Browse Docs",
+            "variant": "secondary"
+          }
+        ],
+        "description": "Our support team is ready to help you configure your monitoring environment.",
+        "title": "Need Help Getting Started?"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "quick-start"
+    },
+    "status": "published",
+    "title": "Quick Start Guide"
+  },
+  {
     "breadcrumbs": null,
     "description": "Get started with NXGEN quickly with our comprehensive quick start guides and tutorials.",
     "hero": {
@@ -16,7 +1851,7 @@
         },
         {
           "_key": "cta2",
-          "href": "/docs/video-tutorials",
+          "href": "/video-tutorials",
           "label": "Watch Demo",
           "variant": "secondary"
         }
@@ -134,63 +1969,6 @@
         "label": "Home"
       },
       {
-        "label": "Getting Started"
-      }
-    ],
-    "description": "Guided onboarding for GCXONE - complete setup path to operational readiness",
-    "hero": {
-      "badge": {
-        "icon": "Rocket",
-        "text": "Quick Start"
-      },
-      "ctaButtons": [
-        {
-          "href": "/docs",
-          "label": "Browse Documentation",
-          "variant": "primary"
-        }
-      ],
-      "headline": "Getting Started",
-      "subheadline": "Guided onboarding for GCXONE - complete setup path to operational readiness"
-    },
-    "lastUpdated": "2026-03-12",
-    "layoutType": "quick-start",
-    "publishedAt": "2026-03-12",
-    "sections": [
-      {
-        "_type": "landingSectionCustom",
-        "customBody": [
-          {
-            "_type": "block",
-            "children": [
-              {
-                "_type": "span",
-                "marks": [],
-                "text": "This landing page route (/getting-started) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
-              }
-            ],
-            "markDefs": [],
-            "style": "normal"
-          }
-        ],
-        "title": "Migration Notice"
-      }
-    ],
-    "showBackground": true,
-    "slug": {
-      "_type": "slug",
-      "current": "getting-started"
-    },
-    "status": "published",
-    "title": "Getting Started"
-  },
-  {
-    "breadcrumbs": [
-      {
-        "href": "/",
-        "label": "Home"
-      },
-      {
         "label": "Integration Hub"
       }
     ],
@@ -240,6 +2018,185 @@
     },
     "status": "published",
     "title": "Integration Hub"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "label": "Internal Releases"
+      }
+    ],
+    "description": "Internal release notes and sprint documentation",
+    "hero": {
+      "badge": {
+        "icon": "Shield",
+        "text": "Internal Releases"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Internal Releases",
+      "subheadline": "Internal release notes and sprint documentation"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "internal-releases",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/internal-releases) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "internal-releases"
+    },
+    "status": "published",
+    "title": "Internal Releases"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "href": "/internal-releases",
+        "label": "Internal Releases"
+      },
+      {
+        "label": "Sprint 2025.12-A - Internal Releases"
+      }
+    ],
+    "description": "Detailed release notes for Sprint 2025.12-A",
+    "hero": {
+      "badge": {
+        "icon": "Shield",
+        "text": "Internal Releases"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Sprint 2025.12-A - Internal Releases",
+      "subheadline": "Detailed release notes for Sprint 2025.12-A"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "internal-releases",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/internal-releases/sprint-2025-12-b) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "internal-releases/sprint-2025-12-b"
+    },
+    "status": "published",
+    "title": "Sprint 2025.12-A - Internal Releases"
+  },
+  {
+    "breadcrumbs": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "href": "/internal-releases",
+        "label": "Internal Releases"
+      },
+      {
+        "label": "Sprint 2026.01-A - Internal Releases"
+      }
+    ],
+    "description": "Detailed release notes for Sprint 2026.01-A",
+    "hero": {
+      "badge": {
+        "icon": "Shield",
+        "text": "Internal Releases"
+      },
+      "ctaButtons": [
+        {
+          "href": "/docs",
+          "label": "Browse Documentation",
+          "variant": "primary"
+        }
+      ],
+      "headline": "Sprint 2026.01-A - Internal Releases",
+      "subheadline": "Detailed release notes for Sprint 2026.01-A"
+    },
+    "lastUpdated": "2026-03-12",
+    "layoutType": "internal-releases",
+    "publishedAt": "2026-03-12",
+    "sections": [
+      {
+        "_type": "landingSectionCustom",
+        "customBody": [
+          {
+            "_type": "block",
+            "children": [
+              {
+                "_type": "span",
+                "marks": [],
+                "text": "This landing page route (/internal-releases/sprint-2026-01-a) is now managed in Sanity. You can edit this content in Studio and publish updates without code changes."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "title": "Migration Notice"
+      }
+    ],
+    "showBackground": true,
+    "slug": {
+      "_type": "slug",
+      "current": "internal-releases/sprint-2026-01-a"
+    },
+    "status": "published",
+    "title": "Sprint 2026.01-A - Internal Releases"
   },
   {
     "breadcrumbs": [
