@@ -249,23 +249,34 @@ Complete rework of the NXGEN Technology AG documentation platform for B2B SaaS m
 ### Phase 12: PDF Download for Articles ✅
 
 **Status:** Complete
-**Objective:** Add PDF download functionality for all documentation articles
+**Objective:** Add PDF download functionality with NXGEN template branding
 
 **Deliverables:**
 - [x] DownloadPDF React component with amber styling
 - [x] Auto-extract article content from DOM
-- [x] Generate PDF with NXGEN branding (amber header, styled typography)
+- [x] Generate PDF with NXGEN branding from docx template
+- [x] NXGEN logo extracted from template and added to header
+- [x] Image to base64 conversion for all images
 - [x] Page numbers, article title in header, date in footer
 - [x] Loading/success/error states
 - [x] Integration with DocItem (appears in TOC and header)
 - [x] Works on all documentation pages
-- [x] Optional disable per-doc with frontmatter
+- [x] Template styling: gold (#C9A227), Arial font, proper margins
 
 **Components Created:**
 - `classic/src/components/DownloadPDF/index.tsx`
 - `classic/src/components/DownloadPDF/styles.module.css`
 - `classic/src/components/DownloadPDF/pdf-template.ts`
-- `classic/src/utils/generatePDF.ts`
+- `classic/src/utils/pdf-images.ts` (base64 image conversion)
+- `classic/src/utils/pdf-template.ts` (NXGEN styling config)
+- `classic/src/utils/nxgen-pdf-template.json` (template data)
+
+**Assets Added:**
+- `classic/static/img/nxgen-pdf-logo.png` (from docx template)
+
+**Scripts Created:**
+- `scripts/extract-docx-template.js`
+- `scripts/analyze-template-styles.js`
 
 **Integration:**
 - `classic/src/theme/DocItem/Layout/index.tsx`
