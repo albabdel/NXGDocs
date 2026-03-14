@@ -13,7 +13,12 @@ const path = require('path');
 async function main() {
   // Pre-fetch Sanity content if env vars are present
   if (process.env.SANITY_PROJECT_ID && process.env.SANITY_API_TOKEN) {
-    // First, generate sidebars from Sanity configuration
+    // First fetch content so files exist on disk for sidebar validation
+    console.log('[build] Fetching content from Sanity...');
+    const { run } = require('./fetch-sanity-content');
+    await run();
+
+    // Then generate sidebars from Sanity configuration (validates against fetched files)
     console.log('[build] Generating sidebar configuration from Sanity...');
     try {
       const { run: generateSidebars } = require(path.join(__dirname, '..', '..', 'scripts', 'generate-sidebars-from-sanity'));
@@ -22,10 +27,6 @@ async function main() {
       console.warn(`[build] Warning: Failed to generate sidebars from Sanity: ${err.message}`);
       console.warn('[build] Falling back to existing sidebar files.');
     }
-
-    // Then fetch content
-    const { run } = require('./fetch-sanity-content');
-    await run();
   }
 
   // Generate client-side search index

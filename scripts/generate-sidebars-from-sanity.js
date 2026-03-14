@@ -135,7 +135,20 @@ function collectDocIdsFromDocsDir(relativeDir) {
 }
 
 function collectAllDocIds() {
-  const docsDirs = ['docs', 'docs-admin', 'docs-manager', 'docs-operator', 'docs-operator-minimal', 'docs-internal'];
+  const docsDirs = [
+    '.sanity-cache/docs',
+    '.sanity-cache/docs-admin',
+    '.sanity-cache/docs-manager',
+    '.sanity-cache/docs-operator',
+    '.sanity-cache/docs-operator-minimal',
+    '.sanity-cache/docs-internal',
+    'docs',
+    'docs-admin',
+    'docs-manager',
+    'docs-operator',
+    'docs-operator-minimal',
+    'docs-internal',
+  ];
   const allIds = new Set();
   
   for (const dir of docsDirs) {
