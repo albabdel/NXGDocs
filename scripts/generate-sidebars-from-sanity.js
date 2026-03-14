@@ -134,6 +134,22 @@ function collectDocIdsFromDocsDir(relativeDir) {
   return ids;
 }
 
+function collectAllDocIds() {
+  const docsDirs = ['docs', 'docs-admin', 'docs-manager', 'docs-operator', 'docs-operator-minimal', 'docs-internal'];
+  const allIds = new Set();
+  
+  for (const dir of docsDirs) {
+    const ids = collectDocIdsFromDocsDir(dir);
+    if (ids) {
+      for (const id of ids) {
+        allIds.add(id);
+      }
+    }
+  }
+  
+  return allIds;
+}
+
 function resolveHomeDocId(allowedDocIds) {
   if (!allowedDocIds) return 'index';
 
@@ -280,6 +296,10 @@ function buildCategoryItem(node, audience, options, depth = 0) {
   for (const doc of node.docs) {
     if (!isVisibleToAudience(doc.targetAudience, audience)) continue;
     if (options.allowedDocIds && !options.allowedDocIds.has(doc.slug)) continue;
+    if (options.allExistingDocIds && !options.allExistingDocIds.has(doc.slug)) {
+      console.warn(`[generate-sidebars] Skipping doc "${doc.slug}" in category "${node.title}" - doc file not found on disk`);
+      continue;
+    }
 
     items.push({
       type: 'doc',
@@ -458,6 +478,9 @@ async function run() {
     console.log(`[generate-sidebars] Docs without direct category link: ${unmatchedDocs.length} (will be auto-grouped or uncategorized)`);
   }
 
+  const allExistingDocIds = collectAllDocIds();
+  console.log(`[generate-sidebars] Found ${allExistingDocIds.size} existing doc files on disk`);
+
   const configsByAudience = new Map(configs.map((config) => [config.audience || DEFAULT_AUDIENCE, config]));
   const generatedFiles = [];
 
@@ -472,6 +495,7 @@ async function run() {
     const options = {
       keepEmptyCategories,
       allowedDocIds,
+      allExistingDocIds,
     };
 
     /** @type {any[]} */
@@ -500,6 +524,10 @@ async function run() {
           label: item.label,
         }))
         .filter((item) => {
+          if (!allExistingDocIds.has(item.id)) {
+            console.warn(`[generate-sidebars] Skipping custom item "${item.id}" - doc file not found on disk`);
+            return false;
+          }
           if (!allowedDocIds) return true;
           return allowedDocIds.has(item.id);
         });
@@ -535,6 +563,10 @@ async function run() {
     const unmatchedForAudience = unmatchedDocs.filter((doc) => {
       if (!isVisibleToAudience(doc.targetAudience, audience)) return false;
       if (allowedDocIds && !allowedDocIds.has(doc.slug)) return false;
+      if (!allExistingDocIds.has(doc.slug)) {
+        console.warn(`[generate-sidebars] Skipping unmatched doc "${doc.slug}" - doc file not found on disk`);
+        return false;
+      }
       return true;
     });
 
