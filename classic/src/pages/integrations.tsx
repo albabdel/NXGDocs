@@ -326,6 +326,25 @@ export default function IntegrationsPage(): React.JSX.Element {
         return () => observer.disconnect();
     }, []);
 
+    React.useEffect(() => {
+        const hash = window.location.hash.slice(1).toLowerCase();
+        const categoryMap: Record<string, Category> = {
+            'video': 'Video',
+            'iot': 'IoT',
+            'cloud': 'Cloud',
+            'notifications': 'Notifications'
+        };
+        if (hash && categoryMap[hash]) {
+            setActiveCategory(categoryMap[hash]);
+            const element = document.getElementById(hash);
+            if (element) {
+                setTimeout(() => {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        }
+    }, []);
+
     const filteredIntegrations = useMemo(() => {
         const query = searchQuery.toLowerCase();
         return integrations.filter(integration => {
@@ -429,6 +448,7 @@ export default function IntegrationsPage(): React.JSX.Element {
                                 return (
                                     <button
                                         key={category}
+                                        id={category.toLowerCase()}
                                         onClick={() => setActiveCategory(isActive ? 'All' : category as Category)}
                                         className={`p-5 rounded-xl border text-left transition-all duration-200 ${isActive ? 'scale-[1.02]' : ''}`}
                                         style={{

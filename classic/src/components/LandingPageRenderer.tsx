@@ -71,7 +71,7 @@ type ContentGridItem = { icon?: string; title: string; description?: string; lin
 type HierarchyLevel = { level: string; title: string; description?: string; icon?: string; color?: string };
 type HierarchyBenefit = { icon?: string; title: string; description?: string };
 
-type SectionBase = { title?: string; description?: string; _type: string };
+type SectionBase = { title?: string; description?: string; _type: string; _key?: string };
 type VideoSection = SectionBase & {
   _type: 'landingSectionVideo';
   videoSource?: 'embed' | 'upload';
@@ -509,6 +509,7 @@ function VideoSection({ section }: { section: VideoSection }) {
     loop = false,
     videoTitle,
     videoDescription,
+    _key,
   } = section;
 
   const embedUrl = toEmbedUrl(videoUrl);
@@ -517,7 +518,7 @@ function VideoSection({ section }: { section: VideoSection }) {
   const useUploadedVideo = videoSource === 'upload' || Boolean(uploadedVideoUrl);
 
   return (
-    <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mb-32">
+    <motion.section id={_key} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mb-32">
       {title && <div className="text-center mb-12"><h2 className="text-3xl font-bold text-white mb-4">{title}</h2>{description && <p className="text-lg text-white/70 max-w-2xl mx-auto">{description}</p>}</div>}
       <div className="max-w-4xl mx-auto">
         <div className="relative overflow-hidden rounded-xl bg-[#202020] border border-white/10">
@@ -552,10 +553,10 @@ function VideoSection({ section }: { section: VideoSection }) {
 }
 
 function FeaturesSection({ section }: { section: FeaturesSection }) {
-  const { title, description, columns = 3, features } = section;
+  const { title, description, columns = 3, features, _key } = section;
   const gridCols = columns === 4 ? 'lg:grid-cols-4' : columns === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3';
   return (
-    <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mb-32">
+    <motion.section id={_key} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mb-32">
       {title && <div className="text-center mb-12"><h2 className="text-3xl font-bold text-white mb-4">{title}</h2>{description && <p className="text-lg text-white/70 max-w-2xl mx-auto">{description}</p>}</div>}
       <div className={`grid grid-cols-1 ${gridCols} gap-6`}>
         {features.map((feature, idx) => (
@@ -573,9 +574,9 @@ function FeaturesSection({ section }: { section: FeaturesSection }) {
 }
 
 function StepsSection({ section }: { section: StepsSection }) {
-  const { title, description, phases } = section;
+  const { title, description, phases, _key } = section;
   return (
-    <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mb-32">
+    <motion.section id={_key} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mb-32">
       {title && <div className="text-center mb-12"><h2 className="text-3xl font-bold text-white mb-4">{title}</h2>{description && <p className="text-lg text-white/70 max-w-2xl mx-auto">{description}</p>}</div>}
       {phases.map((phase, phaseIdx) => (
         <div key={phaseIdx} className="mb-16">
@@ -600,9 +601,9 @@ function StepsSection({ section }: { section: StepsSection }) {
 }
 
 function CapabilitiesSection({ section }: { section: CapabilitiesSection }) {
-  const { title, description, capabilities } = section;
+  const { title, description, capabilities, _key } = section;
   return (
-    <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mb-32">
+    <motion.section id={_key} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mb-32">
       {title && <div className="text-center mb-12"><h2 className="text-3xl font-bold text-white mb-4">{title}</h2>{description && <p className="text-lg text-white/70 max-w-2xl mx-auto">{description}</p>}</div>}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {capabilities.map((cap, idx) => (
@@ -619,9 +620,9 @@ function CapabilitiesSection({ section }: { section: CapabilitiesSection }) {
 }
 
 function HierarchySection({ section }: { section: HierarchySection }) {
-  const { title, description, levels, benefits } = section;
+  const { title, description, levels, benefits, _key } = section;
   return (
-    <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mb-32">
+    <motion.section id={_key} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mb-32">
       {title && <div className="text-center mb-12"><h2 className="text-3xl font-bold text-white mb-4">{title}</h2>{description && <p className="text-lg text-white/70 max-w-3xl mx-auto">{description}</p>}</div>}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
         <div className="relative">
@@ -657,10 +658,10 @@ function HierarchySection({ section }: { section: HierarchySection }) {
 }
 
 function TabsSection({ section }: { section: TabsSection }) {
-  const { title, description, tabs } = section;
+  const { title, description, tabs, _key } = section;
   const [activeTab, setActiveTab] = React.useState(tabs[0]?.id || '');
   return (
-    <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mb-32">
+    <motion.section id={_key} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mb-32">
       {title && <div className="text-center mb-12"><h2 className="text-3xl font-bold text-white mb-4">{title}</h2>{description && <p className="text-lg text-white/70 max-w-2xl mx-auto">{description}</p>}</div>}
       <div className="bg-[#1a1a1a] rounded-2xl border border-white/10 overflow-hidden">
         <div className="flex border-b border-white/10 flex-wrap">
@@ -700,13 +701,14 @@ function ReleasesSection({ section }: { section: ReleasesSection }) {
     showCurrentSprint = true,
     showCompleted = true,
     showRoadmapLink,
+    _key,
   } = section;
   const notes = getSectionReleaseNotes().slice(0, 8);
   const current = notes[0];
   const completed = notes.slice(showCurrentSprint ? 1 : 0);
 
   return (
-    <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mb-32">
+    <motion.section id={_key} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mb-32">
       {title && <div className="mb-8"><h2 className="text-3xl font-bold text-white mb-2">{title}</h2>{description && <p className="text-white/70">{description}</p>}</div>}
       {notes.length === 0 && (
         <div className="space-y-4">
@@ -771,10 +773,10 @@ function ReleasesSection({ section }: { section: ReleasesSection }) {
 }
 
 function ContentGridSection({ section }: { section: ContentGridSection }) {
-  const { title, description, columns = 2, items } = section;
+  const { title, description, columns = 2, items, _key } = section;
   const gridCols = columns === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2';
   return (
-    <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mb-32">
+    <motion.section id={_key} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mb-32">
       {title && <div className="text-center mb-12"><h2 className="text-3xl font-bold text-white mb-4">{title}</h2>{description && <p className="text-lg text-white/70 max-w-2xl mx-auto">{description}</p>}</div>}
       <div className={`grid grid-cols-1 ${gridCols} gap-6`}>
         {items.map((item, idx) => (
@@ -819,11 +821,12 @@ function CTASection({ section }: { section: CTASection }) {
 }
 
 function CustomSection({ section }: { section: CustomSection }) {
-  const { title, customBody } = section;
+  const { title, customBody, _key } = section;
   const blocks = Array.isArray(customBody) ? customBody : [];
 
   return (
     <motion.section
+      id={_key}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
