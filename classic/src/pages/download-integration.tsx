@@ -94,7 +94,7 @@ const deviceClients: DeviceClient[] = [
                 description: 'Test client for Dahua device integration validation'
             }
         ],
-        documentationLink: '/docs/devices/dahua/installer-configuration'
+        documentationLink: '/docs/devices'
     },
     {
         vendor: 'Axis',
@@ -147,7 +147,7 @@ const deviceClients: DeviceClient[] = [
                 description: 'Test client for Avigilon ACC WebAPI integration'
             }
         ],
-        documentationLink: '/docs/devices/avigilon/installer-configuration'
+        documentationLink: '/docs/devices'
     },
     {
         vendor: 'Adpro',
@@ -182,7 +182,7 @@ const deviceClients: DeviceClient[] = [
                 description: 'Web-based API testing tool for Camect AI Box'
             }
         ],
-        documentationLink: '/docs/devices/camect/installer-configuration'
+        documentationLink: '/docs/devices'
     },
     {
         vendor: 'Hanwha',
@@ -200,7 +200,7 @@ const deviceClients: DeviceClient[] = [
                 description: 'Test client for Hanwha Wisenet devices'
             }
         ],
-        documentationLink: '/docs/devices/hanwha/installer-configuration'
+        documentationLink: '/docs/devices'
     },
 ];
 

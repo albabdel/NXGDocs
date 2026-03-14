@@ -133,7 +133,7 @@ const devices: Device[] = [
     {
         name: 'Dahua NVR',
         category: 'NVR',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -161,7 +161,7 @@ const devices: Device[] = [
     {
         name: 'Dahua Dolync Cloud P2P Cloud VMS',
         category: 'Cloud VMS',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -229,7 +229,7 @@ const devices: Device[] = [
     {
         name: 'DigitalWatchdog',
         category: 'VMS',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -254,7 +254,7 @@ const devices: Device[] = [
     {
         name: 'GenesisVms',
         category: 'VMS',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -366,7 +366,7 @@ const devices: Device[] = [
     {
         name: 'Camect AI BOX',
         category: 'AI Box',
-        configLink: '/docs/devices/camect/supported-features',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -390,7 +390,7 @@ const devices: Device[] = [
     {
         name: 'Ganz AI BOX',
         category: 'AI Box',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -410,7 +410,7 @@ const devices: Device[] = [
     {
         name: 'Avigilon VMS',
         category: 'VMS',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -435,7 +435,7 @@ const devices: Device[] = [
     {
         name: 'Axxon VMS',
         category: 'VMS',
-        configLink: '/docs/devices/axxon/installer-configuration',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -484,7 +484,7 @@ const devices: Device[] = [
     {
         name: 'AxisCameraStation VMS',
         category: 'VMS',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -510,7 +510,7 @@ const devices: Device[] = [
     {
         name: 'Heitel NVR',
         category: 'NVR',
-        configLink: '/docs/devices/heitel/installer-configuration',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -570,7 +570,7 @@ const devices: Device[] = [
     {
         name: 'Axis IP Camera',
         category: 'IP Camera',
-        configLink: '/docs/devices/axis/installer-configuration',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -592,7 +592,7 @@ const devices: Device[] = [
     {
         name: 'SenStar NVR',
         category: 'NVR',
-        configLink: '/docs/devices/senstar/installer-configuration',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -647,7 +647,7 @@ const devices: Device[] = [
     {
         name: 'Davantis AI BOX',
         category: 'AI Box',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Genesis Audio (SIP)' },
         ],
@@ -655,7 +655,7 @@ const devices: Device[] = [
     {
         name: 'GenesisAudio SIP Twillio',
         category: 'Other',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Genesis Audio (SIP)' },
@@ -674,7 +674,7 @@ const devices: Device[] = [
     {
         name: 'EFOY Router',
         category: 'Router',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Events' },
@@ -691,7 +691,7 @@ const devices: Device[] = [
     {
         name: 'AJAX PIR CAM',
         category: 'IOT',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Events' },
@@ -700,7 +700,7 @@ const devices: Device[] = [
     {
         name: 'Ajax Hub/NVR',
         category: 'NVR',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Events' },
@@ -712,7 +712,7 @@ const devices: Device[] = [
     {
         name: 'Essence My Sheild PIR CAM',
         category: 'IOT',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Events' },
             { name: 'Arm/Disarm' },
@@ -750,7 +750,7 @@ const devices: Device[] = [
     {
         name: 'Autoaid IOT',
         category: 'IOT',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Events' },
@@ -761,7 +761,7 @@ const devices: Device[] = [
     {
         name: 'Auraigateway IOT Mining',
         category: 'IOT',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Events' },
             { name: 'Arm/Disarm' },
@@ -791,7 +791,7 @@ const devices: Device[] = [
     {
         name: 'ENEO NVR',
         category: 'NVR',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -814,7 +814,7 @@ const devices: Device[] = [
     {
         name: 'ENEOIP NVR',
         category: 'NVR',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -837,7 +837,7 @@ const devices: Device[] = [
     {
         name: 'AXIS CS Pro VMS',
         category: 'VMS',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -864,7 +864,7 @@ const devices: Device[] = [
     {
         name: 'Geutebrück VMS',
         category: 'VMS',
-        configLink: '/docs/devices/general/onboarding-overview',
+        configLink: '/docs/devices',
         features: [
             { name: 'Discovery' },
             { name: 'Live Streaming (Cloud)' },
@@ -1276,7 +1276,7 @@ export default function IntegrationHub() {
                             </p>
                             <div className="inline-flex gap-4 flex-wrap justify-center">
                                 <Link
-                                    to="/docs/devices/general/onboarding-overview"
+                                    to="/docs/devices"
                                     className="inline-flex items-center gap-2 px-8 py-4 bg-[#E8B058] hover:bg-[#D4A047] text-black font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-[#E8B058]/25 no-underline"
                                 >
                                     <FileText className="w-5 h-5" />

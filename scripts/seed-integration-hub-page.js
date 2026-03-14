@@ -36,7 +36,7 @@ const integrationHubPage = {
     ],
     ctaButtons: [
       { label: 'Browse Devices', href: '#device-grid', variant: 'primary' },
-      { label: 'View Integrations', href: '#integrations', variant: 'secondary' }
+      { label: 'View Integrations', href: '#device-grid', variant: 'secondary' }
     ]
   },
   sections: [

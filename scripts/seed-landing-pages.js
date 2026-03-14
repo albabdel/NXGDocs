@@ -111,7 +111,7 @@ const landingPages = [
       ],
       ctaButtons: [
         { label: 'View Station Types', href: '#station-types', variant: 'primary' },
-        { label: 'Integration Options', href: '#integrations', variant: 'outline' }
+        { label: 'Integration Options', href: '#station-integrations', variant: 'outline' }
       ]
     },
     sections: [

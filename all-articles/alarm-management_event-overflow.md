@@ -56,7 +56,7 @@ Think of event overflow like an **office phone system**. If one disgruntled pers
 - [Redundant Alarms](/docs/alarm-management/redundant-alarms)
 - [Alarm Filtering](/docs/alarm-management/alarm-filtering)
 - [False Alarm Management](/docs/alarm-management/false-alarms)
-- [Test Mode](/docs/alarm-management/test-mode)
+- [Alarm Queue Management](/docs/alarm-management/alarm-queue)
 - [Arm/Disarm and Isolate](/docs/alarm-management/arm-disarm-isolate)
 - [Alarm Troubleshooting](/docs/alarm-management/alarm-troubleshooting)
 

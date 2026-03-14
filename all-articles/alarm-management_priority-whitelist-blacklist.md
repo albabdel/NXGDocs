@@ -55,6 +55,6 @@ Think of these lists like a **security guard at a gate**.
 - [Alarm Filtering](/docs/alarm-management/alarm-filtering)
 - [Alarm Codes](/docs/alarm-management/alarm-codes)
 - [Redundant Alarms](/docs/alarm-management/redundant-alarms)
-- [Test Mode](/docs/alarm-management/test-mode)
+- [Event Overflow](/docs/alarm-management/event-overflow)
 - [Custom Properties Overview](/docs/admin-guide/custom-properties-overview)
 

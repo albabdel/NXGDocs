@@ -143,7 +143,7 @@ const FeatureSection = ({
 };
 
 export default function TowersLandingPage() {
-    const towersDocLink = '/docs/devices/general/onboarding-overview';
+    const towersDocLink = '/docs/devices';
 
     // All 36 steps from Towers.md organized by phase
     const steps = [

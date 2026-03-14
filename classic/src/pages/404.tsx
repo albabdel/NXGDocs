@@ -23,7 +23,7 @@ const popularPages = [
         title: 'Device Integration',
         description: 'Connect your devices to the platform',
         icon: <BookOpen className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
-        href: '/docs/devices/general/onboarding-overview',
+        href: '/docs/devices',
     },
     {
         title: 'Help Center',
