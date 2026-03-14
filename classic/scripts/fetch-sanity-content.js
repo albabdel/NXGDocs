@@ -708,7 +708,57 @@ async function run() {
       parts.push('\n---\n\n' + footnotes.join('\n'));
     }
 
-    return parts.join('\n');
+    return convertBoldToHeadings(parts.join('\n'));
+  }
+
+  function convertBoldToHeadings(markdown) {
+    if (!markdown) return markdown;
+
+    const lines = markdown.split('\n');
+    const result = [];
+    let prevWasHeading = false;
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const trimmed = line.trim();
+
+      if (trimmed.startsWith('**') && trimmed.endsWith('**')) {
+        const inner = trimmed.slice(2, -2).trim();
+        const cleanText = inner.replace(/[:\s]+$/, '');
+
+        if (cleanText.length > 2 && cleanText.length < 80) {
+          const numberedMatch = cleanText.match(/^(\d+)\.\s*(.+)$/);
+          if (numberedMatch) {
+            result.push(`### ${numberedMatch[1]}. ${numberedMatch[2]}`);
+            prevWasHeading = true;
+            continue;
+          }
+
+          if (!prevWasHeading || cleanText.split(/\s+/).length > 3) {
+            result.push(`## ${cleanText}`);
+            prevWasHeading = true;
+            continue;
+          }
+        }
+      }
+
+      if (trimmed.startsWith('****') && trimmed.endsWith('****')) {
+        const inner = trimmed.slice(4, -4).trim();
+        if (inner.startsWith('**') && inner.endsWith('**')) {
+          const text = inner.slice(2, -2).trim().replace(/[:\s]+$/, '');
+          if (text.length > 2 && text.length < 80) {
+            result.push(`### ${text}`);
+            prevWasHeading = true;
+            continue;
+          }
+        }
+      }
+
+      prevWasHeading = false;
+      result.push(line);
+    }
+
+    return result.join('\n');
   }
 
   function buildDocFrontmatter(doc) {
