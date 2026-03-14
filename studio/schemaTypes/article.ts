@@ -17,6 +17,7 @@ export const articleType = defineType({
         draft: '🔘',
         review: '🟡',
         published: '🟢',
+        archived: '📦',
       }
       const emoji = statusEmoji[status as string] ?? '🔘'
       return {
@@ -109,11 +110,13 @@ export const articleType = defineType({
       name: 'status',
       title: 'Status',
       type: 'string',
+      description: 'Editorial workflow state. Only "published" articles appear on the live site.',
       options: {
         list: [
           {title: '🔘 Draft', value: 'draft'},
           {title: '🟡 In Review', value: 'review'},
           {title: '🟢 Published', value: 'published'},
+          {title: '📦 Archived', value: 'archived'},
         ],
         layout: 'radio',
       },

@@ -21,15 +21,18 @@ export const roadmapItemType = defineType({
       name: 'status',
       title: 'Status',
       type: 'string',
+      description: 'Roadmap item lifecycle status',
       options: {
         list: [
-          {title: 'Planned', value: 'Planned'},
-          {title: 'In Progress', value: 'In Progress'},
-          {title: 'Shipped', value: 'Shipped'},
+          {title: '🔘 Draft', value: 'draft'},
+          {title: '🔵 Planned', value: 'planned'},
+          {title: '🟡 In Progress', value: 'in_progress'},
+          {title: '🟢 Shipped', value: 'published'},
+          {title: '📦 Archived', value: 'archived'},
         ],
         layout: 'radio',
       },
-      initialValue: 'Planned',
+      initialValue: 'draft',
       validation: (r) => r.required(),
     }),
     defineField({
@@ -82,8 +85,23 @@ export const roadmapItemType = defineType({
   preview: {
     select: {title: 'title', status: 'status'},
     prepare({title, status}: {title?: string; status?: string}) {
-      const badge = status === 'Shipped' ? '[Shipped]' : status === 'In Progress' ? '[In Progress]' : '[Planned]'
-      return {title: `${badge} ${title ?? 'Untitled'}`, subtitle: status ?? ''}
+      const statusEmoji: Record<string, string> = {
+        draft: '🔘',
+        planned: '🔵',
+        in_progress: '🟡',
+        published: '🟢',
+        archived: '📦',
+      }
+      const statusLabel: Record<string, string> = {
+        draft: 'Draft',
+        planned: 'Planned',
+        in_progress: 'In Progress',
+        published: 'Shipped',
+        archived: 'Archived',
+      }
+      const emoji = statusEmoji[status as string] ?? '🔘'
+      const label = statusLabel[status as string] ?? 'Unknown'
+      return {title: `${emoji} ${title ?? 'Untitled'}`, subtitle: label}
     },
   },
 })

@@ -10,8 +10,16 @@ export const alertTemplateType = defineType({
       title: 'name',
       alertType: 'alertType',
       severity: 'severity',
+      status: 'status',
     },
-    prepare({title, alertType, severity}) {
+    prepare({title, alertType, severity, status}) {
+      const statusEmoji: Record<string, string> = {
+        draft: '🔘',
+        active: '🟢',
+        review: '🟡',
+        archived: '📦',
+        deprecated: '🔴',
+      }
       const severityEmoji: Record<string, string> = {
         critical: '🔴',
         high: '🟠',
@@ -26,11 +34,12 @@ export const alertTemplateType = defineType({
         schedule: '⏰',
         compound: '🔗',
       }
-      const emoji = severityEmoji[severity as string] ?? '⚪'
+      const emoji = statusEmoji[status as string] ?? '⚪'
+      const sevEmoji = severityEmoji[severity as string] ?? '⚪'
       const typeIcon = typeEmoji[alertType as string] ?? '🔔'
       return {
-        title: title ?? 'Untitled Alert',
-        subtitle: `${emoji} ${severity ?? 'Unknown'} • ${typeIcon} ${alertType ?? 'Unknown'}`,
+        title: `${emoji} ${title ?? 'Untitled Alert'}`,
+        subtitle: `${sevEmoji} ${severity ?? 'Unknown'} • ${typeIcon} ${alertType ?? 'Unknown'}`,
       }
     },
   },
@@ -336,11 +345,22 @@ export const alertTemplateType = defineType({
       description: 'Time after condition clears before auto-resolving',
     }),
     defineField({
-      name: 'enabled',
-      title: 'Enabled',
-      type: 'boolean',
-      description: 'Whether this alert template is active',
-      initialValue: true,
+      name: 'status',
+      title: 'Status',
+      type: 'string',
+      description: 'Alert template lifecycle status',
+      options: {
+        list: [
+          {title: '🔘 Draft', value: 'draft'},
+          {title: '🟢 Active', value: 'active'},
+          {title: '🟡 Paused', value: 'review'},
+          {title: '📦 Archived', value: 'archived'},
+          {title: '🔴 Deprecated', value: 'deprecated'},
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'draft',
+      validation: (rule) => rule.required(),
     }),
 
     // ── Tags ──────────────────────────────────────────────────────────────

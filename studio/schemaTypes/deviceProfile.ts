@@ -11,9 +11,17 @@ export const deviceProfileType = defineType({
       model: 'model',
       manufacturer: 'manufacturer',
       deviceType: 'deviceType',
+      status: 'status',
       media: 'images.0',
     },
-    prepare({title, model, manufacturer, deviceType, media}) {
+    prepare({title, model, manufacturer, deviceType, status, media}) {
+      const statusEmoji: Record<string, string> = {
+        draft: '🔘',
+        active: '🟢',
+        beta: '🔵',
+        archived: '📦',
+        deprecated: '🔴',
+      }
       const typeEmoji: Record<string, string> = {
         camera: '📷',
         sensor: '📡',
@@ -24,9 +32,10 @@ export const deviceProfileType = defineType({
         ups: '🔋',
         other: '📦',
       }
-      const emoji = typeEmoji[deviceType as string] ?? '📦'
+      const emoji = statusEmoji[status as string] ?? '⚪'
+      const typeIcon = typeEmoji[deviceType as string] ?? '📦'
       return {
-        title: title ?? 'Untitled Device',
+        title: `${emoji} ${title ?? 'Untitled Device'}`,
         subtitle: manufacturer && model ? `${manufacturer} ${model}` : deviceType ?? 'Unknown',
         media,
       }
@@ -296,13 +305,16 @@ export const deviceProfileType = defineType({
       description: 'Lifecycle status of this device model',
       options: {
         list: [
+          {title: '🔘 Draft', value: 'draft'},
           {title: '🟢 Active', value: 'active'},
-          {title: '🟡 End of Life', value: 'eol'},
-          {title: '🔴 Discontinued', value: 'discontinued'},
-          {title: '🔵 Pre-release', value: 'prerelease'},
+          {title: '🔵 Beta', value: 'beta'},
+          {title: '📦 Archived', value: 'archived'},
+          {title: '🔴 Deprecated', value: 'deprecated'},
         ],
+        layout: 'radio',
       },
-      initialValue: 'active',
+      initialValue: 'draft',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'tags',

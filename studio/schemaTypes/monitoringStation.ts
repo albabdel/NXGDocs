@@ -15,11 +15,13 @@ export const monitoringStationType = defineType({
     },
     prepare({title, stationId, stationType, status, media}) {
       const statusEmoji: Record<string, string> = {
+        draft: '🔘',
+        planned: '🔵',
         active: '🟢',
         maintenance: '🟡',
         offline: '🔴',
-        planned: '🔵',
-        decommissioned: '⚫',
+        archived: '📦',
+        deprecated: '⚫',
       }
       const typeEmoji: Record<string, string> = {
         tower: '🗼',
@@ -313,16 +315,21 @@ export const monitoringStationType = defineType({
       name: 'status',
       title: 'Station Status',
       type: 'string',
+      description: 'Operational status of this monitoring station',
       options: {
         list: [
+          {title: '🔘 Draft', value: 'draft'},
+          {title: '🔵 Planned', value: 'planned'},
           {title: '🟢 Active', value: 'active'},
           {title: '🟡 Maintenance', value: 'maintenance'},
           {title: '🔴 Offline', value: 'offline'},
-          {title: '🔵 Planned', value: 'planned'},
-          {title: '⚫ Decommissioned', value: 'decommissioned'},
+          {title: '📦 Archived', value: 'archived'},
+          {title: '⚫ Decommissioned', value: 'deprecated'},
         ],
+        layout: 'radio',
       },
-      initialValue: 'active',
+      initialValue: 'draft',
+      validation: (rule) => rule.required(),
     }),
 
     // ── Images ────────────────────────────────────────────────────────────

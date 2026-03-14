@@ -17,8 +17,11 @@ export const deviceIntegrationType = defineType({
     },
     prepare({title, manufacturer, brand, deviceType, gcxReady, status, logo}) {
       const statusEmoji: Record<string, string> = {
-        published: '🟢',
-        draft: '🟡',
+        draft: '🔘',
+        review: '🟡',
+        active: '🟢',
+        beta: '🔵',
+        archived: '📦',
         deprecated: '🔴',
       }
       const typeEmoji: Record<string, string> = {
@@ -138,12 +141,17 @@ export const deviceIntegrationType = defineType({
       description: 'Integration lifecycle status',
       options: {
         list: [
-          {title: '🟢 Published', value: 'published'},
-          {title: '🟡 Draft', value: 'draft'},
+          {title: '🔘 Draft', value: 'draft'},
+          {title: '🟡 In Review', value: 'review'},
+          {title: '🟢 Active', value: 'active'},
+          {title: '🔵 Beta', value: 'beta'},
+          {title: '📦 Archived', value: 'archived'},
           {title: '🔴 Deprecated', value: 'deprecated'},
         ],
+        layout: 'radio',
       },
       initialValue: 'draft',
+      validation: (rule) => rule.required(),
     }),
 
     // ── Cloud Mode Features ───────────────────────────────────────────────

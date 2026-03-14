@@ -417,6 +417,175 @@ const sidebars: SidebarsConfig = {
         }
       ]
     },
+    {
+      type: "category",
+      label: "🔔 Alarm Management",
+      collapsible: true,
+      collapsed: false,
+      link: {
+        type: "generated-index",
+        description: "Comprehensive guide to managing alarms, codes, priorities, and alarm workflows in GCXONE",
+        slug: "/alarm-management"
+      },
+      items: [
+        {
+          type: "doc",
+          id: "alarm-management/alarm-codes",
+          label: "Alarm Codes"
+        },
+        {
+          type: "doc",
+          id: "alarm-management/arm-disarm-isolate",
+          label: "Arm/Disarm/Isolate"
+        },
+        {
+          type: "doc",
+          id: "alarm-management/event-overflow",
+          label: "Event Overflow"
+        },
+        {
+          type: "doc",
+          id: "alarm-management/priority-whitelist-blacklist",
+          label: "Priority Whitelist/Blacklist"
+        },
+        {
+          type: "doc",
+          id: "alarm-management/redundant-alarms",
+          label: "Redundant Alarms"
+        },
+        {
+          type: "doc",
+          id: "alarm-management/technical-alarms",
+          label: "Technical Alarms"
+        }
+      ]
+    },
+    {
+      type: "category",
+      label: "🖥️ Operator Guide",
+      collapsible: true,
+      collapsed: false,
+      link: {
+        type: "generated-index",
+        description: "Essential guide for operators using GCXONE for daily monitoring and alarm handling",
+        slug: "/operator-guide"
+      },
+      items: [
+        {
+          type: "doc",
+          id: "operator-guide/event-clips",
+          label: "Event Clips"
+        },
+        {
+          type: "doc",
+          id: "operator-guide/handling-alarms",
+          label: "Handling Alarms"
+        },
+        {
+          type: "doc",
+          id: "operator-guide/live-video",
+          label: "Live Video"
+        },
+        {
+          type: "doc",
+          id: "operator-guide/multi-site-monitoring",
+          label: "Multi-Site Monitoring"
+        },
+        {
+          type: "doc",
+          id: "operator-guide/notes-annotations",
+          label: "Notes & Annotations"
+        },
+        {
+          type: "doc",
+          id: "operator-guide/operator-dashboard",
+          label: "Operator Dashboard"
+        },
+        {
+          type: "doc",
+          id: "operator-guide/performance-metrics",
+          label: "Performance Metrics"
+        },
+        {
+          type: "doc",
+          id: "operator-guide/ptz-control",
+          label: "PTZ Control"
+        },
+        {
+          type: "doc",
+          id: "operator-guide/shortcuts-tips",
+          label: "Shortcuts & Tips"
+        },
+        {
+          type: "doc",
+          id: "operator-guide/site-navigation",
+          label: "Site Navigation"
+        },
+        {
+          type: "doc",
+          id: "operator-guide/training-guide",
+          label: "Training Guide"
+        },
+        {
+          type: "doc",
+          id: "operator-guide/video-playback",
+          label: "Video Playback"
+        }
+      ]
+    },
+    {
+      type: "category",
+      label: "📚 Knowledge Base",
+      collapsible: true,
+      collapsed: false,
+      link: {
+        type: "generated-index",
+        description: "Reference documentation, FAQs, glossary, and compliance information",
+        slug: "/knowledge-base"
+      },
+      items: [
+        {
+          type: "doc",
+          id: "knowledge-base/compliance",
+          label: "Compliance"
+        },
+        {
+          type: "doc",
+          id: "knowledge-base/data-privacy",
+          label: "Data Privacy"
+        },
+        {
+          type: "doc",
+          id: "knowledge-base/faq",
+          label: "FAQ"
+        },
+        {
+          type: "doc",
+          id: "knowledge-base/glossary",
+          label: "Glossary"
+        },
+        {
+          type: "doc",
+          id: "knowledge-base/integration-guides",
+          label: "Integration Guides"
+        },
+        {
+          type: "doc",
+          id: "knowledge-base/migration-guides",
+          label: "Migration Guides"
+        },
+        {
+          type: "doc",
+          id: "knowledge-base/network-requirements",
+          label: "Network Requirements"
+        },
+        {
+          type: "doc",
+          id: "knowledge-base/quick-reference",
+          label: "Quick Reference"
+        }
+      ]
+    },
 
   ],
 };

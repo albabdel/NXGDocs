@@ -14,10 +14,12 @@ export const integrationType = defineType({
     },
     prepare({title, integrationType, status, logo}) {
       const statusEmoji: Record<string, string> = {
-        active: 'active',
-        beta: 'beta',
-        coming_soon: 'soon',
-        deprecated: 'deprecated',
+        draft: '🔘',
+        review: '🟡',
+        active: '🟢',
+        beta: '🔵',
+        archived: '📦',
+        deprecated: '🔴',
       }
       const typeEmoji: Record<string, string> = {
         notification: 'bell',
@@ -29,10 +31,10 @@ export const integrationType = defineType({
         communication: 'chat',
         data: 'graph',
       }
-      const emoji = statusEmoji[status as string] ?? 'unknown'
+      const emoji = statusEmoji[status as string] ?? '⚪'
       const typeIcon = typeEmoji[integrationType as string] ?? 'plug'
       return {
-        title: title ?? 'Untitled Integration',
+        title: `${emoji} ${title ?? 'Untitled Integration'}`,
         subtitle: `${status ?? 'Unknown'} - ${integrationType ?? 'Unknown'}`,
         media: logo,
       }
@@ -295,15 +297,20 @@ export const integrationType = defineType({
       name: 'status',
       title: 'Status',
       type: 'string',
+      description: 'Integration lifecycle status',
       options: {
         list: [
-          {title: 'Active', value: 'active'},
-          {title: 'Beta', value: 'beta'},
-          {title: 'Coming Soon', value: 'coming_soon'},
-          {title: 'Deprecated', value: 'deprecated'},
+          {title: '🔘 Draft', value: 'draft'},
+          {title: '🟡 In Review', value: 'review'},
+          {title: '🟢 Active', value: 'active'},
+          {title: '🔵 Beta', value: 'beta'},
+          {title: '📦 Archived', value: 'archived'},
+          {title: '🔴 Deprecated', value: 'deprecated'},
         ],
+        layout: 'radio',
       },
-      initialValue: 'active',
+      initialValue: 'draft',
+      validation: (rule) => rule.required(),
     }),
 
     // ── Tags ──────────────────────────────────────────────────────────────
