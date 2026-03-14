@@ -28,6 +28,14 @@ async function main() {
     await run();
   }
 
+  // Generate client-side search index
+  console.log('[build] Generating search index...');
+  try {
+    require('./generate-search-index');
+  } catch (err) {
+    console.warn(`[build] Warning: Failed to generate search index: ${err.message}`);
+  }
+
   // Run Docusaurus build
   await new Promise((resolve, reject) => {
     const child = spawn('npx', ['docusaurus', 'build'], {

@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useEffect, useRef, useMemo, useState } from 'react';
 import Link from '@docusaurus/Link';
 import { useColorMode } from '@docusaurus/theme-common';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, ExternalLink, Sparkles } from 'lucide-react';
+import { ArrowRight, ExternalLink, Sparkles, Search } from 'lucide-react';
 import releasesData from '../data/sanity-releases.generated.json';
 
 /**
@@ -389,7 +389,7 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
         </motion.p>
 
         {/* What's New announcement chip */}
-        <motion.div variants={itemVariants} className="mb-8">
+        <motion.div variants={itemVariants} className="mb-6">
           {(() => {
             // Get latest release dynamically from Sanity data
             const latestRelease = (releasesData as Release[])[0];
@@ -447,6 +447,13 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
             );
           })()}
         </motion.div>
+
+        {/* Hero search bar */}
+        {onOpenSearch && (
+          <motion.div variants={itemVariants} className="w-full max-w-lg mb-8">
+            <HeroSearchBar isDark={isDark} onClick={onOpenSearch} prefersReducedMotion={!!prefersReducedMotion} />
+          </motion.div>
+        )}
 
         {/* CTA buttons */}
         <motion.div
@@ -511,5 +518,100 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
 
       </motion.div>
     </div>
+  );
+}
+
+// ── Hero Search Bar ────────────────────────────────────────────────────────────
+function HeroSearchBar({
+  isDark,
+  onClick,
+  prefersReducedMotion,
+}: {
+  isDark: boolean;
+  onClick: () => void;
+  prefersReducedMotion: boolean;
+}) {
+  const [hovered, setHovered] = useState(false);
+
+  const base = {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    padding: '14px 18px',
+    borderRadius: '14px',
+    border: `1px solid ${
+      hovered
+        ? isDark ? 'rgba(232,176,88,0.5)' : 'rgba(200,148,70,0.55)'
+        : isDark ? 'rgba(232,176,88,0.2)' : 'rgba(200,148,70,0.28)'
+    }`,
+    background: isDark
+      ? hovered ? 'rgba(232,176,88,0.06)' : 'rgba(255,255,255,0.03)'
+      : hovered ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.65)',
+    backdropFilter: 'blur(16px)',
+    WebkitBackdropFilter: 'blur(16px)',
+    boxShadow: hovered
+      ? isDark
+        ? '0 0 0 1px rgba(0,0,0,0.4), 0 6px 32px rgba(0,0,0,0.3), 0 0 28px rgba(232,176,88,0.1)'
+        : '0 4px 32px rgba(200,148,70,0.18), inset 0 1px 0 rgba(255,255,255,1)'
+      : isDark
+        ? '0 0 0 1px rgba(0,0,0,0.3), 0 4px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03)'
+        : '0 2px 16px rgba(200,148,70,0.08), inset 0 1px 0 rgba(255,255,255,0.9)',
+    cursor: 'pointer',
+    transition: prefersReducedMotion ? 'none' : 'all 0.2s ease',
+    textAlign: 'left' as const,
+  };
+
+  return (
+    <button
+      style={base}
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      aria-label="Open search (Ctrl+K)"
+    >
+      {/* Icon */}
+      <Search
+        size={17}
+        strokeWidth={2}
+        style={{ color: '#C89446', flexShrink: 0 }}
+      />
+
+      {/* Placeholder text */}
+      <span
+        style={{
+          flex: 1,
+          fontSize: '14px',
+          color: isDark ? 'rgba(255,255,255,0.28)' : 'rgba(0,0,0,0.32)',
+          letterSpacing: '0.01em',
+          userSelect: 'none',
+        }}
+      >
+        Search documentation, releases, roadmap…
+      </span>
+
+      {/* Keyboard shortcut */}
+      <span style={{ display: 'flex', alignItems: 'center', gap: '3px', flexShrink: 0 }}>
+        {(['Ctrl', 'K'] as const).map((k) => (
+          <kbd
+            key={k}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              padding: '2px 6px',
+              fontSize: '11px',
+              fontFamily: 'inherit',
+              background: isDark ? 'rgba(232,176,88,0.08)' : 'rgba(200,148,70,0.08)',
+              border: `1px solid ${isDark ? 'rgba(232,176,88,0.18)' : 'rgba(200,148,70,0.22)'}`,
+              borderRadius: '5px',
+              color: isDark ? 'rgba(232,176,88,0.7)' : '#8B5E1F',
+              lineHeight: 1.5,
+            }}
+          >
+            {k}
+          </kbd>
+        ))}
+      </span>
+    </button>
   );
 }

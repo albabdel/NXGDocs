@@ -4,14 +4,11 @@ import VoCWidget from '../components/VoCWidget/VoCWidget';
 import ThemeToggle from '../components/ThemeToggle';
 import BackgroundPattern from '../components/BackgroundPattern';
 import Footer from '../components/Footer';
-import AlgoliaInsights from '../components/AlgoliaInsights';
-// @ts-ignore
-import SearchBar from '@theme/SearchBar';
+import SearchModal from '../components/SearchModal';
 
 export default function Root({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <AlgoliaInsights />
       <BackgroundPattern />
       <ScrollProgress />
       <div style={{
@@ -20,7 +17,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
         right: '64px',
         zIndex: 1000,
       }}>
-        <SearchBar />
+        <SearchModal />
       </div>
       {children}
       <Footer />
