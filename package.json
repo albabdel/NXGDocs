@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd classic && npm run build",
+    "build": "cd classic && npm install && npm run build",
     "build:fast": "cd classic && npm run build",
     "start": "cd classic && npm start",
     "serve": "cd classic && npm run serve",
@@ -38,9 +38,11 @@
     "@portabletext/toolkit": "^5.0.2",
     "@portabletext/types": "^4.0.2",
     "@sanity/client": "^7.17.0",
+    "@sanity/image-url": "^2.0.3",
     "adm-zip": "^0.5.16",
     "jsdom": "^28.1.0",
     "mammoth": "^1.11.0",
+    "puppeteer": "^24.39.1",
     "xlsx": "^0.18.5"
   }
 }
