@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document describes the PDF generation system implemented for NXGEN documentation articles.
+This document describes the PDF generation system implemented for NXGEN documentation articles. The styling is extracted directly from the `NXGEN_Document_Template.docx` file to ensure visual consistency with official NXGEN documents.
 
 ## Implementation Summary
 
@@ -14,11 +14,17 @@ classic/src/
 │   └── DownloadPDF/
 │       ├── index.tsx           # Main React component
 │       ├── styles.module.css   # Component styles
-│       └── pdf-template.ts     # PDF styling configuration
+│       └── pdf-template.ts     # PDF styling configuration (legacy)
+├── utils/
+│   ├── pdf-template.ts         # NXGEN docx template styling
+│   └── pdf-images.ts           # Image conversion utilities
 ├── theme/
 │   └── DocItem/
 │       └── Layout/
 │           └── index.tsx       # Integration with article layout
+├── static/
+│   └── img/
+│       └── nxgen-logo.png      # NXGEN logo extracted from docx
 └── css/
     └── custom.css              # Global positioning styles
 ```
@@ -44,14 +50,33 @@ The system uses **html2pdf.js** (already in package.json):
 4. Uses html2canvas to capture HTML as image
 5. jsPDF generates final PDF document
 
-## NXGEN Branding
+## NXGEN Branding (from docx template)
 
-The PDF uses NXGEN design system:
-- **Primary Color**: #C89446 (NXGEN Gold)
-- **Header**: Gold gradient with NXGEN | GCXONE branding
-- **Footer**: Copyright and source URL
-- **Typography**: Inter font family
-- **Code Blocks**: JetBrains Mono with light background
+The PDF styling is extracted from `NXGEN_Document_Template.docx`:
+
+### Colors
+- **Primary (Gold)**: `#C9A227`
+- **Header Text**: `#1A1C2E` (dark navy)
+- **Heading 1**: `#C9A227` (gold)
+- **Heading 2**: `#1A1C2E` (dark navy)
+- **Heading 3**: `#2C2C2C` (dark gray)
+- **Body Text**: `#2C2C2C`
+- **Muted Text**: `#888888`
+- **Hyperlinks**: `#0563C1`
+
+### Typography
+- **Font Family**: Arial, Helvetica, sans-serif
+- **Title**: 28pt, weight 700
+- **Heading 1**: 15pt, weight 700
+- **Heading 2**: 12pt, weight 700
+- **Heading 3**: 11pt, weight 600
+- **Body**: 11pt
+- **Caption/Footer**: 9pt
+
+### Logo
+- Extracted from docx template
+- Dimensions: 48x32px
+- Path: `/img/nxgen-logo.png`
 
 ## Alternative Approaches
 

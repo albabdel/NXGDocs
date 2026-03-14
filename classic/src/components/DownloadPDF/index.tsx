@@ -2,6 +2,8 @@ import React, { useState, useCallback } from 'react';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import { Download, Loader2, Check, AlertCircle } from 'lucide-react';
 import styles from './styles.module.css';
+import { imageToBase64, processImages, preloadImageAsBase64 } from '@site/src/utils/pdf-images';
+import { PDF_TEMPLATE, getHeaderHtml, getFooterHtml, getBodyStyles } from '@site/src/utils/pdf-template';
 
 interface DownloadPDFProps {
   title?: string;
@@ -23,7 +25,6 @@ function DownloadPDFInner({ title: propTitle, content: propContent, slug: propSl
     try {
       const html2pdf = (await import('html2pdf.js')).default;
 
-      // Find article content
       let articleEl = document.querySelector('.theme-doc-markdown') || 
                       document.querySelector('article') ||
                       document.querySelector('.markdown');
@@ -32,63 +33,60 @@ function DownloadPDFInner({ title: propTitle, content: propContent, slug: propSl
         throw new Error('Could not find article content');
       }
 
-      // Get title
       const titleEl = articleEl.querySelector('h1');
       const title = propTitle || titleEl?.textContent || document.title.replace(' | NXGEN GCXONE Documentation', '').trim();
       const slug = propSlug || window.location.pathname.split('/').filter(Boolean).pop() || 'document';
       const sanitizedSlug = slug.replace(/[^a-zA-Z0-9-_]/g, '-');
 
-      // Clone and clean content
       const clone = articleEl.cloneNode(true) as HTMLElement;
-      clone.querySelectorAll('button, .copy-button, [role="tablist"], .tabs, video, iframe, .theme-code-block').forEach(el => el.remove());
       
-      // Convert links to plain text
+      clone.querySelectorAll('button, .copy-button, [role="tablist"], .tabs, video, iframe, .theme-code-block, .hash-link').forEach(el => el.remove());
+      
       clone.querySelectorAll('a').forEach(link => {
         const span = document.createElement('span');
         span.textContent = link.textContent;
         link.replaceWith(span);
       });
 
-      // Create print container
+      let logoBase64: string | undefined;
+      try {
+        const logoUrl = `${window.location.origin}${PDF_TEMPLATE.logo.path}`;
+        logoBase64 = await preloadImageAsBase64(logoUrl);
+      } catch (err) {
+        console.warn('Could not load logo, using fallback:', err);
+      }
+
       const printContainer = document.createElement('div');
       printContainer.id = 'pdf-print-container';
+      
+      const dateStr = new Date().toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+      
       printContainer.innerHTML = `
-        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; background: white; color: #1a1a1a;">
-          <header style="border-bottom: 3px solid #E8B058; padding-bottom: 20px; margin-bottom: 30px;">
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-              <span style="font-size: 20px; font-weight: 800; color: #E8B058;">NXGEN</span>
-              <span style="color: #ccc;">|</span>
-              <span style="font-size: 16px; font-weight: 600; color: #666;">GCXONE Documentation</span>
-            </div>
-            <h1 style="font-size: 28px; font-weight: 700; margin: 0; color: #1a1a1a;">${title}</h1>
-            <p style="font-size: 12px; color: #888; margin-top: 10px; margin-bottom: 0;">
-              Generated on ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </p>
-          </header>
-          <main style="line-height: 1.7; font-size: 14px;">
+        ${getBodyStyles()}
+        <div style="
+          font-family: ${PDF_TEMPLATE.fonts.primary};
+          padding: 40px;
+          max-width: 800px;
+          margin: 0 auto;
+          background: ${PDF_TEMPLATE.colors.background};
+          color: ${PDF_TEMPLATE.colors.text};
+        ">
+          ${getHeaderHtml(title, logoBase64)}
+          <main class="pdf-body" style="line-height: 1.7; font-size: 14px;">
             ${clone.innerHTML}
           </main>
-          <footer style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 40px; font-size: 11px; color: #888;">
-            <p style="margin: 0;">© ${new Date().getFullYear()} NXGEN Technology AG. All rights reserved.</p>
-            <p style="margin: 5px 0 0 0; word-break: break-all;">${window.location.href}</p>
-          </footer>
+          ${getFooterHtml(dateStr)}
         </div>
       `;
 
-      // Add to DOM (must be visible for html2canvas)
       printContainer.style.cssText = 'position: absolute; left: 0; top: 0; width: 100%; background: white; z-index: 10000;';
       document.body.appendChild(printContainer);
 
-      // Wait for images to load
-      const images = printContainer.querySelectorAll('img');
-      await Promise.all(Array.from(images).map(img => {
-        if (img.complete) return Promise.resolve();
-        return new Promise(resolve => {
-          img.onload = resolve;
-          img.onerror = resolve;
-          setTimeout(resolve, 2000);
-        });
-      }));
+      await processImages(printContainer);
 
       const element = printContainer.firstElementChild as HTMLElement;
 
@@ -102,17 +100,18 @@ function DownloadPDFInner({ title: propTitle, content: propContent, slug: propSl
           allowTaint: true,
           scrollY: 0,
           scrollX: 0,
+          logging: false,
         },
         jsPDF: { 
-          unit: 'mm', 
-          format: 'a4', 
-          orientation: 'portrait',
+          unit: 'mm' as const, 
+          format: 'a4' as const, 
+          orientation: 'portrait' as const,
         },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
       };
 
       await html2pdf().set(opt).from(element).save();
 
-      // Cleanup
       document.body.removeChild(printContainer);
       
       setStatus('success');

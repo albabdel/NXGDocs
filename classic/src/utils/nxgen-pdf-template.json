@@ -1,0 +1,186 @@
+﻿{
+  "templateName": "NXGEN Document Template",
+  "description": "NXGEN Technology AG branded document template for GCXONE Security Management Platform",
+  "version": "1.0.0",
+  
+  "logo": {
+    "filename": "nxgen-logo.png",
+    "originalFilename": "1fbc5e66209d59c1209f9b2a895d86712639125a.png",
+    "format": "PNG",
+    "fileSizeBytes": 477793,
+    "dimensions": {
+      "header": {
+        "widthEmu": 457200,
+        "heightEmu": 304800,
+        "widthInches": 0.5,
+        "heightInches": 0.333
+      },
+      "cover": {
+        "widthEmu": 1714500,
+        "heightEmu": 1143000,
+        "widthInches": 1.875,
+        "heightInches": 1.25
+      }
+    },
+    "embedRelationshipId": "rId8",
+    "headerRelationshipId": "rId0"
+  },
+
+  "pageLayout": {
+    "size": {
+      "widthTwips": 12240,
+      "heightTwips": 15840,
+      "widthInches": 8.5,
+      "heightInches": 11,
+      "orientation": "portrait"
+    },
+    "margins": {
+      "topTwips": 1440,
+      "rightTwips": 1440,
+      "bottomTwips": 1440,
+      "leftTwips": 1440,
+      "headerTwips": 708,
+      "footerTwips": 708,
+      "gutterTwips": 0,
+      "topInches": 1,
+      "rightInches": 1,
+      "bottomInches": 1,
+      "leftInches": 1,
+      "headerInches": 0.492,
+      "footerInches": 0.492,
+      "gutterInches": 0
+    },
+    "linePitch": 360
+  },
+
+  "colors": {
+    "brand": {
+      "amber": "#C9A227",
+      "amberRgb": [201, 162, 39],
+      "name": "NXGEN Amber"
+    },
+    "primary": {
+      "dark": "#1A1C2E",
+      "darkRgb": [26, 28, 46],
+      "name": "NXGEN Dark Blue"
+    },
+    "text": {
+      "default": "#2C2C2C",
+      "defaultRgb": [44, 44, 44],
+      "secondary": "#888888",
+      "secondaryRgb": [136, 136, 136]
+    },
+    "headings": {
+      "heading1": "#C9A227",
+      "heading2": "#1A1C2E",
+      "heading3": "#2C2C2C",
+      "defaultBlue": "#2E74B5",
+      "defaultDarkBlue": "#1F4D78"
+    },
+    "borders": "#C9A227",
+    "hyperlink": "#0563C1"
+  },
+
+  "fonts": {
+    "primary": {
+      "name": "Arial",
+      "fallbacks": ["Arial", "Helvetica", "sans-serif"]
+    },
+    "sizes": {
+      "title": { "halfPoints": 56, "points": 28, "pixels": 37.33 },
+      "heading1": { "halfPoints": 30, "points": 15, "pixels": 20 },
+      "heading2": { "halfPoints": 24, "points": 12, "pixels": 16 },
+      "heading3": { "halfPoints": 22, "points": 11, "pixels": 14.67 },
+      "normal": { "halfPoints": 22, "points": 11, "pixels": 14.67 },
+      "caption": { "halfPoints": 18, "points": 9, "pixels": 12 },
+      "header": { "halfPoints": 18, "points": 9, "pixels": 12 },
+      "footer": { "halfPoints": 16, "points": 8, "pixels": 10.67 }
+    }
+  },
+
+  "header": {
+    "border": {
+      "type": "single",
+      "color": "#C9A227",
+      "sizeEighthsPoint": 4,
+      "sizePoints": 0.5,
+      "position": "bottom",
+      "spaceTwips": 4
+    },
+    "spacing": { "beforeTwips": 0, "afterTwips": 120 },
+    "content": [
+      { "type": "image", "source": "logo", "widthEmu": 457200, "heightEmu": 304800 },
+      { "type": "text", "content": "   GCXONE ", "style": { "bold": true, "color": "#1A1C2E", "fontSizeHalfPoints": 18 } },
+      { "type": "text", "content": "NXGEN Technology AG", "style": { "color": "#888888", "fontSizeHalfPoints": 18 } }
+    ]
+  },
+
+  "footer": {
+    "border": {
+      "type": "single",
+      "color": "#C9A227",
+      "sizeEighthsPoint": 4,
+      "sizePoints": 0.5,
+      "position": "top",
+      "spaceTwips": 4
+    },
+    "spacing": { "beforeTwips": 80, "afterTwips": 0 },
+    "tabs": [{ "alignment": "right", "positionTwips": 9360 }],
+    "content": [
+      { "type": "text", "content": "GCXONE Security Management Platform  |  NXGEN Technology AG", "style": { "color": "#888888", "fontSizeHalfPoints": 16 } },
+      { "type": "tab" },
+      { "type": "text", "content": "Page ", "style": { "color": "#888888", "fontSizeHalfPoints": 16 } },
+      { "type": "field", "fieldType": "PAGE" }
+    ]
+  },
+
+  "styles": {
+    "Normal": { "basedOn": null, "fontSizeHalfPoints": 22, "color": "#2C2C2C" },
+    "Title": { "basedOn": "Normal", "fontSizeHalfPoints": 56, "color": "#2C2C2C" },
+    "Heading1": {
+      "basedOn": "Normal",
+      "fontSizeHalfPoints": 30,
+      "color": "#C9A227",
+      "bold": true,
+      "border": { "bottom": { "color": "#C9A227", "sizeEighthsPoint": 6, "spaceTwips": 4 } },
+      "spacing": { "beforeTwips": 360, "afterTwips": 120 }
+    },
+    "Heading2": {
+      "basedOn": "Normal",
+      "fontSizeHalfPoints": 24,
+      "color": "#1A1C2E",
+      "bold": true,
+      "spacing": { "beforeTwips": 240, "afterTwips": 80 }
+    },
+    "Heading3": {
+      "basedOn": "Normal",
+      "fontSizeHalfPoints": 22,
+      "color": "#2C2C2C",
+      "bold": true,
+      "spacing": { "beforeTwips": 180, "afterTwips": 60 }
+    },
+    "Caption": { "basedOn": "Normal", "fontSizeHalfPoints": 18, "color": "#888888", "spacing": { "beforeTwips": 0, "afterTwips": 80 } },
+    "CalloutBox": { "basedOn": "Normal", "fontSizeHalfPoints": 22, "color": "#2C2C2C", "spacing": { "beforeTwips": 0, "afterTwips": 60 } },
+    "Hyperlink": { "color": "#0563C1", "underline": "single" }
+  },
+
+  "numbering": {
+    "bullets": {
+      "level0": { "symbol": "●", "indentTwips": 720, "hangingTwips": 360 },
+      "level1": { "symbol": "○", "indentTwips": 1440, "hangingTwips": 360 },
+      "level2": { "symbol": "■", "indentTwips": 2160, "hangingTwips": 360 }
+    }
+  },
+
+  "programmaticUsage": {
+    "docxLibrary": "docx (npm)",
+    "notes": [
+      "Use docx library to create Word documents programmatically",
+      "Logo image should be embedded as base64 or file reference",
+      "All sizes in twips: 1 inch = 1440 twips",
+      "Font sizes in half-points: 1 point = 2 half-points",
+      "EMU (English Metric Units): 1 inch = 914400 EMUs",
+      "Border sizes in eighths of a point: 4 = 0.5pt"
+    ]
+  }
+}
