@@ -13,6 +13,12 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
+function stripEmojis(text) {
+  if (!text) return text;
+  const emojiRegex = /[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{1F900}-\u{1F9FF}]|[\u{1FA00}-\u{1FA6F}]|[\u{1FA70}-\u{1FAFF}]|[\u{2300}-\u{23FF}]|[\u{2B50}]|[\u{2B55}]|[\u{2934}]|[\u{2935}]|[\u{3030}]|[\u{3297}]|[\u{3299}]|[\u{203C}]|[\u{2049}]/gu;
+  return text.replace(emojiRegex, '').replace(/\s+/g, ' ').trim();
+}
+
 // Load .env.local if present
 const envLocalPath = path.join(__dirname, '..', '.env.local');
 if (fs.existsSync(envLocalPath)) {
@@ -762,11 +768,11 @@ async function run() {
   }
 
   function buildDocFrontmatter(doc) {
-    const lines = ['---', `title: "${escapeYaml(doc.title)}"`];
-    if (doc.description) lines.push(`description: "${escapeYaml(doc.description)}"`);
+    const lines = ['---', `title: "${escapeYaml(stripEmojis(doc.title))}"`];
+    if (doc.description) lines.push(`description: "${escapeYaml(stripEmojis(doc.description))}"`);
     if (doc.sidebarPosition != null) lines.push(`sidebar_position: ${doc.sidebarPosition}`);
     if (doc.sidebarLabel) {
-      lines.push(`sidebar_label: "${escapeYaml(doc.sidebarLabel)}"`);
+      lines.push(`sidebar_label: "${escapeYaml(stripEmojis(doc.sidebarLabel))}"`);
     }
     if (doc.categorySlug) lines.push(`sidebar_class: "${escapeYaml(doc.categorySlug)}"`);
     if (doc.hideFromSidebar) lines.push('hide_from_sidebar: true');
@@ -780,8 +786,8 @@ async function run() {
   }
 
   function buildGenericFrontmatter(doc, extraFields = {}) {
-    const lines = ['---', `title: "${escapeYaml(doc.title)}"`];
-    if (doc.description) lines.push(`description: "${escapeYaml(doc.description)}"`);
+    const lines = ['---', `title: "${escapeYaml(stripEmojis(doc.title))}"`];
+    if (doc.description) lines.push(`description: "${escapeYaml(stripEmojis(doc.description))}"`);
     if (doc.publishedAt) lines.push(`date: ${doc.publishedAt}`);
     Object.entries(extraFields).forEach(([key, value]) => {
       if (value) lines.push(`${key}: "${escapeYaml(value)}"`);
@@ -910,7 +916,7 @@ async function run() {
           continue;
         }
 
-        const bodyMd = serializeBody(doc.body);
+        const bodyMd = stripEmojis(serializeBody(doc.body));
 
         if (type === 'doc') {
           const frontmatter = buildDocFrontmatter(doc);

@@ -289,17 +289,17 @@ export default function VoCModal({ onClose, currentPath }: VoCModalProps) {
                         <button type="button"
                             className={clsx('voc-tab', type === 'feature' && 'voc-tab--active')}
                             onClick={() => setType('feature')}>
-                            🚀 Feature Request
+                            Feature Request
                         </button>
                         <button type="button"
                             className={clsx('voc-tab', type === 'bug' && 'voc-tab--active')}
                             onClick={() => setType('bug')}>
-                            🐞 Bug Report
+                            Bug Report
                         </button>
                         <button type="button"
                             className={clsx('voc-tab', type === 'integration' && 'voc-tab--active')}
                             onClick={() => setType('integration')}>
-                            🔌 Integration Request
+                            Integration Request
                         </button>
                     </div>
 
@@ -501,7 +501,7 @@ export default function VoCModal({ onClose, currentPath }: VoCModalProps) {
                                                     }}
                                                 >
                                                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flex: 1 }}>
-                                                        <span style={{ fontSize: '1.5rem' }}>📄</span>
+                                                        <span style={{ fontSize: '1.5rem' }}>File</span>
                                                         <div>
                                                             <div style={{ color: '#fff', fontSize: '0.9rem', fontWeight: 500 }}>{doc.name}</div>
                                                             <div style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '0.75rem' }}>

@@ -2341,7 +2341,7 @@ a.tag::before {
 }
 
 .theme-last-updated::before {
-  content: '🕐';
+  content: '';
   font-size: 1rem;
   opacity: 0.7;
   flex-shrink: 0;
@@ -2744,7 +2744,7 @@ select.voc-input:focus {
 }
 
 .voc-dropzone-prompt::before {
-  content: '📎';
+  content: '';
   font-size: 1.5rem;
   opacity: 0.7;
 }

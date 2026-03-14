@@ -226,7 +226,7 @@ function getApiKey(): string {
     // ignore
   }
 
-  console.error('[Page Translator] ❌ No Gemini API key found. Checked:');
+  console.error('[Page Translator] No Gemini API key found. Checked:');
   console.error('  - window.REACT_APP_GEMINI_API_KEY');
   console.error('  - localStorage.gcxone-gemini-api-key');
   console.error('  - import.meta.env (Vite)');

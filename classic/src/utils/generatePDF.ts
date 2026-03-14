@@ -305,8 +305,8 @@ function createPDFContainer(article: ArticleContent, dateStr: string): HTMLEleme
     </div>
     
     <div class="article-meta">
-      ${article.author ? `<span>👤 ${escapeHtml(article.author)}</span>` : ''}
-      <span>📅 ${dateStr}</span>
+      ${article.author ? `<span>${escapeHtml(article.author)}</span>` : ''}
+      <span>${dateStr}</span>
     </div>
     
     <div class="article-body">

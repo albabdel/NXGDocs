@@ -586,7 +586,7 @@ async function run() {
     if (unmatchedForAudience.length > 0) {
       items.push({
         type: 'category',
-        label: '🗂️ Uncategorized',
+        label: 'Uncategorized',
         collapsible: true,
         collapsed: false,
         link: {

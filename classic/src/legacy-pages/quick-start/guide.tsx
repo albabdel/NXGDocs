@@ -888,7 +888,7 @@ Account Format: [Your Site ID Format]`} />
                                     <CheckCircle className="w-8 h-8 text-[#E8B058]" />
                                 </div>
                                 <div className="flex-1">
-                                    <h3 className="text-2xl font-bold text-white mb-2">🎉 You're All Set!</h3>
+                                    <h3 className="text-2xl font-bold text-white mb-2">You're All Set!</h3>
                                     <p className="text-white/80 mb-3 text-lg">
                                         Your GCXONE platform is fully configured and ready for monitoring operations.
                                     </p>

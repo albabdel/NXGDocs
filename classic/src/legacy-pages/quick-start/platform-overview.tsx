@@ -793,14 +793,14 @@ export default function PlatformOverview() {
 
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
                             {[
-                                { emoji: '📹', title: 'Diverse Hardware', desc: 'SDK/HTTP Protocols', color: '#374151' },
-                                { emoji: '⚙️', title: 'Proxy Layer', desc: 'Protocol Translation', color: '#4F46E5' },
-                                { emoji: '🔌', title: 'Unified Interface', desc: 'Standardized Stream', color: '#06B6D4' },
-                                { emoji: '🧠', title: 'GCXONE Core', desc: 'SaaS & AI Engine', color: '#D946EF' }
+                                { icon: 'Video', title: 'Diverse Hardware', desc: 'SDK/HTTP Protocols', color: '#374151' },
+                                { icon: 'Settings', title: 'Proxy Layer', desc: 'Protocol Translation', color: '#4F46E5' },
+                                { icon: 'Integration', title: 'Unified Interface', desc: 'Standardized Stream', color: '#06B6D4' },
+                                { icon: 'AI', title: 'GCXONE Core', desc: 'SaaS & AI Engine', color: '#D946EF' }
                             ].map((step, idx) => (
                                 <div key={idx} className="relative">
                                     <div className="text-center p-6 rounded-xl border border-white/10" style={{ backgroundColor: step.color }}>
-                                        <div className="text-4xl mb-3">{step.emoji}</div>
+                                        <div className="text-lg font-bold mb-3">{step.icon}</div>
                                         <h3 className="font-semibold text-white mb-2">{step.title}</h3>
                                         <p className="text-sm text-white/80">{step.desc}</p>
                                     </div>

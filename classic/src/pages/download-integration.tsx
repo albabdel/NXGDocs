@@ -226,12 +226,12 @@ const clientTypeColors = {
 
 // Platform icons/labels
 const platformLabels = {
-    'Windows': '🪟 Windows',
-    'macOS': '🍎 macOS',
-    'Linux': '🐧 Linux',
-    'Android': '🤖 Android',
-    'iOS': '📱 iOS',
-    'Web': '🌐 Web',
+    'Windows': 'Windows',
+    'macOS': 'macOS',
+    'Linux': 'Linux',
+    'Android': 'Android',
+    'iOS': 'iOS',
+    'Web': 'Web',
 };
 
 export default function DownloadIntegrationHub() {
