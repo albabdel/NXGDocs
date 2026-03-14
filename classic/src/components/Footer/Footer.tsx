@@ -40,7 +40,6 @@ export default function Footer(): JSX.Element {
             <ul className={styles.linksList}>
               <li>
                 <Link to="/docs/breakthroughs" className={styles.footerLink}>
-                  <span className={styles.linkIcon}></span>
                   Breakthroughs
                 </Link>
               </li>
