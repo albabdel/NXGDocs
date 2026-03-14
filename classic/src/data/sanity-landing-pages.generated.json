@@ -1601,6 +1601,11 @@
           "href": "#operator",
           "label": "Operator Guide",
           "variant": "secondary"
+        },
+        {
+          "href": "/video-tutorials",
+          "label": "Watch Demo",
+          "variant": "secondary"
         }
       ],
       "headline": "Start Monitoring in Minutes",
@@ -1851,7 +1856,7 @@
         },
         {
           "_key": "cta2",
-          "href": "/video-tutorials",
+          "href": "/docs/video-tutorials",
           "label": "Watch Demo",
           "variant": "secondary"
         }

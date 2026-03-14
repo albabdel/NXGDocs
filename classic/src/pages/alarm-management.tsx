@@ -46,16 +46,200 @@ type AlarmFeature = {
 
 const alarmFeatures: AlarmFeature[] = [
     // Core Alarm Processing
+    {
+        title: 'Alarm Reception & Parsing',
+        description: 'Automated reception and intelligent parsing of alarm signals from multiple protocols including Contact ID, SIA, and proprietary formats with real-time decoding.',
+        category: 'Core Processing',
+        link: '/docs/alarm-management/reception-parsing',
+        icon: <Bell className="w-6 h-6" />,
+        status: 'core'
+    },
+    {
+        title: 'Priority Classification',
+        description: 'Automatic priority assignment based on alarm type, customer tier, location risk, and historical patterns to ensure critical alarms receive immediate attention.',
+        category: 'Core Processing',
+        link: '/docs/alarm-management/priority-classification',
+        icon: <Target className="w-6 h-6" />,
+        status: 'core'
+    },
+    {
+        title: 'Event Correlation',
+        description: 'Intelligent correlation engine that links related alarms, identifies patterns, and groups events to reduce operator cognitive load and improve response efficiency.',
+        category: 'Core Processing',
+        link: '/docs/alarm-management/event-correlation',
+        icon: <Layers className="w-6 h-6" />,
+        status: 'core'
+    },
+    {
+        title: 'Alarm Filtering',
+        description: 'Configurable filtering rules to suppress known non-critical events, maintenance alerts, and scheduled test signals during specific time windows.',
+        category: 'Core Processing',
+        link: '/docs/alarm-management/alarm-filtering',
+        icon: <Filter className="w-6 h-6" />,
+        status: 'core'
+    },
+    {
+        title: 'False Alarm Reduction',
+        description: 'Machine learning-powered false alarm detection that identifies and automatically resolves common false alarm scenarios before operator escalation.',
+        category: 'Core Processing',
+        link: '/docs/alarm-management/false-alarm-reduction',
+        icon: <AlertCircle className="w-6 h-6" />,
+        status: 'advanced'
+    },
 
     // Routing & Escalation
+    {
+        title: 'Intelligent Routing',
+        description: 'Rule-based routing engine that directs alarms to appropriate operators based on skill sets, workload, geography, and customer assignments.',
+        category: 'Routing & Escalation',
+        link: '/docs/alarm-management/intelligent-routing',
+        icon: <Route className="w-6 h-6" />,
+        status: 'core'
+    },
+    {
+        title: 'Escalation Chains',
+        description: 'Multi-tier escalation workflows with configurable time thresholds, automatic supervisor notification, and customer contact protocols.',
+        category: 'Routing & Escalation',
+        link: '/docs/alarm-management/escalation-chains',
+        icon: <TrendingUp className="w-6 h-6" />,
+        status: 'core'
+    },
+    {
+        title: 'Overflow Management',
+        description: 'Automatic workload balancing and overflow routing during peak periods to maintain response time SLAs and prevent operator burnout.',
+        category: 'Routing & Escalation',
+        link: '/docs/alarm-management/overflow-management',
+        icon: <Users className="w-6 h-6" />,
+        status: 'advanced'
+    },
+    {
+        title: 'Backup Routing',
+        description: 'Redundant routing paths and failover mechanisms ensuring alarm delivery even during system outages or network disruptions.',
+        category: 'Routing & Escalation',
+        link: '/docs/alarm-management/backup-routing',
+        icon: <Shield className="w-6 h-6" />,
+        status: 'core'
+    },
 
     // Notifications & Integration
+    {
+        title: 'Multi-Channel Notifications',
+        description: 'Unified notification hub supporting email, SMS, voice calls, push notifications, and webhooks with delivery confirmation and retry logic.',
+        category: 'Notifications & Integration',
+        link: '/docs/alarm-management/multi-channel-notifications',
+        icon: <MessageSquare className="w-6 h-6" />,
+        status: 'core'
+    },
+    {
+        title: 'SMS/Email/Voice',
+        description: 'Integrated communication channels with templated messages, text-to-speech for voice calls, and two-way response handling.',
+        category: 'Notifications & Integration',
+        link: '/docs/alarm-management/sms-email-voice',
+        icon: <Volume2 className="w-6 h-6" />,
+        status: 'core'
+    },
+    {
+        title: 'Third-Party Integration',
+        description: 'API integrations with PSIM platforms, CRM systems, access control, video management, and dispatch services for seamless workflow automation.',
+        category: 'Notifications & Integration',
+        link: '/docs/alarm-management/third-party-integration',
+        icon: <Workflow className="w-6 h-6" />,
+        status: 'advanced'
+    },
+    {
+        title: 'Mobile Push',
+        description: 'Real-time push notifications to mobile devices with actionable alerts, location awareness, and offline acknowledgment capabilities.',
+        category: 'Notifications & Integration',
+        link: '/docs/alarm-management/mobile-push',
+        icon: <Zap className="w-6 h-6" />,
+        status: 'core'
+    },
 
     // Analytics & Reporting
+    {
+        title: 'Alarm Statistics',
+        description: 'Comprehensive dashboards showing alarm volumes, types, response times, and resolution rates with drill-down capabilities.',
+        category: 'Analytics & Reporting',
+        link: '/docs/alarm-management/alarm-statistics',
+        icon: <BarChart3 className="w-6 h-6" />,
+        status: 'core'
+    },
+    {
+        title: 'Response Time Metrics',
+        description: 'Detailed response time analytics from alarm receipt to resolution, identifying bottlenecks and improvement opportunities.',
+        category: 'Analytics & Reporting',
+        link: '/docs/alarm-management/response-time-metrics',
+        icon: <Timer className="w-6 h-6" />,
+        status: 'core'
+    },
+    {
+        title: 'Operator Performance',
+        description: 'Individual and team performance metrics including handling time, accuracy, customer satisfaction, and skill assessments.',
+        category: 'Analytics & Reporting',
+        link: '/docs/alarm-management/operator-performance',
+        icon: <UserCheck className="w-6 h-6" />,
+        status: 'advanced'
+    },
+    {
+        title: 'Trend Analysis',
+        description: 'Historical trend analysis and predictive insights for alarm patterns, seasonal variations, and capacity planning.',
+        category: 'Analytics & Reporting',
+        link: '/docs/alarm-management/trend-analysis',
+        icon: <Activity className="w-6 h-6" />,
+        status: 'advanced'
+    },
 
     // Optimization & Training
+    {
+        title: 'Alarm Review Mode',
+        description: 'Post-incident review tools for analyzing alarm handling decisions, identifying improvement areas, and updating best practices.',
+        category: 'Optimization & Training',
+        link: '/docs/alarm-management/alarm-review-mode',
+        icon: <CheckSquare className="w-6 h-6" />,
+        status: 'advanced'
+    },
+    {
+        title: 'Training Simulator',
+        description: 'Interactive training environment with simulated alarm scenarios for operator onboarding, skill development, and certification.',
+        category: 'Optimization & Training',
+        link: '/docs/alarm-management/training-simulator',
+        icon: <Play className="w-6 h-6" />,
+        status: 'advanced'
+    },
+    {
+        title: 'Best Practices',
+        description: 'Built-in best practice guidelines, decision trees, and SOP documentation integrated directly into the alarm handling workflow.',
+        category: 'Optimization & Training',
+        link: '/docs/alarm-management/best-practices',
+        icon: <FileText className="w-6 h-6" />,
+        status: 'core'
+    },
 
     // System Health & Performance
+    {
+        title: 'System Monitoring',
+        description: 'Real-time monitoring of all system components, communication channels, and integration endpoints with alerting.',
+        category: 'System Health & Performance',
+        link: '/docs/alarm-management/system-monitoring',
+        icon: <Activity className="w-6 h-6" />,
+        status: 'core'
+    },
+    {
+        title: 'Health Checks',
+        description: 'Automated health check routines for receiver lines, database connections, and critical services with auto-recovery options.',
+        category: 'System Health & Performance',
+        link: '/docs/alarm-management/health-checks',
+        icon: <CheckCircle2 className="w-6 h-6" />,
+        status: 'core'
+    },
+    {
+        title: 'Performance Metrics',
+        description: 'System performance dashboards showing throughput, latency, queue depths, and resource utilization for capacity planning.',
+        category: 'System Health & Performance',
+        link: '/docs/alarm-management/performance-metrics',
+        icon: <BarChart3 className="w-6 h-6" />,
+        status: 'advanced'
+    }
 ];
 
 // Category data

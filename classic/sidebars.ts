@@ -416,7 +416,8 @@ const sidebars: SidebarsConfig = {
           label: "Inviting Users"
         }
       ]
-    }
+    },
+
   ],
 };
 
