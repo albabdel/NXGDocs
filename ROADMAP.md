@@ -246,6 +246,36 @@ Complete rework of the NXGEN Technology AG documentation platform for B2B SaaS m
 
 ---
 
+### Phase 12: PDF Download for Articles ✅
+
+**Status:** Complete
+**Objective:** Add PDF download functionality for all documentation articles
+
+**Deliverables:**
+- [x] DownloadPDF React component with amber styling
+- [x] Auto-extract article content from DOM
+- [x] Generate PDF with NXGEN branding (amber header, styled typography)
+- [x] Page numbers, article title in header, date in footer
+- [x] Loading/success/error states
+- [x] Integration with DocItem (appears in TOC and header)
+- [x] Works on all documentation pages
+- [x] Optional disable per-doc with frontmatter
+
+**Components Created:**
+- `classic/src/components/DownloadPDF/index.tsx`
+- `classic/src/components/DownloadPDF/styles.module.css`
+- `classic/src/components/DownloadPDF/pdf-template.ts`
+- `classic/src/utils/generatePDF.ts`
+
+**Integration:**
+- `classic/src/theme/DocItem/Layout/index.tsx`
+- `classic/src/theme/DocItem/Content/index.tsx`
+
+**Dependencies Added:**
+- html2pdf.js (client-side PDF generation)
+
+---
+
 ## Sanity Content Summary
 
 ### Document Types
