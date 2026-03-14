@@ -377,6 +377,27 @@ export default function DocsIndex(): React.JSX.Element {
                                 <span>Updated weekly</span>
                             </div>
                         </div>
+
+                        {/* Quick Access to Home */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            className="mt-8"
+                        >
+                            <Link
+                                to="/"
+                                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold transition-all duration-200 hover:scale-105 no-underline"
+                                style={{
+                                    background: 'linear-gradient(135deg, #E8B058 0%, #D4A047 100%)',
+                                    color: '#000',
+                                    boxShadow: '0 4px 14px rgba(232, 176, 88, 0.4)',
+                                }}
+                            >
+                                <Home className="w-5 h-5" />
+                                <span>Return to Home</span>
+                            </Link>
+                        </motion.div>
                     </motion.div>
 
                     {/* Quick Links */}
