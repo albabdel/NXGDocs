@@ -211,6 +211,44 @@ export default function Home(): React.JSX.Element {
 
                 <div className="max-w-7xl mx-auto px-6 pb-24">
 
+                    {/* ── Quick Access Bar ────────────────────────────── */}
+                    <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+                        <Link
+                            to="/docs"
+                            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold no-underline"
+                            style={{
+                                background: 'linear-gradient(135deg, #E8B058 0%, #D4A047 100%)',
+                                color: '#000',
+                                boxShadow: '0 4px 16px rgba(232,176,88,0.35)',
+                            }}
+                        >
+                            <ArrowUpRight className="w-4 h-4" />
+                            Documentation Index
+                        </Link>
+                        <Link
+                            to="/releases"
+                            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium no-underline border"
+                            style={{
+                                borderColor: 'rgba(232,176,88,0.35)',
+                                color: '#E8B058',
+                                background: 'rgba(232,176,88,0.07)',
+                            }}
+                        >
+                            Release Notes
+                        </Link>
+                        <Link
+                            to="/roadmap"
+                            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium no-underline border"
+                            style={{
+                                borderColor: 'rgba(232,176,88,0.35)',
+                                color: '#E8B058',
+                                background: 'rgba(232,176,88,0.07)',
+                            }}
+                        >
+                            Roadmap
+                        </Link>
+                    </div>
+
                     {/* ── Quick Start ─────────────────────────────────── */}
                     <section className="mt-20">
                         <div className="flex items-end justify-between mb-8">

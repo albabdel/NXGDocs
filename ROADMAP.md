@@ -1,7 +1,7 @@
 ---
 milestone: Documentation Enhancement
 version: 2.2.0
-updated: 2026-03-14T22:00:00Z
+updated: 2026-03-14T23:30:00Z
 ---
 
 # NXGEN Docs Roadmap
@@ -224,7 +224,8 @@ Complete rework of the NXGEN Technology AG documentation platform for B2B SaaS m
 - [x] Category grid with article counts
 - [x] Landing pages section
 - [x] Resources section (API, Releases, Roadmap)
-- [x] Quick access to home (subtle banner)
+- [x] Return to Home button in docs hero (static, always visible)
+- [x] Quick access bar on landing page (Documentation Index, Release Notes, Roadmap)
 - [x] Last updated timestamps
 - [x] Auto-refresh when content changes
 
@@ -237,6 +238,11 @@ Complete rework of the NXGEN Technology AG documentation platform for B2B SaaS m
 **Scripts Created:**
 - `scripts/fetch-docs-index-data.js`
 - `scripts/seed-docs-index-config.js`
+
+**Bug Fixes (2026-03-14):**
+- Fixed invisible Return to Home button on /docs — removed framer-motion `initial={{ opacity: 0 }}` wrapper that prevented display due to SSR/hydration issues
+- Removed unreliable `position: fixed` floating button (Docusaurus stacking context breaks z-index)
+- Added quick access navigation bar to landing page (/) with Documentation Index, Release Notes, and Roadmap buttons
 
 ---
 
