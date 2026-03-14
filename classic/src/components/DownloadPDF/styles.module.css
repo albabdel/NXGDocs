@@ -21,6 +21,7 @@
   transition: all 0.2s ease;
   box-shadow: 0 2px 8px rgba(200, 148, 70, 0.3);
   min-width: 140px;
+  text-decoration: none;
 }
 
 .downloadButton:hover:not(:disabled) {
@@ -52,6 +53,13 @@
   box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
 }
 
+.downloadButton.unavailable {
+  background: linear-gradient(135deg, #9CA3AF 0%, #6B7280 100%);
+  box-shadow: 0 2px 8px rgba(107, 114, 128, 0.3);
+  cursor: default;
+  pointer-events: none;
+}
+
 .spinner {
   animation: spin 1s linear infinite;
 }
@@ -69,6 +77,22 @@
   color: #DC2626;
   font-size: 0.8125rem;
   max-width: 280px;
+}
+
+.unavailableMessage {
+  padding: 0.5rem 0.75rem;
+  background: rgba(107, 114, 128, 0.1);
+  border: 1px solid rgba(107, 114, 128, 0.2);
+  border-radius: 6px;
+  color: #6B7280;
+  font-size: 0.8125rem;
+  max-width: 280px;
+}
+
+.fileSize {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  font-weight: 500;
 }
 
 .loadingFallback {
@@ -110,6 +134,18 @@
   background: rgba(239, 68, 68, 0.08);
   border-color: rgba(239, 68, 68, 0.2);
   color: #DC2626;
+}
+
+[data-theme='dark'] .unavailableMessage {
+  background: rgba(107, 114, 128, 0.15);
+  border-color: rgba(107, 114, 128, 0.3);
+  color: #9CA3AF;
+}
+
+[data-theme='light'] .unavailableMessage {
+  background: rgba(107, 114, 128, 0.08);
+  border-color: rgba(107, 114, 128, 0.2);
+  color: #6B7280;
 }
 
 :global(.nxgen-pdf-container) {

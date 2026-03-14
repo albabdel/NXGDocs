@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} - NXGEN Documentation</title>
+    <style>
+        @page {
+            margin: 20mm 15mm 25mm 15mm;
+            @top-left {
+                content: element(header);
+            }
+            @bottom-center {
+                content: element(footer);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333333;
+            background: #ffffff;
+        }
+
+        .pdf-header {
+            position: running(header);
+            width: 100%;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #C9A227;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pdf-header .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .pdf-header .logo-section img {
+            height: 40px;
+            width: auto;
+        }
+
+        .pdf-header .logo-section .brand-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1C2E;
+        }
+
+        .pdf-header .date {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        .title-section {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .title-section h1.article-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1A1C2E;
+            margin-bottom: 10px;
+        }
+
+        .title-section .article-subtitle {
+            font-size: 16px;
+            color: #666666;
+            font-weight: 400;
+        }
+
+        .title-section .article-slug {
+            font-size: 12px;
+            color: #999999;
+            margin-top: 5px;
+            font-family: monospace;
+        }
+
+        .content {
+            margin-bottom: 40px;
+        }
+
+        .content h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1A1C2E;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            page-break-after: avoid;
+        }
+
+        .content h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1A1C2E;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            page-break-after: avoid;
+        }
+
+        .content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1A1C2E;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            page-break-after: avoid;
+        }
+
+        .content h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1C2E;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            page-break-after: avoid;
+        }
+
+        .content p {
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+
+        .content ul, .content ol {
+            margin-bottom: 12px;
+            padding-left: 25px;
+        }
+
+        .content li {
+            margin-bottom: 6px;
+        }
+
+        .content code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 13px;
+            color: #d63384;
+        }
+
+        .content pre {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            overflow-x: auto;
+            page-break-inside: avoid;
+        }
+
+        .content pre code {
+            background: none;
+            padding: 0;
+            color: #333333;
+            font-size: 13px;
+        }
+
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            page-break-inside: avoid;
+        }
+
+        .content table th,
+        .content table td {
+            border: 1px solid #dee2e6;
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        .content table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #1A1C2E;
+        }
+
+        .content table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        .content img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px auto;
+            page-break-inside: avoid;
+        }
+
+        .content blockquote {
+            border-left: 4px solid #C9A227;
+            padding-left: 15px;
+            margin: 15px 0;
+            color: #666666;
+            font-style: italic;
+        }
+
+        .content a {
+            color: #C9A227;
+            text-decoration: none;
+        }
+
+        .content a:hover {
+            text-decoration: underline;
+        }
+
+        .content hr {
+            border: none;
+            border-top: 1px solid #e0e0e0;
+            margin: 20px 0;
+        }
+
+        .pdf-footer {
+            position: running(footer);
+            width: 100%;
+            padding-top: 10px;
+            border-top: 2px solid #C9A227;
+            text-align: center;
+            font-size: 11px;
+            color: #666666;
+        }
+
+        .pdf-footer .company-name {
+            font-weight: 600;
+            color: #1A1C2E;
+        }
+
+        .pdf-footer .copyright {
+            margin-top: 5px;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        .no-break {
+            page-break-inside: avoid;
+        }
+
+        .note, .warning, .info, .tip {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            page-break-inside: avoid;
+        }
+
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+        }
+
+        .warning {
+            background-color: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+
+        .info {
+            background-color: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+        }
+
+        .tip {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+
+        .toc {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+        }
+
+        .toc h2 {
+            font-size: 18px;
+            color: #1A1C2E;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #C9A227;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc ul li {
+            margin-bottom: 8px;
+        }
+
+        .toc ul li a {
+            color: #333333;
+        }
+
+        .toc ul li ul {
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="pdf-header">
+        <div class="logo-section">
+            <img src="/img/nxgen-pdf-logo.png" alt="NXGEN Logo" />
+            <span class="brand-text">NXGEN | GCXONE Documentation</span>
+        </div>
+        <span class="date">{{date}}</span>
+    </div>
+
+    <div class="title-section">
+        <h1 class="article-title">{{title}}</h1>
+        <p class="article-slug">{{slug}}</p>
+    </div>
+
+    <div class="content">
+        {{content}}
+    </div>
+
+    <div class="pdf-footer">
+        <p class="company-name">GCXONE Security Management Platform | NXGEN Technology AG</p>
+        <p class="copyright">Copyright © {{year}} NXGEN Technology AG. All rights reserved.</p>
+    </div>
+</body>
+</html>
