@@ -1,3 +1,5 @@
+export type LoginMode = 'agent' | 'customer';
+
 export interface ZohoTicket {
   id: string;
   ticketNumber: string;
@@ -19,6 +21,15 @@ export interface ZohoTicket {
   channel: string;
   isOverDue: boolean;
   customFields: Record<string, string | null>;
+  assigneeId?: string | null;
+  assignee?: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    name: string;
+    email: string;
+    photoURL?: string;
+  } | null;
   contact?: {
     firstName: string;
     lastName: string;
@@ -59,7 +70,54 @@ export interface ZohoConversationItem {
   };
 }
 
+export interface ZohoAgent {
+  id: string;
+  firstName: string;
+  lastName: string;
+  name: string;
+  email: string;
+  photoURL: string;
+  roleId: string;
+  roleName: string;
+  isEnabled: boolean;
+}
+
+export interface ZohoStatus {
+  id: string;
+  type: string;
+  displayName: string;
+  colorCode: string;
+}
+
+export interface ZohoAttachment {
+  id: string;
+  attachmentId: string;
+  name: string;
+  size: string;
+  fileType: string;
+  href: string;
+  previewHref?: string;
+}
+
+export interface ZohoContact {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  accountId: string | null;
+  account?: {
+    accountName: string;
+  };
+}
+
 export interface ZohoTokenData {
   accessToken: string;
   expiry: number;
+  mode: LoginMode;
+  /** Only set for customer mode — the account (org) they belong to */
+  accountId?: string | null;
+  /** Fallback if no accountId — filter by contact */
+  contactId?: string | null;
+  /** Display name for the logged-in customer */
+  displayName?: string;
 }

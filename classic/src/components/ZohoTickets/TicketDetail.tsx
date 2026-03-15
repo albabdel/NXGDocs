@@ -1,15 +1,20 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import {
-  ArrowLeft, Loader, AlertCircle, Send, CheckCircle,
-  RefreshCw, User, MessageSquare, ExternalLink,
+  ArrowLeft, Loader, AlertCircle, Send, User, MessageSquare,
+  ExternalLink, Paperclip, X, Lock, Globe, Languages, ChevronDown,
+  ImageIcon, Download, Eye, EyeOff, Plus,
 } from 'lucide-react';
-import { getTicket, getConversations, addComment, updateTicketStatus } from './zohoApi';
-import type { ZohoTicket, ZohoConversationItem } from './types';
+import {
+  getTicket, getConversations, addComment, updateTicket,
+  listStatuses, listAgents, getAttachments, uploadAttachment, translateText,
+} from './zohoApi';
+import type { ZohoTicket, ZohoConversationItem, ZohoAgent, ZohoStatus, ZohoAttachment } from './types';
 
 interface Props {
   token: string;
   ticketId: string;
   isDark: boolean;
+  isCustomer?: boolean;
   onBack: () => void;
 }
 
@@ -20,17 +25,23 @@ const PRIORITY_STYLES: Record<string, { bg: string; color: string }> = {
   Low:      { bg: 'rgba(107,114,128,0.12)', color: '#6b7280' },
 };
 
-const STATUS_STYLES: Record<string, { bg: string; color: string }> = {
-  Open:     { bg: 'rgba(232,176,88,0.12)', color: '#E8B058' },
-  'On Hold':{ bg: 'rgba(139,92,246,0.12)', color: '#8b5cf6' },
-  Closed:   { bg: 'rgba(34,197,94,0.12)', color: '#22c55e' },
-};
+const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];
 
 function formatDateTime(iso: string): string {
   return new Date(iso).toLocaleString('en-GB', {
     day: '2-digit', month: 'short', year: 'numeric',
     hour: '2-digit', minute: '2-digit',
   });
+}
+
+function formatBytes(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+function htmlToText(html: string): string {
+  return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
 function Avatar({ name, photoURL, type, isDark }: {
@@ -58,15 +69,189 @@ function Avatar({ name, photoURL, type, isDark }: {
   );
 }
 
-export default function TicketDetail({ token, ticketId, isDark, onBack }: Props) {
+function TranslateButton({ text, isDark }: { text: string; isDark: boolean }) {
+  const [translated, setTranslated] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
+  const plain = htmlToText(text);
+
+  async function handleTranslate() {
+    if (translated) { setShow(s => !s); return; }
+    setLoading(true);
+    try {
+      const result = await translateText(plain);
+      setTranslated(result);
+      setShow(true);
+    } catch {
+      // silently fail
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div>
+      <button
+        onClick={handleTranslate}
+        title="Translate to English"
+        className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs mt-2 transition-all hover:opacity-80"
+        style={{
+          background: show ? 'rgba(59,130,246,0.12)' : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)'),
+          color: show ? '#3b82f6' : 'var(--ifm-color-content-secondary)',
+          border: `1px solid ${show ? 'rgba(59,130,246,0.3)' : (isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)')}`,
+          cursor: 'pointer',
+        }}
+      >
+        {loading ? <Loader className="w-3 h-3 animate-spin" /> : <Languages className="w-3 h-3" />}
+        {show ? 'Original' : 'Translate'}
+      </button>
+      {show && translated && (
+        <div
+          className="mt-2 p-3 rounded-lg text-sm"
+          style={{
+            background: isDark ? 'rgba(59,130,246,0.06)' : 'rgba(59,130,246,0.04)',
+            border: '1px solid rgba(59,130,246,0.2)',
+            color: 'var(--ifm-color-content)',
+            lineHeight: '1.5',
+          }}
+        >
+          <p className="text-xs mb-1.5" style={{ color: '#3b82f6' }}>English (translated)</p>
+          {translated}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function AttachmentItem({ att, token, isDark }: { att: ZohoAttachment; token: string; isDark: boolean }) {
+  const [lightbox, setLightbox] = useState(false);
+  const isImage = IMAGE_TYPES.includes(att.fileType);
+
+  return (
+    <>
+      <div
+        className="flex items-center gap-3 rounded-xl p-3"
+        style={{
+          background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
+          border: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`,
+        }}
+      >
+        <div
+          className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+          style={{ background: isImage ? 'rgba(232,176,88,0.1)' : 'rgba(107,114,128,0.1)' }}
+        >
+          {isImage ? (
+            <ImageIcon className="w-4 h-4" style={{ color: '#E8B058' }} />
+          ) : (
+            <Paperclip className="w-4 h-4" style={{ color: '#6b7280' }} />
+          )}
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-xs font-medium truncate" style={{ color: 'var(--ifm-color-content)' }}>
+            {att.name}
+          </p>
+          <p className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+            {formatBytes(parseInt(att.size, 10) || 0)}
+          </p>
+        </div>
+        <div className="flex items-center gap-1.5 flex-shrink-0">
+          {isImage && (
+            <button
+              onClick={() => setLightbox(true)}
+              title="Preview"
+              className="p-1.5 rounded-lg transition-all hover:opacity-80"
+              style={{ background: 'rgba(232,176,88,0.1)', color: '#E8B058', cursor: 'pointer', border: 'none' }}
+            >
+              <Eye className="w-3.5 h-3.5" />
+            </button>
+          )}
+          <a
+            href={att.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Download"
+            className="p-1.5 rounded-lg transition-all hover:opacity-80 inline-flex"
+            style={{ background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)', color: 'var(--ifm-color-content-secondary)', border: 'none' }}
+          >
+            <Download className="w-3.5 h-3.5" />
+          </a>
+        </div>
+      </div>
+
+      {/* Lightbox */}
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          style={{ background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(4px)' }}
+          onClick={() => setLightbox(false)}
+        >
+          <button
+            onClick={() => setLightbox(false)}
+            className="absolute top-4 right-4 p-2 rounded-full"
+            style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: 'none', cursor: 'pointer' }}
+          >
+            <X className="w-5 h-5" />
+          </button>
+          <img
+            src={att.previewHref ?? att.href}
+            alt={att.name}
+            className="max-w-[90vw] max-h-[85vh] rounded-xl object-contain"
+            onClick={e => e.stopPropagation()}
+          />
+        </div>
+      )}
+    </>
+  );
+}
+
+interface SelectProps {
+  value: string;
+  onChange: (val: string) => void;
+  isDark: boolean;
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+}
+
+function StyledSelect({ value, onChange, isDark, children, style }: SelectProps) {
+  return (
+    <select
+      value={value}
+      onChange={e => onChange(e.target.value)}
+      style={{
+        background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+        color: 'var(--ifm-color-content)',
+        border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)'}`,
+        borderRadius: '0.5rem',
+        padding: '0.25rem 0.6rem',
+        fontSize: '0.75rem',
+        cursor: 'pointer',
+        outline: 'none',
+        ...style,
+      }}
+    >
+      {children}
+    </select>
+  );
+}
+
+export default function TicketDetail({ token, ticketId, isDark, isCustomer, onBack }: Props) {
   const [ticket, setTicket] = useState<ZohoTicket | null>(null);
   const [conversations, setConversations] = useState<ZohoConversationItem[]>([]);
+  const [attachments, setAttachments] = useState<ZohoAttachment[]>([]);
+  const [agents, setAgents] = useState<ZohoAgent[]>([]);
+  const [statuses, setStatuses] = useState<ZohoStatus[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [comment, setComment] = useState('');
+  const [isPublicComment, setIsPublicComment] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [statusUpdating, setStatusUpdating] = useState(false);
-  const [actionMsg, setActionMsg] = useState<string | null>(null);
+  const [attachFile, setAttachFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [actionMsg, setActionMsg] = useState<{ text: string; ok: boolean } | null>(null);
+  const [updatingStatus, setUpdatingStatus] = useState(false);
+  const [updatingAssignee, setUpdatingAssignee] = useState(false);
+  const [showProperties, setShowProperties] = useState(true);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const commentRef = useRef<HTMLTextAreaElement>(null);
 
   const cardStyle = {
@@ -74,16 +259,30 @@ export default function TicketDetail({ token, ticketId, isDark, onBack }: Props)
     borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(232,176,88,0.15)',
   };
 
+  const showMsg = useCallback((text: string, ok = true) => {
+    setActionMsg({ text, ok });
+    setTimeout(() => setActionMsg(null), 4000);
+  }, []);
+
   async function load() {
     setLoading(true);
     setError(null);
     try {
-      const [t, c] = await Promise.all([
+      const agentPromise = (!isCustomer && !agents.length)
+        ? listAgents(token).catch(() => ({ data: [] }))
+        : Promise.resolve({ data: agents });
+      const statusPromise = (!isCustomer && !statuses.length)
+        ? listStatuses(token).catch(() => ({ data: [] }))
+        : Promise.resolve({ data: statuses });
+
+      const [t, c, a, st, ag] = await Promise.all([
         getTicket(token, ticketId),
         getConversations(token, ticketId),
+        getAttachments(token, ticketId).catch(() => ({ data: [] })),
+        statusPromise,
+        agentPromise,
       ]);
       setTicket(t);
-      // Sort: description thread first, then by time ascending
       const sorted = (c.data ?? []).sort((a, b) => {
         if (a.isDescriptionThread) return -1;
         if (b.isDescriptionThread) return 1;
@@ -92,6 +291,9 @@ export default function TicketDetail({ token, ticketId, isDark, onBack }: Props)
         return aTime.localeCompare(bTime);
       });
       setConversations(sorted);
+      setAttachments(a.data ?? []);
+      if (!isCustomer && !statuses.length) setStatuses(st.data ?? []);
+      if (!isCustomer && !agents.length) setAgents(ag.data ?? []);
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : 'Failed to load ticket');
     } finally {
@@ -101,35 +303,61 @@ export default function TicketDetail({ token, ticketId, isDark, onBack }: Props)
 
   useEffect(() => { load(); }, [ticketId]);
 
-  async function handleAddComment() {
-    if (!comment.trim() || submitting) return;
-    setSubmitting(true);
+  async function handleStatusChange(newStatus: string) {
+    if (!ticket || updatingStatus || newStatus === ticket.status) return;
+    setUpdatingStatus(true);
     try {
-      await addComment(token, ticketId, comment.trim());
-      setComment('');
-      setActionMsg('Comment added successfully.');
-      await load();
+      const updated = await updateTicket(token, ticketId, { status: newStatus });
+      setTicket(updated);
+      showMsg(`Status changed to ${newStatus}.`);
     } catch (e: unknown) {
-      setActionMsg(e instanceof Error ? `Error: ${e.message}` : 'Failed to add comment');
+      showMsg(e instanceof Error ? e.message : 'Failed to update status', false);
     } finally {
-      setSubmitting(false);
-      setTimeout(() => setActionMsg(null), 4000);
+      setUpdatingStatus(false);
     }
   }
 
-  async function handleToggleStatus() {
-    if (!ticket || statusUpdating) return;
-    const newStatus = ticket.status === 'Closed' ? 'Open' : 'Closed';
-    setStatusUpdating(true);
+  async function handleAssigneeChange(assigneeId: string) {
+    if (!ticket || updatingAssignee) return;
+    setUpdatingAssignee(true);
     try {
-      const updated = await updateTicketStatus(token, ticketId, newStatus);
-      setTicket(updated);
-      setActionMsg(`Ticket marked as ${newStatus}.`);
+      const updated = await updateTicket(token, ticketId, { assigneeId: assigneeId || '' });
+      setTicket({ ...updated, assignee: agents.find(a => a.id === assigneeId) ? {
+        id: assigneeId,
+        firstName: agents.find(a => a.id === assigneeId)?.firstName ?? '',
+        lastName: agents.find(a => a.id === assigneeId)?.lastName ?? '',
+        name: agents.find(a => a.id === assigneeId)?.name ?? '',
+        email: agents.find(a => a.id === assigneeId)?.email ?? '',
+      } : null });
+      showMsg(`Ticket assigned.`);
     } catch (e: unknown) {
-      setActionMsg(e instanceof Error ? `Error: ${e.message}` : 'Failed to update status');
+      showMsg(e instanceof Error ? e.message : 'Failed to assign', false);
     } finally {
-      setStatusUpdating(false);
-      setTimeout(() => setActionMsg(null), 4000);
+      setUpdatingAssignee(false);
+    }
+  }
+
+  async function handleAddComment() {
+    if ((!comment.trim() && !attachFile) || submitting) return;
+    setSubmitting(true);
+    try {
+      if (comment.trim()) {
+        await addComment(token, ticketId, comment.trim(), isPublicComment);
+      }
+      if (attachFile) {
+        setUploading(true);
+        await uploadAttachment(token, ticketId, attachFile);
+        setAttachFile(null);
+        setUploading(false);
+      }
+      setComment('');
+      showMsg('Comment added.');
+      await load();
+    } catch (e: unknown) {
+      showMsg(e instanceof Error ? e.message : 'Failed to add comment', false);
+      setUploading(false);
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -159,8 +387,9 @@ export default function TicketDetail({ token, ticketId, isDark, onBack }: Props)
   }
 
   const pStyle = PRIORITY_STYLES[ticket.priority] ?? PRIORITY_STYLES.Medium;
-  const sStyle = STATUS_STYLES[ticket.status] ?? STATUS_STYLES.Open;
   const nonDescConvs = conversations.filter(c => !c.isDescriptionThread);
+
+  const statusColor = statuses.find(s => s.displayName === ticket.status)?.colorCode;
 
   return (
     <div>
@@ -181,7 +410,13 @@ export default function TicketDetail({ token, ticketId, isDark, onBack }: Props)
               <span className="text-xs font-mono font-semibold" style={{ color: '#E8B058' }}>
                 #{ticket.ticketNumber}
               </span>
-              <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: sStyle.bg, color: sStyle.color }}>
+              <span
+                className="text-xs px-2 py-0.5 rounded-full font-medium"
+                style={{
+                  background: statusColor ? `${statusColor}22` : 'rgba(232,176,88,0.12)',
+                  color: statusColor ?? '#E8B058',
+                }}
+              >
                 {ticket.status}
               </span>
               <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: pStyle.bg, color: pStyle.color }}>
@@ -201,44 +436,145 @@ export default function TicketDetail({ token, ticketId, isDark, onBack }: Props)
               {ticket.modifiedTime !== ticket.createdTime && ` · Updated ${formatDateTime(ticket.modifiedTime)}`}
             </p>
           </div>
-          <div className="flex items-center gap-2 flex-shrink-0">
-            <a
-              href={ticket.webUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all hover:opacity-80 no-underline"
-              style={{
-                background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
-                color: 'var(--ifm-color-content-secondary)',
-                border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
-              }}
-            >
-              <ExternalLink className="w-3 h-3" /> Zoho
-            </a>
-            <button
-              onClick={handleToggleStatus}
-              disabled={statusUpdating}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
-              style={{
-                background: ticket.status === 'Closed' ? 'rgba(232,176,88,0.12)' : 'rgba(34,197,94,0.12)',
-                color: ticket.status === 'Closed' ? '#E8B058' : '#22c55e',
-                border: `1px solid ${ticket.status === 'Closed' ? 'rgba(232,176,88,0.25)' : 'rgba(34,197,94,0.25)'}`,
-                cursor: statusUpdating ? 'not-allowed' : 'pointer',
-                opacity: statusUpdating ? 0.7 : 1,
-              }}
-            >
-              {statusUpdating ? (
-                <Loader className="w-3 h-3 animate-spin" />
-              ) : ticket.status === 'Closed' ? (
-                <RefreshCw className="w-3 h-3" />
-              ) : (
-                <CheckCircle className="w-3 h-3" />
-              )}
-              {ticket.status === 'Closed' ? 'Reopen' : 'Close Ticket'}
-            </button>
-          </div>
+          <a
+            href={ticket.webUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all hover:opacity-80 no-underline flex-shrink-0"
+            style={{
+              background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
+              color: 'var(--ifm-color-content-secondary)',
+              border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+            }}
+          >
+            <ExternalLink className="w-3 h-3" /> Zoho
+          </a>
         </div>
       </div>
+
+      {/* Properties panel — agents only (read-only summary for customers) */}
+      {isCustomer ? (
+        <div className="rounded-xl border p-5 mb-4" style={cardStyle}>
+          <div className="flex items-center gap-4 flex-wrap text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+            <span>Status: <strong style={{ color: 'var(--ifm-color-content)' }}>{ticket.status}</strong></span>
+            <span>Priority: <strong style={{ color: 'var(--ifm-color-content)' }}>{ticket.priority}</strong></span>
+            <span>Channel: <strong style={{ color: 'var(--ifm-color-content)' }}>{ticket.channel}</strong></span>
+          </div>
+        </div>
+      ) : null}
+      {!isCustomer && <div className="rounded-xl border mb-4 overflow-hidden" style={cardStyle}>
+        <button
+          className="w-full flex items-center justify-between px-5 py-3 text-left"
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--ifm-color-content)' }}
+          onClick={() => setShowProperties(s => !s)}
+        >
+          <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#E8B058' }}>
+            Ticket Properties
+          </span>
+          <ChevronDown
+            className="w-4 h-4 transition-transform"
+            style={{ color: '#E8B058', transform: showProperties ? 'rotate(180deg)' : 'rotate(0deg)' }}
+          />
+        </button>
+
+        {showProperties && (
+          <div className="px-5 pb-5 grid grid-cols-2 gap-4" style={{ borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}` }}>
+            {/* Status */}
+            <div className="pt-4">
+              <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                Status
+              </label>
+              <div className="flex items-center gap-2">
+                <StyledSelect
+                  value={ticket.status}
+                  onChange={handleStatusChange}
+                  isDark={isDark}
+                  style={{ flex: 1 }}
+                >
+                  {statuses.length > 0
+                    ? statuses.map(s => <option key={s.id} value={s.displayName}>{s.displayName}</option>)
+                    : ['Open', 'On Hold', 'Closed', 'Waiting on customer feedback'].map(s => (
+                        <option key={s} value={s}>{s}</option>
+                      ))
+                  }
+                </StyledSelect>
+                {updatingStatus && <Loader className="w-3.5 h-3.5 animate-spin flex-shrink-0" style={{ color: '#E8B058' }} />}
+              </div>
+            </div>
+
+            {/* Assignee */}
+            <div className="pt-4">
+              <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                Assignee
+              </label>
+              <div className="flex items-center gap-2">
+                <StyledSelect
+                  value={ticket.assigneeId ?? ''}
+                  onChange={handleAssigneeChange}
+                  isDark={isDark}
+                  style={{ flex: 1 }}
+                >
+                  <option value="">Unassigned</option>
+                  {agents.map(ag => (
+                    <option key={ag.id} value={ag.id}>{ag.name || `${ag.firstName} ${ag.lastName}`}</option>
+                  ))}
+                </StyledSelect>
+                {updatingAssignee && <Loader className="w-3.5 h-3.5 animate-spin flex-shrink-0" style={{ color: '#E8B058' }} />}
+              </div>
+            </div>
+
+            {/* Priority */}
+            <div>
+              <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                Priority
+              </label>
+              <StyledSelect
+                value={ticket.priority}
+                onChange={val => updateTicket(token, ticketId, { priority: val }).then(setTicket).catch(() => {})}
+                isDark={isDark}
+                style={{ width: '100%' }}
+              >
+                {['Critical', 'High', 'Medium', 'Low'].map(p => <option key={p} value={p}>{p}</option>)}
+              </StyledSelect>
+            </div>
+
+            {/* Channel */}
+            <div>
+              <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                Channel
+              </label>
+              <span className="text-xs" style={{ color: 'var(--ifm-color-content)' }}>{ticket.channel}</span>
+            </div>
+
+            {/* Custom fields */}
+            {Object.entries(ticket.customFields ?? {})
+              .filter(([, v]) => v != null && v !== '')
+              .map(([k, v]) => (
+                <div key={k}>
+                  <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                    {k.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ')}
+                  </label>
+                  <span className="text-xs" style={{ color: 'var(--ifm-color-content)' }}>{v}</span>
+                </div>
+              ))
+            }
+          </div>
+        )}
+      </div>}
+
+      {/* Attachments */}
+      {attachments.length > 0 && (
+        <div className="rounded-xl border p-5 mb-4" style={cardStyle}>
+          <h3 className="text-xs font-semibold uppercase tracking-wider mb-3 flex items-center gap-2" style={{ color: '#E8B058' }}>
+            <Paperclip className="w-3.5 h-3.5" /> Attachments ({attachments.length})
+          </h3>
+          <div className="grid grid-cols-1 gap-2">
+            {attachments.map(att => (
+              <AttachmentItem key={att.id ?? att.attachmentId} att={att} token={token} isDark={isDark} />
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Description */}
       {ticket.description && (
@@ -251,6 +587,7 @@ export default function TicketDetail({ token, ticketId, isDark, onBack }: Props)
             style={{ color: 'var(--ifm-color-content)', lineHeight: '1.6' }}
             dangerouslySetInnerHTML={{ __html: ticket.description }}
           />
+          <TranslateButton text={ticket.description} isDark={isDark} />
         </div>
       )}
 
@@ -263,11 +600,16 @@ export default function TicketDetail({ token, ticketId, isDark, onBack }: Props)
               Comments ({nonDescConvs.length})
             </h3>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-5">
             {nonDescConvs.map(conv => {
               const person = conv.commenter ?? conv.author;
               const time = conv.commentedTime ?? conv.createdTime;
               const isAgent = conv.commenter?.type === 'AGENT' || conv.author?.type === 'AGENT';
+              const typeLabel = conv.type === 'replyAll' ? 'Reply All'
+                : conv.type === 'reply' ? 'Reply'
+                : conv.type === 'comment' ? 'Comment'
+                : conv.type;
+
               return (
                 <div key={conv.id} className="flex gap-3">
                   <Avatar
@@ -290,6 +632,27 @@ export default function TicketDetail({ token, ticketId, isDark, onBack }: Props)
                       >
                         {isAgent ? 'Agent' : 'Customer'}
                       </span>
+                      {/* Visibility badge */}
+                      <span
+                        className="inline-flex items-center gap-0.5 text-xs px-1.5 py-0.5 rounded font-medium"
+                        title={conv.isPublic ? 'Visible to customer' : 'Internal note'}
+                        style={{
+                          background: conv.isPublic ? 'rgba(34,197,94,0.1)' : 'rgba(139,92,246,0.1)',
+                          color: conv.isPublic ? '#22c55e' : '#8b5cf6',
+                        }}
+                      >
+                        {conv.isPublic ? <Globe className="w-2.5 h-2.5" /> : <Lock className="w-2.5 h-2.5" />}
+                        {conv.isPublic ? 'Public' : 'Private'}
+                      </span>
+                      {/* Reply type */}
+                      {typeLabel && (
+                        <span className="text-xs px-1.5 py-0.5 rounded font-medium" style={{
+                          background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+                          color: 'var(--ifm-color-content-secondary)',
+                        }}>
+                          {typeLabel}
+                        </span>
+                      )}
                       {time && (
                         <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
                           {formatDateTime(time)}
@@ -306,6 +669,7 @@ export default function TicketDetail({ token, ticketId, isDark, onBack }: Props)
                       }}
                       dangerouslySetInnerHTML={{ __html: conv.content }}
                     />
+                    <TranslateButton text={conv.content} isDark={isDark} />
                   </div>
                 </div>
               );
@@ -316,51 +680,129 @@ export default function TicketDetail({ token, ticketId, isDark, onBack }: Props)
 
       {/* Add comment */}
       <div className="rounded-xl border p-5" style={cardStyle}>
-        <h3 className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: '#E8B058' }}>
-          Add Comment
-        </h3>
+        <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
+          <h3 className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#E8B058' }}>
+            Add Comment
+          </h3>
+          {/* Public / Private toggle — agents only */}
+          {!isCustomer && <div className="flex items-center gap-1.5 rounded-full p-0.5" style={{
+            background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)',
+            border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+          }}>
+            <button
+              onClick={() => setIsPublicComment(true)}
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium transition-all"
+              style={{
+                background: isPublicComment ? 'rgba(34,197,94,0.15)' : 'transparent',
+                color: isPublicComment ? '#22c55e' : 'var(--ifm-color-content-secondary)',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              <Globe className="w-3 h-3" /> Public
+            </button>
+            <button
+              onClick={() => setIsPublicComment(false)}
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium transition-all"
+              style={{
+                background: !isPublicComment ? 'rgba(139,92,246,0.15)' : 'transparent',
+                color: !isPublicComment ? '#8b5cf6' : 'var(--ifm-color-content-secondary)',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              <Lock className="w-3 h-3" /> Private
+            </button>
+          </div>}
+        </div>
+
         <textarea
           ref={commentRef}
           value={comment}
           onChange={e => setComment(e.target.value)}
-          placeholder="Write a comment..."
+          placeholder={isPublicComment ? 'Reply to customer...' : 'Internal note (not visible to customer)...'}
           rows={4}
           className="w-full rounded-xl px-4 py-3 text-sm resize-none outline-none transition-all"
           style={{
             background: isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.8)',
-            border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(232,176,88,0.2)'}`,
+            border: `1px solid ${isPublicComment
+              ? (isDark ? 'rgba(255,255,255,0.1)' : 'rgba(232,176,88,0.2)')
+              : 'rgba(139,92,246,0.3)'}`,
             color: 'var(--ifm-color-content)',
           }}
           onKeyDown={e => {
             if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) handleAddComment();
           }}
         />
+
+        {/* Attachment preview */}
+        {attachFile && (
+          <div
+            className="flex items-center gap-2 mt-2 px-3 py-2 rounded-lg text-xs"
+            style={{
+              background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)',
+              border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
+              color: 'var(--ifm-color-content)',
+            }}
+          >
+            <Paperclip className="w-3 h-3 flex-shrink-0" style={{ color: '#E8B058' }} />
+            <span className="flex-1 truncate">{attachFile.name}</span>
+            <span style={{ color: 'var(--ifm-color-content-secondary)' }}>{formatBytes(attachFile.size)}</span>
+            <button
+              onClick={() => setAttachFile(null)}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--ifm-color-content-secondary)', padding: 0 }}
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
+
         <div className="flex items-center justify-between mt-3 flex-wrap gap-2">
-          <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-            Cmd/Ctrl + Enter to submit
-          </span>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              title="Attach file"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-all hover:opacity-80"
+              style={{
+                background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)',
+                color: 'var(--ifm-color-content-secondary)',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                cursor: 'pointer',
+              }}
+            >
+              <Paperclip className="w-3.5 h-3.5" /> Attach
+            </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              className="hidden"
+              onChange={e => setAttachFile(e.target.files?.[0] ?? null)}
+            />
+            <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+              Cmd/Ctrl + Enter to submit
+            </span>
+          </div>
+
           <button
             onClick={handleAddComment}
-            disabled={!comment.trim() || submitting}
+            disabled={(!comment.trim() && !attachFile) || submitting || uploading}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all"
             style={{
-              background: comment.trim() && !submitting ? '#E8B058' : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'),
-              color: comment.trim() && !submitting ? '#000' : 'var(--ifm-color-content-secondary)',
-              cursor: !comment.trim() || submitting ? 'not-allowed' : 'pointer',
-              opacity: !comment.trim() || submitting ? 0.6 : 1,
+              background: (comment.trim() || attachFile) && !submitting ? '#E8B058' : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'),
+              color: (comment.trim() || attachFile) && !submitting ? '#000' : 'var(--ifm-color-content-secondary)',
+              cursor: (!comment.trim() && !attachFile) || submitting ? 'not-allowed' : 'pointer',
+              opacity: (!comment.trim() && !attachFile) || submitting ? 0.6 : 1,
               border: 'none',
             }}
           >
-            {submitting ? <Loader className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
-            Send Comment
+            {(submitting || uploading) ? <Loader className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+            Send
           </button>
         </div>
+
         {actionMsg && (
-          <p
-            className="text-xs mt-2"
-            style={{ color: actionMsg.startsWith('Error') ? '#ef4444' : '#22c55e' }}
-          >
-            {actionMsg}
+          <p className="text-xs mt-2" style={{ color: actionMsg.ok ? '#22c55e' : '#ef4444' }}>
+            {actionMsg.text}
           </p>
         )}
       </div>

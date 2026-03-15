@@ -5,4 +5,15 @@ pages_build_output_dir = "classic/build"
 [vars]
 SANITY_PROJECT_ID = "fjjuacab"
 SANITY_DATASET = "production"
-# SANITY_API_TOKEN is set as a secret in Cloudflare Pages dashboard (not committed)
+AUTH0_DOMAIN = "nxgen.eu.auth0.com"
+ZOHO_ORG_ID = "20067436506"
+# Secrets — set in Cloudflare Pages dashboard (Settings → Environment variables), never committed:
+#   SANITY_API_TOKEN       — Sanity read token
+#   ZOHO_REFRESH_TOKEN     — Zoho service account refresh token (from api-console.zoho.eu, authorization_code grant)
+#   ZOHO_CLIENT_ID         — Zoho OAuth app client ID (same as frontend: 1000.F5X0EPUNG5MJ7NGV5T4CSVO8AU1TZN)
+#   ZOHO_CLIENT_SECRET     — Zoho OAuth app client secret (from api-console.zoho.eu)
+# To generate ZOHO_REFRESH_TOKEN:
+#   1. Go to https://api-console.zoho.eu → open your OAuth app → "Self Client" tab
+#   2. Scope: Desk.tickets.READ Desk.tickets.UPDATE Desk.tickets.CREATE Desk.contacts.READ Desk.basic.READ
+#   3. Generate code (valid 3 min), then POST to https://accounts.zoho.eu/oauth/v2/token with grant_type=authorization_code
+#   4. Save the refresh_token — it is long-lived
