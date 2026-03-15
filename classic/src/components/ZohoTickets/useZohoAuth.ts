@@ -169,7 +169,10 @@ export function useZohoAuth() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ action: 'auth0-exchange', idToken: auth0Raw.idToken }),
           });
-          const data = await res.json() as {
+          const text = await res.text();
+          let data: Record<string, unknown>;
+          try { data = JSON.parse(text); } catch { throw new Error(`Server error (${res.status}): ${text.slice(0, 200)}`); }
+          data = data as {
             ok?: boolean;
             accessToken?: string;
             expiry?: number;

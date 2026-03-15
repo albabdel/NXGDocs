@@ -10,7 +10,8 @@ ZOHO_ORG_ID = "20067436506"
 # Secrets — set in Cloudflare Pages dashboard (Settings → Environment variables), never committed:
 #   SANITY_API_TOKEN       — Sanity read token
 #   ZOHO_REFRESH_TOKEN     — Zoho service account refresh token (from api-console.zoho.eu, authorization_code grant)
-#   ZOHO_CLIENT_ID         — Zoho OAuth app client ID (same as frontend: 1000.F5X0EPUNG5MJ7NGV5T4CSVO8AU1TZN)
+#   ZOHO_CLIENT_ID         — Self Client app ID used to obtain the refresh token: 1000.QW27E1UCMBJEBHEJYD7US8Q83FVRHW
+#                            (NOT the same as the frontend agent OAuth app 1000.F5X0EPUNG5MJ7NGV5T4CSVO8AU1TZN)
 #   ZOHO_CLIENT_SECRET     — Zoho OAuth app client secret (from api-console.zoho.eu)
 # To generate ZOHO_REFRESH_TOKEN:
 #   1. Go to https://api-console.zoho.eu → open your OAuth app → "Self Client" tab
