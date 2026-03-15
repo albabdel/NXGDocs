@@ -1,0 +1,60 @@
+[
+  {
+    "displayTitle": "February 2026 Release B",
+    "sprintId": "Sprint 2026.02-B",
+    "slug": "sprint-2026-02-b",
+    "publishedAt": "2026-02-28",
+    "summary": "This release introduces a complete Role-Based Access Control system overhaul, DC09 Alarm Management System integration, and critical platform stability improvements.",
+    "items": [
+      {
+        "id": "RBAC-001",
+        "title": "Role-Based Access Control System",
+        "description": "Complete RBAC system rework enabling administrators to create roles with hierarchical entity assignments, dynamic privilege filtering, and permission overrides. Includes role cloning, bulk group assignments, and real-time permission enforcement without caching delays.",
+        "changeType": "feature",
+        "affectedAreas": ["security", "permissions", "admin", "user-management"]
+      },
+      {
+        "id": "RBAC-002",
+        "title": "Time-Based Invitation Access Tokens",
+        "description": "Generate unique access tokens for time-limited invitations with automatic session revocation upon expiration. Tokens validate against server time and cannot be reused or extended by client timezone manipulation.",
+        "changeType": "feature",
+        "affectedAreas": ["security", "user-management", "authentication"]
+      },
+      {
+        "id": "RBAC-003",
+        "title": "On-Call Shift Protection for Role Changes",
+        "description": "System detects active and upcoming shifts before allowing role modifications. Administrators receive warnings listing impacted users with shift status, and can choose immediate or scheduled application. Audit logs capture all change decisions.",
+        "changeType": "feature",
+        "affectedAreas": ["security", "workflow", "audit", "operator-guide"]
+      },
+      {
+        "id": "RBAC-004",
+        "title": "User-Level Privilege Restrictions",
+        "description": "Administrators can exclude specific privileges from individual users without creating separate roles. Restrictions apply within seconds, persist across sessions, and are captured in audit logs with clear user messaging.",
+        "changeType": "feature",
+        "affectedAreas": ["security", "permissions", "user-management"]
+      },
+      {
+        "id": "DC09-001",
+        "title": "DC09 Alarm Management System Integration",
+        "description": "Marketplace integration for DC09-compatible CMS platforms (Evalink Talos, Amwin, Lisa, Immix, Alice). Supports tenant-level CMS configuration with Company ID and API Token credentials, secure storage, and configuration status tracking.",
+        "changeType": "feature",
+        "affectedAreas": ["marketplace", "cms-integration", "alarm-management"]
+      },
+      {
+        "id": "DC09-002",
+        "title": "DC09 Site Configuration and Alarm Routing",
+        "description": "Add DC09 Account ID field to site forms for alarm routing. Supports unique account assignment per site targeting the same CMS, immediate effect on configuration changes, and proper validation for sites forwarding alarms.",
+        "changeType": "feature",
+        "affectedAreas": ["devices", "alarm-management", "configuration"]
+      },
+      {
+        "id": "STAB-001",
+        "title": "Platform Stability and Regression Fixes",
+        "description": "Critical fixes for CMS validation errors including mandatory field enforcement, credential format validation, duplicate configuration prevention, and actionable error messaging. Resolves data loss issues on role edits and permission leakage concerns.",
+        "changeType": "improvement",
+        "affectedAreas": ["platform-fundamentals", "data-validation", "security"]
+      }
+    ]
+  }
+]

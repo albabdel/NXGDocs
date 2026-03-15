@@ -1,0 +1,67 @@
+[
+  {
+    "displayTitle": "March 2026 Release A",
+    "sprintId": "Sprint 2026.03-A",
+    "publishedAt": "2026-03-15",
+    "slug": "sprint-2026-03-a",
+    "summary": "This release delivers AutoStream automated video streaming, comprehensive reports management dashboard, and multi-monitor Talos-Salvo integration for enhanced operator workflows.",
+    "items": [
+      {
+        "id": "AS-001",
+        "title": "AutoStream - Automated Video Streaming",
+        "description": "When qualifying alarms trigger, live streams automatically start for all cameras mapped to that alarm. Supports zone-based camera selection, role-based streaming permissions, and comprehensive activity logging for compliance and troubleshooting.",
+        "changeType": "feature",
+        "affectedAreas": ["streaming", "alarms", "cameras", "permissions"]
+      },
+      {
+        "id": "AS-002",
+        "title": "AutoStream Settings Management",
+        "description": "Administrators can configure which alarm types trigger streaming, manage streaming permissions by role, and control zone-based camera selection. All settings are read from and written to Genesis with no local storage.",
+        "changeType": "feature",
+        "affectedAreas": ["configuration", "admin", "streaming", "permissions"]
+      },
+      {
+        "id": "AS-003",
+        "title": "Zone-Based Alarm Routing for Streaming",
+        "description": "When alarms include zone data, only cameras within that zone stream automatically. Unmatched or missing zones fall back to site-level streaming. Zone changes affect future alarms only, ensuring consistent behavior for active events.",
+        "changeType": "feature",
+        "affectedAreas": ["zones", "streaming", "alarm-management"]
+      },
+      {
+        "id": "RPT-001",
+        "title": "Reports Dashboard and Scheduling",
+        "description": "New Manage Report Schedules dashboard displays summary cards for active schedules, reports sent this month, and failed deliveries. Users can create, edit, delete, and manually trigger report schedules with configurable customer and site associations.",
+        "changeType": "feature",
+        "affectedAreas": ["reports", "dashboard", "admin"]
+      },
+      {
+        "id": "RPT-002",
+        "title": "Report Schedule Management Actions",
+        "description": "Schedule table provides Edit, Delete, and Trigger actions for report management. Supports pagination with configurable rows per page. Created schedules appear immediately with success confirmation.",
+        "changeType": "feature",
+        "affectedAreas": ["reports", "ui-behavior", "admin"]
+      },
+      {
+        "id": "MM-001",
+        "title": "Multi-Monitor Talos-Salvo Integration",
+        "description": "Motion alarms automatically open the alarm workflow in Talos and load the corresponding alarm quad in Salvo. Behavior controlled by toggle combinations: multi-monitor only, autostream only, or both enabled. Closing workflows or canceling alarms synchronizes quad state across monitors.",
+        "changeType": "feature",
+        "affectedAreas": ["talos", "salvo", "multi-monitor", "workflow", "operator-guide"]
+      },
+      {
+        "id": "MM-002",
+        "title": "Quad View Automation for Motion Alarms",
+        "description": "Motion alarms automatically open quad view even when users are viewing other cameras. Quad behavior remains consistent for repeated alarms, and alarm lifecycle (cancel, close, reopen) properly syncs quad state with workflow status.",
+        "changeType": "feature",
+        "affectedAreas": ["multi-monitor", "ui-behavior", "workflow"]
+      },
+      {
+        "id": "DC09-003",
+        "title": "DC09 Alarm Forward Logging",
+        "description": "Device Dashboard displays DC09 Alarm Forward Log section for sites forwarding alarms. Shows comprehensive entry details including time, alarm code, response, encryption status, and routing information. Near real-time updates with success and failure entries.",
+        "changeType": "feature",
+        "affectedAreas": ["device-dashboard", "logging", "alarm-management", "compliance"]
+      }
+    ]
+  }
+]

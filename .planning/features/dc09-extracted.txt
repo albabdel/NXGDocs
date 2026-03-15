@@ -1,0 +1,198 @@
+
+
+BY NXGEN
+
+
+
+Alarm Management System
+
+DC09 CMS Integration & Evalink Talos
+
+
+
+Feature Guide
+
+2026
+
+
+
+GCXONE Security Management Platform  |  NXGEN Technology AG
+
+© 2026 NXGEN Technology AG. All rights reserved.
+
+
+
+Alarm Management System Integrations
+
+GCXONE now supports direct integration with third-party Alarm Management Systems (CMS) from the Marketplace. This guide covers two newly supported integrations: DC09-based CMS receivers — including Amwin, Lisa, Immix, and other SIA DC-09 compatible systems — and Evalink Talos, a cloud-based alarm management platform. Both integrations can be configured entirely from within GCXONE without any manual protocol setup.
+
+
+
+1.  DC09 CMS Integration
+
+What is SIA DC-09?
+
+SIA DC-09 is an industry-standard protocol used for transmitting alarm signals from a monitoring system to a Central Monitoring Station (CMS) or Alarm Receiving Centre (ARC). It operates over IP networks (TCP/IP) and is the backbone of modern alarm communication, replacing older PSTN-based formats. When an alarm event is triggered in GCXONE, the platform acts as the sending endpoint — packaging the alarm data and forwarding it to the CMS receiver at the configured IP address and port.
+
+GCXONE extends the standard DC-09 signal by attaching a secure event link. When the operator at the CMS opens the link, they see a rich evidence view: pre-event footage, the event frame, post-event footage, and an animated GIF of the event — all fully configurable per deployment.
+
+
+
+Step 1 — Navigate to the Marketplace
+
+Go to Marketplace in the left navigation panel. The Marketplace organises available integrations by category. Click the Alarm Management System tab to filter the view to CMS-compatible integrations.
+
+
+
+Figure 1: The Marketplace — select the Alarm Management System category to find CMS integrations.
+
+The Alarm Management System section displays all supported receivers. Currently available integrations include Amwin, Lisa Security, Immix, and Other CMS System (for any DC-09 compatible receiver not listed explicitly). Each card shows its configuration status — Configured or Not Configured.
+
+
+
+Figure 2: CMS integration cards showing Evalink Talos (Configured), Amwin (Configured), Lisa (Not Configured), and Immix (Not Configured).
+
+
+
+Step 2 — Configure the CMS Receiver
+
+Click Explore on the CMS you want to configure. Each integration detail page describes how the connection works and what the DC-09 forwarding covers. Click Configure to open the connection setup dialog.
+
+
+
+Figure 3: Lisa Security detail page — integration overview and Configure button.
+
+The configuration dialog collects two pieces of information needed to establish the DC-09 connection:
+
+•  DC09 Receiver IP Address — the destination endpoint where GCXONE will push alarm data. This is the IP address of the CMS server.
+
+•  DC09 Receiver Port — the TCP port the CMS server is listening on for incoming DC-09 signals.
+
+
+
+Figure 4: Add Lisa dialog — enter the DC09 Receiver IP Address and DC09 Receiver Port to establish the connection.
+
+The same dialog applies to all DC-09 based receivers. For unlisted systems, use the Other CMS System option, which accepts identical fields and works with any SIA DC-09 compatible receiver.
+
+
+
+Figure 5: Add Other CMS System dialog — supports any SIA DC-09 compatible receiver using the same IP address and port configuration.
+
+Once submitted, GCXONE establishes the initial TCP connection to the CMS. The integration card will update its status to Configured. The receiver is now ready to accept alarm signals — but alarms will only be forwarded once individual sites are mapped in the next step.
+
+
+
+Step 3 — Map Sites in the Alarm Management System Table
+
+After the CMS receiver is configured, a new Alarm Management System tab appears in the Configuration section of each service provider. Navigate to Configuration → [Your Service Provider] → Alarm Management System to open the site mapping table.
+
+This table lists every site under the service provider, showing the Customer, Site name, DC09 Account ID, CMS system assigned, and connection status. Sites that have not yet been mapped show a red indicator and a dash in the Account ID column.
+
+
+
+Figure 6: Alarm Management System table — all sites visible, most not yet mapped (red indicators). The Account ID column is empty for unconfigured sites.
+
+Sites that have been successfully mapped show a green indicator and the name of the CMS they are connected to.
+
+
+
+Figure 7: Alarm Management System table showing a mix of configured sites (green, with Account ID and CMS name) and unconfigured sites (red).
+
+
+
+Step 4 — Edit Site Configuration (DC09 Account ID)
+
+Click the edit icon on any site row to open the Edit IP Configuration dialog. This step maps the GCXONE site to its corresponding account on the CMS side.
+
+
+
+Figure 8: Edit IP Configuration dialog — enter the DC09 Account ID and optional Encryption Key for the site.
+
+Two fields are available:
+
+•  DC09 Account ID — this must exactly match the site name as it is registered on the CMS. It is the identifier the CMS uses to attribute incoming alarms to the correct account.
+
+•  Encryption Key — an optional shared secret for encrypted DC-09 communication. Leave blank if the CMS does not require encryption.
+
+Click Update to save. Once a site is mapped, GCXONE will begin forwarding alarms from that site to the CMS using DC-09, with a secure event link attached. Operators at the CMS can open the link to view pre-event, current, post-event footage, and an event GIF directly in their browser.
+
+
+
+2.  Evalink Talos Integration
+
+What is Evalink Talos?
+
+Evalink Talos is a cloud-native alarm management platform used by monitoring centres to receive, process, and dispatch alarm events. Unlike DC-09 receivers that accept pushed signals over TCP, Talos uses a REST API for integration. GCXONE connects to Talos by authenticating with an API key, which allows it to forward alarm events programmatically without any network-level firewall configuration on the Talos side.
+
+
+
+Configuring the Evalink Talos Integration
+
+In the Marketplace, click Explore on the Evalink Talos card. The detail page explains the scope of the integration. Click Configure to begin.
+
+
+
+Figure 9: Marketplace — Evalink Talos card shown as Configured (green badge). Click Explore to view details or update the configuration.
+
+The Evalink Talos configuration requires two values, both obtained from your Talos account:
+
+•  API Key — a Talos-generated API key with full access permissions. This authenticates GCXONE to post alarm events to the Talos API on your behalf.
+
+•  Company ID — the unique identifier for your organisation within Talos. This ensures alarm events are attributed to the correct company account.
+
+Both values are available in your Evalink Talos account settings under API Access. Paste them into the configuration form and click Submit. GCXONE will verify the credentials and establish the connection. Once active, alarms are forwarded to Talos automatically — no additional site-level mapping is required.
+
+
+
+Summary
+
+Both integrations are designed to be configured entirely within GCXONE without any manual protocol configuration or external scripting. The table below summarises the key differences between the two integration types.
+
+
+
+
+
+DC09 CMS (Amwin / Lisa / etc.)
+
+Evalink Talos
+
+Protocol
+
+SIA DC-09 over TCP/IP
+
+REST API
+
+Setup location
+
+Marketplace → Configure
+
+Marketplace → Configure
+
+Required inputs
+
+Receiver IP + Port
+
+API Key + Company ID
+
+Site mapping
+
+Required — via AMS table
+
+Not required
+
+Alarm payload
+
+DC-09 signal + event link
+
+API event post
+
+Event evidence
+
+Pre / Current / Post + GIF
+
+Per Talos configuration
+
+
+
+For support or configuration assistance, contact NXGEN Technology AG through the GCXONE support portal.
+
