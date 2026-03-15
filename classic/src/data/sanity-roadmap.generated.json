@@ -1,5 +1,157 @@
 [
   {
+    "_id": "roadmap-advanced-reporting",
+    "_updatedAt": "2026-03-15T13:09:23Z",
+    "businessValue": "Eliminates manual report preparation time for compliance and operational reviews.",
+    "changeType": "feature",
+    "description": "Enhanced reporting dashboard with custom filters, scheduled report generation, and PDF export.",
+    "entitiesImpacted": [
+      "Reporting",
+      "Admin",
+      "Manager"
+    ],
+    "projectedRelease": "Q2 2026",
+    "releaseSlug": null,
+    "status": "In Progress",
+    "title": "Advanced Reporting Dashboard",
+    "uiChange": true
+  },
+  {
+    "_id": "roadmap-api-rate-limits",
+    "_updatedAt": "2026-03-15T13:09:23Z",
+    "businessValue": "Prevents unexpected API throttling for integrators building on GCXONE platform.",
+    "changeType": "improvement",
+    "description": "Real-time API usage dashboard showing current rate limits and consumption metrics.",
+    "entitiesImpacted": [
+      "API",
+      "Developers",
+      "Integrations"
+    ],
+    "projectedRelease": "Q2 2026",
+    "releaseSlug": null,
+    "status": "In Progress",
+    "title": "API Rate Limit Visibility",
+    "uiChange": true
+  },
+  {
+    "_id": "roadmap-compliance-reports",
+    "_updatedAt": "2026-03-15T13:09:23Z",
+    "businessValue": "Reduces compliance team overhead by automating mandatory reporting.",
+    "changeType": "feature",
+    "description": "Scheduled PDF compliance report generation with customizable templates.",
+    "entitiesImpacted": [
+      "Reporting",
+      "Compliance",
+      "Admin"
+    ],
+    "projectedRelease": "Q3 2026",
+    "releaseSlug": null,
+    "status": "Planned",
+    "title": "Automated Compliance Reports",
+    "uiChange": true
+  },
+  {
+    "_id": "roadmap-dc09-integration",
+    "_updatedAt": "2026-03-15T13:09:23Z",
+    "businessValue": "Enables seamless integration with existing central monitoring station infrastructure.",
+    "changeType": "feature",
+    "description": "Marketplace integration for DC09-compatible CMS platforms (Evalink Talos, Amwin, Lisa, Immix) with encrypted alarm forwarding.",
+    "entitiesImpacted": [
+      "Alarm Management",
+      "Integrations",
+      "Admin"
+    ],
+    "projectedRelease": "Q1 2026",
+    "releaseSlug": null,
+    "status": "Shipped",
+    "title": "DC09 Alarm Management System Integration",
+    "uiChange": true
+  },
+  {
+    "_id": "roadmap-mobile-operator",
+    "_updatedAt": "2026-03-15T13:09:23Z",
+    "businessValue": "Enables remote monitoring for on-call operators and reduces response time.",
+    "changeType": "feature",
+    "description": "Native mobile app for operators to monitor and acknowledge alarms on the go.",
+    "entitiesImpacted": [
+      "Mobile",
+      "Operators",
+      "Alarm Management"
+    ],
+    "projectedRelease": "Q4 2026",
+    "releaseSlug": null,
+    "status": "Planned",
+    "title": "Mobile App Operator Dashboard",
+    "uiChange": true
+  },
+  {
+    "_id": "roadmap-multilang-support",
+    "_updatedAt": "2026-03-15T13:09:23Z",
+    "businessValue": "Enables expansion into Spanish-speaking monitoring station markets.",
+    "changeType": "feature",
+    "description": "UI language switching starting with English and Spanish for Latin American markets.",
+    "entitiesImpacted": [
+      "Platform Fundamentals",
+      "Operators",
+      "All Users"
+    ],
+    "projectedRelease": "Q3 2026",
+    "releaseSlug": null,
+    "status": "Planned",
+    "title": "Multi-Language Support (Phase 1)",
+    "uiChange": true
+  },
+  {
+    "_id": "roadmap-shift-handover",
+    "_updatedAt": "2026-03-15T13:09:23Z",
+    "businessValue": "Reduces missed alarms during shift changeover - top customer feedback item.",
+    "changeType": "feature",
+    "description": "Structured handover notes attached to alarm queue state for seamless shift transitions.",
+    "entitiesImpacted": [
+      "Alarm Management",
+      "Operators"
+    ],
+    "projectedRelease": "Q4 2026",
+    "releaseSlug": null,
+    "status": "Planned",
+    "title": "Operator Shift Handover Notes",
+    "uiChange": true
+  },
+  {
+    "_id": "roadmap-device-lifecycle",
+    "_updatedAt": "2026-03-15T13:09:18Z",
+    "businessValue": "Streamlines device management workflows, reducing configuration time by 40%.",
+    "changeType": "feature",
+    "description": "Full lifecycle control for devices, sites, sensors, and customers with activation/deactivation and rediscovery.",
+    "entitiesImpacted": [
+      "Devices",
+      "Sites",
+      "Customers"
+    ],
+    "projectedRelease": "Q1 2026",
+    "releaseSlug": null,
+    "status": "Shipped",
+    "title": "Device Lifecycle Management",
+    "uiChange": true
+  },
+  {
+    "_id": "roadmap-rbac-system",
+    "_updatedAt": "2026-03-15T13:09:14Z",
+    "businessValue": "Reduces role management overhead by 60% for large deployments with complex permission structures.",
+    "changeType": "feature",
+    "description": "Complete RBAC system rework with hierarchical entity assignments, dynamic privilege filtering, and permission overrides.",
+    "entitiesImpacted": [
+      "Security",
+      "User Management",
+      "Admin"
+    ],
+    "projectedRelease": "Q1 2026",
+    "releaseSlug": null,
+    "status": "Shipped",
+    "title": "Role-Based Access Control System",
+    "uiChange": true
+  },
+  {
     "_id": "roadmap-7",
     "_updatedAt": "2026-03-13T18:16:54Z",
     "businessValue": "Reduces missed alarms during shift changeover — top feedback item from Q4 customer survey.",
