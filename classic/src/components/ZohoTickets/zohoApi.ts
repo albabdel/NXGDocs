@@ -2,7 +2,8 @@ import type { ZohoTicket, ZohoConversationItem, ZohoAgent, ZohoStatus, ZohoAttac
 
 const ORG_ID = '20067436506';
 const DEPT_ID = '17599000000007061';
-const API_BASE = 'https://desk.zoho.eu/api/v1';
+// Route all Zoho Desk API calls through our CF proxy to avoid CORS restrictions
+const API_BASE = '/functions/zoho-proxy';
 
 async function apiCall<T>(
   path: string,
@@ -142,7 +143,7 @@ export async function createTicket(
 
 /** Fetch the Zoho profile for the currently authenticated user (uses accounts.zoho.eu) */
 export async function getUserProfile(accessToken: string): Promise<{ Email?: string; email?: string; Display_Name?: string }> {
-  const res = await fetch('https://accounts.zoho.eu/oauth/v2/user', {
+  const res = await fetch('/functions/zoho-proxy/accounts/oauth/v2/user', {
     headers: { 'Authorization': `Zoho-oauthtoken ${accessToken}` },
   });
   if (!res.ok) throw new Error(`Failed to fetch user profile: ${res.status}`);
