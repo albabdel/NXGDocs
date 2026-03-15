@@ -79,7 +79,7 @@
   },
   {
     "_id": "roadmap-2",
-    "_updatedAt": "2026-03-13T18:16:49Z",
+    "_updatedAt": "2026-03-15T11:45:53Z",
     "businessValue": "Reduces mean time to acknowledge alarms by 40% in high-volume environments.",
     "changeType": "improvement",
     "description": "Group active alarms by zone or device type for faster operator triage.",
@@ -88,14 +88,14 @@
       "Operators"
     ],
     "projectedRelease": "Q1 2026",
-    "releaseSlug": "sprint-2026-03-a",
+    "releaseSlug": null,
     "status": "Shipped",
     "title": "New alarm grouping view",
     "uiChange": true
   },
   {
     "_id": "roadmap-1",
-    "_updatedAt": "2026-03-13T18:16:48Z",
+    "_updatedAt": "2026-03-15T11:45:53Z",
     "businessValue": "Reduces device setup time by 80% for deployments with 50+ devices.",
     "changeType": "feature",
     "description": "Allow operators to configure multiple devices simultaneously from a single panel — reduces setup time for large deployments.",
@@ -104,7 +104,7 @@
       "Admin"
     ],
     "projectedRelease": "Q1 2026",
-    "releaseSlug": "sprint-2026-02-b",
+    "releaseSlug": null,
     "status": "Shipped",
     "title": "Bulk device configuration",
     "uiChange": true
