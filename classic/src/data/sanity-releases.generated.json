@@ -4,7 +4,7 @@
     "displayTitle": "March 2026 Release A",
     "items": [
       {
-        "_key": null,
+        "_key": "as001x9m3k",
         "affectedAreas": [
           "streaming",
           "alarms",
@@ -18,7 +18,7 @@
         "videoUrl": null
       },
       {
-        "_key": null,
+        "_key": "as002j7n2w",
         "affectedAreas": [
           "configuration",
           "admin",
@@ -32,7 +32,7 @@
         "videoUrl": null
       },
       {
-        "_key": null,
+        "_key": "as003q5t8r",
         "affectedAreas": [
           "zones",
           "streaming",
@@ -45,7 +45,7 @@
         "videoUrl": null
       },
       {
-        "_key": null,
+        "_key": "rpt001m2v6z",
         "affectedAreas": [
           "reports",
           "dashboard",
@@ -58,7 +58,7 @@
         "videoUrl": null
       },
       {
-        "_key": null,
+        "_key": "rpt002h4b9s",
         "affectedAreas": [
           "reports",
           "ui-behavior",
@@ -71,7 +71,7 @@
         "videoUrl": null
       },
       {
-        "_key": null,
+        "_key": "mm001f8k3u",
         "affectedAreas": [
           "talos",
           "salvo",
@@ -86,7 +86,7 @@
         "videoUrl": null
       },
       {
-        "_key": null,
+        "_key": "mm002r6t2q",
         "affectedAreas": [
           "multi-monitor",
           "ui-behavior",
@@ -99,7 +99,7 @@
         "videoUrl": null
       },
       {
-        "_key": null,
+        "_key": "dc09003p5n8y",
         "affectedAreas": [
           "device-dashboard",
           "logging",
@@ -113,7 +113,7 @@
         "videoUrl": null
       }
     ],
-    "publishedAt": "2026-03-15T00:00:00Z",
+    "publishedAt": "2026-03-15",
     "slug": {
       "_type": "slug",
       "current": "sprint-2026-03-a"
@@ -126,7 +126,7 @@
     "displayTitle": "February 2026 Release B",
     "items": [
       {
-        "_key": null,
+        "_key": "rbac001k3x9m",
         "affectedAreas": [
           "security",
           "permissions",
@@ -140,7 +140,7 @@
         "videoUrl": null
       },
       {
-        "_key": null,
+        "_key": "rbac002j7n2p",
         "affectedAreas": [
           "security",
           "user-management",
@@ -153,7 +153,7 @@
         "videoUrl": null
       },
       {
-        "_key": null,
+        "_key": "rbac003q5w8t",
         "affectedAreas": [
           "security",
           "workflow",
@@ -167,7 +167,7 @@
         "videoUrl": null
       },
       {
-        "_key": null,
+        "_key": "rbac004m2v6y",
         "affectedAreas": [
           "security",
           "permissions",
@@ -180,7 +180,7 @@
         "videoUrl": null
       },
       {
-        "_key": null,
+        "_key": "dc09001h4b9n",
         "affectedAreas": [
           "marketplace",
           "cms-integration",
@@ -193,7 +193,7 @@
         "videoUrl": null
       },
       {
-        "_key": null,
+        "_key": "dc09002f8k3w",
         "affectedAreas": [
           "devices",
           "alarm-management",
@@ -206,7 +206,7 @@
         "videoUrl": null
       },
       {
-        "_key": null,
+        "_key": "stab001r6t2p",
         "affectedAreas": [
           "platform-fundamentals",
           "data-validation",
@@ -219,7 +219,7 @@
         "videoUrl": null
       }
     ],
-    "publishedAt": "2026-02-28T00:00:00Z",
+    "publishedAt": "2026-02-28",
     "slug": {
       "_type": "slug",
       "current": "sprint-2026-02-b"
