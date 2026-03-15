@@ -164,7 +164,7 @@ export function useZohoAuth() {
       // Exchange the id_token for a Zoho session via Cloudflare Function
       (async () => {
         try {
-          const res = await fetch('/functions/zoho-customer-auth', {
+          const res = await fetch('/zoho-customer-auth', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ action: 'auth0-exchange', idToken: auth0Raw.idToken }),
