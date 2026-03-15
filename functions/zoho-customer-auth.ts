@@ -200,8 +200,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       expiry: Date.now() + expiresIn * 1000,
       accountId: contact.accountId ?? null,
       contactId: contact.id,
-      displayName: claims.name
-        ?? `${contact.firstName ?? ''} ${contact.lastName ?? ''}`.trim()
+      displayName: (claims.name
+        ?? `${contact.firstName ?? ''} ${contact.lastName ?? ''}`.trim())
         || email,
       account: contact.account?.accountName ?? null,
     });
