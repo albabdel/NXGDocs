@@ -1,0 +1,110 @@
+.typeFilter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 12px;
+}
+
+.typeFilter button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #888;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.typeFilter button:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ccc;
+}
+
+.typeFilter button.active {
+  background-color: rgba(232, 176, 88, 0.12);
+  border-color: rgba(232, 176, 88, 0.3);
+  color: #E8B058;
+}
+
+.typeFilter button:focus-visible {
+  outline: 2px solid rgba(232, 176, 88, 0.5);
+  outline-offset: 2px;
+}
+
+.count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.typeFilter button.active .count {
+  background-color: rgba(232, 176, 88, 0.2);
+  color: #E8B058;
+}
+
+/* Light theme overrides */
+[data-theme='light'] .typeFilter {
+  border-bottom-color: rgba(200, 148, 70, 0.12);
+}
+
+[data-theme='light'] .typeFilter button {
+  color: #666;
+}
+
+[data-theme='light'] .typeFilter button:hover {
+  background-color: rgba(200, 148, 70, 0.06);
+  color: #444;
+}
+
+[data-theme='light'] .typeFilter button.active {
+  background-color: rgba(200, 148, 70, 0.12);
+  border-color: rgba(200, 148, 70, 0.3);
+  color: #8B5E1F;
+}
+
+[data-theme='light'] .count {
+  background-color: rgba(200, 148, 70, 0.08);
+}
+
+[data-theme='light'] .typeFilter button.active .count {
+  background-color: rgba(200, 148, 70, 0.18);
+  color: #8B5E1F;
+}
+
+/* Responsive styles */
+@media (max-width: 640px) {
+  .typeFilter {
+    gap: 6px;
+    padding: 6px 0;
+  }
+
+  .typeFilter button {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .typeFilter button svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .count {
+    min-width: 18px;
+    padding: 2px 5px;
+    font-size: 10px;
+  }
+}

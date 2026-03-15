@@ -1,5 +1,39 @@
 [
   {
+    "_id": "roadmap-multimonitor",
+    "_updatedAt": "2026-03-15T13:09:33Z",
+    "businessValue": "Improves operator situational awareness with synchronized multi-display alarm handling.",
+    "changeType": "feature",
+    "description": "Motion alarms automatically open workflow in Talos and quad view in Salvo for multi-panel operator monitoring.",
+    "entitiesImpacted": [
+      "Multi-Monitor",
+      "Operators",
+      "Alarm Management"
+    ],
+    "projectedRelease": "Q1 2026",
+    "releaseSlug": null,
+    "status": "Shipped",
+    "title": "Multi-Monitor Talos-Salvo Integration",
+    "uiChange": true
+  },
+  {
+    "_id": "roadmap-autostream",
+    "_updatedAt": "2026-03-15T13:09:27Z",
+    "businessValue": "Reduces operator response time by automatically displaying relevant camera feeds during alarm events.",
+    "changeType": "feature",
+    "description": "Alarm-triggered automatic video streaming with zone-based camera selection and role-based permissions.",
+    "entitiesImpacted": [
+      "Video Streaming",
+      "Alarm Management",
+      "Operators"
+    ],
+    "projectedRelease": "Q1 2026",
+    "releaseSlug": null,
+    "status": "Shipped",
+    "title": "AutoStream - Automated Video Streaming",
+    "uiChange": true
+  },
+  {
     "_id": "roadmap-advanced-reporting",
     "_updatedAt": "2026-03-15T13:09:23Z",
     "businessValue": "Eliminates manual report preparation time for compliance and operational reviews.",

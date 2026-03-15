@@ -1,0 +1,392 @@
+.codeResult {
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  border: 1px solid transparent;
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.codeResult:hover {
+  background-color: rgba(232, 176, 88, 0.05);
+  border-color: rgba(232, 176, 88, 0.1);
+}
+
+.active {
+  background-color: rgba(232, 176, 88, 0.1);
+  border-color: rgba(232, 176, 88, 0.3);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 12px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+.codeIcon {
+  color: #E8B058;
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #f5f5f5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.highlight {
+  background-color: rgba(232, 176, 88, 0.3);
+  color: #fff;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.badge {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.languageBadge {
+  background-color: rgba(232, 176, 88, 0.15);
+  color: #E8B058;
+}
+
+.filename {
+  font-size: 12px;
+  color: #888;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+}
+
+.codePreview {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.codeResult:hover .codePreview {
+  border-color: rgba(232, 176, 88, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.codeBlockHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: #2d2d2d;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.codeLanguageBadge {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(232, 176, 88, 0.2), rgba(232, 176, 88, 0.1));
+  color: #E8B058;
+  border: 1px solid rgba(232, 176, 88, 0.3);
+}
+
+.inlineCopyBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #888;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.inlineCopyBtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #E8B058;
+  border-color: rgba(232, 176, 88, 0.3);
+}
+
+.inlineCopyBtn:focus-visible {
+  outline: 2px solid rgba(232, 176, 88, 0.5);
+  outline-offset: 2px;
+}
+
+.codePre {
+  margin: 0 !important;
+  padding: 12px 0 !important;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace !important;
+  font-size: 12px !important;
+  line-height: 1.6 !important;
+  background: transparent !important;
+  overflow-x: auto;
+}
+
+.codeLine {
+  display: flex;
+  padding: 0 12px;
+  min-height: 20px;
+  transition: background-color 0.15s ease;
+}
+
+.codeLine:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.lineNumber {
+  display: inline-block;
+  width: 40px;
+  min-width: 40px;
+  padding-right: 12px;
+  text-align: right;
+  color: #5a5a5a;
+  user-select: none;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.lineContent {
+  flex: 1;
+  white-space: pre;
+}
+
+.matchedLine {
+  background-color: rgba(232, 176, 88, 0.15);
+  border-left: 2px solid #E8B058;
+  margin-left: -2px;
+}
+
+.matchedLine .lineNumber {
+  color: #E8B058;
+  font-weight: 600;
+}
+
+.codeTruncated {
+  padding: 8px 12px;
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+  background-color: #2d2d2d;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sourceLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #888;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.sourceLink:hover {
+  color: #E8B058;
+}
+
+.copyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(232, 176, 88, 0.3);
+  background: transparent;
+  color: #E8B058;
+  font-size: 11px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.copyBtn:hover {
+  background-color: rgba(232, 176, 88, 0.1);
+  border-color: rgba(232, 176, 88, 0.5);
+}
+
+.copyBtn:focus-visible {
+  outline: 2px solid rgba(232, 176, 88, 0.5);
+  outline-offset: 2px;
+}
+
+/* Light theme overrides */
+[data-theme='light'] .codeResult {
+  background-color: rgba(200, 148, 70, 0.02);
+  border-color: transparent;
+}
+
+[data-theme='light'] .codeResult:hover {
+  background-color: rgba(200, 148, 70, 0.06);
+  border-color: rgba(200, 148, 70, 0.15);
+}
+
+[data-theme='light'] .active {
+  background-color: rgba(200, 148, 70, 0.1);
+  border-color: rgba(200, 148, 70, 0.35);
+}
+
+[data-theme='light'] .title {
+  color: #333;
+}
+
+[data-theme='light'] .highlight {
+  background-color: rgba(200, 148, 70, 0.3);
+  color: #333;
+}
+
+[data-theme='light'] .languageBadge {
+  background-color: rgba(200, 148, 70, 0.12);
+  color: #8B5E1F;
+}
+
+[data-theme='light'] .filename {
+  color: #666;
+}
+
+[data-theme='light'] .codePreview {
+  background-color: #fafafa;
+  border-color: rgba(200, 148, 70, 0.15);
+}
+
+[data-theme='light'] .codeResult:hover .codePreview {
+  border-color: rgba(200, 148, 70, 0.25);
+}
+
+[data-theme='light'] .codeBlockHeader {
+  background-color: #f0f0f0;
+  border-bottom-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .codeLanguageBadge {
+  background: linear-gradient(135deg, rgba(200, 148, 70, 0.15), rgba(200, 148, 70, 0.08));
+  color: #8B5E1F;
+  border-color: rgba(200, 148, 70, 0.25);
+}
+
+[data-theme='light'] .inlineCopyBtn {
+  color: #666;
+}
+
+[data-theme='light'] .inlineCopyBtn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #8B5E1F;
+  border-color: rgba(200, 148, 70, 0.3);
+}
+
+[data-theme='light'] .codePre {
+  color: #333;
+}
+
+[data-theme='light'] .codeLine:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme='light'] .lineNumber {
+  color: #aaa;
+}
+
+[data-theme='light'] .matchedLine {
+  background-color: rgba(200, 148, 70, 0.15);
+  border-left-color: #8B5E1F;
+}
+
+[data-theme='light'] .matchedLine .lineNumber {
+  color: #8B5E1F;
+}
+
+[data-theme='light'] .codeTruncated {
+  color: #888;
+  background-color: #f0f0f0;
+  border-top-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .sourceLink {
+  color: #666;
+}
+
+[data-theme='light'] .sourceLink:hover {
+  color: #8B5E1F;
+}
+
+[data-theme='light'] .copyBtn {
+  border-color: rgba(200, 148, 70, 0.3);
+  color: #8B5E1F;
+}
+
+[data-theme='light'] .copyBtn:hover {
+  background-color: rgba(200, 148, 70, 0.1);
+  border-color: rgba(200, 148, 70, 0.5);
+}
+
+/* Responsive styles */
+@media (max-width: 640px) {
+  .codeResult {
+    padding: 10px 12px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .titleRow {
+    width: 100%;
+  }
+
+  .meta {
+    width: 100%;
+  }
+
+  .title {
+    font-size: 13px;
+  }
+
+  .codePre {
+    font-size: 11px !important;
+  }
+
+  .lineNumber {
+    width: 32px;
+    min-width: 32px;
+    padding-right: 8px;
+    font-size: 10px;
+  }
+
+  .codeLine {
+    padding: 0 8px;
+  }
+}

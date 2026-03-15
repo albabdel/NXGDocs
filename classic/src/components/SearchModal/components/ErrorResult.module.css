@@ -1,0 +1,281 @@
+.errorResult {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  border: 1px solid transparent;
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.errorResult:hover {
+  background-color: rgba(239, 68, 68, 0.05);
+  border-color: rgba(239, 68, 68, 0.15);
+}
+
+.active {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+.severityIcon {
+  flex-shrink: 0;
+}
+
+.severityError {
+  color: #ef4444;
+}
+
+.severityWarning {
+  color: #f59e0b;
+}
+
+.severityInfo {
+  color: #3b82f6;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #f5f5f5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.errorCode {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  flex-shrink: 0;
+}
+
+.errorCode.severityError {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.errorCode.severityWarning {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+}
+
+.errorCode.severityInfo {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
+.highlight {
+  background-color: rgba(239, 68, 68, 0.3);
+  color: #fff;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+.message {
+  font-size: 13px;
+  color: #aaa;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.pattern {
+  background-color: #0d0d0d;
+  border-radius: 4px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.pattern code {
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 12px;
+  color: #ef4444;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.solutionHint {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: #22c55e;
+}
+
+.wrenchIcon {
+  color: #22c55e;
+}
+
+.source {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: #666;
+}
+
+.sourceSection {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 150px;
+}
+
+/* Light theme overrides */
+[data-theme='light'] .errorResult {
+  background-color: rgba(220, 53, 69, 0.02);
+  border-color: transparent;
+}
+
+[data-theme='light'] .errorResult:hover {
+  background-color: rgba(220, 53, 69, 0.06);
+  border-color: rgba(220, 53, 69, 0.15);
+}
+
+[data-theme='light'] .active {
+  background-color: rgba(220, 53, 69, 0.1);
+  border-color: rgba(220, 53, 69, 0.3);
+}
+
+[data-theme='light'] .severityError {
+  color: #dc3545;
+}
+
+[data-theme='light'] .severityWarning {
+  color: #d97706;
+}
+
+[data-theme='light'] .severityInfo {
+  color: #2563eb;
+}
+
+[data-theme='light'] .title {
+  color: #333;
+}
+
+[data-theme='light'] .errorCode.severityError {
+  background-color: rgba(220, 53, 69, 0.12);
+  color: #dc3545;
+}
+
+[data-theme='light'] .errorCode.severityWarning {
+  background-color: rgba(217, 119, 6, 0.12);
+  color: #d97706;
+}
+
+[data-theme='light'] .errorCode.severityInfo {
+  background-color: rgba(37, 99, 235, 0.12);
+  color: #2563eb;
+}
+
+[data-theme='light'] .highlight {
+  background-color: rgba(220, 53, 69, 0.25);
+  color: #333;
+}
+
+[data-theme='light'] .message {
+  color: #555;
+}
+
+[data-theme='light'] .pattern {
+  background-color: #fafafa;
+  border-color: rgba(220, 53, 69, 0.1);
+}
+
+[data-theme='light'] .pattern code {
+  color: #dc3545;
+}
+
+[data-theme='light'] .solutionHint {
+  color: #16a34a;
+}
+
+[data-theme='light'] .wrenchIcon {
+  color: #16a34a;
+}
+
+[data-theme='light'] .source {
+  color: #888;
+}
+
+/* Responsive styles */
+@media (max-width: 640px) {
+  .errorResult {
+    padding: 10px 12px;
+    gap: 6px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .titleRow {
+    width: 100%;
+  }
+
+  .errorCode {
+    align-self: flex-start;
+  }
+
+  .title {
+    font-size: 13px;
+  }
+
+  .message {
+    font-size: 12px;
+  }
+
+  .pattern {
+    padding: 6px 8px;
+  }
+
+  .pattern code {
+    font-size: 11px;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .source {
+    width: 100%;
+  }
+
+  .sourceSection {
+    max-width: none;
+  }
+}

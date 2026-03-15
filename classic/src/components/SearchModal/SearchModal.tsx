@@ -1,41 +1,55 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import Fuse, { type FuseResult, type IFuseOptions } from 'fuse.js';
-import { Search, X, ArrowRight, Clock, Bookmark, BookmarkCheck, Keyboard, Trash2 } from 'lucide-react';
+import { Search, X, ArrowRight, Clock, Bookmark, BookmarkCheck, Keyboard, Trash2, Code, Image, Video, AlertTriangle, FileText, Sparkles, Zap } from 'lucide-react';
 import styles from './SearchModal.module.css';
 
 import useDebounce from './hooks/useDebounce';
 import useRecentSearches from './hooks/useRecentSearches';
 import useSavedSearches, { type SavedSearch } from './hooks/useSavedSearches';
-import useSearchAnalytics from './hooks/useSearchAnalytics';
+import useSearchAnalyticsEnhanced from '../../hooks/useSearchAnalyticsEnhanced';
+import { useHybridSearch, useSemanticSearchEnabled, getSearchModeInfo } from './hooks/useHybridSearch';
 import { highlightMatches, type HighlightPart } from './utils/highlightMatches';
 import { expandQuery } from './utils/synonymMap';
 import { findSuggestions } from './utils/didYouMean';
 import FacetedFilters from './components/FacetedFilters';
 import KeyboardShortcuts from './components/KeyboardShortcuts';
+import TypeFilter from './components/TypeFilter';
+import LanguageFilter from './components/LanguageFilter';
+import VersionFilter from './components/VersionFilter';
+import CodeResult from './components/CodeResult';
+import ImageResult from './components/ImageResult';
+import VideoResult from './components/VideoResult';
+import ErrorResult from './components/ErrorResult';
+import AIAnswerPanel from './components/AIAnswerPanel';
+import type { EnhancedSearchRecord, ContentType } from './types/EnhancedSearchRecord';
+import type { HybridSearchResult } from './hooks/useHybridSearch';
 
-interface SearchRecord {
-  id: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  url: string;
-  section: string;
-  category: string;
-  tags: string[];
-}
+// Use EnhancedSearchRecord as the search record type
+type SearchRecord = EnhancedSearchRecord;
 
 const FUSE_OPTIONS: IFuseOptions<SearchRecord> = {
   keys: [
     { name: 'title', weight: 0.5 },
     { name: 'content', weight: 0.3 },
-    { name: 'category', weight: 0.15 },
+    { name: 'category', weight: 0.1 },
     { name: 'tags', weight: 0.05 },
+    { name: 'code', weight: 0.15 }, // Code-specific search
+    { name: 'language', weight: 0.05 }, // Language search for code blocks
   ],
   threshold: 0.35,
   includeScore: true,
   minMatchCharLength: 2,
   ignoreLocation: true,
+};
+
+// Content type icons and labels
+const CONTENT_TYPE_CONFIG: Record<ContentType, { label: string; icon: typeof Code }> = {
+  page: { label: 'Page', icon: Search },
+  code: { label: 'Code', icon: Code },
+  image: { label: 'Image', icon: Image },
+  video: { label: 'Video', icon: Video },
+  error: { label: 'Error', icon: AlertTriangle },
 };
 
 const SECTION_LABELS: Record<string, string> = {
@@ -68,18 +82,39 @@ export default function SearchModal() {
   const [results, setResults] = useState<FuseResult<SearchRecord>[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [fuse, setFuse] = useState<Fuse<SearchRecord> | null>(null);
+  const [searchIndex, setSearchIndex] = useState<SearchRecord[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
+  const [activeType, setActiveType] = useState<ContentType | null>(null);
+  const [activeLanguage, setActiveLanguage] = useState<string | null>(null);
+  const [activeVersion, setActiveVersion] = useState<string | null>(null);
   const [showShortcuts, setShowShortcuts] = useState(false);
+  const [showAIPanel, setShowAIPanel] = useState(true);
+  const [useHybridSearchMode, setUseHybridSearchMode] = useState(true);
   const [allTitles, setAllTitles] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+  
+  const isSemanticEnabled = useSemanticSearchEnabled();
 
   const debouncedQuery = useDebounce(query, 150);
   const { recentSearches, addRecentSearch, clearRecentSearches, removeRecentSearch } = useRecentSearches();
   const { savedSearches, saveSearch, removeSavedSearch, isSaved } = useSavedSearches();
-  const { trackSearch, getTopQueries } = useSearchAnalytics();
+  const { trackSearch, trackClick, trackAIAnswer, getCurrentSearchId } = useSearchAnalyticsEnhanced();
+  
+  const {
+    results: hybridResults,
+    isVectorLoading,
+    isVectorAvailable,
+    vectorError,
+  } = useHybridSearch(debouncedQuery, results, searchIndex, {
+    enabled: useHybridSearchMode && isSemanticEnabled,
+    vectorWeight: 0.6,
+    keywordWeight: 0.4,
+  });
+  
+  const searchModeInfo = useMemo(() => getSearchModeInfo(isVectorAvailable), [isVectorAvailable]);
 
   useEffect(() => setMounted(true), []);
 
@@ -92,6 +127,7 @@ export default function SearchModal() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data: SearchRecord[] = await res.json();
       setFuse(new Fuse(data, FUSE_OPTIONS));
+      setSearchIndex(data);
       setAllTitles(data.map(d => d.title));
     } catch {
       setError(true);
@@ -132,6 +168,9 @@ export default function SearchModal() {
       setResults([]);
       setSelectedIndex(0);
       setActiveFilter(null);
+      setActiveType(null);
+      setActiveLanguage(null);
+      setActiveVersion(null);
       setShowShortcuts(false);
     }
   }, [isOpen]);
@@ -150,11 +189,11 @@ export default function SearchModal() {
     setResults(rawResults);
     setSelectedIndex(0);
 
-    trackSearch(debouncedQuery, rawResults.length);
+    trackSearch(debouncedQuery, rawResults.length, useHybridSearchMode ? 'hybrid' : 'keyword', showAIPanel && isSemanticEnabled && rawResults.length > 0);
     if (rawResults.length > 0) {
       addRecentSearch(debouncedQuery);
     }
-  }, [debouncedQuery, fuse, trackSearch, addRecentSearch]);
+  }, [debouncedQuery, fuse, trackSearch, addRecentSearch, useHybridSearchMode, showAIPanel]);
 
   useEffect(() => {
     const item = listRef.current?.children[selectedIndex] as HTMLElement | undefined;
@@ -162,9 +201,58 @@ export default function SearchModal() {
   }, [selectedIndex]);
 
   const filteredResults = useMemo(() => {
-    if (!activeFilter) return results;
-    return results.filter(r => r.item.section === activeFilter);
-  }, [results, activeFilter]);
+    const extractVersion = (item: SearchRecord): string | null => {
+      if (item.productVersion) return item.productVersion;
+      const match = item.url.match(/\/(v\d+(?:\.\d+)*)\//);
+      return match ? match[1] : null;
+    };
+
+    if (useHybridSearchMode && hybridResults.length > 0) {
+      let filtered = hybridResults;
+      
+      if (activeFilter) {
+        filtered = filtered.filter(r => r.record.section === activeFilter);
+      }
+      
+      if (activeType) {
+        filtered = filtered.filter(r => (r.record.type || 'page') === activeType);
+      }
+      
+      if (activeLanguage) {
+        filtered = filtered.filter(r => r.record.language === activeLanguage);
+      }
+      
+      if (activeVersion) {
+        filtered = filtered.filter(r => extractVersion(r.record) === activeVersion);
+      }
+      
+      return filtered.map(r => ({
+        item: r.record,
+        score: 1 - r.combinedScore,
+        refIndex: 0,
+      })) as FuseResult<SearchRecord>[];
+    }
+    
+    let filtered = results;
+    
+    if (activeFilter) {
+      filtered = filtered.filter(r => r.item.section === activeFilter);
+    }
+    
+    if (activeType) {
+      filtered = filtered.filter(r => (r.item.type || 'page') === activeType);
+    }
+    
+    if (activeLanguage) {
+      filtered = filtered.filter(r => r.item.language === activeLanguage);
+    }
+    
+    if (activeVersion) {
+      filtered = filtered.filter(r => extractVersion(r.item) === activeVersion);
+    }
+    
+    return filtered;
+  }, [results, hybridResults, useHybridSearchMode, activeFilter, activeType, activeLanguage, activeVersion]);
 
   const groupedResults = useMemo(() => {
     const groups: Record<string, FuseResult<SearchRecord>[]> = {};
@@ -184,6 +272,47 @@ export default function SearchModal() {
     const counts: Record<string, number> = {};
     for (const r of results) {
       counts[r.item.section] = (counts[r.item.section] || 0) + 1;
+    }
+    return counts;
+  }, [results]);
+
+  const typeCounts = useMemo(() => {
+    const counts: Record<ContentType, number> = {
+      page: 0,
+      code: 0,
+      image: 0,
+      video: 0,
+      error: 0,
+    };
+    for (const r of results) {
+      const type = r.item.type || 'page';
+      counts[type] = (counts[type] || 0) + 1;
+    }
+    return counts;
+  }, [results]);
+
+  const languageCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const r of results) {
+      if (r.item.type === 'code' && r.item.language) {
+        counts[r.item.language] = (counts[r.item.language] || 0) + 1;
+      }
+    }
+    return counts;
+  }, [results]);
+
+  const versionCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    const extractVersion = (item: SearchRecord): string | null => {
+      if (item.productVersion) return item.productVersion;
+      const match = item.url.match(/\/(v\d+(?:\.\d+)*)\//);
+      return match ? match[1] : null;
+    };
+    for (const r of results) {
+      const version = extractVersion(r.item);
+      if (version) {
+        counts[version] = (counts[version] || 0) + 1;
+      }
     }
     return counts;
   }, [results]);
@@ -216,7 +345,12 @@ export default function SearchModal() {
         break;
       case 'Enter':
         if (flatFilteredItems[selectedIndex]) {
-          window.location.href = flatFilteredItems[selectedIndex].item.url;
+          const selectedItem = flatFilteredItems[selectedIndex].item;
+          const searchId = getCurrentSearchId();
+          if (searchId) {
+            trackClick(searchId, selectedItem.id, selectedItem.title, selectedItem.url, selectedIndex);
+          }
+          window.location.href = selectedItem.url;
         }
         break;
       case 'Tab':
@@ -229,14 +363,18 @@ export default function SearchModal() {
         setActiveFilter(filterKeys[nextIdx]);
         break;
     }
-  }, [flatFilteredItems, selectedIndex, activeFilter]);
+  }, [flatFilteredItems, selectedIndex, activeFilter, getCurrentSearchId, trackClick]);
 
-  const handleResultClick = useCallback((url: string) => {
+  const handleResultClick = useCallback((url: string, item?: SearchRecord, position?: number) => {
     if (debouncedQuery.trim()) {
       addRecentSearch(debouncedQuery);
     }
+    const searchId = getCurrentSearchId();
+    if (searchId && item && position !== undefined) {
+      trackClick(searchId, item.id, item.title, url, position);
+    }
     close();
-  }, [debouncedQuery, addRecentSearch, close]);
+  }, [debouncedQuery, addRecentSearch, close, getCurrentSearchId, trackClick]);
 
   const handleSuggestionClick = useCallback((suggestion: string) => {
     setQuery(suggestion);
@@ -307,6 +445,52 @@ export default function SearchModal() {
           />
         )}
 
+        {results.length > 0 && (
+          <TypeFilter
+            activeType={activeType}
+            counts={typeCounts}
+            onChange={setActiveType}
+          />
+        )}
+
+        {typeCounts.code > 0 && (
+          <LanguageFilter
+            activeLanguage={activeLanguage}
+            counts={languageCounts}
+            onChange={setActiveLanguage}
+          />
+        )}
+
+        {Object.keys(versionCounts).length > 1 && (
+          <VersionFilter
+            activeVersion={activeVersion}
+            counts={versionCounts}
+            onChange={setActiveVersion}
+          />
+        )}
+
+        {isSemanticEnabled && debouncedQuery.trim() && (
+          <div className={styles.aiSearchToggle}>
+            <button
+              className={`${styles.toggleBtn} ${useHybridSearchMode ? styles.toggleBtnActive : ''}`}
+              onClick={() => setUseHybridSearchMode(!useHybridSearchMode)}
+              title={useHybridSearchMode ? 'Semantic search enabled' : 'Enable semantic search'}
+            >
+              <Sparkles size={12} />
+              <span>{searchModeInfo.label}</span>
+              {isVectorLoading && <span className={styles.toggleLoading} />}
+            </button>
+            <button
+              className={`${styles.toggleBtn} ${showAIPanel ? styles.toggleBtnActive : ''}`}
+              onClick={() => setShowAIPanel(!showAIPanel)}
+              title={showAIPanel ? 'Hide AI answer' : 'Show AI answer'}
+            >
+              <Zap size={12} />
+              <span>AI Answer</span>
+            </button>
+          </div>
+        )}
+
         <div className={styles.body}>
           {loading && (
             <div className={styles.status}>
@@ -319,6 +503,14 @@ export default function SearchModal() {
             <div className={styles.status}>
               Search unavailable — index not found. Run <code>npm run build</code> first.
             </div>
+          )}
+
+          {!loading && !error && query && showAIPanel && isSemanticEnabled && filteredResults.length > 0 && (
+            <AIAnswerPanel
+              query={debouncedQuery}
+              results={filteredResults.map(r => r.item)}
+              isVisible={showAIPanel}
+            />
           )}
 
           {!loading && !error && !query && (
@@ -425,6 +617,60 @@ export default function SearchModal() {
                   </li>
                   {group.items.map((r, i) => {
                     const globalIndex = flatFilteredItems.indexOf(r);
+                    const recordType = r.item.type || 'page';
+                    
+                    if (recordType === 'code') {
+                      return (
+                        <li key={r.item.id}>
+                          <CodeResult
+                            result={r.item}
+                            query={query}
+                            isHighlighted={globalIndex === selectedIndex}
+                            onSelect={() => handleResultClick(r.item.url, r.item, globalIndex)}
+                          />
+                        </li>
+                      );
+                    }
+                    
+                    if (recordType === 'image') {
+                      return (
+                        <li key={r.item.id}>
+                          <ImageResult
+                            result={r.item}
+                            query={query}
+                            isHighlighted={globalIndex === selectedIndex}
+                            onSelect={() => handleResultClick(r.item.url, r.item, globalIndex)}
+                          />
+                        </li>
+                      );
+                    }
+                    
+                    if (recordType === 'video') {
+                      return (
+                        <li key={r.item.id}>
+                          <VideoResult
+                            result={r.item}
+                            query={query}
+                            isHighlighted={globalIndex === selectedIndex}
+                            onSelect={() => handleResultClick(r.item.url, r.item, globalIndex)}
+                          />
+                        </li>
+                      );
+                    }
+                    
+                    if (recordType === 'error') {
+                      return (
+                        <li key={r.item.id}>
+                          <ErrorResult
+                            result={r.item}
+                            query={query}
+                            isHighlighted={globalIndex === selectedIndex}
+                            onSelect={() => handleResultClick(r.item.url, r.item, globalIndex)}
+                          />
+                        </li>
+                      );
+                    }
+                    
                     const titleParts = highlightMatches(r.item.title, query);
                     const excerptParts = highlightMatches(r.item.excerpt, query);
                     
@@ -434,7 +680,7 @@ export default function SearchModal() {
                           href={r.item.url}
                           className={`${styles.result} ${globalIndex === selectedIndex ? styles.resultActive : ''}`}
                           onMouseEnter={() => setSelectedIndex(globalIndex)}
-                          onClick={() => handleResultClick(r.item.url)}
+                          onClick={() => handleResultClick(r.item.url, r.item, globalIndex)}
                           tabIndex={-1}
                         >
                           <div className={styles.resultLeft}>
@@ -444,6 +690,12 @@ export default function SearchModal() {
                               </span>
                               {r.item.category && (
                                 <span className={styles.category}>{r.item.category}</span>
+                              )}
+                              {recordType !== 'page' && (
+                                <span className={`${styles.badge} ${styles.typeBadge}`}>
+                                  {CONTENT_TYPE_CONFIG[recordType as ContentType]?.icon && React.createElement(CONTENT_TYPE_CONFIG[recordType as ContentType].icon, { size: 12 })}
+                                  {CONTENT_TYPE_CONFIG[recordType as ContentType]?.label || recordType}
+                                </span>
                               )}
                             </div>
                             <div className={styles.resultTitle}>

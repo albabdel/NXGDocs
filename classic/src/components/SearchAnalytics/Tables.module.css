@@ -1,0 +1,152 @@
+.tableContainer {
+  background: var(--nxgen-card-bg, rgba(30, 30, 35, 0.8));
+  border: 1px solid rgba(200, 148, 70, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.tableHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(200, 148, 70, 0.15);
+  font-weight: 600;
+  color: var(--nxgen-gold, #C89446);
+}
+
+.headerIcon {
+  color: #ef4444;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.headerCell {
+  padding: 0.875rem 1.25rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--nxgen-text-secondary, #a0a0a0);
+  border-bottom: 1px solid rgba(200, 148, 70, 0.15);
+  cursor: pointer;
+  user-select: none;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.headerCell:hover {
+  color: var(--nxgen-gold, #C89446);
+}
+
+.headerCell span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.sortIcon {
+  margin-left: 0.25rem;
+  color: var(--nxgen-gold, #C89446);
+}
+
+.row {
+  border-bottom: 1px solid rgba(200, 148, 70, 0.1);
+  transition: background-color 0.15s ease;
+}
+
+.row:hover {
+  background: rgba(200, 148, 70, 0.05);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.queryCell {
+  padding: 0.875rem 1.25rem;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.875rem;
+  color: var(--nxgen-text-primary, #ffffff);
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.numberCell {
+  padding: 0.875rem 1.25rem;
+  text-align: right;
+  font-size: 0.875rem;
+  color: var(--nxgen-text-primary, #ffffff);
+  font-weight: 500;
+}
+
+.numberCell.warning {
+  color: #ef4444;
+}
+
+.timeCell {
+  padding: 0.875rem 1.25rem;
+  font-size: 0.875rem;
+  color: var(--nxgen-text-secondary, #a0a0a0);
+}
+
+.highlightWarning {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.ctrBadge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.emptyCell {
+  padding: 2rem 1.25rem;
+  text-align: center;
+  color: var(--nxgen-text-secondary, #a0a0a0);
+  font-style: italic;
+}
+
+:global([data-theme='light']) .tableContainer {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(200, 148, 70, 0.15);
+}
+
+:global([data-theme='light']) .tableHeader {
+  border-bottom-color: rgba(200, 148, 70, 0.1);
+}
+
+:global([data-theme='light']) .headerCell {
+  border-bottom-color: rgba(200, 148, 70, 0.1);
+  color: #6b7280;
+}
+
+:global([data-theme='light']) .row {
+  border-bottom-color: rgba(200, 148, 70, 0.08);
+}
+
+:global([data-theme='light']) .row:hover {
+  background: rgba(200, 148, 70, 0.05);
+}
+
+:global([data-theme='light']) .queryCell {
+  color: #1f2937;
+}
+
+:global([data-theme='light']) .numberCell {
+  color: #1f2937;
+}
+
+:global([data-theme='light']) .timeCell {
+  color: #6b7280;
+}

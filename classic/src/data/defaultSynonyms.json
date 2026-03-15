@@ -1,0 +1,64 @@
+{
+  "synonyms": [
+    {
+      "term": "login",
+      "synonyms": ["signin", "sign in", "authenticate", "authentication", "log in"],
+      "bidirectional": true
+    },
+    {
+      "term": "logout",
+      "synonyms": ["signout", "sign out", "log out"],
+      "bidirectional": true
+    },
+    {
+      "term": "setup",
+      "synonyms": ["install", "installation", "configure", "configuration", "get started"],
+      "bidirectional": true
+    },
+    {
+      "term": "api",
+      "synonyms": ["endpoint", "rest", "graphql", "interface"],
+      "bidirectional": true
+    },
+    {
+      "term": "error",
+      "synonyms": ["exception", "fault", "failure", "problem", "issue"],
+      "bidirectional": true
+    },
+    {
+      "term": "alarm",
+      "synonyms": ["alert", "notification", "warning"],
+      "bidirectional": true
+    },
+    {
+      "term": "device",
+      "synonyms": ["equipment", "hardware", "unit", "camera", "sensor"],
+      "bidirectional": true
+    },
+    {
+      "term": "tower",
+      "synonyms": ["station", "site", "location"],
+      "bidirectional": true
+    },
+    {
+      "term": "user",
+      "synonyms": ["account", "profile", "operator"],
+      "bidirectional": true
+    },
+    {
+      "term": "dashboard",
+      "synonyms": ["overview", "home", "main", "console"],
+      "bidirectional": true
+    },
+    {
+      "term": "report",
+      "synonyms": ["summary", "analytics", "statistics"],
+      "bidirectional": true
+    },
+    {
+      "term": "settings",
+      "synonyms": ["preferences", "options", "configuration", "config"],
+      "bidirectional": true
+    }
+  ]
+}

@@ -4,6 +4,7 @@
  *   - .sanity-cache/docs/ (main docs)
  *   - src/data/sanity-releases.generated.json
  *   - src/data/sanity-roadmap.generated.json
+ *   - Code blocks extracted from documentation
  *
  * Output: static/search-index.json (served as a static file by Docusaurus)
  */
@@ -13,6 +14,12 @@ const path = require('path');
 const matter = require('gray-matter');
 
 const ROOT = path.join(__dirname, '..');
+
+// Import code extraction module
+const {
+  extractCodeBlocksFromDirectory,
+  codeBlockToSearchRecord,
+} = require('./extract-code-blocks');
 
 // Only index the canonical "all" docs to avoid duplicates from role-specific copies
 const DOC_SOURCES = [
@@ -25,8 +32,11 @@ function stripMarkdown(text) {
     .replace(/^export\s+.+$/gm, '')
     .replace(/<[A-Z][A-Za-z0-9]*\b[^>]*\/?>/g, '')
     .replace(/<\/[A-Z][A-Za-z0-9]*>/g, '')
-    .replace(/```[\s\S]*?```/g, ' ')
-    .replace(/`[^`\n]+`/g, ' ')
+    // Keep code blocks for context but remove fences for plain text
+    .replace(/```[\w]*\n?/g, '\n')
+    .replace(/```/g, '')
+    // Keep inline code but remove backticks
+    .replace(/`([^`\n]+)`/g, '$1')
     .replace(/^\s{0,3}#{1,6}\s+/gm, '')
     .replace(/\*\*([^*\n]+)\*\*/g, '$1')
     .replace(/\*([^*\n]+)\*/g, '$1')
@@ -79,6 +89,7 @@ for (const { dir, routeBase, section } of DOC_SOURCES) {
       const url = fileToUrl(file, dir, routeBase);
       records.push({
         id: `doc:${url}`,
+        type: 'page',
         title: fm.title || path.basename(file, path.extname(file)),
         excerpt: plain.slice(0, 250).trim(),
         content: plain.slice(0, 5000),
@@ -107,6 +118,7 @@ if (fs.existsSync(releasesPath)) {
       const fullText = [release.displayTitle, release.summary, itemsText].filter(Boolean).join(' ');
       records.push({
         id: `release:${slug}`,
+        type: 'page',
         title: release.displayTitle || release.sprintId || slug,
         excerpt: (release.summary || '').slice(0, 250).trim(),
         content: fullText.slice(0, 5000),
@@ -130,6 +142,7 @@ if (fs.existsSync(roadmapPath)) {
       const fullText = [item.title, item.description, item.businessValue].filter(Boolean).join(' ');
       records.push({
         id: `roadmap:${item._id}`,
+        type: 'page',
         title: item.title || 'Roadmap Item',
         excerpt: (item.description || '').slice(0, 250).trim(),
         content: fullText.slice(0, 5000),
@@ -141,6 +154,24 @@ if (fs.existsSync(roadmapPath)) {
     }
   } catch (err) {
     console.warn('[search-index] Could not parse roadmap:', err.message);
+  }
+}
+
+// ── 4. Code Blocks ────────────────────────────────────────────────────────────
+for (const { dir, routeBase, section } of DOC_SOURCES) {
+  if (fs.existsSync(dir)) {
+    try {
+      const codeBlocks = extractCodeBlocksFromDirectory(dir);
+      const codeRecords = codeBlocks.map(codeBlockToSearchRecord);
+      // Update section to match parent document section
+      for (const record of codeRecords) {
+        record.section = section;
+      }
+      records.push(...codeRecords);
+      console.log(`[search-index] Extracted ${codeRecords.length} code blocks from ${routeBase}`);
+    } catch (err) {
+      console.warn('[search-index] Could not extract code blocks:', err.message);
+    }
   }
 }
 

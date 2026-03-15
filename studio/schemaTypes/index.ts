@@ -54,8 +54,10 @@ import {
   onboardingStepType,
 } from './gettingStartedPage'
 import {docsIndexConfigType} from './docsIndexConfig'
+import {searchSynonymType} from './searchSynonym'
 
 export const schemaTypes = [
+  searchSynonymType,
   // Original document types
   docType,
   releaseType,

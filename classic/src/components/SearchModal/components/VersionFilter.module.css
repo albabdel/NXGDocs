@@ -1,0 +1,139 @@
+.versionFilter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 12px;
+}
+
+.versionFilter button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #888;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.versionFilter button:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ccc;
+}
+
+.versionFilter button.active {
+  background-color: rgba(232, 176, 88, 0.12);
+  border-color: rgba(232, 176, 88, 0.3);
+  color: #E8B058;
+}
+
+.versionFilter button:focus-visible {
+  outline: 2px solid rgba(232, 176, 88, 0.5);
+  outline-offset: 2px;
+}
+
+.count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.versionFilter button.active .count {
+  background-color: rgba(232, 176, 88, 0.2);
+  color: #E8B058;
+}
+
+.versionBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.06);
+  font-family: 'JetBrains Mono', 'SF Mono', Monaco, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.versionFilter button.active .versionBadge {
+  background-color: rgba(232, 176, 88, 0.15);
+  color: #E8B058;
+}
+
+[data-theme='light'] .versionFilter {
+  border-bottom-color: rgba(200, 148, 70, 0.12);
+}
+
+[data-theme='light'] .versionFilter button {
+  color: #666;
+}
+
+[data-theme='light'] .versionFilter button:hover {
+  background-color: rgba(200, 148, 70, 0.06);
+  color: #444;
+}
+
+[data-theme='light'] .versionFilter button.active {
+  background-color: rgba(200, 148, 70, 0.12);
+  border-color: rgba(200, 148, 70, 0.3);
+  color: #8B5E1F;
+}
+
+[data-theme='light'] .count {
+  background-color: rgba(200, 148, 70, 0.08);
+}
+
+[data-theme='light'] .versionFilter button.active .count {
+  background-color: rgba(200, 148, 70, 0.18);
+  color: #8B5E1F;
+}
+
+[data-theme='light'] .versionBadge {
+  background-color: rgba(200, 148, 70, 0.08);
+}
+
+[data-theme='light'] .versionFilter button.active .versionBadge {
+  background-color: rgba(200, 148, 70, 0.15);
+  color: #8B5E1F;
+}
+
+@media (max-width: 640px) {
+  .versionFilter {
+    gap: 6px;
+    padding: 6px 0;
+  }
+
+  .versionFilter button {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .versionFilter button svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .count {
+    min-width: 18px;
+    padding: 2px 5px;
+    font-size: 10px;
+  }
+
+  .versionBadge {
+    padding: 1px 6px;
+    font-size: 11px;
+  }
+}

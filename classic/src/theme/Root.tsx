@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ScrollProgress from '../components/ScrollProgress';
-import VoCWidget from '../components/VoCWidget/VoCWidget';
+import VoCWidget from '../components/VoCWidget';
 import ThemeToggle from '../components/ThemeToggle';
 import BackgroundPattern from '../components/BackgroundPattern';
 import Footer from '../components/Footer';
@@ -17,7 +17,9 @@ export default function Root({ children }: { children: React.ReactNode }) {
         right: '64px',
         zIndex: 1000,
       }}>
-        <SearchModal />
+        <Suspense fallback={null}>
+          <SearchModal />
+        </Suspense>
       </div>
       {children}
       <Footer />

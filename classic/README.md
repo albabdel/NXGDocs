@@ -39,3 +39,54 @@ GIT_USER=<Your GitHub username> yarn deploy
 ```
 
 If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+
+## Search & Discovery Features
+
+### Core Search
+- Typo-tolerant fuzzy search
+- Synonym expansion
+- "Did you mean" suggestions
+- Search result pinning
+- Faceted filters
+- Autocomplete
+
+### AI-Powered Search
+- Semantic search with vector embeddings
+- Hybrid search (keyword + vector)
+- AI answer panel with citations
+- Natural language Q&A
+
+### Advanced Search Types
+- Code snippet search with syntax highlighting
+- Image search with thumbnails
+- Video transcript search
+- Error message search
+- Version filtering
+
+### Analytics
+- Search analytics dashboard at `/admin/search-analytics`
+- Top queries tracking
+- Zero-result query tracking
+- Click-through rate analysis
+
+## Environment Variables
+
+```bash
+# Gemini AI (required for AI features)
+VITE_GEMINI_API_KEY=your_api_key
+
+# Supabase (optional, for remote analytics)
+VITE_SUPABASE_URL=https://xxx.supabase.co
+VITE_SUPABASE_ANON_KEY=xxx
+
+# Admin (optional, for analytics access)
+VITE_ADMIN_KEY=your_admin_key
+```
+
+## NPM Scripts
+
+```bash
+npm run search:index      # Generate search index
+npm run search:embeddings # Generate embeddings
+npm run search:full       # Generate both indexes
+```
