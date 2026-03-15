@@ -106,6 +106,12 @@ export const releaseType = defineType({
               type: 'url',
               description: 'YouTube or Vimeo embed URL',
             }),
+            defineField({
+              name: 'articleUrl',
+              title: 'Article Link',
+              type: 'string',
+              description: 'Internal path (e.g. /articles/rbac-roles-permissions) or external URL linking to the full documentation article for this feature.',
+            }),
           ],
           preview: {
             select: {title: 'title', changeType: 'changeType'},

@@ -297,7 +297,8 @@ function getReleasesQuery(includeDrafts) {
       changeType,
       affectedAreas,
       "screenshotUrl": screenshot.asset->url,
-      videoUrl
+      videoUrl,
+      articleUrl
     }
   }`;
 }

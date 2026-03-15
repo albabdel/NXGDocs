@@ -26,6 +26,7 @@ interface ReleaseItem {
     affectedAreas: string[];
     screenshotUrl: string | null;
     videoUrl: string | null;
+    articleUrl: string | null;
 }
 
 interface Release {

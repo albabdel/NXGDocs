@@ -8,10 +8,12 @@ import {
     Calendar,
     Package,
     ArrowLeft,
+    ArrowRight,
     CheckCircle2,
     Sparkles,
     Video,
-    Camera
+    Camera,
+    BookOpen
 } from 'lucide-react';
 
 // Type definitions matching the JSON structure from Phase 6
@@ -23,6 +25,7 @@ interface ReleaseItem {
     affectedAreas: string[];
     screenshotUrl: string | null;
     videoUrl: string | null;
+    articleUrl: string | null;
 }
 
 interface Release {
@@ -270,19 +273,31 @@ export default function ReleaseDetailRenderer({ releaseData: release }: Props) {
                                             </div>
                                         )}
 
-                                        {/* Affected Areas Tags */}
-                                        {item.affectedAreas && item.affectedAreas.length > 0 && (
-                                            <div className="flex flex-wrap gap-2 ml-14">
-                                                {item.affectedAreas.map(area => (
-                                                    <span
-                                                        key={area}
-                                                        className="px-2 py-1 text-xs rounded-full bg-white/10 text-white/70"
-                                                    >
-                                                        {area}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        )}
+                                        {/* Affected Areas Tags + Article Link */}
+                                        <div className="flex items-center justify-between gap-4 ml-14 flex-wrap">
+                                            {item.affectedAreas && item.affectedAreas.length > 0 && (
+                                                <div className="flex flex-wrap gap-2">
+                                                    {item.affectedAreas.map(area => (
+                                                        <span
+                                                            key={area}
+                                                            className="px-2 py-1 text-xs rounded-full bg-white/10 text-white/70"
+                                                        >
+                                                            {area}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            )}
+                                            {item.articleUrl && (
+                                                <Link
+                                                    to={item.articleUrl}
+                                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-[#E8B058]/10 border border-[#E8B058]/30 text-[#E8B058] hover:bg-[#E8B058]/20 transition-colors no-underline flex-shrink-0"
+                                                >
+                                                    <BookOpen className="w-3.5 h-3.5" />
+                                                    <span>Full Article</span>
+                                                    <ArrowRight className="w-3 h-3" />
+                                                </Link>
+                                            )}
+                                        </div>
                                     </motion.div>
                                 );
                             })}
