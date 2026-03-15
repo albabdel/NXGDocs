@@ -22,7 +22,9 @@ function DownloadPDFInner({ slug: propSlug, className }: DownloadPDFProps) {
   const [slug, setSlug] = useState<string>('');
 
   useEffect(() => {
-    const derivedSlug = propSlug || window.location.pathname.split('/').filter(Boolean).pop() || 'document';
+    const segments = window.location.pathname.split('/').filter(Boolean);
+    segments.shift(); // remove routeBasePath (e.g. 'docs', 'role-admin', 'operator')
+    const derivedSlug = propSlug || segments.join('/') || 'document';
     setSlug(derivedSlug);
 
     const pdfPath = `/pdfs/${derivedSlug}.pdf`;
