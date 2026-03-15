@@ -1,0 +1,209 @@
+[
+  {
+    "id": "REG-001",
+    "title": "DC09 CMS Marketplace visibility and status display",
+    "description": "Ensure DC09 CMS is visible in the Marketplace with correct status indicator",
+    "changeType": "fix",
+    "affectedAreas": ["marketplace", "platform-fundamentals"],
+    "priority": "critical",
+    "sourceTest": "critical-regression.json:_rowIndex:3"
+  },
+  {
+    "id": "REG-002",
+    "title": "CMS required field validation",
+    "description": "Prevent CMS from being saved without required fields",
+    "changeType": "fix",
+    "affectedAreas": ["platform-fundamentals", "data-validation"],
+    "priority": "critical",
+    "sourceTest": "critical-regression.json:_rowIndex:4"
+  },
+  {
+    "id": "REG-003",
+    "title": "DC09 Account ID mandatory enforcement",
+    "description": "Ensure Account ID is mandatory when a site forwards alarms to DC09 and site cannot be saved without it",
+    "changeType": "fix",
+    "affectedAreas": ["platform-fundamentals", "data-validation"],
+    "priority": "critical",
+    "sourceTest": "critical-regression.json:_rowIndex:5-6"
+  },
+  {
+    "id": "REG-004",
+    "title": "DC09 alarm forwarding reliability",
+    "description": "Ensure alarms are successfully forwarded to the DC09 CMS with correct account per site",
+    "changeType": "fix",
+    "affectedAreas": ["platform-fundamentals", "alarm-management"],
+    "priority": "critical",
+    "sourceTest": "critical-regression.json:_rowIndex:7-8"
+  },
+  {
+    "id": "REG-005",
+    "title": "DC09 encryption key handling",
+    "description": "Ensure alarms are encrypted when encryption key is provided, and unencrypted when not",
+    "changeType": "fix",
+    "affectedAreas": ["platform-fundamentals", "security"],
+    "priority": "critical",
+    "sourceTest": "critical-regression.json:_rowIndex:9-10"
+  },
+  {
+    "id": "REG-006",
+    "title": "DC09 Alarm Forward Logs visibility",
+    "description": "Ensure logs are visible on Device Dashboard with success/failure entries and near real-time updates",
+    "changeType": "fix",
+    "affectedAreas": ["platform-fundamentals", "logging"],
+    "priority": "high",
+    "sourceTest": "critical-regression.json:_rowIndex:11-12"
+  },
+  {
+    "id": "REG-007",
+    "title": "Outstream feature stability",
+    "description": "Ensure Outstream feature loads without errors and Talos synchronization works correctly",
+    "changeType": "fix",
+    "affectedAreas": ["platform-fundamentals", "outstream"],
+    "priority": "critical",
+    "sourceTest": "critical-regression.json:_rowIndex:14-15"
+  },
+  {
+    "id": "REG-008",
+    "title": "Zone display correctness",
+    "description": "Ensure zones are displayed correctly with all sensors visible per zone, no hidden or incorrectly merged sensors",
+    "changeType": "fix",
+    "affectedAreas": ["platform-fundamentals", "zone-management"],
+    "priority": "critical",
+    "sourceTest": "critical-regression.json:_rowIndex:16-18"
+  },
+  {
+    "id": "REG-009",
+    "title": "Outstream data persistence on refresh",
+    "description": "Ensure page refresh does not break data and site switching updates data correctly",
+    "changeType": "fix",
+    "affectedAreas": ["platform-fundamentals", "data-persistence"],
+    "priority": "high",
+    "sourceTest": "critical-regression.json:_rowIndex:19-20"
+  },
+  {
+    "id": "REG-010",
+    "title": "Talos alarm reception in GCX",
+    "description": "Verify alarms are received correctly from Talos in GCX",
+    "changeType": "fix",
+    "affectedAreas": ["platform-fundamentals", "alarm-management"],
+    "priority": "critical",
+    "sourceTest": "critical-regression.json:_rowIndex:22"
+  },
+  {
+    "id": "REG-011",
+    "title": "Auto streaming trigger reliability",
+    "description": "Ensure alarms trigger auto streaming successfully and disabling prevents any streaming action",
+    "changeType": "fix",
+    "affectedAreas": ["platform-fundamentals", "streaming"],
+    "priority": "critical",
+    "sourceTest": "critical-regression.json:_rowIndex:23-24"
+  },
+  {
+    "id": "REG-012",
+    "title": "Zone-based streaming behavior",
+    "description": "Ensure site-level and zone-based streaming work correctly with proper fallback for invalid zones",
+    "changeType": "fix",
+    "affectedAreas": ["platform-fundamentals", "zone-management", "streaming"],
+    "priority": "critical",
+    "sourceTest": "critical-regression.json:_rowIndex:26-28"
+  },
+  {
+    "id": "REG-013",
+    "title": "Zone change isolation",
+    "description": "Ensure zone changes affect future alarms only, not existing ones",
+    "changeType": "fix",
+    "affectedAreas": ["platform-fundamentals", "zone-management"],
+    "priority": "high",
+    "sourceTest": "critical-regression.json:_rowIndex:29"
+  },
+  {
+    "id": "REG-014",
+    "title": "Camera streaming across devices",
+    "description": "Ensure all cameras stream correctly for sites with single or multiple devices, and no streams start for sites without devices",
+    "changeType": "fix",
+    "affectedAreas": ["platform-fundamentals", "streaming", "device-management"],
+    "priority": "critical",
+    "sourceTest": "critical-regression.json:_rowIndex:31-33"
+  },
+  {
+    "id": "REG-015",
+    "title": "Motion alarm quad view behavior",
+    "description": "Ensure motion alarm opens quad automatically, even when viewing other cameras, with consistent behavior for repeated alarms",
+    "changeType": "fix",
+    "affectedAreas": ["platform-fundamentals", "ui-behavior", "multi-monitor"],
+    "priority": "high",
+    "sourceTest": "critical-regression.json:_rowIndex:35-37"
+  },
+  {
+    "id": "REG-016",
+    "title": "Alarm lifecycle quad workflow sync",
+    "description": "Ensure canceling alarm closes quad and workflow, closing workflow closes quad, and reopening alarm opens quad again",
+    "changeType": "fix",
+    "affectedAreas": ["platform-fundamentals", "workflow-management"],
+    "priority": "high",
+    "sourceTest": "critical-regression.json:_rowIndex:39-41"
+  },
+  {
+    "id": "REG-017",
+    "title": "Stream access permissions enforcement",
+    "description": "Ensure unauthorized users cannot see or access streams and streaming UI is hidden for unauthorized roles",
+    "changeType": "fix",
+    "affectedAreas": ["platform-fundamentals", "security", "permissions"],
+    "priority": "critical",
+    "sourceTest": "critical-regression.json:_rowIndex:43-44"
+  },
+  {
+    "id": "REG-018",
+    "title": "Streaming action audit logging",
+    "description": "Ensure streaming actions, permission denials and failures are properly logged for compliance",
+    "changeType": "fix",
+    "affectedAreas": ["platform-fundamentals", "logging", "compliance"],
+    "priority": "high",
+    "sourceTest": "critical-regression.json:_rowIndex:46-47"
+  },
+  {
+    "id": "REG-019",
+    "title": "Marketplace alarm management category visibility",
+    "description": "Ensure Marketplace loads successfully with Alarm Management System category visible",
+    "changeType": "fix",
+    "affectedAreas": ["marketplace", "platform-fundamentals"],
+    "priority": "critical",
+    "sourceTest": "critical-regression.json:_rowIndex:49-50"
+  },
+  {
+    "id": "REG-020",
+    "title": "CMS options listing completeness",
+    "description": "Ensure all supported CMS options (Evalink Talos, Amwin, Lisa, Immix, Alice) are listed even when no CMS is configured",
+    "changeType": "fix",
+    "affectedAreas": ["marketplace", "platform-fundamentals"],
+    "priority": "high",
+    "sourceTest": "critical-regression.json:_rowIndex:51-52"
+  },
+  {
+    "id": "REG-021",
+    "title": "CMS state display accuracy",
+    "description": "Ensure each CMS shows correct state (Not Configured/Configured)",
+    "changeType": "fix",
+    "affectedAreas": ["marketplace", "platform-fundamentals"],
+    "priority": "high",
+    "sourceTest": "critical-regression.json:_rowIndex:53"
+  },
+  {
+    "id": "REG-022",
+    "title": "CMS admin-only access control",
+    "description": "Ensure only admin users can view and access CMS configuration",
+    "changeType": "fix",
+    "affectedAreas": ["marketplace", "security", "permissions"],
+    "priority": "critical",
+    "sourceTest": "critical-regression.json:_rowIndex:54"
+  },
+  {
+    "id": "REG-023",
+    "title": "CMS overview page functionality",
+    "description": "Ensure selecting a CMS opens overview page displaying supported alarm protocol, integration scope, and required configuration inputs",
+    "changeType": "fix",
+    "affectedAreas": ["marketplace", "platform-fundamentals"],
+    "priority": "high",
+    "sourceTest": "critical-regression.json:_rowIndex:55-56"
+  }
+]

@@ -1,0 +1,482 @@
+{
+  "fileName": "T.C.xlsx",
+  "sheetCount": 11,
+  "sheets": {
+    "RG.con": {
+      "index": 0,
+      "columnCount": 7,
+      "headers": [
+        "TEST CASE ID",
+        "TEST CASE DESCRIPTION",
+        "TEST STEPS",
+        "PRE CONDITIONS",
+        "EXPECTED RESULT",
+        "STATUS",
+        "COMMENTS OR NOTE"
+      ],
+      "totalRows": 164,
+      "sampleRows": [
+        [
+          "TC_1",
+          "Verify whether the created device\nactive or not",
+          "1.login to GCX\n2.navigate to configuration\n3.activate any device",
+          "Login GCX",
+          "The device should be activated",
+          "Pass"
+        ],
+        [
+          "TC_2",
+          "Verify whether the created device\nInactive or not",
+          "1.login to GCX\n2.navigate to configuration\n3.Inactivate any device",
+          "Login GCX",
+          "The device should be inactivated",
+          "Pass"
+        ],
+        [
+          "TC_3",
+          "Add a new device in a existing site ",
+          "1.Login to GCX\n2.navigate to configuration\n3.click on any site\n4.Go to device and click Add\n5.check whether new device has\ndiscover",
+          "Login GCX",
+          "Device should be added with the\nunder the given site",
+          "Pass"
+        ],
+        [
+          "TC_4",
+          "Delete an Existing device  in a site",
+          "1.Login to GCX\n2.navigate to configuration\n3.click on any site\n4.Go to Device and select Delete",
+          "Login GCX",
+          "Dvice should be able to delete in tha\ncorresponding site",
+          "Pass"
+        ],
+        [
+          "TC_5",
+          "device inactive",
+          "1.Login to GCX\n2.navigate to configuration\n3.click any device inactive",
+          "Login GCX",
+          "inside the device the sensor should not\nwork",
+          "Pass"
+        ]
+      ]
+    },
+    "permission and role2": {
+      "index": 1,
+      "columnCount": 6,
+      "headers": [
+        "TEST CASE ID",
+        "TEST CASE DESCRIPTION",
+        "Precondition",
+        "TEST STEPS",
+        "EXPECTED RESULT",
+        "status"
+      ],
+      "totalRows": 71,
+      "sampleRows": [
+        [
+          "TC_1",
+          "Verify Role Creation Is Saved Successfully",
+          null,
+          "Login as Admin\n\nCreate new role\n\nConfigure permissions\n\nAssign entities\n\nClick Save",
+          "Role saved successfully\n\nSuccess message displayed\n\nRole appears in roles list",
+          "pass"
+        ],
+        [
+          "TC_2",
+          "Verify Role Persists After Logout/Login",
+          "Role already created",
+          "Logout\n\nLogin again\n\nNavigate to Roles",
+          "Role exists\n\nAll permissions remain unchanged\n\nAll entity assignments remain intact",
+          "pass"
+        ],
+        [
+          "TC_3",
+          "Verify No Data Loss on Role Edit After Re-Login",
+          null,
+          "Create role\n\nLogout\n\nLogin\n\nEdit role\n\nSave",
+          "No missing settings\n\nNo corrupted fields\n\nData updates correctly",
+          "pass"
+        ],
+        [
+          "TC_4",
+          "Verify Role Creation Performance",
+          null,
+          "Measure time from clicking Save until success response",
+          "Role saved within acceptable performance threshold\n\nNo noticeable delay",
+          "pass"
+        ],
+        [
+          "TC_5",
+          "Verify System Prevents Duplicate Role Name Within Same Tenant",
+          null,
+          "Create role named “Supervisor”\n\nAttempt to create another role named “Supervisor”",
+          "System blocks creation\n\nClear validation message displayed\n\nRole not created",
+          "pass"
+        ]
+      ]
+    },
+    "DC09": {
+      "index": 2,
+      "columnCount": 7,
+      "headers": [
+        "TEST CASE ID",
+        "TEST CASE DESCRIPTION",
+        "PRE CONDITIONS",
+        "Steps",
+        "Expected Result",
+        "status ",
+        "comment\\name"
+      ],
+      "totalRows": 46,
+      "sampleRows": [
+        [
+          "TC_1",
+          "Alarm Management System Category Visibility",
+          "User is logged in",
+          "Open the Marketplace\n\nLocate the Alarm Management System category",
+          "Category is visible\n\nOnly admin users can see and access CMS configuration options",
+          "pass"
+        ],
+        [
+          "TC_2",
+          "CMS Options Listed Correctly",
+          null,
+          "Open Alarm Management System category",
+          "All CMS options are displayed: Evalink Talos, Amwin, Lisa, Immix, Alice, Other (DC09-compatible)\n\nEach CMS displays current state: Configured / Not configured\n\nIntegration type is clearly indicated (DC09 or API)",
+          "pass"
+        ],
+        [
+          "TC_3",
+          "CMS Visibility Without Configuration",
+          null,
+          "Ensure no CMS is configured\n\nOpen Marketplace → Alarm Management System",
+          "All CMS entries are visible even if not configured",
+          "pass"
+        ],
+        [
+          "TC_4",
+          "CMS Overview Page",
+          "User is logged in",
+          "Select any CMS entry\n\nOpen the overview",
+          "Supported alarm protocol\n\nScope of integration\n\nRequired configuration inputs",
+          "pass"
+        ],
+        [
+          "TC_5",
+          "Permissions Check for Non-Admin Users",
+          "User is not an admin",
+          "Open Marketplace → Alarm Management System",
+          "CMS entries are visible\n\nCMS configuration options are not accessible",
+          "block"
+        ]
+      ]
+    },
+    "permission and role (1": {
+      "index": 3,
+      "columnCount": 7,
+      "headers": [
+        "TEST CASE ID",
+        "TEST CASE DESCRIPTION",
+        "Precondition",
+        "TEST STEPS",
+        "EXPECTED RESULT",
+        "status",
+        "note"
+      ],
+      "totalRows": 32,
+      "sampleRows": [
+        [
+          "security"
+        ],
+        [
+          "TC_1",
+          "Verify that Master Admin role cannot be assigned through invite",
+          "User is logged in as Platform Admin",
+          "Navigate to Invite User page\n\nAttempt to assign \"Master Admin\" role to invited user\n\nClick Send Invite",
+          "System prevents selecting Master Admin role"
+        ],
+        [
+          "TC_2",
+          "Verify invited user cannot modify user roles",
+          "User was created via invite with limited permissions",
+          "Login as invited user\n\nNavigate to Roles / User Management\n\nAttempt to edit any user role",
+          "Role modification option is hidden OR disabled\n\nIf accessed directly via URL, system returns authorization error\n\nNo role changes are applied"
+        ],
+        [
+          "TC_3",
+          "Verify invited user cannot create new invites",
+          "User was created via invite without invite permission",
+          "Login as invited user\n\nNavigate to Invite section\n\nAttempt to create new invite",
+          "Invite option is not visible OR disabled\n\nIf forced via API request, system returns authorization error\n\nNo invite is created"
+        ],
+        [
+          "TC_4",
+          "Verify privilege escalation is blocked at backend level",
+          "Invited user logged in",
+          "Intercept role modification request (via DevTools / Postman)\n\nModify request payload to escalate role (e.g., change role to Master Admin)\n\nSend request",
+          "System returns 403 Forbidden / Authorization error\n\nRole is not updated in database\n\nNo privilege escalation occurs"
+        ]
+      ]
+    },
+    "website": {
+      "index": 4,
+      "columnCount": 2,
+      "headers": [
+        "TEST CASE ID",
+        "TEST CASE DESCRIPTION"
+      ],
+      "totalRows": 27,
+      "sampleRows": [
+        [
+          "TC_1"
+        ],
+        [
+          "TC_2"
+        ],
+        [
+          "TC_3"
+        ],
+        [
+          "TC_4"
+        ],
+        [
+          "TC_5"
+        ]
+      ]
+    },
+    "Autostream for last req": {
+      "index": 5,
+      "columnCount": 7,
+      "headers": [
+        "TEST CASE ID",
+        "TEST CASE DESCRIPTION",
+        "PRE CONDITIONS",
+        "Steps",
+        "Expected Result",
+        "status",
+        "comments \\name"
+      ],
+      "totalRows": 23,
+      "sampleRows": [
+        [
+          "TC_1",
+          " View Auto Streaming Settings",
+          "Admin user logged into GCX",
+          "1. Login as Admin \n 2. Navigate to Auto Streaming Settings page",
+          "GCX displays all Auto Streaming settings exactly as defined in Genesis"
+        ],
+        [
+          "TC_2",
+          " Modify Auto Streaming Settings",
+          "Admin logged in, Auto Streaming page open",
+          "1. Change a setting (e.g., enable/disable auto streaming)\n2. Save changes",
+          "Changes are immediately reflected in Genesis; no GCX storage used"
+        ],
+        [
+          "TC_3",
+          " Unauthorized User Access",
+          "Operator without admin permission logged in",
+          "1. Navigate to Auto Streaming Settings page",
+          "Page or settings not accessible; proper error message displayed"
+        ],
+        [
+          "TC_4",
+          " Display Alarm Types",
+          "Admin logged in",
+          "1. Open Auto Streaming Alarm configuration",
+          "GCX shows all Genesis-defined alarm types"
+        ],
+        [
+          "TC_5",
+          "Select Alarms for Streaming",
+          "Admin logged in, Alarm config page open",
+          "1. Select alarm(s) to trigger auto streaming                                2. Save",
+          "Only selected alarms trigger streaming; Genesis alarm definitions unchanged"
+        ]
+      ]
+    },
+    "reports": {
+      "index": 6,
+      "columnCount": 4,
+      "headers": [
+        "TEST CASE ID",
+        "Precondition",
+        "TEST STEPS",
+        "EXPECTED RESULT"
+      ],
+      "totalRows": 5,
+      "sampleRows": [
+        [
+          "Verify Manage Report Schedules Dashboard Summary (Read-Only Cards) Verify summary section in Manage Report Schedules page",
+          "User is logged in and has access to Dashboard → Settings → Reports",
+          "*Go to Dashboard\n\n*Navigate to Settings\n\n*Click on “Report”\n\n*Click on “Manage Report Schedules”",
+          "The following summary fields appear at the top of the page:\n\nActive Schedules\n\nReports Sent This Month\n\nFailed Deliveries\n\nAll fields are displayed correctly\n\nFields are read-only\n\nUser cannot click or interact with them"
+        ],
+        [
+          "Verify Create New Schedule Button(Verify user can create a new report schedule)",
+          "User is on Manage Report Schedules page",
+          "*Click on “Create New Schedule”\n\n*Fill required fields\n\n*Click Save/*Create",
+          "New schedule is created successfully\n\nCreated schedule appears in the table below\n\nSuccess message is displayed"
+        ],
+        [
+          "Verify Schedule Table Columns\nVerify schedule table structure after creating schedule",
+          "At least one schedule exists",
+          "*Navigate to Manage Report Schedules page\n\n*Observe the schedule table",
+          "The table contains the following columns:\nSchedule\nCustomers\nSite\nActions"
+        ],
+        [
+          "Verify Actions Column Functionality\nVerify actions (Edit / Delete / Trigger) functionality",
+          "At least one schedule exists",
+          "*Click on Edit\n*Modify data and save\n*Click on Delete\n*Click on Trigger",
+          "Edit updates schedule successfully\n\nDelete removes schedule after confirmation\n\nTrigger manually sends the report successfully"
+        ],
+        [
+          "Verify Rows Per Page Functionality\nVerify Rows Per Page option in schedule table",
+          "Multiple schedules exist",
+          "*Locate “Rows per page” option\n\n*Change number of rows displayed",
+          "Table updates dynamically\n\nCorrect number of rows is displayed per selection"
+        ]
+      ]
+    },
+    "autostream|mu": {
+      "index": 7,
+      "columnCount": 7,
+      "headers": [
+        "correctly  behavior ",
+        "TEST CASE ID",
+        "FUNCTIONALITY DESCRIPTION",
+        "TEST CASE DESCRIPTION",
+        "EXPECTED RESULT",
+        "STATUS",
+        "comment\\name"
+      ],
+      "totalRows": 18,
+      "sampleRows": [
+        [
+          "Only multi-monitor toggle enabled",
+          "TC_01",
+          "Motion alarm_Event assign_Only multi-monitor toggle enabled in salvo",
+          "Verify that assigning a motion alarm automatically opens the alarm workflow in Talos and loads the corresponding alarm quad automatically in Salvo.",
+          "Alarm workflow opens automatically in Talos\n\nAlarm quad is automatically loaded and displayed in Salvo",
+          "pass"
+        ],
+        [
+          "Only autostream enabled in salvo",
+          "TC_02",
+          null,
+          "Verify that the alarm quad is automatically loaded in Salvo when a motion alarm is assigned, even if the user is already viewing other live cameras using drag and drop.",
+          "Current live camera view is replaced or updated\n\nAlarm quad loads automatically without user intervention",
+          "pass"
+        ],
+        [
+          "Both auto stream and multi-monitor enabled in salvo",
+          "TC_03",
+          null,
+          "Verify that cancelling the assigned motion alarm using the cancel “X” icon closes the workflow popup in Talos and closes the alarm quad in Salvo.",
+          "Workflow popup is closed in Talos\n\nAlarm quad is closed in Salvo",
+          "pass"
+        ],
+        [
+          "Both autostream and multi-monitor set off",
+          "TC_04",
+          null,
+          "Verify that closing the alarm workflow from Talos closes the corresponding alarm quad opened in Salvo.",
+          "Workflow is closed in Talos\n\nAlarm quad is closed in Salvo",
+          "pass"
+        ],
+        [
+          "Two salvo scenario- One salvo with multi-monitor enabled and other salvo with auto stream enabled",
+          "TC_05",
+          null,
+          "Verify that opening the same motion alarm again or assigning a new motion alarm automatically opens the alarm quad in Talos and loads it in Salvo.",
+          "Alarm workflow opens correctly in Talos\n\nCorresponding alarm quad loads automatically in Salvo\n\nNo leftover state from previous alarms",
+          "pass"
+        ]
+      ]
+    },
+    "RG.video activity": {
+      "index": 8,
+      "columnCount": 7,
+      "headers": [
+        "TEST CASE ID",
+        "FUNCTIONALITY DESCRIPTION",
+        "FUNCTIONALITY DESCRIPTION",
+        "TEST STEPS",
+        "EXPECTED RESULT",
+        "ACTUAL RESULT/ADMIN LOGIN",
+        "STATUS"
+      ],
+      "totalRows": 4,
+      "sampleRows": [
+        [
+          "TC-1",
+          "site drag and drop",
+          "site drag and drop",
+          "1.Login to GCX\n2.Navigate to the Video viewer \n3.Select a Site \n4.Drag and drop the device\n5.Drag and drop another device over the first device",
+          "first now should cut\n and second one\n should be playing",
+          "first now should cut\n and second one\n should be playing",
+          "pass"
+        ],
+        [
+          "TC -2",
+          "device drag and drop",
+          "device drag and drop",
+          "1.Login to GCX\n 2.Navigate to the Video viewer \n3.Select a Site\n 4.Drag and drop the device\n 5.Drag and drop another device over the first device",
+          "First dropped device\n should be closed and \nthe Second device \nshould start streaming",
+          "Streams of the First dropped\n device is closed and the \nSecond device starts streaming",
+          "pass"
+        ],
+        [
+          "TC-3",
+          "Site drag and drop_Local mode_\nDefault 2x2",
+          "Site drag and drop_Local mode_\nDefault 2x2",
+          "1.Login to GCX\n2.Navigate to the Video viewer app \n3.Select a site\n 4.Drag and drop the device into Salvo",
+          "site should be streamed \nin default 2x2 view \nin the Salvo",
+          "The site is streamed in default 2x2 \nview in the Salvo",
+          "pass"
+        ],
+        [
+          "TC-4",
+          "site drag and drop",
+          "site drag and drop",
+          "1.Login to GCX\n2.Navigate to the Video viewer app\n 3.Select a site\n 4.Drag and drop the device "
+        ]
+      ]
+    },
+    "CRITICAL REGRESSION": {
+      "index": 9,
+      "columnCount": 2,
+      "headers": [
+        "REGRESSION CHEKLIST",
+        "another regrassion for al system In general"
+      ],
+      "totalRows": 55,
+      "sampleRows": [
+        [
+          "CRITICAL REGRESSION – DC09",
+          "devices, videos about search and tower \\salvo\\talos\\"
+        ],
+        [
+          "DC09 CMS is visible in the Marketplace with correct status"
+        ],
+        [
+          "CMS cannot be saved without required fields"
+        ],
+        [
+          "DC09 Account ID is mandatory when a site forwards alarms to DC09"
+        ],
+        [
+          "Site cannot be saved if DC09 Account ID is missing"
+        ]
+      ]
+    },
+    "Client Requests Flow (SOP)": {
+      "index": 10,
+      "columnCount": 2,
+      "headers": [
+        "Software Delivery – Roles & Process Overview\n\nCSM Team (Customer Success Management)\n•Communicate with clients and collect requests\n•Create and track tickets and share updates and release outcomes with clients\n\nTechnical Writer (Part of CSM Team)\n•Document approved features and changes after each release\n•Prepare and maintain user-facing documentation and guides\n\nQA Lead (Quality Assurance)\n•Review, analyze, and classify requests (Bug / Improvement / New Request)\n•Prioritize requests, test delivered work, and prepare Release Notes\n\nDevelopment Team\n•Implement approved and ready tasks\n•Work on a limited number of tasks at the same time \n\nDev Lead\n•Oversee execution and task distribution\n•Ensure technical readiness of releases\n\nRequest Flow (Process Flow)\n1.Client communicates with CSM\n2.CSM creates a ticket\n3.QA reviews and prepares the request\n4.Dev Lead + QA Lead + CSM Lead define the priority\n5.Development implements\n6.QA tests\n7.Release + Release Notes\n\nRequest Types\n•Bug: A malfunction in functionality that was previously working\n•Improvement: Enhancement to an existing feature\n•New Request: A new feature or capability\n\nPriority Order\n1.Critical Bugs\n2.Normal Bugs\n3.Shared Improvements\n4.Client-Specific Requests",
+        "1️⃣ Client → Execution Flow\nStep 1: Client → CSM\nAll client communication should go through the CSM only\nDirect communication between Dev or QA Lead and the client is not allowed\n\nStep 2: CSM Request Documentation (Mandatory)\nEvery request must be documented as a Ticket including:\n1.Client Name\n2.Type: Bug / Improvement / New Request\n3.Description: clear and detailed\n4.Screenshots / Video (if available)\n\nImpact:\nIs this a Blocker? \nIs the client blocked? \nAny related side feature? \n**Any request without these details will be sent back to the CSM\n\nStep 3: QA Lead Review (Gate #1)\nQA Lead responsibilities:\n\n1.Understand the request\n2.Rewrite it in technical terms\n3.Verify whether it is\nA real Bug or Misuse \n4.Determine\nRisk , Impact on other clients\nOutcome:\nA clean Ticket ready for Dev execution\n\nStep 4: Prioritization Meeting (30 mins)\nOccurs once or twice a week\nAttendees: QA Lead, Dev Lead, CSM Lead\n\nTasks:\nPrioritize requests:\n* Critical Bugs\n* General Bugs\n* Shared Improvements\n* Client-specific Requests\n\nGoal: Prevent chaos and ensure fair prioritization\n\n2️⃣ Handling Bugs:\n* Critical Bug\nSystem Down or client blocked\n\nFast process:\nQA Lead identifies the bug\nTicket marked with Critical label\nMoves directly to Kanban Flow\nCSM informs the client that the issue is being handled\n\n* Normal Bug\nDoes not stop work\nPlaced in Backlog / Kanban Flow according to priority\n\n3️⃣ Client-specific New Requirements\nFor any client-specific request:\n1.QA Lead + Dev perform Quick Impact Analysis\nWill it affect other clients?\nIs a Feature Flag required?\n2.Decision:\n Reject , Postpone ,  Accept as Config / Optional Feature\n3. Important:\nNo client-specific version should exist\n\n4️⃣ Protecting Dev Team\n*No direct interruptions\n*Everything is handled via Backlog / Kanban Flow\n*Only Critical Bugs interrupt the normal flow"
+      ],
+      "totalRows": 0,
+      "sampleRows": []
+    }
+  }
+}

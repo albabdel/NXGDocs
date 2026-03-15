@@ -12,6 +12,14 @@ last_updated: 2025-12-04
 
 Comprehensive guide for operator dashboard.
 
+## What's New
+
+| Feature | Description | Available Since |
+| :--- | :--- | :--- |
+| **DC09 Alarm Forward Log** | Device Dashboard shows DC09 Alarm Forward Log section for devices forwarding alarms using DC09. Displays success/failure entries with encryption status. | March 2026 |
+| **Continuous Event Flow** | Alarm events flow continuously through Talos workflow and VAS without interruption. | March 2026 |
+| **Alarm Assignment Workflow** | Alarm assignment flows from Talos workflow to Map and Salvo pages for real-time visibility across interfaces. | March 2026 |
+
 ## Overview
 
 This device integrates seamlessly with the GCXONE platform to provide comprehensive security monitoring.

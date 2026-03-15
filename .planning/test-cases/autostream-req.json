@@ -1,0 +1,209 @@
+[
+  {
+    "TEST CASE ID": "TC_1",
+    "TEST CASE DESCRIPTION": " View Auto Streaming Settings",
+    "PRE CONDITIONS": "Admin user logged into GCX",
+    "Steps": "1. Login as Admin \n 2. Navigate to Auto Streaming Settings page",
+    "Expected Result": "GCX displays all Auto Streaming settings exactly as defined in Genesis",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_2",
+    "TEST CASE DESCRIPTION": " Modify Auto Streaming Settings",
+    "PRE CONDITIONS": "Admin logged in, Auto Streaming page open",
+    "Steps": "1. Change a setting (e.g., enable/disable auto streaming)\n2. Save changes",
+    "Expected Result": "Changes are immediately reflected in Genesis; no GCX storage used",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_3",
+    "TEST CASE DESCRIPTION": " Unauthorized User Access",
+    "PRE CONDITIONS": "Operator without admin permission logged in",
+    "Steps": "1. Navigate to Auto Streaming Settings page",
+    "Expected Result": "Page or settings not accessible; proper error message displayed",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_4",
+    "TEST CASE DESCRIPTION": " Display Alarm Types",
+    "PRE CONDITIONS": "Admin logged in",
+    "Steps": "1. Open Auto Streaming Alarm configuration",
+    "Expected Result": "GCX shows all Genesis-defined alarm types",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_5",
+    "TEST CASE DESCRIPTION": "Select Alarms for Streaming",
+    "PRE CONDITIONS": "Admin logged in, Alarm config page open",
+    "Steps": "1. Select alarm(s) to trigger auto streaming                                2. Save",
+    "Expected Result": "Only selected alarms trigger streaming; Genesis alarm definitions unchanged",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_6",
+    "TEST CASE DESCRIPTION": "Negative Case: Modify Alarm",
+    "PRE CONDITIONS": "Admin attempts to create or edit alarm type",
+    "Steps": "1. Try to add or edit alarm type \n 2. Save",
+    "Expected Result": "GCX does not allow creation/modification; error message shown",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_7",
+    "TEST CASE DESCRIPTION": "Stream starts on qualifying alarm",
+    "PRE CONDITIONS": "Operator logged in, camera-sensor mapping exists",
+    "Steps": "1. Trigger qualifying alarm",
+    "Expected Result": "Live stream starts automatically for relevant cameras",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_8",
+    "TEST CASE DESCRIPTION": "Multiple Cameras Streaming",
+    "PRE CONDITIONS": "Same as above",
+    "Steps": "1. Trigger alarm mapped to multiple cameras",
+    "Expected Result": "All mapped cameras stream simultaneously",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_9",
+    "TEST CASE DESCRIPTION": "Stop Stream on Alarm Close",
+    "PRE CONDITIONS": "Alarm is active, stream is live",
+    "Steps": "1. Close or acknowledge alarm",
+    "Expected Result": "All streams stop according to Genesis rules",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_10",
+    "TEST CASE DESCRIPTION": " Alarm with unmapped cameras",
+    "PRE CONDITIONS": "Operator logged in",
+    "Steps": "1. Trigger alarm mapped to no cameras",
+    "Expected Result": "No streams start; system stable",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_11",
+    "TEST CASE DESCRIPTION": "Stream respects zones",
+    "PRE CONDITIONS": "operator logged in \n- Zones defined in Genesis\n - Cameras mapped to zones",
+    "Steps": "1. Trigger an alarm mapped to a specific zone                        2.Observe which cameras start streaming",
+    "Expected Result": "Only cameras in the alarm’s zone stream automatically Cameras outside the",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_12",
+    "TEST CASE DESCRIPTION": " Default all cameras stream if no zones",
+    "PRE CONDITIONS": "- Operator logged in - No zones defined in Genesis - Cameras exist",
+    "Steps": "1. Trigger an alarm    \n 2. Observe cameras",
+    "Expected Result": "All cameras stream automatically when no zones exist",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_13",
+    "TEST CASE DESCRIPTION": "Admin can view site zones",
+    "PRE CONDITIONS": "- Admin logged in - Site has zones defined in Genesis",
+    "Steps": "1. Open GCX \n2. Navigate to Zones page",
+    "Expected Result": "Admin can view all site zones exactly as defined in Genesis",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_14",
+    "TEST CASE DESCRIPTION": "Read-only for unauthorized users",
+    "PRE CONDITIONS": "- Operator logged in - No edit permissions - Site has zones",
+    "Steps": "1. Navigate to Zones page",
+    "Expected Result": "Zones displayed as read-only \n Operator cannot modify",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_15",
+    "TEST CASE DESCRIPTION": "Zone changes affect future alarms only",
+    "PRE CONDITIONS": "Admin logged in - Site has zones - Some alarms active",
+    "Steps": "1. Change zone assignments in GCX                                           2.Trigger a new alarm",
+    "Expected Result": "Changes affect new alarms only Existing alarms follow old zone config",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_16",
+    "TEST CASE DESCRIPTION": "Admin can set streaming permissions",
+    "PRE CONDITIONS": "- Admin logged in \n - GCX Auto Streaming page open",
+    "Steps": "1. Open permissions settings \n2 . Modify roles allowed to stream \n3. Save",
+    "Expected Result": "permissions are saved and applied Operators and Admins respect new settings",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_17",
+    "TEST CASE DESCRIPTION": "Operator without permission cannot see streams",
+    "PRE CONDITIONS": "operator logged in - Operator has no streaming permission",
+    "Steps": "1. Trigger alarm \n2. Check streaming page",
+    "Expected Result": "Operator cannot see or access streams",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_18",
+    "TEST CASE DESCRIPTION": "Streaming UI hidden for unauthorized roles",
+    "PRE CONDITIONS": "- Operator without permission - GCX logged in",
+    "Steps": "1.Open GCX \n2. Navigate to streaming page",
+    "Expected Result": "Streaming UI elements do not appear",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_19",
+    "TEST CASE DESCRIPTION": "Deep links blocked",
+    "PRE CONDITIONS": "- Operator without permission \n - Attempt direct URL to stream",
+    "Steps": "1. Enter deep link URL",
+    "Expected Result": "Access denied \n Operator cannot bypass UI restrictions",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_20",
+    "TEST CASE DESCRIPTION": " Access denials logged",
+    "PRE CONDITIONS": "- Operator without permission \n - Attempt direct or UI access",
+    "Steps": "1. Try to access streaming\n 2. Check logs",
+    "Expected Result": "Denied access recorded in audit logs",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_21",
+    "TEST CASE DESCRIPTION": "Log streaming activity",
+    "PRE CONDITIONS": "- Admin logged in\n - Alarm triggered\n - Cameras streaming",
+    "Steps": "1. Trigger alarm \n2. Observe streaming activity\n 3. Check logs",
+    "Expected Result": "Logs contain alarm ID, site, cameras streamed, user, timestamps",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_22",
+    "TEST CASE DESCRIPTION": "Log permission denials",
+    "PRE CONDITIONS": "- Operator without streaming permission\n - Attempt to access streaming",
+    "Steps": "1. Try to open streaming UI or deep link\n 2. Check logs",
+    "Expected Result": "logs show denied access attempt with user, timestamp, and site",
+    "status": null,
+    "comments \\name": null
+  },
+  {
+    "TEST CASE ID": "TC_23",
+    "TEST CASE DESCRIPTION": "Failures logged",
+    "PRE CONDITIONS": "- Admin/Operator logged in\n - Trigger alarm\n - Force failure (simulate streaming fail)",
+    "Steps": "1. Trigger alarm \n2. Cause streaming failure\n 3. Check logs",
+    "Expected Result": "Logs include failure details: user, cameras, alarm ID, timestamp",
+    "status": null,
+    "comments \\name": null
+  }
+]

@@ -1,0 +1,570 @@
+[
+  {
+    "TEST CASE ID": "TC_1",
+    "TEST CASE DESCRIPTION": "Verify Role Creation Is Saved Successfully",
+    "Precondition": "",
+    "TEST STEPS": "Login as Admin\n\nCreate new role\n\nConfigure permissions\n\nAssign entities\n\nClick Save",
+    "EXPECTED RESULT": "Role saved successfully\n\nSuccess message displayed\n\nRole appears in roles list",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_2",
+    "TEST CASE DESCRIPTION": "Verify Role Persists After Logout/Login",
+    "Precondition": "Role already created",
+    "TEST STEPS": "Logout\n\nLogin again\n\nNavigate to Roles",
+    "EXPECTED RESULT": "Role exists\n\nAll permissions remain unchanged\n\nAll entity assignments remain intact",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_3",
+    "TEST CASE DESCRIPTION": "Verify No Data Loss on Role Edit After Re-Login",
+    "Precondition": "",
+    "TEST STEPS": "Create role\n\nLogout\n\nLogin\n\nEdit role\n\nSave",
+    "EXPECTED RESULT": "No missing settings\n\nNo corrupted fields\n\nData updates correctly",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_4",
+    "TEST CASE DESCRIPTION": "Verify Role Creation Performance",
+    "Precondition": "",
+    "TEST STEPS": "Measure time from clicking Save until success response",
+    "EXPECTED RESULT": "Role saved within acceptable performance threshold\n\nNo noticeable delay",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_5",
+    "TEST CASE DESCRIPTION": "Verify System Prevents Duplicate Role Name Within Same Tenant",
+    "Precondition": "",
+    "TEST STEPS": "Create role named “Supervisor”\n\nAttempt to create another role named “Supervisor”",
+    "EXPECTED RESULT": "System blocks creation\n\nClear validation message displayed\n\nRole not created",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_6",
+    "TEST CASE DESCRIPTION": " Verify Role Name Is Case-Insensitive for Duplicate Check",
+    "Precondition": "",
+    "TEST STEPS": "Create role named “Manager”\n\nAttempt to create role named “manager”",
+    "EXPECTED RESULT": "System treats names as duplicate\n\nCreation blocked",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_7",
+    "TEST CASE DESCRIPTION": "Verify Duplicate Role Name Across Different Tenants Is Allowed",
+    "Precondition": "Two separate tenants",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "Same role name allowed in different tenants",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_8",
+    "TEST CASE DESCRIPTION": "Verify Permission Checks Execute Within Milliseconds",
+    "Precondition": "",
+    "TEST STEPS": "Login as user with multiple permissions\n\nNavigate between pages requiring permission validation\n\nMeasure API response time",
+    "EXPECTED RESULT": "Permission check response time within defined SLA (e.g., <100ms)\n\nNo visible UI lag",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_9",
+    "TEST CASE DESCRIPTION": "Verify Permission Check Under Load",
+    "Precondition": "High number of users and roles",
+    "TEST STEPS": "Simulate multiple concurrent permission checks",
+    "EXPECTED RESULT": "No degradation beyond acceptable threshold\n\nNo timeouts\n\nNo permission mismatch",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_10",
+    "TEST CASE DESCRIPTION": "Verify No Permission Leakage",
+    "Precondition": "",
+    "TEST STEPS": "Modify role permissions\n\nLogin as assigned user\n\nVerify access matches updated permissions",
+    "EXPECTED RESULT": "Permissions enforced accurately\n\nNo cached stale permissions",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_11",
+    "TEST CASE DESCRIPTION": "Verify Role Editor Contains Entities and Privileges in Single Page",
+    "Precondition": "",
+    "TEST STEPS": "Login as Admin\n\nClick Create Role",
+    "EXPECTED RESULT": "Role name field visible\n\nEntities tree visible\n\nPrivileges section visible\n\nNo navigation to separate pages required",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_12",
+    "TEST CASE DESCRIPTION": "Verify Role Can Be Created With Entities and Privileges Together",
+    "Precondition": "",
+    "TEST STEPS": "Enter role name\n\nSelect entities\n\nSelect privileges\n\nClick Save",
+    "EXPECTED RESULT": "Role saved successfully\n\nSelected entities assigned\n\nSelected privileges assigned",
+    "status": ""
+  },
+  {
+    "TEST CASE ID": "TC_13",
+    "TEST CASE DESCRIPTION": "Verify Admin Can Clone Existing Role",
+    "Precondition": "",
+    "TEST STEPS": "Select existing role\n\nClick Clone\n\nModify role name\n\nSave",
+    "EXPECTED RESULT": "New role created\n\nOriginal role unchanged\n\nAll entities and privileges copied correctly",
+    "status": "pending "
+  },
+  {
+    "TEST CASE ID": "TC_14",
+    "TEST CASE DESCRIPTION": "Verify Modifying Cloned Role Does Not Affect Original",
+    "Precondition": "",
+    "TEST STEPS": "Clone role\n\nRemove privilege from cloned version\n\nSave",
+    "EXPECTED RESULT": "Original role permissions remain intact\n\nChanges apply only to cloned role",
+    "status": "pending "
+  },
+  {
+    "TEST CASE ID": "TC_15",
+    "TEST CASE DESCRIPTION": "Verify Parent Selection Selects All Children",
+    "Precondition": "",
+    "TEST STEPS": "Select parent entity",
+    "EXPECTED RESULT": "All child entities automatically selected",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_16",
+    "TEST CASE DESCRIPTION": "Verify Deselecting Parent Deselects All Children",
+    "Precondition": "",
+    "TEST STEPS": "Deselect parent entity",
+    "EXPECTED RESULT": "All child entities are deselected",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_17",
+    "TEST CASE DESCRIPTION": "verify Partial Selection State",
+    "Precondition": "",
+    "TEST STEPS": "Select only one child entity",
+    "EXPECTED RESULT": "Parent checkbox shows partial/indeterminate state",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_18",
+    "TEST CASE DESCRIPTION": "Verify Irrelevant Privileges Are Hidden Based on Selected Entities",
+    "Precondition": "",
+    "TEST STEPS": "Select specific entity type\n\nObserve privileges list",
+    "EXPECTED RESULT": "Only privileges relevant to selected entity are visible\n\nIrrelevant privileges hidden automatically",
+    "status": "pending "
+  },
+  {
+    "TEST CASE ID": "TC_19",
+    "TEST CASE DESCRIPTION": "Verify Privileges Update Dynamically When Entity Selection Changes",
+    "Precondition": "",
+    "TEST STEPS": "Select Entity A\n\nObserve privileges\n\nDeselect Entity A\n\nSelect Entity B",
+    "EXPECTED RESULT": "Privileges update in real-time\n\nNo stale privileges remain visible",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_20",
+    "TEST CASE DESCRIPTION": "Verify Previously Selected Privilege Is Removed If It Becomes Irrelevant",
+    "Precondition": "",
+    "TEST STEPS": "Select Entity A\n\nSelect related privilege\n\nChange entity selection so privilege is no longer relevant",
+    "EXPECTED RESULT": "System blocks save with validation message\n\nNo invalid privilege-entity combination saved",
+    "status": "pending "
+  },
+  {
+    "TEST CASE ID": "TC_21",
+    "TEST CASE DESCRIPTION": "Verify Admin Can Select Multiple Privileges Quickly",
+    "Precondition": "",
+    "TEST STEPS": "Select 5 privileges",
+    "EXPECTED RESULT": "No lag\n\nSelection completed smoothly within acceptable time",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_22",
+    "TEST CASE DESCRIPTION": "Verify Categories Organize Privileges Clearly",
+    "Precondition": "",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "Privileges grouped logically\n\nNo duplicates across categories\n\nClear labeling",
+    "status": "fail"
+  },
+  {
+    "TEST CASE ID": "TC_25",
+    "TEST CASE DESCRIPTION": "Verify Privilege Filtering With Multiple Entity Types Selected",
+    "Precondition": "",
+    "TEST STEPS": "Select Entity A\n\nSelect Entity B\n\nObserve privileges",
+    "EXPECTED RESULT": "Combined relevant privileges appear\n\nNo duplication\n\nNo unrelated privilege leakage",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_26",
+    "TEST CASE DESCRIPTION": " Verify Rapid Entity Switching",
+    "Precondition": "",
+    "TEST STEPS": "Quickly select/deselect different entities multiple times",
+    "EXPECTED RESULT": "Privilege list updates correctly each time\n\nNo stale privileges remain\n\nNo JS errors\n\nNo flickering state corruption",
+    "status": "pending "
+  },
+  {
+    "TEST CASE ID": "TC_27",
+    "TEST CASE DESCRIPTION": "Verify Save Blocked If Invalid Privilege-Entity Combination Exists",
+    "Precondition": "Privilege selected → then entity removed",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "Save blocked OR\n\nPrivilege auto-removed\n\nClear validation message",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_28",
+    "TEST CASE DESCRIPTION": "Verify Clone of Role With Large Permission Set",
+    "Precondition": "Role has 100+ privileges and entities",
+    "TEST STEPS": "Click Clone\n\nSave cloned role",
+    "EXPECTED RESULT": "Clone completes successfully\n\nNo missing privileges\n\nNo timeout\n\nOriginal unchanged",
+    "status": "pending "
+  },
+  {
+    "TEST CASE ID": "TC_29",
+    "TEST CASE DESCRIPTION": "Verify Concurrent Clone and Edit",
+    "Precondition": "Admin A cloning role\nAdmin B editing same role simultaneously",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "No data corruption\n\nNo mixed permissions\n\nVersion handling enforced",
+    "status": "pending "
+  },
+  {
+    "TEST CASE ID": "TC_30",
+    "TEST CASE DESCRIPTION": "Verify Permission Cache Invalidates After Role Update",
+    "Precondition": "",
+    "TEST STEPS": "Update role privileges\n\nLogin as assigned user\n\nTest access",
+    "EXPECTED RESULT": "New permissions effective immediately\n\nNo stale permission behavior\n\nNo need to clear cache manually",
+    "status": ""
+  },
+  {
+    "TEST CASE ID": "TC_31",
+    "TEST CASE DESCRIPTION": "Verify Permission Changes Apply to Active Sessions",
+    "Precondition": "User logged in\nAdmin modifies role",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "Permissions updated dynamically",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_32",
+    "TEST CASE DESCRIPTION": "Verify Role Editor Under Heavy Concurrent Usage",
+    "Precondition": "Multiple admins creating roles simultaneously",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "No duplicate data\n\nNo race condition\n\nNo system slowdown",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_33",
+    "TEST CASE DESCRIPTION": "Verify No Privilege Leakage Between Tenants",
+    "Precondition": "Multi-tenant environment",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "Privileges filtered strictly per tenant\n\nNo cross-tenant visibility",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_34",
+    "TEST CASE DESCRIPTION": "Verify Admin Can Assign Role From User Profile",
+    "Precondition": "",
+    "TEST STEPS": "Login as Admin\n\nOpen user profile\n\nClick Assign Role\n\nSelect role\n\nSave",
+    "EXPECTED RESULT": "Role assigned successfully\n\nConfirmation message shown\n\nRole visible under user's assigned roles",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_35",
+    "TEST CASE DESCRIPTION": "Verify Assignment Completes Within 5 Seconds",
+    "Precondition": "",
+    "TEST STEPS": "Assign role to user\n\nMeasure response time",
+    "EXPECTED RESULT": "Operation completes ≤ 5 seconds\n\nNo UI freeze",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_36",
+    "TEST CASE DESCRIPTION": "Verify Assigned Role Grants Correct Permissions",
+    "Precondition": "",
+    "TEST STEPS": "Assign role\n\nLogin as that user\n\nTest permission-based access",
+    "EXPECTED RESULT": "User access matches role permissions\n\nNo delay in permission propagation",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_37",
+    "TEST CASE DESCRIPTION": "Verify Admin Can Assign Role to Group",
+    "Precondition": "",
+    "TEST STEPS": "Navigate to Groups\n\nSelect group with 50 users\n\nAssign role\n\nSave",
+    "EXPECTED RESULT": "Role assigned to all group members\n\nConfirmation message displayed",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_38",
+    "TEST CASE DESCRIPTION": "Verify Bulk Assignment Completes Within 5 Seconds",
+    "Precondition": "",
+    "TEST STEPS": "Assign role to group of 50 users\n\nMeasure time",
+    "EXPECTED RESULT": "Operation completes ≤ 5 seconds\n\nNo timeout\n\nNo partial assignment",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_39",
+    "TEST CASE DESCRIPTION": "Verify All Group Members Receive Role",
+    "Precondition": "",
+    "TEST STEPS": "Assign role to group\n\nCheck random sample of users",
+    "EXPECTED RESULT": "All users in group have role assigned\n\nNo user skipped",
+    "status": "pending "
+  },
+  {
+    "TEST CASE ID": "TC_40",
+    "TEST CASE DESCRIPTION": "Verify Admin Can View User’s Effective Permissions",
+    "Precondition": "",
+    "TEST STEPS": "Open user profile\n\nClick “View Effective Permissions”",
+    "EXPECTED RESULT": "System displays:\n\nDirect roles\n\nGroup roles\n\nFinal merged permissions",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_41",
+    "TEST CASE DESCRIPTION": " Verify Effective Permissions Load Within 10 Seconds",
+    "Precondition": "",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "Full permission breakdown visible ≤ 10 seconds\n\nNo loading errors",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_42",
+    "TEST CASE DESCRIPTION": "Verify Permission Merge Logic",
+    "Precondition": "",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "Effective permissions show Read + Write\n\nNo duplicate privileges\n\nNo missing privilege",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_43",
+    "TEST CASE DESCRIPTION": "Verify Permission Conflict Handling",
+    "Precondition": "",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "System follows defined precedence rule\n\nEffective permissions reflect correct logic",
+    "status": "pending "
+  },
+  {
+    "TEST CASE ID": "TC_44",
+    "TEST CASE DESCRIPTION": "Concurrent Role Assignment",
+    "Precondition": "",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "No data corruption\n\nFinal state consistent\n\nProper version handling",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_45",
+    "TEST CASE DESCRIPTION": "remove Role From Group After Assignment",
+    "Precondition": "",
+    "TEST STEPS": "Assign role to group\n\nRemove role from group",
+    "EXPECTED RESULT": "Users lose role immediately\n\nEffective permissions update dynamically",
+    "status": "pending "
+  },
+  {
+    "TEST CASE ID": "TC_46",
+    "TEST CASE DESCRIPTION": "User Belongs to Multiple Groups With Same Role",
+    "Precondition": "",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "No duplicate role assignment\n\nClean permission calculation",
+    "status": "pending "
+  },
+  {
+    "TEST CASE ID": "TC_47",
+    "TEST CASE DESCRIPTION": "Performance Under Large Dataset",
+    "Precondition": "User belongs to 10+ groups and 20+ roles",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "Effective permissions calculation still ≤ 10 seconds\n\nNo performance degradation",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_48",
+    "TEST CASE DESCRIPTION": "Assign Role to Single User (Performance)",
+    "Precondition": "",
+    "TEST STEPS": "Login as Admin\n\nOpen user profile\n\nAssign role\n\nClick Save",
+    "EXPECTED RESULT": "Role assigned successfully",
+    "status": "pending "
+  },
+  {
+    "TEST CASE ID": "TC_49",
+    "TEST CASE DESCRIPTION": "Assign Role to Group (50 Users)",
+    "Precondition": "",
+    "TEST STEPS": "Open group\n\nAssign role\n\nClick Save",
+    "EXPECTED RESULT": "",
+    "status": "pending "
+  },
+  {
+    "TEST CASE ID": "TC_50",
+    "TEST CASE DESCRIPTION": "Verify Effective Access View",
+    "Precondition": "",
+    "TEST STEPS": "Open user profile\n\nClick “View Complete Access”",
+    "EXPECTED RESULT": "",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_51",
+    "TEST CASE DESCRIPTION": "verify Admin Can Deny Specific Privilege on Specific Entity",
+    "Precondition": "",
+    "TEST STEPS": "Open existing role\n\nAdd override\n\nSelect entity\n\nDeny specific privilege\n\nSave",
+    "EXPECTED RESULT": "Override saved successfully\n\nUser with this role cannot access that privilege on that specific entity\n\nOther entities remain unaffected",
+    "status": ""
+  },
+  {
+    "TEST CASE ID": "TC_52",
+    "TEST CASE DESCRIPTION": "Verify Deny Override Takes Precedence Over Global Grant",
+    "Precondition": "Role globally grants “Edit”",
+    "TEST STEPS": "Add deny override for Entity A\n\nLogin as assigned user\n\nTry to edit Entity A\n\nTry to edit Entity B",
+    "EXPECTED RESULT": "Edit blocked on Entity A\n\nEdit allowed on Entity B",
+    "status": "fail"
+  },
+  {
+    "TEST CASE ID": "TC_53",
+    "TEST CASE DESCRIPTION": "Verify Admin Can Grant Privilege on Specific Entity Only",
+    "Precondition": "Role does NOT globally grant “Delete”",
+    "TEST STEPS": "Add grant override for Entity A\n\nSave\n\nLogin as assigned user",
+    "EXPECTED RESULT": "Delete allowed on Entity A\n\nDelete NOT allowed on other entities",
+    "status": ""
+  },
+  {
+    "TEST CASE ID": "TC_54",
+    "TEST CASE DESCRIPTION": "Verify Admin Can View All Overrides in Table",
+    "Precondition": "",
+    "TEST STEPS": "Open role\n\nNavigate to Overrides section",
+    "EXPECTED RESULT": "Entity\n\nPrivilege\n\nType (Grant / Deny)\n\nAll overrides clearly listed",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_55",
+    "TEST CASE DESCRIPTION": " Verify Admin Can Remove Override",
+    "Precondition": "",
+    "TEST STEPS": "Delete override from table\n\nSave",
+    "EXPECTED RESULT": "Override removed\n\nRole behavior reverts to global rule",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_56",
+    "TEST CASE DESCRIPTION": "Verify Adding Override Is Immediate",
+    "Precondition": "",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "Override saved within few seconds\n\nNo delay\n\nNo need to recreate role",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_58",
+    "TEST CASE DESCRIPTION": "Duplicate Override",
+    "Precondition": "",
+    "TEST STEPS": "Admin tries to add the same override (same role + entity + privilege) twice",
+    "EXPECTED RESULT": "System prevents duplicate OR updates the existing override. No duplicate records created",
+    "status": "pas"
+  },
+  {
+    "TEST CASE ID": "TC_59",
+    "TEST CASE DESCRIPTION": "Override on Deleted/Invalid Entity",
+    "Precondition": "",
+    "TEST STEPS": "Admin attempts to create an override on a deleted or non-existing entity.",
+    "EXPECTED RESULT": "Validation error. Override is not saved",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_60",
+    "TEST CASE DESCRIPTION": " Remove Override",
+    "Precondition": "",
+    "TEST STEPS": "Admin deletes an existing override",
+    "EXPECTED RESULT": "Access falls back to the global role definition. No stale permissions remain.",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_61",
+    "TEST CASE DESCRIPTION": "Large Number of Overrides",
+    "Precondition": "",
+    "TEST STEPS": "Role contains many overrides (e.g., 50+)",
+    "EXPECTED RESULT": "Overrides table loads correctly without performance degradation.",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_62",
+    "TEST CASE DESCRIPTION": "Override Visibility & Audit",
+    "Precondition": "",
+    "TEST STEPS": "Admin views a role with overrides",
+    "EXPECTED RESULT": "All overrides are clearly displayed and distinguishable from global permissions.",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_63",
+    "TEST CASE DESCRIPTION": "Performance Check",
+    "Precondition": "",
+    "TEST STEPS": "Admin adds or removes an override",
+    "EXPECTED RESULT": "Action completes within seconds (no noticeable delay).",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_64",
+    "TEST CASE DESCRIPTION": "Exclude Specific Privilege from User",
+    "Precondition": "",
+    "TEST STEPS": "Admin excludes one privilege from a user who belongs to a role",
+    "EXPECTED RESULT": "Privilege is removed immediately.\n\nNo new role is created.\n\nOther users in the same role are not affected.",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_65",
+    "TEST CASE DESCRIPTION": "Restriction Speed",
+    "Precondition": "",
+    "TEST STEPS": "Admin applies restriction",
+    "EXPECTED RESULT": "Action completes within ~20 seconds.\n\nNo system delay.",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_66",
+    "TEST CASE DESCRIPTION": " Restore Excluded Privilege",
+    "Precondition": "",
+    "TEST STEPS": "Admin restores excluded privilege",
+    "EXPECTED RESULT": "Access restored with one click.\n\nRestoration completes within ~10 seconds.",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_67",
+    "TEST CASE DESCRIPTION": " Audit Log Creation",
+    "Precondition": "",
+    "TEST STEPS": "Admin applies restriction",
+    "EXPECTED RESULT": "Admin name\n\nTimestamp\n\nAffected user\n\nExcluded privilege\n\nReason",
+    "status": "pending "
+  },
+  {
+    "TEST CASE ID": "TC_68",
+    "TEST CASE DESCRIPTION": "Audit Log on Restore",
+    "Precondition": "",
+    "TEST STEPS": "Admin restores privilege",
+    "EXPECTED RESULT": "Audit record logs restoration event with timestamp and actor.",
+    "status": "pending "
+  },
+  {
+    "TEST CASE ID": "TC_69",
+    "TEST CASE DESCRIPTION": " Restricted User Experience",
+    "Precondition": "",
+    "TEST STEPS": "Restricted user tries to perform blocked action",
+    "EXPECTED RESULT": "Clear message explaining restriction.\n\nIncludes contact/reference info (if defined).\n\nNo generic error like “Access Denied”.",
+    "status": "pending "
+  },
+  {
+    "TEST CASE ID": "TC_70",
+    "TEST CASE DESCRIPTION": "Exclude Privilege User Doesn’t Have",
+    "Precondition": "",
+    "TEST STEPS": "Admin tries to exclude a privilege not granted via role",
+    "EXPECTED RESULT": "System prevents action OR shows validation message.",
+    "status": "pending "
+  },
+  {
+    "TEST CASE ID": "TC_71",
+    "TEST CASE DESCRIPTION": "8. Multiple Restrictions on Same User",
+    "Precondition": "",
+    "TEST STEPS": "Admin excludes multiple privileges",
+    "EXPECTED RESULT": "All exclusions work independently.\n\nRestoring one does not affect others.",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_72",
+    "TEST CASE DESCRIPTION": "9. User in Multiple Roles",
+    "Precondition": "",
+    "TEST STEPS": "User belongs to 2 roles granting same privilege.\nAdmin excludes privilege at user level.",
+    "EXPECTED RESULT": "User-level exclusion overrides all role permissions.",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_73",
+    "TEST CASE DESCRIPTION": "10. System Restart / Re-login",
+    "Precondition": "",
+    "TEST STEPS": "User logs out and back in after restriction",
+    "EXPECTED RESULT": "Restriction persists.",
+    "status": "pass"
+  },
+  {
+    "TEST CASE ID": "TC_74",
+    "TEST CASE DESCRIPTION": "Exclude specific privilege from individual user",
+    "Precondition": "User is assigned to a role that includes Privilege X\n\nAdmin has permission to manage user overrides\n\nSteps:",
+    "TEST STEPS": "Navigate to User Profile\n\nSelect \"Exclude Privilege\"\n\nChoose Privilege X\n\nEnter reason\n\nSave",
+    "EXPECTED RESULT": "Privilege X is excluded for that user only\n\nRole definition remains unchanged\n\nAudit log entry created (admin, timestamp, reason)",
+    "status": "pending "
+  }
+]

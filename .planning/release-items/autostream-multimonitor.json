@@ -1,0 +1,34 @@
+{
+  "sprintId": "autostream-multi-monitor",
+  "title": "Auto Streaming Multi-Monitor Integration",
+  "publishedAt": "2026-03-15",
+  "summary": "Integration between Talos alarm workflow and Salvo video display with multi-monitor and auto-stream toggles",
+  "items": [
+    {
+      "title": "Talos-Salvo Alarm Workflow Integration",
+      "changeType": "feature",
+      "affectedAreas": ["talos", "salvo", "workflow", "alarms"],
+      "body": "When a motion alarm is assigned, the alarm workflow automatically opens in Talos and the corresponding alarm quad loads in Salvo. Different toggle combinations control behavior: multi-monitor only, autostream only, or both enabled.",
+      "testCases": ["TC_01", "TC_02", "TC_03", "TC_04", "TC_05", "TC_06"]
+    },
+    {
+      "title": "Zone-Based Alarm Handling",
+      "changeType": "feature",
+      "affectedAreas": ["zones", "alarms", "streaming", "burglar"],
+      "body": "Burglar alarms handle zone configurations from both GCX and Talos. When an alarm includes zone data, the system matches against GCX zone configurations to stream only relevant sensors. Unmatched or missing zones fall back to site-level streaming.",
+      "testCases": ["TC_01", "TC_02", "TC_03", "TC_04", "TC_05", "TC_06", "TC_07", "TC_08", "TC_09", "TC_10", "TC_11"]
+    }
+  ],
+  "sourceFile": "autostream-mu.json",
+  "totalTestCases": 18,
+  "notes": {
+    "alarmType": "BURGLARY",
+    "toggleCombinations": [
+      "Only multi-monitor toggle enabled",
+      "Only autostream enabled in salvo",
+      "Both auto stream and multi-monitor enabled",
+      "Both autostream and multi-monitor set off",
+      "Two salvo scenario with mixed toggles"
+    ]
+  }
+}

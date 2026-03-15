@@ -1,0 +1,21 @@
+{
+  "sprintId": "video-viewer-activity",
+  "title": "Video Viewer Drag and Drop",
+  "publishedAt": "2026-03-15",
+  "summary": "Video viewer drag and drop functionality for sites and devices in Salvo",
+  "items": [
+    {
+      "title": "Site and Device Drag and Drop",
+      "changeType": "feature",
+      "affectedAreas": ["video-viewer", "salvo", "streaming"],
+      "body": "Users can drag and drop sites or devices into the Salvo video viewer. When a second device is dropped over an existing one, the first stream closes and the second begins playing. Sites stream in default 2x2 view format.",
+      "testCases": ["TC-1", "TC-2", "TC-3", "TC-4"]
+    }
+  ],
+  "sourceFile": "video-activity.json",
+  "totalTestCases": 4,
+  "testStatus": {
+    "passed": 3,
+    "pending": 1
+  }
+}

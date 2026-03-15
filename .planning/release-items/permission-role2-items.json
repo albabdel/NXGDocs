@@ -1,0 +1,224 @@
+{
+  "source": "permission-role2.json",
+  "generated": "2026-03-15",
+  "items": [
+    {
+      "id": "RI_1",
+      "type": "FEATURE",
+      "category": "Role Management",
+      "title": "Role Creation with Entity and Permission Assignment",
+      "description": "Admins can create roles with name, entity assignments, and privilege configurations in a single unified editor. Role data persists correctly across login sessions with no data loss.",
+      "testCases": ["TC_1", "TC_2", "TC_3", "TC_11", "TC_12"]
+    },
+    {
+      "id": "RI_2",
+      "type": "FEATURE",
+      "category": "Role Management",
+      "title": "Role Creation Performance",
+      "description": "Role creation and save operations complete within acceptable performance thresholds with no noticeable UI delay.",
+      "testCases": ["TC_4"]
+    },
+    {
+      "id": "RI_3",
+      "type": "FEATURE",
+      "category": "Role Management",
+      "title": "Duplicate Role Name Validation",
+      "description": "System prevents creation of duplicate role names within the same tenant. Validation is case-insensitive. Same role names are allowed across different tenants.",
+      "testCases": ["TC_5", "TC_6", "TC_7"]
+    },
+    {
+      "id": "RI_4",
+      "type": "FEATURE",
+      "category": "Permissions",
+      "title": "Permission Check Performance",
+      "description": "Permission validation executes within defined SLA (<100ms). System handles concurrent permission checks under load without degradation or timeouts.",
+      "testCases": ["TC_8", "TC_9"]
+    },
+    {
+      "id": "RI_5",
+      "type": "FEATURE",
+      "category": "Permissions",
+      "title": "Permission Enforcement Without Leakage",
+      "description": "Permissions are enforced accurately after role modifications. No cached stale permissions remain. Changes apply immediately without manual cache clearing.",
+      "testCases": ["TC_10", "TC_30", "TC_31"]
+    },
+    {
+      "id": "RI_6",
+      "type": "FEATURE",
+      "category": "Role Management",
+      "title": "Role Cloning",
+      "description": "Admins can clone existing roles including all entities and privileges. Cloned roles are independent - modifications to clones do not affect originals.",
+      "testCases": ["TC_13", "TC_14", "TC_28"]
+    },
+    {
+      "id": "RI_7",
+      "type": "FEATURE",
+      "category": "Role Editor UI",
+      "title": "Hierarchical Entity Selection",
+      "description": "Entity tree supports parent-child selection behavior. Selecting parent auto-selects all children. Deselecting parent deselects all children. Partial child selection shows indeterminate parent state.",
+      "testCases": ["TC_15", "TC_16", "TC_17"]
+    },
+    {
+      "id": "RI_8",
+      "type": "FEATURE",
+      "category": "Role Editor UI",
+      "title": "Dynamic Privilege Filtering by Entity",
+      "description": "Privilege list filters dynamically based on selected entities. Only relevant privileges are visible. Privileges update in real-time when entity selection changes.",
+      "testCases": ["TC_18", "TC_19", "TC_25", "TC_26"]
+    },
+    {
+      "id": "RI_9",
+      "type": "FIX",
+      "category": "Role Editor UI",
+      "title": "Privilege Category Organization",
+      "description": "Privileges should be grouped logically in categories with clear labeling and no duplicates across categories. Currently failing - categories are not organizing privileges clearly.",
+      "testCases": ["TC_22"],
+      "status": "fail"
+    },
+    {
+      "id": "RI_10",
+      "type": "FEATURE",
+      "category": "Role Editor UI",
+      "title": "Invalid Privilege-Entity Combination Prevention",
+      "description": "System blocks save when invalid privilege-entity combinations exist. Previously selected privileges are removed or validated when entity selection changes.",
+      "testCases": ["TC_20", "TC_27"]
+    },
+    {
+      "id": "RI_11",
+      "type": "FEATURE",
+      "category": "Role Editor UI",
+      "title": "Privilege Selection Performance",
+      "description": "Multiple privilege selections complete smoothly without lag. Rapid entity switching updates privilege list correctly without JS errors or state corruption.",
+      "testCases": ["TC_21", "TC_26"]
+    },
+    {
+      "id": "RI_12",
+      "type": "FEATURE",
+      "category": "Concurrency",
+      "title": "Concurrent Role Operations",
+      "description": "System handles concurrent admin operations without data corruption, race conditions, or version conflicts. Proper optimistic locking enforced.",
+      "testCases": ["TC_29", "TC_32", "TC_44"]
+    },
+    {
+      "id": "RI_13",
+      "type": "FEATURE",
+      "category": "Multi-Tenancy",
+      "title": "Tenant Isolation for Roles and Privileges",
+      "description": "Roles and privileges are strictly isolated per tenant. No cross-tenant visibility or privilege leakage.",
+      "testCases": ["TC_33"]
+    },
+    {
+      "id": "RI_14",
+      "type": "FEATURE",
+      "category": "Role Assignment",
+      "title": "Role Assignment from User Profile",
+      "description": "Admins can assign roles to users from user profile. Assignment completes within 5 seconds. Assigned roles grant correct permissions immediately.",
+      "testCases": ["TC_34", "TC_35", "TC_36", "TC_48"]
+    },
+    {
+      "id": "RI_15",
+      "type": "FEATURE",
+      "category": "Role Assignment",
+      "title": "Bulk Role Assignment to Groups",
+      "description": "Admins can assign roles to groups. All group members receive the role. Bulk assignment completes within 5 seconds for groups of 50+ users.",
+      "testCases": ["TC_37", "TC_38", "TC_39", "TC_49"]
+    },
+    {
+      "id": "RI_16",
+      "type": "FEATURE",
+      "category": "Role Assignment",
+      "title": "Effective Permissions View",
+      "description": "Admins can view user's effective permissions showing direct roles, group roles, and merged permissions. Loads within 10 seconds. Correct merge logic and conflict handling.",
+      "testCases": ["TC_40", "TC_41", "TC_42", "TC_43", "TC_50"]
+    },
+    {
+      "id": "RI_17",
+      "type": "FEATURE",
+      "category": "Role Assignment",
+      "title": "Role Removal from Groups",
+      "description": "Removing role from group immediately revokes access from all members. Effective permissions update dynamically.",
+      "testCases": ["TC_45"]
+    },
+    {
+      "id": "RI_18",
+      "type": "FEATURE",
+      "category": "Role Assignment",
+      "title": "Multi-Group Role Deduplication",
+      "description": "Users belonging to multiple groups with same role receive no duplicate assignment. Clean permission calculation.",
+      "testCases": ["TC_46"]
+    },
+    {
+      "id": "RI_19",
+      "type": "FEATURE",
+      "category": "Performance",
+      "title": "Effective Permissions Performance Under Large Dataset",
+      "description": "Effective permissions calculation completes within 10 seconds even for users with 10+ groups and 20+ roles.",
+      "testCases": ["TC_47"]
+    },
+    {
+      "id": "RI_20",
+      "type": "FEATURE",
+      "category": "Permission Overrides",
+      "title": "Entity-Specific Permission Overrides",
+      "description": "Admins can add deny or grant overrides for specific privileges on specific entities. Overrides are displayed in a clear table format and can be added or removed immediately.",
+      "testCases": ["TC_51", "TC_53", "TC_54", "TC_55", "TC_56", "TC_60"]
+    },
+    {
+      "id": "RI_21",
+      "type": "FIX",
+      "category": "Permission Overrides",
+      "title": "Deny Override Precedence",
+      "description": "Deny overrides should take precedence over global grants. Currently failing - deny on Entity A should block edit while allowing edit on Entity B.",
+      "testCases": ["TC_52"],
+      "status": "fail"
+    },
+    {
+      "id": "RI_22",
+      "type": "FEATURE",
+      "category": "Permission Overrides",
+      "title": "Override Validation and Performance",
+      "description": "System prevents duplicate overrides. Override on deleted/invalid entity shows validation error. Large override sets (50+) load without performance degradation.",
+      "testCases": ["TC_58", "TC_59", "TC_61", "TC_62", "TC_63"]
+    },
+    {
+      "id": "RI_23",
+      "type": "FEATURE",
+      "category": "User-Level Restrictions",
+      "title": "Exclude Privilege from Individual User",
+      "description": "Admins can exclude specific privileges from individual users without creating new roles. Other users in same role are unaffected. Exclusions work independently.",
+      "testCases": ["TC_64", "TC_71", "TC_72"]
+    },
+    {
+      "id": "RI_24",
+      "type": "FEATURE",
+      "category": "User-Level Restrictions",
+      "title": "Restriction Performance and Persistence",
+      "description": "Restrictions apply within ~20 seconds. Restoration completes within ~10 seconds. Restrictions persist across logout/login cycles.",
+      "testCases": ["TC_65", "TC_66", "TC_73"]
+    },
+    {
+      "id": "RI_25",
+      "type": "FEATURE",
+      "category": "Audit",
+      "title": "Restriction Audit Logging",
+      "description": "Audit logs capture restriction events with admin name, timestamp, affected user, excluded privilege, and reason.",
+      "testCases": ["TC_67", "TC_68"]
+    },
+    {
+      "id": "RI_26",
+      "type": "FEATURE",
+      "category": "User Experience",
+      "title": "Restricted User Clear Messaging",
+      "description": "Restricted users receive clear messages explaining restrictions with contact/reference info, not generic 'Access Denied' errors.",
+      "testCases": ["TC_69"]
+    },
+    {
+      "id": "RI_27",
+      "type": "FEATURE",
+      "category": "User-Level Restrictions",
+      "title": "Invalid Exclusion Prevention",
+      "description": "System prevents excluding privileges the user doesn't have via their assigned roles.",
+      "testCases": ["TC_70", "TC_74"]
+    }
+  ]
+}

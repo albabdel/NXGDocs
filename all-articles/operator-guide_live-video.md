@@ -12,6 +12,16 @@ last_updated: 2025-12-04
 
 Comprehensive guide for live video.
 
+## What's New
+
+| Feature | Description | Available Since |
+| :--- | :--- | :--- |
+| **Auto Streaming on Alarms** | Qualifying alarms automatically trigger live streams for all cameras mapped to that alarm. Multiple cameras stream simultaneously. | March 2026 |
+| **Zone-Based Camera Selection** | Auto streaming respects zone definitions. Only cameras within the alarm's zone stream automatically. | March 2026 |
+| **Video Viewer Drag and Drop** | Drag and drop sites or devices into the Salvo video viewer. Sites stream in default 2x2 view format. | March 2026 |
+| **Multi-Monitor Integration** | Talos-Salvo alarm workflow integration. Motion alarms automatically open alarm quad in Salvo. | March 2026 |
+| **Streaming Permission Controls** | Admins can set which roles are allowed to view streams. Unauthorized users cannot access streams. | March 2026 |
+
 ## Overview
 
 This device integrates seamlessly with the GCXONE platform to provide comprehensive security monitoring.

@@ -1,0 +1,52 @@
+{
+  "releaseId": "REPORTS-RELEASE",
+  "source": "Reports Test Cases",
+  "category": "Report Schedules Management",
+  "items": [
+    {
+      "id": "RPT-FEAT-001",
+      "type": "FEATURE",
+      "area": "Report Schedules Dashboard",
+      "title": "Manage Report Schedules Summary Dashboard",
+      "description": "Add read-only summary cards at the top of Manage Report Schedules page displaying Active Schedules count, Reports Sent This Month, and Failed Deliveries. Cards are informational only and non-interactive.",
+      "testCases": ["TC: Verify Manage Report Schedules Dashboard Summary"],
+      "priority": "medium"
+    },
+    {
+      "id": "RPT-FEAT-002",
+      "type": "FEATURE",
+      "area": "Report Schedules Management",
+      "title": "Create New Report Schedule",
+      "description": "Enable users to create new report schedules via 'Create New Schedule' button. Support filling required fields and saving with success confirmation. Created schedules appear in the schedule table.",
+      "testCases": ["TC: Verify Create New Schedule Button"],
+      "priority": "high"
+    },
+    {
+      "id": "RPT-FEAT-003",
+      "type": "FEATURE",
+      "area": "Report Schedules Table",
+      "title": "Schedule Table Structure",
+      "description": "Display schedule table with columns: Schedule, Customers, Site, and Actions. Table shows all configured report schedules with their associated data.",
+      "testCases": ["TC: Verify Schedule Table Columns"],
+      "priority": "high"
+    },
+    {
+      "id": "RPT-FEAT-004",
+      "type": "FEATURE",
+      "area": "Report Schedules Actions",
+      "title": "Schedule Actions (Edit, Delete, Trigger)",
+      "description": "Provide Actions column with Edit, Delete, and Trigger functionality. Edit allows modifying schedule data. Delete removes schedule after confirmation. Trigger manually sends the report on demand.",
+      "testCases": ["TC: Verify Actions Column Functionality"],
+      "priority": "high"
+    },
+    {
+      "id": "RPT-FEAT-005",
+      "type": "FEATURE",
+      "area": "Report Schedules Table",
+      "title": "Rows Per Page Pagination",
+      "description": "Add 'Rows per page' option to schedule table allowing users to change the number of rows displayed. Table updates dynamically based on selection.",
+      "testCases": ["TC: Verify Rows Per Page Functionality"],
+      "priority": "low"
+    }
+  ]
+}

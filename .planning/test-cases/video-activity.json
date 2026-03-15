@@ -1,0 +1,34 @@
+[
+  {
+    "TEST CASE ID": "TC-1",
+    "FUNCTIONALITY DESCRIPTION": "site drag and drop",
+    "TEST STEPS": "1.Login to GCX\n2.Navigate to the Video viewer \n3.Select a Site \n4.Drag and drop the device\n5.Drag and drop another device over the first device",
+    "EXPECTED RESULT": "first now should cut\n and second one\n should be playing",
+    "ACTUAL RESULT/ADMIN LOGIN": "first now should cut\n and second one\n should be playing",
+    "STATUS": "pass"
+  },
+  {
+    "TEST CASE ID": "TC -2",
+    "FUNCTIONALITY DESCRIPTION": "device drag and drop",
+    "TEST STEPS": "1.Login to GCX\n 2.Navigate to the Video viewer \n3.Select a Site\n 4.Drag and drop the device\n 5.Drag and drop another device over the first device",
+    "EXPECTED RESULT": "First dropped device\n should be closed and \nthe Second device \nshould start streaming",
+    "ACTUAL RESULT/ADMIN LOGIN": "Streams of the First dropped\n device is closed and the \nSecond device starts streaming",
+    "STATUS": "pass"
+  },
+  {
+    "TEST CASE ID": "TC-3",
+    "FUNCTIONALITY DESCRIPTION": "Site drag and drop_Local mode_\nDefault 2x2",
+    "TEST STEPS": "1.Login to GCX\n2.Navigate to the Video viewer app \n3.Select a site\n 4.Drag and drop the device into Salvo",
+    "EXPECTED RESULT": "site should be streamed \nin default 2x2 view \nin the Salvo",
+    "ACTUAL RESULT/ADMIN LOGIN": "The site is streamed in default 2x2 \nview in the Salvo",
+    "STATUS": "pass"
+  },
+  {
+    "TEST CASE ID": "TC-4",
+    "FUNCTIONALITY DESCRIPTION": "site drag and drop",
+    "TEST STEPS": "1.Login to GCX\n2.Navigate to the Video viewer app\n 3.Select a site\n 4.Drag and drop the device ",
+    "EXPECTED RESULT": null,
+    "ACTUAL RESULT/ADMIN LOGIN": null,
+    "STATUS": null
+  }
+]

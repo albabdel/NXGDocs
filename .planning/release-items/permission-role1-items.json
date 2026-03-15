@@ -1,0 +1,174 @@
+{
+  "source": "permission-role1.json",
+  "generated": "2026-03-15",
+  "items": [
+    {
+      "id": "RI_1",
+      "type": "FEATURE",
+      "category": "Security",
+      "title": "Master Admin Role Assignment Restriction",
+      "description": "Master Admin role cannot be assigned through user invite. System prevents selection of Master Admin role during invite creation.",
+      "testCases": ["TC_1"]
+    },
+    {
+      "id": "RI_2",
+      "type": "FEATURE",
+      "category": "Security",
+      "title": "Invited User Permission Restrictions",
+      "description": "Invited users cannot modify user roles or create new invites unless explicitly granted those permissions. Options are hidden or disabled, and direct API access returns authorization errors.",
+      "testCases": ["TC_2", "TC_3"]
+    },
+    {
+      "id": "RI_3",
+      "type": "FEATURE",
+      "category": "Security",
+      "title": "Backend Privilege Escalation Prevention",
+      "description": "System blocks privilege escalation attempts at the backend level. Modified requests attempting to escalate roles return 403 Forbidden with no database changes.",
+      "testCases": ["TC_4"]
+    },
+    {
+      "id": "RI_4",
+      "type": "FEATURE",
+      "category": "Time-Based Access",
+      "title": "Time-Based Invitation Tokens",
+      "description": "System generates unique access tokens for time-based invitations. Tokens are linked to invited users and are unique in the database.",
+      "testCases": ["TC_5", "TC_9"]
+    },
+    {
+      "id": "RI_5",
+      "type": "FEATURE",
+      "category": "Time-Based Access",
+      "title": "Token Time Window Validation",
+      "description": "Tokens allow access only during defined time range. Access denied before start time and after expiration. No grace period unless specified.",
+      "testCases": ["TC_6", "TC_11"]
+    },
+    {
+      "id": "RI_6",
+      "type": "FEATURE",
+      "category": "Time-Based Access",
+      "title": "Automatic Access Revocation on Token Expiry",
+      "description": "User sessions are automatically invalidated when tokens expire. Users cannot perform actions and must re-login. Expired tokens cannot be reused.",
+      "testCases": ["TC_7", "TC_8", "TC_13", "TC_14"]
+    },
+    {
+      "id": "RI_7",
+      "type": "FEATURE",
+      "category": "Time-Based Access",
+      "title": "Token Time Validation Security",
+      "description": "Token validation is based on server time. Changing client timezone does not extend access. System prevents creation when start time equals end time.",
+      "testCases": ["TC_10", "TC_12"]
+    },
+    {
+      "id": "RI_8",
+      "type": "FEATURE",
+      "category": "Time-Based Access",
+      "title": "Overlapping Time-Based Invites Handling",
+      "description": "System correctly handles multiple overlapping time-based invites for same user. No privilege extension beyond defined windows.",
+      "testCases": ["TC_15"]
+    },
+    {
+      "id": "RI_9",
+      "type": "FEATURE",
+      "category": "On-Call Protection",
+      "title": "On-Call Shift Detection Before Role Edit",
+      "description": "System detects active or upcoming shifts before allowing role edits. Warning prompt appears when editing roles assigned to on-call users.",
+      "testCases": ["TC_16"]
+    },
+    {
+      "id": "RI_10",
+      "type": "FEATURE",
+      "category": "On-Call Protection",
+      "title": "Role Edit Warning Details",
+      "description": "Warning prompt lists impacted users by name with shift status (Active/Upcoming). Explains impact on on-call coverage.",
+      "testCases": ["TC_17"]
+    },
+    {
+      "id": "RI_11",
+      "type": "FEATURE",
+      "category": "On-Call Protection",
+      "title": "Role Edit Decision Options",
+      "description": "Cancel is default action. Immediate application requires extra confirmation. Scheduled application defaults to end of last active shift. Options are mutually exclusive.",
+      "testCases": ["TC_18", "TC_19", "TC_20", "TC_21"]
+    },
+    {
+      "id": "RI_12",
+      "type": "FEATURE",
+      "category": "On-Call Protection",
+      "title": "Backend Enforcement of Shift Validation",
+      "description": "Backend enforces shift validation. Direct API calls or URL manipulation cannot bypass prompt flow. Returns 403/validation error.",
+      "testCases": ["TC_22"]
+    },
+    {
+      "id": "RI_13",
+      "type": "FEATURE",
+      "category": "Audit",
+      "title": "Role Change Audit Logging",
+      "description": "Audit logs capture admin, timestamp, impacted users, before/after states, effective time, and decision type (Immediate/Scheduled/Cancelled).",
+      "testCases": ["TC_23"]
+    },
+    {
+      "id": "RI_14",
+      "type": "FEATURE",
+      "category": "On-Call Protection",
+      "title": "Role Edit Without On-Call Users",
+      "description": "No warning prompt appears when editing roles assigned to users with no active or upcoming shifts. Changes apply immediately.",
+      "testCases": ["Unnamed_1"]
+    },
+    {
+      "id": "RI_15",
+      "type": "FEATURE",
+      "category": "On-Call Protection",
+      "title": "Dynamic Shift Status Re-validation",
+      "description": "System re-validates shift status before applying changes. If shifts end during edit flow, restrictions are lifted automatically.",
+      "testCases": ["Unnamed_2"]
+    },
+    {
+      "id": "RI_16",
+      "type": "FEATURE",
+      "category": "On-Call Protection",
+      "title": "Mixed Shift Status Handling",
+      "description": "Warning lists only affected users when role has users with different shift statuses (Active, Upcoming, No shift).",
+      "testCases": ["Unnamed_3"]
+    },
+    {
+      "id": "RI_17",
+      "type": "FEATURE",
+      "category": "On-Call Protection",
+      "title": "Overlapping Shift Effective Time Calculation",
+      "description": "Default effective time for scheduled changes is end of LAST active shift. No gap miscalculation for overlapping or back-to-back shifts.",
+      "testCases": ["Unnamed_4"]
+    },
+    {
+      "id": "RI_18",
+      "type": "FEATURE",
+      "category": "Concurrency",
+      "title": "Concurrent Admin Role Edit Handling",
+      "description": "System detects version conflicts when multiple admins edit same role. Proper concurrency handling prevents silent overwrites.",
+      "testCases": ["Unnamed_5"]
+    },
+    {
+      "id": "RI_19",
+      "type": "FEATURE",
+      "category": "On-Call Protection",
+      "title": "Scheduled Change Conflict Handling",
+      "description": "System handles conflicts when user gets new shift during scheduled role change period. Follows defined business rules.",
+      "testCases": ["Unnamed_6"]
+    },
+    {
+      "id": "RI_20",
+      "type": "FEATURE",
+      "category": "Audit",
+      "title": "Complex Scenario Audit Accuracy",
+      "description": "Audit logs accurately capture decision type, full impacted users list, timestamps, before/after states, and admin ID for complex scenarios.",
+      "testCases": ["Unnamed_7"]
+    },
+    {
+      "id": "RI_21",
+      "type": "FEATURE",
+      "category": "Performance",
+      "title": "Large User Base Role Edit Performance",
+      "description": "Shift detection and warning display complete within acceptable time for roles assigned to 500+ users. No timeout or partial listing.",
+      "testCases": ["Unnamed_8"]
+    }
+  ]
+}

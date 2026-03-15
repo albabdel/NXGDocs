@@ -12,6 +12,14 @@ last_updated: 2025-12-04
 
 Comprehensive guide for reporting overview.
 
+## What's New
+
+| Feature | Description | Available Since |
+| :--- | :--- | :--- |
+| **Schedule Dashboard** | Summary cards display Active Schedules count, Reports Sent This Month, and Failed Deliveries. | March 2026 |
+| **Schedule Management** | Create, edit, delete, and manually trigger report schedules from unified interface. | March 2026 |
+| **Trigger On-Demand** | Manually send scheduled reports immediately via Trigger action. | March 2026 |
+
 ## Overview
 
 This device integrates seamlessly with the GCXONE platform to provide comprehensive security monitoring.

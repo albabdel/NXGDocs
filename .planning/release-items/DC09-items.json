@@ -1,0 +1,178 @@
+{
+  "releaseId": "DC09-RELEASE",
+  "source": "DC09 Test Cases",
+  "category": "Alarm Management System / CMS Integration",
+  "items": [
+    {
+      "id": "DC09-FEAT-001",
+      "type": "FEATURE",
+      "area": "CMS Marketplace",
+      "title": "Alarm Management System Category in Marketplace",
+      "description": "Add Alarm Management System category to Marketplace with visibility of all CMS options (Evalink Talos, Amwin, Lisa, Immix, Alice, Other DC09-compatible). Display current configuration state and integration type for each CMS entry.",
+      "testCases": ["TC_1", "TC_2", "TC_3", "TC_4"],
+      "priority": "high"
+    },
+    {
+      "id": "DC09-FEAT-002",
+      "type": "FEATURE",
+      "area": "CMS Configuration",
+      "title": "Admin-Only CMS Configuration Access",
+      "description": "Restrict CMS configuration options to admin users only. Non-admin users can view CMS entries but cannot access configuration options.",
+      "testCases": ["TC_5", "TC_6"],
+      "priority": "high"
+    },
+    {
+      "id": "DC09-FEAT-003",
+      "type": "FEATURE",
+      "area": "Evalink Talos Integration",
+      "title": "Evalink Talos CMS Configuration",
+      "description": "Enable Evalink Talos CMS configuration with Company ID and API Token fields. Support secure credential storage with masked token display after saving.",
+      "testCases": ["TC_7", "TC_11", "TC_12"],
+      "priority": "high"
+    },
+    {
+      "id": "DC09-FIX-001",
+      "type": "FIX",
+      "area": "CMS Validation",
+      "title": "Mandatory Fields Validation in CMS Configuration",
+      "description": "Fix validation to prevent saving CMS configuration when required fields (Company ID, API Token) are empty. Display clear error messages indicating which fields are required.",
+      "testCases": ["TC_8", "TC_27"],
+      "priority": "high"
+    },
+    {
+      "id": "DC09-FIX-002",
+      "type": "FIX",
+      "area": "CMS User Guidance",
+      "title": "Inline Guidance for API Token and CMS Fields",
+      "description": "Add inline guidance explaining where to generate API tokens in Talos, required permission scopes, and how to obtain DC09 Account IDs from the CMS.",
+      "testCases": ["TC_9", "TC_17"],
+      "priority": "medium"
+    },
+    {
+      "id": "DC09-FIX-003",
+      "type": "FIX",
+      "area": "CMS Validation",
+      "title": "Credential and Configuration Format Validation",
+      "description": "Implement real-time validation for credential formats (Company ID, API Token) and network parameters (IP address, port). Block saving with invalid formats and display actionable error messages.",
+      "testCases": ["TC_10", "TC_26", "TC_28", "TC_29", "TC_34"],
+      "priority": "high"
+    },
+    {
+      "id": "DC09-FEAT-004",
+      "type": "FEATURE",
+      "area": "Site Configuration",
+      "title": "DC09 Account ID Field on Site Forms",
+      "description": "Add DC09 Account ID field to Site Creation and Edit forms. Field is required for sites forwarding alarms to DC09-based CMS. Support visibility and editability for admin users.",
+      "testCases": ["TC_13", "TC_14"],
+      "priority": "high"
+    },
+    {
+      "id": "DC09-FIX-004",
+      "type": "FIX",
+      "area": "Site Validation",
+      "title": "DC09 Account ID Required Validation",
+      "description": "Block saving sites without DC09 Account ID when a DC09-based CMS is configured at tenant level and the site is intended to forward alarms.",
+      "testCases": ["TC_15", "TC_31", "TC_32"],
+      "priority": "high"
+    },
+    {
+      "id": "DC09-FIX-005",
+      "type": "FIX",
+      "area": "Site Validation",
+      "title": "DC09 Account ID Uniqueness Validation",
+      "description": "Prevent duplicate DC09 Account ID assignment to multiple sites targeting the same CMS. Display clear guidance when duplicate is detected.",
+      "testCases": ["TC_16"],
+      "priority": "high"
+    },
+    {
+      "id": "DC09-FEAT-005",
+      "type": "FEATURE",
+      "area": "Site Configuration",
+      "title": "Immediate DC09 Account ID Change Effect",
+      "description": "Ensure DC09 Account ID changes take effect immediately. Alarms are routed according to the updated configuration without delay.",
+      "testCases": ["TC_18"],
+      "priority": "medium"
+    },
+    {
+      "id": "DC09-FEAT-006",
+      "type": "FEATURE",
+      "area": "Site Security",
+      "title": "DC09 Encryption Key Support",
+      "description": "Add optional Encryption Key field to Site Creation and Edit forms. Support encrypted and unencrypted DC09 alarm transmission based on key configuration. Store encryption key securely with masked display.",
+      "testCases": ["TC_19", "TC_20", "TC_21", "TC_23", "TC_25"],
+      "priority": "high"
+    },
+    {
+      "id": "DC09-FIX-006",
+      "type": "FIX",
+      "area": "Site Security",
+      "title": "Encryption Key Format Validation",
+      "description": "Implement validation for Encryption Key format. Block saving with invalid keys and provide clear error messages.",
+      "testCases": ["TC_22"],
+      "priority": "medium"
+    },
+    {
+      "id": "DC09-FIX-007",
+      "type": "FIX",
+      "area": "Site Security",
+      "title": "Encryption Usage Guidance",
+      "description": "Add inline guidance explaining when encryption is required and how it affects alarm transmission and testing.",
+      "testCases": ["TC_24"],
+      "priority": "medium"
+    },
+    {
+      "id": "DC09-FIX-008",
+      "type": "FIX",
+      "area": "CMS Configuration",
+      "title": "Block Duplicate CMS Configurations",
+      "description": "Detect and prevent duplicate or contradictory CMS configurations at tenant level. Display clear validation message when conflict is detected.",
+      "testCases": ["TC_30"],
+      "priority": "medium"
+    },
+    {
+      "id": "DC09-FIX-009",
+      "type": "FIX",
+      "area": "Form Validation",
+      "title": "Comprehensive Validation Error Handling",
+      "description": "Ensure all validation errors must be resolved before saving. Display all errors together with clear, actionable messages indicating which fields are invalid and what corrections are required.",
+      "testCases": ["TC_33", "TC_34"],
+      "priority": "high"
+    },
+    {
+      "id": "DC09-FEAT-007",
+      "type": "FEATURE",
+      "area": "CMS Confirmation",
+      "title": "Configuration Confirmation View",
+      "description": "Display confirmation view after successful CMS and site configuration. Summary includes configured CMS, tenant-level settings, site-level DC09 account mapping, and encryption status.",
+      "testCases": ["TC_35"],
+      "priority": "medium"
+    },
+    {
+      "id": "DC09-FEAT-008",
+      "type": "FEATURE",
+      "area": "Device Dashboard",
+      "title": "DC09 Alarm Forward Log Section",
+      "description": "Add DC09 Alarm Forward Log section to Device Dashboard for devices belonging to sites that forward alarms using DC09. Hide section for non-DC09 devices.",
+      "testCases": ["DC09 Log TC 1", "DC09 Log TC 2"],
+      "priority": "high"
+    },
+    {
+      "id": "DC09-FEAT-009",
+      "type": "FEATURE",
+      "area": "Device Dashboard",
+      "title": "DC09 Alarm Log Entry Fields",
+      "description": "Display comprehensive log fields for each DC09 alarm forward entry: Time, Alarm Code, DC09 Code, State, Account, Response, Encrypted, IP Address, Port, Area, Zone, Ack Time, Camera, Attachment. Entries are read-only.",
+      "testCases": ["DC09 Log TC 3", "DC09 Log TC 4"],
+      "priority": "high"
+    },
+    {
+      "id": "DC09-FEAT-010",
+      "type": "FEATURE",
+      "area": "Device Dashboard",
+      "title": "DC09 Alarm Forward Logging",
+      "description": "Log both successful and failed alarm forwarding attempts. Display encryption status, correct routing details, and near real-time log updates ordered by most recent first.",
+      "testCases": ["DC09 Log TC 5", "DC09 Log TC 6", "DC09 Log TC 7", "DC09 Log TC 8", "DC09 Log TC 9", "DC09 Log TC 10", "DC09 Log TC 11"],
+      "priority": "high"
+    }
+  ]
+}

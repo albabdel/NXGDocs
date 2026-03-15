@@ -1,0 +1,290 @@
+[
+  {
+    "TEST CASE ID": "security",
+    "TEST CASE DESCRIPTION": "",
+    "Precondition": "",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_1",
+    "TEST CASE DESCRIPTION": "Verify that Master Admin role cannot be assigned through invite",
+    "Precondition": "User is logged in as Platform Admin",
+    "TEST STEPS": "Navigate to Invite User page\n\nAttempt to assign \"Master Admin\" role to invited user\n\nClick Send Invite",
+    "EXPECTED RESULT": "System prevents selecting Master Admin role",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_2",
+    "TEST CASE DESCRIPTION": "Verify invited user cannot modify user roles",
+    "Precondition": "User was created via invite with limited permissions",
+    "TEST STEPS": "Login as invited user\n\nNavigate to Roles / User Management\n\nAttempt to edit any user role",
+    "EXPECTED RESULT": "Role modification option is hidden OR disabled\n\nIf accessed directly via URL, system returns authorization error\n\nNo role changes are applied",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_3",
+    "TEST CASE DESCRIPTION": "Verify invited user cannot create new invites",
+    "Precondition": "User was created via invite without invite permission",
+    "TEST STEPS": "Login as invited user\n\nNavigate to Invite section\n\nAttempt to create new invite",
+    "EXPECTED RESULT": "Invite option is not visible OR disabled\n\nIf forced via API request, system returns authorization error\n\nNo invite is created",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_4",
+    "TEST CASE DESCRIPTION": "Verify privilege escalation is blocked at backend level",
+    "Precondition": "Invited user logged in",
+    "TEST STEPS": "Intercept role modification request (via DevTools / Postman)\n\nModify request payload to escalate role (e.g., change role to Master Admin)\n\nSend request",
+    "EXPECTED RESULT": "System returns 403 Forbidden / Authorization error\n\nRole is not updated in database\n\nNo privilege escalation occurs",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_5",
+    "TEST CASE DESCRIPTION": "Verify unique access token is generated upon invite creation",
+    "Precondition": "Admin is logged in",
+    "TEST STEPS": "Navigate to Invite User\n\nSelect time-based invitation option\n\nDefine start and end date/time\n\nClick Create Invite",
+    "EXPECTED RESULT": "A unique access token is generated\n\nToken is linked to the invited user\n\nToken value is not duplicated in database\n\nConfirmation message is displayed",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_6",
+    "TEST CASE DESCRIPTION": "Verify token allows access only during valid time range",
+    "Precondition": "Time-based invite exists",
+    "TEST STEPS": "Attempt to access system before start time\n\nAttempt access within valid time range\n\nAttempt access after expiration time",
+    "EXPECTED RESULT": "ccess before start time → denied\n\nAccess during valid period → granted\n\nAccess after expiration → denied",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_7",
+    "TEST CASE DESCRIPTION": "Verify access is automatically revoked after token expiration",
+    "Precondition": "User logged in with valid time-based token",
+    "TEST STEPS": "Wait until expiration time passes\n\nAttempt to perform system action\n\nRefresh session / re-login",
+    "EXPECTED RESULT": "User session is invalidated\n\nUser cannot perform actions\n\nSystem returns authorization error\n\nAccess is fully revoked",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_8",
+    "TEST CASE DESCRIPTION": "Verify expired token cannot be reused",
+    "Precondition": "Token has expired",
+    "TEST STEPS": "Attempt to login using expired token\n\nAttempt API call using expired token",
+    "EXPECTED RESULT": "System rejects token\n\n401/403 error returned\n\nNo access granted",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_9",
+    "TEST CASE DESCRIPTION": "Verify system generates unique tokens",
+    "Precondition": "",
+    "TEST STEPS": "Create multiple time-based invites\n\nCapture generated tokens",
+    "EXPECTED RESULT": "All tokens are unique\n\nNo duplicate tokens in database",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_10",
+    "TEST CASE DESCRIPTION": "Verify system behavior when start time equals end time",
+    "Precondition": "",
+    "TEST STEPS": "Create invite\n\nSet start time = end time\n\nSave invite",
+    "EXPECTED RESULT": "System prevents creation",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_11",
+    "TEST CASE DESCRIPTION": "Verify access exactly at token expiration timestamp",
+    "Precondition": "Valid token exists",
+    "TEST STEPS": "Login just before expiration\n\nAttempt action exactly at expiration time",
+    "EXPECTED RESULT": "Access allowed before expiration\n\nAccess denied immediately at expiration second\n\nNo delay or grace period (unless specified)",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_12",
+    "TEST CASE DESCRIPTION": "Verify token validation respects server timezone",
+    "Precondition": "System deployed with known server timezone",
+    "TEST STEPS": "Create token with defined time window\n\nChange client device timezone\n\nAttempt login",
+    "EXPECTED RESULT": "Token validation based on server time\n\nChanging client timezone does not extend access",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_13",
+    "TEST CASE DESCRIPTION": "Verify active session is terminated when token expires",
+    "Precondition": "User logged in with valid token",
+    "TEST STEPS": "Keep session active\n\nWait until expiration\n\nAttempt API request",
+    "EXPECTED RESULT": "Session becomes invalid\n\nAPI returns authorization error\n\nUser forced to logout",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_14",
+    "TEST CASE DESCRIPTION": "Verify expired token cannot be reused via API tampering",
+    "Precondition": "",
+    "TEST STEPS": "Capture expired token\n\nSend manual API request using token",
+    "EXPECTED RESULT": "System rejects request\n\n401 / 403 response\n\nNo access granted",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_15",
+    "TEST CASE DESCRIPTION": "Verify system behavior when multiple time-based invites overlap",
+    "Precondition": "",
+    "TEST STEPS": "Create invite for user (Time A–B)\n\nCreate another invite for same user (Time B–C)",
+    "EXPECTED RESULT": "System handles overlapping correctly\n\nNo privilege extension beyond defined windows\n\nAccess follows defined periods only",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_16",
+    "TEST CASE DESCRIPTION": "Verify System Detects Active or Upcoming Shifts Before Role Edit",
+    "Precondition": "Role assigned to at least one user\nOne user has active or upcoming shift",
+    "TEST STEPS": "Login as Admin\n\nNavigate to Roles\n\nEdit a role assigned to on-call user\n\nClick Save",
+    "EXPECTED RESULT": "System checks shift status\n\nEdit is paused\n\nWarning prompt appears",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_17",
+    "TEST CASE DESCRIPTION": "Verify Warning Lists Impacted Users and Shift Status",
+    "Precondition": "Trigger role edit with affected users",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "Warning message clearly explains impact\n\nImpacted users are listed by name\n\nShift status displayed (Active / Upcoming)\n\nExplanation states role change will affect on-call coverage",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_18",
+    "TEST CASE DESCRIPTION": "Verify Default Action is Cancel",
+    "Precondition": "Open warning prompt",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "Cancel is default selected option\n\nNo change applied unless explicit action taken",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_19",
+    "TEST CASE DESCRIPTION": "Verify Immediate Application Requires Extra Confirmation",
+    "Precondition": "",
+    "TEST STEPS": "Select “Apply Immediately”\n\nClick Confirm",
+    "EXPECTED RESULT": "Additional confirmation prompt appears\n\nRole change applied only after confirmation\n\nNo accidental one-click execution",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_20",
+    "TEST CASE DESCRIPTION": "Verify Scheduled Application Requires Effective Time Confirmation",
+    "Precondition": "",
+    "TEST STEPS": "Select “Schedule Change”\n\nObserve default effective time\n\nConfirm",
+    "EXPECTED RESULT": "Default time = end of last active shift\n\nAdmin must confirm effective time\n\nRole change applied only after shift ends",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_21",
+    "TEST CASE DESCRIPTION": "Verify Immediate and Scheduled Options Are Mutually Exclusive",
+    "Precondition": "",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "Only one option can be selected\n\nClear labeling\n\nNo overlapping selection possible",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_22",
+    "TEST CASE DESCRIPTION": "Verify No Bypass of Prompt",
+    "Precondition": "",
+    "TEST STEPS": "Attempt direct API call to edit role\n\nAttempt URL manipulation",
+    "EXPECTED RESULT": "Backend enforces shift validation\n\nEdit blocked if prompt flow not completed\n\n403 / validation error returned",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "TC_23",
+    "TEST CASE DESCRIPTION": "Verify Audit Logging",
+    "Precondition": "",
+    "TEST STEPS": "Perform immediate role change\n\nPerform scheduled role change",
+    "EXPECTED RESULT": "Admin who performed change\n\nTimestamp\n\nImpacted users\n\nBefore state\n\nAfter state\n\nEffective time\n\nDecision type (Immediate / Scheduled / Cancelled)",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "",
+    "TEST CASE DESCRIPTION": "Verify Role Edit When No Users Are On Call",
+    "Precondition": "Role assigned to users with no active/upcoming shifts",
+    "TEST STEPS": "Edit role\n\nSave",
+    "EXPECTED RESULT": "No warning prompt appears\n\nRole change applied immediately\n\nAudit log created",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "",
+    "TEST CASE DESCRIPTION": "Verify Behavior If Shift Ends During Role Edit Flow",
+    "Precondition": "",
+    "TEST STEPS": "Start editing role\n\nTrigger warning prompt\n\nWait until affected user's shift ends\n\nTry to confirm change",
+    "EXPECTED RESULT": "System re-validates shift status before applying change\n\nIf no active shifts → apply immediately without restriction\n\nNo stale validation allowed",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "",
+    "TEST CASE DESCRIPTION": "Verify Multiple Users With Different Shift Statuses",
+    "Precondition": "User A → Active shift\n\nUser B → Upcoming shift\n\nUser C → No shift",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "Warning lists only affected users (A & B)\n\nEach user shows correct shift status\n\nSystem logic handles mixed cases correctly",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "",
+    "TEST CASE DESCRIPTION": "Verify Overlapping Shifts",
+    "Precondition": "User has overlapping or back-to-back shifts",
+    "TEST STEPS": "Attempt scheduled role change",
+    "EXPECTED RESULT": "Default effective time = end of LAST active shift\n\nNo gap miscalculation\n\nNo premature role application",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "",
+    "TEST CASE DESCRIPTION": "Verify Concurrent Admin Role Edits",
+    "Precondition": "Admin A and Admin B editing same role simultaneously",
+    "TEST STEPS": "Admin A opens edit screen\n\nAdmin B edits and saves role\n\nAdmin A attempts to save",
+    "EXPECTED RESULT": "System detects version conflict\n\nProper concurrency handling (optimistic locking)\n\nNo silent overwrite",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "",
+    "TEST CASE DESCRIPTION": "Verify Scheduled Role Change While User Gets New Shift",
+    "Precondition": "Admin schedules role change after current shift",
+    "TEST STEPS": "",
+    "EXPECTED RESULT": "Follow defined business rule\n\nNo silent conflict",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "",
+    "TEST CASE DESCRIPTION": "Verify Audit Log Accuracy With Complex Scenarios",
+    "Precondition": "",
+    "TEST STEPS": "Perform immediate change\n\nPerform scheduled change\n\nCancel change\n\nTrigger concurrent scenario",
+    "EXPECTED RESULT": "Exact decision type\n\nFull impacted users list\n\nAccurate timestamps\n\nBefore/After role states\n\nAdmin ID\n\nNo missing entries",
+    "status": "",
+    "note": ""
+  },
+  {
+    "TEST CASE ID": "",
+    "TEST CASE DESCRIPTION": "Verify System Performance With Large User Base",
+    "Precondition": "Role assigned to 500+ users",
+    "TEST STEPS": "Attempt role edit",
+    "EXPECTED RESULT": "Shift detection completes within acceptable time\n\nWarning displays correctly\n\nNo timeout\n\nNo partial user listing",
+    "status": "",
+    "note": ""
+  }
+]

@@ -14,6 +14,16 @@ last_updated: 2025-12-04
 
 This checklist guides a first-time administrator from zero to a production-ready **GCXONE** deployment. Work through the sections in order; each ends with an outcome so you know when to move on.
 
+## Recent Platform Updates
+
+| Feature | Impact | Learn More |
+| :--- | :--- | :--- |
+| **CMS Marketplace Integration** | Configure Evalink Talos, Amwin, Lisa, Immix, Alice CMS directly from Marketplace. | [Marketplace](/docs/features/platform/marketplace) |
+| **Device Activation/Deactivation** | Control whether sensors on devices are operational through configuration menu. | [Device Management](/docs/getting-started/devices) |
+| **Auto Streaming** | Alarms automatically trigger live streams for mapped cameras. | [Video Streaming](/docs/features/video-monitoring/video-streaming/overview) |
+| **Time-Based Access** | Create invitations with defined time windows for temporary access. | [Roles & Permissions](/docs/platform-fundamentals/roles-permissions) |
+| **Report Schedule Dashboard** | View Active Schedules, Reports Sent, and Failed Deliveries at a glance. | [Scheduled Reports](/docs/reporting/scheduled-reports) |
+
 ## 1. Account Access and Login
 
 - Sign in at your dedicated GCXONE URL with the admin account provided during provisioning.

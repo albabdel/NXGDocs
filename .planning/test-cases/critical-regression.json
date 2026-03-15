@@ -1,0 +1,277 @@
+[
+  {
+    "_rowIndex": 2,
+    "REGRESSION CHEKLIST": "CRITICAL REGRESSION – DC09",
+    "another regrassion for al system In general": "devices, videos about search and tower \\salvo\\talos\\"
+  },
+  {
+    "_rowIndex": 3,
+    "REGRESSION CHEKLIST": "DC09 CMS is visible in the Marketplace with correct status",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 4,
+    "REGRESSION CHEKLIST": "CMS cannot be saved without required fields",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 5,
+    "REGRESSION CHEKLIST": "DC09 Account ID is mandatory when a site forwards alarms to DC09",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 6,
+    "REGRESSION CHEKLIST": "Site cannot be saved if DC09 Account ID is missing",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 7,
+    "REGRESSION CHEKLIST": "Alarms are successfully forwarded to the DC09 CMS",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 8,
+    "REGRESSION CHEKLIST": "Each site forwards alarms using its correct account",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 9,
+    "REGRESSION CHEKLIST": "Encryption behavior:",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 10,
+    "REGRESSION CHEKLIST": "With Encryption Key → alarms are encrypted \nWithout Encryption Key → alarms are unencrypted",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 11,
+    "REGRESSION CHEKLIST": "DC09 Alarm Forward Logs:",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 12,
+    "REGRESSION CHEKLIST": "Visible on the Device Dashboard\n\nInclude both success and failure entries\n\nUpdate in near real time",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 13,
+    "REGRESSION CHEKLIST": "CRITICAL REGRESSION – OUTSTREAM",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 14,
+    "REGRESSION CHEKLIST": "Outstream feature loads without errors",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 15,
+    "REGRESSION CHEKLIST": "Talos synchronization is working",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 16,
+    "REGRESSION CHEKLIST": "Zones are displayed correctly",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 17,
+    "REGRESSION CHEKLIST": "All sensors assigned to the same zone are displayed (not only one)",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 18,
+    "REGRESSION CHEKLIST": "No sensors are hidden or incorrectly merged",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 19,
+    "REGRESSION CHEKLIST": "Page refresh does not break data",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 20,
+    "REGRESSION CHEKLIST": "Switching between sites updates data correctly",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 21,
+    "REGRESSION CHEKLIST": "Alarm & Streaming Core",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 22,
+    "REGRESSION CHEKLIST": "Verify alarms are received correctly from Talos in GCX",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 23,
+    "REGRESSION CHEKLIST": "Verify alarms trigger auto streaming successfully",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 24,
+    "REGRESSION CHEKLIST": "Verify disabling auto streaming prevents any streaming action",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 25,
+    "REGRESSION CHEKLIST": "Zone Handling (Must-Have)",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 26,
+    "REGRESSION CHEKLIST": "Verify site-level streaming works when no zone is provided",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 27,
+    "REGRESSION CHEKLIST": "Verify zone-based streaming works when a valid zone is provided",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 28,
+    "REGRESSION CHEKLIST": "Verify alarms with invalid or unknown zones fallback to site-level streaming",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 29,
+    "REGRESSION CHEKLIST": "Verify zone changes affect future alarms only",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 30,
+    "REGRESSION CHEKLIST": "Devices & Cameras",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 31,
+    "REGRESSION CHEKLIST": "Verify all cameras stream when site has one device",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 32,
+    "REGRESSION CHEKLIST": "Verify all cameras stream when site has multiple devices",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 33,
+    "REGRESSION CHEKLIST": "Verify no streams start if site has no devices",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 34,
+    "REGRESSION CHEKLIST": "Multi-Monitor & Quad View",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 35,
+    "REGRESSION CHEKLIST": "Verify motion alarm opens quad automatically",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 36,
+    "REGRESSION CHEKLIST": "Verify quad opens even when user is viewing other cameras",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 37,
+    "REGRESSION CHEKLIST": "Verify quad behavior remains consistent for repeated alarms",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 38,
+    "REGRESSION CHEKLIST": "Alarm Lifecycle Sync",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 39,
+    "REGRESSION CHEKLIST": "Verify cancelling alarm closes quad and workflow",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 40,
+    "REGRESSION CHEKLIST": "Verify closing workflow closes quad",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 41,
+    "REGRESSION CHEKLIST": "Verify reopening alarm opens quad again",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 42,
+    "REGRESSION CHEKLIST": "Permissions (Security)",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 43,
+    "REGRESSION CHEKLIST": "Verify unauthorized users cannot see or access streams",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 44,
+    "REGRESSION CHEKLIST": "Verify streaming UI is hidden for unauthorized roles",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 45,
+    "REGRESSION CHEKLIST": "Logs (Compliance)",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 46,
+    "REGRESSION CHEKLIST": "Verify streaming actions are logged",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 47,
+    "REGRESSION CHEKLIST": "Verify permission denials and failures are logged",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 48,
+    "REGRESSION CHEKLIST": "CRITICAL REGRESSION – MARKETPLACE (Alarm Management Systems)",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 49,
+    "REGRESSION CHEKLIST": "Marketplace loads successfully",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 50,
+    "REGRESSION CHEKLIST": "Alarm Management System category is visible",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 51,
+    "REGRESSION CHEKLIST": "All supported CMS options are listed:\n\nEvalink Talos\n\nAmwin\n\nLisa\n\nImmix\n\nAlice",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 52,
+    "REGRESSION CHEKLIST": "CMS entries are visible even when no CMS is configured",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 53,
+    "REGRESSION CHEKLIST": "Each CMS shows the correct state:\n\nNot Configured\n\nConfigured",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 54,
+    "REGRESSION CHEKLIST": "Only admin users can view and access CMS configuration",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 55,
+    "REGRESSION CHEKLIST": "Selecting a CMS opens its overview page",
+    "another regrassion for al system In general": null
+  },
+  {
+    "_rowIndex": 56,
+    "REGRESSION CHEKLIST": "CMS overview displays:\n\nSupported alarm protocol\n\nIntegration scope\n\nRequired configuration inputs",
+    "another regrassion for al system In general": null
+  }
+]

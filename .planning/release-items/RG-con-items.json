@@ -1,0 +1,182 @@
+[
+  {
+    "originalId": "TC_1",
+    "title": "Device Activation and Deactivation",
+    "description": "Enables users to activate or deactivate devices through the configuration menu, controlling whether sensors on the device are operational.",
+    "changeType": "feature",
+    "affectedAreas": ["devices"],
+    "originalDescription": "Verify whether the created device active or not",
+    "originalSteps": "1.login to GCX 2.navigate to configuration 3.activate any device"
+  },
+  {
+    "originalId": "TC_3",
+    "title": "Device Creation in Sites",
+    "description": "Allows users to add new devices to existing sites with automatic sensor discovery, enabling comprehensive device management at the site level.",
+    "changeType": "feature",
+    "affectedAreas": ["devices"],
+    "originalDescription": "Add a new device in a existing site",
+    "originalSteps": "1.Login to GCX 2.navigate to configuration 3.click on any site 4.Go to device and click Add 5.check whether new device has discover"
+  },
+  {
+    "originalId": "TC_4",
+    "title": "Device Deletion from Sites",
+    "description": "Provides the ability to delete devices from sites, removing all associated sensors and configurations.",
+    "changeType": "feature",
+    "affectedAreas": ["devices"],
+    "originalDescription": "Delete an Existing device in a site",
+    "originalSteps": "1.Login to GCX 2.navigate to configuration 3.click on any site 4.Go to Device and select Delete"
+  },
+  {
+    "originalId": "TC_7",
+    "title": "Device Rediscovery",
+    "description": "Enables rediscovery of previously deleted devices, allowing recovery of device configurations and sensors without manual reconfiguration.",
+    "changeType": "feature",
+    "affectedAreas": ["devices"],
+    "originalDescription": "Rediscover New Device",
+    "originalSteps": "1.Login to GCX 2.delete the device 3.discover again the same device"
+  },
+  {
+    "originalId": "TC_8",
+    "title": "Site Creation and Management",
+    "description": "Supports creating multiple sites within a customer, providing organizational structure for device deployment.",
+    "changeType": "feature",
+    "affectedAreas": ["devices"],
+    "originalDescription": "Add a new site in customer",
+    "originalSteps": "1.Login to GCX 2.navigate to configuration 3.click add on customer"
+  },
+  {
+    "originalId": "TC_9",
+    "title": "Site Deletion",
+    "description": "Allows deletion of sites from customers, removing all associated devices and sensors.",
+    "changeType": "feature",
+    "affectedAreas": ["devices"],
+    "originalDescription": "Delete a site in customer",
+    "originalSteps": "1.Login to GCX 2.navigate to configuration 3.click delete on customer of any site"
+  },
+  {
+    "originalId": "TC_10",
+    "title": "Site Activation and Deactivation",
+    "description": "Enables activating or deactivating sites to control operational status of all devices and sensors within a site.",
+    "changeType": "feature",
+    "affectedAreas": ["devices"],
+    "originalDescription": "site inactive",
+    "originalSteps": "1.Login to GCX 2.navigate to configuration 3.click any device inactive 4.select any site and turn OFF"
+  },
+  {
+    "originalId": "TC_16",
+    "title": "Customer Creation at Service Provider Level",
+    "description": "Provides the ability to create new customers at the service provider level, supporting multi-tenant architecture and hierarchical organization.",
+    "changeType": "feature",
+    "affectedAreas": ["devices"],
+    "originalDescription": "Adding customer in service provider level",
+    "originalSteps": "1.login to GCX 2.navigate to service provider page 3.go to customer and click add 4.verify whether new customer is adding"
+  },
+  {
+    "originalId": "TC_17",
+    "title": "Customer Deletion",
+    "description": "Enables deletion of customers from the service provider level, removing all associated sites, devices, and sensors.",
+    "changeType": "feature",
+    "affectedAreas": ["devices"],
+    "originalDescription": "Deleting customer in service provider level",
+    "originalSteps": "1.login to GCX 2.navigate to service provider page 3.go to customer and click delete 4.verify whether new customer is deleted"
+  },
+  {
+    "originalId": "TC_18",
+    "title": "Customer Naming with Numeric Characters",
+    "description": "Supports creating customer names containing numeric characters, providing flexible naming conventions.",
+    "changeType": "feature",
+    "affectedAreas": ["devices"],
+    "originalDescription": "Creating customer name with numbers",
+    "originalSteps": "1.login to GCX 2.navigate to service provider page 3.go to customer and click add 4.verify whether new customer is adding with the given numbers"
+  },
+  {
+    "originalId": "TC_19",
+    "title": "Customer Activation and Deactivation",
+    "description": "Enables activating or deactivating customers to control operational status across all associated sites and devices.",
+    "changeType": "feature",
+    "affectedAreas": ["devices"],
+    "originalDescription": "Inactive the Customer",
+    "originalSteps": "1.login to GCX 2.navigate to any customer 3.In overview page click and Turn it OFF"
+  },
+  {
+    "originalId": "TC_21",
+    "title": "Sensor Activation and Deactivation",
+    "description": "Provides granular control over individual sensors within devices, allowing activation or deactivation without affecting the entire device.",
+    "changeType": "feature",
+    "affectedAreas": ["devices"],
+    "originalDescription": "sensor inactive in existing Device",
+    "originalSteps": "1.Login to GCX 2.navigate to configuration 3.navigate to any device 4.click any sensor and turn it off"
+  },
+  {
+    "originalId": "TC_23",
+    "title": "Sensor Deletion from Devices",
+    "description": "Enables deletion of individual sensors from devices, including bulk deletion of all sensors within a device.",
+    "changeType": "feature",
+    "affectedAreas": ["devices"],
+    "originalDescription": "Deleted a sensor from Device",
+    "originalSteps": "1.Login to GCX 2.navigate to configuration 3.navigate to any device 4.Go to sensor page and click delete 5.Verify whether sensor is got deleted"
+  },
+  {
+    "originalId": "TC_24",
+    "title": "Sensor Addition to Devices",
+    "description": "Allows adding new sensors to devices, including the ability to create the same sensor across multiple devices.",
+    "changeType": "feature",
+    "affectedAreas": ["devices"],
+    "originalDescription": "Add a sensor",
+    "originalSteps": "1.Login to GCX 2.navigate to configuration 3.navigate to any device 4.Go to sensor page and click add 5.Verify whether sensor is got added"
+  },
+  {
+    "originalId": "TC_25",
+    "title": "Cross-Device Sensor Configuration",
+    "description": "Supports creating the same sensor across multiple devices, enabling consistent sensor configuration for similar device types.",
+    "changeType": "feature",
+    "affectedAreas": ["devices"],
+    "originalDescription": "Creating Same sensor in multiple device",
+    "originalSteps": "1.Login to GCX 2.navigate to configuration 3.navigate to any device 4.Go to sensor page and click add the same sensor from another device 5.Verify whether sensor is got added"
+  },
+  {
+    "originalId": "TC_27",
+    "title": "Service Provider Activation and Deactivation",
+    "description": "Enables activating or deactivating service providers, which controls operational status of all customers, sites, devices, and sensors under that provider.",
+    "changeType": "feature",
+    "affectedAreas": ["devices"],
+    "originalDescription": "service provider inactive",
+    "originalSteps": "1.Login to GCX 2.navigate to configuration 3.click any serviceprovider inactive"
+  },
+  {
+    "originalId": "TC_29",
+    "title": "Device and Sensor Visibility",
+    "description": "Provides comprehensive view of all devices and sensors with their associated details, supporting monitoring and management activities.",
+    "changeType": "feature",
+    "affectedAreas": ["devices"],
+    "originalDescription": "Able to view all devices and Sensors",
+    "originalSteps": "1.Login to GCX 2.navigate to configuration 3.click any device and sensor 4.Verify able to view all details."
+  },
+  {
+    "originalId": "TC_30",
+    "title": "Continuous Alarm Event Flow",
+    "description": "Ensures alarm events flow continuously through Talos workflow and VAS without interruption, maintaining real-time monitoring capabilities.",
+    "changeType": "feature",
+    "affectedAreas": ["alarm-management"],
+    "originalDescription": "Event flow is not stopped",
+    "originalSteps": "1. Login to GCX - Tenant 2. Navigate to Talos workflow 3. Navigate to VAS in new page 4. Set up the end date as future date 5. Check the Alarm flows continously for 15 min"
+  },
+  {
+    "originalId": "TC_31",
+    "title": "Alarm Assignment Operator Workflow",
+    "description": "Enables alarm assignment flow from Talos workflow to Map and Salvo pages, providing operators with real-time alarm visibility across multiple interfaces.",
+    "changeType": "feature",
+    "affectedAreas": ["alarm-management", "operator-guide"],
+    "originalDescription": "Operator flow",
+    "originalSteps": "1. Login to GCX - Tenant 2. Navigate to Talos workflow 3. Navigate to Map in new page 4. Navigate to Salvo new page 5. Assign a live alarm in talos 6. Check in Map & Salvo page"
+  },
+  {
+    "originalId": "TC_32",
+    "title": "Device Group Creation",
+    "description": "Enables creation of device groups to organize and manage devices logically, supporting bulk operations and simplified device administration.",
+    "changeType": "feature",
+    "affectedAreas": ["devices"],
+    "originalDescription": "Device Group Creation",
+    "originalSteps": "1. Login to GCX is Cloud webapp. 2. Navigate to Configuration Menu. 3. Move towards the Device Groups. 4. Add the Device Group name and device located in the site. 5. Under the Device Group - > List of Devices will be viewed."
+  }
+]

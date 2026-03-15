@@ -1,0 +1,467 @@
+[
+  {
+  "displayTitle": "February 2026 Release B",
+  "sprintId": "Sprint 2026.02-B",
+  "slug": "sprint-2026-02-b",
+  "publishedAt": "2026-02-28",
+  "summary": "This release introduces comprehensive device configuration management features including customer, site, device, and sensor lifecycle operations. It also adds security enhancements for role-based access control, time-based invitation tokens, and on-call shift protection, along with DC09 CMS marketplace integration and report scheduling capabilities.",
+  "items": [
+    {
+      "id": "RG-TC_1",
+      "title": "Device Activation and Deactivation",
+      "description": "Enables users to activate or deactivate devices through the configuration menu, controlling whether sensors on the device are operational.",
+      "changeType": "feature",
+      "affectedAreas": ["devices"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_3",
+      "title": "Device Creation in Sites",
+      "description": "Allows users to add new devices to existing sites with automatic sensor discovery, enabling comprehensive device management at the site level.",
+      "changeType": "feature",
+      "affectedAreas": ["devices"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_4",
+      "title": "Device Deletion from Sites",
+      "description": "Provides the ability to delete devices from sites, removing all associated sensors and configurations.",
+      "changeType": "feature",
+      "affectedAreas": ["devices"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_7",
+      "title": "Device Rediscovery",
+      "description": "Enables rediscovery of previously deleted devices, allowing recovery of device configurations and sensors without manual reconfiguration.",
+      "changeType": "feature",
+      "affectedAreas": ["devices"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_8",
+      "title": "Site Creation and Management",
+      "description": "Supports creating multiple sites within a customer, providing organizational structure for device deployment.",
+      "changeType": "feature",
+      "affectedAreas": ["devices"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_9",
+      "title": "Site Deletion",
+      "description": "Allows deletion of sites from customers, removing all associated devices and sensors.",
+      "changeType": "feature",
+      "affectedAreas": ["devices"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_10",
+      "title": "Site Activation and Deactivation",
+      "description": "Enables activating or deactivating sites to control operational status of all devices and sensors within a site.",
+      "changeType": "feature",
+      "affectedAreas": ["devices"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_16",
+      "title": "Customer Creation at Service Provider Level",
+      "description": "Provides the ability to create new customers at the service provider level, supporting multi-tenant architecture and hierarchical organization.",
+      "changeType": "feature",
+      "affectedAreas": ["devices"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_17",
+      "title": "Customer Deletion",
+      "description": "Enables deletion of customers from the service provider level, removing all associated sites, devices, and sensors.",
+      "changeType": "feature",
+      "affectedAreas": ["devices"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_18",
+      "title": "Customer Naming with Numeric Characters",
+      "description": "Supports creating customer names containing numeric characters, providing flexible naming conventions.",
+      "changeType": "feature",
+      "affectedAreas": ["devices"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_19",
+      "title": "Customer Activation and Deactivation",
+      "description": "Enables activating or deactivating customers to control operational status across all associated sites and devices.",
+      "changeType": "feature",
+      "affectedAreas": ["devices"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_21",
+      "title": "Sensor Activation and Deactivation",
+      "description": "Provides granular control over individual sensors within devices, allowing activation or deactivation without affecting the entire device.",
+      "changeType": "feature",
+      "affectedAreas": ["devices"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_23",
+      "title": "Sensor Deletion from Devices",
+      "description": "Enables deletion of individual sensors from devices, including bulk deletion of all sensors within a device.",
+      "changeType": "feature",
+      "affectedAreas": ["devices"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_24",
+      "title": "Sensor Addition to Devices",
+      "description": "Allows adding new sensors to devices, including the ability to create the same sensor across multiple devices.",
+      "changeType": "feature",
+      "affectedAreas": ["devices"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_25",
+      "title": "Cross-Device Sensor Configuration",
+      "description": "Supports creating the same sensor across multiple devices, enabling consistent sensor configuration for similar device types.",
+      "changeType": "feature",
+      "affectedAreas": ["devices"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_27",
+      "title": "Service Provider Activation and Deactivation",
+      "description": "Enables activating or deactivating service providers, which controls operational status of all customers, sites, devices, and sensors under that provider.",
+      "changeType": "feature",
+      "affectedAreas": ["devices"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_29",
+      "title": "Device and Sensor Visibility",
+      "description": "Provides comprehensive view of all devices and sensors with their associated details, supporting monitoring and management activities.",
+      "changeType": "feature",
+      "affectedAreas": ["devices"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_30",
+      "title": "Continuous Alarm Event Flow",
+      "description": "Ensures alarm events flow continuously through Talos workflow and VAS without interruption, maintaining real-time monitoring capabilities.",
+      "changeType": "feature",
+      "affectedAreas": ["alarm-management"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_31",
+      "title": "Alarm Assignment Operator Workflow",
+      "description": "Enables alarm assignment flow from Talos workflow to Map and Salvo pages, providing operators with real-time alarm visibility across multiple interfaces.",
+      "changeType": "feature",
+      "affectedAreas": ["alarm-management", "operator-guide"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "RG-TC_32",
+      "title": "Device Group Creation",
+      "description": "Enables creation of device groups to organize and manage devices logically, supporting bulk operations and simplified device administration.",
+      "changeType": "feature",
+      "affectedAreas": ["devices"],
+      "source": "RG-con-items.json"
+    },
+    {
+      "id": "PR1-RI_1",
+      "title": "Master Admin Role Assignment Restriction",
+      "description": "Master Admin role cannot be assigned through user invite. System prevents selection of Master Admin role during invite creation.",
+      "changeType": "feature",
+      "category": "Security",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_2",
+      "title": "Invited User Permission Restrictions",
+      "description": "Invited users cannot modify user roles or create new invites unless explicitly granted those permissions. Options are hidden or disabled, and direct API access returns authorization errors.",
+      "changeType": "feature",
+      "category": "Security",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_3",
+      "title": "Backend Privilege Escalation Prevention",
+      "description": "System blocks privilege escalation attempts at the backend level. Modified requests attempting to escalate roles return 403 Forbidden with no database changes.",
+      "changeType": "feature",
+      "category": "Security",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_4",
+      "title": "Time-Based Invitation Tokens",
+      "description": "System generates unique access tokens for time-based invitations. Tokens are linked to invited users and are unique in the database.",
+      "changeType": "feature",
+      "category": "Time-Based Access",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_5",
+      "title": "Token Time Window Validation",
+      "description": "Tokens allow access only during defined time range. Access denied before start time and after expiration. No grace period unless specified.",
+      "changeType": "feature",
+      "category": "Time-Based Access",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_6",
+      "title": "Automatic Access Revocation on Token Expiry",
+      "description": "User sessions are automatically invalidated when tokens expire. Users cannot perform actions and must re-login. Expired tokens cannot be reused.",
+      "changeType": "feature",
+      "category": "Time-Based Access",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_7",
+      "title": "Token Time Validation Security",
+      "description": "Token validation is based on server time. Changing client timezone does not extend access. System prevents creation when start time equals end time.",
+      "changeType": "feature",
+      "category": "Time-Based Access",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_8",
+      "title": "Overlapping Time-Based Invites Handling",
+      "description": "System correctly handles multiple overlapping time-based invites for same user. No privilege extension beyond defined windows.",
+      "changeType": "feature",
+      "category": "Time-Based Access",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_9",
+      "title": "On-Call Shift Detection Before Role Edit",
+      "description": "System detects active or upcoming shifts before allowing role edits. Warning prompt appears when editing roles assigned to on-call users.",
+      "changeType": "feature",
+      "category": "On-Call Protection",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_10",
+      "title": "Role Edit Warning Details",
+      "description": "Warning prompt lists impacted users by name with shift status (Active/Upcoming). Explains impact on on-call coverage.",
+      "changeType": "feature",
+      "category": "On-Call Protection",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_11",
+      "title": "Role Edit Decision Options",
+      "description": "Cancel is default action. Immediate application requires extra confirmation. Scheduled application defaults to end of last active shift. Options are mutually exclusive.",
+      "changeType": "feature",
+      "category": "On-Call Protection",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_12",
+      "title": "Backend Enforcement of Shift Validation",
+      "description": "Backend enforces shift validation. Direct API calls or URL manipulation cannot bypass prompt flow. Returns 403/validation error.",
+      "changeType": "feature",
+      "category": "On-Call Protection",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_13",
+      "title": "Role Change Audit Logging",
+      "description": "Audit logs capture admin, timestamp, impacted users, before/after states, effective time, and decision type (Immediate/Scheduled/Cancelled).",
+      "changeType": "feature",
+      "category": "Audit",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_14",
+      "title": "Role Edit Without On-Call Users",
+      "description": "No warning prompt appears when editing roles assigned to users with no active or upcoming shifts. Changes apply immediately.",
+      "changeType": "feature",
+      "category": "On-Call Protection",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_15",
+      "title": "Dynamic Shift Status Re-validation",
+      "description": "System re-validates shift status before applying changes. If shifts end during edit flow, restrictions are lifted automatically.",
+      "changeType": "feature",
+      "category": "On-Call Protection",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_16",
+      "title": "Mixed Shift Status Handling",
+      "description": "Warning lists only affected users when role has users with different shift statuses (Active, Upcoming, No shift).",
+      "changeType": "feature",
+      "category": "On-Call Protection",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_17",
+      "title": "Overlapping Shift Effective Time Calculation",
+      "description": "Default effective time for scheduled changes is end of LAST active shift. No gap miscalculation for overlapping or back-to-back shifts.",
+      "changeType": "feature",
+      "category": "On-Call Protection",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_18",
+      "title": "Concurrent Admin Role Edit Handling",
+      "description": "System detects version conflicts when multiple admins edit same role. Proper concurrency handling prevents silent overwrites.",
+      "changeType": "feature",
+      "category": "Concurrency",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_19",
+      "title": "Scheduled Change Conflict Handling",
+      "description": "System handles conflicts when user gets new shift during scheduled role change period. Follows defined business rules.",
+      "changeType": "feature",
+      "category": "On-Call Protection",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_20",
+      "title": "Complex Scenario Audit Accuracy",
+      "description": "Audit logs accurately capture decision type, full impacted users list, timestamps, before/after states, and admin ID for complex scenarios.",
+      "changeType": "feature",
+      "category": "Audit",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "PR1-RI_21",
+      "title": "Large User Base Role Edit Performance",
+      "description": "Shift detection and warning display complete within acceptable time for roles assigned to 500+ users. No timeout or partial listing.",
+      "changeType": "feature",
+      "category": "Performance",
+      "source": "permission-role1-items.json"
+    },
+    {
+      "id": "DC09-FEAT-001",
+      "title": "Alarm Management System Category in Marketplace",
+      "description": "Add Alarm Management System category to Marketplace with visibility of all CMS options (Evalink Talos, Amwin, Lisa, Immix, Alice, Other DC09-compatible). Display current configuration state and integration type for each CMS entry.",
+      "changeType": "feature",
+      "area": "CMS Marketplace",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "DC09-FEAT-002",
+      "title": "Admin-Only CMS Configuration Access",
+      "description": "Restrict CMS configuration options to admin users only. Non-admin users can view CMS entries but cannot access configuration options.",
+      "changeType": "feature",
+      "area": "CMS Configuration",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "DC09-FEAT-003",
+      "title": "Evalink Talos CMS Configuration",
+      "description": "Enable Evalink Talos CMS configuration with Company ID and API Token fields. Support secure credential storage with masked token display after saving.",
+      "changeType": "feature",
+      "area": "Evalink Talos Integration",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "DC09-FEAT-004",
+      "title": "DC09 Account ID Field on Site Forms",
+      "description": "Add DC09 Account ID field to Site Creation and Edit forms. Field is required for sites forwarding alarms to DC09-based CMS. Support visibility and editability for admin users.",
+      "changeType": "feature",
+      "area": "Site Configuration",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "DC09-FEAT-005",
+      "title": "Immediate DC09 Account ID Change Effect",
+      "description": "Ensure DC09 Account ID changes take effect immediately. Alarms are routed according to the updated configuration without delay.",
+      "changeType": "feature",
+      "area": "Site Configuration",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "RPT-FEAT-001",
+      "title": "Manage Report Schedules Summary Dashboard",
+      "description": "Add read-only summary cards at the top of Manage Report Schedules page displaying Active Schedules count, Reports Sent This Month, and Failed Deliveries. Cards are informational only and non-interactive.",
+      "changeType": "feature",
+      "area": "Report Schedules Dashboard",
+      "source": "reports-items.json"
+    },
+    {
+      "id": "RPT-FEAT-002",
+      "title": "Create New Report Schedule",
+      "description": "Enable users to create new report schedules via 'Create New Schedule' button. Support filling required fields and saving with success confirmation. Created schedules appear in the schedule table.",
+      "changeType": "feature",
+      "area": "Report Schedules Management",
+      "source": "reports-items.json"
+    },
+    {
+      "id": "RPT-FEAT-003",
+      "title": "Schedule Table Structure",
+      "description": "Display schedule table with columns: Schedule, Customers, Site, and Actions. Table shows all configured report schedules with their associated data.",
+      "changeType": "feature",
+      "area": "Report Schedules Table",
+      "source": "reports-items.json"
+    },
+    {
+      "id": "RPT-FEAT-004",
+      "title": "Schedule Actions (Edit, Delete, Trigger)",
+      "description": "Provide Actions column with Edit, Delete, and Trigger functionality. Edit allows modifying schedule data. Delete removes schedule after confirmation. Trigger manually sends the report on demand.",
+      "changeType": "feature",
+      "area": "Report Schedules Actions",
+      "source": "reports-items.json"
+    },
+    {
+      "id": "RPT-FEAT-005",
+      "title": "Rows Per Page Pagination",
+      "description": "Add 'Rows per page' option to schedule table allowing users to change the number of rows displayed. Table updates dynamically based on selection.",
+      "changeType": "feature",
+      "area": "Report Schedules Table",
+      "source": "reports-items.json"
+    },
+    {
+      "id": "AS-SET-001",
+      "title": "Auto Streaming Settings Management",
+      "description": "Admin users can view and modify Auto Streaming settings directly in GCX. All settings are read from and written to Genesis with no local GCX storage. Settings include enabling/disabling auto streaming, selecting which alarm types trigger streaming, and managing streaming permissions by role.",
+      "changeType": "feature",
+      "affectedAreas": ["configuration", "admin", "permissions"],
+      "source": "autostream-settings.json"
+    },
+    {
+      "id": "AS-SET-002",
+      "title": "Alarm-Triggered Auto Streaming",
+      "description": "When a qualifying alarm is triggered, live streams automatically start for all cameras mapped to that alarm. Multiple cameras can stream simultaneously. Streams stop automatically when alarms are closed or acknowledged according to Genesis rules.",
+      "changeType": "feature",
+      "affectedAreas": ["streaming", "alarms", "cameras"],
+      "source": "autostream-settings.json"
+    },
+    {
+      "id": "AS-SET-003",
+      "title": "Zone-Based Camera Selection",
+      "description": "Auto streaming respects zone definitions from Genesis. When an alarm is mapped to a specific zone, only cameras within that zone stream automatically. If no zones are defined, all site cameras stream by default. Zone changes affect future alarms only.",
+      "changeType": "feature",
+      "affectedAreas": ["streaming", "zones", "cameras"],
+      "source": "autostream-settings.json"
+    },
+    {
+      "id": "AS-SET-004",
+      "title": "Streaming Permission Controls",
+      "description": "Admins can set which roles are allowed to view streams. Operators without streaming permission cannot see or access streams, even via deep links. Access denial attempts are logged in audit logs.",
+      "changeType": "feature",
+      "affectedAreas": ["permissions", "security", "admin"],
+      "source": "autostream-settings.json"
+    },
+    {
+      "id": "AS-SET-005",
+      "title": "Comprehensive Activity Logging",
+      "description": "All streaming activity is logged including alarm ID, site, cameras streamed, user, and timestamps. Permission denials and streaming failures are also logged with full details for troubleshooting and compliance.",
+      "changeType": "feature",
+      "affectedAreas": ["logging", "audit", "admin"],
+      "source": "autostream-settings.json"
+    },
+    {
+      "id": "VID-001",
+      "title": "Site and Device Drag and Drop",
+      "description": "Users can drag and drop sites or devices into the Salvo video viewer. When a second device is dropped over an existing one, the first stream closes and the second begins playing. Sites stream in default 2x2 view format.",
+      "changeType": "feature",
+      "affectedAreas": ["video-viewer", "salvo", "streaming"],
+      "source": "video-activity.json"
+    }
+  ]
+  }
+]

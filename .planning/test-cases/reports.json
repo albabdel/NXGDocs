@@ -1,0 +1,32 @@
+[
+  {
+    "TEST CASE ID": "Verify Manage Report Schedules Dashboard Summary (Read-Only Cards) Verify summary section in Manage Report Schedules page",
+    "Precondition": "User is logged in and has access to Dashboard → Settings → Reports",
+    "TEST STEPS": "*Go to Dashboard\n\n*Navigate to Settings\n\n*Click on “Report”\n\n*Click on “Manage Report Schedules”",
+    "EXPECTED RESULT": "The following summary fields appear at the top of the page:\n\nActive Schedules\n\nReports Sent This Month\n\nFailed Deliveries\n\nAll fields are displayed correctly\n\nFields are read-only\n\nUser cannot click or interact with them"
+  },
+  {
+    "TEST CASE ID": "Verify Create New Schedule Button(Verify user can create a new report schedule)",
+    "Precondition": "User is on Manage Report Schedules page",
+    "TEST STEPS": "*Click on “Create New Schedule”\n\n*Fill required fields\n\n*Click Save/*Create",
+    "EXPECTED RESULT": "New schedule is created successfully\n\nCreated schedule appears in the table below\n\nSuccess message is displayed"
+  },
+  {
+    "TEST CASE ID": "Verify Schedule Table Columns\nVerify schedule table structure after creating schedule",
+    "Precondition": "At least one schedule exists",
+    "TEST STEPS": "*Navigate to Manage Report Schedules page\n\n*Observe the schedule table",
+    "EXPECTED RESULT": "The table contains the following columns:\nSchedule\nCustomers\nSite\nActions"
+  },
+  {
+    "TEST CASE ID": "Verify Actions Column Functionality\nVerify actions (Edit / Delete / Trigger) functionality",
+    "Precondition": "At least one schedule exists",
+    "TEST STEPS": "*Click on Edit\n*Modify data and save\n*Click on Delete\n*Click on Trigger",
+    "EXPECTED RESULT": "Edit updates schedule successfully\n\nDelete removes schedule after confirmation\n\nTrigger manually sends the report successfully"
+  },
+  {
+    "TEST CASE ID": "Verify Rows Per Page Functionality\nVerify Rows Per Page option in schedule table",
+    "Precondition": "Multiple schedules exist",
+    "TEST STEPS": "*Locate “Rows per page” option\n\n*Change number of rows displayed",
+    "EXPECTED RESULT": "Table updates dynamically\n\nCorrect number of rows is displayed per selection"
+  }
+]

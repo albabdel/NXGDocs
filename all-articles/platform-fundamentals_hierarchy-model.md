@@ -15,6 +15,15 @@ import TabItem from '@theme/TabItem';
 
 # Understanding the GCXONE Hierarchy Model
 
+## What's New
+
+| Feature | Description | Available Since |
+| :--- | :--- | :--- |
+| **Site Activation/Deactivation** | Activate or deactivate sites to control operational status of all devices and sensors within. | March 2026 |
+| **Customer Activation/Deactivation** | Activate or deactivate customers to control operational status across all associated sites. | March 2026 |
+| **Service Provider Activation** | Activate or deactivate service providers to control all customers, sites, devices, and sensors under that provider. | March 2026 |
+| **Customer Creation at Service Provider Level** | Create new customers at service provider level supporting multi-tenant architecture. | March 2026 |
+
 <div className="row margin-bottom--lg">
   <div className="col col--8">
     <p className="text--lg">

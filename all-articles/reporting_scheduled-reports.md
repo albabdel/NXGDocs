@@ -12,6 +12,15 @@ last_updated: 2025-12-04
 
 Comprehensive guide for scheduled reports.
 
+## What's New
+
+| Feature | Description | Available Since |
+| :--- | :--- | :--- |
+| **Schedule Dashboard** | Summary cards display Active Schedules count, Reports Sent This Month, and Failed Deliveries at the top of the Manage Report Schedules page. | March 2026 |
+| **Create New Schedule** | Create new report schedules via 'Create New Schedule' button. Fill required fields and save with success confirmation. | March 2026 |
+| **Schedule Actions** | Edit, Delete, and Trigger functionality for each schedule. Trigger manually sends the report on demand. | March 2026 |
+| **Pagination Control** | 'Rows per page' option allows changing the number of rows displayed in the schedule table. | March 2026 |
+
 ## Overview
 
 This device integrates seamlessly with the GCXONE platform to provide comprehensive security monitoring.

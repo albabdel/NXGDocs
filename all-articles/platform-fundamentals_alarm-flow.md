@@ -12,6 +12,15 @@ last_updated: 2025-12-04
 
 Comprehensive guide for alarm flow.
 
+## What's New
+
+| Feature | Description | Available Since |
+| :--- | :--- | :--- |
+| **DC09 CMS Integration** | Configure DC09-compatible CMS (Evalink Talos, Amwin, Lisa, Immix, Alice) from Marketplace. Alarms forwarded with correct account per site. | March 2026 |
+| **Continuous Event Flow** | Alarm events flow continuously through Talos workflow and VAS without interruption. | March 2026 |
+| **Alarm Forward Logging** | Device Dashboard shows DC09 Alarm Forward Log with success/failure entries, encryption status, and near real-time updates. | March 2026 |
+| **Encryption Support** | Optional encryption key for DC09 alarm transmission. Encrypted when key provided, unencrypted when not. | March 2026 |
+
 ## Overview
 
 This device integrates seamlessly with the GCXONE platform to provide comprehensive security monitoring.

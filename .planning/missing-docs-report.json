@@ -1,0 +1,413 @@
+[
+  {
+    "releaseItem": "Role Creation with Entity and Permission Assignment",
+    "changeType": "feature",
+    "affectedArea": "role-management",
+    "needsDoc": false,
+    "existingDoc": "docs/platform-fundamentals/roles-permissions.md",
+    "notes": "Existing roles-permissions.md covers role creation comprehensively"
+  },
+  {
+    "releaseItem": "Hierarchical Entity Selection",
+    "changeType": "feature",
+    "affectedArea": "role-management",
+    "needsDoc": false,
+    "existingDoc": "docs/platform-fundamentals/roles-permissions.md",
+    "notes": "Covered in Entity Hierarchy and Include Children sections"
+  },
+  {
+    "releaseItem": "Entity-Specific Permission Overrides",
+    "changeType": "feature",
+    "affectedArea": "role-management",
+    "needsDoc": true,
+    "suggestedDocTitle": "Permission Overrides and Deny Rules",
+    "suggestedSlug": "platform-fundamentals/permission-overrides"
+  },
+  {
+    "releaseItem": "Exclude Privilege from Individual User",
+    "changeType": "feature",
+    "affectedArea": "role-management",
+    "needsDoc": true,
+    "suggestedDocTitle": "User-Level Privilege Restrictions",
+    "suggestedSlug": "platform-fundamentals/user-level-restrictions"
+  },
+  {
+    "releaseItem": "Restriction Audit Logging",
+    "changeType": "feature",
+    "affectedArea": "audit",
+    "needsDoc": true,
+    "suggestedDocTitle": "Permission and Restriction Audit Logs",
+    "suggestedSlug": "platform-fundamentals/permission-audit-logs"
+  },
+  {
+    "releaseItem": "DC09 Encryption Key Support",
+    "changeType": "feature",
+    "affectedArea": "site-security",
+    "needsDoc": true,
+    "suggestedDocTitle": "DC09 Alarm Encryption Configuration",
+    "suggestedSlug": "alarm-management/dc09-encryption"
+  },
+  {
+    "releaseItem": "Configuration Confirmation View",
+    "changeType": "feature",
+    "affectedArea": "cms-integration",
+    "needsDoc": true,
+    "suggestedDocTitle": "CMS Configuration Confirmation",
+    "suggestedSlug": "alarm-management/cms-configuration-confirmation"
+  },
+  {
+    "releaseItem": "DC09 Alarm Forward Log Section",
+    "changeType": "feature",
+    "affectedArea": "alarm-management",
+    "needsDoc": true,
+    "suggestedDocTitle": "DC09 Alarm Forward Logs",
+    "suggestedSlug": "alarm-management/dc09-forward-logs"
+  },
+  {
+    "releaseItem": "DC09 Alarm Log Entry Fields",
+    "changeType": "feature",
+    "affectedArea": "alarm-management",
+    "needsDoc": false,
+    "existingDoc": "To be covered in DC09 Alarm Forward Logs doc"
+  },
+  {
+    "releaseItem": "DC09 Alarm Forward Logging",
+    "changeType": "feature",
+    "affectedArea": "alarm-management",
+    "needsDoc": false,
+    "existingDoc": "To be covered in DC09 Alarm Forward Logs doc"
+  },
+  {
+    "releaseItem": "Talos-Salvo Alarm Workflow Integration",
+    "changeType": "feature",
+    "affectedArea": "multi-monitor",
+    "needsDoc": true,
+    "suggestedDocTitle": "Multi-Monitor Talos-Salvo Integration",
+    "suggestedSlug": "features/multi-monitor/talos-salvo-integration"
+  },
+  {
+    "releaseItem": "Zone-Based Alarm Handling",
+    "changeType": "feature",
+    "affectedArea": "zone-management",
+    "needsDoc": true,
+    "suggestedDocTitle": "Zone-Based Alarm Routing and Streaming",
+    "suggestedSlug": "features/zone-management/alarm-routing"
+  },
+  {
+    "releaseItem": "Device Activation and Deactivation",
+    "changeType": "feature",
+    "affectedArea": "device-management",
+    "needsDoc": true,
+    "suggestedDocTitle": "Device Lifecycle Management",
+    "suggestedSlug": "devices/device-lifecycle-management"
+  },
+  {
+    "releaseItem": "Device Creation in Sites",
+    "changeType": "feature",
+    "affectedArea": "device-management",
+    "needsDoc": false,
+    "existingDoc": "To be covered in Device Lifecycle Management doc"
+  },
+  {
+    "releaseItem": "Device Deletion from Sites",
+    "changeType": "feature",
+    "affectedArea": "device-management",
+    "needsDoc": false,
+    "existingDoc": "To be covered in Device Lifecycle Management doc"
+  },
+  {
+    "releaseItem": "Device Rediscovery",
+    "changeType": "feature",
+    "affectedArea": "device-management",
+    "needsDoc": false,
+    "existingDoc": "To be covered in Device Lifecycle Management doc"
+  },
+  {
+    "releaseItem": "Site Creation and Management",
+    "changeType": "feature",
+    "affectedArea": "site-management",
+    "needsDoc": true,
+    "suggestedDocTitle": "Site Lifecycle Management",
+    "suggestedSlug": "platform-fundamentals/site-lifecycle-management"
+  },
+  {
+    "releaseItem": "Site Deletion",
+    "changeType": "feature",
+    "affectedArea": "site-management",
+    "needsDoc": false,
+    "existingDoc": "To be covered in Site Lifecycle Management doc"
+  },
+  {
+    "releaseItem": "Site Activation and Deactivation",
+    "changeType": "feature",
+    "affectedArea": "site-management",
+    "needsDoc": false,
+    "existingDoc": "To be covered in Site Lifecycle Management doc"
+  },
+  {
+    "releaseItem": "Customer Creation at Service Provider Level",
+    "changeType": "feature",
+    "affectedArea": "customer-management",
+    "needsDoc": true,
+    "suggestedDocTitle": "Customer Lifecycle Management",
+    "suggestedSlug": "platform-fundamentals/customer-lifecycle-management"
+  },
+  {
+    "releaseItem": "Customer Deletion",
+    "changeType": "feature",
+    "affectedArea": "customer-management",
+    "needsDoc": false,
+    "existingDoc": "To be covered in Customer Lifecycle Management doc"
+  },
+  {
+    "releaseItem": "Customer Naming with Numeric Characters",
+    "changeType": "feature",
+    "affectedArea": "customer-management",
+    "needsDoc": false,
+    "existingDoc": "Minor naming feature, covered in Customer Lifecycle Management doc"
+  },
+  {
+    "releaseItem": "Customer Activation and Deactivation",
+    "changeType": "feature",
+    "affectedArea": "customer-management",
+    "needsDoc": false,
+    "existingDoc": "To be covered in Customer Lifecycle Management doc"
+  },
+  {
+    "releaseItem": "Sensor Activation and Deactivation",
+    "changeType": "feature",
+    "affectedArea": "device-management",
+    "needsDoc": true,
+    "suggestedDocTitle": "Sensor Management",
+    "suggestedSlug": "devices/sensor-management"
+  },
+  {
+    "releaseItem": "Sensor Deletion from Devices",
+    "changeType": "feature",
+    "affectedArea": "device-management",
+    "needsDoc": false,
+    "existingDoc": "To be covered in Sensor Management doc"
+  },
+  {
+    "releaseItem": "Sensor Addition to Devices",
+    "changeType": "feature",
+    "affectedArea": "device-management",
+    "needsDoc": false,
+    "existingDoc": "To be covered in Sensor Management doc"
+  },
+  {
+    "releaseItem": "Cross-Device Sensor Configuration",
+    "changeType": "feature",
+    "affectedArea": "device-management",
+    "needsDoc": false,
+    "existingDoc": "To be covered in Sensor Management doc"
+  },
+  {
+    "releaseItem": "Service Provider Activation and Deactivation",
+    "changeType": "feature",
+    "affectedArea": "tenant-management",
+    "needsDoc": true,
+    "suggestedDocTitle": "Service Provider Management",
+    "suggestedSlug": "platform-fundamentals/service-provider-management"
+  },
+  {
+    "releaseItem": "Device Group Creation",
+    "changeType": "feature",
+    "affectedArea": "device-management",
+    "needsDoc": true,
+    "suggestedDocTitle": "Device Groups",
+    "suggestedSlug": "devices/device-groups"
+  },
+  {
+    "releaseItem": "Continuous Alarm Event Flow",
+    "changeType": "feature",
+    "affectedArea": "alarm-management",
+    "needsDoc": false,
+    "existingDoc": "docs/platform-fundamentals/alarm-flow.md covers this"
+  },
+  {
+    "releaseItem": "Alarm Assignment Operator Workflow",
+    "changeType": "feature",
+    "affectedArea": "operator-guide",
+    "needsDoc": false,
+    "existingDoc": "docs-operator/operator-guide/handling-alarms.md and alarm-flow.md"
+  },
+  {
+    "releaseItem": "Master Admin Role Assignment Restriction",
+    "changeType": "feature",
+    "affectedArea": "security",
+    "needsDoc": false,
+    "existingDoc": "docs/platform-fundamentals/roles-permissions.md mentions Super Admin restrictions"
+  },
+  {
+    "releaseItem": "Time-Based Invitation Tokens",
+    "changeType": "feature",
+    "affectedArea": "security",
+    "needsDoc": true,
+    "suggestedDocTitle": "Time-Based User Access",
+    "suggestedSlug": "platform-fundamentals/time-based-access"
+  },
+  {
+    "releaseItem": "Token Time Window Validation",
+    "changeType": "feature",
+    "affectedArea": "security",
+    "needsDoc": false,
+    "existingDoc": "To be covered in Time-Based User Access doc"
+  },
+  {
+    "releaseItem": "Automatic Access Revocation on Token Expiry",
+    "changeType": "feature",
+    "affectedArea": "security",
+    "needsDoc": false,
+    "existingDoc": "To be covered in Time-Based User Access doc"
+  },
+  {
+    "releaseItem": "On-Call Shift Detection Before Role Edit",
+    "changeType": "feature",
+    "affectedArea": "on-call",
+    "needsDoc": true,
+    "suggestedDocTitle": "On-Call Shift Role Protection",
+    "suggestedSlug": "features/on-call/shift-protection"
+  },
+  {
+    "releaseItem": "Role Edit Warning Details",
+    "changeType": "feature",
+    "affectedArea": "on-call",
+    "needsDoc": false,
+    "existingDoc": "To be covered in On-Call Shift Role Protection doc"
+  },
+  {
+    "releaseItem": "Role Edit Decision Options",
+    "changeType": "feature",
+    "affectedArea": "on-call",
+    "needsDoc": false,
+    "existingDoc": "To be covered in On-Call Shift Role Protection doc"
+  },
+  {
+    "releaseItem": "Backend Enforcement of Shift Validation",
+    "changeType": "feature",
+    "affectedArea": "on-call",
+    "needsDoc": false,
+    "existingDoc": "To be covered in On-Call Shift Role Protection doc"
+  },
+  {
+    "releaseItem": "Role Change Audit Logging",
+    "changeType": "feature",
+    "affectedArea": "audit",
+    "needsDoc": true,
+    "suggestedDocTitle": "Role Change Audit Trail",
+    "suggestedSlug": "platform-fundamentals/role-change-audit"
+  },
+  {
+    "releaseItem": "Alarm Management System Category in Marketplace",
+    "changeType": "feature",
+    "affectedArea": "marketplace",
+    "needsDoc": true,
+    "suggestedDocTitle": "CMS Marketplace Integration",
+    "suggestedSlug": "features/marketplace/cms-integration"
+  },
+  {
+    "releaseItem": "Admin-Only CMS Configuration Access",
+    "changeType": "feature",
+    "affectedArea": "marketplace",
+    "needsDoc": false,
+    "existingDoc": "To be covered in CMS Marketplace Integration doc"
+  },
+  {
+    "releaseItem": "Evalink Talos CMS Configuration",
+    "changeType": "feature",
+    "affectedArea": "cms-integration",
+    "needsDoc": false,
+    "existingDoc": "Existing Talos docs cover integration; add specific CMS config to CMS Marketplace Integration doc"
+  },
+  {
+    "releaseItem": "DC09 Account ID Field on Site Forms",
+    "changeType": "feature",
+    "affectedArea": "site-configuration",
+    "needsDoc": true,
+    "suggestedDocTitle": "DC09 Account Configuration for Sites",
+    "suggestedSlug": "alarm-management/dc09-site-configuration"
+  },
+  {
+    "releaseItem": "Manage Report Schedules Summary Dashboard",
+    "changeType": "feature",
+    "affectedArea": "reporting",
+    "needsDoc": true,
+    "suggestedDocTitle": "Report Schedules Dashboard",
+    "suggestedSlug": "reporting/report-schedules-dashboard"
+  },
+  {
+    "releaseItem": "Create New Report Schedule",
+    "changeType": "feature",
+    "affectedArea": "reporting",
+    "needsDoc": false,
+    "existingDoc": "docs/reporting/scheduled-reports.md exists but needs content update"
+  },
+  {
+    "releaseItem": "Schedule Table Structure",
+    "changeType": "feature",
+    "affectedArea": "reporting",
+    "needsDoc": false,
+    "existingDoc": "To be covered in Report Schedules Dashboard doc"
+  },
+  {
+    "releaseItem": "Schedule Actions (Edit, Delete, Trigger)",
+    "changeType": "feature",
+    "affectedArea": "reporting",
+    "needsDoc": false,
+    "existingDoc": "To be covered in Report Schedules Dashboard doc"
+  },
+  {
+    "releaseItem": "Auto Streaming Settings Management",
+    "changeType": "feature",
+    "affectedArea": "streaming",
+    "needsDoc": true,
+    "suggestedDocTitle": "Auto Streaming Configuration",
+    "suggestedSlug": "features/streaming/auto-streaming-settings"
+  },
+  {
+    "releaseItem": "Alarm-Triggered Auto Streaming",
+    "changeType": "feature",
+    "affectedArea": "streaming",
+    "needsDoc": false,
+    "existingDoc": "To be covered in Auto Streaming Configuration doc"
+  },
+  {
+    "releaseItem": "Zone-Based Camera Selection",
+    "changeType": "feature",
+    "affectedArea": "streaming",
+    "needsDoc": false,
+    "existingDoc": "To be covered in Auto Streaming Configuration doc and Zone-Based Alarm Routing doc"
+  },
+  {
+    "releaseItem": "Streaming Permission Controls",
+    "changeType": "feature",
+    "affectedArea": "permissions",
+    "needsDoc": false,
+    "existingDoc": "To be covered in Auto Streaming Configuration doc"
+  },
+  {
+    "releaseItem": "Comprehensive Activity Logging",
+    "changeType": "feature",
+    "affectedArea": "logging",
+    "needsDoc": true,
+    "suggestedDocTitle": "Streaming Activity Logs",
+    "suggestedSlug": "features/streaming/activity-logs"
+  },
+  {
+    "releaseItem": "Site and Device Drag and Drop",
+    "changeType": "feature",
+    "affectedArea": "video-viewer",
+    "needsDoc": true,
+    "suggestedDocTitle": "Salvo Video Viewer Drag and Drop",
+    "suggestedSlug": "features/video-viewer/drag-and-drop"
+  },
+  {
+    "releaseItem": "New Report Dashboard",
+    "changeType": "feature",
+    "affectedArea": "reporting",
+    "needsDoc": true,
+    "suggestedDocTitle": "Report Dashboard Overview",
+    "suggestedSlug": "reporting/report-dashboard"
+  }
+]

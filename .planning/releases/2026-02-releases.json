@@ -1,0 +1,50 @@
+[
+  {
+    "displayTitle": "2026-02 Release B",
+    "sprintId": "SPR-2026-02-B",
+    "slug": "2026-02-b",
+    "publishedAt": "2026-02-28",
+    "summary": "This release introduces new device management features and alarm workflow improvements for operators.",
+    "items": [
+      {
+        "title": "Device Activation and Deactivation",
+        "description": "Enables users to activate or deactivate devices through the configuration menu, controlling whether sensors on the device are operational.",
+        "changeType": "feature",
+        "affectedAreas": ["devices"]
+      },
+      {
+        "title": "Continuous Alarm Event Flow",
+        "description": "Ensures alarm events flow continuously through Talos workflow and VAS without interruption, maintaining real-time monitoring capabilities.",
+        "changeType": "improvement",
+        "affectedAreas": ["alarm-management"]
+      },
+      {
+        "title": "Fixed sensor discovery timeout",
+        "description": "Resolved an issue where sensor discovery would timeout on large deployments with more than 500 devices.",
+        "changeType": "fix",
+        "affectedAreas": ["devices"]
+      }
+    ]
+  },
+  {
+    "displayTitle": "2026-02 Release A",
+    "sprintId": "SPR-2026-02-A",
+    "slug": "2026-02-a",
+    "publishedAt": "2026-02-14",
+    "summary": "This release focuses on reporting enhancements and performance optimizations.",
+    "items": [
+      {
+        "title": "New Report Dashboard",
+        "description": "Introduces a redesigned report dashboard with improved filtering and export capabilities.",
+        "changeType": "feature",
+        "affectedAreas": ["reporting"]
+      },
+      {
+        "title": "API Rate Limiting",
+        "description": "Implemented rate limiting on public API endpoints to improve system stability under high load.",
+        "changeType": "security",
+        "affectedAreas": ["api"]
+      }
+    ]
+  }
+]

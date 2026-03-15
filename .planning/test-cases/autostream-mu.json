@@ -1,0 +1,164 @@
+[
+  {
+    "correctly  behavior": "Only multi-monitor toggle enabled",
+    "TEST CASE ID": "TC_01",
+    "FUNCTIONALITY DESCRIPTION": "Motion alarm_Event assign_Only multi-monitor toggle enabled in salvo",
+    "TEST CASE DESCRIPTION": "Verify that assigning a motion alarm automatically opens the alarm workflow in Talos and loads the corresponding alarm quad automatically in Salvo.",
+    "EXPECTED RESULT": "Alarm workflow opens automatically in Talos\n\nAlarm quad is automatically loaded and displayed in Salvo",
+    "STATUS": "pass",
+    "comment\\name": null
+  },
+  {
+    "correctly  behavior": "Only autostream enabled in salvo",
+    "TEST CASE ID": "TC_02",
+    "FUNCTIONALITY DESCRIPTION": null,
+    "TEST CASE DESCRIPTION": "Verify that the alarm quad is automatically loaded in Salvo when a motion alarm is assigned, even if the user is already viewing other live cameras using drag and drop.",
+    "EXPECTED RESULT": "Current live camera view is replaced or updated\n\nAlarm quad loads automatically without user intervention",
+    "STATUS": "pass",
+    "comment\\name": null
+  },
+  {
+    "correctly  behavior": "Both auto stream and multi-monitor enabled in salvo",
+    "TEST CASE ID": "TC_03",
+    "FUNCTIONALITY DESCRIPTION": null,
+    "TEST CASE DESCRIPTION": "Verify that cancelling the assigned motion alarm using the cancel “X” icon closes the workflow popup in Talos and closes the alarm quad in Salvo.",
+    "EXPECTED RESULT": "Workflow popup is closed in Talos\n\nAlarm quad is closed in Salvo",
+    "STATUS": "pass",
+    "comment\\name": null
+  },
+  {
+    "correctly  behavior": "Both autostream and multi-monitor set off",
+    "TEST CASE ID": "TC_04",
+    "FUNCTIONALITY DESCRIPTION": null,
+    "TEST CASE DESCRIPTION": "Verify that closing the alarm workflow from Talos closes the corresponding alarm quad opened in Salvo.",
+    "EXPECTED RESULT": "Workflow is closed in Talos\n\nAlarm quad is closed in Salvo",
+    "STATUS": "pass",
+    "comment\\name": null
+  },
+  {
+    "correctly  behavior": "Two salvo scenario- One salvo with multi-monitor enabled and other salvo with auto stream enabled",
+    "TEST CASE ID": "TC_05",
+    "FUNCTIONALITY DESCRIPTION": null,
+    "TEST CASE DESCRIPTION": "Verify that opening the same motion alarm again or assigning a new motion alarm automatically opens the alarm quad in Talos and loads it in Salvo.",
+    "EXPECTED RESULT": "Alarm workflow opens correctly in Talos\n\nCorresponding alarm quad loads automatically in Salvo\n\nNo leftover state from previous alarms",
+    "STATUS": "pass",
+    "comment\\name": null
+  },
+  {
+    "correctly  behavior": null,
+    "TEST CASE ID": "TC_06",
+    "FUNCTIONALITY DESCRIPTION": null,
+    "TEST CASE DESCRIPTION": "Verify that closing the Talos application clears the alarm quad from Talos and closes any associated alarm quad in Salvo.",
+    "EXPECTED RESULT": "No alarm quad remains active\n\nNo workflow or alarm state remains after Talos is closed",
+    "STATUS": "pass",
+    "comment\\name": null
+  },
+  {
+    "correctly  behavior": "note :Alarm Type (BURGLARY)",
+    "TEST CASE ID": "TEST CASE ID",
+    "FUNCTIONALITY DESCRIPTION": "zone",
+    "TEST CASE DESCRIPTION": "Alarm without Zone when no zones exist in GCX and Talos",
+    "EXPECTED RESULT": "Alarm is received successfully\n\nSystem treats the alarm as site-level\n\nLive streams from all sensors under the site are started\n\nNo errors occur",
+    "STATUS": "pass",
+    "comment\\name": null
+  },
+  {
+    "correctly  behavior": null,
+    "TEST CASE ID": "TC_01",
+    "FUNCTIONALITY DESCRIPTION": null,
+    "TEST CASE DESCRIPTION": "Alarm with random Zone when no zones exist in GCX and Talos",
+    "EXPECTED RESULT": "Zone value is ignored\n\nAlarm is treated as site-level\n\nAll sensors under the site are streamed",
+    "STATUS": "pass",
+    "comment\\name": null
+  },
+  {
+    "correctly  behavior": null,
+    "TEST CASE ID": "TC_02",
+    "FUNCTIONALITY DESCRIPTION": null,
+    "TEST CASE DESCRIPTION": "Alarm without Zone when Zone exists only in GCX",
+    "EXPECTED RESULT": "Alarm is treated as site-level\n\nAll sensors under the site are streamed",
+    "STATUS": "pass",
+    "comment\\name": null
+  },
+  {
+    "correctly  behavior": null,
+    "TEST CASE ID": "TC_03",
+    "FUNCTIONALITY DESCRIPTION": null,
+    "TEST CASE DESCRIPTION": "Alarm with Zone matching GCX when Zone exists only in GCX",
+    "EXPECTED RESULT": "System matches zone using GCX configuration\n\nOnly sensors mapped to Zone 55 are streamed",
+    "STATUS": "pass",
+    "comment\\name": null
+  },
+  {
+    "correctly  behavior": null,
+    "TEST CASE ID": "TC_04",
+    "FUNCTIONALITY DESCRIPTION": null,
+    "TEST CASE DESCRIPTION": "Alarm with random Zone not configured in GCX",
+    "EXPECTED RESULT": "Zone value is ignored\n\nAlarm is treated as site-level\n\nAll sensors under the site are streamed",
+    "STATUS": "pass",
+    "comment\\name": null
+  },
+  {
+    "correctly  behavior": null,
+    "TEST CASE ID": "TC_05",
+    "FUNCTIONALITY DESCRIPTION": null,
+    "TEST CASE DESCRIPTION": "Alarm without Zone when Zone exists only in Talos",
+    "EXPECTED RESULT": "No zone mapping is found in GCX\n\nAlarm is treated as site-level\n\nAll sensors under the site are streamed",
+    "STATUS": "pass",
+    "comment\\name": null
+  },
+  {
+    "correctly  behavior": null,
+    "TEST CASE ID": "TC_06",
+    "FUNCTIONALITY DESCRIPTION": null,
+    "TEST CASE DESCRIPTION": "Alarm with Zone configured only in Talos",
+    "EXPECTED RESULT": "No matching zone found in GCX\n\nNo sensor-to-zone mapping exists\n\nNo streams are started OR fallback to site-level streaming (as per system design)",
+    "STATUS": "pass",
+    "comment\\name": null
+  },
+  {
+    "correctly  behavior": null,
+    "TEST CASE ID": "TC_07",
+    "FUNCTIONALITY DESCRIPTION": null,
+    "TEST CASE DESCRIPTION": "Alarm with random Zone configured nowhere",
+    "EXPECTED RESULT": "Zone value is ignored\n\nAlarm is treated as site-level\n\nAll sensors under the site are streamed",
+    "STATUS": "pass",
+    "comment\\name": null
+  },
+  {
+    "correctly  behavior": null,
+    "TEST CASE ID": "TC_08",
+    "FUNCTIONALITY DESCRIPTION": null,
+    "TEST CASE DESCRIPTION": "Alarm without Zone when Zones exist in both GCX and Talos",
+    "EXPECTED RESULT": "Alarm is treated as site-level\n\nAll sensors under the site are streamed",
+    "STATUS": "pass",
+    "comment\\name": null
+  },
+  {
+    "correctly  behavior": null,
+    "TEST CASE ID": "TC_09",
+    "FUNCTIONALITY DESCRIPTION": null,
+    "TEST CASE DESCRIPTION": "Alarm with Zone configured in both GCX and Talos",
+    "EXPECTED RESULT": "System correctly matches zone\n\nOnly sensors mapped to Zone 33 are streamed",
+    "STATUS": "pass",
+    "comment\\name": null
+  },
+  {
+    "correctly  behavior": null,
+    "TEST CASE ID": "TC_10",
+    "FUNCTIONALITY DESCRIPTION": null,
+    "TEST CASE DESCRIPTION": "Alarm with Zone configured only for sensors in GCX",
+    "EXPECTED RESULT": "System uses GCX zone configuration\n\nSensors mapped to Zone 4 are streamed",
+    "STATUS": "pass",
+    "comment\\name": null
+  },
+  {
+    "correctly  behavior": null,
+    "TEST CASE ID": "TC_11",
+    "FUNCTIONALITY DESCRIPTION": null,
+    "TEST CASE DESCRIPTION": "Alarm with Zone configured in GCX but not in Talos",
+    "EXPECTED RESULT": "System matches zone using GCX\n\nOnly sensors mapped to Zone 55 are streamed",
+    "STATUS": "pass",
+    "comment\\name": null
+  }
+]

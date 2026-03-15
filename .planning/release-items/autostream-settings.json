@@ -1,0 +1,45 @@
+{
+  "sprintId": "autostream-features",
+  "title": "Auto Streaming Feature Set",
+  "publishedAt": "2026-03-15",
+  "summary": "Comprehensive auto streaming capabilities including alarm-triggered streaming, zone-based camera selection, and permission controls",
+  "items": [
+    {
+      "title": "Auto Streaming Settings Management",
+      "changeType": "feature",
+      "affectedAreas": ["configuration", "admin", "permissions"],
+      "body": "Admin users can view and modify Auto Streaming settings directly in GCX. All settings are read from and written to Genesis with no local GCX storage. Settings include enabling/disabling auto streaming, selecting which alarm types trigger streaming, and managing streaming permissions by role.",
+      "testCases": ["TC_1", "TC_2", "TC_3", "TC_4", "TC_5", "TC_6"]
+    },
+    {
+      "title": "Alarm-Triggered Auto Streaming",
+      "changeType": "feature",
+      "affectedAreas": ["streaming", "alarms", "cameras"],
+      "body": "When a qualifying alarm is triggered, live streams automatically start for all cameras mapped to that alarm. Multiple cameras can stream simultaneously. Streams stop automatically when alarms are closed or acknowledged according to Genesis rules.",
+      "testCases": ["TC_7", "TC_8", "TC_9", "TC_10"]
+    },
+    {
+      "title": "Zone-Based Camera Selection",
+      "changeType": "feature",
+      "affectedAreas": ["streaming", "zones", "cameras"],
+      "body": "Auto streaming respects zone definitions from Genesis. When an alarm is mapped to a specific zone, only cameras within that zone stream automatically. If no zones are defined, all site cameras stream by default. Zone changes affect future alarms only.",
+      "testCases": ["TC_11", "TC_12", "TC_13", "TC_14", "TC_15"]
+    },
+    {
+      "title": "Streaming Permission Controls",
+      "changeType": "feature",
+      "affectedAreas": ["permissions", "security", "admin"],
+      "body": "Admins can set which roles are allowed to view streams. Operators without streaming permission cannot see or access streams, even via deep links. Access denial attempts are logged in audit logs.",
+      "testCases": ["TC_16", "TC_17", "TC_18", "TC_19", "TC_20"]
+    },
+    {
+      "title": "Comprehensive Activity Logging",
+      "changeType": "feature",
+      "affectedAreas": ["logging", "audit", "admin"],
+      "body": "All streaming activity is logged including alarm ID, site, cameras streamed, user, and timestamps. Permission denials and streaming failures are also logged with full details for troubleshooting and compliance.",
+      "testCases": ["TC_21", "TC_22", "TC_23"]
+    }
+  ],
+  "sourceFile": "autostream-req.json",
+  "totalTestCases": 23
+}

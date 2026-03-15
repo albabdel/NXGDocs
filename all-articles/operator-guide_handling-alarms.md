@@ -12,6 +12,15 @@ last_updated: 2025-12-04
 
 Comprehensive guide for handling alarms.
 
+## What's New
+
+| Feature | Description | Available Since |
+| :--- | :--- | :--- |
+| **Continuous Event Flow** | Alarm events flow continuously through Talos workflow and VAS without interruption, maintaining real-time monitoring. | March 2026 |
+| **DC09 Alarm Forwarding** | Alarms are forwarded to DC09-compatible CMS with correct account per site. Supports encryption for secure transmission. | March 2026 |
+| **Alarm Forward Logs** | DC09 Alarm Forward Log section on Device Dashboard shows successful and failed forwarding attempts with encryption status. | March 2026 |
+| **Auto Streaming on Alarms** | Qualifying alarms automatically trigger live streams for mapped cameras. Streams stop when alarms are closed or acknowledged. | March 2026 |
+
 ## Overview
 
 This device integrates seamlessly with the GCXONE platform to provide comprehensive security monitoring.

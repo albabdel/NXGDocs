@@ -1,0 +1,564 @@
+[
+  {
+  "displayTitle": "March 2026 Release A",
+  "sprintId": "Sprint 2026.03-A",
+  "slug": "sprint-2026-03-a",
+  "publishedAt": "2026-03-15",
+  "summary": "This release delivers advanced role management with entity-based permissions and user-level restrictions, comprehensive DC09 alarm forwarding features with encryption support, critical platform regression fixes, and multi-monitor Talos-Salvo integration for enhanced operator workflows.",
+  "items": [
+    {
+      "id": "PR2-RI_1",
+      "title": "Role Creation with Entity and Permission Assignment",
+      "description": "Admins can create roles with name, entity assignments, and privilege configurations in a single unified editor. Role data persists correctly across login sessions with no data loss.",
+      "changeType": "feature",
+      "category": "Role Management",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_2",
+      "title": "Role Creation Performance",
+      "description": "Role creation and save operations complete within acceptable performance thresholds with no noticeable UI delay.",
+      "changeType": "feature",
+      "category": "Role Management",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_3",
+      "title": "Duplicate Role Name Validation",
+      "description": "System prevents creation of duplicate role names within the same tenant. Validation is case-insensitive. Same role names are allowed across different tenants.",
+      "changeType": "feature",
+      "category": "Role Management",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_4",
+      "title": "Permission Check Performance",
+      "description": "Permission validation executes within defined SLA (under 100ms). System handles concurrent permission checks under load without degradation or timeouts.",
+      "changeType": "feature",
+      "category": "Permissions",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_5",
+      "title": "Permission Enforcement Without Leakage",
+      "description": "Permissions are enforced accurately after role modifications. No cached stale permissions remain. Changes apply immediately without manual cache clearing.",
+      "changeType": "feature",
+      "category": "Permissions",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_6",
+      "title": "Role Cloning",
+      "description": "Admins can clone existing roles including all entities and privileges. Cloned roles are independent - modifications to clones do not affect originals.",
+      "changeType": "feature",
+      "category": "Role Management",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_7",
+      "title": "Hierarchical Entity Selection",
+      "description": "Entity tree supports parent-child selection behavior. Selecting parent auto-selects all children. Deselecting parent deselects all children. Partial child selection shows indeterminate parent state.",
+      "changeType": "feature",
+      "category": "Role Editor UI",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_8",
+      "title": "Dynamic Privilege Filtering by Entity",
+      "description": "Privilege list filters dynamically based on selected entities. Only relevant privileges are visible. Privileges update in real-time when entity selection changes.",
+      "changeType": "feature",
+      "category": "Role Editor UI",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_9",
+      "title": "Privilege Category Organization",
+      "description": "Privileges should be grouped logically in categories with clear labeling and no duplicates across categories. Currently failing - categories are not organizing privileges clearly.",
+      "changeType": "fix",
+      "category": "Role Editor UI",
+      "status": "fail",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_10",
+      "title": "Invalid Privilege-Entity Combination Prevention",
+      "description": "System blocks save when invalid privilege-entity combinations exist. Previously selected privileges are removed or validated when entity selection changes.",
+      "changeType": "feature",
+      "category": "Role Editor UI",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_11",
+      "title": "Privilege Selection Performance",
+      "description": "Multiple privilege selections complete smoothly without lag. Rapid entity switching updates privilege list correctly without JS errors or state corruption.",
+      "changeType": "feature",
+      "category": "Role Editor UI",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_12",
+      "title": "Concurrent Role Operations",
+      "description": "System handles concurrent admin operations without data corruption, race conditions, or version conflicts. Proper optimistic locking enforced.",
+      "changeType": "feature",
+      "category": "Concurrency",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_13",
+      "title": "Tenant Isolation for Roles and Privileges",
+      "description": "Roles and privileges are strictly isolated per tenant. No cross-tenant visibility or privilege leakage.",
+      "changeType": "feature",
+      "category": "Multi-Tenancy",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_14",
+      "title": "Role Assignment from User Profile",
+      "description": "Admins can assign roles to users from user profile. Assignment completes within 5 seconds. Assigned roles grant correct permissions immediately.",
+      "changeType": "feature",
+      "category": "Role Assignment",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_15",
+      "title": "Bulk Role Assignment to Groups",
+      "description": "Admins can assign roles to groups. All group members receive the role. Bulk assignment completes within 5 seconds for groups of 50+ users.",
+      "changeType": "feature",
+      "category": "Role Assignment",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_16",
+      "title": "Effective Permissions View",
+      "description": "Admins can view user's effective permissions showing direct roles, group roles, and merged permissions. Loads within 10 seconds. Correct merge logic and conflict handling.",
+      "changeType": "feature",
+      "category": "Role Assignment",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_17",
+      "title": "Role Removal from Groups",
+      "description": "Removing role from group immediately revokes access from all members. Effective permissions update dynamically.",
+      "changeType": "feature",
+      "category": "Role Assignment",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_18",
+      "title": "Multi-Group Role Deduplication",
+      "description": "Users belonging to multiple groups with same role receive no duplicate assignment. Clean permission calculation.",
+      "changeType": "feature",
+      "category": "Role Assignment",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_19",
+      "title": "Effective Permissions Performance Under Large Dataset",
+      "description": "Effective permissions calculation completes within 10 seconds even for users with 10+ groups and 20+ roles.",
+      "changeType": "feature",
+      "category": "Performance",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_20",
+      "title": "Entity-Specific Permission Overrides",
+      "description": "Admins can add deny or grant overrides for specific privileges on specific entities. Overrides are displayed in a clear table format and can be added or removed immediately.",
+      "changeType": "feature",
+      "category": "Permission Overrides",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_21",
+      "title": "Deny Override Precedence",
+      "description": "Deny overrides should take precedence over global grants. Currently failing - deny on Entity A should block edit while allowing edit on Entity B.",
+      "changeType": "fix",
+      "category": "Permission Overrides",
+      "status": "fail",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_22",
+      "title": "Override Validation and Performance",
+      "description": "System prevents duplicate overrides. Override on deleted/invalid entity shows validation error. Large override sets (50+) load without performance degradation.",
+      "changeType": "feature",
+      "category": "Permission Overrides",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_23",
+      "title": "Exclude Privilege from Individual User",
+      "description": "Admins can exclude specific privileges from individual users without creating new roles. Other users in same role are unaffected. Exclusions work independently.",
+      "changeType": "feature",
+      "category": "User-Level Restrictions",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_24",
+      "title": "Restriction Performance and Persistence",
+      "description": "Restrictions apply within approximately 20 seconds. Restoration completes within approximately 10 seconds. Restrictions persist across logout/login cycles.",
+      "changeType": "feature",
+      "category": "User-Level Restrictions",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_25",
+      "title": "Restriction Audit Logging",
+      "description": "Audit logs capture restriction events with admin name, timestamp, affected user, excluded privilege, and reason.",
+      "changeType": "feature",
+      "category": "Audit",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_26",
+      "title": "Restricted User Clear Messaging",
+      "description": "Restricted users receive clear messages explaining restrictions with contact/reference info, not generic Access Denied errors.",
+      "changeType": "feature",
+      "category": "User Experience",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "PR2-RI_27",
+      "title": "Invalid Exclusion Prevention",
+      "description": "System prevents excluding privileges the user does not have via their assigned roles.",
+      "changeType": "feature",
+      "category": "User-Level Restrictions",
+      "source": "permission-role2-items.json"
+    },
+    {
+      "id": "DC09-FEAT-006",
+      "title": "DC09 Encryption Key Support",
+      "description": "Add optional Encryption Key field to Site Creation and Edit forms. Support encrypted and unencrypted DC09 alarm transmission based on key configuration. Store encryption key securely with masked display.",
+      "changeType": "feature",
+      "area": "Site Security",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "DC09-FEAT-007",
+      "title": "Configuration Confirmation View",
+      "description": "Display confirmation view after successful CMS and site configuration. Summary includes configured CMS, tenant-level settings, site-level DC09 account mapping, and encryption status.",
+      "changeType": "feature",
+      "area": "CMS Confirmation",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "DC09-FEAT-008",
+      "title": "DC09 Alarm Forward Log Section",
+      "description": "Add DC09 Alarm Forward Log section to Device Dashboard for devices belonging to sites that forward alarms using DC09. Hide section for non-DC09 devices.",
+      "changeType": "feature",
+      "area": "Device Dashboard",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "DC09-FEAT-009",
+      "title": "DC09 Alarm Log Entry Fields",
+      "description": "Display comprehensive log fields for each DC09 alarm forward entry: Time, Alarm Code, DC09 Code, State, Account, Response, Encrypted, IP Address, Port, Area, Zone, Ack Time, Camera, Attachment. Entries are read-only.",
+      "changeType": "feature",
+      "area": "Device Dashboard",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "DC09-FEAT-010",
+      "title": "DC09 Alarm Forward Logging",
+      "description": "Log both successful and failed alarm forwarding attempts. Display encryption status, correct routing details, and near real-time log updates ordered by most recent first.",
+      "changeType": "feature",
+      "area": "Device Dashboard",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "DC09-FIX-001",
+      "title": "Mandatory Fields Validation in CMS Configuration",
+      "description": "Fix validation to prevent saving CMS configuration when required fields (Company ID, API Token) are empty. Display clear error messages indicating which fields are required.",
+      "changeType": "fix",
+      "area": "CMS Validation",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "DC09-FIX-002",
+      "title": "Inline Guidance for API Token and CMS Fields",
+      "description": "Add inline guidance explaining where to generate API tokens in Talos, required permission scopes, and how to obtain DC09 Account IDs from the CMS.",
+      "changeType": "fix",
+      "area": "CMS User Guidance",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "DC09-FIX-003",
+      "title": "Credential and Configuration Format Validation",
+      "description": "Implement real-time validation for credential formats (Company ID, API Token) and network parameters (IP address, port). Block saving with invalid formats and display actionable error messages.",
+      "changeType": "fix",
+      "area": "CMS Validation",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "DC09-FIX-004",
+      "title": "DC09 Account ID Required Validation",
+      "description": "Block saving sites without DC09 Account ID when a DC09-based CMS is configured at tenant level and the site is intended to forward alarms.",
+      "changeType": "fix",
+      "area": "Site Validation",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "DC09-FIX-005",
+      "title": "DC09 Account ID Uniqueness Validation",
+      "description": "Prevent duplicate DC09 Account ID assignment to multiple sites targeting the same CMS. Display clear guidance when duplicate is detected.",
+      "changeType": "fix",
+      "area": "Site Validation",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "DC09-FIX-006",
+      "title": "Encryption Key Format Validation",
+      "description": "Implement validation for Encryption Key format. Block saving with invalid keys and provide clear error messages.",
+      "changeType": "fix",
+      "area": "Site Security",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "DC09-FIX-007",
+      "title": "Encryption Usage Guidance",
+      "description": "Add inline guidance explaining when encryption is required and how it affects alarm transmission and testing.",
+      "changeType": "fix",
+      "area": "Site Security",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "DC09-FIX-008",
+      "title": "Block Duplicate CMS Configurations",
+      "description": "Detect and prevent duplicate or contradictory CMS configurations at tenant level. Display clear validation message when conflict is detected.",
+      "changeType": "fix",
+      "area": "CMS Configuration",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "DC09-FIX-009",
+      "title": "Comprehensive Validation Error Handling",
+      "description": "Ensure all validation errors must be resolved before saving. Display all errors together with clear, actionable messages indicating which fields are invalid and what corrections are required.",
+      "changeType": "fix",
+      "area": "Form Validation",
+      "source": "DC09-items.json"
+    },
+    {
+      "id": "REG-001",
+      "title": "DC09 CMS Marketplace visibility and status display",
+      "description": "Ensure DC09 CMS is visible in the Marketplace with correct status indicator",
+      "changeType": "fix",
+      "affectedAreas": ["marketplace", "platform-fundamentals"],
+      "priority": "critical",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-002",
+      "title": "CMS required field validation",
+      "description": "Prevent CMS from being saved without required fields",
+      "changeType": "fix",
+      "affectedAreas": ["platform-fundamentals", "data-validation"],
+      "priority": "critical",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-003",
+      "title": "DC09 Account ID mandatory enforcement",
+      "description": "Ensure Account ID is mandatory when a site forwards alarms to DC09 and site cannot be saved without it",
+      "changeType": "fix",
+      "affectedAreas": ["platform-fundamentals", "data-validation"],
+      "priority": "critical",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-004",
+      "title": "DC09 alarm forwarding reliability",
+      "description": "Ensure alarms are successfully forwarded to the DC09 CMS with correct account per site",
+      "changeType": "fix",
+      "affectedAreas": ["platform-fundamentals", "alarm-management"],
+      "priority": "critical",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-005",
+      "title": "DC09 encryption key handling",
+      "description": "Ensure alarms are encrypted when encryption key is provided, and unencrypted when not",
+      "changeType": "fix",
+      "affectedAreas": ["platform-fundamentals", "security"],
+      "priority": "critical",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-006",
+      "title": "DC09 Alarm Forward Logs visibility",
+      "description": "Ensure logs are visible on Device Dashboard with success/failure entries and near real-time updates",
+      "changeType": "fix",
+      "affectedAreas": ["platform-fundamentals", "logging"],
+      "priority": "high",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-007",
+      "title": "Outstream feature stability",
+      "description": "Ensure Outstream feature loads without errors and Talos synchronization works correctly",
+      "changeType": "fix",
+      "affectedAreas": ["platform-fundamentals", "outstream"],
+      "priority": "critical",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-008",
+      "title": "Zone display correctness",
+      "description": "Ensure zones are displayed correctly with all sensors visible per zone, no hidden or incorrectly merged sensors",
+      "changeType": "fix",
+      "affectedAreas": ["platform-fundamentals", "zone-management"],
+      "priority": "critical",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-009",
+      "title": "Outstream data persistence on refresh",
+      "description": "Ensure page refresh does not break data and site switching updates data correctly",
+      "changeType": "fix",
+      "affectedAreas": ["platform-fundamentals", "data-persistence"],
+      "priority": "high",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-010",
+      "title": "Talos alarm reception in GCX",
+      "description": "Verify alarms are received correctly from Talos in GCX",
+      "changeType": "fix",
+      "affectedAreas": ["platform-fundamentals", "alarm-management"],
+      "priority": "critical",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-011",
+      "title": "Auto streaming trigger reliability",
+      "description": "Ensure alarms trigger auto streaming successfully and disabling prevents any streaming action",
+      "changeType": "fix",
+      "affectedAreas": ["platform-fundamentals", "streaming"],
+      "priority": "critical",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-012",
+      "title": "Zone-based streaming behavior",
+      "description": "Ensure site-level and zone-based streaming work correctly with proper fallback for invalid zones",
+      "changeType": "fix",
+      "affectedAreas": ["platform-fundamentals", "zone-management", "streaming"],
+      "priority": "critical",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-013",
+      "title": "Zone change isolation",
+      "description": "Ensure zone changes affect future alarms only, not existing ones",
+      "changeType": "fix",
+      "affectedAreas": ["platform-fundamentals", "zone-management"],
+      "priority": "high",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-014",
+      "title": "Camera streaming across devices",
+      "description": "Ensure all cameras stream correctly for sites with single or multiple devices, and no streams start for sites without devices",
+      "changeType": "fix",
+      "affectedAreas": ["platform-fundamentals", "streaming", "device-management"],
+      "priority": "critical",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-015",
+      "title": "Motion alarm quad view behavior",
+      "description": "Ensure motion alarm opens quad automatically, even when viewing other cameras, with consistent behavior for repeated alarms",
+      "changeType": "fix",
+      "affectedAreas": ["platform-fundamentals", "ui-behavior", "multi-monitor"],
+      "priority": "high",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-016",
+      "title": "Alarm lifecycle quad workflow sync",
+      "description": "Ensure canceling alarm closes quad and workflow, closing workflow closes quad, and reopening alarm opens quad again",
+      "changeType": "fix",
+      "affectedAreas": ["platform-fundamentals", "workflow-management"],
+      "priority": "high",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-017",
+      "title": "Stream access permissions enforcement",
+      "description": "Ensure unauthorized users cannot see or access streams and streaming UI is hidden for unauthorized roles",
+      "changeType": "fix",
+      "affectedAreas": ["platform-fundamentals", "security", "permissions"],
+      "priority": "critical",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-018",
+      "title": "Streaming action audit logging",
+      "description": "Ensure streaming actions, permission denials and failures are properly logged for compliance",
+      "changeType": "fix",
+      "affectedAreas": ["platform-fundamentals", "logging", "compliance"],
+      "priority": "high",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-019",
+      "title": "Marketplace alarm management category visibility",
+      "description": "Ensure Marketplace loads successfully with Alarm Management System category visible",
+      "changeType": "fix",
+      "affectedAreas": ["marketplace", "platform-fundamentals"],
+      "priority": "critical",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-020",
+      "title": "CMS options listing completeness",
+      "description": "Ensure all supported CMS options (Evalink Talos, Amwin, Lisa, Immix, Alice) are listed even when no CMS is configured",
+      "changeType": "fix",
+      "affectedAreas": ["marketplace", "platform-fundamentals"],
+      "priority": "high",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-021",
+      "title": "CMS state display accuracy",
+      "description": "Ensure each CMS shows correct state (Not Configured/Configured)",
+      "changeType": "fix",
+      "affectedAreas": ["marketplace", "platform-fundamentals"],
+      "priority": "high",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-022",
+      "title": "CMS admin-only access control",
+      "description": "Ensure only admin users can view and access CMS configuration",
+      "changeType": "fix",
+      "affectedAreas": ["marketplace", "security", "permissions"],
+      "priority": "critical",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "REG-023",
+      "title": "CMS overview page functionality",
+      "description": "Ensure selecting a CMS opens overview page displaying supported alarm protocol, integration scope, and required configuration inputs",
+      "changeType": "fix",
+      "affectedAreas": ["marketplace", "platform-fundamentals"],
+      "priority": "high",
+      "source": "regression-items.json"
+    },
+    {
+      "id": "AS-MU-001",
+      "title": "Talos-Salvo Alarm Workflow Integration",
+      "description": "When a motion alarm is assigned, the alarm workflow automatically opens in Talos and the corresponding alarm quad loads in Salvo. Different toggle combinations control behavior: multi-monitor only, autostream only, or both enabled.",
+      "changeType": "feature",
+      "affectedAreas": ["talos", "salvo", "workflow", "alarms"],
+      "source": "autostream-multimonitor.json"
+    },
+    {
+      "id": "AS-MU-002",
+      "title": "Zone-Based Alarm Handling",
+      "description": "Burglar alarms handle zone configurations from both GCX and Talos. When an alarm includes zone data, the system matches against GCX zone configurations to stream only relevant sensors. Unmatched or missing zones fall back to site-level streaming.",
+      "changeType": "feature",
+      "affectedAreas": ["zones", "alarms", "streaming", "burglar"],
+      "source": "autostream-multimonitor.json"
+    }
+  ]
+  }
+]

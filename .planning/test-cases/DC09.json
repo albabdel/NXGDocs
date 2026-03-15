@@ -1,0 +1,416 @@
+[
+  {
+    "TEST CASE ID": "TC_1",
+    "TEST CASE DESCRIPTION": "Alarm Management System Category Visibility",
+    "PRE CONDITIONS": "User is logged in",
+    "Steps": "Open the Marketplace\n\nLocate the Alarm Management System category",
+    "Expected Result": "Category is visible\n\nOnly admin users can see and access CMS configuration options",
+    "status ": "pass",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_2",
+    "TEST CASE DESCRIPTION": "CMS Options Listed Correctly",
+    "PRE CONDITIONS": null,
+    "Steps": "Open Alarm Management System category",
+    "Expected Result": "All CMS options are displayed: Evalink Talos, Amwin, Lisa, Immix, Alice, Other (DC09-compatible)\n\nEach CMS displays current state: Configured / Not configured\n\nIntegration type is clearly indicated (DC09 or API)",
+    "status ": "pass",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_3",
+    "TEST CASE DESCRIPTION": "CMS Visibility Without Configuration",
+    "PRE CONDITIONS": null,
+    "Steps": "Ensure no CMS is configured\n\nOpen Marketplace → Alarm Management System",
+    "Expected Result": "All CMS entries are visible even if not configured",
+    "status ": "pass",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_4",
+    "TEST CASE DESCRIPTION": "CMS Overview Page",
+    "PRE CONDITIONS": "User is logged in",
+    "Steps": "Select any CMS entry\n\nOpen the overview",
+    "Expected Result": "Supported alarm protocol\n\nScope of integration\n\nRequired configuration inputs",
+    "status ": "pass",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_5",
+    "TEST CASE DESCRIPTION": "Permissions Check for Non-Admin Users",
+    "PRE CONDITIONS": "User is not an admin",
+    "Steps": "Open Marketplace → Alarm Management System",
+    "Expected Result": "CMS entries are visible\n\nCMS configuration options are not accessible",
+    "status ": "block",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_6",
+    "TEST CASE DESCRIPTION": "CMS State Updates",
+    "PRE CONDITIONS": "user is admin",
+    "Steps": "Configure a CMS entry\n\nReturn to the Alarm Management System category",
+    "Expected Result": "The configured CMS state is updated to Configured\n\nOther CMS entries remain Not configured",
+    "status ": "pass",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_7",
+    "TEST CASE DESCRIPTION": "Select Evalink Talos in Marketplace",
+    "PRE CONDITIONS": "User is logged in as Admin",
+    "Steps": "Open Marketplace\n\nNavigate to Alarm Management System category\n\nSelect Evalink Talos",
+    "Expected Result": "Evalink Talos is selectable\n\nConfiguration form opens successfully",
+    "status ": "pass",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_8",
+    "TEST CASE DESCRIPTION": "Mandatory Fields Validation",
+    "PRE CONDITIONS": null,
+    "Steps": "Open Evalink Talos configuration form\n\nLeave Company ID and/or API Token empty\n\nAttempt to save",
+    "Expected Result": "System prevents saving\n\nClear error messages are displayed indicating required fields",
+    "status ": "fail",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_9",
+    "TEST CASE DESCRIPTION": "Inline Guidance for API Token",
+    "PRE CONDITIONS": null,
+    "Steps": "Open Evalink Talos configuration form\n\nFocus on API Token field",
+    "Expected Result": "Inline guidance is displayed explaining:\n\nWhere to generate the API token in Talos\n\nRequired permission scope",
+    "status ": "fail",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_10",
+    "TEST CASE DESCRIPTION": "Credential Format Validation",
+    "PRE CONDITIONS": null,
+    "Steps": "Enter invalid or improperly formatted Company ID or API Token\n\nAttempt to save",
+    "Expected Result": "System validates format before saving\n\nInvalid credentials cannot be saved\n\nClear, actionable error messages are displayed",
+    "status ": "fail",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_11",
+    "TEST CASE DESCRIPTION": "Successful Save of Credentials",
+    "PRE CONDITIONS": null,
+    "Steps": "Enter valid Company ID and API Token\n\nSave the configuration",
+    "Expected Result": "Evalink Talos is marked as Configured in Marketplace\n\nCredentials are stored securely\n\nAPI Token is not displayed in plain text after saving",
+    "status ": "pass",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_12",
+    "TEST CASE DESCRIPTION": "Internal Combination of Credentials",
+    "PRE CONDITIONS": null,
+    "Steps": "Enter valid Company ID and API Token\n\nSave configuration\n\nCheck system logs or internal handling",
+    "Expected Result": "System combines Company ID and API Token internally using the required format",
+    "status ": "block",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_13",
+    "TEST CASE DESCRIPTION": "DC09 Account ID Field Visible on Site Creation",
+    "PRE CONDITIONS": "User is logged in as Admin",
+    "Steps": "Open the Create Site form\n\nLocate the DC09 Account ID field",
+    "Expected Result": "The field is visible\n\nField is required for sites forwarding alarms to a DC09-based CMS",
+    "status ": "pass",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_14",
+    "TEST CASE DESCRIPTION": "DC09 Account ID Field Visible and Editable on Site Edit",
+    "PRE CONDITIONS": "User is logged in as Admin",
+    "Steps": "Open an existing site in edit mode\n\nLocate the DC09 Account ID field",
+    "Expected Result": "Field is visible and editable",
+    "status ": "pass",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_15",
+    "TEST CASE DESCRIPTION": "Prevent Saving Site Without DC09 Account ID",
+    "PRE CONDITIONS": "A DC09-based CMS is configured at tenant level\n\nSite is intended to forward alarms",
+    "Steps": "Attempt to save a site without entering DC09 Account ID",
+    "Expected Result": "System prevents saving\n\nClear error message displayed indicating DC09 Account ID is required",
+    "status ": "fail",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_16",
+    "TEST CASE DESCRIPTION": "DC09 Account ID Must Be Unique Per CMS",
+    "PRE CONDITIONS": null,
+    "Steps": "Assign a DC09 Account ID to a site\n\nAttempt to assign the same ID to another site targeting the same CMS",
+    "Expected Result": "System prevents duplicate assignment\n\nClear guidance displayed",
+    "status ": "fail",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_17",
+    "TEST CASE DESCRIPTION": "Guidance for Obtaining DC09 Account ID",
+    "PRE CONDITIONS": null,
+    "Steps": "Focus on DC09 Account ID field during site creation/edit",
+    "Expected Result": "Guidance clearly explains where to obtain the DC09 Account ID from the CMS",
+    "status ": "fail",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_18",
+    "TEST CASE DESCRIPTION": "Immediate Effect of DC09 Account ID Changes",
+    "PRE CONDITIONS": null,
+    "Steps": "Change the DC09 Account ID for a site\n\nTrigger alarms for that site",
+    "Expected Result": "Changes take effect immediately\n\nAlarms are routed according to the new DC09 Account ID",
+    "status ": "block",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_19",
+    "TEST CASE DESCRIPTION": "Encryption Key Field Visibility",
+    "PRE CONDITIONS": "User is logged in as Admin",
+    "Steps": "Open Site Creation form\n\nOpen Site Edit form",
+    "Expected Result": "Encryption Key field is visible in both Site Creation and Site Edit\n\nField is marked as optional",
+    "status ": "pass",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_20",
+    "TEST CASE DESCRIPTION": "Save Site Without Encryption Key",
+    "PRE CONDITIONS": null,
+    "Steps": "Create or edit a site without entering an Encryption Key\n\nSave the site",
+    "Expected Result": "Site is saved successfully\n\nDC09 alarms are sent unencrypted",
+    "status ": "pass",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_21",
+    "TEST CASE DESCRIPTION": "Save Site With Valid Encryption Key",
+    "PRE CONDITIONS": null,
+    "Steps": "Enter a valid Encryption Key\n\nSave the site\n\nTrigger a DC09 alarm for the site",
+    "Expected Result": "Site is saved successfully\n\nDC09 alarm messages are sent using encrypted communication",
+    "status ": "pass",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_22",
+    "TEST CASE DESCRIPTION": "Encryption Key Format Validation",
+    "PRE CONDITIONS": null,
+    "Steps": "Enter an invalid or incorrectly formatted Encryption Key\n\nAttempt to save",
+    "Expected Result": "System validates the Encryption Key format before saving\n\nSaving is blocked\n\nClear and actionable error message is displayed",
+    "status ": null,
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_23",
+    "TEST CASE DESCRIPTION": "Secure Storage of Encryption Key",
+    "PRE CONDITIONS": null,
+    "Steps": "Save a site with a valid Encryption Key\n\nReopen the site configuration",
+    "Expected Result": "Encryption Key is not displayed in plain text\n\nKey is stored securely",
+    "status ": null,
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_24",
+    "TEST CASE DESCRIPTION": "Guidance for Encryption Usage",
+    "PRE CONDITIONS": null,
+    "Steps": "View the Encryption Key field help or inline guidance",
+    "Expected Result": "Clear guidance explains:\n\nWhen encryption is required\n\nHow encryption affects alarm transmission and testing",
+    "status ": null,
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_25",
+    "TEST CASE DESCRIPTION": "Immediate Effect of Encryption Key Changes",
+    "PRE CONDITIONS": null,
+    "Steps": "Update the Encryption Key for an existing site\n\nTrigger subsequent DC09 alarms",
+    "Expected Result": "Changes take effect immediately\n\nSubsequent alarms follow the updated encryption setting",
+    "status ": null,
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_26",
+    "TEST CASE DESCRIPTION": "Real-Time Validation on CMS Configuration Inputs",
+    "PRE CONDITIONS": "User is logged in as Admin",
+    "Steps": "Open CMS configuration form\n\nEnter invalid data in any required field",
+    "Expected Result": "Real-time validation is triggered\n\nValidation error is displayed immediately",
+    "status ": null,
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_27",
+    "TEST CASE DESCRIPTION": "Block Saving CMS Configuration with Missing Required Fields",
+    "PRE CONDITIONS": null,
+    "Steps": "Leave one or more required CMS fields empty\n\nAttempt to save",
+    "Expected Result": "System blocks saving\n\nClear error message indicates the missing field(s)",
+    "status ": "fail",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_28",
+    "TEST CASE DESCRIPTION": "Block Saving CMS Configuration with Invalid IP or Port Format",
+    "PRE CONDITIONS": null,
+    "Steps": "Enter an invalid IP address or port value\n\nAttempt to save",
+    "Expected Result": "System blocks saving\n\nValidation error clearly identifies the invalid field and required correction",
+    "status ": "fail",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_29",
+    "TEST CASE DESCRIPTION": "Block Saving CMS Configuration with Missing CMS-Specific Mandatory Fields",
+    "PRE CONDITIONS": null,
+    "Steps": "Open configuration for a CMS that requires specific mandatory fields\n\nLeave those fields empty\n\nAttempt to save",
+    "Expected Result": "Saving is blocked\n\nError message indicates the missing CMS-specific fields",
+    "status ": "fali",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_30",
+    "TEST CASE DESCRIPTION": "Block Duplicate or Contradictory CMS Configurations",
+    "PRE CONDITIONS": null,
+    "Steps": "Configure a CMS\n\nAttempt to create a duplicate or conflicting CMS configuration",
+    "Expected Result": "System detects the duplicate or contradiction\n\nSaving is blocked with a clear validation message",
+    "status ": null,
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_31",
+    "TEST CASE DESCRIPTION": "Block Saving Site Without DC09 Account ID",
+    "PRE CONDITIONS": "DC09 CMS is configured at tenant level\n\nSite is intended to forward alarms",
+    "Steps": "Attempt to save site without DC09 Account ID",
+    "Expected Result": "Saving is blocked\n\nError message clearly indicates DC09 Account ID is required",
+    "status ": "PASS",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_32",
+    "TEST CASE DESCRIPTION": "Block Saving Site When Required CMS Configuration Is Missing",
+    "PRE CONDITIONS": null,
+    "Steps": "Attempt to save a site configured to forward alarms\n\nNo CMS is configured at tenant level",
+    "Expected Result": "System blocks saving\n\nError message indicates missing tenant-level CMS configuration",
+    "status ": "PASS",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_33",
+    "TEST CASE DESCRIPTION": "Validation Errors Must Be Resolved Before Saving",
+    "PRE CONDITIONS": null,
+    "Steps": "Trigger multiple validation errors\n\nAttempt to save",
+    "Expected Result": "System prevents saving\n\nAll validation errors must be resolved before save is allowed",
+    "status ": "fail",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_34",
+    "TEST CASE DESCRIPTION": "Clear and Actionable Validation Messages",
+    "PRE CONDITIONS": null,
+    "Steps": "Trigger a validation error",
+    "Expected Result": "Error message clearly states:\n\nWhich field is invalid\n\nWhat correction is required",
+    "status ": "FAIL",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": "TC_35",
+    "TEST CASE DESCRIPTION": "Confirmation View After Successful Configuration",
+    "PRE CONDITIONS": "All inputs are valid",
+    "Steps": "Save CMS and site configuration successfully",
+    "Expected Result": "Confirmation view is displayed\n\nSummary includes:\n\nConfigured CMS\n\nTenant-level settings\n\nSite-level DC09 account mapping\n\nEncryption status",
+    "status ": "pass",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": null,
+    "TEST CASE DESCRIPTION": "Display DC09 Alarm Forward Log Section",
+    "PRE CONDITIONS": "User is logged in as Admin\n\nDevice belongs to a site that forwards alarms using DC09",
+    "Steps": "Open Device Dashboard",
+    "Expected Result": "DC09 Alarm Forward Log section is visible on the dashboard",
+    "status ": "block",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": null,
+    "TEST CASE DESCRIPTION": "Log Visibility for Non-DC09 Devices",
+    "PRE CONDITIONS": null,
+    "Steps": "Open dashboard for a device not associated with DC09 forwarding",
+    "Expected Result": "DC09 Alarm Forward Log section is hidden or not displayed",
+    "status ": "block",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": null,
+    "TEST CASE DESCRIPTION": "Verify Log Fields Are Displayed",
+    "PRE CONDITIONS": null,
+    "Steps": "Open DC09 Alarm Forward Log section",
+    "Expected Result": "Each log entry displays the following fields:\n\nTime\n\nAlarm Code\n\nDC09 Code\n\nState\n\nAccount\n\nResponse\n\nEncrypted\n\nIP Address\n\nPort\n\nArea\n\nZone\n\nAck Time\n\nCamera\n\nAttachment",
+    "status ": "block",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": null,
+    "TEST CASE DESCRIPTION": "Log Entries Are Read-Only",
+    "PRE CONDITIONS": null,
+    "Steps": "Attempt to edit, replay, or modify a log entry",
+    "Expected Result": "No edit or replay actions are available\n\nLog entries are read-only",
+    "status ": "block",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": null,
+    "TEST CASE DESCRIPTION": "Successful Alarm Forwarding Is Logged",
+    "PRE CONDITIONS": null,
+    "Steps": "Trigger a valid alarm from a DC09-enabled device",
+    "Expected Result": "A new log entry is created\n\nResponse indicates successful forwarding\n\nEncrypted field reflects correct encryption status",
+    "status ": "block",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": null,
+    "TEST CASE DESCRIPTION": "Failed Alarm Forwarding Is Logged",
+    "PRE CONDITIONS": null,
+    "Steps": "Trigger an alarm with invalid CMS configuration or network issue",
+    "Expected Result": "Failed transmission is logged\n\nResponse field clearly indicates failure or error reason",
+    "status ": "block",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": null,
+    "TEST CASE DESCRIPTION": "Display Encryption Status in Logs",
+    "PRE CONDITIONS": "Encryption Key is configured",
+    "Steps": "Trigger an alarm",
+    "Expected Result": "Encrypted field shows correct value (e.g. Yes / No)",
+    "status ": "block",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": null,
+    "TEST CASE DESCRIPTION": "Log Entries Order",
+    "PRE CONDITIONS": null,
+    "Steps": "Generate multiple alarm events",
+    "Expected Result": "Log entries are ordered by most recent first",
+    "status ": "block",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": null,
+    "TEST CASE DESCRIPTION": "Near Real-Time Log Update",
+    "PRE CONDITIONS": null,
+    "Steps": "Trigger an alarm\n\nObserve DC09 Alarm Forward Log section",
+    "Expected Result": "Log entry appears in near real time without manual page refresh (or with minimal delay)",
+    "status ": "block",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": null,
+    "TEST CASE DESCRIPTION": "Verify Account and Routing Details",
+    "PRE CONDITIONS": null,
+    "Steps": "Trigger an alarm for a device linked to a specific DC09 account",
+    "Expected Result": "Account, IP Address, Port, Area, and Zone fields display correct values",
+    "status ": "block",
+    "comment\\name": null
+  },
+  {
+    "TEST CASE ID": null,
+    "TEST CASE DESCRIPTION": "Attachment and Camera Fields Handling",
+    "PRE CONDITIONS": null,
+    "Steps": "Trigger an alarm with camera snapshot or attachment",
+    "Expected Result": "Camera and Attachment fields display correct information\n\nIf no attachment exists, fields are empty or marked as N/A",
+    "status ": "block",
+    "comment\\name": null
+  }
+]

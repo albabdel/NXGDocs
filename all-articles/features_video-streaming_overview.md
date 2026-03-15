@@ -13,6 +13,16 @@ last_updated: 2025-12-21
 
 # Video Streaming Overview
 
+## What's New
+
+| Feature | Description | Available Since |
+| :--- | :--- | :--- |
+| **Auto Streaming** | When a qualifying alarm is triggered, live streams automatically start for all cameras mapped to that alarm. Multiple cameras can stream simultaneously. | March 2026 |
+| **Zone-Based Camera Selection** | Auto streaming respects zone definitions. When an alarm is mapped to a specific zone, only cameras within that zone stream automatically. | March 2026 |
+| **Streaming Permission Controls** | Admins can set which roles are allowed to view streams. Operators without permission cannot see or access streams. | March 2026 |
+| **Video Viewer Drag and Drop** | Drag and drop sites or devices into the Salvo video viewer. Sites stream in default 2x2 view format. | March 2026 |
+| **Multi-Monitor Integration** | Talos-Salvo alarm workflow integration. Motion alarms automatically open alarm quad in Salvo. | March 2026 |
+
 ## Overview
 
 Video Streaming is a core feature of GCXONE that enables real-time video delivery from integrated cameras and devices. The platform supports multiple streaming protocols and deployment models to provide optimal video quality and performance across different network conditions.
