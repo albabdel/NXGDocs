@@ -87,7 +87,7 @@ export default function LoginScreen({ onLogin, isDark, loginError }: Props) {
         {/* Mode description */}
         <p className="text-xs mb-6" style={{ color: 'var(--ifm-color-content-secondary)' }}>
           {isCustomer
-            ? "View your company's support tickets — sign in with your NXGEN account."
+            ? "View your company's support tickets — sign in with your Zoho portal account."
             : 'Access all tickets — for NXGEN support staff only.'}
         </p>
 
@@ -119,7 +119,7 @@ export default function LoginScreen({ onLogin, isDark, loginError }: Props) {
           }}
         >
           <LogIn className="w-5 h-5" />
-          {isCustomer ? 'Sign in with NXGEN Account' : 'Sign in as Staff'}
+          {isCustomer ? 'Sign in with Zoho Portal' : 'Sign in as Staff'}
         </button>
 
         <div
@@ -127,9 +127,7 @@ export default function LoginScreen({ onLogin, isDark, loginError }: Props) {
           style={{ color: 'var(--ifm-color-content-secondary)' }}
         >
           <Shield className="w-3.5 h-3.5" style={{ color: '#E8B058' }} />
-          <span>
-            {isCustomer ? 'Secured via Auth0' : 'Secured via Zoho OAuth 2.0'}
-          </span>
+          <span>Secured via Zoho OAuth 2.0</span>
         </div>
       </div>
     </div>

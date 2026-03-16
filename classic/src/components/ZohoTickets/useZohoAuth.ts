@@ -19,6 +19,13 @@ const AGENT_SCOPES = [
   'aaaserver.profile.read',
 ].join(',');
 
+const PORTAL_SCOPES = [
+  'Desk.tickets.READ',
+  'Desk.tickets.UPDATE',
+  'Desk.tickets.CREATE',
+  'Desk.basic.READ',
+].join(',');
+
 // ---------------------------------------------------------------------------
 // Auth0 customer OAuth (implicit, id_token only)
 // ---------------------------------------------------------------------------
@@ -58,6 +65,18 @@ function buildZohoAgentUrl(): string {
     redirect_uri: getRedirectUri(),
     scope: AGENT_SCOPES,
     access_type: 'online',
+  });
+  return `${ZOHO_AUTH_URL}?${params}`;
+}
+
+function buildZohoPortalUrl(): string {
+  const params = new URLSearchParams({
+    response_type: 'token',
+    client_id: ZOHO_CLIENT_ID,
+    redirect_uri: getRedirectUri(),
+    scope: PORTAL_SCOPES,
+    access_type: 'online',
+    prompt: 'consent',
   });
   return `${ZOHO_AUTH_URL}?${params}`;
 }
@@ -124,15 +143,17 @@ export function useZohoAuth() {
   const [loginError, setLoginError] = useState<string | null>(null);
 
   useEffect(() => {
-    // 1. Check for Zoho agent OAuth callback (access_token in hash)
+    // 1. Check for Zoho OAuth callback (access_token in hash - works for both agent and portal)
     const zohoRaw = parseZohoHash();
     if (zohoRaw) {
       window.history.replaceState(null, '', window.location.pathname);
+      const pendingMode = localStorage.getItem(PENDING_MODE_KEY) as LoginMode | null;
       localStorage.removeItem(PENDING_MODE_KEY);
+      
       const tokenData: ZohoTokenData = {
         accessToken: zohoRaw.accessToken,
         expiry: zohoRaw.expiry,
-        mode: 'agent',
+        mode: pendingMode || 'agent',
       };
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(tokenData));
       setToken(tokenData);
@@ -219,7 +240,14 @@ export function useZohoAuth() {
     window.location.href = buildZohoAgentUrl();
   }, []);
 
-  /** Redirect to Auth0 for customer login */
+  /** Redirect to Zoho Portal OAuth for customer login */
+  const loginPortal = useCallback(() => {
+    setLoginError(null);
+    localStorage.setItem(PENDING_MODE_KEY, 'customer');
+    window.location.href = buildZohoPortalUrl();
+  }, []);
+
+  /** Redirect to Auth0 for customer login (legacy fallback) */
   const loginCustomer = useCallback(() => {
     setLoginError(null);
     const nonce = randomString(16);
@@ -242,12 +270,12 @@ export function useZohoAuth() {
     isAuthenticated: !!token,
     loading,
     loginError,
-    // Expose a unified login(mode) for backward compat with TicketPortal
     login: useCallback((mode: LoginMode = 'agent') => {
-      if (mode === 'customer') loginCustomer();
+      if (mode === 'customer') loginPortal();
       else loginAgent();
-    }, [loginAgent, loginCustomer]),
+    }, [loginAgent, loginPortal]),
     loginAgent,
+    loginPortal,
     loginCustomer,
     logout,
     mode: token?.mode ?? null,
