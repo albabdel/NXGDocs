@@ -1,0 +1,19 @@
+stages:
+  - deploy
+
+deploy-production:
+  stage: deploy
+  image: node:20-slim
+  only:
+    - main
+  before_script:
+    - npm ci --prefix classic
+  script:
+    - npm run build --prefix classic
+    - rm -rf /tmp/deploy-build
+    - cp -r classic/build /tmp/deploy-build
+    - rm -rf /tmp/deploy-build/videos
+    - npx wrangler pages deploy /tmp/deploy-build --project-name gcxone --commit-dirty=true
+  variables:
+    CLOUDFLARE_API_TOKEN: $CLOUDFLARE_API_TOKEN
+    CLOUDFLARE_ACCOUNT_ID: "ff9df0a2daf8c9eb1032f67dd551c784"
