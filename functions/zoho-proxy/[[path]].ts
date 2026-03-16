@@ -1,8 +1,10 @@
 // functions/zoho-proxy/[[path]].ts
 // Cloudflare Pages Function — proxies browser requests to desk.zoho.eu to avoid CORS.
 // The browser cannot call desk.zoho.eu directly (CORS blocked).
-// Usage: replace API_BASE in zohoApi.ts with '/functions/zoho-proxy'
-// e.g. GET /functions/zoho-proxy/tickets → https://desk.zoho.eu/api/v1/tickets
+// Usage: replace API_BASE in zohoApi.ts with '/zoho-proxy'
+// e.g. GET /zoho-proxy/tickets → https://desk.zoho.eu/api/v1/tickets
+
+interface Env {}
 
 const ZOHO_DESK_BASE = 'https://desk.zoho.eu/api/v1';
 const ZOHO_ACCOUNTS_BASE = 'https://accounts.zoho.eu';
@@ -13,10 +15,10 @@ const CORS_HEADERS = {
   'Access-Control-Allow-Headers': 'Content-Type, Authorization, orgId',
 };
 
-export const onRequestOptions: PagesFunction = async () =>
+export const onRequestOptions: PagesFunction<Env> = async () =>
   new Response(null, { status: 200, headers: CORS_HEADERS });
 
-export const onRequest: PagesFunction = async (context) => {
+export const onRequest: PagesFunction<Env> = async (context) => {
   const { params, request } = context;
 
   // Reconstruct the path from the catch-all param
