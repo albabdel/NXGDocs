@@ -272,8 +272,53 @@ const json = (body: unknown, status = 200): Response =>
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   try {
-    const body = await context.request.json() as { action?: string; idToken?: string };
+    const body = await context.request.json() as { action?: string; idToken?: string; email?: string };
 
+    // Handle email-lookup action (for popup-based customer login)
+    if (body.action === 'email-lookup') {
+      const email = (body.email ?? '').toLowerCase().trim();
+      if (!email) return json({ error: 'Email is required' }, 400);
+
+      // Get a Zoho service account token and look up the contact
+      const { accessToken: zToken } = await refreshZohoToken(context.env);
+      const contact = await findContactByEmail(zToken, email, context.env.ZOHO_ORG_ID);
+
+      if (!contact) {
+        return json({
+          error: `No support account found for ${email}. Please contact NXGEN support.`,
+        }, 404);
+      }
+
+      // Ensure portal access is enabled (non-blocking)
+      await ensurePortalAccess(zToken, contact.id, email, context.env.ZOHO_ORG_ID);
+
+      // SECURITY: Create HttpOnly session cookie - token NEVER exposed to JavaScript
+      const displayName = `${contact.firstName ?? ''} ${contact.lastName ?? ''}`.trim() || email;
+
+      const sessionToken = await createSessionCookie(
+        contact.id,
+        contact.accountId ?? null,
+        displayName,
+        context.env.ZOHO_SESSION_SECRET,
+      );
+
+      // Return only safe profile data - NO access token
+      return new Response(JSON.stringify({
+        ok: true,
+        contactId: contact.id,
+        accountId: contact.accountId ?? null,
+        displayName,
+        account: contact.account?.accountName ?? null,
+      }), {
+        headers: {
+          'Set-Cookie': buildSessionCookieHeader(sessionToken),
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      });
+    }
+
+    // Handle auth0-exchange action (legacy Auth0 flow)
     if (body.action !== 'auth0-exchange') {
       return json({ error: 'Unknown action' }, 400);
     }
