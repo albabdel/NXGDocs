@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight, AlertCircle, Loader, ExternalLink, LayoutGrid, List } from 'lucide-react';
+import { ChevronLeft, ChevronRight, AlertCircle, Loader, ExternalLink, LayoutGrid, List, Clock } from 'lucide-react';
 import { listTickets, listAgents, listStatuses } from './zohoApi';
 import type { ZohoTicket, ZohoAgent, ZohoStatus } from './types';
+import { calculateSLARemaining, formatSLARemaining } from './supportConfig';
 
 interface Props {
   token: string;
@@ -34,6 +35,33 @@ function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString('en-GB', {
     day: '2-digit', month: 'short', year: 'numeric',
   });
+}
+
+function SLATimerMini({ ticket }: { ticket: ZohoTicket }) {
+  const [slaData, setSlaData] = useState<ReturnType<typeof calculateSLARemaining>>(null);
+  
+  useEffect(() => {
+    const updateSLA = () => {
+      const responseSLA = calculateSLARemaining(ticket.createdTime, ticket.priority, 'response');
+      setSlaData(responseSLA);
+    };
+    
+    updateSLA();
+    const interval = setInterval(updateSLA, 60000);
+    return () => clearInterval(interval);
+  }, [ticket.createdTime, ticket.priority]);
+  
+  if (!slaData || ticket.status === 'Closed') return null;
+  
+  const isWarning = slaData.percentage < 30 && !slaData.isBreached;
+  const textColor = slaData.isBreached ? '#ef4444' : isWarning ? '#f59e0b' : '#22c55e';
+  
+  return (
+    <span className="inline-flex items-center gap-0.5 text-xs" style={{ color: textColor }}>
+      <Clock className="w-2.5 h-2.5" />
+      {formatSLARemaining(slaData.remainingMs)}
+    </span>
+  );
 }
 
 function TicketCard({ ticket, onSelect, isDark, style }: {
@@ -78,9 +106,12 @@ function TicketCard({ ticket, onSelect, isDark, style }: {
           <p className="text-sm font-semibold truncate" style={{ color: 'var(--ifm-color-content)' }}>
             {ticket.subject}
           </p>
-          <p className="text-xs mt-1" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-            {ticket.email} · {formatDate(ticket.createdTime)} · {ticket.channel}
-          </p>
+          <div className="flex items-center gap-3 mt-1">
+            <p className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+              {ticket.email} · {formatDate(ticket.createdTime)} · {ticket.channel}
+            </p>
+            <SLATimerMini ticket={ticket} />
+          </div>
           {ticket.assignee && (
             <p className="text-xs mt-0.5" style={{ color: 'var(--ifm-color-content-secondary)' }}>
               Assigned: {ticket.assignee.name || `${ticket.assignee.firstName} ${ticket.assignee.lastName}`}
@@ -165,6 +196,7 @@ export default function TicketList({ token, isDark, isCustomer, accountId, conta
   const [tickets, setTickets] = useState<ZohoTicket[]>([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
   const [statusFilter, setStatusFilter] = useState('all');
   const [agentFilter, setAgentFilter] = useState('all');
   const [loading, setLoading] = useState(true);
@@ -193,7 +225,7 @@ export default function TicketList({ token, isDark, isCustomer, accountId, conta
     setLoading(true);
     setError(null);
     const pageArg = hasAgentFilter ? 1 : page;
-    const limitArg = hasAgentFilter ? 100 : 25;
+    const limitArg = hasAgentFilter ? 100 : 50;
     listTickets(token, pageArg, statusFilter, limitArg, accountId, contactId)
       .then(res => {
         const all = res.data ?? [];
@@ -201,7 +233,11 @@ export default function TicketList({ token, isDark, isCustomer, accountId, conta
           ? all.filter(t => t.assigneeId === agentFilter)
           : all;
         setTickets(filtered);
-        setTotal(hasAgentFilter ? filtered.length : (res.count ?? 0));
+        // Use count from API if present; fall back to checking if we got a full page
+        const apiTotal = res.count ?? 0;
+        const inferredTotal = apiTotal > 0 ? apiTotal : (all.length === limitArg ? page * limitArg + 1 : page * limitArg);
+        setTotal(hasAgentFilter ? filtered.length : inferredTotal);
+        setHasMore(!hasAgentFilter && all.length === limitArg);
       })
       .catch(e => setError(e.message))
       .finally(() => setLoading(false));
@@ -216,7 +252,7 @@ export default function TicketList({ token, isDark, isCustomer, accountId, conta
         ? ['Open', 'On Hold', 'Waiting on customer feedback', 'Closed']
         : [statusFilter]
       ).map(s =>
-        listTickets(token, 1, s, 100, accountId, contactId)
+        listTickets(token, 1, s, 200, accountId, contactId)
           .then(r => r.data ?? [])
           .catch(() => [] as ZohoTicket[])
       )
@@ -228,7 +264,7 @@ export default function TicketList({ token, isDark, isCustomer, accountId, conta
       .finally(() => setKanbanLoading(false));
   }, [token, statusFilter, agentFilter, viewMode]);
 
-  const totalPages = hasAgentFilter ? 1 : Math.ceil(total / 25);
+  const totalPages = hasAgentFilter ? 1 : Math.max(Math.ceil(total / 50), hasMore ? page + 1 : page);
 
   return (
     <div>
@@ -314,9 +350,9 @@ export default function TicketList({ token, isDark, isCustomer, accountId, conta
           </button>
         </div>
 
-        {viewMode === 'list' && total > 0 && (
+        {viewMode === 'list' && (tickets.length > 0 || total > 0) && (
           <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-            {total} ticket{total !== 1 ? 's' : ''}
+            {total > tickets.length ? `${total}` : tickets.length} ticket{(total || tickets.length) !== 1 ? 's' : ''}
           </span>
         )}
       </div>

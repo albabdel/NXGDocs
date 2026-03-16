@@ -2,9 +2,10 @@ import type { ZohoTicket, ZohoConversationItem, ZohoAgent, ZohoStatus, ZohoAttac
 
 const ORG_ID = '20067436506';
 const DEPT_ID = '17599000000007061';
-// Route all Zoho Desk API calls through our CF proxy to avoid CORS restrictions
-// CF Pages Functions: functions/zoho-proxy/[[path]].ts → /zoho-proxy/*
-const API_BASE = '/zoho-proxy';
+const PROXY_BASE = '/zoho-proxy';
+const DIRECT_BASE = 'https://desk.zoho.eu/api/v1';
+
+let useProxy = true;
 
 async function apiCall<T>(
   path: string,
@@ -13,15 +14,37 @@ async function apiCall<T>(
 ): Promise<T> {
   const isWrite = options.method === 'POST' || options.method === 'PATCH' || options.method === 'PUT';
   const isFormData = options.body instanceof FormData;
-  const res = await fetch(`${API_BASE}${path}`, {
-    ...options,
-    headers: {
-      'Authorization': `Zoho-oauthtoken ${token}`,
-      'orgId': ORG_ID,
-      ...(isWrite && !isFormData ? { 'Content-Type': 'application/json' } : {}),
-      ...(options.headers ?? {}),
-    },
-  });
+  
+  const headers: Record<string, string> = {
+    'Authorization': `Zoho-oauthtoken ${token}`,
+    'orgId': ORG_ID,
+    ...(isWrite && !isFormData ? { 'Content-Type': 'application/json' } : {}),
+    ...(options.headers as Record<string, string> ?? {}),
+  };
+
+  const makeRequest = async (baseUrl: string): Promise<Response> => {
+    return fetch(`${baseUrl}${path}`, {
+      ...options,
+      headers,
+    });
+  };
+
+  let res: Response;
+  
+  if (useProxy) {
+    res = await makeRequest(PROXY_BASE);
+    if (res.status === 404) {
+      const text = await res.text().catch(() => '');
+      if (text.includes('Page Not Found') || text.includes('Docusaurus')) {
+        useProxy = false;
+        console.warn('Proxy not available, falling back to direct API');
+        res = await makeRequest(DIRECT_BASE);
+      }
+    }
+  } else {
+    res = await makeRequest(DIRECT_BASE);
+  }
+
   if (!res.ok) {
     const err = await res.text().catch(() => res.statusText);
     throw new Error(`Zoho API ${res.status}: ${err}`);
@@ -33,20 +56,25 @@ export async function listTickets(
   token: string,
   page = 1,
   status?: string,
-  limit = 25,
+  limit = 50,
   accountId?: string | null,
   contactId?: string | null
 ): Promise<{ data: ZohoTicket[]; count: number }> {
   const params = new URLSearchParams({
-    departmentId: DEPT_ID,
     from: String((page - 1) * limit),
     limit: String(limit),
     sortBy: '-createdTime',
   });
+  // Only scope to the configured department for customer queries;
+  // for agent queries (no account/contact filter) return all departments.
+  if (accountId) {
+    params.set('departmentId', DEPT_ID);
+    params.set('accountId', accountId);
+  } else if (contactId) {
+    params.set('departmentId', DEPT_ID);
+    params.set('contactId', contactId);
+  }
   if (status && status !== 'all') params.set('status', status);
-  // Tenant isolation for customer mode — accountId is a documented Zoho Desk filter
-  if (accountId) params.set('accountId', accountId);
-  else if (contactId) params.set('contactId', contactId);
   return apiCall(`/tickets?${params}`, token);
 }
 
