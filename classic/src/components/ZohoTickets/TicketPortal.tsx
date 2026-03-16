@@ -8,7 +8,7 @@ import CreateTicketModal from './CreateTicketModal';
 import type { ZohoTicket } from './types';
 
 export default function TicketPortal() {
-  const { token, isAuthenticated, loading, loginError, login, logout, mode, accountId, contactId, displayName } = useZohoAuth();
+  const { session, isAuthenticated, loading, loginError, login, logout, mode, displayName } = useZohoAuth();
   const [selectedTicket, setSelectedTicket] = useState<ZohoTicket | null>(null);
   const [showCreate, setShowCreate] = useState(false);
   const [listKey, setListKey] = useState(0);
@@ -33,7 +33,8 @@ export default function TicketPortal() {
     );
   }
 
-  if (!isAuthenticated || !token) {
+  // Session-based auth for customers, token for agents (handled in hook)
+  if (!isAuthenticated) {
     return <LoginScreen onLogin={login} isDark={isDark} loginError={loginError} />;
   }
 
@@ -144,7 +145,6 @@ export default function TicketPortal() {
       >
         {selectedTicket ? (
           <TicketDetail
-            token={token}
             ticketId={selectedTicket.id}
             isDark={isDark}
             isCustomer={isCustomer}
@@ -153,11 +153,8 @@ export default function TicketPortal() {
         ) : (
           <TicketList
             key={listKey}
-            token={token}
             isDark={isDark}
             isCustomer={isCustomer}
-            accountId={accountId}
-            contactId={contactId}
             onSelect={setSelectedTicket}
           />
         )}
@@ -166,7 +163,6 @@ export default function TicketPortal() {
       {/* Create ticket modal */}
       {showCreate && (
         <CreateTicketModal
-          token={token}
           isDark={isDark}
           isCustomer={isCustomer}
           onClose={() => setShowCreate(false)}

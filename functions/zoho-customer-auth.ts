@@ -30,7 +30,7 @@ interface Env {
   ZOHO_CLIENT_ID: string;
   ZOHO_CLIENT_SECRET: string;
   ZOHO_ORG_ID: string;
-  SESSION_SECRET: string;
+  ZOHO_SESSION_SECRET: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -211,7 +211,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       contact.id,
       contact.accountId ?? null,
       displayName,
-      context.env.SESSION_SECRET,
+      context.env.ZOHO_SESSION_SECRET,
     );
 
     // Return only safe profile data - NO access token

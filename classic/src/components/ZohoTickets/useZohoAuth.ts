@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { ZohoTokenData, LoginMode } from './types';
+import type { ZohoTokenData, ZohoSessionData, ZohoAuthData, LoginMode } from './types';
 
 // ---------------------------------------------------------------------------
 // Zoho agent OAuth (unchanged from original)
@@ -19,13 +19,6 @@ const AGENT_SCOPES = [
   'aaaserver.profile.read',
 ].join(',');
 
-const PORTAL_SCOPES = [
-  'Desk.tickets.READ',
-  'Desk.tickets.UPDATE',
-  'Desk.tickets.CREATE',
-  'Desk.basic.READ',
-].join(',');
-
 // ---------------------------------------------------------------------------
 // Auth0 customer OAuth (implicit, id_token only)
 // ---------------------------------------------------------------------------
@@ -37,7 +30,8 @@ const AUTH0_CLIENT_ID = 'ygWwMxVGpKHSxLLdNxfxPs8GHCIQRwES'; // "NXGEN Docs Porta
 // Storage
 // ---------------------------------------------------------------------------
 
-const STORAGE_KEY = 'zoho_agent_token';
+const TOKEN_STORAGE_KEY = 'zoho_agent_token';
+const SESSION_STORAGE_KEY = 'zoho_customer_session';
 const PENDING_MODE_KEY = 'zoho_pending_mode';
 const PENDING_NONCE_KEY = 'zoho_pending_nonce';
 
@@ -65,18 +59,6 @@ function buildZohoAgentUrl(): string {
     redirect_uri: getRedirectUri(),
     scope: AGENT_SCOPES,
     access_type: 'online',
-  });
-  return `${ZOHO_AUTH_URL}?${params}`;
-}
-
-function buildZohoPortalUrl(): string {
-  const params = new URLSearchParams({
-    response_type: 'token',
-    client_id: ZOHO_CLIENT_ID,
-    redirect_uri: getRedirectUri(),
-    scope: PORTAL_SCOPES,
-    access_type: 'online',
-    prompt: 'consent',
   });
   return `${ZOHO_AUTH_URL}?${params}`;
 }
@@ -120,11 +102,28 @@ function parseAuth0Hash(): { idToken: string; nonce?: string } | null {
 function loadStoredToken(): ZohoTokenData | null {
   if (typeof window === 'undefined') return null;
   try {
-    const stored = sessionStorage.getItem(STORAGE_KEY);
+    const stored = sessionStorage.getItem(TOKEN_STORAGE_KEY);
     if (!stored) return null;
     const data: ZohoTokenData = JSON.parse(stored);
     if (data.expiry < Date.now() + 60_000) {
-      sessionStorage.removeItem(STORAGE_KEY);
+      sessionStorage.removeItem(TOKEN_STORAGE_KEY);
+      return null;
+    }
+    return data;
+  } catch {
+    return null;
+  }
+}
+
+function loadStoredSession(): ZohoSessionData | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const stored = sessionStorage.getItem(SESSION_STORAGE_KEY);
+    if (!stored) return null;
+    const data: ZohoSessionData = JSON.parse(stored);
+    // Session cookie validity is checked by server; we just check local expiry
+    if (data.sessionExpiry < Date.now()) {
+      sessionStorage.removeItem(SESSION_STORAGE_KEY);
       return null;
     }
     return data;
@@ -138,25 +137,26 @@ function loadStoredToken(): ZohoTokenData | null {
 // ---------------------------------------------------------------------------
 
 export function useZohoAuth() {
-  const [token, setToken] = useState<ZohoTokenData | null>(null);
+  const [authData, setAuthData] = useState<ZohoAuthData | null>(null);
   const [loading, setLoading] = useState(true);
   const [loginError, setLoginError] = useState<string | null>(null);
 
   useEffect(() => {
-    // 1. Check for Zoho OAuth callback (access_token in hash - works for both agent and portal)
+    // 1. Check for Zoho OAuth callback (access_token in hash - agent mode only)
     const zohoRaw = parseZohoHash();
     if (zohoRaw) {
       window.history.replaceState(null, '', window.location.pathname);
       const pendingMode = localStorage.getItem(PENDING_MODE_KEY) as LoginMode | null;
       localStorage.removeItem(PENDING_MODE_KEY);
       
+      // Agent token from Zoho OAuth
       const tokenData: ZohoTokenData = {
         accessToken: zohoRaw.accessToken,
         expiry: zohoRaw.expiry,
-        mode: pendingMode || 'agent',
+        mode: 'agent',
       };
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(tokenData));
-      setToken(tokenData);
+      sessionStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(tokenData));
+      setAuthData(tokenData);
       setLoading(false);
       return;
     }
@@ -183,6 +183,7 @@ export function useZohoAuth() {
       }
 
       // Exchange the id_token for a Zoho session via Cloudflare Function
+      // Response no longer contains accessToken - session cookie is HttpOnly
       (async () => {
         try {
           const res = await fetch('/zoho-customer-auth', {
@@ -195,31 +196,33 @@ export function useZohoAuth() {
           try { data = JSON.parse(text); } catch { throw new Error(`Server error (${res.status}): ${text.slice(0, 200)}`); }
           data = data as {
             ok?: boolean;
-            accessToken?: string;
-            expiry?: number;
+            contactId?: string;
             accountId?: string | null;
-            contactId?: string | null;
             displayName?: string;
+            account?: string | null;
+            sessionExpiry?: number;
             error?: string;
           };
 
-          if (!res.ok || !data.ok || !data.accessToken) {
+          if (!res.ok || !data.ok) {
             throw new Error(data.error ?? 'Failed to set up support access');
           }
 
-          const tokenData: ZohoTokenData = {
-            accessToken: data.accessToken,
-            expiry: data.expiry ?? Date.now() + 3600 * 1000,
+          // Store only profile data - NO access token
+          // Session cookie is HttpOnly (JS can't access it)
+          const sessionData: ZohoSessionData = {
             mode: 'customer',
+            contactId: data.contactId ?? '',
             accountId: data.accountId ?? null,
-            contactId: data.contactId ?? null,
-            displayName: data.displayName,
+            displayName: data.displayName ?? '',
+            account: data.account ?? null,
+            sessionExpiry: data.sessionExpiry ?? Date.now() + 3600 * 1000,
           };
-          sessionStorage.setItem(STORAGE_KEY, JSON.stringify(tokenData));
-          setToken(tokenData);
+          sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(sessionData));
+          setAuthData(sessionData);
         } catch (e: unknown) {
           setLoginError(e instanceof Error ? e.message : 'Login failed. Please try again.');
-          setToken(null);
+          setAuthData(null);
         } finally {
           setLoading(false);
         }
@@ -227,9 +230,10 @@ export function useZohoAuth() {
       return; // keep loading=true until async block completes
     }
 
-    // 3. Restore from sessionStorage
-    const stored = loadStoredToken();
-    setToken(stored);
+    // 3. Restore from sessionStorage (check both token and session)
+    const storedToken = loadStoredToken();
+    const storedSession = loadStoredSession();
+    setAuthData(storedToken ?? storedSession);
     setLoading(false);
   }, []);
 
@@ -240,14 +244,7 @@ export function useZohoAuth() {
     window.location.href = buildZohoAgentUrl();
   }, []);
 
-  /** Redirect to Zoho Portal OAuth for customer login */
-  const loginPortal = useCallback(() => {
-    setLoginError(null);
-    localStorage.setItem(PENDING_MODE_KEY, 'customer');
-    window.location.href = buildZohoPortalUrl();
-  }, []);
-
-  /** Redirect to Auth0 for customer login (legacy fallback) */
+  /** Redirect to Auth0 for customer login */
   const loginCustomer = useCallback(() => {
     setLoginError(null);
     const nonce = randomString(16);
@@ -256,31 +253,51 @@ export function useZohoAuth() {
     window.location.href = buildAuth0Url(nonce);
   }, []);
 
-  const logout = useCallback(() => {
-    sessionStorage.removeItem(STORAGE_KEY);
+  const logout = useCallback(async () => {
+    // Clear local storage
+    sessionStorage.removeItem(TOKEN_STORAGE_KEY);
+    sessionStorage.removeItem(SESSION_STORAGE_KEY);
     localStorage.removeItem(PENDING_MODE_KEY);
     localStorage.removeItem(PENDING_NONCE_KEY);
-    setToken(null);
+    setAuthData(null);
     setLoginError(null);
-  }, []);
+
+    // For customer mode, notify server to clear session cookie
+    if (authData?.mode === 'customer') {
+      try {
+        await fetch('/zoho-logout', { method: 'POST' });
+      } catch {
+        // Ignore logout errors - session will expire on server anyway
+      }
+    }
+  }, [authData?.mode]);
+
+  // Extract values based on auth type
+  const token = authData?.mode === 'agent' ? authData.accessToken : null;
+  const session = authData?.mode === 'customer' ? authData : null;
 
   return {
-    token: token?.accessToken ?? null,
-    tokenData: token,
-    isAuthenticated: !!token,
+    // Token for agents (API calls need it)
+    token,
+    // Session data for customers (no secrets)
+    session,
+    isAuthenticated: !!authData,
     loading,
     loginError,
     login: useCallback((mode: LoginMode = 'agent') => {
-      if (mode === 'customer') loginPortal();
+      if (mode === 'customer') loginCustomer();
       else loginAgent();
-    }, [loginAgent, loginPortal]),
+    }, [loginAgent, loginCustomer]),
     loginAgent,
-    loginPortal,
     loginCustomer,
     logout,
-    mode: token?.mode ?? null,
-    accountId: token?.accountId ?? null,
-    contactId: token?.contactId ?? null,
-    displayName: token?.displayName ?? null,
+    mode: authData?.mode ?? null,
+    contactId: session?.contactId ?? null,
+    accountId: session?.accountId ?? null,
+    displayName: authData?.mode === 'customer' 
+      ? authData.displayName 
+      : authData?.mode === 'agent' 
+        ? 'Agent' 
+        : null,
   };
 }

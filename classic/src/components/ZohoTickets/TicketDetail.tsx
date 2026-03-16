@@ -17,11 +17,12 @@ import {
 } from './supportConfig';
 
 interface Props {
-  token: string;
   ticketId: string;
   isDark: boolean;
   isCustomer?: boolean;
   onBack: () => void;
+  /** Agent token (only for agents - used by CRMPanel) */
+  token?: string;
 }
 
 const PRIORITY_STYLES: Record<string, { bg: string; color: string }> = {
@@ -174,7 +175,7 @@ function TranslateButton({ text, isDark }: { text: string | null | undefined; is
   );
 }
 
-function AttachmentItem({ att, token, isDark }: { att: ZohoAttachment; token: string; isDark: boolean }) {
+function AttachmentItem({ att, isDark }: { att: ZohoAttachment; isDark: boolean }) {
   const [lightbox, setLightbox] = useState(false);
   const isImage = IMAGE_TYPES.includes(att.fileType);
 
@@ -285,7 +286,7 @@ function StyledSelect({ value, onChange, isDark, children, style }: SelectProps)
   );
 }
 
-export default function TicketDetail({ token, ticketId, isDark, isCustomer, onBack }: Props) {
+export default function TicketDetail({ ticketId, isDark, isCustomer, onBack }: Props) {
   const [ticket, setTicket] = useState<ZohoTicket | null>(null);
   const [conversations, setConversations] = useState<ZohoConversationItem[]>([]);
   const [attachments, setAttachments] = useState<ZohoAttachment[]>([]);
@@ -320,16 +321,16 @@ export default function TicketDetail({ token, ticketId, isDark, isCustomer, onBa
     setError(null);
     try {
       const agentPromise = (!isCustomer && !agents.length)
-        ? listAgents(token).catch(() => ({ data: [] }))
+        ? listAgents({ isCustomer }).catch(() => ({ data: [] }))
         : Promise.resolve({ data: agents });
       const statusPromise = (!isCustomer && !statuses.length)
-        ? listStatuses(token).catch(() => ({ data: [] }))
+        ? listStatuses({ isCustomer }).catch(() => ({ data: [] }))
         : Promise.resolve({ data: statuses });
 
       const [t, c, a, st, ag] = await Promise.all([
-        getTicket(token, ticketId),
-        getConversations(token, ticketId),
-        getAttachments(token, ticketId).catch(() => ({ data: [] })),
+        getTicket({ id: ticketId, isCustomer }),
+        getConversations({ ticketId, isCustomer }),
+        getAttachments({ ticketId, isCustomer }).catch(() => ({ data: [] })),
         statusPromise,
         agentPromise,
       ]);
@@ -358,7 +359,7 @@ export default function TicketDetail({ token, ticketId, isDark, isCustomer, onBa
     if (!ticket || updatingStatus || newStatus === ticket.status) return;
     setUpdatingStatus(true);
     try {
-      const updated = await updateTicket(token, ticketId, { status: newStatus });
+      const updated = await updateTicket({ ticketId, fields: { status: newStatus }, isCustomer });
       setTicket(updated);
       showMsg(`Status changed to ${newStatus}.`);
     } catch (e: unknown) {
@@ -372,7 +373,7 @@ export default function TicketDetail({ token, ticketId, isDark, isCustomer, onBa
     if (!ticket || updatingAssignee) return;
     setUpdatingAssignee(true);
     try {
-      const updated = await updateTicket(token, ticketId, { assigneeId: assigneeId || '' });
+      const updated = await updateTicket({ ticketId, fields: { assigneeId: assigneeId || '' }, isCustomer });
       setTicket({ ...updated, assignee: agents.find(a => a.id === assigneeId) ? {
         id: assigneeId,
         firstName: agents.find(a => a.id === assigneeId)?.firstName ?? '',
@@ -393,11 +394,11 @@ export default function TicketDetail({ token, ticketId, isDark, isCustomer, onBa
     setSubmitting(true);
     try {
       if (comment.trim()) {
-        await addComment(token, ticketId, comment.trim(), isPublicComment);
+        await addComment({ ticketId, content: comment.trim(), isPublic: isPublicComment, isCustomer });
       }
       if (attachFile) {
         setUploading(true);
-        await uploadAttachment(token, ticketId, attachFile);
+        await uploadAttachment({ ticketId, file: attachFile, isCustomer });
         setAttachFile(null);
         setUploading(false);
       }
@@ -585,7 +586,7 @@ export default function TicketDetail({ token, ticketId, isDark, isCustomer, onBa
               </label>
               <StyledSelect
                 value={ticket.priority}
-                onChange={val => updateTicket(token, ticketId, { priority: val }).then(setTicket).catch(() => {})}
+                onChange={val => updateTicket({ ticketId, fields: { priority: val }, isCustomer }).then(setTicket).catch(() => {})}
                 isDark={isDark}
                 style={{ width: '100%' }}
               >
@@ -625,7 +626,7 @@ export default function TicketDetail({ token, ticketId, isDark, isCustomer, onBa
           </h3>
           <div className="grid grid-cols-1 gap-2">
             {attachments.map(att => (
-              <AttachmentItem key={att.id ?? att.attachmentId} att={att} token={token} isDark={isDark} />
+              <AttachmentItem key={att.id ?? att.attachmentId} att={att} isDark={isDark} />
             ))}
           </div>
         </div>
@@ -905,10 +906,12 @@ export default function TicketDetail({ token, ticketId, isDark, isCustomer, onBa
       </div>
         </div>
 
-        {/* CRM Panel - right side */}
-        <div>
-          <CRMPanel token={token} email={ticket.email} isDark={isDark} />
-        </div>
+        {/* CRM Panel - right side (agents only) */}
+        {!isCustomer && token && (
+          <div>
+            <CRMPanel token={token} email={ticket.email} isDark={isDark} />
+          </div>
+        )}
       </div>
     </div>
   );

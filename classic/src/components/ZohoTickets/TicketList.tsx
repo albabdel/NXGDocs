@@ -5,11 +5,8 @@ import type { ZohoTicket, ZohoAgent, ZohoStatus } from './types';
 import { calculateSLARemaining, formatSLARemaining } from './supportConfig';
 
 interface Props {
-  token: string;
   isDark: boolean;
   isCustomer?: boolean;
-  accountId?: string | null;
-  contactId?: string | null;
   onSelect: (ticket: ZohoTicket) => void;
 }
 
@@ -192,7 +189,7 @@ function KanbanView({ tickets, onSelect, isDark, statuses }: {
   );
 }
 
-export default function TicketList({ token, isDark, isCustomer, accountId, contactId, onSelect }: Props) {
+export default function TicketList({ isDark, isCustomer, onSelect }: Props) {
   const [tickets, setTickets] = useState<ZohoTicket[]>([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
@@ -211,10 +208,10 @@ export default function TicketList({ token, isDark, isCustomer, accountId, conta
   // Load agents + statuses once (agents only — customers don't need these)
   useEffect(() => {
     if (!isCustomer) {
-      listAgents(token).then(r => setAgents(r.data ?? [])).catch(() => {});
+      listAgents({ isCustomer }).then(r => setAgents(r.data ?? [])).catch(() => {});
     }
-    listStatuses(token).then(r => setStatuses(r.data ?? [])).catch(() => {});
-  }, [token, isCustomer]);
+    listStatuses({ isCustomer }).then(r => setStatuses(r.data ?? [])).catch(() => {});
+  }, [isCustomer]);
 
   const hasAgentFilter = agentFilter !== 'all';
 
@@ -226,7 +223,7 @@ export default function TicketList({ token, isDark, isCustomer, accountId, conta
     setError(null);
     const pageArg = hasAgentFilter ? 1 : page;
     const limitArg = hasAgentFilter ? 100 : 50;
-    listTickets(token, pageArg, statusFilter, limitArg, accountId, contactId)
+    listTickets({ page: pageArg, status: statusFilter === 'all' ? undefined : statusFilter, limit: limitArg, isCustomer })
       .then(res => {
         const all = res.data ?? [];
         const filtered = hasAgentFilter
@@ -241,7 +238,7 @@ export default function TicketList({ token, isDark, isCustomer, accountId, conta
       })
       .catch(e => setError(e.message))
       .finally(() => setLoading(false));
-  }, [token, page, statusFilter, agentFilter, viewMode]);
+  }, [page, statusFilter, agentFilter, viewMode, isCustomer]);
 
   // Load all tickets for kanban
   useEffect(() => {
@@ -252,7 +249,7 @@ export default function TicketList({ token, isDark, isCustomer, accountId, conta
         ? ['Open', 'On Hold', 'Waiting on customer feedback', 'Closed']
         : [statusFilter]
       ).map(s =>
-        listTickets(token, 1, s, 200, accountId, contactId)
+        listTickets({ page: 1, status: s, limit: 200, isCustomer })
           .then(r => r.data ?? [])
           .catch(() => [] as ZohoTicket[])
       )
@@ -262,7 +259,7 @@ export default function TicketList({ token, isDark, isCustomer, accountId, conta
         setKanbanTickets(hasAgentFilter ? all.filter(t => t.assigneeId === agentFilter) : all);
       })
       .finally(() => setKanbanLoading(false));
-  }, [token, statusFilter, agentFilter, viewMode]);
+  }, [statusFilter, agentFilter, viewMode, isCustomer]);
 
   const totalPages = hasAgentFilter ? 1 : Math.max(Math.ceil(total / 50), hasMore ? page + 1 : page);
 

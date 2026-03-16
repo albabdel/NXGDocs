@@ -5,14 +5,13 @@ import type { ZohoAgent, ZohoStatus } from './types';
 import { TICKET_TEMPLATES, generateAutoReply } from './supportConfig';
 
 interface Props {
-  token: string;
   isDark: boolean;
   isCustomer?: boolean;
   onClose: () => void;
   onCreated: () => void;
 }
 
-export default function CreateTicketModal({ token, isDark, isCustomer, onClose, onCreated }: Props) {
+export default function CreateTicketModal({ isDark, isCustomer, onClose, onCreated }: Props) {
   const [agents, setAgents] = useState<ZohoAgent[]>([]);
   const [statuses, setStatuses] = useState<ZohoStatus[]>([]);
   const [submitting, setSubmitting] = useState(false);
@@ -28,15 +27,15 @@ export default function CreateTicketModal({ token, isDark, isCustomer, onClose, 
   const [autoReply, setAutoReply] = useState(true);
 
   useEffect(() => {
-    listAgents(token).then(r => setAgents(r.data ?? [])).catch(() => {});
-    listStatuses(token).then(r => {
+    listAgents({ isCustomer }).then(r => setAgents(r.data ?? [])).catch(() => {});
+    listStatuses({ isCustomer }).then(r => {
       const data = r.data ?? [];
       setStatuses(data);
       if (data.length && !data.find(s => s.displayName === 'Open')) {
         setStatus(data[0].displayName);
       }
     }).catch(() => {});
-  }, [token]);
+  }, [isCustomer]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -44,19 +43,22 @@ export default function CreateTicketModal({ token, isDark, isCustomer, onClose, 
     setSubmitting(true);
     setError(null);
     try {
-      const newTicket = await createTicket(token, {
-        subject: subject.trim(),
-        description: description.trim(),
-        email: email.trim(),
-        priority,
-        status,
-        assigneeId: assigneeId || undefined,
+      const newTicket = await createTicket({
+        data: {
+          subject: subject.trim(),
+          description: description.trim(),
+          email: email.trim(),
+          priority,
+          status,
+          assigneeId: assigneeId || undefined,
+        },
+        isCustomer,
       });
       
       if (autoReply && newTicket.id) {
         try {
           const replyContent = generateAutoReply(newTicket.ticketNumber, priority);
-          await addComment(token, newTicket.id, replyContent, true);
+          await addComment({ ticketId: newTicket.id, content: replyContent, isPublic: true, isCustomer });
         } catch {
           // Silently fail auto-reply - ticket was created successfully
         }

@@ -110,14 +110,22 @@ export interface ZohoContact {
   };
 }
 
+/** Token data for agent mode (Zoho OAuth) - stores access token for API calls */
 export interface ZohoTokenData {
   accessToken: string;
   expiry: number;
-  mode: LoginMode;
-  /** Only set for customer mode — the account (org) they belong to */
-  accountId?: string | null;
-  /** Fallback if no accountId — filter by contact */
-  contactId?: string | null;
-  /** Display name for the logged-in customer */
-  displayName?: string;
+  mode: 'agent';
 }
+
+/** Session data for customer mode (Auth0 -> session cookie) - NO secrets stored */
+export interface ZohoSessionData {
+  mode: 'customer';
+  contactId: string;
+  accountId: string | null;
+  displayName: string;
+  account: string | null;
+  sessionExpiry: number;
+}
+
+/** Union type for stored auth data */
+export type ZohoAuthData = ZohoTokenData | ZohoSessionData;
