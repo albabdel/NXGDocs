@@ -321,16 +321,16 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
     setError(null);
     try {
       const agentPromise = (!isCustomer && !agents.length)
-        ? listAgents({ isCustomer }).catch(() => ({ data: [] }))
+        ? listAgents({ isCustomer, token }).catch(() => ({ data: [] }))
         : Promise.resolve({ data: agents });
       const statusPromise = (!isCustomer && !statuses.length)
-        ? listStatuses({ isCustomer }).catch(() => ({ data: [] }))
+        ? listStatuses({ isCustomer, token }).catch(() => ({ data: [] }))
         : Promise.resolve({ data: statuses });
 
       const [t, c, a, st, ag] = await Promise.all([
-        getTicket({ id: ticketId, isCustomer }),
-        getConversations({ ticketId, isCustomer }),
-        getAttachments({ ticketId, isCustomer }).catch(() => ({ data: [] })),
+        getTicket({ id: ticketId, isCustomer, token }),
+        getConversations({ ticketId, isCustomer, token }),
+        getAttachments({ ticketId, isCustomer, token }).catch(() => ({ data: [] })),
         statusPromise,
         agentPromise,
       ]);
@@ -359,7 +359,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
     if (!ticket || updatingStatus || newStatus === ticket.status) return;
     setUpdatingStatus(true);
     try {
-      const updated = await updateTicket({ ticketId, fields: { status: newStatus }, isCustomer });
+      const updated = await updateTicket({ ticketId, fields: { status: newStatus }, isCustomer, token });
       setTicket(updated);
       showMsg(`Status changed to ${newStatus}.`);
     } catch (e: unknown) {
@@ -373,7 +373,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
     if (!ticket || updatingAssignee) return;
     setUpdatingAssignee(true);
     try {
-      const updated = await updateTicket({ ticketId, fields: { assigneeId: assigneeId || '' }, isCustomer });
+      const updated = await updateTicket({ ticketId, fields: { assigneeId: assigneeId || '' }, isCustomer, token });
       setTicket({ ...updated, assignee: agents.find(a => a.id === assigneeId) ? {
         id: assigneeId,
         firstName: agents.find(a => a.id === assigneeId)?.firstName ?? '',
@@ -394,11 +394,11 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
     setSubmitting(true);
     try {
       if (comment.trim()) {
-        await addComment({ ticketId, content: comment.trim(), isPublic: isPublicComment, isCustomer });
+        await addComment({ ticketId, content: comment.trim(), isPublic: isPublicComment, isCustomer, token });
       }
       if (attachFile) {
         setUploading(true);
-        await uploadAttachment({ ticketId, file: attachFile, isCustomer });
+        await uploadAttachment({ ticketId, file: attachFile, isCustomer, token });
         setAttachFile(null);
         setUploading(false);
       }
@@ -586,7 +586,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
               </label>
               <StyledSelect
                 value={ticket.priority}
-                onChange={val => updateTicket({ ticketId, fields: { priority: val }, isCustomer }).then(setTicket).catch(() => {})}
+                onChange={val => updateTicket({ ticketId, fields: { priority: val }, isCustomer, token }).then(setTicket).catch(() => {})}
                 isDark={isDark}
                 style={{ width: '100%' }}
               >
