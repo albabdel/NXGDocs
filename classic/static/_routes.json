@@ -2,10 +2,6 @@
   "version": 1,
   "include": ["/*"],
   "exclude": [
-    "/zoho-proxy/*",
-    "/zoho-customer-auth",
-    "/page-feedback",
-    "/voc-feedback",
     "/assets/*",
     "/*.js",
     "/*.css",
