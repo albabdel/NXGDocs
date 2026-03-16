@@ -13,6 +13,6 @@ deploy-production:
     - rm -rf /tmp/deploy-build
     - cp -r classic/build /tmp/deploy-build
     - rm -rf /tmp/deploy-build/videos
-    - npx wrangler pages deploy /tmp/deploy-build --project-name gcxone --commit-dirty=true
+    - npx wrangler pages deploy /tmp/deploy-build --project-name gcxone --branch main --commit-dirty=true
   variables:
     CLOUDFLARE_ACCOUNT_ID: "ff9df0a2daf8c9eb1032f67dd551c784"
