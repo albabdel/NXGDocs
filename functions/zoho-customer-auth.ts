@@ -1,4 +1,4 @@
-// classic/functions/zoho-customer-auth.ts
+// functions/zoho-customer-auth.ts
 // Cloudflare Pages Function — Auth0 id_token → Zoho Desk session for customer portal
 //
 // Flow:
@@ -6,8 +6,12 @@
 //   2. Browser POSTs { action: 'auth0-exchange', idToken } to this function
 //   3. Function verifies the id_token signature using Auth0 JWKS (RS256)
 //   4. Function extracts email, refreshes Zoho service account token
-//   5. Function finds Zoho contact by email, returns Zoho access token + contact info
-//   6. Browser stores Zoho token in sessionStorage — same shape as agent token
+//   5. Function finds Zoho contact by email, creates HttpOnly session cookie
+//   6. Browser receives safe profile data only (token NEVER exposed to JavaScript)
+//
+// SECURITY: The Zoho service account token is NEVER returned to the browser.
+// Instead, an HttpOnly session cookie is set that JavaScript cannot access.
+// This prevents customers from accessing other customers' tickets.
 //
 // Env secrets required (Cloudflare Pages dashboard → Settings → Environment variables):
 //   AUTH0_DOMAIN         — e.g. nxgen.eu.auth0.com
@@ -16,6 +20,9 @@
 //   ZOHO_CLIENT_ID       — Zoho OAuth app client ID (same as frontend)
 //   ZOHO_CLIENT_SECRET   — Zoho OAuth app client secret (server-side only, never in browser)
 //   ZOHO_ORG_ID          — Zoho Desk org ID (e.g. 20067436506)
+//   SESSION_SECRET       — Secret key for signing session tokens (32+ chars recommended)
+
+import { createSessionCookie, buildSessionCookieHeader } from './lib/zoho-session';
 
 interface Env {
   AUTH0_DOMAIN: string;
@@ -23,6 +30,7 @@ interface Env {
   ZOHO_CLIENT_ID: string;
   ZOHO_CLIENT_SECRET: string;
   ZOHO_ORG_ID: string;
+  SESSION_SECRET: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -194,16 +202,31 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       }, 404);
     }
 
-    return json({
+    // SECURITY: Create HttpOnly session cookie - token NEVER exposed to JavaScript
+    const displayName = claims.name
+      ?? `${contact.firstName ?? ''} ${contact.lastName ?? ''}`.trim()
+      || email;
+
+    const sessionToken = await createSessionCookie(
+      contact.id,
+      contact.accountId ?? null,
+      displayName,
+      context.env.SESSION_SECRET,
+    );
+
+    // Return only safe profile data - NO access token
+    return new Response(JSON.stringify({
       ok: true,
-      accessToken: zToken,
-      expiry: Date.now() + expiresIn * 1000,
-      accountId: contact.accountId ?? null,
       contactId: contact.id,
-      displayName: (claims.name
-        ?? `${contact.firstName ?? ''} ${contact.lastName ?? ''}`.trim())
-        || email,
+      accountId: contact.accountId ?? null,
+      displayName,
       account: contact.account?.accountName ?? null,
+    }), {
+      headers: {
+        'Set-Cookie': buildSessionCookieHeader(sessionToken),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     });
   } catch (e) {
     const msg = e instanceof Error ? e.message : 'Internal error';
