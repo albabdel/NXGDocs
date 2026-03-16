@@ -17,7 +17,7 @@ const AGENT_SCOPES = [
   'Desk.search.READ',
   'Desk.basic.READ',
   'aaaserver.profile.read',
-].join(' ');
+].join(',');
 
 // ---------------------------------------------------------------------------
 // Auth0 customer OAuth (implicit, id_token only)

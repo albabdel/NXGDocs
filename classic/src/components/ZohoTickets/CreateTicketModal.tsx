@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { X, Loader, Send } from 'lucide-react';
-import { createTicket, listAgents, listStatuses } from './zohoApi';
+import { X, Loader, Send, FileText, Zap } from 'lucide-react';
+import { createTicket, listAgents, listStatuses, addComment } from './zohoApi';
 import type { ZohoAgent, ZohoStatus } from './types';
+import { TICKET_TEMPLATES, generateAutoReply } from './supportConfig';
 
 interface Props {
   token: string;
@@ -23,6 +24,8 @@ export default function CreateTicketModal({ token, isDark, isCustomer, onClose, 
   const [priority, setPriority] = useState('Medium');
   const [status, setStatus] = useState('Open');
   const [assigneeId, setAssigneeId] = useState('');
+  const [selectedTemplate, setSelectedTemplate] = useState('');
+  const [autoReply, setAutoReply] = useState(true);
 
   useEffect(() => {
     listAgents(token).then(r => setAgents(r.data ?? [])).catch(() => {});
@@ -41,7 +44,7 @@ export default function CreateTicketModal({ token, isDark, isCustomer, onClose, 
     setSubmitting(true);
     setError(null);
     try {
-      await createTicket(token, {
+      const newTicket = await createTicket(token, {
         subject: subject.trim(),
         description: description.trim(),
         email: email.trim(),
@@ -49,6 +52,16 @@ export default function CreateTicketModal({ token, isDark, isCustomer, onClose, 
         status,
         assigneeId: assigneeId || undefined,
       });
+      
+      if (autoReply && newTicket.id) {
+        try {
+          const replyContent = generateAutoReply(newTicket.ticketNumber, priority);
+          await addComment(token, newTicket.id, replyContent, true);
+        } catch {
+          // Silently fail auto-reply - ticket was created successfully
+        }
+      }
+      
       onCreated();
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : 'Failed to create ticket');
@@ -112,6 +125,37 @@ export default function CreateTicketModal({ token, isDark, isCustomer, onClose, 
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="px-6 py-5 space-y-4 overflow-y-auto" style={{ maxHeight: 'calc(90vh - 130px)' }}>
+          {/* Template Selector */}
+          <div>
+            <label style={labelStyle}>
+              <FileText className="w-3 h-3 inline mr-1" style={{ color: '#E8B058' }} />
+              Ticket Template
+            </label>
+            <select
+              value={selectedTemplate}
+              onChange={e => {
+                const templateId = e.target.value;
+                setSelectedTemplate(templateId);
+                if (templateId) {
+                  const template = TICKET_TEMPLATES.find(t => t.id === templateId);
+                  if (template) {
+                    setSubject(template.subjectPrefix);
+                    setDescription(template.descriptionTemplate);
+                    setPriority(template.priority);
+                  }
+                }
+              }}
+              style={inputStyle}
+            >
+              <option value="">Select a template (optional)</option>
+              {TICKET_TEMPLATES.map(t => (
+                <option key={t.id} value={t.id}>
+                  {t.name} - {t.description}
+                </option>
+              ))}
+            </select>
+          </div>
+
           {/* Subject */}
           <div>
             <label style={labelStyle}>Subject <span style={{ color: '#ef4444' }}>*</span></label>
@@ -185,6 +229,31 @@ export default function CreateTicketModal({ token, isDark, isCustomer, onClose, 
               </select>
             </div>
           )}
+
+          {/* Auto-reply option */}
+          <div
+            className="flex items-center gap-2 px-3 py-2 rounded-lg"
+            style={{
+              background: isDark ? 'rgba(232,176,88,0.06)' : 'rgba(232,176,88,0.04)',
+              border: `1px solid ${isDark ? 'rgba(232,176,88,0.15)' : 'rgba(232,176,88,0.15)'}`,
+            }}
+          >
+            <input
+              type="checkbox"
+              id="autoReply"
+              checked={autoReply}
+              onChange={e => setAutoReply(e.target.checked)}
+              style={{ accentColor: '#E8B058', cursor: 'pointer' }}
+            />
+            <label
+              htmlFor="autoReply"
+              className="text-xs flex items-center gap-1"
+              style={{ color: 'var(--ifm-color-content)', cursor: 'pointer' }}
+            >
+              <Zap className="w-3 h-3" style={{ color: '#E8B058' }} />
+              Send automatic acknowledgment reply
+            </label>
+          </div>
 
           {error && (
             <p className="text-xs rounded-lg px-3 py-2" style={{ background: 'rgba(239,68,68,0.08)', color: '#ef4444', border: '1px solid rgba(239,68,68,0.2)' }}>

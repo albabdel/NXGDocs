@@ -2,13 +2,19 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import {
   ArrowLeft, Loader, AlertCircle, Send, User, MessageSquare,
   ExternalLink, Paperclip, X, Lock, Globe, Languages, ChevronDown,
-  ImageIcon, Download, Eye, EyeOff, Plus,
+  ImageIcon, Download, Eye, EyeOff, Plus, Clock, FileText, Zap,
 } from 'lucide-react';
 import {
   getTicket, getConversations, addComment, updateTicket,
   listStatuses, listAgents, getAttachments, uploadAttachment, translateText,
 } from './zohoApi';
 import type { ZohoTicket, ZohoConversationItem, ZohoAgent, ZohoStatus, ZohoAttachment } from './types';
+import CRMPanel from '../CRMPanel/CRMPanel';
+import {
+  getCannedResponsesByCategory,
+  calculateSLARemaining,
+  formatSLARemaining,
+} from './supportConfig';
 
 interface Props {
   token: string;
@@ -26,6 +32,50 @@ const PRIORITY_STYLES: Record<string, { bg: string; color: string }> = {
 };
 
 const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];
+
+function SLATimer({ ticket, isDark }: { ticket: ZohoTicket; isDark: boolean }) {
+  const [slaData, setSlaData] = useState<ReturnType<typeof calculateSLARemaining>>(null);
+  
+  useEffect(() => {
+    const updateSLA = () => {
+      const responseSLA = calculateSLARemaining(ticket.createdTime, ticket.priority, 'response');
+      setSlaData(responseSLA);
+    };
+    
+    updateSLA();
+    const interval = setInterval(updateSLA, 60000);
+    return () => clearInterval(interval);
+  }, [ticket.createdTime, ticket.priority]);
+  
+  if (!slaData || ticket.status === 'Closed') return null;
+  
+  const isWarning = slaData.percentage < 30 && !slaData.isBreached;
+  const bgColor = slaData.isBreached 
+    ? 'rgba(239,68,68,0.12)' 
+    : isWarning 
+      ? 'rgba(245,158,11,0.12)' 
+      : 'rgba(34,197,94,0.12)';
+  const textColor = slaData.isBreached 
+    ? '#ef4444' 
+    : isWarning 
+      ? '#f59e0b' 
+      : '#22c55e';
+  const borderColor = slaData.isBreached 
+    ? 'rgba(239,68,68,0.3)' 
+    : isWarning 
+      ? 'rgba(245,158,11,0.3)' 
+      : 'rgba(34,197,94,0.3)';
+  
+  return (
+    <div
+      className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium"
+      style={{ background: bgColor, color: textColor, border: `1px solid ${borderColor}` }}
+    >
+      <Clock className="w-3 h-3" />
+      {formatSLARemaining(slaData.remainingMs)}
+    </div>
+  );
+}
 
 function formatDateTime(iso: string): string {
   return new Date(iso).toLocaleString('en-GB', {
@@ -403,8 +453,11 @@ export default function TicketDetail({ token, ticketId, isDark, isCustomer, onBa
         <ArrowLeft className="w-4 h-4" /> Back to tickets
       </button>
 
-      {/* Header card */}
-      <div className="rounded-xl border p-5 mb-4" style={cardStyle}>
+      {/* Main content grid: Ticket detail on left, CRM panel on right */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2">
+          {/* Header card */}
+          <div className="rounded-xl border p-5 mb-4" style={cardStyle}>
         <div className="flex items-start gap-3 justify-between flex-wrap">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-2 flex-wrap">
@@ -428,6 +481,7 @@ export default function TicketDetail({ token, ticketId, isDark, isCustomer, onBa
                   Overdue
                 </span>
               )}
+              <SLATimer ticket={ticket} isDark={isDark} />
             </div>
             <h2 className="text-lg font-bold mb-1" style={{ color: 'var(--ifm-color-content)' }}>
               {ticket.subject}
@@ -682,9 +736,51 @@ export default function TicketDetail({ token, ticketId, isDark, isCustomer, onBa
       {/* Add comment */}
       <div className="rounded-xl border p-5" style={cardStyle}>
         <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
-          <h3 className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#E8B058' }}>
-            Add Comment
-          </h3>
+          <div className="flex items-center gap-2">
+            <h3 className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#E8B058' }}>
+              Add Comment
+            </h3>
+            {!isCustomer && (
+              <div className="relative">
+                <select
+                  onChange={e => {
+                    if (e.target.value) {
+                      const responsesByCategory = getCannedResponsesByCategory();
+                      for (const cats of Object.values(responsesByCategory)) {
+                        const found = cats.find(r => r.id === e.target.value);
+                        if (found) {
+                          const content = found.content.replace('{ticketNumber}', ticket.ticketNumber);
+                          setComment(prev => prev ? `${prev}\n\n${content}` : content);
+                          break;
+                        }
+                      }
+                      e.target.value = '';
+                    }
+                  }}
+                  style={{
+                    background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+                    color: 'var(--ifm-color-content-secondary)',
+                    border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                    borderRadius: '0.375rem',
+                    padding: '0.25rem 0.5rem',
+                    fontSize: '0.7rem',
+                    cursor: 'pointer',
+                    outline: 'none',
+                  }}
+                  defaultValue=""
+                >
+                  <option value="" disabled>Canned Responses...</option>
+                  {Object.entries(getCannedResponsesByCategory()).map(([category, responses]) => (
+                    <optgroup key={category} label={category}>
+                      {responses.map(r => (
+                        <option key={r.id} value={r.id}>{r.name}</option>
+                      ))}
+                    </optgroup>
+                  ))}
+                </select>
+              </div>
+            )}
+          </div>
           {/* Public / Private toggle — agents only */}
           {!isCustomer && <div className="flex items-center gap-1.5 rounded-full p-0.5" style={{
             background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)',
@@ -806,6 +902,13 @@ export default function TicketDetail({ token, ticketId, isDark, isCustomer, onBa
             {actionMsg.text}
           </p>
         )}
+      </div>
+        </div>
+
+        {/* CRM Panel - right side */}
+        <div>
+          <CRMPanel token={token} email={ticket.email} isDark={isDark} />
+        </div>
       </div>
     </div>
   );
