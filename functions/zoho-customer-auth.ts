@@ -302,8 +302,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     // SECURITY: Create HttpOnly session cookie - token NEVER exposed to JavaScript
     const displayName = claims.name
-      ?? `${contact.firstName ?? ''} ${contact.lastName ?? ''}`.trim()
-      || email;
+      ?? (`${contact.firstName ?? ''} ${contact.lastName ?? ''}`.trim() || email);
 
     const sessionToken = await createSessionCookie(
       contact.id,
