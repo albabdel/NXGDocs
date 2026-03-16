@@ -391,13 +391,14 @@ export function useZohoAuth() {
     window.location.href = buildZohoAgentUrl();
   }, []);
 
-  /** Redirect to Zoho Customer Portal for login */
+  /** Redirect to Auth0 for customer login */
   const loginCustomer = useCallback(() => {
     setLoginError(null);
     setRetrying(false);
-    // Redirect directly to Zoho's customer portal login
-    // After login, users can view their tickets on the Zoho portal
-    window.location.href = ZOHO_PORTAL_LOGIN_URL;
+    const nonce = randomString();
+    localStorage.setItem(PENDING_MODE_KEY, 'customer');
+    localStorage.setItem(PENDING_NONCE_KEY, nonce);
+    window.location.href = buildAuth0Url(nonce);
   }, []);
 
   /** Clear error and retry login */
