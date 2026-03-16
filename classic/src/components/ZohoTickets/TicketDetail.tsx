@@ -40,7 +40,8 @@ function formatBytes(bytes: number): string {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-function htmlToText(html: string): string {
+function htmlToText(html: string | null | undefined): string {
+  if (!html) return '';
   return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
@@ -69,7 +70,7 @@ function Avatar({ name, photoURL, type, isDark }: {
   );
 }
 
-function TranslateButton({ text, isDark }: { text: string; isDark: boolean }) {
+function TranslateButton({ text, isDark }: { text: string | null | undefined; isDark: boolean }) {
   const [translated, setTranslated] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
