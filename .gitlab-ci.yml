@@ -15,5 +15,4 @@ deploy-production:
     - rm -rf /tmp/deploy-build/videos
     - npx wrangler pages deploy /tmp/deploy-build --project-name gcxone --commit-dirty=true
   variables:
-    CLOUDFLARE_API_TOKEN: $CLOUDFLARE_API_TOKEN
     CLOUDFLARE_ACCOUNT_ID: "ff9df0a2daf8c9eb1032f67dd551c784"
