@@ -165,6 +165,7 @@ export default function TicketPortal() {
             isDark={isDark}
             isCustomer={isCustomer}
             onSelect={setSelectedTicket}
+            token={token ?? undefined}
           />
         )}
       </div>

@@ -15,19 +15,21 @@ function getProxyBase(isCustomer = false): string {
 }
 
 /**
- * Make an authenticated API call using session-based authentication.
- * The browser automatically sends session cookies - no tokens in client code.
+ * Make an authenticated API call.
+ * - Agents: Pass token in Authorization header (OAuth)
+ * - Customers: Session cookie sent automatically by browser
  */
 async function apiCall<T>(
   path: string,
   options: {
     isCustomer?: boolean;
+    token?: string; // Required for agent mode
     method?: RequestInit['method'];
     body?: RequestInit['body'];
     headers?: Record<string, string>;
   } = {}
 ): Promise<T> {
-  const { isCustomer = false, method, body, headers: extraHeaders = {} } = options;
+  const { isCustomer = false, token, method, body, headers: extraHeaders = {} } = options;
   const isWrite = method === 'POST' || method === 'PATCH' || method === 'PUT';
   const isFormData = body instanceof FormData;
   const proxyBase = getProxyBase(isCustomer);
@@ -35,9 +37,10 @@ async function apiCall<T>(
   const headers: Record<string, string> = {
     'orgId': ORG_ID,
     ...(isWrite && !isFormData ? { 'Content-Type': 'application/json' } : {}),
+    // For agents, pass OAuth token in Authorization header
+    ...(!isCustomer && token ? { 'Authorization': `Zoho-oauthtoken ${token}` } : {}),
     ...extraHeaders,
   };
-  // No Authorization header - session cookie is sent automatically by browser
 
   const res = await fetch(`${proxyBase}${path}`, {
     method,
@@ -58,12 +61,13 @@ export interface ListTicketsOptions {
   status?: string;
   limit?: number;
   isCustomer?: boolean;
+  token?: string;
 }
 
 export async function listTickets(
   options: ListTicketsOptions = {}
 ): Promise<{ data: ZohoTicket[]; count: number }> {
-  const { page = 1, status, limit = 50, isCustomer = false } = options;
+  const { page = 1, status, limit = 50, isCustomer = false, token } = options;
   
   const params = new URLSearchParams({
     from: String((page - 1) * limit),
@@ -81,31 +85,33 @@ export async function listTickets(
     params.set('status', status);
   }
   
-  return apiCall(`/tickets?${params}`, { isCustomer });
+  return apiCall(`/tickets?${params}`, { isCustomer, token });
 }
 
 /** Options for getting a single ticket */
 export interface GetTicketOptions {
   id: string;
   isCustomer?: boolean;
+  token?: string;
 }
 
 export async function getTicket(options: GetTicketOptions): Promise<ZohoTicket> {
-  const { id, isCustomer = false } = options;
-  return apiCall(`/tickets/${id}`, { isCustomer });
+  const { id, isCustomer = false, token } = options;
+  return apiCall(`/tickets/${id}`, { isCustomer, token });
 }
 
 /** Options for getting conversations */
 export interface GetConversationsOptions {
   ticketId: string;
   isCustomer?: boolean;
+  token?: string;
 }
 
 export async function getConversations(
   options: GetConversationsOptions
 ): Promise<{ data: ZohoConversationItem[] }> {
-  const { ticketId, isCustomer = false } = options;
-  return apiCall(`/tickets/${ticketId}/conversations`, { isCustomer });
+  const { ticketId, isCustomer = false, token } = options;
+  return apiCall(`/tickets/${ticketId}/conversations`, { isCustomer, token });
 }
 
 /** Options for adding a comment */
@@ -114,12 +120,14 @@ export interface AddCommentOptions {
   content: string;
   isPublic?: boolean;
   isCustomer?: boolean;
+  token?: string;
 }
 
 export async function addComment(options: AddCommentOptions): Promise<void> {
-  const { ticketId, content, isPublic = true, isCustomer = false } = options;
+  const { ticketId, content, isPublic = true, isCustomer = false, token } = options;
   await apiCall(`/tickets/${ticketId}/comments`, {
     isCustomer,
+    token,
     method: 'POST',
     body: JSON.stringify({ content, isPublic, contentType: 'plainText' }),
   });
@@ -130,12 +138,14 @@ export interface UpdateTicketStatusOptions {
   ticketId: string;
   status: string;
   isCustomer?: boolean;
+  token?: string;
 }
 
 export async function updateTicketStatus(options: UpdateTicketStatusOptions): Promise<ZohoTicket> {
-  const { ticketId, status, isCustomer = false } = options;
+  const { ticketId, status, isCustomer = false, token } = options;
   return apiCall(`/tickets/${ticketId}`, {
     isCustomer,
+    token,
     method: 'PATCH',
     body: JSON.stringify({ status }),
   });
@@ -146,12 +156,14 @@ export interface UpdateTicketOptions {
   ticketId: string;
   fields: Partial<{ status: string; assigneeId: string; priority: string; customFields: Record<string, string> }>;
   isCustomer?: boolean;
+  token?: string;
 }
 
 export async function updateTicket(options: UpdateTicketOptions): Promise<ZohoTicket> {
-  const { ticketId, fields, isCustomer = false } = options;
+  const { ticketId, fields, isCustomer = false, token } = options;
   return apiCall(`/tickets/${ticketId}`, {
     isCustomer,
+    token,
     method: 'PATCH',
     body: JSON.stringify(fields),
   });
@@ -160,32 +172,35 @@ export async function updateTicket(options: UpdateTicketOptions): Promise<ZohoTi
 /** Options for listing statuses */
 export interface ListStatusesOptions {
   isCustomer?: boolean;
+  token?: string;
 }
 
 export async function listStatuses(options: ListStatusesOptions = {}): Promise<{ data: ZohoStatus[] }> {
-  const { isCustomer = false } = options;
-  return apiCall(`/statuses?type=ticketStatuses`, { isCustomer });
+  const { isCustomer = false, token } = options;
+  return apiCall(`/statuses?type=ticketStatuses`, { isCustomer, token });
 }
 
 /** Options for listing agents */
 export interface ListAgentsOptions {
   isCustomer?: boolean;
+  token?: string;
 }
 
 export async function listAgents(options: ListAgentsOptions = {}): Promise<{ data: ZohoAgent[] }> {
-  const { isCustomer = false } = options;
-  return apiCall(`/agents?departmentId=${DEPT_ID}&limit=100`, { isCustomer });
+  const { isCustomer = false, token } = options;
+  return apiCall(`/agents?departmentId=${DEPT_ID}&limit=100`, { isCustomer, token });
 }
 
 /** Options for getting attachments */
 export interface GetAttachmentsOptions {
   ticketId: string;
   isCustomer?: boolean;
+  token?: string;
 }
 
 export async function getAttachments(options: GetAttachmentsOptions): Promise<{ data: ZohoAttachment[] }> {
-  const { ticketId, isCustomer = false } = options;
-  return apiCall(`/tickets/${ticketId}/attachments`, { isCustomer });
+  const { ticketId, isCustomer = false, token } = options;
+  return apiCall(`/tickets/${ticketId}/attachments`, { isCustomer, token });
 }
 
 /** Options for uploading an attachment */
@@ -193,14 +208,16 @@ export interface UploadAttachmentOptions {
   ticketId: string;
   file: File;
   isCustomer?: boolean;
+  token?: string;
 }
 
 export async function uploadAttachment(options: UploadAttachmentOptions): Promise<ZohoAttachment> {
-  const { ticketId, file, isCustomer = false } = options;
+  const { ticketId, file, isCustomer = false, token } = options;
   const form = new FormData();
   form.append('file', file, file.name);
   return apiCall(`/tickets/${ticketId}/attachments`, {
     isCustomer,
+    token,
     method: 'POST',
     body: form,
   });
@@ -219,12 +236,14 @@ export interface CreateTicketOptions {
     customFields?: Record<string, string>;
   };
   isCustomer?: boolean;
+  token?: string;
 }
 
 export async function createTicket(options: CreateTicketOptions): Promise<ZohoTicket> {
-  const { data, isCustomer = false } = options;
+  const { data, isCustomer = false, token } = options;
   return apiCall(`/tickets`, {
     isCustomer,
+    token,
     method: 'POST',
     body: JSON.stringify({ ...data, departmentId: DEPT_ID }),
   });
@@ -233,14 +252,20 @@ export async function createTicket(options: CreateTicketOptions): Promise<ZohoTi
 /** Options for getting user profile */
 export interface GetUserProfileOptions {
   isCustomer?: boolean;
+  token?: string;
 }
 
 /** Fetch the Zoho profile for the currently authenticated user (uses accounts.zoho.eu) */
 export async function getUserProfile(options: GetUserProfileOptions = {}): Promise<{ Email?: string; email?: string; Display_Name?: string }> {
-  const { isCustomer = false } = options;
+  const { isCustomer = false, token } = options;
   const proxyBase = getProxyBase(isCustomer);
+  const headers: Record<string, string> = {};
+  if (!isCustomer && token) {
+    headers['Authorization'] = `Zoho-oauthtoken ${token}`;
+  }
   const res = await fetch(`${proxyBase}/accounts/oauth/v2/user`, {
-    credentials: 'include', // Ensure session cookie is sent
+    credentials: 'include',
+    headers,
   });
   if (!res.ok) throw new Error(`Failed to fetch user profile: ${res.status}`);
   return res.json();
@@ -250,14 +275,15 @@ export async function getUserProfile(options: GetUserProfileOptions = {}): Promi
 export interface SearchContactByEmailOptions {
   email: string;
   isCustomer?: boolean;
+  token?: string;
 }
 
 /** Find a Zoho Desk Contact record by email address */
 export async function searchContactByEmail(options: SearchContactByEmailOptions): Promise<ZohoContact | null> {
-  const { email, isCustomer = false } = options;
+  const { email, isCustomer = false, token } = options;
   const res = await apiCall<{ data: ZohoContact[] }>(
     `/contacts/search?searchStr=${encodeURIComponent(email)}&searchField=email`,
-    { isCustomer }
+    { isCustomer, token }
   );
   return (res.data ?? [])[0] ?? null;
 }

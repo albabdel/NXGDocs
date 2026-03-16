@@ -8,6 +8,7 @@ interface Props {
   isDark: boolean;
   isCustomer?: boolean;
   onSelect: (ticket: ZohoTicket) => void;
+  token?: string;
 }
 
 const STATUS_FILTER_OPTIONS = ['all', 'Open', 'On Hold', 'Closed'] as const;
@@ -189,7 +190,7 @@ function KanbanView({ tickets, onSelect, isDark, statuses }: {
   );
 }
 
-export default function TicketList({ isDark, isCustomer, onSelect }: Props) {
+export default function TicketList({ isDark, isCustomer, onSelect, token }: Props) {
   const [tickets, setTickets] = useState<ZohoTicket[]>([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
@@ -208,10 +209,10 @@ export default function TicketList({ isDark, isCustomer, onSelect }: Props) {
   // Load agents + statuses once (agents only — customers don't need these)
   useEffect(() => {
     if (!isCustomer) {
-      listAgents({ isCustomer }).then(r => setAgents(r.data ?? [])).catch(() => {});
+      listAgents({ isCustomer, token }).then(r => setAgents(r.data ?? [])).catch(() => {});
     }
-    listStatuses({ isCustomer }).then(r => setStatuses(r.data ?? [])).catch(() => {});
-  }, [isCustomer]);
+    listStatuses({ isCustomer, token }).then(r => setStatuses(r.data ?? [])).catch(() => {});
+  }, [isCustomer, token]);
 
   const hasAgentFilter = agentFilter !== 'all';
 
@@ -223,7 +224,7 @@ export default function TicketList({ isDark, isCustomer, onSelect }: Props) {
     setError(null);
     const pageArg = hasAgentFilter ? 1 : page;
     const limitArg = hasAgentFilter ? 100 : 50;
-    listTickets({ page: pageArg, status: statusFilter === 'all' ? undefined : statusFilter, limit: limitArg, isCustomer })
+    listTickets({ page: pageArg, status: statusFilter === 'all' ? undefined : statusFilter, limit: limitArg, isCustomer, token })
       .then(res => {
         const all = res.data ?? [];
         const filtered = hasAgentFilter
@@ -238,7 +239,7 @@ export default function TicketList({ isDark, isCustomer, onSelect }: Props) {
       })
       .catch(e => setError(e.message))
       .finally(() => setLoading(false));
-  }, [page, statusFilter, agentFilter, viewMode, isCustomer]);
+  }, [page, statusFilter, agentFilter, viewMode, isCustomer, token]);
 
   // Load all tickets for kanban
   useEffect(() => {
@@ -249,7 +250,7 @@ export default function TicketList({ isDark, isCustomer, onSelect }: Props) {
         ? ['Open', 'On Hold', 'Waiting on customer feedback', 'Closed']
         : [statusFilter]
       ).map(s =>
-        listTickets({ page: 1, status: s, limit: 200, isCustomer })
+        listTickets({ page: 1, status: s, limit: 200, isCustomer, token })
           .then(r => r.data ?? [])
           .catch(() => [] as ZohoTicket[])
       )
