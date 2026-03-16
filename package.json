@@ -13,7 +13,8 @@
     "sidebar:reconcile": "node scripts/reconcile-sanity-sidebar.js",
     "sidebar:reconcile:apply": "node scripts/reconcile-sanity-sidebar.js --apply",
     "sidebar:generate": "node scripts/generate-sidebars-from-sanity.js",
-    "sanity:fetch": "node classic/scripts/fetch-sanity-content.js"
+    "sanity:fetch": "node classic/scripts/fetch-sanity-content.js",
+    "test:zoho-auth": "node scripts/test-zoho-auth.js"
   },
   "repository": {
     "type": "git",
