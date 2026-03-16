@@ -2,7 +2,8 @@ import React from 'react';
 import Layout from '@theme/Layout';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import Link from '@docusaurus/Link';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Loader } from 'lucide-react';
+import TicketPortal from '../components/ZohoTickets/TicketPortal';
 
 function PortalLoader() {
   return (
@@ -20,7 +21,6 @@ export default function SupportPage() {
     >
       <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
         <div className="max-w-5xl mx-auto px-6 py-8">
-          {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm mb-8" style={{ color: 'var(--ifm-color-content-secondary)' }}>
             <Link to="/" className="hover:text-[#E8B058] transition-colors no-underline">
               Home
@@ -29,12 +29,8 @@ export default function SupportPage() {
             <span style={{ color: 'var(--ifm-color-content)' }}>Support Portal</span>
           </nav>
 
-          {/* Ticket portal — client-only (requires window for OAuth) */}
           <BrowserOnly fallback={<PortalLoader />}>
-            {() => {
-              const TicketPortal = require('../components/ZohoTickets/TicketPortal').default;
-              return <TicketPortal />;
-            }}
+            {() => <TicketPortal />}
           </BrowserOnly>
         </div>
       </main>
