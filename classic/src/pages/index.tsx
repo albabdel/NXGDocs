@@ -247,6 +247,17 @@ export default function Home(): React.JSX.Element {
                         >
                             Roadmap
                         </Link>
+                        <Link
+                            to="/support"
+                            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium no-underline border"
+                            style={{
+                                borderColor: 'rgba(232,176,88,0.35)',
+                                color: '#E8B058',
+                                background: 'rgba(232,176,88,0.07)',
+                            }}
+                        >
+                            Support
+                        </Link>
                     </div>
 
                     {/* ── Quick Start ─────────────────────────────────── */}
