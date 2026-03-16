@@ -18,7 +18,7 @@ export interface CRMContact {
   title?: string;
   department?: string;
   accountId?: string | null;
-  account?: CRMAccount | null;
+  account?: { id: string; accountName: string } | null;
   owner?: {
     id: string;
     name: string;
