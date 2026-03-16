@@ -27,6 +27,12 @@ const AUTH0_DOMAIN = 'nxgen.eu.auth0.com';
 const AUTH0_CLIENT_ID = 'ygWwMxVGpKHSxLLdNxfxPs8GHCIQRwES'; // "NXGEN Docs Portal" SPA app
 
 // ---------------------------------------------------------------------------
+// Zoho Customer Portal (direct redirect)
+// ---------------------------------------------------------------------------
+
+const ZOHO_PORTAL_LOGIN_URL = 'https://helpdesk.nxgen.io/portal/nxgentechnology/login';
+
+// ---------------------------------------------------------------------------
 // Storage
 // ---------------------------------------------------------------------------
 
@@ -385,14 +391,13 @@ export function useZohoAuth() {
     window.location.href = buildZohoAgentUrl();
   }, []);
 
-  /** Redirect to Auth0 for customer login */
+  /** Redirect to Zoho Customer Portal for login */
   const loginCustomer = useCallback(() => {
     setLoginError(null);
     setRetrying(false);
-    const nonce = randomString(16);
-    localStorage.setItem(PENDING_NONCE_KEY, nonce);
-    localStorage.setItem(PENDING_MODE_KEY, 'customer');
-    window.location.href = buildAuth0Url(nonce);
+    // Redirect directly to Zoho's customer portal login
+    // After login, users can view their tickets on the Zoho portal
+    window.location.href = ZOHO_PORTAL_LOGIN_URL;
   }, []);
 
   /** Clear error and retry login */
