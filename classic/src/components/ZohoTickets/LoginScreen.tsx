@@ -1,15 +1,36 @@
 import React, { useState } from 'react';
-import { Headphones, LogIn, Shield, Briefcase, User, AlertCircle } from 'lucide-react';
-import type { LoginMode } from './types';
+import { Headphones, LogIn, Shield, Briefcase, User, AlertCircle, RefreshCw, Wifi, UserX, Lock, Clock, Server } from 'lucide-react';
+import type { LoginMode, AuthError, AuthErrorType } from './types';
 
 interface Props {
   onLogin: (mode: LoginMode) => void;
   isDark: boolean;
-  loginError?: string | null;
+  loginError?: AuthError | null;
+  retrying?: boolean;
+  onClearError?: () => void;
 }
 
-export default function LoginScreen({ onLogin, isDark, loginError }: Props) {
+export default function LoginScreen({ onLogin, isDark, loginError, retrying, onClearError }: Props) {
   const [mode, setMode] = useState<LoginMode>('agent');
+
+  // Get icon and color for error type
+  const getErrorMeta = (type: AuthErrorType): { icon: React.ReactNode; color: string } => {
+    switch (type) {
+      case 'network_error':
+        return { icon: <Wifi className="w-4 h-4" />, color: '#f59e0b' }; // amber
+      case 'contact_not_found':
+        return { icon: <UserX className="w-4 h-4" />, color: '#ef4444' }; // red
+      case 'portal_access_denied':
+        return { icon: <Lock className="w-4 h-4" />, color: '#ef4444' }; // red
+      case 'session_expired':
+      case 'invalid_token':
+        return { icon: <Clock className="w-4 h-4" />, color: '#f59e0b' }; // amber
+      case 'server_error':
+        return { icon: <Server className="w-4 h-4" />, color: '#f59e0b' }; // amber
+      default:
+        return { icon: <AlertCircle className="w-4 h-4" />, color: '#ef4444' }; // red
+    }
+  };
 
   const cardBg = isDark
     ? 'linear-gradient(135deg, rgba(232,176,88,0.06) 0%, rgba(0,0,0,0.4) 100%)'
@@ -94,18 +115,64 @@ export default function LoginScreen({ onLogin, isDark, loginError }: Props) {
         {/* Error */}
         {loginError && (
           <div
-            className="flex items-start gap-2 rounded-xl p-3 mb-4 text-left"
-            style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)' }}
+            className="flex items-start gap-3 rounded-xl p-4 mb-4 text-left"
+            style={{
+              background: loginError.retryable
+                ? 'rgba(245,158,11,0.08)'
+                : 'rgba(239,68,68,0.08)',
+              border: loginError.retryable
+                ? '1px solid rgba(245,158,11,0.25)'
+                : '1px solid rgba(239,68,68,0.25)',
+            }}
           >
-            <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#ef4444' }} />
-            <p className="text-xs" style={{ color: '#ef4444' }}>{loginError}</p>
+            <div className="flex-shrink-0 mt-0.5" style={{ color: getErrorMeta(loginError.type).color }}>
+              {getErrorMeta(loginError.type).icon}
+            </div>
+            <div className="flex-1">
+              <p
+                className="text-sm font-medium mb-1"
+                style={{ color: getErrorMeta(loginError.type).color }}
+              >
+                {loginError.message}
+              </p>
+              {loginError.action && (
+                <p
+                  className="text-xs"
+                  style={{ color: 'var(--ifm-color-content-secondary)' }}
+                >
+                  {loginError.action}
+                </p>
+              )}
+            </div>
+            {onClearError && (
+              <button
+                onClick={onClearError}
+                className="flex-shrink-0 p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+                style={{ color: 'var(--ifm-color-content-secondary)' }}
+                aria-label="Dismiss error"
+              >
+                ×
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* Retry indicator */}
+        {retrying && (
+          <div
+            className="flex items-center gap-2 rounded-xl p-3 mb-4"
+            style={{ background: 'rgba(59,130,246,0.08)', border: '1px solid rgba(59,130,246,0.2)' }}
+          >
+            <RefreshCw className="w-4 h-4 animate-spin" style={{ color: '#3b82f6' }} />
+            <p className="text-xs" style={{ color: '#3b82f6' }}>Connecting...</p>
           </div>
         )}
 
         {/* Sign in button */}
         <button
           onClick={() => onLogin(mode)}
-          className="w-full inline-flex items-center justify-center gap-3 px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:scale-[1.02]"
+          disabled={retrying}
+          className="w-full inline-flex items-center justify-center gap-3 px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
           style={{
             background: isCustomer
               ? 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)'
@@ -115,11 +182,15 @@ export default function LoginScreen({ onLogin, isDark, loginError }: Props) {
               ? '0 4px 20px rgba(59,130,246,0.3)'
               : '0 4px 20px rgba(232,176,88,0.3)',
             border: 'none',
-            cursor: 'pointer',
+            cursor: retrying ? 'not-allowed' : 'pointer',
           }}
         >
-          <LogIn className="w-5 h-5" />
-          {isCustomer ? 'Sign in with Zoho Portal' : 'Sign in as Staff'}
+          {retrying ? (
+            <RefreshCw className="w-5 h-5 animate-spin" />
+          ) : (
+            <LogIn className="w-5 h-5" />
+          )}
+          {retrying ? 'Connecting...' : isCustomer ? 'Sign in with Zoho Portal' : 'Sign in as Staff'}
         </button>
 
         <div

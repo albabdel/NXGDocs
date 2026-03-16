@@ -129,3 +129,24 @@ export interface ZohoSessionData {
 
 /** Union type for stored auth data */
 export type ZohoAuthData = ZohoTokenData | ZohoSessionData;
+
+// ---------------------------------------------------------------------------
+// Auth Error Types
+// ---------------------------------------------------------------------------
+
+export type AuthErrorType =
+  | 'network_error'
+  | 'invalid_token'
+  | 'contact_not_found'
+  | 'portal_access_denied'
+  | 'session_expired'
+  | 'nonce_mismatch'
+  | 'server_error'
+  | 'unknown';
+
+export interface AuthError {
+  type: AuthErrorType;
+  message: string;
+  action?: string;
+  retryable?: boolean;
+}

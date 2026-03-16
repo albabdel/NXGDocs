@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { ZohoTokenData, ZohoSessionData, ZohoAuthData, LoginMode } from './types';
+import type { ZohoTokenData, ZohoSessionData, ZohoAuthData, LoginMode, AuthError, AuthErrorType } from './types';
 
 // ---------------------------------------------------------------------------
 // Zoho agent OAuth (unchanged from original)
@@ -133,13 +133,126 @@ function loadStoredSession(): ZohoSessionData | null {
 }
 
 // ---------------------------------------------------------------------------
+// Error Classification
+// ---------------------------------------------------------------------------
+
+function classifyAuthError(error: unknown): AuthError {
+  if (!(error instanceof Error)) {
+    return { type: 'unknown', message: 'An unexpected error occurred.', retryable: false };
+  }
+
+  const msg = error.message.toLowerCase();
+
+  // Network errors
+  if (
+    msg.includes('network') ||
+    msg.includes('failed to fetch') ||
+    msg.includes('networkerror') ||
+    msg.includes('connection') ||
+    msg.includes('timeout')
+  ) {
+    return {
+      type: 'network_error',
+      message: 'Unable to connect to the server.',
+      action: 'Check your internet connection and try again.',
+      retryable: true,
+    };
+  }
+
+  // Contact not found (no Zoho Desk account)
+  if (msg.includes('no support account found') || msg.includes('contact not found')) {
+    return {
+      type: 'contact_not_found',
+      message: 'No support account found.',
+      action: 'Contact NXGEN support to set up your portal access.',
+      retryable: false,
+    };
+  }
+
+  // Portal access denied
+  if (msg.includes('portal access denied') || msg.includes('access denied') || msg.includes('unauthorized')) {
+    return {
+      type: 'portal_access_denied',
+      message: 'Portal access denied.',
+      action: 'Your account does not have permission to access this portal.',
+      retryable: false,
+    };
+  }
+
+  // Invalid or expired token
+  if (msg.includes('invalid token') || msg.includes('invalid_token') || msg.includes('token expired')) {
+    return {
+      type: 'invalid_token',
+      message: 'Your session is invalid.',
+      action: 'Please sign in again.',
+      retryable: false,
+    };
+  }
+
+  // Session expired
+  if (msg.includes('session expired') || msg.includes('session_expired')) {
+    return {
+      type: 'session_expired',
+      message: 'Your session has expired.',
+      action: 'Please sign in again.',
+      retryable: false,
+    };
+  }
+
+  // Server errors (5xx)
+  if (msg.includes('server error') || msg.includes('500') || msg.includes('502') || msg.includes('503')) {
+    return {
+      type: 'server_error',
+      message: 'Server is temporarily unavailable.',
+      action: 'Please try again in a few moments.',
+      retryable: true,
+    };
+  }
+
+  // Generic error
+  return {
+    type: 'unknown',
+    message: error.message || 'An error occurred during sign in.',
+    action: 'Please try again.',
+    retryable: true,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Retry Logic
+// ---------------------------------------------------------------------------
+
+async function withRetry<T>(
+  fn: () => Promise<T>,
+  options: { retries?: number; delayMs?: number; shouldRetry?: (error: unknown) => boolean } = {}
+): Promise<T> {
+  const { retries = 3, delayMs = 1000, shouldRetry = () => true } = options;
+
+  for (let attempt = 0; attempt < retries; attempt++) {
+    try {
+      return await fn();
+    } catch (error) {
+      if (attempt === retries - 1 || !shouldRetry(error)) {
+        throw error;
+      }
+      // Exponential backoff with jitter
+      const delay = delayMs * Math.pow(2, attempt) + Math.random() * 500;
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+  // This should never be reached, but TypeScript needs it
+  throw new Error('Retry exhausted');
+}
+
+// ---------------------------------------------------------------------------
 // Hook
 // ---------------------------------------------------------------------------
 
 export function useZohoAuth() {
   const [authData, setAuthData] = useState<ZohoAuthData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [loginError, setLoginError] = useState<string | null>(null);
+  const [loginError, setLoginError] = useState<AuthError | null>(null);
+  const [retrying, setRetrying] = useState(false);
 
   useEffect(() => {
     // 1. Check for Zoho OAuth callback (access_token in hash - agent mode only)
@@ -174,7 +287,12 @@ export function useZohoAuth() {
       try {
         const payload = JSON.parse(atob(auth0Raw.idToken.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
         if (storedNonce && payload.nonce !== storedNonce) {
-          setLoginError('Security check failed (nonce mismatch). Please try again.');
+          setLoginError({
+            type: 'nonce_mismatch',
+            message: 'Security check failed.',
+            action: 'Please try signing in again.',
+            retryable: false,
+          });
           setLoading(false);
           return;
         }
@@ -186,27 +304,46 @@ export function useZohoAuth() {
       // Response no longer contains accessToken - session cookie is HttpOnly
       (async () => {
         try {
-          const res = await fetch('/zoho-customer-auth', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action: 'auth0-exchange', idToken: auth0Raw.idToken }),
-          });
-          const text = await res.text();
-          let data: Record<string, unknown>;
-          try { data = JSON.parse(text); } catch { throw new Error(`Server error (${res.status}): ${text.slice(0, 200)}`); }
-          data = data as {
-            ok?: boolean;
-            contactId?: string;
-            accountId?: string | null;
-            displayName?: string;
-            account?: string | null;
-            sessionExpiry?: number;
-            error?: string;
-          };
+          setRetrying(true);
 
-          if (!res.ok || !data.ok) {
-            throw new Error(data.error ?? 'Failed to set up support access');
-          }
+          const data = await withRetry(
+            async () => {
+              const res = await fetch('/zoho-customer-auth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'auth0-exchange', idToken: auth0Raw.idToken }),
+              });
+              const text = await res.text();
+              let parsed: Record<string, unknown>;
+              try {
+                parsed = JSON.parse(text);
+              } catch {
+                throw new Error(`Server error (${res.status}): ${text.slice(0, 200)}`);
+              }
+
+              if (!res.ok || !parsed.ok) {
+                throw new Error((parsed.error as string) ?? 'Failed to set up support access');
+              }
+
+              return parsed as {
+                contactId?: string;
+                accountId?: string | null;
+                displayName?: string;
+                account?: string | null;
+                sessionExpiry?: number;
+              };
+            },
+            {
+              retries: 3,
+              delayMs: 500,
+              shouldRetry: (error) => {
+                const classified = classifyAuthError(error);
+                return classified.retryable ?? false;
+              },
+            }
+          );
+
+          setRetrying(false);
 
           // Store only profile data - NO access token
           // Session cookie is HttpOnly (JS can't access it)
@@ -220,8 +357,11 @@ export function useZohoAuth() {
           };
           sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(sessionData));
           setAuthData(sessionData);
+          setLoginError(null);
         } catch (e: unknown) {
-          setLoginError(e instanceof Error ? e.message : 'Login failed. Please try again.');
+          setRetrying(false);
+          const classifiedError = classifyAuthError(e);
+          setLoginError(classifiedError);
           setAuthData(null);
         } finally {
           setLoading(false);
@@ -240,6 +380,7 @@ export function useZohoAuth() {
   /** Redirect to Zoho OAuth for agent login */
   const loginAgent = useCallback(() => {
     setLoginError(null);
+    setRetrying(false);
     localStorage.setItem(PENDING_MODE_KEY, 'agent');
     window.location.href = buildZohoAgentUrl();
   }, []);
@@ -247,10 +388,17 @@ export function useZohoAuth() {
   /** Redirect to Auth0 for customer login */
   const loginCustomer = useCallback(() => {
     setLoginError(null);
+    setRetrying(false);
     const nonce = randomString(16);
     localStorage.setItem(PENDING_NONCE_KEY, nonce);
     localStorage.setItem(PENDING_MODE_KEY, 'customer');
     window.location.href = buildAuth0Url(nonce);
+  }, []);
+
+  /** Clear error and retry login */
+  const clearError = useCallback(() => {
+    setLoginError(null);
+    setRetrying(false);
   }, []);
 
   const logout = useCallback(async () => {
@@ -261,6 +409,7 @@ export function useZohoAuth() {
     localStorage.removeItem(PENDING_NONCE_KEY);
     setAuthData(null);
     setLoginError(null);
+    setRetrying(false);
 
     // For customer mode, notify server to clear session cookie
     if (authData?.mode === 'customer') {
@@ -284,6 +433,7 @@ export function useZohoAuth() {
     isAuthenticated: !!authData,
     loading,
     loginError,
+    retrying,
     login: useCallback((mode: LoginMode = 'agent') => {
       if (mode === 'customer') loginCustomer();
       else loginAgent();
@@ -291,13 +441,14 @@ export function useZohoAuth() {
     loginAgent,
     loginCustomer,
     logout,
+    clearError,
     mode: authData?.mode ?? null,
     contactId: session?.contactId ?? null,
     accountId: session?.accountId ?? null,
-    displayName: authData?.mode === 'customer' 
-      ? authData.displayName 
-      : authData?.mode === 'agent' 
-        ? 'Agent' 
+    displayName: authData?.mode === 'customer'
+      ? authData.displayName
+      : authData?.mode === 'agent'
+        ? 'Agent'
         : null,
   };
 }

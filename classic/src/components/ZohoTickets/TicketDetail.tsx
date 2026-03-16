@@ -286,7 +286,7 @@ function StyledSelect({ value, onChange, isDark, children, style }: SelectProps)
   );
 }
 
-export default function TicketDetail({ ticketId, isDark, isCustomer, onBack }: Props) {
+export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, token }: Props) {
   const [ticket, setTicket] = useState<ZohoTicket | null>(null);
   const [conversations, setConversations] = useState<ZohoConversationItem[]>([]);
   const [attachments, setAttachments] = useState<ZohoAttachment[]>([]);
