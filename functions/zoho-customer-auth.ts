@@ -151,6 +151,7 @@ interface ZohoContact {
   email: string;
   accountId: string | null;
   account?: { accountName: string };
+  isEndUser?: boolean;
 }
 
 async function findContactByEmail(
@@ -165,6 +166,100 @@ async function findContactByEmail(
   if (!res.ok) return null;
   const data = await res.json() as { data?: ZohoContact[] };
   return (data.data ?? []).find(c => c.email?.toLowerCase() === email.toLowerCase()) ?? null;
+}
+
+/**
+ * Auto-provision a new Zoho contact for customers who don't exist yet.
+ * Called when findContactByEmail returns null.
+ */
+async function createContact(
+  token: string,
+  email: string,
+  firstName: string,
+  lastName: string,
+  orgId: string,
+): Promise<ZohoContact> {
+  const res = await fetch('https://desk.zoho.eu/api/v1/contacts', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Zoho-oauthtoken ${token}`,
+      'orgId': orgId,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      firstName: firstName || '',
+      lastName: lastName || '',
+      email,
+      type: 'customerContact',
+    }),
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(`Failed to create contact: ${res.status} - ${errorText}`);
+  }
+
+  const data = await res.json() as { id?: string; firstName?: string; lastName?: string; email?: string; accountId?: string | null };
+  
+  return {
+    id: data.id!,
+    firstName: data.firstName ?? firstName,
+    lastName: data.lastName ?? lastName,
+    email: data.email ?? email,
+    accountId: data.accountId ?? null,
+  };
+}
+
+/**
+ * Ensure the contact has portal access (isEndUser flag).
+ * If not already an end user, invite them to access the customer portal.
+ * This is non-blocking - errors are logged but don't fail the login.
+ */
+async function ensurePortalAccess(
+  token: string,
+  contactId: string,
+  email: string,
+  orgId: string,
+): Promise<void> {
+  try {
+    // First check if already an end user
+    const contactRes = await fetch(`https://desk.zoho.eu/api/v1/contacts/${contactId}`, {
+      headers: { Authorization: `Zoho-oauthtoken ${token}`, orgId },
+    });
+
+    if (!contactRes.ok) {
+      console.warn(`ensurePortalAccess: Failed to fetch contact ${contactId}: ${contactRes.status}`);
+      return;
+    }
+
+    const contact = await contactRes.json() as ZohoContact;
+
+    if (contact.isEndUser) {
+      // Already has portal access
+      return;
+    }
+
+    // Invite as end user to enable portal access
+    const inviteRes = await fetch(`https://desk.zoho.eu/api/v1/contacts/${contactId}/inviteAsEndUser`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Zoho-oauthtoken ${token}`,
+        'orgId': orgId,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    if (!inviteRes.ok) {
+      const errorText = await inviteRes.text();
+      console.warn(`ensurePortalAccess: Failed to invite ${email}: ${inviteRes.status} - ${errorText}`);
+    } else {
+      console.log(`ensurePortalAccess: Invited ${email} as end user for contact ${contactId}`);
+    }
+  } catch (e) {
+    // Non-blocking: log error but don't fail the login
+    console.error(`ensurePortalAccess: Unexpected error for ${email}:`, e instanceof Error ? e.message : e);
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -201,6 +296,9 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         error: `No support account found for ${email}. Please contact NXGEN support.`,
       }, 404);
     }
+
+    // Ensure portal access is enabled (non-blocking)
+    await ensurePortalAccess(zToken, contact.id, email, context.env.ZOHO_ORG_ID);
 
     // SECURITY: Create HttpOnly session cookie - token NEVER exposed to JavaScript
     const displayName = claims.name
