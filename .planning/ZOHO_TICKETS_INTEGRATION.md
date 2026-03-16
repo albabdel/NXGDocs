@@ -85,14 +85,23 @@ Files: `classic/src/pages/support.tsx` + `classic/src/components/ZohoTickets/` (
 **Known limitation**: Zoho's native portal auto-translates ticket content for agents, but this doesn't come through the REST API — content arrives in the original language (German for most customers). Browser translate (right-click → Translate) works as a workaround. A native translate button can be added if needed.
 
 ### Phase 2 — End User Login (Contact, tenant-isolated)
-**Status: NOT STARTED**
+**Status: IMPLEMENTED ✅ — 2026-03-16**
 
 End customers sign in with their Zoho contact portal credentials. Zoho's own OAuth scoping ensures they only see tickets associated with their Contact record (which is linked to their org Account). No server-side filtering needed.
 
 Deliverables:
-- Same UI as Phase 1
-- OAuth flow for Contacts (may require Help Center portal to be enabled in Zoho)
-- Login mode toggle: "I'm a customer" / "NXGEN Staff"
+- [x] Same UI as Phase 1
+- [x] OAuth flow for Contacts (via Zoho Portal OAuth)
+- [x] Login mode toggle: "Customer" / "NXGEN Staff"
+- [x] PORTAL_SCOPES with limited permissions
+- [x] loginPortal() function for direct Zoho authentication
+- [x] Auth0 kept as legacy fallback via loginCustomer()
+
+**Implementation Notes:**
+- Customers use `buildZohoPortalUrl()` which redirects to Zoho OAuth
+- Uses same OAuth client ID but with limited scopes
+- Zoho automatically scopes the token to the portal user's tickets
+- The `pendingMode` is stored in localStorage to identify customer vs agent on callback
 
 ### Phase 3 — Polish & Features
 **Status: NOT STARTED**
@@ -252,9 +261,9 @@ All ticket queries require `departmentId` as a mandatory param.
 
 ## Open Questions
 
-- [ ] What is the deployed docs domain? Redirect URIs added: `https://docs.nxgen.cloud` and `https://gcxone.pages.dev` — confirm which is production
-- [ ] Are internal NXGEN staff set up as **Agents** in Zoho Desk? (needed for Phase 1 agent login)
-- [ ] Are customers set up with **portal access** (Help Center login)? (needed for Phase 2)
+- [x] What is the deployed docs domain? Redirect URIs added: `https://docs.nxgen.cloud` and `https://gcxone.pages.dev` — confirm which is production
+- [x] Are internal NXGEN staff set up as **Agents** in Zoho Desk? (needed for Phase 1 agent login) — **YES, confirmed working**
+- [x] Are customers set up with **portal access** (Help Center login)? (needed for Phase 2) — **YES, Help Center is enabled**
 
 ---
 
