@@ -3,7 +3,7 @@
 
 import { createClient } from '@sanity/client';
 
-type AuditAction =
+export type AuditAction =
   | 'content.create'
   | 'content.update'
   | 'content.delete'
@@ -17,7 +17,7 @@ type AuditAction =
   | 'user.logout'
   | 'settings.update';
 
-type ResourceType = 'doc' | 'article' | 'release' | 'roadmapItem' | 'routeConfig' | 'adminUser';
+export type ResourceType = 'doc' | 'article' | 'release' | 'roadmapItem' | 'routeConfig' | 'adminUser';
 
 interface AuditLogEntry {
   action: AuditAction;
@@ -94,6 +94,7 @@ export async function getAuditLogs(
   resourceId?: string;
   resourceTitle?: string;
   timestamp: string;
+  changes?: { before?: string; after?: string };
 }>> {
   const client = getSanityClient(env);
 
@@ -138,6 +139,7 @@ export async function getAuditLogs(
       resourceId,
       resourceTitle,
       timestamp,
+      changes,
     }
   `;
 

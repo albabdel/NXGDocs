@@ -3,30 +3,29 @@ import Layout from '@theme/Layout';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import { ProtectedRoute } from '../../components/Admin/ProtectedRoute';
 import { AdminLayout } from '../../components/Admin/AdminLayout';
-import { Users, UserCheck, Shield, Edit3, Eye, Filter } from 'lucide-react';
+import { Users, UserCheck, Shield, Edit3, Eye, Filter, Loader2 } from 'lucide-react';
 
-interface MockUser {
-  id: string;
-  name: string;
+interface AdminUser {
+  _id: string;
+  name: string | null;
   email: string;
   role: 'admin' | 'editor' | 'reviewer';
-  lastLogin: string | null;
+  lastLoginAt: string | null;
   loginCount: number;
   isActive: boolean;
+  createdAt: string | null;
 }
 
-const mockUsers: MockUser[] = [
-  { id: 'user-001', name: 'Sarah Chen', email: 'sarah.chen@company.com', role: 'admin', lastLogin: '2026-03-17T10:30:00Z', loginCount: 156, isActive: true },
-  { id: 'user-002', name: 'Marcus Johnson', email: 'marcus.j@company.com', role: 'admin', lastLogin: '2026-03-16T14:22:00Z', loginCount: 89, isActive: true },
-  { id: 'user-003', name: 'Emily Rodriguez', email: 'e.rodriguez@company.com', role: 'editor', lastLogin: '2026-03-17T08:15:00Z', loginCount: 234, isActive: true },
-  { id: 'user-004', name: 'David Kim', email: 'david.kim@company.com', role: 'editor', lastLogin: '2026-03-15T16:45:00Z', loginCount: 67, isActive: true },
-  { id: 'user-005', name: 'Lisa Thompson', email: 'l.thompson@company.com', role: 'reviewer', lastLogin: '2026-03-14T11:00:00Z', loginCount: 45, isActive: true },
-  { id: 'user-006', name: 'James Wilson', email: 'j.wilson@company.com', role: 'reviewer', lastLogin: '2026-03-10T09:30:00Z', loginCount: 23, isActive: false },
-  { id: 'user-007', name: 'Anna Martinez', email: 'anna.m@company.com', role: 'editor', lastLogin: '2026-03-17T07:00:00Z', loginCount: 312, isActive: true },
-  { id: 'user-008', name: 'Robert Lee', email: 'r.lee@company.com', role: 'admin', lastLogin: null, loginCount: 5, isActive: true },
-  { id: 'user-009', name: 'Michelle Davis', email: 'm.davis@company.com', role: 'reviewer', lastLogin: '2026-03-12T13:20:00Z', loginCount: 78, isActive: false },
-  { id: 'user-010', name: 'Chris Brown', email: 'c.brown@company.com', role: 'editor', lastLogin: '2026-03-16T18:00:00Z', loginCount: 189, isActive: true },
-];
+interface UsersData {
+  users: AdminUser[];
+  stats: {
+    totalUsers: number;
+    activeUsers: number;
+    adminCount: number;
+    editorCount: number;
+    reviewerCount: number;
+  };
+}
 
 const roleColors: Record<string, { bg: string; text: string }> = {
   admin: { bg: 'rgba(232,176,88,0.15)', text: '#E8B058' },
@@ -58,9 +57,18 @@ function formatDate(dateStr: string | null): string {
   return date.toLocaleDateString();
 }
 
+function getUserStatus(user: AdminUser): boolean {
+  if (!user.lastLoginAt) return false;
+  const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+  return new Date(user.lastLoginAt).getTime() > sevenDaysAgo;
+}
+
 function UsersPageContent() {
   const [isDark, setIsDark] = useState(true);
   const [roleFilter, setRoleFilter] = useState<string>('all');
+  const [data, setData] = useState<UsersData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const check = () => setIsDark(document.documentElement.getAttribute('data-theme') === 'dark');
@@ -70,25 +78,37 @@ function UsersPageContent() {
     return () => obs.disconnect();
   }, []);
 
+  useEffect(() => {
+    async function fetchUsers() {
+      try {
+        const res = await fetch('/api/admin-users');
+        if (!res.ok) throw new Error('Failed to fetch users');
+        const json: UsersData = await res.json();
+        setData(json);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchUsers();
+  }, []);
+
   const cardBg = isDark
     ? 'linear-gradient(135deg, rgba(232,176,88,0.06) 0%, rgba(0,0,0,0.4) 100%)'
     : 'linear-gradient(135deg, rgba(232,176,88,0.1) 0%, rgba(255,255,255,0.9) 100%)';
 
   const borderColor = isDark ? 'rgba(232,176,88,0.2)' : 'rgba(232,176,88,0.3)';
 
-  const totalUsers = mockUsers.length;
-  const activeUsers = mockUsers.filter((u) => u.isActive).length;
-  const adminCount = mockUsers.filter((u) => u.role === 'admin').length;
-  const editorCount = mockUsers.filter((u) => u.role === 'editor').length;
-
   const stats = [
-    { icon: Users, label: 'Total Users', value: totalUsers.toString() },
-    { icon: UserCheck, label: 'Active Users', value: activeUsers.toString() },
-    { icon: Shield, label: 'Admins', value: adminCount.toString() },
-    { icon: Edit3, label: 'Editors', value: editorCount.toString() },
+    { icon: Users, label: 'Total Users', value: data?.stats.totalUsers?.toString() ?? '0' },
+    { icon: UserCheck, label: 'Active Users', value: data?.stats.activeUsers?.toString() ?? '0' },
+    { icon: Shield, label: 'Admins', value: data?.stats.adminCount?.toString() ?? '0' },
+    { icon: Edit3, label: 'Editors', value: data?.stats.editorCount?.toString() ?? '0' },
   ];
 
-  const filteredUsers = roleFilter === 'all' ? mockUsers : mockUsers.filter((u) => u.role === roleFilter);
+  const users = data?.users ?? [];
+  const filteredUsers = roleFilter === 'all' ? users : users.filter((u) => u.role === roleFilter);
 
   const studioBaseUrl = '/studio/desk/adminUser';
 
@@ -182,100 +202,119 @@ function UsersPageContent() {
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr style={{ borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}` }}>
-                <th className="text-left py-3 px-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Name</th>
-                <th className="text-left py-3 px-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Email</th>
-                <th className="text-center py-3 px-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Role</th>
-                <th className="text-center py-3 px-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Last Login</th>
-                <th className="text-center py-3 px-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Logins</th>
-                <th className="text-center py-3 px-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Status</th>
-                <th className="text-center py-3 px-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredUsers.map((user) => (
-                <tr key={user.id} style={{ borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}` }}>
-                  <td className="py-3 px-2">
-                    <div className="flex items-center gap-2">
-                      <div
-                        className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium"
-                        style={{
-                          background: roleColors[user.role].bg,
-                          color: roleColors[user.role].text,
-                        }}
-                      >
-                        {getInitials(user.name)}
-                      </div>
-                      <span style={{ color: 'var(--ifm-color-content)' }}>{user.name}</span>
-                    </div>
-                  </td>
-                  <td className="py-3 px-2" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                    {user.email}
-                  </td>
-                  <td className="text-center py-3 px-2">
-                    <span
-                      className="inline-block px-2 py-1 rounded-full text-xs font-medium"
-                      style={{
-                        background: roleColors[user.role].bg,
-                        color: roleColors[user.role].text,
-                      }}
-                    >
-                      {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
-                    </span>
-                  </td>
-                  <td className="text-center py-3 px-2" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                    {formatDate(user.lastLogin)}
-                  </td>
-                  <td className="text-center py-3 px-2" style={{ color: 'var(--ifm-color-content)' }}>
-                    {user.loginCount}
-                  </td>
-                  <td className="text-center py-3 px-2">
-                    <span
-                      className="inline-block px-2 py-1 rounded-full text-xs"
-                      style={{
-                        background: user.isActive ? 'rgba(34,197,94,0.15)' : 'rgba(107,114,128,0.15)',
-                        color: user.isActive ? '#22c55e' : '#6b7280',
-                      }}
-                    >
-                      {user.isActive ? 'Active' : 'Inactive'}
-                    </span>
-                  </td>
-                  <td className="text-center py-3 px-2">
-                    <div className="flex items-center justify-center gap-2">
-                      <a
-                        href={`/admin/audit?userId=${user.id}`}
-                        className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs"
-                        style={{
-                          background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
-                          color: 'var(--ifm-color-content-secondary)',
-                        }}
-                      >
-                        <Eye className="w-3 h-3" />
-                        Activity
-                      </a>
-                      <a
-                        href={`${studioBaseUrl}/${user.id}`}
-                        className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs"
-                        style={{
-                          background: 'rgba(232,176,88,0.1)',
-                          color: '#E8B058',
-                        }}
-                      >
-                        <Edit3 className="w-3 h-3" />
-                        Edit
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        {loading && (
+          <div className="flex items-center justify-center py-12" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+            <Loader2 className="w-6 h-6 animate-spin mr-2" />
+            <span>Loading users...</span>
+          </div>
+        )}
 
-        {filteredUsers.length === 0 && (
+        {error && (
+          <div className="text-center py-8" style={{ color: '#ef4444' }}>
+            <p className="text-sm">{error}</p>
+          </div>
+        )}
+
+        {!loading && !error && (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr style={{ borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}` }}>
+                  <th className="text-left py-3 px-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Name</th>
+                  <th className="text-left py-3 px-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Email</th>
+                  <th className="text-center py-3 px-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Role</th>
+                  <th className="text-center py-3 px-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Last Login</th>
+                  <th className="text-center py-3 px-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Logins</th>
+                  <th className="text-center py-3 px-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Status</th>
+                  <th className="text-center py-3 px-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredUsers.map((user) => {
+                  const isActive = getUserStatus(user);
+                  const displayName = user.name || user.email.split('@')[0];
+                  return (
+                    <tr key={user._id} style={{ borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}` }}>
+                      <td className="py-3 px-2">
+                        <div className="flex items-center gap-2">
+                          <div
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium"
+                            style={{
+                              background: roleColors[user.role].bg,
+                              color: roleColors[user.role].text,
+                            }}
+                          >
+                            {getInitials(displayName)}
+                          </div>
+                          <span style={{ color: 'var(--ifm-color-content)' }}>{displayName}</span>
+                        </div>
+                      </td>
+                      <td className="py-3 px-2" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                        {user.email}
+                      </td>
+                      <td className="text-center py-3 px-2">
+                        <span
+                          className="inline-block px-2 py-1 rounded-full text-xs font-medium"
+                          style={{
+                            background: roleColors[user.role].bg,
+                            color: roleColors[user.role].text,
+                          }}
+                        >
+                          {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+                        </span>
+                      </td>
+                      <td className="text-center py-3 px-2" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                        {formatDate(user.lastLoginAt)}
+                      </td>
+                      <td className="text-center py-3 px-2" style={{ color: 'var(--ifm-color-content)' }}>
+                        {user.loginCount}
+                      </td>
+                      <td className="text-center py-3 px-2">
+                        <span
+                          className="inline-block px-2 py-1 rounded-full text-xs"
+                          style={{
+                            background: isActive ? 'rgba(34,197,94,0.15)' : 'rgba(107,114,128,0.15)',
+                            color: isActive ? '#22c55e' : '#6b7280',
+                          }}
+                        >
+                          {isActive ? 'Active' : 'Inactive'}
+                        </span>
+                      </td>
+                      <td className="text-center py-3 px-2">
+                        <div className="flex items-center justify-center gap-2">
+                          <a
+                            href={`/admin/audit?userId=${user._id}`}
+                            className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs"
+                            style={{
+                              background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
+                              color: 'var(--ifm-color-content-secondary)',
+                            }}
+                          >
+                            <Eye className="w-3 h-3" />
+                            Activity
+                          </a>
+                          <a
+                            href={`${studioBaseUrl}/${user._id}`}
+                            className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs"
+                            style={{
+                              background: 'rgba(232,176,88,0.1)',
+                              color: '#E8B058',
+                            }}
+                          >
+                            <Edit3 className="w-3 h-3" />
+                            Edit
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {!loading && !error && filteredUsers.length === 0 && (
           <div className="text-center py-8" style={{ color: 'var(--ifm-color-content-secondary)' }}>
             <Users className="w-8 h-8 mx-auto mb-2 opacity-50" />
             <p className="text-sm">No users match the selected filter</p>

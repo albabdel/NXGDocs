@@ -11,7 +11,7 @@ interface Props {
   token?: string;
 }
 
-const STATUS_FILTER_OPTIONS = ['all', 'Open', 'On Hold', 'Closed'] as const;
+const STATUS_FILTER_OPTIONS = ['all', 'Open', 'On Hold', 'Waiting on customer feedback', 'Closed'] as const;
 
 const PRIORITY_STYLES: Record<string, { bg: string; color: string }> = {
   Critical: { bg: 'rgba(239,68,68,0.12)', color: '#ef4444' },

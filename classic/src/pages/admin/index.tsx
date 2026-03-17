@@ -25,11 +25,41 @@ import {
   Activity,
   Server,
   RefreshCw,
+  AlertTriangle,
 } from 'lucide-react';
+
+interface DashboardStats {
+  pendingContent: number;
+  publishedContent: number;
+  totalUsers: number;
+  activeUsers: number;
+}
+
+interface AuditLogEntry {
+  _id: string;
+  action: string;
+  actor: { name: string; email: string };
+  resourceType?: string;
+  resourceId?: string;
+  resourceTitle?: string;
+  timestamp: string;
+}
+
+interface TicketStats {
+  open: number;
+  pending: number;
+  closed: number;
+  onHold: number;
+}
 
 function AdminDashboardContent() {
   const { user, logout, isLoading } = useAdminAuth();
   const [isDark, setIsDark] = useState(true);
+  const [dashboardStats, setDashboardStats] = useState<DashboardStats | null>(null);
+  const [recentActivity, setRecentActivity] = useState<AuditLogEntry[]>([]);
+  const [ticketStats, setTicketStats] = useState<TicketStats>({ open: 0, pending: 0, closed: 0, onHold: 0 });
+  const [dataLoading, setDataLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const check = () => setIsDark(document.documentElement.getAttribute('data-theme') === 'dark');
@@ -37,6 +67,54 @@ function AdminDashboardContent() {
     const obs = new MutationObserver(check);
     obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    async function fetchDashboardData() {
+      try {
+        setDataLoading(true);
+        setError(null);
+
+        const [dashboardRes, auditRes] = await Promise.all([
+          fetch('/admin-dashboard', { credentials: 'include' }),
+          fetch('/admin-audit-logs?limit=10', { credentials: 'include' }),
+        ]);
+
+        if (!dashboardRes.ok || !auditRes.ok) {
+          throw new Error('Failed to fetch dashboard data');
+        }
+
+        const dashboardData = await dashboardRes.json();
+        const auditData = await auditRes.json();
+
+        setDashboardStats(dashboardData.stats);
+        setRecentActivity(auditData.logs || []);
+
+        try {
+          const [openTickets, pendingTickets, closedTickets, onHoldTickets] = await Promise.all([
+            fetch('/zoho-proxy/tickets?status=open&limit=1', { credentials: 'include' }).then(r => r.json()),
+            fetch('/zoho-proxy/tickets?status=pending&limit=1', { credentials: 'include' }).then(r => r.json()),
+            fetch('/zoho-proxy/tickets?status=closed&limit=1', { credentials: 'include' }).then(r => r.json()),
+            fetch('/zoho-proxy/tickets?status=onHold&limit=1', { credentials: 'include' }).then(r => r.json()),
+          ]);
+
+          setTicketStats({
+            open: openTickets?.count || 0,
+            pending: pendingTickets?.count || 0,
+            closed: closedTickets?.count || 0,
+            onHold: onHoldTickets?.count || 0,
+          });
+        } catch {
+          console.warn('Could not fetch Zoho ticket stats');
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load dashboard');
+      } finally {
+        setDataLoading(false);
+      }
+    }
+
+    fetchDashboardData();
   }, []);
 
   if (isLoading) {
@@ -57,19 +135,43 @@ function AdminDashboardContent() {
   const borderColor = isDark ? 'rgba(232,176,88,0.2)' : 'rgba(232,176,88,0.3)';
 
   const quickStats = [
-    { icon: FileCheck, label: 'Pending Reviews', value: '12', href: '/admin/content?status=pending_review', color: '#E8B058' },
-    { icon: Ticket, label: 'Open Tickets', value: '8', href: '/admin/tickets?status=open', color: '#f59e0b' },
-    { icon: Users, label: 'Active Users', value: '234', href: '/admin/users', color: '#22c55e' },
-    { icon: FileStack, label: 'Total Content', value: '156', href: '/admin/content', color: '#3b82f6' },
+    { icon: FileCheck, label: 'Pending Reviews', value: dashboardStats?.pendingContent ?? 0, href: '/admin/content?status=pending_review', color: '#E8B058' },
+    { icon: Ticket, label: 'Open Tickets', value: ticketStats.open, href: '/admin/tickets?status=open', color: '#f59e0b' },
+    { icon: Users, label: 'Active Users', value: dashboardStats?.activeUsers ?? 0, href: '/admin/users', color: '#22c55e' },
+    { icon: FileStack, label: 'Total Content', value: dashboardStats?.publishedContent ?? 0, href: '/admin/content', color: '#3b82f6' },
   ];
 
-  const recentActivity = [
-    { action: 'Content approved', user: 'Sarah Chen', timestamp: '5 minutes ago', resource: 'Getting Started Guide' },
-    { action: 'Ticket resolved', user: 'Mike Johnson', timestamp: '12 minutes ago', resource: 'TKT-1234' },
-    { action: 'User role updated', user: 'Admin', timestamp: '1 hour ago', resource: 'john.doe@nxgen.io' },
-    { action: 'New route created', user: 'Sarah Chen', timestamp: '2 hours ago', resource: 'docs-support-routing' },
-    { action: 'Content submitted', user: 'Alex Rivera', timestamp: '3 hours ago', resource: 'API Reference v2.1' },
-  ];
+  const formatTimestamp = (timestamp: string) => {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffMins < 1) return 'Just now';
+    if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
+    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+    return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+  };
+
+  const formatAction = (action: string) => {
+    const actionMap: Record<string, string> = {
+      'content.create': 'Content created',
+      'content.update': 'Content updated',
+      'content.delete': 'Content deleted',
+      'content.publish': 'Content published',
+      'content.approve': 'Content approved',
+      'content.reject': 'Content rejected',
+      'route.create': 'Route created',
+      'route.update': 'Route updated',
+      'route.delete': 'Route deleted',
+      'user.login': 'User logged in',
+      'user.logout': 'User logged out',
+      'settings.update': 'Settings updated',
+    };
+    return actionMap[action] || action;
+  };
 
   const sections = [
     { icon: FileStack, title: 'Content Queue', description: 'Manage and review content submissions', href: '/admin/content' },
@@ -81,8 +183,39 @@ function AdminDashboardContent() {
     { icon: Settings, title: 'Settings', description: 'Configure admin preferences', href: '/admin/settings' },
   ];
 
+  const refreshData = () => {
+    setDataLoading(true);
+    setError(null);
+    fetch('/admin-dashboard', { credentials: 'include' })
+      .then(r => r.json())
+      .then(data => setDashboardStats(data.stats))
+      .catch(err => setError(err.message))
+      .finally(() => setDataLoading(false));
+  };
+
   return (
     <AdminLayout title="Dashboard">
+      {error && (
+        <div
+          className="rounded-xl p-4 mb-6 flex items-center gap-3"
+          style={{
+            background: 'rgba(239, 68, 68, 0.1)',
+            border: '1px solid rgba(239, 68, 68, 0.3)',
+          }}
+        >
+          <AlertTriangle className="w-5 h-5" style={{ color: '#ef4444' }} />
+          <span className="text-sm" style={{ color: 'var(--ifm-color-content)' }}>
+            {error}
+          </span>
+          <button
+            onClick={refreshData}
+            className="ml-auto text-sm underline"
+            style={{ color: '#ef4444', cursor: 'pointer' }}
+          >
+            Retry
+          </button>
+        </div>
+      )}
       <div
         className="relative overflow-hidden rounded-2xl p-6 mb-8"
         style={{
@@ -149,7 +282,7 @@ function AdminDashboardContent() {
               <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: 'var(--ifm-color-content-secondary)' }} />
             </div>
             <p className="text-2xl font-bold" style={{ color: 'var(--ifm-color-content)' }}>
-              {value}
+              {dataLoading ? '...' : value}
             </p>
             <span className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
               {label}
@@ -172,40 +305,50 @@ function AdminDashboardContent() {
               Recent Activity
             </h3>
           </div>
-          <div className="space-y-3">
-            {recentActivity.map((event, idx) => (
-              <div
-                key={idx}
-                className="flex items-start gap-3 p-3 rounded-lg"
-                style={{
-                  background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)',
-                }}
-              >
+          {dataLoading ? (
+            <div className="flex items-center justify-center py-8">
+              <Loader className="w-5 h-5 animate-spin" style={{ color: '#E8B058' }} />
+            </div>
+          ) : recentActivity.length === 0 ? (
+            <p className="text-sm text-center py-8" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+              No recent activity
+            </p>
+          ) : (
+            <div className="space-y-3">
+              {recentActivity.map((event) => (
                 <div
-                  className="w-2 h-2 rounded-full mt-2 flex-shrink-0"
-                  style={{ background: '#E8B058' }}
-                />
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>
-                      {event.action}
-                    </span>
-                    <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                      by {event.user}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="text-xs truncate" style={{ color: '#E8B058' }}>
-                      {event.resource}
-                    </span>
-                    <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                      · {event.timestamp}
-                    </span>
+                  key={event._id}
+                  className="flex items-start gap-3 p-3 rounded-lg"
+                  style={{
+                    background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)',
+                  }}
+                >
+                  <div
+                    className="w-2 h-2 rounded-full mt-2 flex-shrink-0"
+                    style={{ background: '#E8B058' }}
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>
+                        {formatAction(event.action)}
+                      </span>
+                      <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                        by {event.actor?.name || 'Unknown'}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="text-xs truncate" style={{ color: '#E8B058' }}>
+                        {event.resourceTitle || event.resourceId || 'Unknown resource'}
+                      </span>
+                      <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                        · {formatTimestamp(event.timestamp)}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div

@@ -3,7 +3,7 @@ import Layout from '@theme/Layout';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import { ProtectedRoute } from '../../components/Admin/ProtectedRoute';
 import { AdminLayout } from '../../components/Admin/AdminLayout';
-import { FileText, RefreshCw, Filter, Download, ChevronDown, ChevronUp, Loader2 } from 'lucide-react';
+import { FileText, RefreshCw, Filter, Download, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 
 type AuditAction =
   | 'content.create'
@@ -29,6 +29,7 @@ interface AuditLog {
   resourceId?: string;
   resourceTitle?: string;
   timestamp: string;
+  changes?: { before?: string; after?: string };
 }
 
 const ACTION_LABELS: Record<AuditAction, string> = {
@@ -81,6 +82,7 @@ const PLACEHOLDER_LOGS: AuditLog[] = [
     resourceId: 'doc-042',
     resourceTitle: 'API Reference',
     timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
+    changes: { before: 'v1.2.0', after: 'v1.3.0' },
   },
   {
     _id: '4',
@@ -100,6 +102,16 @@ const PLACEHOLDER_LOGS: AuditLog[] = [
     resourceTitle: '/docs/v2/*',
     timestamp: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
   },
+];
+
+const RESOURCE_TYPE_OPTIONS: { value: ResourceType | ''; label: string }[] = [
+  { value: '', label: 'All Types' },
+  { value: 'doc', label: 'Doc' },
+  { value: 'article', label: 'Article' },
+  { value: 'release', label: 'Release' },
+  { value: 'roadmapItem', label: 'Roadmap Item' },
+  { value: 'routeConfig', label: 'Route Config' },
+  { value: 'adminUser', label: 'Admin User' },
 ];
 
 function getActionColor(action: AuditAction): string {
@@ -123,9 +135,14 @@ function AuditLogsPageContent() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [actionFilter, setActionFilter] = useState<string>('all');
+  const [resourceTypeFilter, setResourceTypeFilter] = useState<string>('');
+  const [userFilter, setUserFilter] = useState<string>('');
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [page, setPage] = useState(0);
+  const [pageSize] = useState(20);
+  const [hasMore, setHasMore] = useState(false);
 
   useEffect(() => {
     const check = () => setIsDark(document.documentElement.getAttribute('data-theme') === 'dark');
@@ -135,7 +152,13 @@ function AuditLogsPageContent() {
     return () => obs.disconnect();
   }, []);
 
-  const fetchLogs = useCallback(async () => {
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const userId = params.get('userId');
+    if (userId) setUserFilter(userId);
+  }, []);
+
+  const fetchLogs = useCallback(async (pageNum: number = 0) => {
     setLoading(true);
     setError(null);
     try {
@@ -143,24 +166,38 @@ function AuditLogsPageContent() {
       if (actionFilter && actionFilter !== 'all') {
         params.append('action', actionFilter);
       }
+      if (resourceTypeFilter) {
+        params.append('resourceType', resourceTypeFilter);
+      }
+      if (userFilter) {
+        params.append('actorId', userFilter);
+      }
       if (startDate) {
         params.append('startDate', new Date(startDate).toISOString());
       }
       if (endDate) {
         params.append('endDate', new Date(endDate).toISOString());
       }
+      params.append('limit', String(pageSize + 1));
+      params.append('offset', String(pageNum * pageSize));
 
-      const response = await fetch(`/api/admin-audit-logs?${params.toString()}`);
+      const response = await fetch(`/admin-audit-logs?${params.toString()}`, { credentials: 'include' });
       if (!response.ok) {
         throw new Error('Failed to fetch audit logs');
       }
       const data = await response.json();
-      setLogs(data.logs || []);
+      const fetchedLogs = data.logs || [];
+      setHasMore(fetchedLogs.length > pageSize);
+      setLogs(fetchedLogs.slice(0, pageSize));
+      setPage(pageNum);
     } catch (err) {
       console.warn('[AuditLogs] Endpoint not available, using placeholder data');
       let filtered = [...PLACEHOLDER_LOGS];
       if (actionFilter && actionFilter !== 'all') {
         filtered = filtered.filter(log => log.action === actionFilter);
+      }
+      if (resourceTypeFilter) {
+        filtered = filtered.filter(log => log.resourceType === resourceTypeFilter);
       }
       if (startDate) {
         const start = new Date(startDate);
@@ -171,14 +208,47 @@ function AuditLogsPageContent() {
         filtered = filtered.filter(log => new Date(log.timestamp) <= end);
       }
       setLogs(filtered);
+      setHasMore(false);
+      setPage(0);
     } finally {
       setLoading(false);
     }
-  }, [actionFilter, startDate, endDate]);
+  }, [actionFilter, resourceTypeFilter, userFilter, startDate, endDate, pageSize]);
 
   useEffect(() => {
-    fetchLogs();
+    fetchLogs(0);
   }, [fetchLogs]);
+
+  const handlePrevPage = () => {
+    if (page > 0) fetchLogs(page - 1);
+  };
+
+  const handleNextPage = () => {
+    if (hasMore) fetchLogs(page + 1);
+  };
+
+  const exportCsv = () => {
+    const headers = ['Timestamp', 'Action', 'Actor Name', 'Actor Email', 'Resource Type', 'Resource ID', 'Resource Title', 'Changes Before', 'Changes After'];
+    const rows = logs.map(log => [
+      log.timestamp,
+      log.action,
+      log.actor.name,
+      log.actor.email,
+      log.resourceType || '',
+      log.resourceId || '',
+      log.resourceTitle || '',
+      log.changes?.before || '',
+      log.changes?.after || '',
+    ]);
+    const csvContent = [headers, ...rows].map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `audit-logs-${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
 
   const cardBg = isDark
     ? 'linear-gradient(135deg, rgba(232,176,88,0.06) 0%, rgba(0,0,0,0.4) 100%)'
@@ -187,13 +257,6 @@ function AuditLogsPageContent() {
   const borderColor = isDark ? 'rgba(232,176,88,0.2)' : 'rgba(232,176,88,0.3)';
   const cellBg = isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.5)';
   const cellHoverBg = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.8)';
-
-  const filteredLogs = logs.filter(log => {
-    if (actionFilter && actionFilter !== 'all' && log.action !== actionFilter) return false;
-    if (startDate && new Date(log.timestamp) < new Date(startDate)) return false;
-    if (endDate && new Date(log.timestamp) > new Date(endDate)) return false;
-    return true;
-  });
 
   return (
     <AdminLayout title="Audit Logs">
@@ -267,6 +330,32 @@ function AuditLogsPageContent() {
                 <option value="settings.update">Settings Updated</option>
               </select>
             </div>
+            <select
+              value={resourceTypeFilter}
+              onChange={(e) => setResourceTypeFilter(e.target.value)}
+              className="px-3 py-2 rounded-lg text-sm"
+              style={{
+                background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
+                color: 'var(--ifm-color-content)',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+              }}
+            >
+              {RESOURCE_TYPE_OPTIONS.map(opt => (
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+              ))}
+            </select>
+            <input
+              type="text"
+              value={userFilter}
+              onChange={(e) => setUserFilter(e.target.value)}
+              placeholder="User ID filter"
+              className="px-3 py-2 rounded-lg text-sm w-32"
+              style={{
+                background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
+                color: 'var(--ifm-color-content)',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+              }}
+            />
             <div className="flex items-center gap-2">
               <input
                 type="date"
@@ -297,7 +386,7 @@ function AuditLogsPageContent() {
           </div>
           <div className="flex items-center gap-2">
             <button
-              onClick={fetchLogs}
+              onClick={() => fetchLogs(0)}
               disabled={loading}
               className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm"
               style={{
@@ -312,16 +401,19 @@ function AuditLogsPageContent() {
               Refresh
             </button>
             <button
+              onClick={exportCsv}
+              disabled={logs.length === 0}
               className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm"
               style={{
                 background: 'rgba(232,176,88,0.1)',
                 color: '#E8B058',
                 border: '1px solid rgba(232,176,88,0.2)',
-                cursor: 'pointer',
+                cursor: logs.length === 0 ? 'not-allowed' : 'pointer',
+                opacity: logs.length === 0 ? 0.5 : 1,
               }}
             >
               <Download className="w-4 h-4" />
-              Export
+              Export CSV
             </button>
           </div>
         </div>
@@ -341,7 +433,7 @@ function AuditLogsPageContent() {
               Loading logs...
             </span>
           </div>
-        ) : filteredLogs.length === 0 ? (
+        ) : logs.length === 0 ? (
           <div className="text-center py-12" style={{ color: 'var(--ifm-color-content-secondary)' }}>
             <FileText className="w-8 h-8 mx-auto mb-2 opacity-50" />
             <p className="text-sm">No audit logs found</p>
@@ -369,66 +461,92 @@ function AuditLogsPageContent() {
                 </tr>
               </thead>
               <tbody>
-                {filteredLogs.map((log) => (
-                  <tr
-                    key={log._id}
-                    onClick={() => setExpandedId(expandedId === log._id ? null : log._id)}
-                    style={{
-                      background: expandedId === log._id ? cellHoverBg : cellBg,
-                      cursor: 'pointer',
-                      borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}`,
-                    }}
-                  >
-                    <td className="px-4 py-3" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                      {formatTimestamp(log.timestamp)}
-                    </td>
-                    <td className="px-4 py-3">
-                      <span
-                        className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium"
-                        style={{
-                          background: `${getActionColor(log.action)}20`,
-                          color: getActionColor(log.action),
-                        }}
-                      >
-                        {ACTION_LABELS[log.action] || log.action}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div>
-                        <div className="font-medium" style={{ color: 'var(--ifm-color-content)' }}>
-                          {log.actor.name}
-                        </div>
-                        <div className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                          {log.actor.email}
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-4 py-3" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                      {log.resourceType || '—'}
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center justify-between">
+                {logs.map((log) => (
+                  <React.Fragment key={log._id}>
+                    <tr
+                      onClick={() => setExpandedId(expandedId === log._id ? null : log._id)}
+                      style={{
+                        background: expandedId === log._id ? cellHoverBg : cellBg,
+                        cursor: 'pointer',
+                        borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}`,
+                      }}
+                    >
+                      <td className="px-4 py-3" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                        {formatTimestamp(log.timestamp)}
+                      </td>
+                      <td className="px-4 py-3">
+                        <span
+                          className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium"
+                          style={{
+                            background: `${getActionColor(log.action)}20`,
+                            color: getActionColor(log.action),
+                          }}
+                        >
+                          {ACTION_LABELS[log.action] || log.action}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3">
                         <div>
-                          {log.resourceTitle && (
-                            <div className="font-medium" style={{ color: 'var(--ifm-color-content)' }}>
-                              {log.resourceTitle}
-                            </div>
-                          )}
-                          {log.resourceId && (
-                            <div className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                              {log.resourceId}
-                            </div>
-                          )}
-                          {!log.resourceId && !log.resourceTitle && '—'}
+                          <div className="font-medium" style={{ color: 'var(--ifm-color-content)' }}>
+                            {log.actor.name}
+                          </div>
+                          <div className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                            {log.actor.email}
+                          </div>
                         </div>
-                        {expandedId === log._id ? (
-                          <ChevronUp className="w-4 h-4" style={{ color: 'var(--ifm-color-content-secondary)' }} />
-                        ) : (
-                          <ChevronDown className="w-4 h-4" style={{ color: 'var(--ifm-color-content-secondary)' }} />
-                        )}
-                      </div>
-                    </td>
-                  </tr>
+                      </td>
+                      <td className="px-4 py-3" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                        {log.resourceType || '—'}
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            {log.resourceTitle && (
+                              <div className="font-medium" style={{ color: 'var(--ifm-color-content)' }}>
+                                {log.resourceTitle}
+                              </div>
+                            )}
+                            {log.resourceId && (
+                              <div className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                                {log.resourceId}
+                              </div>
+                            )}
+                            {!log.resourceId && !log.resourceTitle && '—'}
+                          </div>
+                          {expandedId === log._id ? (
+                            <ChevronUp className="w-4 h-4" style={{ color: 'var(--ifm-color-content-secondary)' }} />
+                          ) : (
+                            <ChevronDown className="w-4 h-4" style={{ color: 'var(--ifm-color-content-secondary)' }} />
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                    {expandedId === log._id && log.changes && (
+                      <tr style={{ background: cellHoverBg }}>
+                        <td colSpan={5} className="px-4 py-3">
+                          <div className="rounded-lg p-3" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.05)' }}>
+                            <div className="text-xs font-medium mb-2" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                              Changes
+                            </div>
+                            <div className="grid grid-cols-2 gap-4 text-sm">
+                              <div>
+                                <div className="text-xs mb-1" style={{ color: '#ef4444' }}>Before</div>
+                                <pre className="p-2 rounded text-xs overflow-auto" style={{ background: isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.8)', color: 'var(--ifm-color-content)' }}>
+                                  {log.changes.before || '—'}
+                                </pre>
+                              </div>
+                              <div>
+                                <div className="text-xs mb-1" style={{ color: '#22c55e' }}>After</div>
+                                <pre className="p-2 rounded text-xs overflow-auto" style={{ background: isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.8)', color: 'var(--ifm-color-content)' }}>
+                                  {log.changes.after || '—'}
+                                </pre>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
                 ))}
               </tbody>
             </table>
@@ -436,9 +554,43 @@ function AuditLogsPageContent() {
         )}
       </div>
 
-      {filteredLogs.length > 0 && (
-        <div className="mt-4 text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-          Showing {filteredLogs.length} log{filteredLogs.length !== 1 ? 's' : ''}
+      {logs.length > 0 && (
+        <div className="mt-4 flex items-center justify-between">
+          <div className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+            Page {page + 1} • {logs.length} log{logs.length !== 1 ? 's' : ''}
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handlePrevPage}
+              disabled={page === 0}
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm"
+              style={{
+                background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
+                color: 'var(--ifm-color-content)',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                cursor: page === 0 ? 'not-allowed' : 'pointer',
+                opacity: page === 0 ? 0.5 : 1,
+              }}
+            >
+              <ChevronLeft className="w-4 h-4" />
+              Prev
+            </button>
+            <button
+              onClick={handleNextPage}
+              disabled={!hasMore}
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm"
+              style={{
+                background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
+                color: 'var(--ifm-color-content)',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                cursor: !hasMore ? 'not-allowed' : 'pointer',
+                opacity: !hasMore ? 0.5 : 1,
+              }}
+            >
+              Next
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       )}
     </AdminLayout>
