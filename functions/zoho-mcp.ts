@@ -40,11 +40,10 @@ function json(data: unknown, status = 200) {
 // ---------------------------------------------------------------------------
 
 async function searchContacts(token: string, orgId: string, query: string, limit = 10) {
-  // Search contacts using the search endpoint with email filter
-  // Try the search endpoint first
-  const searchUrl = `${ZOHO_DESK_BASE}/contacts/search?orgId=${orgId}&limit=${limit}&searchStr=${encodeURIComponent(query)}`;
+  // Search contacts using the search endpoint with searchField=email
+  const searchUrl = `${ZOHO_DESK_BASE}/contacts/search?searchStr=${encodeURIComponent(query)}&searchField=email&limit=${limit}`;
   const res = await fetch(searchUrl, {
-    headers: { Authorization: `Zoho-oauthtoken ${token}` },
+    headers: { Authorization: `Zoho-oauthtoken ${token}`, orgId },
   });
   if (!res.ok) {
     // Fallback: try listing contacts and filter locally
@@ -67,6 +66,8 @@ async function searchContacts(token: string, orgId: string, query: string, limit
     }
     return data;
   }
+  return res.json();
+}
   }
   return res.json();
 }
