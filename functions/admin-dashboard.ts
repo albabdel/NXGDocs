@@ -1,8 +1,8 @@
 // functions/admin-dashboard.ts
 // Dashboard summary endpoint
 
-import { validateAdminSession, AdminEnv } from './lib/admin-session.js';
-import { getAuditLogs } from './lib/audit-service.js';
+import { validateAdminSession, AdminEnv } from './lib/admin-session';
+import { getAuditLogs } from './lib/audit-service';
 import { createClient } from '@sanity/client';
 
 interface Env extends AdminEnv {

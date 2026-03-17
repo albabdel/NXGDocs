@@ -6,14 +6,46 @@
 // - HMAC-SHA256 signing for tamper-proof sessions
 //
 // Environment variables required:
-//   ZOHO_SESSION_SECRET  — HMAC secret for signing session cookies (shared with zoho-session)
+//   ZOHO_SESSION_SECRET  — HMAC secret for signing session cookies
 
-import {
-  base64UrlDecode,
-  base64UrlEncode,
-  hmacSign,
-  hmacVerify,
-} from './zoho-session';
+// ---------------------------------------------------------------------------
+// Crypto utilities (inline to avoid module resolution issues in Cloudflare)
+// ---------------------------------------------------------------------------
+
+function base64UrlEncode(data: Uint8Array | string): string {
+  const bytes = typeof data === 'string' ? new TextEncoder().encode(data) : data;
+  const base64 = btoa(String.fromCharCode(...bytes));
+  return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function base64UrlDecode(str: string): Uint8Array {
+  const base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+  const padded = base64 + '='.repeat((4 - (base64.length % 4)) % 4);
+  const binary = atob(padded);
+  return Uint8Array.from(binary, (c) => c.charCodeAt(0));
+}
+
+async function hmacSign(secret: string, data: string): Promise<string> {
+  const key = await crypto.subtle.importKey(
+    'raw',
+    new TextEncoder().encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign'],
+  );
+  const signature = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(data));
+  return base64UrlEncode(new Uint8Array(signature));
+}
+
+async function hmacVerify(secret: string, data: string, signature: string): Promise<boolean> {
+  const expectedSignature = await hmacSign(secret, data);
+  if (expectedSignature.length !== signature.length) return false;
+  let result = 0;
+  for (let i = 0; i < expectedSignature.length; i++) {
+    result |= expectedSignature.charCodeAt(i) ^ signature.charCodeAt(i);
+  }
+  return result === 0;
+}
 
 // ---------------------------------------------------------------------------
 // Types
@@ -45,7 +77,7 @@ export interface AdminEnv {
 // ---------------------------------------------------------------------------
 
 export const ADMIN_SESSION_COOKIE_NAME = 'nxgen_admin_session';
-const ADMIN_SESSION_DURATION_SECONDS = 60 * 60 * 24; // 24 hours (86400 seconds)
+const ADMIN_SESSION_DURATION_SECONDS = 60 * 60 * 24; // 24 hours
 
 // ---------------------------------------------------------------------------
 // Session Cookie Utilities

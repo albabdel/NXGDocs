@@ -2,8 +2,8 @@
 // GET endpoint to list content with workflow status
 
 import { createClient } from '@sanity/client';
-import { validateAdminSession } from './lib/admin-session.js';
-import { logAuditEvent } from './lib/audit-service.js';
+import { validateAdminSession } from './lib/admin-session';
+import { logAuditEvent } from './lib/audit-service';
 
 type WorkflowStatus = 'draft' | 'pending_review' | 'approved' | 'rejected' | 'published' | 'archived';
 type ContentSource = 'sanity' | 'confluence';

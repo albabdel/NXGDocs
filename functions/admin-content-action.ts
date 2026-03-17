@@ -2,8 +2,8 @@
 // POST endpoint for approve/reject/publish actions
 
 import { createClient } from '@sanity/client';
-import { validateAdminSession, AdminSession } from './lib/admin-session.js';
-import { logAuditEvent, AuditAction } from './lib/audit-service.js';
+import { validateAdminSession, AdminSession } from './lib/admin-session';
+import { logAuditEvent, AuditAction } from './lib/audit-service';
 
 type WorkflowStatus = 'draft' | 'pending_review' | 'approved' | 'rejected' | 'published' | 'archived';
 type ContentSource = 'sanity' | 'confluence';
