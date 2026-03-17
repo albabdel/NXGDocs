@@ -3,7 +3,7 @@ import Layout from '@theme/Layout';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import { ProtectedRoute } from '../../components/Admin/ProtectedRoute';
 import { AdminLayout } from '../../components/Admin/AdminLayout';
-import { BarChart3, TrendingUp, Users, Clock, Ticket } from 'lucide-react';
+import { BarChart3, Eye, Users, Clock, FileStack, TrendingUp, PieChart } from 'lucide-react';
 
 function AnalyticsDashboardPageContent() {
   const [isDark, setIsDark] = useState(true);
@@ -22,11 +22,25 @@ function AnalyticsDashboardPageContent() {
 
   const borderColor = isDark ? 'rgba(232,176,88,0.2)' : 'rgba(232,176,88,0.3)';
 
+  const kpiCards = [
+    { icon: Eye, label: 'Total Views', value: '12,345', change: '+12%' },
+    { icon: Users, label: 'Active Users', value: '234', change: '+8%' },
+    { icon: FileStack, label: 'Pending Reviews', value: '5', change: '-2' },
+    { icon: Clock, label: 'Avg Approval Time', value: '2.3h', change: '-15%' },
+  ];
+
+  const topContent = [
+    { title: 'Getting Started Guide', views: 3456, status: 'Published', updated: '2 hours ago' },
+    { title: 'API Reference Overview', views: 2890, status: 'Published', updated: '1 day ago' },
+    { title: 'Configuration Tutorial', views: 1876, status: 'Pending Review', updated: '3 hours ago' },
+    { title: 'Security Best Practices', views: 1234, status: 'Draft', updated: '5 days ago' },
+    { title: 'Deployment Guide', views: 987, status: 'Published', updated: '1 week ago' },
+  ];
+
   const metrics = [
-    { icon: Ticket, label: 'Total Tickets', value: '0', change: '+0%' },
-    { icon: Clock, label: 'Avg. Response Time', value: '0m', change: '0%' },
-    { icon: Users, label: 'Active Users', value: '0', change: '+0%' },
-    { icon: TrendingUp, label: 'Resolution Rate', value: '0%', change: '+0%' },
+    { label: 'Approval Rate', value: '85%', color: '#22c55e' },
+    { label: 'Rejection Rate', value: '10%', color: '#ef4444' },
+    { label: 'Avg Review Time', value: '2.3 hours', color: '#E8B058' },
   ];
 
   return (
@@ -66,7 +80,7 @@ function AnalyticsDashboardPageContent() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        {metrics.map(({ icon: Icon, label, value, change }) => (
+        {kpiCards.map(({ icon: Icon, label, value, change }) => (
           <div
             key={label}
             className="rounded-xl p-4"
@@ -80,7 +94,7 @@ function AnalyticsDashboardPageContent() {
               <span
                 className="text-xs"
                 style={{
-                  color: change.startsWith('+') ? '#22c55e' : change.startsWith('-') ? '#ef4444' : 'var(--ifm-color-content-secondary)',
+                  color: change.startsWith('+') ? '#22c55e' : change.startsWith('-') ? '#22c55e' : 'var(--ifm-color-content-secondary)',
                 }}
               >
                 {change}
@@ -104,13 +118,19 @@ function AnalyticsDashboardPageContent() {
             border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(232,176,88,0.15)'}`,
           }}
         >
-          <h3 className="font-semibold mb-4" style={{ color: 'var(--ifm-color-content)' }}>
-            Ticket Volume
-          </h3>
-          <div className="h-40 flex items-center justify-center rounded-lg" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.05)' }}>
-            <p className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-              Chart placeholder
-            </p>
+          <div className="flex items-center gap-2 mb-4">
+            <TrendingUp className="w-5 h-5" style={{ color: '#E8B058' }} />
+            <h3 className="font-semibold" style={{ color: 'var(--ifm-color-content)' }}>
+              Content Views Over Time
+            </h3>
+          </div>
+          <div className="h-48 flex items-center justify-center rounded-lg" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.05)' }}>
+            <div className="text-center">
+              <TrendingUp className="w-8 h-8 mx-auto mb-2" style={{ color: 'var(--ifm-color-content-secondary)' }} />
+              <p className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                Line chart placeholder
+              </p>
+            </div>
           </div>
         </div>
         <div
@@ -120,32 +140,91 @@ function AnalyticsDashboardPageContent() {
             border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(232,176,88,0.15)'}`,
           }}
         >
-          <h3 className="font-semibold mb-4" style={{ color: 'var(--ifm-color-content)' }}>
-            Response Time Distribution
-          </h3>
-          <div className="h-40 flex items-center justify-center rounded-lg" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.05)' }}>
-            <p className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-              Chart placeholder
-            </p>
+          <div className="flex items-center gap-2 mb-4">
+            <PieChart className="w-5 h-5" style={{ color: '#E8B058' }} />
+            <h3 className="font-semibold" style={{ color: 'var(--ifm-color-content)' }}>
+              Content by Status
+            </h3>
+          </div>
+          <div className="h-48 flex items-center justify-center rounded-lg" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.05)' }}>
+            <div className="text-center">
+              <PieChart className="w-8 h-8 mx-auto mb-2" style={{ color: 'var(--ifm-color-content-secondary)' }} />
+              <p className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                Pie chart placeholder
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
       <div
-        className="rounded-xl p-8 text-center"
+        className="rounded-xl p-6 mb-8"
         style={{
           background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.6)',
           border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(232,176,88,0.15)'}`,
         }}
       >
-        <BarChart3 className="w-12 h-12 mx-auto mb-4" style={{ color: 'var(--ifm-color-content-secondary)' }} />
-        <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--ifm-color-content)' }}>
-          Full Analytics Coming Soon
+        <h3 className="font-semibold mb-4" style={{ color: 'var(--ifm-color-content)' }}>
+          Top Content
         </h3>
-        <p className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-          Detailed analytics including ticket trends, team performance, customer satisfaction metrics,
-          and customizable reports will be available here.
-        </p>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr style={{ borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}` }}>
+                <th className="text-left py-3 px-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Title</th>
+                <th className="text-right py-3 px-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Views</th>
+                <th className="text-center py-3 px-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Status</th>
+                <th className="text-right py-3 px-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Last Updated</th>
+              </tr>
+            </thead>
+            <tbody>
+              {topContent.map((item, idx) => (
+                <tr key={idx} style={{ borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}` }}>
+                  <td className="py-3 px-2" style={{ color: 'var(--ifm-color-content)' }}>{item.title}</td>
+                  <td className="text-right py-3 px-2" style={{ color: 'var(--ifm-color-content)' }}>{item.views.toLocaleString()}</td>
+                  <td className="text-center py-3 px-2">
+                    <span
+                      className="inline-block px-2 py-1 rounded-full text-xs"
+                      style={{
+                        background: item.status === 'Published' ? 'rgba(34,197,94,0.15)' : item.status === 'Pending Review' ? 'rgba(232,176,88,0.15)' : 'rgba(107,114,128,0.15)',
+                        color: item.status === 'Published' ? '#22c55e' : item.status === 'Pending Review' ? '#E8B058' : '#6b7280',
+                      }}
+                    >
+                      {item.status}
+                    </span>
+                  </td>
+                  <td className="text-right py-3 px-2" style={{ color: 'var(--ifm-color-content-secondary)' }}>{item.updated}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div
+        className="rounded-xl p-6"
+        style={{
+          background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.6)',
+          border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(232,176,88,0.15)'}`,
+        }}
+      >
+        <h3 className="font-semibold mb-4" style={{ color: 'var(--ifm-color-content)' }}>
+          Review Metrics
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {metrics.map(({ label, value, color }) => (
+            <div
+              key={label}
+              className="rounded-lg p-4 text-center"
+              style={{
+                background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)',
+              }}
+            >
+              <p className="text-2xl font-bold mb-1" style={{ color }}>{value}</p>
+              <span className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>{label}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </AdminLayout>
   );

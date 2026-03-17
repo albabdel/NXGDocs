@@ -18,6 +18,7 @@
 
 import { createAdminSession, AdminUser, AdminEnv } from './lib/admin-session';
 import { syncAdminUser } from './lib/sync-admin-user';
+import { logAuditEvent } from './lib/audit-service';
 
 interface ZohoTokenResponse {
   access_token: string;
@@ -94,6 +95,18 @@ export async function onRequest(context: { request: Request; env: Env }) {
     };
 
     const { cookieHeader } = await createAdminSession(request, env, user);
+
+    // Log login event
+    await logAuditEvent(env, {
+      action: 'user.login',
+      actorId: user.userId,
+      actorEmail: user.email,
+      metadata: {
+        ipAddress: request.headers.get('CF-Connecting-IP') || undefined,
+        userAgent: request.headers.get('User-Agent') || undefined,
+        source: 'admin-oauth',
+      },
+    }).catch(err => console.error('[admin-auth-callback] Failed to log audit event:', err));
 
     // Sync user to Sanity (non-blocking - don't wait for it)
     syncAdminUser(env, user).catch(err => {
