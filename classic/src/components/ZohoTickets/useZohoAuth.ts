@@ -74,17 +74,16 @@ function parseZohoHash(): { accessToken: string; expiry: number } | null {
   return { accessToken, expiry: Date.now() + parseInt(expiresIn ?? '3600') * 1000 };
 }
 
-// --- Auth0 customer ---
+// --- Auth0 customer (kept for potential future use) ---
 
-function buildAuth0Url(nonce: string): string {
-  const params = new URLSearchParams({
+function _buildAuth0Url(nonce: string): string {  const params = new URLSearchParams({
     response_type: 'id_token',
-    client_id: AUTH0_CLIENT_ID,
+    client_id: 'UNUSED', // Auth0 not configured
     redirect_uri: getRedirectUri(),
     scope: 'openid email profile',
     nonce,
   });
-  return `https://${AUTH0_DOMAIN}/authorize?${params}`;
+  return `https://unused.auth0.com/authorize?${params}`; // Auth0 not configured
 }
 
 function parseAuth0Hash(): { idToken: string; nonce?: string } | null {
@@ -370,7 +369,47 @@ export function useZohoAuth() {
       return; // keep loading=true until async block completes
     }
 
-    // 3. Restore from sessionStorage (check both token and session)
+    // 3. Check for verification callback (?verify=... in URL)
+    const emailVerifyToken = new URLSearchParams(window.location.search).get('verify');
+    if (emailVerifyToken) {
+      // Remove from URL immediately
+      window.history.replaceState(null, '', window.location.pathname);
+
+      // Verify the token and create session
+      (async () => {
+        try {
+          setRetrying(true);
+          setLoading(true);
+
+          const res = await fetch(`/zoho-customer-verify?token=${encodeURIComponent(emailVerifyToken)}`);
+          const data = await res.json();
+
+          if (!res.ok || !data.ok) {
+            throw new Error(data.error || 'Verification failed');
+          }
+
+          // Session cookie is set by the response, store profile data
+          const sessionData: ZohoSessionData = {
+            mode: 'customer',
+            contactId: data.contactId ?? '',
+            accountId: data.accountId ?? null,
+            displayName: data.displayName ?? '',
+          };
+          sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(sessionData));
+          setAuthData(sessionData);
+          setLoginError(null);
+        } catch (e: unknown) {
+          setLoginError({ type: 'invalid_token', message: 'Invalid or expired link', retryable: false });
+          setAuthData(null);
+        } finally {
+          setRetrying(false);
+          setLoading(false);
+        }
+      })();
+      return; // keep loading=true until async block completes
+    }
+
+    // 4. Restore from sessionStorage (check both token and session)
     const storedToken = loadStoredToken();
     const storedSession = loadStoredSession();
     setAuthData(storedToken ?? storedSession);
@@ -385,41 +424,36 @@ export function useZohoAuth() {
     window.location.href = buildZohoAgentUrl();
   }, []);
 
-  /** Direct email-based customer login (no popup needed) */
+  /** Email verification login flow */
   const loginCustomer = useCallback(() => {
     setLoginError(null);
     setRetrying(false);
     localStorage.setItem(PENDING_MODE_KEY, 'customer');
 
-    // Directly prompt for email - no popup needed
-    const email = window.prompt('Enter your email address to view your support tickets:');
+    // Prompt for email
+    const email = window.prompt('Enter your email address to receive a login link:');
     if (!email) return;
 
-    // Call our backend to look up the contact and create a session
-    fetch('/zoho-customer-auth', {
+    // Request verification email
+    setRetrying(true);
+    fetch('/zoho-customer-verify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'email-lookup', email }),
+      body: JSON.stringify({ email }),
     })
       .then(res => res.json())
       .then(data => {
+        setRetrying(false);
         if (data.error) {
-          setLoginError({ type: 'contact_not_found', message: data.error, retryable: false });
+          setLoginError({ type: 'network_error', message: data.error, retryable: true });
         } else {
-          setAuthData({
-            mode: 'customer',
-            displayName: data.displayName || email,
-            contactId: data.contactId,
-          });
-          sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify({
-            mode: 'customer',
-            displayName: data.displayName || email,
-            contactId: data.contactId,
-          }));
+          // Show success message
+          alert(data.message || 'Check your inbox for a login link!');
         }
       })
       .catch(() => {
-        setLoginError({ type: 'network_error', message: 'Failed to verify email', retryable: true });
+        setRetrying(false);
+        setLoginError({ type: 'network_error', message: 'Failed to send verification email', retryable: true });
       });
   }, []);
 

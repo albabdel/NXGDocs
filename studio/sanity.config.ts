@@ -10,6 +10,7 @@ import {documentListWidget} from 'sanity-plugin-dashboard-widget-document-list'
 import {unsplashAssetSource} from 'sanity-plugin-asset-source-unsplash'
 import {iconPicker} from 'sanity-plugin-icon-picker'
 import {muxInput} from 'sanity-plugin-mux-input'
+import {media, mediaAssetSource} from 'sanity-plugin-media'
 import {schemaTypes} from './schemaTypes'
 import {deskStructure} from './src/structure'
 import {NxgenLogo} from './src/components/NxgenBranding'
@@ -105,6 +106,13 @@ export default defineConfig({
 
     iconPicker(),
 
+    media({
+      creditLine: {
+        enabled: true,
+      },
+      directUploads: true,
+    }),
+
     muxInput({
       mp4Support: 'standard',
       muxToken: process.env.SANITY_STUDIO_MUX_TOKEN_ID,
@@ -149,11 +157,11 @@ export default defineConfig({
 
   form: {
     image: {
-      assetSources: [unsplashAssetSource],
+      assetSources: [unsplashAssetSource, mediaAssetSource],
       directUploads: true,
     },
     file: {
-      assetSources: ['upload'],
+      assetSources: [mediaAssetSource],
       directUploads: true,
     },
   },

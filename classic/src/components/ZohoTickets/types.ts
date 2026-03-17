@@ -123,8 +123,8 @@ export interface ZohoSessionData {
   contactId: string;
   accountId: string | null;
   displayName: string;
-  account: string | null;
-  sessionExpiry: number;
+  account?: string | null;
+  sessionExpiry?: number;
 }
 
 /** Union type for stored auth data */
