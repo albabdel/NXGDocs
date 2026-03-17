@@ -72,9 +72,6 @@ async function searchContacts(token: string, orgId: string, query: string, limit
   
   return data;
 }
-  }
-  return res.json();
-}
 
 async function searchTickets(token: string, orgId: string, departmentId: string, ticketNumber: string) {
   const url = `${ZOHO_DESK_BASE}/tickets/search?orgId=${orgId}&departmentId=${departmentId}&ticketNumber=${encodeURIComponent(ticketNumber)}`;
