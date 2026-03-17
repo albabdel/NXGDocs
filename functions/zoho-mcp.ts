@@ -40,23 +40,26 @@ function json(data: unknown, status = 200) {
 // ---------------------------------------------------------------------------
 
 async function searchContacts(token: string, orgId: string, query: string, limit = 10) {
-  // First try listing contacts and filter locally
-  const listUrl = `${ZOHO_DESK_BASE}/contacts?limit=${Math.min(limit, 100)}`;
-  const res = await fetch(listUrl, {
+  // List contacts using the standard endpoint
+  const url = new URL(`${ZOHO_DESK_BASE}/contacts`);
+  url.searchParams.set('limit', String(Math.min(limit, 100)));
+  
+  const res = await fetch(url.toString(), {
     headers: { 
-      Authorization: `Zoho-oauthtoken ${token}`, 
-      orgId 
+      'Authorization': `Zoho-oauthtoken ${token}`, 
+      'orgId': orgId 
     },
   });
   
   if (!res.ok) {
-    const error = await res.text();
-    throw new Error(`Failed to list contacts: ${error}`);
+    const errorText = await res.text();
+    console.error('Zoho contacts error:', errorText);
+    throw new Error(`Failed to list contacts: ${errorText}`);
   }
   
   const data = await res.json() as { data?: unknown[] };
   
-  // Filter by query (email or name)
+  // Filter by query (email or name) if provided
   if (query && data.data) {
     const q = query.toLowerCase();
     const filtered = (data.data as Record<string, unknown>[]).filter(
