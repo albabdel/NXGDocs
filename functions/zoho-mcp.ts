@@ -91,12 +91,15 @@ async function searchTickets(token: string, orgId: string, departmentId: string,
 async function getTicketsByContact(token: string, orgId: string, contactId: string, departmentId?: string, limit = 20) {
   // Use the contact-specific endpoint
   const url = new URL(`${ZOHO_DESK_BASE}/contacts/${contactId}/tickets`);
+  url.searchParams.set('orgId', orgId);
   url.searchParams.set('limit', String(limit));
+  if (departmentId) {
+    url.searchParams.set('departmentId', departmentId);
+  }
   
   const res = await fetch(url.toString(), {
     headers: { 
       'Authorization': `Zoho-oauthtoken ${token}`,
-      'orgId': orgId
     },
   });
   
