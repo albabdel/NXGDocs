@@ -20,12 +20,11 @@ const AGENT_SCOPES = [
 ].join(',');
 
 // ---------------------------------------------------------------------------
-// Zoho Customer Portal (popup login)
+// Zoho Customer Portal
 // ---------------------------------------------------------------------------
 
-const ZOHO_PORTAL_BASE = 'https://helpdesk.nxgen.io/portal/nxgentechnology';
-const ZOHO_PORTAL_LOGIN_URL = `${ZOHO_PORTAL_BASE}/login`;
-const POPUP_CALLBACK_PATH = '/zoho-customer-callback';
+// Portal URL for reference (not used in direct email-lookup flow)
+const ZOHO_PORTAL_URL = 'https://helpdesk.nxgen.io/portal/nxgentechnology';
 
 // ---------------------------------------------------------------------------
 // Storage
@@ -386,60 +385,42 @@ export function useZohoAuth() {
     window.location.href = buildZohoAgentUrl();
   }, []);
 
-  /** Open Zoho Customer Portal login in a popup, then verify by email */
+  /** Direct email-based customer login (no popup needed) */
   const loginCustomer = useCallback(() => {
     setLoginError(null);
     setRetrying(false);
     localStorage.setItem(PENDING_MODE_KEY, 'customer');
 
-    // Open Zoho portal login in a popup so user can authenticate
-    const width = 500;
-    const height = 600;
-    const left = window.screenX + (window.innerWidth - width) / 2;
-    const top = window.screenY + (window.innerHeight - height) / 2;
+    // Directly prompt for email - no popup needed
+    const email = window.prompt('Enter your email address to view your support tickets:');
+    if (!email) return;
 
-    const popup = window.open(
-      ZOHO_PORTAL_LOGIN_URL,
-      'ZohoCustomerLogin',
-      `width=${width},height=${height},left=${left},top=${top},resizable,scrollbars`
-    );
-
-    // When popup closes, prompt for email to look up their tickets
-    const checkClosed = setInterval(() => {
-      if (popup?.closed) {
-        clearInterval(checkClosed);
-        // User has logged in on Zoho portal - now ask for email to fetch their tickets
-        const email = window.prompt('Enter your email to view your tickets:');
-        if (email) {
-          // Call our backend to create a session for this email
-          fetch('/zoho-customer-auth', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action: 'email-lookup', email }),
-          })
-            .then(res => res.json())
-            .then(data => {
-              if (data.error) {
-                setLoginError({ type: 'contact_not_found', message: data.error, retryable: false });
-              } else {
-                setAuthData({
-                  mode: 'customer',
-                  displayName: data.displayName || email,
-                  contactId: data.contactId,
-                });
-                sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify({
-                  mode: 'customer',
-                  displayName: data.displayName || email,
-                  contactId: data.contactId,
-                }));
-              }
-            })
-            .catch(() => {
-              setLoginError({ type: 'network_error', message: 'Failed to verify email', retryable: true });
-            });
+    // Call our backend to look up the contact and create a session
+    fetch('/zoho-customer-auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'email-lookup', email }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          setLoginError({ type: 'contact_not_found', message: data.error, retryable: false });
+        } else {
+          setAuthData({
+            mode: 'customer',
+            displayName: data.displayName || email,
+            contactId: data.contactId,
+          });
+          sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify({
+            mode: 'customer',
+            displayName: data.displayName || email,
+            contactId: data.contactId,
+          }));
         }
-      }
-    }, 500);
+      })
+      .catch(() => {
+        setLoginError({ type: 'network_error', message: 'Failed to verify email', retryable: true });
+      });
   }, []);
 
   /** Clear error and retry login */
