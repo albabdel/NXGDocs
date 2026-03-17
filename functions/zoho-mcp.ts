@@ -90,18 +90,27 @@ async function searchTickets(token: string, orgId: string, departmentId: string,
 
 async function getTicketsByContact(token: string, orgId: string, contactId: string, departmentId?: string, limit = 20) {
   // Use the contact-specific endpoint
-  let url = `${ZOHO_DESK_BASE}/contacts/${contactId}/tickets?orgId=${orgId}&limit=${limit}`;
-  if (departmentId) {
-    url += `&departmentId=${departmentId}`;
-  }
-  const res = await fetch(url, {
-    headers: { Authorization: `Zoho-oauthtoken ${token}` },
+  const url = new URL(`${ZOHO_DESK_BASE}/contacts/${contactId}/tickets`);
+  url.searchParams.set('limit', String(limit));
+  
+  const res = await fetch(url.toString(), {
+    headers: { 
+      'Authorization': `Zoho-oauthtoken ${token}`,
+      'orgId': orgId
+    },
   });
+  
   if (!res.ok) {
     const error = await res.text();
     throw new Error(`Failed to get tickets by contact: ${error}`);
   }
-  return res.json();
+  
+  const text = await res.text();
+  if (!text) {
+    return { data: [] };
+  }
+  
+  return JSON.parse(text);
 }
 
 async function getTicket(token: string, orgId: string, ticketId: string) {
