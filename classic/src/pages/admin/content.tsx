@@ -5,7 +5,7 @@ import Link from '@docusaurus/Link';
 import { ProtectedRoute } from '../../components/Admin/ProtectedRoute';
 import { AdminLayout } from '../../components/Admin/AdminLayout';
 import ContentPreviewModal from '../../components/Admin/ContentPreviewModal';
-import { FileStack, Clock, CheckCircle, XCircle, AlertCircle, Filter, RefreshCw, Loader2, ExternalLink, Edit3, Eye } from 'lucide-react';
+import { FileStack, Clock, CheckCircle, XCircle, AlertCircle, Filter, RefreshCw, Loader2, ExternalLink, Edit3, Eye, Check, AlertTriangle, Archive, Send } from 'lucide-react';
 
 type WorkflowStatus = 'draft' | 'pending_review' | 'approved' | 'rejected' | 'published' | 'archived';
 type ContentSource = 'sanity' | 'confluence';
@@ -100,6 +100,12 @@ function ContentQueuePageContent() {
     published: 0,
     draft: 0,
   });
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
+  const showToast = (message: string, type: 'success' | 'error' = 'success') => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3000);
+  };
 
   useEffect(() => {
     const check = () => setIsDark(document.documentElement.getAttribute('data-theme') === 'dark');
@@ -125,7 +131,7 @@ function ContentQueuePageContent() {
       }
       params.append('limit', '50');
 
-      const response = await fetch(`/api/admin-content?${params.toString()}`);
+      const response = await fetch(`/admin-content?${params.toString()}`);
       if (!response.ok) {
         throw new Error('Failed to fetch content');
       }
@@ -164,7 +170,7 @@ function ContentQueuePageContent() {
   const handleAction = async (action: WorkflowAction, contentId: string, contentType: ContentType, notes?: string) => {
     setActionLoading(contentId);
     try {
-      const response = await fetch('/api/admin-content-action', {
+      const response = await fetch('/admin-content-action', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action, contentId, contentType, notes }),
@@ -175,10 +181,20 @@ function ContentQueuePageContent() {
         throw new Error(data.error || 'Action failed');
       }
       
+      const actionLabels: Record<WorkflowAction, string> = {
+        submit_for_review: 'submitted for review',
+        approve: 'approved',
+        reject: 'rejected',
+        publish: 'published',
+        archive: 'archived',
+        request_changes: 'returned for changes',
+      };
+      
+      showToast(`Content ${actionLabels[action]} successfully`, 'success');
       await fetchContent();
     } catch (err) {
       console.error('[ContentAction] Error:', err);
-      alert(err instanceof Error ? err.message : 'Action failed');
+      showToast(err instanceof Error ? err.message : 'Action failed', 'error');
     } finally {
       setActionLoading(null);
     }
@@ -222,6 +238,15 @@ function ContentQueuePageContent() {
 
   return (
     <AdminLayout title="Content Queue">
+      <style>{`
+        @keyframes slide-up {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-up {
+          animation: slide-up 0.3s ease-out forwards;
+        }
+      `}</style>
       <div
         className="relative overflow-hidden rounded-2xl p-6 mb-8"
         style={{
@@ -382,18 +407,18 @@ function ContentQueuePageContent() {
             <p className="text-sm">No content found</p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+          <div style={{ width: '100%', overflowX: 'auto' }}>
+            <table className="w-full text-sm" style={{ width: '100%', minWidth: 'auto' }}>
               <thead>
                 <tr style={{ borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}` }}>
-                  <th className="text-left px-4 py-3 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Title</th>
-                  <th className="text-left px-4 py-3 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Type</th>
-                  <th className="text-left px-4 py-3 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Status</th>
-                  <th className="text-left px-4 py-3 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Source</th>
-                  <th className="text-left px-4 py-3 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Author</th>
-                  <th className="text-left px-4 py-3 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Modified</th>
-                  <th className="text-left px-4 py-3 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Submitted</th>
-                  <th className="text-center px-4 py-3 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Actions</th>
+                  <th className="text-left px-2 py-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)', maxWidth: '150px' }}>Title</th>
+                  <th className="text-left px-2 py-2 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '70px' }}>Type</th>
+                  <th className="text-left px-2 py-2 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '70px' }}>Status</th>
+                  <th className="text-left px-2 py-2 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '60px' }}>Source</th>
+                  <th className="text-left px-2 py-2 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '80px' }}>Author</th>
+                  <th className="text-left px-2 py-2 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '70px' }}>Modified</th>
+                  <th className="text-left px-2 py-2 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '70px' }}>Submitted</th>
+                  <th className="text-center px-2 py-2 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '100px' }}>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -410,47 +435,49 @@ function ContentQueuePageContent() {
                         borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}`,
                       }}
                     >
-                      <td className="px-4 py-3">
+                      <td className="px-2 py-2" style={{ maxWidth: '150px' }}>
                         <button
                           onClick={() => openPreview(item)}
-                          className="font-medium text-left hover:underline"
-                          style={{ color: '#E8B058', cursor: 'pointer', background: 'none', border: 'none', padding: 0 }}
+                          className="font-medium text-left truncate"
+                          style={{ color: '#E8B058', cursor: 'pointer', background: 'none', border: 'none', padding: 0, maxWidth: '130px', display: 'inline-block' }}
+                          title={item.title}
                         >
-                          {item.title}
+                          {item.title.length > 30 ? item.title.slice(0, 30) + '...' : item.title}
                         </button>
-                        {item.slug && (
-                          <div className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                            /{item.slug}
-                          </div>
-                        )}
                       </td>
-                      <td className="px-4 py-3" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                        {TYPE_LABELS[item._type] || item._type}
+                      <td className="px-2 py-2 whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                        {TYPE_LABELS[item._type]?.slice(0, 8) || item._type}
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="px-2 py-2 whitespace-nowrap">
                         <span
-                          className="inline-block px-2 py-1 rounded-full text-xs font-medium"
                           style={{
+                            padding: '2px 6px',
+                            borderRadius: '4px',
+                            fontSize: '11px',
+                            fontWeight: 500,
                             background: statusConfig.bg,
                             color: statusConfig.color,
+                            display: 'inline-block',
                           }}
                         >
-                          {statusConfig.label}
+                          {statusConfig.label === 'Pending Review' ? 'Pending' : statusConfig.label}
                         </span>
                       </td>
-                      <td className="px-4 py-3" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                        {item.workflowConfig?.source ? SOURCE_LABELS[item.workflowConfig.source] : '—'}
+                      <td className="px-2 py-2 whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                        {item.workflowConfig?.source ? SOURCE_LABELS[item.workflowConfig.source].slice(0, 4) : '—'}
                       </td>
-                      <td className="px-4 py-3" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                        {item.workflowConfig?.submittedBy?.name || item.workflowConfig?.reviewedBy?.name || '—'}
+                      <td className="px-2 py-2 whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', maxWidth: '80px' }}>
+                        <span className="truncate" style={{ display: 'inline-block', maxWidth: '70px' }} title={item.workflowConfig?.submittedBy?.name || item.workflowConfig?.reviewedBy?.name}>
+                          {(item.workflowConfig?.submittedBy?.name || item.workflowConfig?.reviewedBy?.name || '—').slice(0, 10)}
+                        </span>
                       </td>
-                      <td className="px-4 py-3" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                      <td className="px-2 py-2 whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)' }}>
                         {formatDate(item._updatedAt)}
                       </td>
-                      <td className="px-4 py-3" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                      <td className="px-2 py-2 whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)' }}>
                         {formatDate(item.workflowConfig?.submittedAt)}
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="px-2 py-2">
                         <div className="flex items-center justify-center gap-1 flex-wrap">
                           {isActionInProgress ? (
                             <Loader2 className="w-4 h-4 animate-spin" style={{ color: '#E8B058' }} />
@@ -460,76 +487,77 @@ function ContentQueuePageContent() {
                                 <>
                                   <button
                                     onClick={() => handleAction('approve', item._id, item._type)}
-                                    className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs"
-                                    style={{
-                                      background: 'rgba(34,197,94,0.1)',
-                                      color: '#22c55e',
-                                    }}
+                                    className="inline-flex items-center justify-center w-7 h-7 rounded text-xs"
+                                    style={{ background: 'rgba(34,197,94,0.1)', color: '#22c55e' }}
+                                    title="Approve"
                                   >
                                     <CheckCircle className="w-3 h-3" />
-                                    Approve
                                   </button>
                                   <button
                                     onClick={() => handleAction('reject', item._id, item._type)}
-                                    className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs"
-                                    style={{
-                                      background: 'rgba(239,68,68,0.1)',
-                                      color: '#ef4444',
-                                    }}
+                                    className="inline-flex items-center justify-center w-7 h-7 rounded text-xs"
+                                    style={{ background: 'rgba(239,68,68,0.1)', color: '#ef4444' }}
+                                    title="Reject"
                                   >
                                     <XCircle className="w-3 h-3" />
-                                    Reject
                                   </button>
                                 </>
                               )}
                               {status === 'approved' && (
-                                <button
-                                  onClick={() => handleAction('publish', item._id, item._type)}
-                                  className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs"
-                                  style={{
-                                    background: 'rgba(139,92,246,0.1)',
-                                    color: '#8b5cf6',
-                                  }}
-                                >
-                                  <ExternalLink className="w-3 h-3" />
-                                  Publish
-                                </button>
-                              )}
-                              {status === 'draft' && (
+                                 <button
+                                   onClick={() => handleAction('publish', item._id, item._type)}
+                                   className="inline-flex items-center justify-center w-7 h-7 rounded text-xs"
+                                   style={{ background: 'rgba(139,92,246,0.1)', color: '#8b5cf6' }}
+                                   title="Publish"
+                                 >
+                                   <ExternalLink className="w-3 h-3" />
+                                 </button>
+                               )}
+                               {status === 'published' && (
+                                 <button
+                                   onClick={() => handleAction('archive', item._id, item._type)}
+                                   className="inline-flex items-center justify-center w-7 h-7 rounded text-xs"
+                                   style={{ background: 'rgba(107,114,128,0.1)', color: '#6b7280' }}
+                                   title="Archive"
+                                 >
+                                   <Archive className="w-3 h-3" />
+                                 </button>
+                               )}
+                               {status === 'rejected' && (
+                                 <button
+                                   onClick={() => handleAction('submit_for_review', item._id, item._type)}
+                                   className="inline-flex items-center justify-center w-7 h-7 rounded text-xs"
+                                   style={{ background: 'rgba(232,176,88,0.1)', color: '#E8B058' }}
+                                   title="Resubmit"
+                                 >
+                                   <Send className="w-3 h-3" />
+                                 </button>
+                               )}
+                               {status === 'draft' && (
                                 <button
                                   onClick={() => handleAction('submit_for_review', item._id, item._type)}
-                                  className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs"
-                                  style={{
-                                    background: 'rgba(232,176,88,0.1)',
-                                    color: '#E8B058',
-                                  }}
+                                  className="inline-flex items-center justify-center w-7 h-7 rounded text-xs"
+                                  style={{ background: 'rgba(232,176,88,0.1)', color: '#E8B058' }}
+                                  title="Submit"
                                 >
-                                  Submit
+                                  S
                                 </button>
                               )}
                               <button
                                 onClick={() => openPreview(item)}
-                                className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs"
-                                style={{
-                                  background: 'rgba(232,176,88,0.1)',
-                                  color: '#E8B058',
-                                  cursor: 'pointer',
-                                  border: 'none',
-                                }}
+                                className="inline-flex items-center justify-center w-7 h-7 rounded text-xs"
+                                style={{ background: 'rgba(232,176,88,0.1)', color: '#E8B058', cursor: 'pointer', border: 'none' }}
+                                title="View"
                               >
                                 <Eye className="w-3 h-3" />
-                                View
                               </button>
                               <a
                                 href={`${studioBaseUrl}/${item._type};${item._id}`}
-                                className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs"
-                                style={{
-                                  background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
-                                  color: 'var(--ifm-color-content-secondary)',
-                                }}
+                                className="inline-flex items-center justify-center w-7 h-7 rounded text-xs"
+                                style={{ background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', color: 'var(--ifm-color-content-secondary)' }}
+                                title="Edit"
                               >
                                 <Edit3 className="w-3 h-3" />
-                                Edit
                               </a>
                             </>
                           )}
@@ -558,7 +586,30 @@ function ContentQueuePageContent() {
         contentSlug={previewModal.contentSlug}
         contentTitle={previewModal.contentTitle}
         studioBaseUrl={studioBaseUrl}
+        onWorkflowAction={async (contentId, action, notes) => {
+          await handleAction(action, contentId, previewModal.contentType as ContentType, notes);
+        }}
       />
+
+      {toast && (
+        <div
+          className="fixed bottom-4 right-4 z-50 flex items-center gap-2 px-4 py-3 rounded-lg shadow-lg animate-slide-up"
+          style={{
+            background: toast.type === 'success' 
+              ? 'linear-gradient(135deg, rgba(34,197,94,0.9) 0%, rgba(22,163,74,0.9) 100%)'
+              : 'linear-gradient(135deg, rgba(239,68,68,0.9) 0%, rgba(220,38,38,0.9) 100%)',
+            color: '#fff',
+            border: `1px solid ${toast.type === 'success' ? 'rgba(34,197,94,0.3)' : 'rgba(239,68,68,0.3)'}`,
+          }}
+        >
+          {toast.type === 'success' ? (
+            <Check className="w-5 h-5" />
+          ) : (
+            <AlertTriangle className="w-5 h-5" />
+          )}
+          <span className="text-sm font-medium">{toast.message}</span>
+        </div>
+      )}
     </AdminLayout>
   );
 }

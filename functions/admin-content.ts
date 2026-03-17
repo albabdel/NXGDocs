@@ -9,22 +9,24 @@ type WorkflowStatus = 'draft' | 'pending_review' | 'approved' | 'rejected' | 'pu
 type ContentSource = 'sanity' | 'confluence';
 type ContentType = 'doc' | 'article' | 'release' | 'roadmapItem' | 'landingPage';
 
+interface WorkflowConfig {
+  workflowStatus: WorkflowStatus;
+  source: ContentSource;
+  submittedAt?: string;
+  submittedBy?: { name: string; email: string } | null;
+  reviewedBy?: { name: string; email: string } | null;
+  reviewedAt?: string;
+  reviewNotes?: string;
+  publishedAt?: string;
+  publishedBy?: { name: string; email: string } | null;
+}
+
 interface ContentItem {
   _id: string;
   _type: ContentType;
   title: string;
   slug: string;
-  workflowConfig?: {
-    workflowStatus?: WorkflowStatus;
-    source?: ContentSource;
-    submittedAt?: string;
-    submittedBy?: { name: string; email: string } | null;
-    reviewedBy?: { name: string; email: string } | null;
-    reviewedAt?: string;
-    reviewNotes?: string;
-    publishedAt?: string;
-    publishedBy?: { name: string; email: string } | null;
-  };
+  workflowConfig: WorkflowConfig;
   _createdAt: string;
   _updatedAt: string;
 }
@@ -81,16 +83,23 @@ export async function onRequest(context: { request: Request; env: Env }) {
     const params: Record<string, unknown> = {};
 
     if (status) {
-      filters.push(`workflowConfig.workflowStatus == $status`);
-      params.status = status;
+      if (status === 'pending_review') {
+        filters.push(`coalesce(workflowConfig.workflowStatus, status) in ['pending_review', 'review']`);
+      } else if (status === 'published') {
+        filters.push(`coalesce(workflowConfig.workflowStatus, status) in ['published']`);
+      } else {
+        filters.push(`coalesce(workflowConfig.workflowStatus, status, 'draft') == $status`);
+        params.status = status;
+      }
     }
     if (source) {
-      filters.push(`workflowConfig.source == $source`);
+      filters.push(`coalesce(workflowConfig.source, 'sanity') == $source`);
       params.source = source;
     }
 
     const filterClause = filters.length > 0 ? ` && ${filters.join(' && ')}` : '';
 
+    // Nest workflow fields under workflowConfig object
     const queries = typesToQuery.map(
       (t) => `
         *[_type == "${t}"${filterClause}] {
@@ -98,16 +107,16 @@ export async function onRequest(context: { request: Request; env: Env }) {
           _type,
           title,
           "slug": slug.current,
-          workflowConfig {
-            workflowStatus,
-            source,
-            submittedAt,
-            submittedBy->{ name, email },
-            reviewedBy->{ name, email },
-            reviewedAt,
-            reviewNotes,
-            publishedAt,
-            publishedBy->{ name, email },
+          "workflowConfig": {
+            "workflowStatus": coalesce(workflowConfig.workflowStatus, status, 'draft'),
+            "source": coalesce(workflowConfig.source, 'sanity'),
+            "submittedAt": workflowConfig.submittedAt,
+            "submittedBy": workflowConfig.submittedBy->{ name, email },
+            "reviewedBy": workflowConfig.reviewedBy->{ name, email },
+            "reviewedAt": workflowConfig.reviewedAt,
+            "reviewNotes": workflowConfig.reviewNotes,
+            "publishedAt": workflowConfig.publishedAt,
+            "publishedBy": workflowConfig.publishedBy->{ name, email },
           },
           _createdAt,
           _updatedAt,
