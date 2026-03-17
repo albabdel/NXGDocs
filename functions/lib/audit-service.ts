@@ -57,10 +57,20 @@ export async function logAuditEvent(env: AuditEnv, entry: AuditLogEntry): Promis
   const client = getSanityClient(env);
 
   try {
+    const adminUser = await client.fetch(
+      `*[_type == "adminUser" && zohoId == $zohoId][0]._id`,
+      { zohoId: entry.actorId }
+    );
+
+    if (!adminUser) {
+      console.error(`[AuditService] Admin user not found for zohoId: ${entry.actorId}`);
+      return;
+    }
+
     await client.create({
       _type: 'auditLog',
       action: entry.action,
-      actor: { _type: 'reference', _ref: entry.actorId },
+      actor: { _type: 'reference', _ref: adminUser },
       resourceType: entry.resourceType,
       resourceId: entry.resourceId,
       resourceTitle: entry.resourceTitle,

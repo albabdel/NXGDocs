@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '@theme/Layout';
 import BrowserOnly from '@docusaurus/BrowserOnly';
+import Link from '@docusaurus/Link';
 import { ProtectedRoute } from '../../components/Admin/ProtectedRoute';
 import { AdminLayout } from '../../components/Admin/AdminLayout';
 import { Users, UserCheck, Shield, Edit3, Eye, Filter, Loader2 } from 'lucide-react';
@@ -81,7 +82,7 @@ function UsersPageContent() {
   useEffect(() => {
     async function fetchUsers() {
       try {
-        const res = await fetch('/api/admin-users');
+        const res = await fetch('/admin-users');
         if (!res.ok) throw new Error('Failed to fetch users');
         const json: UsersData = await res.json();
         setData(json);
@@ -282,17 +283,18 @@ function UsersPageContent() {
                       </td>
                       <td className="text-center py-3 px-2">
                         <div className="flex items-center justify-center gap-2">
-                          <a
-                            href={`/admin/audit?userId=${user._id}`}
+                          <Link
+                            to={`/admin/audit?userId=${user._id}`}
                             className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs"
                             style={{
                               background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
                               color: 'var(--ifm-color-content-secondary)',
+                              textDecoration: 'none',
                             }}
                           >
                             <Eye className="w-3 h-3" />
                             Activity
-                          </a>
+                          </Link>
                           <a
                             href={`${studioBaseUrl}/${user._id}`}
                             className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs"

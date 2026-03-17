@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import Layout from '@theme/Layout';
 import BrowserOnly from '@docusaurus/BrowserOnly';
+import Link from '@docusaurus/Link';
 import { ProtectedRoute } from '../../components/Admin/ProtectedRoute';
 import { AdminLayout } from '../../components/Admin/AdminLayout';
-import { FileStack, Clock, CheckCircle, XCircle, AlertCircle, Filter, RefreshCw, Loader2, ExternalLink, Edit3 } from 'lucide-react';
+import ContentPreviewModal from '../../components/Admin/ContentPreviewModal';
+import { FileStack, Clock, CheckCircle, XCircle, AlertCircle, Filter, RefreshCw, Loader2, ExternalLink, Edit3, Eye } from 'lucide-react';
 
 type WorkflowStatus = 'draft' | 'pending_review' | 'approved' | 'rejected' | 'published' | 'archived';
 type ContentSource = 'sanity' | 'confluence';
@@ -84,6 +86,13 @@ function ContentQueuePageContent() {
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [sourceFilter, setSourceFilter] = useState<string>('all');
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [previewModal, setPreviewModal] = useState<{
+    isOpen: boolean;
+    contentId: string | null;
+    contentType: string;
+    contentSlug: string;
+    contentTitle: string;
+  }>({ isOpen: false, contentId: null, contentType: '', contentSlug: '', contentTitle: '' });
   const [stats, setStats] = useState({
     pending_review: 0,
     approved: 0,
@@ -173,6 +182,26 @@ function ContentQueuePageContent() {
     } finally {
       setActionLoading(null);
     }
+  };
+
+  const openPreview = (item: ContentItem) => {
+    setPreviewModal({
+      isOpen: true,
+      contentId: item._id,
+      contentType: item._type,
+      contentSlug: item.slug,
+      contentTitle: item.title,
+    });
+  };
+
+  const closePreview = () => {
+    setPreviewModal({
+      isOpen: false,
+      contentId: null,
+      contentType: '',
+      contentSlug: '',
+      contentTitle: '',
+    });
   };
 
   const cardBg = isDark
@@ -382,9 +411,13 @@ function ContentQueuePageContent() {
                       }}
                     >
                       <td className="px-4 py-3">
-                        <div className="font-medium" style={{ color: 'var(--ifm-color-content)' }}>
+                        <button
+                          onClick={() => openPreview(item)}
+                          className="font-medium text-left hover:underline"
+                          style={{ color: '#E8B058', cursor: 'pointer', background: 'none', border: 'none', padding: 0 }}
+                        >
                           {item.title}
-                        </div>
+                        </button>
                         {item.slug && (
                           <div className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
                             /{item.slug}
@@ -474,6 +507,19 @@ function ContentQueuePageContent() {
                                   Submit
                                 </button>
                               )}
+                              <button
+                                onClick={() => openPreview(item)}
+                                className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs"
+                                style={{
+                                  background: 'rgba(232,176,88,0.1)',
+                                  color: '#E8B058',
+                                  cursor: 'pointer',
+                                  border: 'none',
+                                }}
+                              >
+                                <Eye className="w-3 h-3" />
+                                View
+                              </button>
                               <a
                                 href={`${studioBaseUrl}/${item._type};${item._id}`}
                                 className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs"
@@ -503,6 +549,16 @@ function ContentQueuePageContent() {
           Showing {items.length} item{items.length !== 1 ? 's' : ''}
         </div>
       )}
+
+      <ContentPreviewModal
+        isOpen={previewModal.isOpen}
+        onClose={closePreview}
+        contentId={previewModal.contentId}
+        contentType={previewModal.contentType}
+        contentSlug={previewModal.contentSlug}
+        contentTitle={previewModal.contentTitle}
+        studioBaseUrl={studioBaseUrl}
+      />
     </AdminLayout>
   );
 }

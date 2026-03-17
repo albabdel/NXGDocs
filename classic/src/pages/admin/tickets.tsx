@@ -3,10 +3,11 @@ import Layout from '@theme/Layout';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import { ProtectedRoute } from '../../components/Admin/ProtectedRoute';
 import { AdminLayout } from '../../components/Admin/AdminLayout';
-import { Ticket, Inbox, Clock, CheckCircle, AlertTriangle, ExternalLink, Loader, AlertCircle, Search, ChevronLeft, ChevronRight, Mail, User, RefreshCw } from 'lucide-react';
+import { Ticket, Inbox, Clock, CheckCircle, AlertTriangle, ExternalLink, Loader, AlertCircle, Search, ChevronLeft, ChevronRight, Mail, User, RefreshCw, Eye } from 'lucide-react';
 import { useZohoAuth } from '../../components/ZohoTickets/useZohoAuth';
 import { listTickets, listAgents } from '../../components/ZohoTickets/zohoApi';
 import type { ZohoTicket, ZohoAgent } from '../../components/ZohoTickets/types';
+import TicketDetailModal from '../../components/ZohoTickets/TicketDetailModal';
 
 const STATUS_FILTERS = [
   { key: 'all', label: 'All' },
@@ -94,6 +95,7 @@ function TicketsPageContent() {
   const [agents, setAgents] = useState<ZohoAgent[]>([]);
   const [stats, setStats] = useState<TicketStats>({ open: 0, pending: 0, closed: 0, total: 0 });
   const [statsLoading, setStatsLoading] = useState(true);
+  const [selectedTicketId, setSelectedTicketId] = useState<string | null>(null);
 
   const { token, isAuthenticated, mode } = useZohoAuth();
 
@@ -478,19 +480,19 @@ function TicketsPageContent() {
             }}
           >
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+              <table className="w-full text-sm" style={{ minWidth: '900px' }}>
                 <thead>
                   <tr style={{ background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)' }}>
-                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)' }}>Ticket #</th>
-                    <th className="text-left p-3 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>Subject</th>
-                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)' }}>Requester</th>
-                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)' }}>Status</th>
-                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)' }}>Priority</th>
-                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)' }}>Channel</th>
-                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)' }}>Assignee</th>
-                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)' }}>Created</th>
-                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)' }}>Updated</th>
-                    <th className="text-left p-3 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}></th>
+                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '100px' }}>Ticket #</th>
+                    <th className="text-left p-3 font-medium" style={{ color: 'var(--ifm-color-content-secondary)', width: '25%' }}>Subject</th>
+                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '150px' }}>Requester</th>
+                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '100px' }}>Status</th>
+                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '80px' }}>Priority</th>
+                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '80px' }}>Channel</th>
+                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '120px' }}>Assignee</th>
+                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '90px' }}>Created</th>
+                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '80px' }}>Updated</th>
+                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '100px' }}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -504,6 +506,8 @@ function TicketsPageContent() {
                     return (
                       <tr
                         key={ticket.id}
+                        onClick={() => setSelectedTicketId(ticket.id)}
+                        className="cursor-pointer transition-all hover:brightness-110"
                         style={{
                           borderTop: idx === 0 ? 'none' : `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`,
                         }}
@@ -511,7 +515,7 @@ function TicketsPageContent() {
                         <td className="p-3 font-mono text-xs whitespace-nowrap" style={{ color: '#E8B058' }}>
                           #{ticket.ticketNumber}
                         </td>
-                        <td className="p-3 max-w-[300px]">
+                        <td className="p-3">
                           <div className="truncate" style={{ color: 'var(--ifm-color-content)' }}>
                             {ticket.subject}
                           </div>
@@ -570,24 +574,33 @@ function TicketsPageContent() {
                           </div>
                         </td>
                         <td className="p-3 whitespace-nowrap">
-                          <div className="flex items-center gap-2">
-                            <a
-                              href={`/support?ticket=${ticket.id}`}
-                              className="inline-flex items-center gap-1 text-xs hover:underline"
-                              style={{ color: '#E8B058' }}
+                          <div className="flex items-center gap-2" onClick={e => e.stopPropagation()}>
+                            <button
+                              onClick={() => setSelectedTicketId(ticket.id)}
+                              className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs transition-all hover:opacity-80"
+                              style={{
+                                background: 'rgba(232,176,88,0.12)',
+                                color: '#E8B058',
+                                border: '1px solid rgba(232,176,88,0.2)',
+                                cursor: 'pointer',
+                              }}
                             >
-                              View <ExternalLink className="w-3 h-3" />
-                            </a>
+                              <Eye className="w-3 h-3" /> View
+                            </button>
                             {ticket.webUrl && (
                               <a
                                 href={ticket.webUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 text-xs hover:underline"
-                                style={{ color: 'var(--ifm-color-content-secondary)' }}
+                                className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs transition-all hover:opacity-80"
+                                style={{
+                                  background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
+                                  color: 'var(--ifm-color-content-secondary)',
+                                  textDecoration: 'none',
+                                }}
                                 title="Open in Zoho Desk"
                               >
-                                Zoho <ExternalLink className="w-3 h-3" />
+                                <ExternalLink className="w-3 h-3" />
                               </a>
                             )}
                           </div>
@@ -637,6 +650,13 @@ function TicketsPageContent() {
           )}
         </>
       )}
+
+      <TicketDetailModal
+        ticketId={selectedTicketId}
+        isDark={isDark}
+        onClose={() => setSelectedTicketId(null)}
+        token={token}
+      />
     </AdminLayout>
   );
 }
@@ -653,7 +673,7 @@ export default function TicketsPageWrapper() {
   return (
     <Layout title="Tickets | Admin">
       <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
-        <div className="max-w-6xl mx-auto px-6 py-8">
+        <div className="w-full px-6 py-8">
           <BrowserOnly fallback={<div>Loading...</div>}>
             {() => <TicketsPage />}
           </BrowserOnly>

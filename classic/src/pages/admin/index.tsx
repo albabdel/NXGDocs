@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '@theme/Layout';
 import BrowserOnly from '@docusaurus/BrowserOnly';
+import Link from '@docusaurus/Link';
 import { ProtectedRoute } from '../../components/Admin/ProtectedRoute';
 import { AdminLayout } from '../../components/Admin/AdminLayout';
 import { useAdminAuth } from '../../contexts/AdminAuthContext';
@@ -267,9 +268,9 @@ function AdminDashboardContent() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {quickStats.map(({ icon: Icon, label, value, href, color }) => (
-          <a
+          <Link
             key={label}
-            href={href}
+            to={href}
             className="rounded-xl p-4 transition-all hover:scale-[1.02] group"
             style={{
               background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.6)',
@@ -287,7 +288,7 @@ function AdminDashboardContent() {
             <span className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
               {label}
             </span>
-          </a>
+          </Link>
         ))}
       </div>
 
@@ -365,8 +366,8 @@ function AdminDashboardContent() {
             </h3>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <a
-              href="/admin/content?status=pending_review"
+            <Link
+              to="/admin/content?status=pending_review"
               className="flex items-center gap-3 p-3 rounded-lg transition-all hover:scale-[1.02]"
               style={{
                 background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)',
@@ -377,9 +378,9 @@ function AdminDashboardContent() {
               <span className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>
                 Review Pending
               </span>
-            </a>
-            <a
-              href="/admin/tickets?status=open"
+            </Link>
+            <Link
+              to="/admin/tickets?status=open"
               className="flex items-center gap-3 p-3 rounded-lg transition-all hover:scale-[1.02]"
               style={{
                 background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)',
@@ -390,9 +391,9 @@ function AdminDashboardContent() {
               <span className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>
                 View Tickets
               </span>
-            </a>
-            <a
-              href="/admin/routing?action=new"
+            </Link>
+            <Link
+              to="/admin/routing?action=new"
               className="flex items-center gap-3 p-3 rounded-lg transition-all hover:scale-[1.02]"
               style={{
                 background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)',
@@ -403,9 +404,11 @@ function AdminDashboardContent() {
               <span className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>
                 Add New Route
               </span>
-            </a>
+            </Link>
             <a
               href="/studio"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-3 p-3 rounded-lg transition-all hover:scale-[1.02]"
               style={{
                 background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)',
@@ -468,9 +471,9 @@ function AdminDashboardContent() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {sections.map(({ icon: Icon, title, description, href }) => (
-          <a
+          <Link
             key={title}
-            href={href}
+            to={href}
             className="group rounded-xl p-5 transition-all hover:scale-[1.02]"
             style={{
               background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.6)',
@@ -500,7 +503,7 @@ function AdminDashboardContent() {
                 </p>
               </div>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
     </AdminLayout>

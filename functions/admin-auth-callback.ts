@@ -96,7 +96,8 @@ export async function onRequest(context: { request: Request; env: Env }) {
 
     const { cookieHeader } = await createAdminSession(request, env, user);
 
-    // Log login event
+    await syncAdminUser(env, user);
+
     await logAuditEvent(env, {
       action: 'user.login',
       actorId: user.userId,
@@ -107,11 +108,6 @@ export async function onRequest(context: { request: Request; env: Env }) {
         source: 'admin-oauth',
       },
     }).catch(err => console.error('[admin-auth-callback] Failed to log audit event:', err));
-
-    // Sync user to Sanity (non-blocking - don't wait for it)
-    syncAdminUser(env, user).catch(err => {
-      console.error('[admin-auth-callback] Failed to sync user to Sanity:', err);
-    });
 
     return new Response(null, {
       status: 302,
