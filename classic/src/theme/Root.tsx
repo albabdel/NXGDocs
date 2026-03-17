@@ -5,10 +5,11 @@ import ThemeToggle from '../components/ThemeToggle';
 import BackgroundPattern from '../components/BackgroundPattern';
 import Footer from '../components/Footer';
 import SearchModal from '../components/SearchModal';
+import { AdminAuthProvider } from '../contexts/AdminAuthContext';
 
 export default function Root({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <AdminAuthProvider>
       <BackgroundPattern />
       <ScrollProgress />
       <div style={{
@@ -25,6 +26,6 @@ export default function Root({ children }: { children: React.ReactNode }) {
       <Footer />
       <ThemeToggle />
       <VoCWidget />
-    </>
+    </AdminAuthProvider>
   );
 }

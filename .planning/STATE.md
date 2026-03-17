@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.2
-milestone_name: Repository Maintenance
-status: complete
-stopped_at: "Phase 10 complete — Deep cleanup verified"
-last_updated: "2026-03-16T18:45:00Z"
-last_activity: "2026-03-16 — Phase 10 complete: dead CMS artifacts cleaned, build verified"
+milestone: v2.0
+milestone_name: Admin Command Center
+status: in_progress
+stopped_at: "Phase 16 planning created — awaiting execution"
+last_updated: "2026-03-17T00:00:00Z"
+last_activity: "2026-03-17 — Admin Command Center roadmap created, Phase 16 plan ready"
 progress:
-  total_phases: 5
-  completed_phases: 5
-  total_plans: 12
-  completed_plans: 9
-  percent: 75
+  total_phases: 8
+  completed_phases: 0
+  total_plans: 22
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
@@ -19,19 +19,20 @@ progress:
 ## Project Reference
 
 See: .planning/PROJECT.md (updated 2026-03-13)
+See: .planning/ROADMAP-admin-dashboard.md (new milestone roadmap)
 
 **Core value:** Non-technical editors can open a web UI, write content, and publish it — without a developer as a bottleneck.
-**Current focus:** v1.1 Milestone COMPLETE
+**Current focus:** v2.0 Admin Command Center — Transform staff login into full admin dashboard
 
 ## Current Position
 
-Phase: 10 COMPLETE — Deep cleanup verified
-Status: All phases complete
-Last activity: 2026-03-16 — Phase 10 complete: repository cleaned
+Phase: 16 READY — Auth Foundation plan created
+Status: Awaiting execution approval
+Last activity: 2026-03-17 — Admin Command Center roadmap created
 
-Progress: [███████░░░] 75% (9 of 12 plans complete)
+Progress: [░░░░░░░░░░] 0% (0 of 22 plans complete)
 
-**Note:** Phases 6, 7, 8, 9, and 10 are complete. Repository maintenance complete.
+**Note:** New milestone v2.0 Admin Command Center started. Phase 16 plan ready for execution.
 
 ## Phase 10 Complete
 
@@ -153,11 +154,48 @@ None — v1.1 milestone complete.
 
 ## Session Continuity
 
-Last session: 2026-03-16
-Stopped at: Phase 10 complete — Deep cleanup verified
-Resume file: None
+Last session: 2026-03-17
+Stopped at: Phase 16 planning created — awaiting execution
+Resume file: .planning/phases/16-auth-foundation/16-01-PLAN.md
 
 **Next steps:**
-1. Continue Zoho authentication implementation (see ZOHO_AUTH_ROADMAP.md)
-2. Address pre-existing broken links in documentation
-3. Deploy to production
+1. Execute Phase 16 (Auth Foundation) — 6 tasks
+2. Execute Phase 17 (Admin Shell & Sidebar) — 2 tasks
+3. Continue with Waves 2-4 for full admin dashboard
+
+---
+
+## v2.0 Admin Command Center (Current Milestone)
+
+### Phase 16: Auth Foundation (Ready)
+**Goal:** OAuth org-based authentication with session management
+
+Plans:
+- [ ] 16-01-PLAN.md — Auth foundation: session, OAuth callback, context, protected routes
+
+### Phase 17: Admin Shell & Sidebar (Pending)
+**Goal:** Admin dashboard layout with navigation
+
+### Phase 18: Content Approval Workflow (Pending)
+**Goal:** Review queue, approve/reject/edit content
+
+### Phase 19: Routing & Block Editor (Pending)
+**Goal:** Dynamic route config, visual block editing
+
+### Phase 20: Analytics Dashboard (Pending)
+**Goal:** Metrics, charts, content performance
+
+### Phase 21: Audit & Compliance (Pending)
+**Goal:** Complete audit trail, retention policies
+
+### Phase 22: Ticketing Integration (Pending)
+**Goal:** Embed ticketing in admin dashboard
+
+### Phase 23: Polish & Testing (Pending)
+**Goal:** E2E tests, accessibility, performance
+
+---
+
+## v1.2 Confluence Integration (On Hold)
+
+Phases 11-15 are on hold pending v2.0 completion. The admin dashboard will include Confluence sync controls.

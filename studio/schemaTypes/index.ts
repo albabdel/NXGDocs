@@ -55,8 +55,10 @@ import {
 } from './gettingStartedPage'
 import {docsIndexConfigType} from './docsIndexConfig'
 import {searchSynonymType} from './searchSynonym'
+import {adminUserType} from './adminUser'
 
 export const schemaTypes = [
+  adminUserType,
   searchSynonymType,
   // Original document types
   docType,
