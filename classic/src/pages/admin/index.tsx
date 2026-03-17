@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Layout from '@theme/Layout';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import { ProtectedRoute } from '../../components/Admin/ProtectedRoute';
+import { AdminLayout } from '../../components/Admin/AdminLayout';
 import { useAdminAuth } from '../../contexts/AdminAuthContext';
 import {
   LogOut,
@@ -10,6 +11,8 @@ import {
   Route,
   BarChart3,
   Ticket,
+  Users,
+  FileText,
   Settings,
   Loader,
 } from 'lucide-react';
@@ -44,15 +47,17 @@ function AdminDashboardContent() {
   const borderColor = isDark ? 'rgba(232,176,88,0.2)' : 'rgba(232,176,88,0.3)';
 
   const sections = [
-    { icon: FileStack, title: 'Content Queue', description: 'Manage and review content submissions', href: '/admin/content-queue' },
+    { icon: FileStack, title: 'Content Queue', description: 'Manage and review content submissions', href: '/admin/content' },
     { icon: Route, title: 'Routing', description: 'Configure ticket routing rules', href: '/admin/routing' },
     { icon: BarChart3, title: 'Analytics', description: 'View platform analytics and reports', href: '/admin/analytics' },
     { icon: Ticket, title: 'Tickets', description: 'Manage support tickets', href: '/admin/tickets' },
+    { icon: Users, title: 'Users', description: 'Manage user accounts and permissions', href: '/admin/users' },
+    { icon: FileText, title: 'Audit Logs', description: 'View system audit trails', href: '/admin/audit' },
     { icon: Settings, title: 'Settings', description: 'Configure admin preferences', href: '/admin/settings' },
   ];
 
   return (
-    <div>
+    <AdminLayout title="Dashboard">
       <div
         className="relative overflow-hidden rounded-2xl p-6 mb-8"
         style={{
@@ -139,7 +144,7 @@ function AdminDashboardContent() {
           </a>
         ))}
       </div>
-    </div>
+    </AdminLayout>
   );
 }
 
