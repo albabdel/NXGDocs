@@ -40,33 +40,37 @@ function json(data: unknown, status = 200) {
 // ---------------------------------------------------------------------------
 
 async function searchContacts(token: string, orgId: string, query: string, limit = 10) {
-  // Search contacts using the search endpoint with searchField=email
-  const searchUrl = `${ZOHO_DESK_BASE}/contacts/search?searchStr=${encodeURIComponent(query)}&searchField=email&limit=${limit}`;
-  const res = await fetch(searchUrl, {
-    headers: { Authorization: `Zoho-oauthtoken ${token}`, orgId },
+  // First try listing contacts and filter locally
+  const listUrl = `${ZOHO_DESK_BASE}/contacts?limit=${Math.min(limit, 100)}`;
+  const res = await fetch(listUrl, {
+    headers: { 
+      Authorization: `Zoho-oauthtoken ${token}`, 
+      orgId 
+    },
   });
+  
   if (!res.ok) {
-    // Fallback: try listing contacts and filter locally
-    const listUrl = `${ZOHO_DESK_BASE}/contacts?orgId=${orgId}&limit=${limit}`;
-    const listRes = await fetch(listUrl, {
-      headers: { Authorization: `Zoho-oauthtoken ${token}` },
-    });
-    if (!listRes.ok) {
-      const error = await listRes.text();
-      throw new Error(`Failed to search contacts: ${error}`);
-    }
-    const data = await listRes.json() as { data?: unknown[] };
-    // Filter by email if query looks like an email
-    if (query.includes('@') && data.data) {
-      const filtered = (data.data as Record<string, unknown>[]).filter(
-        (c: Record<string, unknown>) => 
-          (c.email as string)?.toLowerCase().includes(query.toLowerCase())
-      );
-      return { data: filtered };
-    }
-    return data;
+    const error = await res.text();
+    throw new Error(`Failed to list contacts: ${error}`);
   }
-  return res.json();
+  
+  const data = await res.json() as { data?: unknown[] };
+  
+  // Filter by query (email or name)
+  if (query && data.data) {
+    const q = query.toLowerCase();
+    const filtered = (data.data as Record<string, unknown>[]).filter(
+      (c: Record<string, unknown>) => {
+        const email = (c.email as string)?.toLowerCase() || '';
+        const firstName = (c.firstName as string)?.toLowerCase() || '';
+        const lastName = (c.lastName as string)?.toLowerCase() || '';
+        return email.includes(q) || firstName.includes(q) || lastName.includes(q);
+      }
+    );
+    return { data: filtered.slice(0, limit) };
+  }
+  
+  return data;
 }
   }
   return res.json();
