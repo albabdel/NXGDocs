@@ -34,6 +34,7 @@ const TOKEN_STORAGE_KEY = 'zoho_agent_token';
 const SESSION_STORAGE_KEY = 'zoho_customer_session';
 const PENDING_MODE_KEY = 'zoho_pending_mode';
 const PENDING_NONCE_KEY = 'zoho_pending_nonce';
+const ADMIN_REDIRECT_KEY = 'zoho_admin_redirect';
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -259,7 +260,9 @@ export function useZohoAuth() {
     if (zohoRaw) {
       window.history.replaceState(null, '', window.location.pathname);
       const pendingMode = localStorage.getItem(PENDING_MODE_KEY) as LoginMode | null;
+      const adminRedirect = localStorage.getItem(ADMIN_REDIRECT_KEY);
       localStorage.removeItem(PENDING_MODE_KEY);
+      localStorage.removeItem(ADMIN_REDIRECT_KEY);
       
       // Agent token from Zoho OAuth
       const tokenData: ZohoTokenData = {
@@ -270,6 +273,11 @@ export function useZohoAuth() {
       sessionStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(tokenData));
       setAuthData(tokenData);
       setLoading(false);
+
+      // If admin redirect was requested, redirect to admin
+      if (adminRedirect) {
+        window.location.href = adminRedirect;
+      }
       return;
     }
 
@@ -469,6 +477,7 @@ export function useZohoAuth() {
     sessionStorage.removeItem(SESSION_STORAGE_KEY);
     localStorage.removeItem(PENDING_MODE_KEY);
     localStorage.removeItem(PENDING_NONCE_KEY);
+    localStorage.removeItem(ADMIN_REDIRECT_KEY);
     setAuthData(null);
     setLoginError(null);
     setRetrying(false);

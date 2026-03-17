@@ -1,5 +1,13 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 
+const TOKEN_STORAGE_KEY = 'zoho_agent_token';
+
+interface StoredToken {
+  accessToken: string;
+  expiry: number;
+  mode: 'agent';
+}
+
 interface AdminUser {
   id: string;
   email: string;
@@ -13,11 +21,51 @@ interface AdminAuthContextValue {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: () => void;
-  logout: () => Promise<void>;
+  logout: () => void;
   refreshSession: () => Promise<void>;
 }
 
 const AdminAuthContext = createContext<AdminAuthContextValue | undefined>(undefined);
+
+function loadStoredToken(): StoredToken | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const stored = sessionStorage.getItem(TOKEN_STORAGE_KEY);
+    if (!stored) return null;
+    const data: StoredToken = JSON.parse(stored);
+    if (data.expiry < Date.now() + 60_000) {
+      sessionStorage.removeItem(TOKEN_STORAGE_KEY);
+      return null;
+    }
+    return data;
+  } catch {
+    return null;
+  }
+}
+
+function buildZohoAgentUrl(): string {
+  const ZOHO_CLIENT_ID = '1000.F5X0EPUNG5MJ7NGV5T4CSVO8AU1TZN';
+  const ZOHO_AUTH_URL = 'https://accounts.zoho.eu/oauth/v2/auth';
+  const AGENT_SCOPES = [
+    'Desk.tickets.READ',
+    'Desk.tickets.UPDATE',
+    'Desk.tickets.CREATE',
+    'Desk.contacts.READ',
+    'Desk.agents.READ',
+    'Desk.search.READ',
+    'Desk.basic.READ',
+    'aaaserver.profile.read',
+  ].join(',');
+  const redirectUri = `${window.location.origin}/support`;
+  const params = new URLSearchParams({
+    response_type: 'token',
+    client_id: ZOHO_CLIENT_ID,
+    redirect_uri: redirectUri,
+    scope: AGENT_SCOPES,
+    access_type: 'online',
+  });
+  return `${ZOHO_AUTH_URL}?${params}`;
+}
 
 export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AdminUser | null>(null);
@@ -26,14 +74,28 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
   const validateSession = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await fetch('/admin-session', {
-        credentials: 'include',
+      const storedToken = loadStoredToken();
+      if (!storedToken) {
+        setUser(null);
+        setIsLoading(false);
+        return;
+      }
+
+      const response = await fetch('https://accounts.zoho.eu/oauth/v2/userinfo', {
+        headers: { Authorization: `Bearer ${storedToken.accessToken}` },
       });
 
       if (response.ok) {
         const data = await response.json();
-        setUser(data.user);
+        setUser({
+          id: data.User_ID || data.sub || '',
+          email: data.Email || data.email || '',
+          name: data.Display_Name || data.name || data.Email || '',
+          orgId: data.Zoho_ID || data.org_id || '',
+          role: 'admin',
+        });
       } else {
+        sessionStorage.removeItem(TOKEN_STORAGE_KEY);
         setUser(null);
       }
     } catch (error) {
@@ -49,46 +111,16 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
   }, [validateSession]);
 
   const login = useCallback(() => {
-    // Redirect to Zoho OAuth for admin authentication
-    const ZOHO_CLIENT_ID = '1000.F5X0EPUNG5MJ7NGV5T4CSVO8AU1TZN';
-    const ZOHO_AUTH_URL = 'https://accounts.zoho.eu/oauth/v2/auth';
-    const ADMIN_SCOPES = [
-      'Desk.tickets.READ',
-      'Desk.tickets.UPDATE',
-      'Desk.tickets.CREATE',
-      'Desk.contacts.READ',
-      'Desk.agents.READ',
-      'Desk.search.READ',
-      'Desk.basic.READ',
-      'aaaserver.profile.read',
-    ].join(',');
-
-    const redirectUri = `${window.location.origin}/admin-auth-callback`;
-    const params = new URLSearchParams({
-      response_type: 'code',
-      client_id: ZOHO_CLIENT_ID,
-      scope: ADMIN_SCOPES,
-      redirect_uri: redirectUri,
-      access_type: 'offline',
-      state: crypto.randomUUID(),
-    });
-
-    window.location.href = `${ZOHO_AUTH_URL}?${params}`;
+    localStorage.setItem('zoho_pending_mode', 'agent');
+    localStorage.setItem('zoho_admin_redirect', '/admin');
+    window.location.href = buildZohoAgentUrl();
   }, []);
 
-  const logout = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      await fetch('/admin-logout', {
-        method: 'POST',
-        credentials: 'include',
-      });
-    } catch (error) {
-      console.error('[AdminAuth] Logout failed:', error);
-    } finally {
-      setUser(null);
-      setIsLoading(false);
-    }
+  const logout = useCallback(() => {
+    sessionStorage.removeItem(TOKEN_STORAGE_KEY);
+    localStorage.removeItem('zoho_pending_mode');
+    localStorage.removeItem('zoho_admin_redirect');
+    setUser(null);
   }, []);
 
   const refreshSession = useCallback(async () => {

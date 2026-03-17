@@ -74,7 +74,7 @@ function AdminLoginContent() {
           Admin Portal
         </h2>
         <p className="text-sm mb-6" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-          Sign in to access the NXGEN admin dashboard.
+          Sign in with your Zoho staff account to access the admin dashboard.
         </p>
 
         <button
