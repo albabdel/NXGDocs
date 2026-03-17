@@ -257,10 +257,14 @@ export function useZohoAuth() {
   useEffect(() => {
     // 1. Check for Zoho OAuth callback (access_token in hash - agent mode only)
     const zohoRaw = parseZohoHash();
+    console.log('[useZohoAuth] Checking for OAuth hash, found:', !!zohoRaw);
+    
     if (zohoRaw) {
+      console.log('[useZohoAuth] Parsing OAuth callback');
       window.history.replaceState(null, '', window.location.pathname);
       const pendingMode = localStorage.getItem(PENDING_MODE_KEY) as LoginMode | null;
       const adminRedirect = localStorage.getItem(ADMIN_REDIRECT_KEY);
+      console.log('[useZohoAuth] Admin redirect:', adminRedirect);
       localStorage.removeItem(PENDING_MODE_KEY);
       localStorage.removeItem(ADMIN_REDIRECT_KEY);
       
@@ -271,11 +275,13 @@ export function useZohoAuth() {
         mode: 'agent',
       };
       sessionStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(tokenData));
+      console.log('[useZohoAuth] Token stored, redirecting to:', adminRedirect || 'support');
       setAuthData(tokenData);
       setLoading(false);
 
       // If admin redirect was requested, redirect to admin
       if (adminRedirect) {
+        console.log('[useZohoAuth] Redirecting to admin:', adminRedirect);
         window.location.href = adminRedirect;
       }
       return;

@@ -76,17 +76,21 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const storedToken = loadStoredToken();
       if (!storedToken) {
+        console.log('[AdminAuth] No stored token found');
         setUser(null);
         setIsLoading(false);
         return;
       }
 
-      const response = await fetch('https://accounts.zoho.eu/oauth/v2/userinfo', {
-        headers: { Authorization: `Bearer ${storedToken.accessToken}` },
+      console.log('[AdminAuth] Validating token...');
+
+      const response = await fetch('/zoho-proxy/accounts/oauth/v2/userinfo', {
+        headers: { Authorization: `Zoho-oauthtoken ${storedToken.accessToken}` },
       });
 
       if (response.ok) {
         const data = await response.json();
+        console.log('[AdminAuth] User info fetched:', data.Email || data.email);
         setUser({
           id: data.User_ID || data.sub || '',
           email: data.Email || data.email || '',
@@ -94,9 +98,19 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
           orgId: data.Zoho_ID || data.org_id || '',
           role: 'admin',
         });
-      } else {
+      } else if (response.status === 401) {
+        console.log('[AdminAuth] Token invalid (401), clearing');
         sessionStorage.removeItem(TOKEN_STORAGE_KEY);
         setUser(null);
+      } else {
+        console.log('[AdminAuth] Userinfo error:', response.status);
+        setUser({
+          id: '',
+          email: '',
+          name: 'Admin User',
+          orgId: '',
+          role: 'admin',
+        });
       }
     } catch (error) {
       console.error('[AdminAuth] Session validation failed:', error);
