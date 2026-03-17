@@ -1,6 +1,7 @@
 import {type DocumentActionComponent} from 'sanity'
 import {CopyIcon, PublishIcon, TrashIcon, DownloadIcon} from '@sanity/icons'
 import {useClient} from 'sanity'
+export {processImportAction, resetImportAction} from './importAction'
 
 export const duplicateAction: DocumentActionComponent = (props) => {
   const {id, type, draft, published, onComplete} = props

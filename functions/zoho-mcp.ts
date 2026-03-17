@@ -40,14 +40,33 @@ function json(data: unknown, status = 200) {
 // ---------------------------------------------------------------------------
 
 async function searchContacts(token: string, orgId: string, query: string, limit = 10) {
-  // Search contacts using the _all parameter (searches across all fields)
-  const url = `${ZOHO_DESK_BASE}/contacts?orgId=${orgId}&limit=${limit}&_all=${encodeURIComponent(query)}`;
-  const res = await fetch(url, {
+  // Search contacts using the search endpoint with email filter
+  // Try the search endpoint first
+  const searchUrl = `${ZOHO_DESK_BASE}/contacts/search?orgId=${orgId}&limit=${limit}&searchStr=${encodeURIComponent(query)}`;
+  const res = await fetch(searchUrl, {
     headers: { Authorization: `Zoho-oauthtoken ${token}` },
   });
   if (!res.ok) {
-    const error = await res.text();
-    throw new Error(`Failed to search contacts: ${error}`);
+    // Fallback: try listing contacts and filter locally
+    const listUrl = `${ZOHO_DESK_BASE}/contacts?orgId=${orgId}&limit=${limit}`;
+    const listRes = await fetch(listUrl, {
+      headers: { Authorization: `Zoho-oauthtoken ${token}` },
+    });
+    if (!listRes.ok) {
+      const error = await listRes.text();
+      throw new Error(`Failed to search contacts: ${error}`);
+    }
+    const data = await listRes.json() as { data?: unknown[] };
+    // Filter by email if query looks like an email
+    if (query.includes('@') && data.data) {
+      const filtered = (data.data as Record<string, unknown>[]).filter(
+        (c: Record<string, unknown>) => 
+          (c.email as string)?.toLowerCase().includes(query.toLowerCase())
+      );
+      return { data: filtered };
+    }
+    return data;
+  }
   }
   return res.json();
 }

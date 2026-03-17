@@ -14,7 +14,7 @@ import {media, mediaAssetSource} from 'sanity-plugin-media'
 import {schemaTypes} from './schemaTypes'
 import {deskStructure} from './src/structure'
 import {NxgenLogo} from './src/components/NxgenBranding'
-import {duplicateAction, exportMarkdownAction, exportJSONAction, publishToAllAction, archiveAction} from './src/documentActions'
+import {duplicateAction, exportMarkdownAction, exportJSONAction, publishToAllAction, archiveAction, processImportAction, resetImportAction} from './src/documentActions'
 
 const StatusBadge: DocumentBadgeComponent = ({published, draft}) => {
   const doc = published || draft
@@ -173,6 +173,9 @@ export default defineConfig({
   document: {
     badges: [StatusBadge],
     actions: (prev, {schemaType}) => {
+      if (schemaType === 'importJob') {
+        return [processImportAction, resetImportAction, ...prev]
+      }
       const typesWithCustomActions = ['doc', 'article', 'release', 'roadmapItem', 'landingPage', 'referencePage']
       if (typesWithCustomActions.includes(schemaType as string)) {
         return [
