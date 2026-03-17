@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Admin Command Center
 status: in_progress
-stopped_at: "Phase 16 planning created — awaiting execution"
-last_updated: "2026-03-17T00:00:00Z"
-last_activity: "2026-03-17 — Admin Command Center roadmap created, Phase 16 plan ready"
+stopped_at: "Phase 17 complete — Admin Shell & Sidebar implemented"
+last_updated: "2026-03-17T18:00:00Z"
+last_activity: "2026-03-17 — Phase 17 complete: Admin layout, sidebar, header, and 8 route pages"
 progress:
   total_phases: 8
-  completed_phases: 0
+  completed_phases: 2
   total_plans: 22
-  completed_plans: 0
-  percent: 0
+  completed_plans: 2
+  percent: 9
 ---
 
 # Project State
@@ -26,13 +26,13 @@ See: .planning/ROADMAP-admin-dashboard.md (new milestone roadmap)
 
 ## Current Position
 
-Phase: 16 READY — Auth Foundation plan created
-Status: Awaiting execution approval
-Last activity: 2026-03-17 — Admin Command Center roadmap created
+Phase: 16 COMPLETE — Auth Foundation implemented
+Status: Ready for Phase 17 (Admin Shell & Sidebar)
+Last activity: 2026-03-17 — Phase 16 complete: Admin auth foundation
 
-Progress: [░░░░░░░░░░] 0% (0 of 22 plans complete)
+Progress: [░░░░░░░░░░░] 5% (1 of 22 plans complete)
 
-**Note:** New milestone v2.0 Admin Command Center started. Phase 16 plan ready for execution.
+**Note:** Phase 16 Auth Foundation complete. Admin authentication with Zoho OAuth, session cookies, and protected routes working.
 
 ## Phase 10 Complete
 
@@ -155,26 +155,49 @@ None — v1.1 milestone complete.
 ## Session Continuity
 
 Last session: 2026-03-17
-Stopped at: Phase 16 planning created — awaiting execution
-Resume file: .planning/phases/16-auth-foundation/16-01-PLAN.md
+Stopped at: Phase 17 complete — Admin Shell & Sidebar implemented
+Resume file: Ready for Wave 2 (Phase 18, 20, 21 in parallel)
 
 **Next steps:**
-1. Execute Phase 16 (Auth Foundation) — 6 tasks
-2. Execute Phase 17 (Admin Shell & Sidebar) — 2 tasks
-3. Continue with Waves 2-4 for full admin dashboard
+1. Execute Phase 18 (Content Approval Workflow)
+2. Execute Phase 20 (Analytics Dashboard) — parallel
+3. Execute Phase 21 (Audit & Compliance) — parallel
+4. Then Phase 19 (Routing Editor) and Phase 22 (Ticketing)
+5. Final: Phase 23 (Polish & Testing)
 
 ---
 
 ## v2.0 Admin Command Center (Current Milestone)
 
-### Phase 16: Auth Foundation (Ready)
+### Phase 16: Auth Foundation (Complete)
 **Goal:** OAuth org-based authentication with session management
 
 Plans:
-- [ ] 16-01-PLAN.md — Auth foundation: session, OAuth callback, context, protected routes
+- [x] 16-01-PLAN.md — Auth foundation: session, OAuth callback, context, protected routes
 
-### Phase 17: Admin Shell & Sidebar (Pending)
+**Summary:** Admin authentication foundation implemented with:
+- HMAC-signed HttpOnly session cookies
+- Zoho OAuth callback with org verification
+- AdminAuthContext and hooks (useAdminAuth, useCurrentUser)
+- ProtectedRoute component for /admin/* routes
+- Sanity adminUser schema for user tracking
+- User sync on first login
+
+**Commit:** d132d57
+
+### Phase 17: Admin Shell & Sidebar (Complete)
 **Goal:** Admin dashboard layout with navigation
+
+Plans:
+- [x] 17-01-PLAN.md — AdminLayout, AdminSidebar, AdminHeader, and all admin route pages
+
+**Summary:** Admin shell implemented with:
+- Collapsible sidebar navigation (8 sections)
+- Header with user menu and logout
+- Mobile-responsive drawer
+- 8 placeholder admin pages
+
+**Commit:** 2fcf577
 
 ### Phase 18: Content Approval Workflow (Pending)
 **Goal:** Review queue, approve/reject/edit content
