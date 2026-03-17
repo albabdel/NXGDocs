@@ -15,6 +15,16 @@ import {
   FileText,
   Settings,
   Loader,
+  Clock,
+  CheckCircle,
+  AlertCircle,
+  ExternalLink,
+  FileCheck,
+  Plus,
+  Zap,
+  Activity,
+  Server,
+  RefreshCw,
 } from 'lucide-react';
 
 function AdminDashboardContent() {
@@ -45,6 +55,21 @@ function AdminDashboardContent() {
     : 'linear-gradient(135deg, rgba(232,176,88,0.1) 0%, rgba(255,255,255,0.9) 100%)';
 
   const borderColor = isDark ? 'rgba(232,176,88,0.2)' : 'rgba(232,176,88,0.3)';
+
+  const quickStats = [
+    { icon: FileCheck, label: 'Pending Reviews', value: '12', href: '/admin/content?status=pending_review', color: '#E8B058' },
+    { icon: Ticket, label: 'Open Tickets', value: '8', href: '/admin/tickets?status=open', color: '#f59e0b' },
+    { icon: Users, label: 'Active Users', value: '234', href: '/admin/users', color: '#22c55e' },
+    { icon: FileStack, label: 'Total Content', value: '156', href: '/admin/content', color: '#3b82f6' },
+  ];
+
+  const recentActivity = [
+    { action: 'Content approved', user: 'Sarah Chen', timestamp: '5 minutes ago', resource: 'Getting Started Guide' },
+    { action: 'Ticket resolved', user: 'Mike Johnson', timestamp: '12 minutes ago', resource: 'TKT-1234' },
+    { action: 'User role updated', user: 'Admin', timestamp: '1 hour ago', resource: 'john.doe@nxgen.io' },
+    { action: 'New route created', user: 'Sarah Chen', timestamp: '2 hours ago', resource: 'docs-support-routing' },
+    { action: 'Content submitted', user: 'Alex Rivera', timestamp: '3 hours ago', resource: 'API Reference v2.1' },
+  ];
 
   const sections = [
     { icon: FileStack, title: 'Content Queue', description: 'Manage and review content submissions', href: '/admin/content' },
@@ -84,10 +109,10 @@ function AdminDashboardContent() {
             </div>
             <div>
               <h1 className="text-xl font-bold" style={{ color: 'var(--ifm-color-content)' }}>
-                Admin Dashboard
+                Welcome back, {user?.name?.split(' ')[0] || 'Admin'}
               </h1>
               <p className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                Welcome, {user?.name || 'Admin'} · NXGEN Technology AG
+                {user?.email || 'admin@nxgen.io'} · NXGEN Technology AG
               </p>
             </div>
           </div>
@@ -104,6 +129,197 @@ function AdminDashboardContent() {
             <LogOut className="w-4 h-4" />
             Sign out
           </button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        {quickStats.map(({ icon: Icon, label, value, href, color }) => (
+          <a
+            key={label}
+            href={href}
+            className="rounded-xl p-4 transition-all hover:scale-[1.02] group"
+            style={{
+              background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.6)',
+              border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(232,176,88,0.15)'}`,
+              textDecoration: 'none',
+            }}
+          >
+            <div className="flex items-center justify-between mb-2">
+              <Icon className="w-5 h-5" style={{ color }} />
+              <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: 'var(--ifm-color-content-secondary)' }} />
+            </div>
+            <p className="text-2xl font-bold" style={{ color: 'var(--ifm-color-content)' }}>
+              {value}
+            </p>
+            <span className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+              {label}
+            </span>
+          </a>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
+        <div
+          className="rounded-xl p-6"
+          style={{
+            background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.6)',
+            border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(232,176,88,0.15)'}`,
+          }}
+        >
+          <div className="flex items-center gap-2 mb-4">
+            <Activity className="w-5 h-5" style={{ color: '#E8B058' }} />
+            <h3 className="font-semibold" style={{ color: 'var(--ifm-color-content)' }}>
+              Recent Activity
+            </h3>
+          </div>
+          <div className="space-y-3">
+            {recentActivity.map((event, idx) => (
+              <div
+                key={idx}
+                className="flex items-start gap-3 p-3 rounded-lg"
+                style={{
+                  background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)',
+                }}
+              >
+                <div
+                  className="w-2 h-2 rounded-full mt-2 flex-shrink-0"
+                  style={{ background: '#E8B058' }}
+                />
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>
+                      {event.action}
+                    </span>
+                    <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                      by {event.user}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="text-xs truncate" style={{ color: '#E8B058' }}>
+                      {event.resource}
+                    </span>
+                    <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                      · {event.timestamp}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div
+          className="rounded-xl p-6"
+          style={{
+            background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.6)',
+            border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(232,176,88,0.15)'}`,
+          }}
+        >
+          <div className="flex items-center gap-2 mb-4">
+            <Zap className="w-5 h-5" style={{ color: '#E8B058' }} />
+            <h3 className="font-semibold" style={{ color: 'var(--ifm-color-content)' }}>
+              Quick Actions
+            </h3>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <a
+              href="/admin/content?status=pending_review"
+              className="flex items-center gap-3 p-3 rounded-lg transition-all hover:scale-[1.02]"
+              style={{
+                background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)',
+                textDecoration: 'none',
+              }}
+            >
+              <FileCheck className="w-5 h-5" style={{ color: '#E8B058' }} />
+              <span className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>
+                Review Pending
+              </span>
+            </a>
+            <a
+              href="/admin/tickets?status=open"
+              className="flex items-center gap-3 p-3 rounded-lg transition-all hover:scale-[1.02]"
+              style={{
+                background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)',
+                textDecoration: 'none',
+              }}
+            >
+              <Ticket className="w-5 h-5" style={{ color: '#f59e0b' }} />
+              <span className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>
+                View Tickets
+              </span>
+            </a>
+            <a
+              href="/admin/routing?action=new"
+              className="flex items-center gap-3 p-3 rounded-lg transition-all hover:scale-[1.02]"
+              style={{
+                background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)',
+                textDecoration: 'none',
+              }}
+            >
+              <Plus className="w-5 h-5" style={{ color: '#22c55e' }} />
+              <span className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>
+                Add New Route
+              </span>
+            </a>
+            <a
+              href="/studio"
+              className="flex items-center gap-3 p-3 rounded-lg transition-all hover:scale-[1.02]"
+              style={{
+                background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)',
+                textDecoration: 'none',
+              }}
+            >
+              <ExternalLink className="w-5 h-5" style={{ color: '#3b82f6' }} />
+              <span className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>
+                Open Studio
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="rounded-xl p-6 mb-8"
+        style={{
+          background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.6)',
+          border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(232,176,88,0.15)'}`,
+        }}
+      >
+        <div className="flex items-center gap-2 mb-4">
+          <Server className="w-5 h-5" style={{ color: '#E8B058' }} />
+          <h3 className="font-semibold" style={{ color: 'var(--ifm-color-content)' }}>
+            System Status
+          </h3>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="flex items-center gap-3 p-3 rounded-lg" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)' }}>
+            <CheckCircle className="w-5 h-5" style={{ color: '#22c55e' }} />
+            <div>
+              <p className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>All Systems</p>
+              <p className="text-xs" style={{ color: '#22c55e' }}>Operational</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-3 rounded-lg" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)' }}>
+            <RefreshCw className="w-5 h-5" style={{ color: '#22c55e' }} />
+            <div>
+              <p className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>Last Deploy</p>
+              <p className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>2 hours ago</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-3 rounded-lg" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)' }}>
+            <CheckCircle className="w-5 h-5" style={{ color: '#22c55e' }} />
+            <div>
+              <p className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>Sanity CMS</p>
+              <p className="text-xs" style={{ color: '#22c55e' }}>Connected</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-3 rounded-lg" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)' }}>
+            <Clock className="w-5 h-5" style={{ color: '#f59e0b' }} />
+            <div>
+              <p className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>Confluence Sync</p>
+              <p className="text-xs" style={{ color: '#f59e0b' }}>Pending (5 min)</p>
+            </div>
+          </div>
         </div>
       </div>
 
