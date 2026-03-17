@@ -13,7 +13,7 @@ import {
   base64UrlEncode,
   hmacSign,
   hmacVerify,
-} from './zoho-session.js';
+} from './zoho-session';
 
 // ---------------------------------------------------------------------------
 // Types
