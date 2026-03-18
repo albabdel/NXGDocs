@@ -3892,10 +3892,7 @@ body:has([data-admin-layout]) .background-pattern-container {
   z-index: 1;
 }
 
-/* Fix for fixed header on admin pages - ensure content starts below header */
-[data-admin-layout] .admin-main-content {
-  padding-top: 0;
-}
+/* Note: padding-top is handled by pt-16 class in AdminLayout.tsx */
 
 /* Responsive adjustments for mobile */
 @media (max-width: 1023px) {
