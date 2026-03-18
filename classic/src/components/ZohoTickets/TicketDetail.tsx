@@ -99,7 +99,7 @@ function htmlToText(html: string | null | undefined): string {
 function Avatar({ name, photoURL, type, isDark }: {
   name: string; photoURL?: string; type?: string; isDark: boolean;
 }) {
-  const initials = name.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase();
+  const initials = (name || 'Unknown').split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase();
   const isAgent = type === 'AGENT';
   return photoURL ? (
     <img

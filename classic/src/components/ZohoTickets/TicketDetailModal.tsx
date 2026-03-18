@@ -558,7 +558,7 @@ export default function TicketDetailModal({ ticketId, isDark, onClose, token }: 
                     <div className="flex items-center gap-2">
                       <User className="w-4 h-4" style={{ color: '#E8B058' }} />
                       <span className="text-sm" style={{ color: 'var(--ifm-color-content)' }}>
-                        {ticket.contact ? `${ticket.contact.firstName} ${ticket.contact.lastName}`.trim() : ticket.email.split('@')[0]}
+                        {ticket.contact ? `${ticket.contact.firstName} ${ticket.contact.lastName}`.trim() : (ticket.email ?? 'Unknown').split('@')[0]}
                       </span>
                     </div>
                     <p className="text-xs mt-1 ml-6" style={{ color: 'var(--ifm-color-content-secondary)' }}>

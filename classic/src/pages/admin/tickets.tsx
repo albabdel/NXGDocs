@@ -501,7 +501,7 @@ function TicketsPageContent() {
                     const sStyle = STATUS_STYLES[ticket.status] ?? { bg: 'rgba(232,176,88,0.12)', color: '#E8B058' };
                     const requesterName = ticket.contact
                       ? `${ticket.contact.firstName} ${ticket.contact.lastName}`.trim()
-                      : ticket.email.split('@')[0];
+                      : (ticket.email ?? 'Unknown').split('@')[0];
                     return (
                       <tr
                         key={ticket.id}
@@ -560,7 +560,7 @@ function TicketsPageContent() {
                               }}
                               title={ticket.priority}
                             />
-                            <span style={{ color: 'var(--ifm-color-content)', fontSize: '11px' }}>{ticket.priority.slice(0, 1)}</span>
+                            <span style={{ color: 'var(--ifm-color-content)', fontSize: '11px' }}>{(ticket.priority ?? 'Medium').slice(0, 1)}</span>
                           </div>
                         </td>
                         <td className="p-2" style={{ overflow: 'hidden' }}>

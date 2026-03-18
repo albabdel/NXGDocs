@@ -288,6 +288,7 @@ export async function searchContactByEmail(options: SearchContactByEmailOptions)
 }
 
 export async function translateText(text: string): Promise<string> {
+  if (!text) return text;
   const stripped = text.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
   if (!stripped) return text;
   const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(stripped)}&langpair=auto|en`;
