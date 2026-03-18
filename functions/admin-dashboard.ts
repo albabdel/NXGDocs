@@ -40,8 +40,8 @@ export async function onRequest(context: { request: Request; env: Env }) {
       totalUsers,
       activeUsers,
     ] = await Promise.all([
-      client.fetch(`count(*[_type in ['doc', 'article', 'release', 'roadmapItem', 'landingPage'] && coalesce(workflowConfig.workflowStatus, status) in ['pending_review', 'review'])`),
-      client.fetch(`count(*[_type in ['doc', 'article', 'release', 'roadmapItem', 'landingPage'] && coalesce(workflowConfig.workflowStatus, status) == 'published')`),
+      client.fetch(`count(*[_type in ['doc', 'article', 'release', 'roadmapItem', 'landingPage'] && coalesce(workflowConfig.workflowStatus, status) in ['pending_review', 'review']])`),
+      client.fetch(`count(*[_type in ['doc', 'article', 'release', 'roadmapItem', 'landingPage'] && coalesce(workflowConfig.workflowStatus, status) == 'published'])`),
       client.fetch(`count(*[_type == 'adminUser'])`),
       client.fetch(`count(*[_type == 'adminUser' && lastLoginAt > $sevenDaysAgo])`, { sevenDaysAgo }),
     ]);

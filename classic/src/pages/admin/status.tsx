@@ -500,13 +500,9 @@ export default function StatusPageWrapper() {
       title="System Status | NXGEN Admin"
       description="Monitor NXGEN system health and service status"
     >
-      <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
-        <div className="px-6 py-8">
-          <BrowserOnly fallback={<StatusLoader />}>
-            {() => <StatusPage />}
-          </BrowserOnly>
-        </div>
-      </main>
+      <BrowserOnly fallback={<StatusLoader />}>
+        {() => <StatusPage />}
+      </BrowserOnly>
     </Layout>
   );
 }

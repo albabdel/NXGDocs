@@ -3,7 +3,7 @@ import Layout from '@theme/Layout';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import { ProtectedRoute } from '../../components/Admin/ProtectedRoute';
 import { AdminLayout } from '../../components/Admin/AdminLayout';
-import { Ticket, Inbox, Clock, CheckCircle, AlertTriangle, ExternalLink, Loader, AlertCircle, Search, ChevronLeft, ChevronRight, Mail, User, RefreshCw, Eye } from 'lucide-react';
+import { Ticket, Inbox, Clock, CheckCircle, AlertTriangle, ExternalLink, Loader, AlertCircle, Search, ChevronLeft, ChevronRight, User, RefreshCw, Eye } from 'lucide-react';
 import { useZohoAuth } from '../../components/ZohoTickets/useZohoAuth';
 import { listTickets, listAgents } from '../../components/ZohoTickets/zohoApi';
 import type { ZohoTicket, ZohoAgent } from '../../components/ZohoTickets/types';
@@ -39,14 +39,6 @@ const STATUS_STYLES: Record<string, { bg: string; color: string }> = {
   'Waiting on customer feedback': { bg: 'rgba(59,130,246,0.12)', color: '#3b82f6' },
 };
 
-const CHANNEL_ICONS: Record<string, string> = {
-  Email: '✉️',
-  Phone: '📞',
-  Chat: '💬',
-  Web: '🌐',
-  Facebook: '📘',
-  Twitter: '🐦',
-};
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString('en-GB', {
@@ -479,27 +471,34 @@ function TicketsPageContent() {
               border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(232,176,88,0.15)'}`,
             }}
           >
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm" style={{ minWidth: '900px' }}>
+            <div style={{ width: '100%' }}>
+              <table style={{ width: '100%', tableLayout: 'fixed', borderCollapse: 'collapse', fontSize: '0.8rem' }}>
+                <colgroup>
+                  <col style={{ width: '7%' }} />
+                  <col style={{ width: '30%' }} />
+                  <col style={{ width: '15%' }} />
+                  <col style={{ width: '10%' }} />
+                  <col style={{ width: '7%' }} />
+                  <col style={{ width: '13%' }} />
+                  <col style={{ width: '10%' }} />
+                  <col style={{ width: '8%' }} />
+                </colgroup>
                 <thead>
                   <tr style={{ background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)' }}>
-                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '100px' }}>Ticket #</th>
-                    <th className="text-left p-3 font-medium" style={{ color: 'var(--ifm-color-content-secondary)', width: '25%' }}>Subject</th>
-                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '150px' }}>Requester</th>
-                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '100px' }}>Status</th>
-                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '80px' }}>Priority</th>
-                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '80px' }}>Channel</th>
-                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '120px' }}>Assignee</th>
-                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '90px' }}>Created</th>
-                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '80px' }}>Updated</th>
-                    <th className="text-left p-3 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '100px' }}>Actions</th>
+                    <th className="text-left p-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)', overflow: 'hidden' }}>#</th>
+                    <th className="text-left p-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)', overflow: 'hidden' }}>Subject</th>
+                    <th className="text-left p-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)', overflow: 'hidden' }}>Requester</th>
+                    <th className="text-left p-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)', overflow: 'hidden' }}>Status</th>
+                    <th className="text-left p-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)', overflow: 'hidden' }}>Pri</th>
+                    <th className="text-left p-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)', overflow: 'hidden' }}>Assignee</th>
+                    <th className="text-left p-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)', overflow: 'hidden' }}>Created</th>
+                    <th className="text-left p-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)', overflow: 'hidden' }}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {paginatedTickets.map((ticket, idx) => {
                     const pStyle = PRIORITY_STYLES[ticket.priority] ?? PRIORITY_STYLES.Medium;
                     const sStyle = STATUS_STYLES[ticket.status] ?? { bg: 'rgba(232,176,88,0.12)', color: '#E8B058' };
-                    const channelIcon = CHANNEL_ICONS[ticket.channel] || '📝';
                     const requesterName = ticket.contact
                       ? `${ticket.contact.firstName} ${ticket.contact.lastName}`.trim()
                       : ticket.email.split('@')[0];
@@ -512,87 +511,89 @@ function TicketsPageContent() {
                           borderTop: idx === 0 ? 'none' : `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`,
                         }}
                       >
-                        <td className="p-3 font-mono text-xs whitespace-nowrap" style={{ color: '#E8B058' }}>
+                        <td className="p-2 font-mono" style={{ color: '#E8B058', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                           #{ticket.ticketNumber}
                         </td>
-                        <td className="p-3">
-                          <div className="truncate" style={{ color: 'var(--ifm-color-content)' }}>
+                        <td className="p-2" style={{ overflow: 'hidden' }}>
+                          <div style={{ color: 'var(--ifm-color-content)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={ticket.subject}>
                             {ticket.subject}
                           </div>
                         </td>
-                        <td className="p-3 whitespace-nowrap">
-                          <div className="flex items-center gap-2">
+                        <td className="p-2" style={{ overflow: 'hidden' }}>
+                          <div className="flex items-center gap-1" style={{ overflow: 'hidden' }}>
                             <User className="w-3 h-3 flex-shrink-0" style={{ color: 'var(--ifm-color-content-secondary)' }} />
-                            <div>
-                              <p className="text-xs" style={{ color: 'var(--ifm-color-content)' }}>
-                                {requesterName}
-                              </p>
-                              <p className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                                {ticket.email}
-                              </p>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="p-3 whitespace-nowrap">
-                          <span
-                            className="px-2 py-0.5 rounded-full text-xs font-medium"
-                            style={{ background: sStyle.bg, color: sStyle.color }}
-                          >
-                            {ticket.status}
-                          </span>
-                        </td>
-                        <td className="p-3 whitespace-nowrap">
-                          <span
-                            className="px-2 py-0.5 rounded-full text-xs font-medium"
-                            style={{ background: pStyle.bg, color: pStyle.color }}
-                          >
-                            {ticket.priority}
-                          </span>
-                        </td>
-                        <td className="p-3 whitespace-nowrap">
-                          <span className="text-sm">{channelIcon}</span>
-                          <span className="text-xs ml-1" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                            {ticket.channel}
-                          </span>
-                        </td>
-                        <td className="p-3 whitespace-nowrap">
-                          <span className="text-xs" style={{ color: 'var(--ifm-color-content)' }}>
-                            {ticket.assignee?.name ?? (ticket.assignee ? `${ticket.assignee.firstName} ${ticket.assignee.lastName}` : 'Unassigned')}
-                          </span>
-                        </td>
-                        <td className="p-3 whitespace-nowrap">
-                          <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                            {formatDate(ticket.createdTime)}
-                          </span>
-                        </td>
-                        <td className="p-3 whitespace-nowrap">
-                          <div className="flex items-center gap-1">
-                            <RefreshCw className="w-3 h-3" style={{ color: 'var(--ifm-color-content-secondary)' }} />
-                            <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                              {timeAgo(ticket.modifiedTime)}
+                            <span style={{ color: 'var(--ifm-color-content)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={requesterName}>
+                              {requesterName}
                             </span>
                           </div>
                         </td>
-                        <td className="p-3 whitespace-nowrap">
-                          <div className="flex items-center gap-2" onClick={e => e.stopPropagation()}>
+                        <td className="p-2" style={{ overflow: 'hidden' }}>
+                          <span
+                            style={{
+                              padding: '2px 6px',
+                              borderRadius: '4px',
+                              fontSize: '11px',
+                              fontWeight: 500,
+                              background: sStyle.bg,
+                              color: sStyle.color,
+                              display: 'inline-block',
+                              maxWidth: '100%',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap',
+                            }}
+                            title={ticket.status}
+                          >
+                            {ticket.status === 'Waiting on customer feedback' ? 'Waiting' : ticket.status}
+                          </span>
+                        </td>
+                        <td className="p-2" style={{ overflow: 'hidden' }}>
+                          <div className="flex items-center gap-1">
+                            <span
+                              style={{
+                                width: '8px',
+                                height: '8px',
+                                borderRadius: '50%',
+                                background: pStyle.color,
+                                display: 'inline-block',
+                                flexShrink: 0,
+                              }}
+                              title={ticket.priority}
+                            />
+                            <span style={{ color: 'var(--ifm-color-content)', fontSize: '11px' }}>{ticket.priority.slice(0, 1)}</span>
+                          </div>
+                        </td>
+                        <td className="p-2" style={{ overflow: 'hidden' }}>
+                          <span style={{ color: 'var(--ifm-color-content)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block' }} title={ticket.assignee?.name ?? 'Unassigned'}>
+                            {ticket.assignee?.name ?? '—'}
+                          </span>
+                        </td>
+                        <td className="p-2" style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>
+                          <span style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                            {timeAgo(ticket.createdTime)}
+                          </span>
+                        </td>
+                        <td className="p-2" style={{ overflow: 'hidden' }}>
+                          <div className="flex items-center gap-1" onClick={e => e.stopPropagation()}>
                             <button
                               onClick={() => setSelectedTicketId(ticket.id)}
-                              className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs transition-all hover:opacity-80"
+                              className="inline-flex items-center justify-center w-7 h-7 rounded text-xs transition-all hover:opacity-80"
                               style={{
                                 background: 'rgba(232,176,88,0.12)',
                                 color: '#E8B058',
                                 border: '1px solid rgba(232,176,88,0.2)',
                                 cursor: 'pointer',
                               }}
+                              title="View"
                             >
-                              <Eye className="w-3 h-3" /> View
+                              <Eye className="w-3 h-3" />
                             </button>
                             {ticket.webUrl && (
                               <a
                                 href={ticket.webUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs transition-all hover:opacity-80"
+                                className="inline-flex items-center justify-center w-7 h-7 rounded text-xs transition-all hover:opacity-80"
                                 style={{
                                   background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
                                   color: 'var(--ifm-color-content-secondary)',
@@ -672,13 +673,9 @@ function TicketsPage() {
 export default function TicketsPageWrapper() {
   return (
     <Layout title="Tickets | Admin">
-      <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
-        <div className="w-full px-6 py-8">
-          <BrowserOnly fallback={<div>Loading...</div>}>
-            {() => <TicketsPage />}
-          </BrowserOnly>
-        </div>
-      </main>
+      <BrowserOnly fallback={<div>Loading...</div>}>
+        {() => <TicketsPage />}
+      </BrowserOnly>
     </Layout>
   );
 }

@@ -1,4 +1,4 @@
 import React from 'react';
 const SearchModal = React.lazy(() => import('./SearchModal'));
 export default SearchModal;
-export { useSearchAnalyticsEnhanced } from './hooks/useSearchAnalyticsEnhanced';
+export { default as useSearchAnalyticsEnhanced } from './hooks/useSearchAnalyticsEnhanced';

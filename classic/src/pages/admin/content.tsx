@@ -625,13 +625,9 @@ function ContentQueuePage() {
 export default function ContentQueuePageWrapper() {
   return (
     <Layout title="Content Queue | Admin">
-      <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
-        <div className="max-w-6xl mx-auto px-6 py-8">
-          <BrowserOnly fallback={<div>Loading...</div>}>
-            {() => <ContentQueuePage />}
-          </BrowserOnly>
-        </div>
-      </main>
+      <BrowserOnly fallback={<div>Loading...</div>}>
+        {() => <ContentQueuePage />}
+      </BrowserOnly>
     </Layout>
   );
 }

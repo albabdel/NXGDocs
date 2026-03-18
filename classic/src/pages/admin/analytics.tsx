@@ -241,13 +241,9 @@ function AnalyticsDashboardPage() {
 export default function AnalyticsDashboardPageWrapper() {
   return (
     <Layout title="Analytics | Admin">
-      <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
-        <div className="max-w-6xl mx-auto px-6 py-8">
-          <BrowserOnly fallback={<div>Loading...</div>}>
-            {() => <AnalyticsDashboardPage />}
-          </BrowserOnly>
-        </div>
-      </main>
+      <BrowserOnly fallback={<div>Loading...</div>}>
+        {() => <AnalyticsDashboardPage />}
+      </BrowserOnly>
     </Layout>
   );
 }

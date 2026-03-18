@@ -3692,3 +3692,218 @@ a.no-underline[class*="bg-[#C89446]"]:hover {
     display: none;
   }
 }
+
+/* === TICKET CONTENT HTML RENDERING === */
+.ticket-content {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.ticket-content a {
+  color: #E8B058;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ticket-content a:hover {
+  color: #D4A047;
+}
+
+.ticket-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+.ticket-content ul,
+.ticket-content ol {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.ticket-content li {
+  margin: 4px 0;
+}
+
+.ticket-content blockquote {
+  border-left: 3px solid #E8B058;
+  margin: 12px 0;
+  padding: 8px 16px;
+  background: rgba(232, 176, 88, 0.05);
+  border-radius: 0 8px 8px 0;
+}
+
+[data-theme='dark'] .ticket-content blockquote {
+  background: rgba(232, 176, 88, 0.08);
+}
+
+.ticket-content pre {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  padding: 12px;
+  overflow-x: auto;
+  margin: 8px 0;
+}
+
+[data-theme='dark'] .ticket-content pre {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.ticket-content code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9em;
+  background: rgba(0, 0, 0, 0.06);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+[data-theme='dark'] .ticket-content code {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ticket-content pre code {
+  background: none;
+  padding: 0;
+}
+
+.ticket-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+}
+
+.ticket-content th,
+.ticket-content td {
+  border: 1px solid rgba(232, 176, 88, 0.2);
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.ticket-content th {
+  background: rgba(232, 176, 88, 0.1);
+  font-weight: 600;
+}
+
+.ticket-content hr {
+  border: none;
+  border-top: 1px solid rgba(232, 176, 88, 0.2);
+  margin: 16px 0;
+}
+
+.ticket-content p {
+  margin: 8px 0;
+}
+
+.ticket-content div {
+  margin: 4px 0;
+}
+
+.ticket-content br {
+  display: block;
+  content: "";
+  margin-top: 4px;
+}
+
+/* === ADMIN PANEL FULL-SCREEN LAYOUT === */
+/* Override Docusaurus Layout wrapper constraints for admin pages */
+/* This ensures consistent UI between localhost and production */
+
+/* Reset Docusaurus wrapper constraints when inside admin layout */
+body:has([data-admin-layout]) .main-wrapper,
+.main-wrapper:has([data-admin-layout]) {
+  display: block !important;
+  flex: none !important;
+  min-height: 100vh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: none !important;
+}
+
+/* Ensure admin container takes full viewport */
+[data-admin-layout] {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  --admin-sidebar-width: 220px;
+}
+
+/* Admin main content - CSS-controlled responsive margin */
+.admin-main-content {
+  margin-left: 0;
+  min-height: calc(100vh - 64px);
+}
+
+/* Desktop: Add margin for sidebar (using Tailwind lg: breakpoint at 1024px) */
+@media (min-width: 1024px) {
+  .admin-main-content {
+    margin-left: var(--admin-sidebar-width);
+  }
+}
+
+/* Dark mode admin background */
+[data-theme='dark'] [data-admin-layout] {
+  background-color: var(--nxgen-dark-100);
+}
+
+/* Light mode admin background */
+html:not([data-theme='dark']) [data-admin-layout] {
+  background-color: #f8f9fa;
+}
+
+/* Ensure admin sidebar wrapper is properly positioned */
+.admin-sidebar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 30;
+}
+
+/* Admin layout container - ensure it's not constrained by Docusaurus */
+.admin-layout-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Hide Docusaurus footer on admin pages */
+body:has([data-admin-layout]) .footer,
+body:has([data-admin-layout]) footer {
+  display: none !important;
+}
+
+/* Hide BackgroundPattern on admin pages (admin has its own background) */
+body:has([data-admin-layout]) .background-pattern-container {
+  display: none !important;
+}
+
+/* Ensure proper z-index layering for admin components */
+[data-admin-layout] .admin-header {
+  z-index: 50;
+}
+
+[data-admin-layout] .admin-sidebar {
+  z-index: 40;
+}
+
+[data-admin-layout] .admin-main-content {
+  z-index: 1;
+}
+
+/* Fix for fixed header on admin pages - ensure content starts below header */
+[data-admin-layout] .admin-main-content {
+  padding-top: 0;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 1023px) {
+  [data-admin-layout] .admin-sidebar-wrapper {
+    display: none;
+  }
+  
+  .admin-main-content {
+    margin-left: 0 !important;
+  }
+}

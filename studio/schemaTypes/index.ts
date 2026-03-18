@@ -56,9 +56,17 @@ import {
 import {docsIndexConfigType} from './docsIndexConfig'
 import {searchSynonymType} from './searchSynonym'
 import {adminUserType} from './adminUser'
+import {auditLogType} from './auditLog'
+import {notificationType} from './notification'
+import {workflowConfigType} from './workflowConfig'
+import {routeConfigType} from './routeConfig'
 
 export const schemaTypes = [
+  routeConfigType,
   adminUserType,
+  auditLogType,
+  notificationType,
+  workflowConfigType,
   searchSynonymType,
   // Original document types
   docType,

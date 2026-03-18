@@ -227,5 +227,81 @@ export const docType = defineType({
         collapsed: true,
       },
     }),
+
+    // ── Workflow Configuration ─────────────────────────────────────────────
+    defineField({
+      name: 'workflowConfig',
+      title: 'Workflow Configuration',
+      type: 'object',
+      options: { collapsible: true, collapsed: true },
+      fields: [
+        defineField({
+          name: 'workflowStatus',
+          title: 'Status',
+          type: 'string',
+          options: {
+            list: [
+              { title: 'Draft', value: 'draft' },
+              { title: 'Pending Review', value: 'pending_review' },
+              { title: 'Approved', value: 'approved' },
+              { title: 'Rejected', value: 'rejected' },
+              { title: 'Published', value: 'published' },
+              { title: 'Archived', value: 'archived' },
+            ],
+          },
+          initialValue: 'draft',
+        }),
+        defineField({
+          name: 'source',
+          title: 'Content Source',
+          type: 'string',
+          options: {
+            list: [
+              { title: 'Sanity', value: 'sanity' },
+              { title: 'Confluence', value: 'confluence' },
+            ],
+          },
+          initialValue: 'sanity',
+        }),
+        defineField({
+          name: 'submittedAt',
+          title: 'Submitted At',
+          type: 'datetime',
+        }),
+        defineField({
+          name: 'submittedBy',
+          title: 'Submitted By',
+          type: 'reference',
+          to: [{ type: 'adminUser' }],
+        }),
+        defineField({
+          name: 'reviewedBy',
+          title: 'Reviewed By',
+          type: 'reference',
+          to: [{ type: 'adminUser' }],
+        }),
+        defineField({
+          name: 'reviewedAt',
+          title: 'Reviewed At',
+          type: 'datetime',
+        }),
+        defineField({
+          name: 'reviewNotes',
+          title: 'Review Notes',
+          type: 'text',
+        }),
+        defineField({
+          name: 'publishedAt',
+          title: 'Published At',
+          type: 'datetime',
+        }),
+        defineField({
+          name: 'publishedBy',
+          title: 'Published By',
+          type: 'reference',
+          to: [{ type: 'adminUser' }],
+        }),
+      ],
+    }),
   ],
 })

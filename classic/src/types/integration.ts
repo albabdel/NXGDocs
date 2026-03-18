@@ -75,8 +75,8 @@ export type IntegrationDevice = {
     brand?: string | null;
     deviceType: string;
     gcxReady?: SupportStatus | string;
-    cloudMode: ModeFeatures;
-    localMode: ModeFeatures;
+    cloudMode: CloudModeFeatures;
+    localMode: LocalModeFeatures;
     deviceHealth: DeviceHealthFeatures;
     cameraHealth: CameraHealthFeatures;
     timelapse: TimelapseFeatures;

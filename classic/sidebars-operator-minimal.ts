@@ -14,7 +14,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: "category",
-      label: "🗂️ Uncategorized",
+      label: "Uncategorized",
       collapsible: true,
       collapsed: false,
       link: {

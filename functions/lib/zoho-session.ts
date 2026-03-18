@@ -52,20 +52,20 @@ let tokenCache: TokenCache | null = null;
 // Crypto utilities (Web Crypto API, no external deps)
 // ---------------------------------------------------------------------------
 
-function base64UrlEncode(data: Uint8Array | string): string {
+export function base64UrlEncode(data: Uint8Array | string): string {
   const bytes = typeof data === 'string' ? new TextEncoder().encode(data) : data;
   const base64 = btoa(String.fromCharCode(...bytes));
   return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
-function base64UrlDecode(str: string): Uint8Array {
+export function base64UrlDecode(str: string): Uint8Array {
   const base64 = str.replace(/-/g, '+').replace(/_/g, '/');
   const padded = base64 + '='.repeat((4 - (base64.length % 4)) % 4);
   const binary = atob(padded);
   return Uint8Array.from(binary, (c) => c.charCodeAt(0));
 }
 
-async function hmacSign(secret: string, data: string): Promise<string> {
+export async function hmacSign(secret: string, data: string): Promise<string> {
   const key = await crypto.subtle.importKey(
     'raw',
     new TextEncoder().encode(secret),
@@ -78,7 +78,7 @@ async function hmacSign(secret: string, data: string): Promise<string> {
   return base64UrlEncode(new Uint8Array(signature));
 }
 
-async function hmacVerify(secret: string, data: string, signature: string): Promise<boolean> {
+export async function hmacVerify(secret: string, data: string, signature: string): Promise<boolean> {
   const expectedSignature = await hmacSign(secret, data);
   // Constant-time comparison to prevent timing attacks
   if (expectedSignature.length !== signature.length) return false;

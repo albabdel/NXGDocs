@@ -84,6 +84,23 @@ export async function logAuditEvent(env: AuditEnv, entry: AuditLogEntry): Promis
   }
 }
 
+export interface AuditLogResult {
+  _id: string;
+  action: AuditAction;
+  actor: { name: string; email: string };
+  resourceType?: ResourceType;
+  resourceId?: string;
+  resourceTitle?: string;
+  timestamp: string;
+  changes?: { before?: string; after?: string };
+}
+
+export interface AuditLogsResponse {
+  logs: AuditLogResult[];
+  total: number;
+  hasMore: boolean;
+}
+
 export async function getAuditLogs(
   env: AuditEnv,
   options: {
@@ -96,16 +113,7 @@ export async function getAuditLogs(
     limit?: number;
     offset?: number;
   } = {}
-): Promise<Array<{
-  _id: string;
-  action: AuditAction;
-  actor: { name: string; email: string };
-  resourceType?: ResourceType;
-  resourceId?: string;
-  resourceTitle?: string;
-  timestamp: string;
-  changes?: { before?: string; after?: string };
-}>> {
+): Promise<AuditLogsResponse> {
   const client = getSanityClient(env);
 
   const filters: string[] = [];
@@ -116,7 +124,7 @@ export async function getAuditLogs(
     params.action = options.action;
   }
   if (options.actorId) {
-    filters.push(`actor._ref == $actorId`);
+    filters.push(`actor->zohoId == $actorId`);
     params.actorId = options.actorId;
   }
   if (options.resourceType) {
@@ -140,6 +148,9 @@ export async function getAuditLogs(
   const limit = options.limit || 50;
   const offset = options.offset || 0;
 
+  const countQuery = `count(*[_type == "auditLog"${filterStr}])`;
+  const total = await client.fetch(countQuery, params);
+
   const query = `
     *[_type == "auditLog"${filterStr}] | order(timestamp desc) [${offset}...${offset + limit}] {
       _id,
@@ -153,5 +164,11 @@ export async function getAuditLogs(
     }
   `;
 
-  return client.fetch(query, params);
+  const logs = await client.fetch(query, params);
+
+  return {
+    logs,
+    total,
+    hasMore: offset + limit < total,
+  };
 }

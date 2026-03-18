@@ -439,23 +439,23 @@ function AuditLogsPageContent() {
             <p className="text-sm">No audit logs found</p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+          <div style={{ width: '100%', overflowX: 'auto' }}>
+            <table className="w-full text-sm" style={{ width: '100%', minWidth: 'auto' }}>
               <thead>
                 <tr style={{ borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}` }}>
-                  <th className="text-left px-4 py-3 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                  <th className="text-left px-2 py-2 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '100px' }}>
                     Timestamp
                   </th>
-                  <th className="text-left px-4 py-3 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                  <th className="text-left px-2 py-2 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '90px' }}>
                     Action
                   </th>
-                  <th className="text-left px-4 py-3 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                  <th className="text-left px-2 py-2 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '100px' }}>
                     Actor
                   </th>
-                  <th className="text-left px-4 py-3 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                    Resource Type
+                  <th className="text-left px-2 py-2 font-medium whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)', width: '70px' }}>
+                    Type
                   </th>
-                  <th className="text-left px-4 py-3 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                  <th className="text-left px-2 py-2 font-medium" style={{ color: 'var(--ifm-color-content-secondary)' }}>
                     Resource
                   </th>
                 </tr>
@@ -471,59 +471,58 @@ function AuditLogsPageContent() {
                         borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}`,
                       }}
                     >
-                      <td className="px-4 py-3" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                      <td className="px-2 py-2 whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)' }}>
                         {formatTimestamp(log.timestamp)}
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="px-2 py-2 whitespace-nowrap">
                         <span
-                          className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium"
                           style={{
+                            padding: '2px 6px',
+                            borderRadius: '4px',
+                            fontSize: '11px',
+                            fontWeight: 500,
                             background: `${getActionColor(log.action)}20`,
                             color: getActionColor(log.action),
+                            display: 'inline-block',
                           }}
                         >
-                          {ACTION_LABELS[log.action] || log.action}
+                          {(ACTION_LABELS[log.action] || log.action).split(' ').slice(0, 2).join(' ')}
                         </span>
                       </td>
-                      <td className="px-4 py-3">
-                        <div>
-                          <div className="font-medium" style={{ color: 'var(--ifm-color-content)' }}>
-                            {log.actor.name}
-                          </div>
-                          <div className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                            {log.actor.email}
-                          </div>
-                        </div>
+                      <td className="px-2 py-2 whitespace-nowrap">
+                        <span className="font-medium" style={{ color: 'var(--ifm-color-content)', maxWidth: '80px', display: 'inline-block', overflow: 'hidden', textOverflow: 'ellipsis' }} title={log.actor.name}>
+                          {log.actor.name.length > 12 ? log.actor.name.slice(0, 12) + '...' : log.actor.name}
+                        </span>
                       </td>
-                      <td className="px-4 py-3" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                        {log.resourceType || '—'}
+                      <td className="px-2 py-2 whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                        {log.resourceType ? log.resourceType.slice(0, 6) : '—'}
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="px-2 py-2">
                         <div className="flex items-center justify-between">
-                          <div>
+                          <div style={{ maxWidth: '150px' }}>
                             {log.resourceTitle && (
-                              <div className="font-medium" style={{ color: 'var(--ifm-color-content)' }}>
-                                {log.resourceTitle}
+                              <div className="font-medium truncate" style={{ color: 'var(--ifm-color-content)' }} title={log.resourceTitle}>
+                                {log.resourceTitle.length > 25 ? log.resourceTitle.slice(0, 25) + '...' : log.resourceTitle}
                               </div>
                             )}
                             {log.resourceId && (
-                              <div className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                              <div className="text-xs truncate" style={{ color: 'var(--ifm-color-content-secondary)' }}>
                                 {log.resourceId}
                               </div>
                             )}
                             {!log.resourceId && !log.resourceTitle && '—'}
                           </div>
                           {expandedId === log._id ? (
-                            <ChevronUp className="w-4 h-4" style={{ color: 'var(--ifm-color-content-secondary)' }} />
+                            <ChevronUp className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--ifm-color-content-secondary)' }} />
                           ) : (
-                            <ChevronDown className="w-4 h-4" style={{ color: 'var(--ifm-color-content-secondary)' }} />
+                            <ChevronDown className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--ifm-color-content-secondary)' }} />
                           )}
                         </div>
                       </td>
                     </tr>
                     {expandedId === log._id && log.changes && (
                       <tr style={{ background: cellHoverBg }}>
-                        <td colSpan={5} className="px-4 py-3">
+                        <td colSpan={5} className="px-2 py-2">
                           <div className="rounded-lg p-3" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.05)' }}>
                             <div className="text-xs font-medium mb-2" style={{ color: 'var(--ifm-color-content-secondary)' }}>
                               Changes
@@ -608,13 +607,9 @@ function AuditLogsPage() {
 export default function AuditLogsPageWrapper() {
   return (
     <Layout title="Audit Logs | Admin">
-      <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
-        <div className="max-w-6xl mx-auto px-6 py-8">
-          <BrowserOnly fallback={<div>Loading...</div>}>
-            {() => <AuditLogsPage />}
-          </BrowserOnly>
-        </div>
-      </main>
+      <BrowserOnly fallback={<div>Loading...</div>}>
+        {() => <AuditLogsPage />}
+      </BrowserOnly>
     </Layout>
   );
 }

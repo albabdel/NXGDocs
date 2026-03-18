@@ -653,13 +653,9 @@ function RoutingEditorPage() {
 export default function RoutingEditorPageWrapper() {
   return (
     <Layout title="Routing Editor | Admin">
-      <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
-        <div className="max-w-6xl mx-auto px-6 py-8">
-          <BrowserOnly fallback={<div>Loading...</div>}>
-            {() => <RoutingEditorPage />}
-          </BrowserOnly>
-        </div>
-      </main>
+      <BrowserOnly fallback={<div>Loading...</div>}>
+        {() => <RoutingEditorPage />}
+      </BrowserOnly>
     </Layout>
   );
 }

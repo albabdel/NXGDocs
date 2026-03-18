@@ -53,10 +53,16 @@ export function AdminLayout({ children, title }: AdminLayoutProps) {
     return null; // ProtectedRoute will handle redirect
   }
 
-  const sidebarWidth = sidebarCollapsed ? 64 : 220;
-
   return (
-    <div className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
+    <div
+      data-admin-layout
+      data-sidebar-collapsed={sidebarCollapsed}
+      className="admin-layout-container min-h-screen"
+      style={{
+        backgroundColor: 'var(--ifm-background-color)',
+        '--admin-sidebar-width': sidebarCollapsed ? '64px' : '220px',
+      } as React.CSSProperties}
+    >
       {/* Mobile Drawer Overlay */}
       {mobileDrawerOpen && (
         <div
@@ -78,10 +84,10 @@ export function AdminLayout({ children, title }: AdminLayoutProps) {
         />
       </div>
 
-      {/* Desktop Sidebar */}
+      {/* Desktop Sidebar - CSS-controlled width via --admin-sidebar-width */}
       <div
-        className="fixed inset-y-0 left-0 z-30 hidden lg:block"
-        style={{ width: sidebarWidth }}
+        className="admin-sidebar-wrapper fixed inset-y-0 left-0 z-30 hidden lg:block"
+        style={{ width: 'var(--admin-sidebar-width)' }}
       >
         <AdminSidebar
           collapsed={sidebarCollapsed}
@@ -98,13 +104,10 @@ export function AdminLayout({ children, title }: AdminLayoutProps) {
         sidebarCollapsed={sidebarCollapsed}
       />
 
-      {/* Main Content */}
+      {/* Main Content - CSS-controlled margin via .admin-main-content */}
       <main
-        className="pt-16 transition-all duration-300 ease-in-out"
-        style={{
-          marginLeft: typeof window !== 'undefined' && window.innerWidth >= 1024 ? sidebarWidth : 0,
-          minHeight: 'calc(100vh - 64px)',
-        }}
+        className="admin-main-content pt-16 transition-all duration-300 ease-in-out"
+        style={{ minHeight: 'calc(100vh - 64px)' }}
       >
         <div className="p-4 lg:p-6">
           {children}

@@ -73,10 +73,9 @@ export async function listTickets(
     from: String((page - 1) * limit),
     limit: String(limit),
     sortBy: '-createdTime',
+    include: 'team,contacts',
   });
   
-  // For customer queries, scope to the configured department
-  // The proxy handles contactId scoping server-side based on session
   if (isCustomer) {
     params.set('departmentId', DEPT_ID);
   }
@@ -97,7 +96,7 @@ export interface GetTicketOptions {
 
 export async function getTicket(options: GetTicketOptions): Promise<ZohoTicket> {
   const { id, isCustomer = false, token } = options;
-  return apiCall(`/tickets/${id}`, { isCustomer, token });
+  return apiCall(`/tickets/${id}?include=team,contacts`, { isCustomer, token });
 }
 
 /** Options for getting conversations */
@@ -143,7 +142,7 @@ export interface UpdateTicketStatusOptions {
 
 export async function updateTicketStatus(options: UpdateTicketStatusOptions): Promise<ZohoTicket> {
   const { ticketId, status, isCustomer = false, token } = options;
-  return apiCall(`/tickets/${ticketId}`, {
+  return apiCall(`/tickets/${ticketId}?include=team,contacts`, {
     isCustomer,
     token,
     method: 'PATCH',
@@ -161,7 +160,7 @@ export interface UpdateTicketOptions {
 
 export async function updateTicket(options: UpdateTicketOptions): Promise<ZohoTicket> {
   const { ticketId, fields, isCustomer = false, token } = options;
-  return apiCall(`/tickets/${ticketId}`, {
+  return apiCall(`/tickets/${ticketId}?include=team,contacts`, {
     isCustomer,
     token,
     method: 'PATCH',
@@ -241,7 +240,7 @@ export interface CreateTicketOptions {
 
 export async function createTicket(options: CreateTicketOptions): Promise<ZohoTicket> {
   const { data, isCustomer = false, token } = options;
-  return apiCall(`/tickets`, {
+  return apiCall(`/tickets?include=team,contacts`, {
     isCustomer,
     token,
     method: 'POST',

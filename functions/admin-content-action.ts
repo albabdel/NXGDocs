@@ -4,6 +4,11 @@
 import { createClient } from '@sanity/client';
 import { validateAdminSession, AdminSession } from './lib/admin-session';
 import { logAuditEvent, AuditAction } from './lib/audit-service';
+import {
+  createContentSubmittedNotification,
+  createContentApprovedNotification,
+  createContentRejectedNotification,
+} from './lib/notification-service';
 
 type WorkflowStatus = 'draft' | 'pending_review' | 'approved' | 'rejected' | 'published' | 'archived';
 type ContentSource = 'sanity' | 'confluence';
@@ -68,7 +73,7 @@ async function updateWorkflowConfig(
   action: WorkflowAction,
   session: AdminSession,
   notes?: string
-): Promise<{ success: boolean; error?: string; title?: string }> {
+): Promise<{ success: boolean; error?: string; title?: string; submittedBy?: string }> {
   const client = getSanityClient(env);
   const now = new Date().toISOString();
   const newStatus = ACTION_TO_STATUS[action];
@@ -82,7 +87,8 @@ async function updateWorkflowConfig(
     const existing = await client.fetch(
       `*[_id == $id][0]{
         title,
-        workflowConfig
+        workflowConfig,
+        "submittedByZohoId": workflowConfig.submittedBy->zohoId
       }`,
       { id: contentId }
     );
@@ -125,11 +131,20 @@ async function updateWorkflowConfig(
 
     await client.patch(contentId).set(updates).commit();
 
-    return { success: true, title: existing.title };
+    return { success: true, title: existing.title, submittedBy: existing.submittedByZohoId };
   } catch (error) {
     console.error('[admin-content-action] Update error:', error);
     return { success: false, error: 'Failed to update content' };
   }
+}
+
+async function getReviewerIds(env: Env): Promise<string[]> {
+  const client = getSanityClient(env);
+  const reviewers = await client.fetch(
+    `*[_type == "adminUser" && role in ['admin', 'content_manager']].zohoId`,
+    {}
+  );
+  return reviewers || [];
 }
 
 export async function onRequest(context: { request: Request; env: Env }) {
@@ -228,6 +243,25 @@ export async function onRequest(context: { request: Request; env: Env }) {
       source: 'admin-content-action',
     },
   }).catch(err => console.error('[admin-content-action] Audit log failed:', err));
+
+  if (action === 'submit_for_review') {
+    const reviewerIds = await getReviewerIds(env);
+    const notificationPromises = reviewerIds
+      .filter(id => id !== session.userId)
+      .map(reviewerId =>
+        createContentSubmittedNotification(env, reviewerId, result.title!, contentId, contentType).catch(err =>
+          console.error('[admin-content-action] Notification failed:', err)
+        )
+      );
+    await Promise.all(notificationPromises);
+  }
+
+  if ((action === 'approve' || action === 'reject') && result.submittedBy) {
+    const notificationFn = action === 'approve' ? createContentApprovedNotification : createContentRejectedNotification;
+    await notificationFn(env, result.submittedBy, result.title!, contentId, contentType, notes).catch(err =>
+      console.error('[admin-content-action] Notification failed:', err)
+    );
+  }
 
   return new Response(
     JSON.stringify({
