@@ -3,9 +3,10 @@
 
 import { validateAdminSession, AdminEnv } from './lib/admin-session';
 import { getAuditLogs } from './lib/audit-service';
+import { getConfluencePagesForDashboard, ConfluenceEnv } from './lib/confluence-service';
 import { createClient } from '@sanity/client';
 
-interface Env extends AdminEnv {
+interface Env extends AdminEnv, ConfluenceEnv {
   SANITY_PROJECT_ID: string;
   SANITY_DATASET: string;
   SANITY_API_TOKEN: string;
@@ -58,13 +59,14 @@ export async function onRequest(context: { request: Request; env: Env }) {
 
     const recentActivity = await getAuditLogs(env, { limit: 5 });
 
-    // Calculate content by source (Sanity vs Confluence)
     const contentBySource = await client.fetch(`
       {
         "sanity": count(*[_type in ['doc', 'article', 'release', 'roadmapItem', 'landingPage'] && coalesce(source, 'sanity') == 'sanity']),
         "confluence": count(*[_type in ['doc', 'article', 'release', 'roadmapItem', 'landingPage'] && source == 'confluence'])
       }
     `).catch(() => ({ sanity: 0, confluence: 0 }));
+
+    const confluenceData = await getConfluencePagesForDashboard(env);
 
     return new Response(JSON.stringify({
       stats: {
@@ -75,6 +77,15 @@ export async function onRequest(context: { request: Request; env: Env }) {
       },
       contentPipeline,
       contentBySource,
+      confluence: confluenceData.stats ? {
+        totalPages: confluenceData.stats.totalPages,
+        publishedPages: confluenceData.stats.publishedPages,
+        draftPages: confluenceData.stats.draftPages,
+        lastUpdated: confluenceData.stats.lastUpdated,
+        spaceName: confluenceData.stats.spaceName,
+        spaceKey: confluenceData.stats.spaceKey,
+      } : null,
+      confluenceError: confluenceData.error,
       recentActivity,
     }), {
       headers: { 'Content-Type': 'application/json' },

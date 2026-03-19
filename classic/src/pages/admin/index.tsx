@@ -86,6 +86,36 @@ interface TicketTrendsData {
   labels: string[];
 }
 
+interface ConfluenceStats {
+  totalPages: number;
+  publishedPages: number;
+  draftPages: number;
+  lastUpdated: string | null;
+  spaceName: string;
+  spaceKey: string;
+}
+
+interface BuildMetrics {
+  deployment: {
+    branch: string | null;
+    commitSha: string | null;
+    url: string | null;
+    siteName: string | null;
+    deployedAt: string;
+  };
+  content: {
+    totalDocuments: number;
+    byType: Record<string, number>;
+    published: number;
+    draft: number;
+    inReview: number;
+  };
+  build: {
+    timestamp: string;
+    environment: string;
+  };
+}
+
 function AdminDashboardContent() {
   const { user, logout, isLoading } = useAdminAuth();
   const [isDark, setIsDark] = useState(true);
@@ -97,6 +127,8 @@ function AdminDashboardContent() {
   const [systemStatus, setSystemStatus] = useState<ServiceStatusInfo[]>([]);
   const [contentPipeline, setContentPipeline] = useState<ContentPipelineStats | null>(null);
   const [ticketTrends, setTicketTrends] = useState<TicketTrendsData | null>(null);
+  const [confluenceStats, setConfluenceStats] = useState<ConfluenceStats | null>(null);
+  const [buildMetrics, setBuildMetrics] = useState<BuildMetrics | null>(null);
   const [dataLoading, setDataLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -114,11 +146,12 @@ function AdminDashboardContent() {
         setDataLoading(true);
         setError(null);
 
-        const [dashboardRes, auditRes, notificationsRes, statusRes] = await Promise.all([
+        const [dashboardRes, auditRes, notificationsRes, statusRes, buildMetricsRes] = await Promise.all([
           fetch('/admin-dashboard', { credentials: 'include' }),
           fetch('/admin-audit-logs?limit=10', { credentials: 'include' }),
           fetch('/admin-notifications?limit=5', { credentials: 'include' }).catch(() => null),
           fetch('/admin-system-status', { credentials: 'include' }).catch(() => null),
+          fetch('/admin-build-metrics', { credentials: 'include' }).catch(() => null),
         ]);
 
         if (!dashboardRes.ok || !auditRes.ok) {
@@ -148,6 +181,17 @@ function AdminDashboardContent() {
 
         if (dashboardData.ticketTrends) {
           setTicketTrends(dashboardData.ticketTrends);
+        }
+
+        // Handle Confluence data from dashboard
+        if (dashboardData.confluence) {
+          setConfluenceStats(dashboardData.confluence);
+        }
+
+        // Handle build metrics
+        if (buildMetricsRes && buildMetricsRes.ok) {
+          const metricsData = await buildMetricsRes.json();
+          setBuildMetrics(metricsData);
         }
 
         try {
@@ -198,7 +242,7 @@ function AdminDashboardContent() {
     { icon: FileCheck, label: 'Pending Reviews', value: dashboardStats?.pendingContent ?? 0, href: '/admin/content?status=pending_review', color: '#E8B058', trend: '+12%', trendUp: true },
     { icon: Ticket, label: 'Open Tickets', value: ticketStats.open, href: '/admin/tickets?status=open', color: '#f59e0b', trend: '-5%', trendUp: false },
     { icon: Users, label: 'Active Users', value: dashboardStats?.activeUsers ?? 0, href: '/admin/users', color: '#22c55e', trend: '+8%', trendUp: true },
-    { icon: FileStack, label: 'Total Content', value: dashboardStats?.publishedContent ?? 0, href: '/admin/content', color: '#3b82f6', trend: '+3%', trendUp: true },
+    { icon: FileStack, label: 'Total Content', value: (buildMetrics?.content?.totalDocuments ?? 0) + (confluenceStats?.totalPages ?? 0), href: '/admin/content', color: '#3b82f6', trend: '+3%', trendUp: true },
   ];
 
   const formatTimestamp = (timestamp: string) => {

@@ -1,7 +1,8 @@
 import { validateAdminSession, AdminEnv } from './lib/admin-session';
+import { checkConfluenceConnectivity, ConfluenceEnv } from './lib/confluence-service';
 import { createClient } from '@sanity/client';
 
-interface Env extends AdminEnv {
+interface Env extends AdminEnv, ConfluenceEnv {
   SANITY_PROJECT_ID: string;
   SANITY_DATASET: string;
   SANITY_API_TOKEN: string;
@@ -61,7 +62,6 @@ async function checkZohoConnection(env: Env): Promise<ServiceStatus> {
       };
     }
 
-    // Get access token
     const tokenRes = await fetch('https://accounts.zoho.eu/oauth/v2/token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -94,7 +94,6 @@ async function checkZohoConnection(env: Env): Promise<ServiceStatus> {
       };
     }
 
-    // Test API call
     const testRes = await fetch(`https://desk.zoho.eu/api/v1/tickets?limit=1`, {
       headers: { 'Authorization': `Zoho-oauthtoken ${tokenData.access_token}` },
     });
@@ -117,6 +116,39 @@ async function checkZohoConnection(env: Env): Promise<ServiceStatus> {
   }
 }
 
+async function checkConfluenceConnection(env: Env): Promise<ServiceStatus> {
+  const start = Date.now();
+  try {
+    const result = await checkConfluenceConnectivity(env);
+
+    if (!result.connected) {
+      return {
+        name: 'Confluence',
+        status: result.message?.includes('not configured') ? 'degraded' : 'down',
+        responseTime: result.responseTime,
+        lastChecked: new Date().toISOString(),
+        message: result.message,
+      };
+    }
+
+    return {
+      name: 'Confluence',
+      status: 'operational',
+      responseTime: result.responseTime,
+      lastChecked: new Date().toISOString(),
+      message: result.spaceName ? `Connected to "${result.spaceName}"` : undefined,
+    };
+  } catch (error) {
+    return {
+      name: 'Confluence',
+      status: 'down',
+      responseTime: Date.now() - start,
+      lastChecked: new Date().toISOString(),
+      message: error instanceof Error ? error.message : 'Connection failed',
+    };
+  }
+}
+
 export async function onRequest(context: { request: Request; env: Env }) {
   const { request, env } = context;
 
@@ -129,12 +161,13 @@ export async function onRequest(context: { request: Request; env: Env }) {
   }
 
   try {
-    const [sanityStatus, zohoStatus] = await Promise.all([
+    const [sanityStatus, zohoStatus, confluenceStatus] = await Promise.all([
       checkSanityConnection(env),
       checkZohoConnection(env),
+      checkConfluenceConnection(env),
     ]);
 
-    const services = [sanityStatus, zohoStatus];
+    const services = [sanityStatus, zohoStatus, confluenceStatus];
     const allOperational = services.every(s => s.status === 'operational');
     const anyDown = services.some(s => s.status === 'down');
 
