@@ -179,9 +179,10 @@ function AdminDashboardContent() {
           setContentPipeline(dashboardData.contentPipeline);
         }
 
-        if (dashboardData.ticketTrends) {
-          setTicketTrends(dashboardData.ticketTrends);
-        }
+        fetch('/admin-ticket-trends', { credentials: 'include' })
+          .then(r => r.ok ? r.json() : null)
+          .then(data => data && setTicketTrends(data))
+          .catch(() => null);
 
         // Handle Confluence data from dashboard
         if (dashboardData.confluence) {
