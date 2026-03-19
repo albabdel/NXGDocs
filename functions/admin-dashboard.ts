@@ -39,14 +39,32 @@ export async function onRequest(context: { request: Request; env: Env }) {
       publishedContent,
       totalUsers,
       activeUsers,
+      contentPipeline,
     ] = await Promise.all([
       client.fetch(`count(*[_type in ['doc', 'article', 'release', 'roadmapItem', 'landingPage'] && coalesce(workflowConfig.workflowStatus, status) in ['pending_review', 'review']])`),
       client.fetch(`count(*[_type in ['doc', 'article', 'release', 'roadmapItem', 'landingPage'] && coalesce(workflowConfig.workflowStatus, status) == 'published'])`),
       client.fetch(`count(*[_type == 'adminUser'])`),
       client.fetch(`count(*[_type == 'adminUser' && lastLoginAt > $sevenDaysAgo])`, { sevenDaysAgo }),
+      // Content pipeline by status
+      client.fetch(`
+        {
+          "draft": count(*[_type in ['doc', 'article', 'release', 'roadmapItem', 'landingPage'] && coalesce(workflowConfig.workflowStatus, status) == 'draft']),
+          "review": count(*[_type in ['doc', 'article', 'release', 'roadmapItem', 'landingPage'] && coalesce(workflowConfig.workflowStatus, status) in ['pending_review', 'review']]),
+          "approved": count(*[_type in ['doc', 'article', 'release', 'roadmapItem', 'landingPage'] && coalesce(workflowConfig.workflowStatus, status) == 'approved']),
+          "published": count(*[_type in ['doc', 'article', 'release', 'roadmapItem', 'landingPage'] && coalesce(workflowConfig.workflowStatus, status) == 'published'])
+        }
+      `),
     ]);
 
     const recentActivity = await getAuditLogs(env, { limit: 5 });
+
+    // Calculate content by source (Sanity vs Confluence)
+    const contentBySource = await client.fetch(`
+      {
+        "sanity": count(*[_type in ['doc', 'article', 'release', 'roadmapItem', 'landingPage'] && coalesce(source, 'sanity') == 'sanity']),
+        "confluence": count(*[_type in ['doc', 'article', 'release', 'roadmapItem', 'landingPage'] && source == 'confluence'])
+      }
+    `).catch(() => ({ sanity: 0, confluence: 0 }));
 
     return new Response(JSON.stringify({
       stats: {
@@ -55,6 +73,8 @@ export async function onRequest(context: { request: Request; env: Env }) {
         totalUsers,
         activeUsers,
       },
+      contentPipeline,
+      contentBySource,
       recentActivity,
     }), {
       headers: { 'Content-Type': 'application/json' },

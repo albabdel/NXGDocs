@@ -57,12 +57,46 @@ interface TicketStats {
   onHold: number;
 }
 
+interface NotificationItem {
+  _id: string;
+  type: string;
+  title: string;
+  message: string;
+  read: boolean;
+  timestamp: string;
+  priority?: 'low' | 'medium' | 'high';
+}
+
+interface ServiceStatusInfo {
+  name: string;
+  status: 'operational' | 'degraded' | 'down';
+  responseTime?: number;
+  lastChecked?: string;
+}
+
+interface ContentPipelineStats {
+  draft: number;
+  review: number;
+  approved: number;
+  published: number;
+}
+
+interface TicketTrendsData {
+  daily: number[];
+  labels: string[];
+}
+
 function AdminDashboardContent() {
   const { user, logout, isLoading } = useAdminAuth();
   const [isDark, setIsDark] = useState(true);
   const [dashboardStats, setDashboardStats] = useState<DashboardStats | null>(null);
   const [recentActivity, setRecentActivity] = useState<AuditLogEntry[]>([]);
   const [ticketStats, setTicketStats] = useState<TicketStats>({ open: 0, pending: 0, closed: 0, onHold: 0 });
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
+  const [unreadNotifications, setUnreadNotifications] = useState(0);
+  const [systemStatus, setSystemStatus] = useState<ServiceStatusInfo[]>([]);
+  const [contentPipeline, setContentPipeline] = useState<ContentPipelineStats | null>(null);
+  const [ticketTrends, setTicketTrends] = useState<TicketTrendsData | null>(null);
   const [dataLoading, setDataLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -80,9 +114,11 @@ function AdminDashboardContent() {
         setDataLoading(true);
         setError(null);
 
-        const [dashboardRes, auditRes] = await Promise.all([
+        const [dashboardRes, auditRes, notificationsRes, statusRes] = await Promise.all([
           fetch('/admin-dashboard', { credentials: 'include' }),
           fetch('/admin-audit-logs?limit=10', { credentials: 'include' }),
+          fetch('/admin-notifications?limit=5', { credentials: 'include' }).catch(() => null),
+          fetch('/admin-system-status', { credentials: 'include' }).catch(() => null),
         ]);
 
         if (!dashboardRes.ok || !auditRes.ok) {
@@ -94,6 +130,25 @@ function AdminDashboardContent() {
 
         setDashboardStats(dashboardData.stats);
         setRecentActivity(auditData.logs || []);
+
+        if (notificationsRes && notificationsRes.ok) {
+          const notifData = await notificationsRes.json();
+          setNotifications(notifData.notifications || []);
+          setUnreadNotifications(notifData.unreadCount || 0);
+        }
+
+        if (statusRes && statusRes.ok) {
+          const statusData = await statusRes.json();
+          setSystemStatus(statusData.services || []);
+        }
+
+        if (dashboardData.contentPipeline) {
+          setContentPipeline(dashboardData.contentPipeline);
+        }
+
+        if (dashboardData.ticketTrends) {
+          setTicketTrends(dashboardData.ticketTrends);
+        }
 
         try {
           const [openTickets, pendingTickets, closedTickets, onHoldTickets] = await Promise.all([
@@ -187,12 +242,6 @@ function AdminDashboardContent() {
     { icon: FileText, title: 'Audit Logs', description: 'View system audit trails', href: '/admin/audit' },
     { icon: Settings, title: 'Settings', description: 'Configure admin preferences', href: '/admin/settings' },
     { icon: Zap, title: 'Integrations', description: 'Manage external service connections', href: '/admin/integrations' },
-  ];
-
-  const notifications = [
-    { id: 1, message: 'New content pending review', time: '2 min ago', type: 'info' },
-    { id: 2, message: 'Ticket #1234 escalated', time: '15 min ago', type: 'warning' },
-    { id: 3, message: 'Deployment completed', time: '1 hour ago', type: 'success' },
   ];
 
   const refreshData = () => {
@@ -365,20 +414,26 @@ function AdminDashboardContent() {
               </div>
             </div>
             <div className="h-40 flex items-end gap-2">
-              {[65, 45, 78, 52, 88, 42, 95].map((h, i) => (
-                <div key={i} className="flex-1 flex flex-col gap-1">
-                  <div
-                    className="rounded-t transition-all hover:opacity-80"
-                    style={{
-                      height: `${h}%`,
-                      background: 'linear-gradient(180deg, #E8B058 0%, #C89446 100%)',
-                    }}
-                  />
-                  <span className="text-xs text-center" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                    {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][i]}
-                  </span>
-                </div>
-              ))}
+              {(() => {
+                const defaultData = { daily: [65, 45, 78, 52, 88, 42, 95], labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] };
+                const trends = ticketTrends || defaultData;
+                const maxVal = Math.max(...trends.daily, 1);
+                return trends.daily.map((val, i) => (
+                  <div key={i} className="flex-1 flex flex-col gap-1">
+                    <div
+                      className="rounded-t transition-all hover:opacity-80"
+                      style={{
+                        height: `${(val / maxVal) * 100}%`,
+                        background: 'linear-gradient(180deg, #E8B058 0%, #C89446 100%)',
+                      }}
+                      title={`${trends.labels[i]}: ${val} tickets`}
+                    />
+                    <span className="text-xs text-center" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                      {trends.labels[i]}
+                    </span>
+                  </div>
+                ));
+              })()}
             </div>
           </div>
 
@@ -468,34 +523,42 @@ function AdminDashboardContent() {
                 </h3>
               </div>
               <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-20 text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>Draft</div>
-                  <div className="flex-1 h-6 rounded-lg overflow-hidden" style={{ background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
-                    <div className="h-full rounded-lg" style={{ width: '30%', background: '#6366f1' }} />
-                  </div>
-                  <span className="text-sm font-medium w-8 text-right" style={{ color: 'var(--ifm-color-content)' }}>12</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-20 text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>Review</div>
-                  <div className="flex-1 h-6 rounded-lg overflow-hidden" style={{ background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
-                    <div className="h-full rounded-lg" style={{ width: '15%', background: '#f59e0b' }} />
-                  </div>
-                  <span className="text-sm font-medium w-8 text-right" style={{ color: 'var(--ifm-color-content)' }}>6</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-20 text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>Approved</div>
-                  <div className="flex-1 h-6 rounded-lg overflow-hidden" style={{ background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
-                    <div className="h-full rounded-lg" style={{ width: '20%', background: '#22c55e' }} />
-                  </div>
-                  <span className="text-sm font-medium w-8 text-right" style={{ color: 'var(--ifm-color-content)' }}>8</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-20 text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>Published</div>
-                  <div className="flex-1 h-6 rounded-lg overflow-hidden" style={{ background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
-                    <div className="h-full rounded-lg" style={{ width: '85%', background: '#E8B058' }} />
-                  </div>
-                  <span className="text-sm font-medium w-8 text-right" style={{ color: 'var(--ifm-color-content)' }}>{dashboardStats?.publishedContent ?? 34}</span>
-                </div>
+                {(() => {
+                  const pipeline = contentPipeline || { draft: 12, review: 6, approved: 8, published: dashboardStats?.publishedContent ?? 34 };
+                  const total = pipeline.draft + pipeline.review + pipeline.approved + pipeline.published;
+                  return (
+                    <>
+                      <div className="flex items-center gap-3">
+                        <div className="w-20 text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>Draft</div>
+                        <div className="flex-1 h-6 rounded-lg overflow-hidden" style={{ background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
+                          <div className="h-full rounded-lg" style={{ width: `${total > 0 ? (pipeline.draft / total) * 100 : 30}%`, background: '#6366f1' }} />
+                        </div>
+                        <span className="text-sm font-medium w-8 text-right" style={{ color: 'var(--ifm-color-content)' }}>{pipeline.draft}</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="w-20 text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>Review</div>
+                        <div className="flex-1 h-6 rounded-lg overflow-hidden" style={{ background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
+                          <div className="h-full rounded-lg" style={{ width: `${total > 0 ? (pipeline.review / total) * 100 : 15}%`, background: '#f59e0b' }} />
+                        </div>
+                        <span className="text-sm font-medium w-8 text-right" style={{ color: 'var(--ifm-color-content)' }}>{pipeline.review}</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="w-20 text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>Approved</div>
+                        <div className="flex-1 h-6 rounded-lg overflow-hidden" style={{ background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
+                          <div className="h-full rounded-lg" style={{ width: `${total > 0 ? (pipeline.approved / total) * 100 : 20}%`, background: '#22c55e' }} />
+                        </div>
+                        <span className="text-sm font-medium w-8 text-right" style={{ color: 'var(--ifm-color-content)' }}>{pipeline.approved}</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="w-20 text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>Published</div>
+                        <div className="flex-1 h-6 rounded-lg overflow-hidden" style={{ background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
+                          <div className="h-full rounded-lg" style={{ width: `${total > 0 ? (pipeline.published / total) * 100 : 85}%`, background: '#E8B058' }} />
+                        </div>
+                        <span className="text-sm font-medium w-8 text-right" style={{ color: 'var(--ifm-color-content)' }}>{pipeline.published}</span>
+                      </div>
+                    </>
+                  );
+                })()}
               </div>
             </div>
           </div>
@@ -518,36 +581,47 @@ function AdminDashboardContent() {
                   Notifications
                 </h3>
               </div>
-              <span
-                className="px-2 py-0.5 rounded-full text-xs font-medium"
-                style={{ background: '#ef4444', color: '#fff' }}
-              >
-                3
-              </span>
+              {unreadNotifications > 0 && (
+                <span
+                  className="px-2 py-0.5 rounded-full text-xs font-medium"
+                  style={{ background: '#ef4444', color: '#fff' }}
+                >
+                  {unreadNotifications}
+                </span>
+              )}
             </div>
             <div className="space-y-2">
-              {notifications.map((notif) => (
-                <div
-                  key={notif.id}
-                  className="flex items-start gap-3 p-2 rounded-lg"
-                  style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)' }}
-                >
+              {notifications.length === 0 ? (
+                <p className="text-sm text-center py-4" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                  No notifications
+                </p>
+              ) : (
+                notifications.map((notif) => (
                   <div
-                    className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0"
-                    style={{
-                      background: notif.type === 'warning' ? '#f59e0b' : notif.type === 'success' ? '#22c55e' : '#3b82f6',
-                    }}
-                  />
-                  <div className="flex-1">
-                    <p className="text-sm" style={{ color: 'var(--ifm-color-content)' }}>
-                      {notif.message}
-                    </p>
-                    <p className="text-xs mt-0.5" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                      {notif.time}
-                    </p>
+                    key={notif._id}
+                    className="flex items-start gap-3 p-2 rounded-lg"
+                    style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)' }}
+                  >
+                    <div
+                      className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0"
+                      style={{
+                        background: notif.type.includes('warning') || notif.type.includes('alert') ? '#f59e0b' : notif.type.includes('approved') || notif.type.includes('success') ? '#22c55e' : '#3b82f6',
+                      }}
+                    />
+                    <div className="flex-1">
+                      <p className="text-sm" style={{ color: 'var(--ifm-color-content)' }}>
+                        {notif.title}
+                      </p>
+                      <p className="text-xs mt-0.5" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                        {notif.message}
+                      </p>
+                      <p className="text-xs mt-0.5" style={{ color: 'var(--ifm-color-content-secondary)', opacity: 0.7 }}>
+                        {formatTimestamp(notif.timestamp)}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </div>
 
@@ -565,34 +639,56 @@ function AdminDashboardContent() {
               </h3>
             </div>
             <div className="space-y-2">
-              <div className="flex items-center justify-between p-2 rounded-lg" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)' }}>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4" style={{ color: '#22c55e' }} />
-                  <span className="text-sm" style={{ color: 'var(--ifm-color-content)' }}>All Systems</span>
-                </div>
-                <span className="text-xs" style={{ color: '#22c55e' }}>Operational</span>
-              </div>
-              <div className="flex items-center justify-between p-2 rounded-lg" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)' }}>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4" style={{ color: '#22c55e' }} />
-                  <span className="text-sm" style={{ color: 'var(--ifm-color-content)' }}>Sanity CMS</span>
-                </div>
-                <span className="text-xs" style={{ color: '#22c55e' }}>Connected</span>
-              </div>
-              <div className="flex items-center justify-between p-2 rounded-lg" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)' }}>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" style={{ color: '#f59e0b' }} />
-                  <span className="text-sm" style={{ color: 'var(--ifm-color-content)' }}>Sync Queue</span>
-                </div>
-                <span className="text-xs" style={{ color: '#f59e0b' }}>3 pending</span>
-              </div>
-              <div className="flex items-center justify-between p-2 rounded-lg" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)' }}>
-                <div className="flex items-center gap-2">
-                  <RefreshCw className="w-4 h-4" style={{ color: '#22c55e' }} />
-                  <span className="text-sm" style={{ color: 'var(--ifm-color-content)' }}>Last Deploy</span>
-                </div>
-                <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>2 hours ago</span>
-              </div>
+              {systemStatus.length === 0 ? (
+                <>
+                  <div className="flex items-center justify-between p-2 rounded-lg" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)' }}>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4" style={{ color: '#22c55e' }} />
+                      <span className="text-sm" style={{ color: 'var(--ifm-color-content)' }}>All Systems</span>
+                    </div>
+                    <span className="text-xs" style={{ color: '#22c55e' }}>Operational</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 rounded-lg" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)' }}>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4" style={{ color: '#22c55e' }} />
+                      <span className="text-sm" style={{ color: 'var(--ifm-color-content)' }}>Sanity CMS</span>
+                    </div>
+                    <span className="text-xs" style={{ color: '#22c55e' }}>Connected</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 rounded-lg" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)' }}>
+                    <div className="flex items-center gap-2">
+                      <Clock className="w-4 h-4" style={{ color: '#f59e0b' }} />
+                      <span className="text-sm" style={{ color: 'var(--ifm-color-content)' }}>Sync Queue</span>
+                    </div>
+                    <span className="text-xs" style={{ color: '#f59e0b' }}>Checking...</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 rounded-lg" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)' }}>
+                    <div className="flex items-center gap-2">
+                      <RefreshCw className="w-4 h-4" style={{ color: '#22c55e' }} />
+                      <span className="text-sm" style={{ color: 'var(--ifm-color-content)' }}>Last Deploy</span>
+                    </div>
+                    <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>Recently</span>
+                  </div>
+                </>
+              ) : (
+                systemStatus.slice(0, 4).map((service) => (
+                  <div key={service.name} className="flex items-center justify-between p-2 rounded-lg" style={{ background: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)' }}>
+                    <div className="flex items-center gap-2">
+                      {service.status === 'operational' ? (
+                        <CheckCircle className="w-4 h-4" style={{ color: '#22c55e' }} />
+                      ) : service.status === 'degraded' ? (
+                        <Clock className="w-4 h-4" style={{ color: '#f59e0b' }} />
+                      ) : (
+                        <AlertCircle className="w-4 h-4" style={{ color: '#ef4444' }} />
+                      )}
+                      <span className="text-sm" style={{ color: 'var(--ifm-color-content)' }}>{service.name}</span>
+                    </div>
+                    <span className="text-xs" style={{ color: service.status === 'operational' ? '#22c55e' : service.status === 'degraded' ? '#f59e0b' : '#ef4444' }}>
+                      {service.status === 'operational' ? 'OK' : service.status === 'degraded' ? 'Degraded' : 'Down'}
+                    </span>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>

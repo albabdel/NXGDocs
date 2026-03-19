@@ -5,14 +5,21 @@ interface Env extends AdminEnv {
   SANITY_PROJECT_ID: string;
   SANITY_DATASET: string;
   SANITY_API_TOKEN: string;
+  ZOHO_REFRESH_TOKEN?: string;
+  ZOHO_CLIENT_ID?: string;
+  ZOHO_CLIENT_SECRET?: string;
+  ZOHO_ORG_ID?: string;
 }
 
-interface SystemStatus {
-  sanity: { status: 'ok' | 'error'; latency?: number; error?: string };
-  timestamp: string;
+interface ServiceStatus {
+  name: string;
+  status: 'operational' | 'degraded' | 'down';
+  responseTime?: number;
+  lastChecked: string;
+  message?: string;
 }
 
-async function checkSanityConnection(env: Env): Promise<{ status: 'ok' | 'error'; latency?: number; error?: string }> {
+async function checkSanityConnection(env: Env): Promise<ServiceStatus> {
   const start = Date.now();
   try {
     const client = createClient({
@@ -24,9 +31,89 @@ async function checkSanityConnection(env: Env): Promise<{ status: 'ok' | 'error'
     });
 
     await client.fetch(`count(*)`);
-    return { status: 'ok', latency: Date.now() - start };
+    return {
+      name: 'Sanity CMS',
+      status: 'operational',
+      responseTime: Date.now() - start,
+      lastChecked: new Date().toISOString(),
+    };
   } catch (error) {
-    return { status: 'error', latency: Date.now() - start, error: error instanceof Error ? error.message : 'Unknown error' };
+    return {
+      name: 'Sanity CMS',
+      status: 'down',
+      responseTime: Date.now() - start,
+      lastChecked: new Date().toISOString(),
+      message: error instanceof Error ? error.message : 'Connection failed',
+    };
+  }
+}
+
+async function checkZohoConnection(env: Env): Promise<ServiceStatus> {
+  const start = Date.now();
+  try {
+    if (!env.ZOHO_REFRESH_TOKEN || !env.ZOHO_CLIENT_ID || !env.ZOHO_CLIENT_SECRET) {
+      return {
+        name: 'Zoho Desk',
+        status: 'degraded',
+        responseTime: 0,
+        lastChecked: new Date().toISOString(),
+        message: 'Credentials not configured',
+      };
+    }
+
+    // Get access token
+    const tokenRes = await fetch('https://accounts.zoho.eu/oauth/v2/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        refresh_token: env.ZOHO_REFRESH_TOKEN,
+        client_id: env.ZOHO_CLIENT_ID,
+        client_secret: env.ZOHO_CLIENT_SECRET,
+        grant_type: 'refresh_token',
+      }),
+    });
+
+    if (!tokenRes.ok) {
+      return {
+        name: 'Zoho Desk',
+        status: 'down',
+        responseTime: Date.now() - start,
+        lastChecked: new Date().toISOString(),
+        message: 'Failed to authenticate',
+      };
+    }
+
+    const tokenData = await tokenRes.json() as { access_token?: string };
+    if (!tokenData.access_token) {
+      return {
+        name: 'Zoho Desk',
+        status: 'down',
+        responseTime: Date.now() - start,
+        lastChecked: new Date().toISOString(),
+        message: 'No access token received',
+      };
+    }
+
+    // Test API call
+    const testRes = await fetch(`https://desk.zoho.eu/api/v1/tickets?limit=1`, {
+      headers: { 'Authorization': `Zoho-oauthtoken ${tokenData.access_token}` },
+    });
+
+    return {
+      name: 'Zoho Desk',
+      status: testRes.ok ? 'operational' : 'degraded',
+      responseTime: Date.now() - start,
+      lastChecked: new Date().toISOString(),
+      message: testRes.ok ? undefined : `API returned ${testRes.status}`,
+    };
+  } catch (error) {
+    return {
+      name: 'Zoho Desk',
+      status: 'down',
+      responseTime: Date.now() - start,
+      lastChecked: new Date().toISOString(),
+      message: error instanceof Error ? error.message : 'Connection failed',
+    };
   }
 }
 
@@ -42,19 +129,21 @@ export async function onRequest(context: { request: Request; env: Env }) {
   }
 
   try {
-    const [sanityStatus] = await Promise.all([
+    const [sanityStatus, zohoStatus] = await Promise.all([
       checkSanityConnection(env),
+      checkZohoConnection(env),
     ]);
 
-    const status: SystemStatus = {
-      sanity: sanityStatus,
-      timestamp: new Date().toISOString(),
-    };
+    const services = [sanityStatus, zohoStatus];
+    const allOperational = services.every(s => s.status === 'operational');
+    const anyDown = services.some(s => s.status === 'down');
 
-    const allOk = sanityStatus.status === 'ok';
-
-    return new Response(JSON.stringify(status), {
-      status: allOk ? 200 : 503,
+    return new Response(JSON.stringify({
+      services,
+      overallStatus: allOperational ? 'operational' : (anyDown ? 'down' : 'degraded'),
+      lastChecked: new Date().toISOString(),
+    }), {
+      status: allOperational ? 200 : 503,
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
