@@ -460,8 +460,9 @@ function AdminDashboardContent() {
             </div>
             <div className="h-40 flex items-end gap-2">
               {(() => {
-                const defaultData = { daily: [65, 45, 78, 52, 88, 42, 95], labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] };
+                const defaultData = { daily: [0, 0, 0, 0, 0, 0, 0], labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] };
                 const trends = ticketTrends || defaultData;
+                const hasRealTrendData = ticketTrends !== null;
                 const maxVal = Math.max(...trends.daily, 1);
                 return trends.daily.map((val, i) => (
                   <div key={i} className="flex-1 flex flex-col gap-1">
@@ -569,7 +570,8 @@ function AdminDashboardContent() {
               </div>
               <div className="space-y-3">
                 {(() => {
-                  const pipeline = contentPipeline || { draft: 12, review: 6, approved: 8, published: dashboardStats?.publishedContent ?? 34 };
+                  const pipeline = contentPipeline || { draft: 0, review: 0, approved: 0, published: 0 };
+                  const hasRealPipelineData = contentPipeline !== null;
                   const total = pipeline.draft + pipeline.review + pipeline.approved + pipeline.published;
                   return (
                     <>
@@ -606,11 +608,105 @@ function AdminDashboardContent() {
                 })()}
               </div>
             </div>
+
+            {/* Confluence Stats */}
+            <div
+              className="rounded-xl p-5"
+              style={{
+                background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.6)',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(232,176,88,0.15)'}`,
+              }}
+            >
+              <div className="flex items-center gap-2 mb-4">
+                <FileText className="w-5 h-5" style={{ color: '#0080ff' }} />
+                <h3 className="font-semibold" style={{ color: 'var(--ifm-color-content)' }}>
+                  Confluence
+                </h3>
+              </div>
+              {confluenceStats ? (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>Space</span>
+                    <span className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>{confluenceStats.spaceName}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>Total Pages</span>
+                    <span className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>{confluenceStats.totalPages}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>Published</span>
+                    <span className="text-sm font-medium" style={{ color: '#22c55e' }}>{confluenceStats.publishedPages}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>Drafts</span>
+                    <span className="text-sm font-medium" style={{ color: '#f59e0b' }}>{confluenceStats.draftPages}</span>
+                  </div>
+                  {confluenceStats.lastUpdated && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>Last Updated</span>
+                      <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>{formatTimestamp(confluenceStats.lastUpdated)}</span>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <p className="text-sm text-center py-4" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                  {dataLoading ? 'Loading...' : 'Confluence not connected'}
+                </p>
+              )}
+            </div>
           </div>
         </div>
 
         <div className="space-y-6">
           <QuickActions />
+
+          {/* Build Info */}
+          <div
+            className="rounded-xl p-5"
+            style={{
+              background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.6)',
+              border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(232,176,88,0.15)'}`,
+            }}
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <Server className="w-5 h-5" style={{ color: '#E8B058' }} />
+              <h3 className="font-semibold" style={{ color: 'var(--ifm-color-content)' }}>
+                Build Info
+              </h3>
+            </div>
+            {buildMetrics ? (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>Environment</span>
+                  <span className="text-sm font-medium" style={{ color: buildMetrics.build.environment === 'production' ? '#22c55e' : '#f59e0b' }}>
+                    {buildMetrics.build.environment}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>Branch</span>
+                  <span className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>
+                    {buildMetrics.deployment.branch || 'N/A'}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>Commit</span>
+                  <span className="text-xs font-mono" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                    {buildMetrics.deployment.commitSha ? buildMetrics.deployment.commitSha.slice(0, 7) : 'N/A'}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>Total Docs</span>
+                  <span className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>
+                    {buildMetrics.content.totalDocuments}
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <p className="text-sm text-center py-4" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                {dataLoading ? 'Loading...' : 'Build info not available'}
+              </p>
+            )}
+          </div>
 
           <div
             className="rounded-xl p-5"
