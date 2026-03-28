@@ -124,6 +124,8 @@ export interface ZohoSessionData {
   accountId: string | null;
   displayName: string;
   account?: string | null;
+  csmEmail?: string | null;
+  csmName?: string | null;
   sessionExpiry?: number;
 }
 

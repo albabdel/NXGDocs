@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { LogOut, Headphones, Loader, Plus, Briefcase, User } from 'lucide-react';
+import { LogOut, Headphones, Loader, Plus, Briefcase, User, ArrowLeft } from 'lucide-react';
 import { useZohoAuth } from './useZohoAuth';
 import LoginScreen from './LoginScreen';
 import TicketList from './TicketList';
 import TicketDetail from './TicketDetail';
 import CreateTicketModal from './CreateTicketModal';
+import CustomerSidebar from './CustomerSidebar';
 import type { ZohoTicket } from './types';
+import { listTickets } from './zohoApi';
 
 export default function TicketPortal() {
   const { token, session, isAuthenticated, loading, loginError, retrying, login, logout, mode, displayName, clearError } = useZohoAuth();
@@ -13,6 +15,8 @@ export default function TicketPortal() {
   const [showCreate, setShowCreate] = useState(false);
   const [listKey, setListKey] = useState(0);
   const [isDark, setIsDark] = useState(true);
+  const [allTickets, setAllTickets] = useState<ZohoTicket[]>([]);
+  const [ticketsLoading, setTicketsLoading] = useState(false);
 
   useEffect(() => {
     const check = () => setIsDark(document.documentElement.getAttribute('data-theme') === 'dark');
@@ -21,6 +25,30 @@ export default function TicketPortal() {
     obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     return () => obs.disconnect();
   }, []);
+
+  const isCustomer = mode === 'customer';
+
+  // Load all tickets for customer profile stats
+  useEffect(() => {
+    if (!isCustomer || !isAuthenticated) return;
+    setTicketsLoading(true);
+    listTickets({ limit: 100, isCustomer: true })
+      .then(res => setAllTickets(res.data ?? []))
+      .catch(() => setAllTickets([]))
+      .finally(() => setTicketsLoading(false));
+  }, [isCustomer, isAuthenticated]);
+
+  // Refresh tickets after creating a new one
+  const handleTicketCreated = () => {
+    setShowCreate(false);
+    setListKey(k => k + 1);
+    // Reload all tickets for sidebar stats
+    if (isCustomer) {
+      listTickets({ limit: 100, isCustomer: true })
+        .then(res => setAllTickets(res.data ?? []))
+        .catch(() => {});
+    }
+  };
 
   if (loading) {
     return (
@@ -33,7 +61,6 @@ export default function TicketPortal() {
     );
   }
 
-  // Session-based auth for customers, token for agents (handled in hook)
   if (!isAuthenticated) {
     return (
       <LoginScreen
@@ -46,35 +73,153 @@ export default function TicketPortal() {
     );
   }
 
-  const isCustomer = mode === 'customer';
   const cardBorder = {
     borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(232,176,88,0.15)',
   };
 
+  // Customer view with sidebar layout
+  if (isCustomer && session) {
+    return (
+      <div>
+        {/* Portal header */}
+        <div
+          className="relative overflow-hidden rounded-2xl p-5 mb-6"
+          style={{
+            background: isDark
+              ? 'linear-gradient(135deg, rgba(59,130,246,0.06) 0%, rgba(0,0,0,0.4) 100%)'
+              : 'linear-gradient(135deg, rgba(59,130,246,0.08) 0%, rgba(255,255,255,0.9) 100%)',
+            border: `1px solid ${isDark ? 'rgba(59,130,246,0.18)' : 'rgba(59,130,246,0.25)'}`,
+          }}
+        >
+          <div
+            className="absolute top-0 left-0 right-0 h-[2px]"
+            style={{
+              background: 'linear-gradient(90deg, transparent 0%, #3b82f6 25%, #2563eb 50%, #3b82f6 75%, transparent 100%)',
+            }}
+          />
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <div className="flex items-center gap-3">
+              {selectedTicket && (
+                <button
+                  onClick={() => setSelectedTicket(null)}
+                  className="p-2 rounded-lg transition-all hover:opacity-80"
+                  style={{
+                    background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <ArrowLeft className="w-4 h-4" style={{ color: 'var(--ifm-color-content)' }} />
+                </button>
+              )}
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center"
+                style={{
+                  background: 'rgba(59,130,246,0.12)',
+                  border: '1px solid rgba(59,130,246,0.2)',
+                }}
+              >
+                <Headphones className="w-5 h-5" style={{ color: '#3b82f6' }} />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold" style={{ color: 'var(--ifm-color-content)' }}>
+                  {selectedTicket ? `Ticket #${selectedTicket.ticketNumber}` : 'Support Portal'}
+                </h1>
+                <p className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                  {selectedTicket
+                    ? selectedTicket.subject.slice(0, 50) + (selectedTicket.subject.length > 50 ? '…' : '')
+                    : (session.account || 'Customer Portal')}
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={logout}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all hover:opacity-80"
+              style={{
+                background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
+                color: 'var(--ifm-color-content-secondary)',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                cursor: 'pointer',
+              }}
+            >
+              <LogOut className="w-4 h-4" />
+              Sign out
+            </button>
+          </div>
+        </div>
+
+        {/* Main content with sidebar */}
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* Sidebar - hidden on mobile when viewing ticket detail */}
+          <div className={`w-full lg:w-72 flex-shrink-0 ${selectedTicket ? 'hidden lg:block' : ''}`}>
+            <CustomerSidebar
+              session={session}
+              isDark={isDark}
+              tickets={allTickets}
+              onNewTicket={() => setShowCreate(true)}
+            />
+          </div>
+
+          {/* Main content */}
+          <div className="flex-1 min-w-0">
+            <div
+              className="rounded-xl border p-6"
+              style={{
+                background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.6)',
+                ...cardBorder,
+              }}
+            >
+              {selectedTicket ? (
+                <TicketDetail
+                  ticketId={selectedTicket.id}
+                  isDark={isDark}
+                  isCustomer={isCustomer}
+                  onBack={() => setSelectedTicket(null)}
+                  token={token ?? undefined}
+                />
+              ) : (
+                <TicketList
+                  key={listKey}
+                  isDark={isDark}
+                  isCustomer={isCustomer}
+                  onSelect={setSelectedTicket}
+                  token={token ?? undefined}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Create ticket modal */}
+        {showCreate && (
+          <CreateTicketModal
+            isDark={isDark}
+            isCustomer={isCustomer}
+            onClose={() => setShowCreate(false)}
+            onCreated={handleTicketCreated}
+          />
+        )}
+      </div>
+    );
+  }
+
+  // Agent view - original layout
   return (
     <div>
       {/* Portal header */}
       <div
         className="relative overflow-hidden rounded-2xl p-6 mb-8"
         style={{
-          background: isCustomer
-            ? (isDark
-                ? 'linear-gradient(135deg, rgba(59,130,246,0.06) 0%, rgba(0,0,0,0.4) 100%)'
-                : 'linear-gradient(135deg, rgba(59,130,246,0.08) 0%, rgba(255,255,255,0.9) 100%)')
-            : (isDark
-                ? 'linear-gradient(135deg, rgba(232,176,88,0.06) 0%, rgba(0,0,0,0.4) 100%)'
-                : 'linear-gradient(135deg, rgba(232,176,88,0.1) 0%, rgba(255,255,255,0.9) 100%)'),
-          border: `1px solid ${isCustomer
-            ? (isDark ? 'rgba(59,130,246,0.18)' : 'rgba(59,130,246,0.25)')
-            : (isDark ? 'rgba(232,176,88,0.18)' : 'rgba(232,176,88,0.25)')}`,
+          background: isDark
+            ? 'linear-gradient(135deg, rgba(232,176,88,0.06) 0%, rgba(0,0,0,0.4) 100%)'
+            : 'linear-gradient(135deg, rgba(232,176,88,0.1) 0%, rgba(255,255,255,0.9) 100%)',
+          border: `1px solid ${isDark ? 'rgba(232,176,88,0.18)' : 'rgba(232,176,88,0.25)'}`,
         }}
       >
         <div
           className="absolute top-0 left-0 right-0 h-[2px]"
           style={{
-            background: isCustomer
-              ? 'linear-gradient(90deg, transparent 0%, #3b82f6 25%, #2563eb 50%, #3b82f6 75%, transparent 100%)'
-              : 'linear-gradient(90deg, transparent 0%, #E8B058 25%, #C89446 50%, #E8B058 75%, transparent 100%)',
+            background: 'linear-gradient(90deg, transparent 0%, #E8B058 25%, #C89446 50%, #E8B058 75%, transparent 100%)',
           }}
         />
         <div className="flex items-center justify-between flex-wrap gap-4">
@@ -82,30 +227,22 @@ export default function TicketPortal() {
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center"
               style={{
-                background: isCustomer ? 'rgba(59,130,246,0.12)' : 'rgba(232,176,88,0.12)',
-                border: `1px solid ${isCustomer ? 'rgba(59,130,246,0.2)' : 'rgba(232,176,88,0.2)'}`,
+                background: 'rgba(232,176,88,0.12)',
+                border: '1px solid rgba(232,176,88,0.2)',
               }}
             >
-              {isCustomer
-                ? <User className="w-5 h-5" style={{ color: '#3b82f6' }} />
-                : <Headphones className="w-5 h-5" style={{ color: '#E8B058' }} />
-              }
+              <Headphones className="w-5 h-5" style={{ color: '#E8B058' }} />
             </div>
             <div>
               <h1 className="text-xl font-bold" style={{ color: 'var(--ifm-color-content)' }}>
                 Support Tickets
               </h1>
               <p className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                {isCustomer
-                  ? (displayName ? `Signed in as ${displayName}` : 'Customer Portal')
-                  : 'NXGEN Technology AG · Internal Agent View'}
+                NXGEN Technology AG · Internal Agent View
                 {' · '}
-                <span
-                  className="inline-flex items-center gap-1"
-                  style={{ color: isCustomer ? '#3b82f6' : '#E8B058' }}
-                >
-                  {isCustomer ? <User className="w-3 h-3" /> : <Briefcase className="w-3 h-3" />}
-                  {isCustomer ? 'Customer' : 'Agent'}
+                <span className="inline-flex items-center gap-1" style={{ color: '#E8B058' }}>
+                  <Briefcase className="w-3 h-3" />
+                  Agent
                 </span>
               </p>
             </div>
@@ -116,7 +253,7 @@ export default function TicketPortal() {
                 onClick={() => setShowCreate(true)}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all hover:opacity-90"
                 style={{
-                  background: isCustomer ? '#3b82f6' : '#E8B058',
+                  background: '#E8B058',
                   color: '#fff',
                   border: 'none',
                   cursor: 'pointer',
@@ -176,10 +313,7 @@ export default function TicketPortal() {
           isDark={isDark}
           isCustomer={isCustomer}
           onClose={() => setShowCreate(false)}
-          onCreated={() => {
-            setShowCreate(false);
-            setListKey(k => k + 1);
-          }}
+          onCreated={handleTicketCreated}
         />
       )}
     </div>

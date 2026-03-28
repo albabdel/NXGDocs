@@ -217,50 +217,75 @@ export default function TicketList({ isDark, isCustomer, onSelect, token }: Prop
   const hasAgentFilter = agentFilter !== 'all';
 
   // Load paginated tickets for list view
-  // When agent filter is active, fetch 100 tickets and filter client-side
+  // For customers: fetch ALL tickets and filter client-side (Zoho /contacts/{id}/tickets doesn't support status filter)
+  // For agents: use server-side filtering when possible
   useEffect(() => {
     if (viewMode !== 'list') return;
     setLoading(true);
     setError(null);
-    const pageArg = hasAgentFilter ? 1 : page;
-    const limitArg = hasAgentFilter ? 100 : 50;
-    listTickets({ page: pageArg, status: statusFilter === 'all' ? undefined : statusFilter, limit: limitArg, isCustomer, token })
+    
+    const needsClientFiltering = isCustomer || hasAgentFilter;
+    const pageArg = needsClientFiltering ? 1 : page;
+    const limitArg = needsClientFiltering ? 100 : 50;
+    
+    listTickets({ page: pageArg, limit: limitArg, isCustomer, token })
       .then(res => {
-        const all = res.data ?? [];
-        const filtered = hasAgentFilter
-          ? all.filter(t => t.assigneeId === agentFilter)
-          : all;
-        setTickets(filtered);
-        // Use count from API if present; fall back to checking if we got a full page
-        const apiTotal = res.count ?? 0;
-        const inferredTotal = apiTotal > 0 ? apiTotal : (all.length === limitArg ? page * limitArg + 1 : page * limitArg);
-        setTotal(hasAgentFilter ? filtered.length : inferredTotal);
-        setHasMore(!hasAgentFilter && all.length === limitArg);
+        let all = res.data ?? [];
+        
+        // Client-side filtering for customers (status) and agents (assignee)
+        if (isCustomer && statusFilter !== 'all') {
+          all = all.filter(t => t.status === statusFilter);
+        }
+        if (hasAgentFilter) {
+          all = all.filter(t => t.assigneeId === agentFilter);
+        }
+        
+        setTickets(all);
+        setTotal(all.length);
+        setHasMore(!needsClientFiltering && res.data?.length === limitArg);
       })
       .catch(e => setError(e.message))
       .finally(() => setLoading(false));
   }, [page, statusFilter, agentFilter, viewMode, isCustomer, token]);
 
   // Load all tickets for kanban
+  // For customers: fetch all tickets once and distribute to columns client-side
+  // For agents: fetch by status to reduce data transfer
   useEffect(() => {
     if (viewMode !== 'kanban') return;
     setKanbanLoading(true);
-    Promise.all(
-      (statusFilter === 'all'
-        ? ['Open', 'On Hold', 'Waiting on customer feedback', 'Closed']
-        : [statusFilter]
-      ).map(s =>
-        listTickets({ page: 1, status: s, limit: 200, isCustomer, token })
-          .then(r => r.data ?? [])
-          .catch(() => [] as ZohoTicket[])
+    
+    if (isCustomer) {
+      // Customer mode: fetch all tickets once, filter client-side
+      listTickets({ page: 1, limit: 100, isCustomer, token })
+        .then(res => {
+          let all = res.data ?? [];
+          if (hasAgentFilter) {
+            all = all.filter(t => t.assigneeId === agentFilter);
+          }
+          setKanbanTickets(all);
+        })
+        .catch(() => setKanbanTickets([]))
+        .finally(() => setKanbanLoading(false));
+    } else {
+      // Agent mode: can use server-side status filtering
+      Promise.all(
+        (statusFilter === 'all'
+          ? ['Open', 'On Hold', 'Waiting on customer feedback', 'Closed']
+          : [statusFilter]
+        ).map(s =>
+          listTickets({ page: 1, status: s, limit: 100, isCustomer, token })
+            .then(r => r.data ?? [])
+            .catch(() => [] as ZohoTicket[])
+        )
       )
-    )
-      .then(groups => {
-        const all = groups.flat();
-        setKanbanTickets(hasAgentFilter ? all.filter(t => t.assigneeId === agentFilter) : all);
-      })
-      .finally(() => setKanbanLoading(false));
-  }, [statusFilter, agentFilter, viewMode, isCustomer]);
+        .then(groups => {
+          const all = groups.flat();
+          setKanbanTickets(hasAgentFilter ? all.filter(t => t.assigneeId === agentFilter) : all);
+        })
+        .finally(() => setKanbanLoading(false));
+    }
+  }, [statusFilter, agentFilter, viewMode, isCustomer, token]);
 
   const totalPages = hasAgentFilter ? 1 : Math.max(Math.ceil(total / 50), hasMore ? page + 1 : page);
 
@@ -321,7 +346,7 @@ export default function TicketList({ isDark, isCustomer, onSelect, token }: Prop
           style={{ border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}` }}
         >
           <button
-            onClick={() => setViewMode('list')}
+            onClick={() => { setViewMode('list'); setError(null); }}
             title="List view"
             className="px-2.5 py-1.5 transition-all"
             style={{
@@ -334,7 +359,7 @@ export default function TicketList({ isDark, isCustomer, onSelect, token }: Prop
             <List className="w-4 h-4" />
           </button>
           <button
-            onClick={() => setViewMode('kanban')}
+            onClick={() => { setViewMode('kanban'); setError(null); }}
             title="Kanban view"
             className="px-2.5 py-1.5 transition-all"
             style={{
@@ -355,8 +380,8 @@ export default function TicketList({ isDark, isCustomer, onSelect, token }: Prop
         )}
       </div>
 
-      {/* Error */}
-      {error && (
+      {/* Error - only show in list view */}
+      {error && viewMode === 'list' && (
         <div
           className="flex items-start gap-3 rounded-xl p-4 mb-4"
           style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)' }}

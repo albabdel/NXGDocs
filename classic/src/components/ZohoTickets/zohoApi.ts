@@ -120,15 +120,21 @@ export interface AddCommentOptions {
   isPublic?: boolean;
   isCustomer?: boolean;
   token?: string;
+  replyType?: 'reply' | 'replyAll' | 'forward' | 'comment';
 }
 
 export async function addComment(options: AddCommentOptions): Promise<void> {
-  const { ticketId, content, isPublic = true, isCustomer = false, token } = options;
+  const { ticketId, content, isPublic = true, isCustomer = false, token, replyType } = options;
   await apiCall(`/tickets/${ticketId}/comments`, {
     isCustomer,
     token,
     method: 'POST',
-    body: JSON.stringify({ content, isPublic, contentType: 'plainText' }),
+    body: JSON.stringify({
+      content,
+      isPublic,
+      contentType: 'plainText',
+      ...(replyType ? { type: replyType } : {}),
+    }),
   });
 }
 

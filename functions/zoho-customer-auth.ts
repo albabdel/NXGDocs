@@ -154,18 +154,76 @@ interface ZohoContact {
   isEndUser?: boolean;
 }
 
+interface ZohoAccount {
+  id: string;
+  accountName: string;
+  owner?: {
+    id: string;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    name?: string;
+  };
+}
+
 async function findContactByEmail(
   token: string,
   email: string,
   orgId: string,
 ): Promise<ZohoContact | null> {
-  const url = `https://desk.zoho.eu/api/v1/contacts/search?searchStr=${encodeURIComponent(email)}&searchField=email`;
-  const res = await fetch(url, {
-    headers: { Authorization: `Zoho-oauthtoken ${token}`, orgId },
-  });
+  const headers = { Authorization: `Zoho-oauthtoken ${token}`, orgId };
+  const lowerEmail = email.toLowerCase();
+
+  // Fast path: global search endpoint (requires Desk.search.READ scope)
+  try {
+    const searchUrl = `https://desk.zoho.eu/api/v1/search?searchStr=${encodeURIComponent(email)}&module=contacts&limit=10`;
+    const searchRes = await fetch(searchUrl, { headers });
+    if (searchRes.ok) {
+      const text = await searchRes.text();
+      if (text) {
+        const data = JSON.parse(text) as { data?: (ZohoContact & { secondaryEmail?: string })[] };
+        const match = (data.data ?? []).find(
+          c => c.email?.toLowerCase() === lowerEmail || c.secondaryEmail?.toLowerCase() === lowerEmail
+        ) ?? null;
+        if (match) return match;
+      }
+    }
+  } catch {
+    // Fall through to pagination
+  }
+
+  // Slow path: paginate contacts list (fallback if search scope unavailable)
+  const limit = 100;
+  for (let from = 0; from < 5000; from += limit) {
+    const res = await fetch(`https://desk.zoho.eu/api/v1/contacts?limit=${limit}&from=${from}`, { headers });
+    if (!res.ok) return null;
+    const text = await res.text();
+    if (!text) return null;
+    const data = JSON.parse(text) as { data?: ZohoContact[] };
+    const contacts = data.data ?? [];
+    const match = contacts.find(c => c.email?.toLowerCase() === lowerEmail);
+    if (match) return match;
+    if (contacts.length < limit) break;
+  }
+
+  return null;
+}
+
+/**
+ * Fetch account details including the owner/CSM.
+ * The owner field contains the account manager information.
+ */
+async function fetchAccountWithOwner(
+  token: string,
+  accountId: string,
+  orgId: string,
+): Promise<ZohoAccount | null> {
+  const headers = { Authorization: `Zoho-oauthtoken ${token}`, orgId };
+  const res = await fetch(`https://desk.zoho.eu/api/v1/accounts/${accountId}?include=owner`, { headers });
   if (!res.ok) return null;
-  const data = await res.json() as { data?: ZohoContact[] };
-  return (data.data ?? []).find(c => c.email?.toLowerCase() === email.toLowerCase()) ?? null;
+  const text = await res.text();
+  if (!text) return null;
+  return JSON.parse(text) as ZohoAccount;
 }
 
 /**
@@ -292,6 +350,17 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       // Ensure portal access is enabled (non-blocking)
       await ensurePortalAccess(zToken, contact.id, email, context.env.ZOHO_ORG_ID);
 
+      // Fetch account details to get CSM/owner info
+      let csmEmail: string | null = null;
+      let csmName: string | null = null;
+      if (contact.accountId) {
+        const account = await fetchAccountWithOwner(zToken, contact.accountId, context.env.ZOHO_ORG_ID);
+        if (account?.owner?.email) {
+          csmEmail = account.owner.email;
+          csmName = account.owner.name || `${account.owner.firstName ?? ''} ${account.owner.lastName ?? ''}`.trim() || null;
+        }
+      }
+
       // SECURITY: Create HttpOnly session cookie - token NEVER exposed to JavaScript
       const displayName = `${contact.firstName ?? ''} ${contact.lastName ?? ''}`.trim() || email;
 
@@ -309,6 +378,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         accountId: contact.accountId ?? null,
         displayName,
         account: contact.account?.accountName ?? null,
+        csmEmail,
+        csmName,
       }), {
         headers: {
           'Set-Cookie': buildSessionCookieHeader(sessionToken),
@@ -345,6 +416,17 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // Ensure portal access is enabled (non-blocking)
     await ensurePortalAccess(zToken, contact.id, email, context.env.ZOHO_ORG_ID);
 
+    // Fetch account details to get CSM/owner info
+    let csmEmail: string | null = null;
+    let csmName: string | null = null;
+    if (contact.accountId) {
+      const account = await fetchAccountWithOwner(zToken, contact.accountId, context.env.ZOHO_ORG_ID);
+      if (account?.owner?.email) {
+        csmEmail = account.owner.email;
+        csmName = account.owner.name || `${account.owner.firstName ?? ''} ${account.owner.lastName ?? ''}`.trim() || null;
+      }
+    }
+
     // SECURITY: Create HttpOnly session cookie - token NEVER exposed to JavaScript
     const displayName = claims.name
       ?? (`${contact.firstName ?? ''} ${contact.lastName ?? ''}`.trim() || email);
@@ -363,6 +445,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       accountId: contact.accountId ?? null,
       displayName,
       account: contact.account?.accountName ?? null,
+      csmEmail,
+      csmName,
     }), {
       headers: {
         'Set-Cookie': buildSessionCookieHeader(sessionToken),

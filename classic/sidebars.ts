@@ -93,11 +93,6 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: "doc",
-          id: "devices/axis-ip-camera-2",
-          label: "Axis IP Camera 2"
-        },
-        {
-          type: "doc",
           id: "devices/axis-camera-station",
           label: "Axis Camera Station"
         },
@@ -105,11 +100,6 @@ const sidebars: SidebarsConfig = {
           type: "doc",
           id: "devices/axis-communications-family-integration-guide",
           label: "Axis Communications Family Integration Guide"
-        },
-        {
-          type: "doc",
-          id: "devices/axis-cs-pro",
-          label: "AXIS CS Pro"
         },
         {
           type: "doc",
@@ -188,11 +178,6 @@ const sidebars: SidebarsConfig = {
           type: "doc",
           id: "features/ai-automation/genie-ai-assistant",
           label: "Genie AI Assistant"
-        },
-        {
-          type: "doc",
-          id: "features/system-monitoring/healthcheck",
-          label: "HealthCheck"
         },
         {
           type: "doc",

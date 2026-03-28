@@ -3,6 +3,7 @@ import {
   ArrowLeft, Loader, AlertCircle, Send, User, MessageSquare,
   ExternalLink, Paperclip, X, Lock, Globe, Languages, ChevronDown,
   ImageIcon, Download, Eye, EyeOff, Plus, Clock, FileText, Zap,
+  BookOpen, CheckCircle, Activity, Mail, Copy, Check, RotateCcw,
 } from 'lucide-react';
 import {
   getTicket, getConversations, addComment, updateTicket,
@@ -96,6 +97,42 @@ function htmlToText(html: string | null | undefined): string {
   return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
+/** Renders content that is either HTML or plaintext-markdown into safe HTML. */
+function renderContent(text: string | null | undefined): string {
+  if (!text) return '';
+  if (/<[a-zA-Z][^>]*>/.test(text)) return text; // already HTML
+  return text
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
+    .replace(/\[x\]/gi, '<span style="color:#22c55e">☑</span>')
+    .replace(/\[ \]/g, '<span style="color:#9ca3af">☐</span>')
+    .replace(/\n\n+/g, '</p><p style="margin:0.5em 0">')
+    .replace(/\n/g, '<br />')
+    .replace(/^/, '<p style="margin:0">')
+    .replace(/$/, '</p>');
+}
+
+function CopyButton({ value, label, isDark }: { value: string; label: string; isDark: boolean }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <button
+      onClick={() => { navigator.clipboard.writeText(value).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); }); }}
+      title={`Copy ${label}`}
+      className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs transition-all hover:opacity-80"
+      style={{
+        background: copied ? 'rgba(34,197,94,0.1)' : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)'),
+        color: copied ? '#22c55e' : 'var(--ifm-color-content-secondary)',
+        border: `1px solid ${copied ? 'rgba(34,197,94,0.2)' : (isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)')}`,
+        cursor: 'pointer',
+      }}
+    >
+      {copied ? <Check className="w-2.5 h-2.5" /> : <Copy className="w-2.5 h-2.5" />}
+      {copied ? 'Copied!' : label}
+    </button>
+  );
+}
+
 function Avatar({ name, photoURL, type, isDark }: {
   name: string; photoURL?: string; type?: string; isDark: boolean;
 }) {
@@ -174,6 +211,106 @@ function TranslateButton({ text, isDark }: { text: string | null | undefined; is
     </div>
   );
 }
+
+// ─── Search index utilities ───────────────────────────────────────────────────
+
+interface SearchEntry { id: string; type: string; title: string; excerpt: string; content: string; }
+let _searchCache: SearchEntry[] | null = null;
+
+async function getSearchIndex(): Promise<SearchEntry[]> {
+  if (_searchCache) return _searchCache;
+  try {
+    const res = await fetch('/search-index.json');
+    if (!res.ok) return [];
+    const data = await res.json() as Record<string, SearchEntry>;
+    _searchCache = Object.values(data).filter(e => e.type === 'page');
+    return _searchCache;
+  } catch { return []; }
+}
+
+function extractKeywords(text: string): string[] {
+  const stop = new Set(['the','a','an','is','in','on','at','to','for','of','and','or','not','with','be','it','this','that','how','why','what','when','where','my','can','i','we','our','have','has','been','was','are','does','did','using','use','used']);
+  return text.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(w => w.length > 3 && !stop.has(w));
+}
+
+function scoreEntry(entry: SearchEntry, keywords: string[]): number {
+  const title = entry.title.toLowerCase();
+  const body = (entry.excerpt ?? '').toLowerCase();
+  let score = 0;
+  for (const kw of keywords) {
+    if (title.includes(kw)) score += 4;
+    if (body.includes(kw)) score += 1;
+  }
+  return score;
+}
+
+function RelatedArticles({ subject, isDark }: { subject: string; isDark: boolean }) {
+  const [articles, setArticles] = useState<Array<{ title: string; url: string; excerpt: string }>>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const keywords = extractKeywords(subject);
+    if (!keywords.length) { setLoading(false); return; }
+    getSearchIndex().then(index => {
+      const results = index
+        .map(e => ({ ...e, score: scoreEntry(e, keywords) }))
+        .filter(e => e.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 4)
+        .map(e => ({
+          title: e.title,
+          url: e.id.replace(/^doc:/, ''),
+          excerpt: (e.excerpt ?? '').replace(/\n/g, ' ').substring(0, 90),
+        }));
+      setArticles(results);
+    }).catch(() => {}).finally(() => setLoading(false));
+  }, [subject]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center gap-2 py-2">
+        <Loader className="w-3 h-3 animate-spin" style={{ color: '#3b82f6' }} />
+        <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>Finding relevant docs…</span>
+      </div>
+    );
+  }
+
+  if (!articles.length) {
+    return (
+      <p className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+        No related articles found.
+      </p>
+    );
+  }
+
+  return (
+    <div className="space-y-1.5">
+      {articles.map(a => (
+        <a
+          key={a.url}
+          href={a.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-start gap-2.5 p-2.5 rounded-lg no-underline transition-all hover:opacity-80"
+          style={{ background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)' }}
+        >
+          <BookOpen className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" style={{ color: '#3b82f6' }} />
+          <div className="min-w-0">
+            <p className="text-xs font-medium truncate" style={{ color: 'var(--ifm-color-content)' }}>{a.title}</p>
+            {a.excerpt && (
+              <p className="text-xs mt-0.5 line-clamp-1" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                {a.excerpt}…
+              </p>
+            )}
+          </div>
+          <ExternalLink className="w-3 h-3 flex-shrink-0 mt-0.5" style={{ color: 'var(--ifm-color-content-secondary)' }} />
+        </a>
+      ))}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 function AttachmentItem({ att, isDark }: { att: ZohoAttachment; isDark: boolean }) {
   const [lightbox, setLightbox] = useState(false);
@@ -303,6 +440,10 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
   const [updatingStatus, setUpdatingStatus] = useState(false);
   const [updatingAssignee, setUpdatingAssignee] = useState(false);
   const [showProperties, setShowProperties] = useState(true);
+  const [replyType, setReplyType] = useState<'comment' | 'reply' | 'replyAll' | 'forward'>('comment');
+  const [showReplyDropdown, setShowReplyDropdown] = useState(false);
+  const [requestingArticle, setRequestingArticle] = useState(false);
+  const [articleRequested, setArticleRequested] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const commentRef = useRef<HTMLTextAreaElement>(null);
 
@@ -394,7 +535,8 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
     setSubmitting(true);
     try {
       if (comment.trim()) {
-        await addComment({ ticketId, content: comment.trim(), isPublic: isPublicComment, isCustomer, token });
+        const effectiveType = replyType === 'comment' ? undefined : replyType;
+        await addComment({ ticketId, content: comment.trim(), isPublic: isCustomer ? true : isPublicComment, isCustomer, token, replyType: effectiveType });
       }
       if (attachFile) {
         setUploading(true);
@@ -410,6 +552,29 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
       setUploading(false);
     } finally {
       setSubmitting(false);
+    }
+  }
+
+  async function handleRequestArticle() {
+    if (!ticket || requestingArticle || articleRequested) return;
+    setRequestingArticle(true);
+    try {
+      await fetch('/request-article', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          ticketId: ticket.id,
+          ticketNumber: ticket.ticketNumber,
+          subject: ticket.subject,
+          requesterEmail: ticket.email,
+        }),
+      });
+      setArticleRequested(true);
+    } catch {
+      showMsg('Failed to send request. Please try again.', false);
+    } finally {
+      setRequestingArticle(false);
     }
   }
 
@@ -461,10 +626,13 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
           <div className="rounded-xl border p-5 mb-4" style={cardStyle}>
         <div className="flex items-start gap-3 justify-between flex-wrap">
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-2 flex-wrap">
-              <span className="text-xs font-mono font-semibold" style={{ color: '#E8B058' }}>
-                #{ticket.ticketNumber}
-              </span>
+            <div className="flex items-center gap-2 mb-2.5 flex-wrap">
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs font-mono font-semibold" style={{ color: '#E8B058' }}>
+                  #{ticket.ticketNumber}
+                </span>
+                <CopyButton value={ticket.ticketNumber} label="ID" isDark={isDark} />
+              </div>
               <span
                 className="text-xs px-2 py-0.5 rounded-full font-medium"
                 style={{
@@ -484,7 +652,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
               )}
               <SLATimer ticket={ticket} isDark={isDark} />
             </div>
-            <h2 className="text-lg font-bold mb-1" style={{ color: 'var(--ifm-color-content)' }}>
+            <h2 className="text-xl font-bold mb-1.5 leading-tight" style={{ color: 'var(--ifm-color-content)', letterSpacing: '-0.01em' }}>
               {ticket.subject}
             </h2>
             <p className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
@@ -508,16 +676,28 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
         </div>
       </div>
 
-      {/* Properties panel — agents only (read-only summary for customers) */}
-      {isCustomer ? (
-        <div className="rounded-xl border p-5 mb-4" style={cardStyle}>
-          <div className="flex items-center gap-4 flex-wrap text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-            <span>Status: <strong style={{ color: 'var(--ifm-color-content)' }}>{ticket.status}</strong></span>
-            <span>Priority: <strong style={{ color: 'var(--ifm-color-content)' }}>{ticket.priority}</strong></span>
-            <span>Channel: <strong style={{ color: 'var(--ifm-color-content)' }}>{ticket.channel}</strong></span>
-          </div>
+      {/* Description — moved above details, more prominent */}
+      {ticket.description && (
+        <div
+          className="rounded-xl border p-5 mb-4"
+          style={{
+            background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.9)',
+            borderColor: isDark ? 'rgba(232,176,88,0.2)' : 'rgba(232,176,88,0.3)',
+            borderLeft: '3px solid #E8B058',
+          }}
+        >
+          <h3 className="text-xs font-semibold uppercase tracking-wider mb-3 flex items-center gap-2" style={{ color: '#E8B058' }}>
+            <FileText className="w-3.5 h-3.5" /> Description
+          </h3>
+          <div
+            className="text-sm max-w-none"
+            style={{ color: 'var(--ifm-color-content)', lineHeight: '1.7', fontSize: '0.9rem' }}
+            dangerouslySetInnerHTML={{ __html: renderContent(ticket.description) }}
+          />
+          <TranslateButton text={ticket.description} isDark={isDark} />
         </div>
-      ) : null}
+      )}
+
       {!isCustomer && <div className="rounded-xl border mb-4 overflow-hidden" style={cardStyle}>
         <button
           className="w-full flex items-center justify-between px-5 py-3 text-left"
@@ -632,114 +812,272 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
         </div>
       )}
 
-      {/* Description */}
-      {ticket.description && (
-        <div className="rounded-xl border p-5 mb-4" style={cardStyle}>
-          <h3 className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: '#E8B058' }}>
-            Description
-          </h3>
-          <div
-            className="text-sm prose-sm max-w-none"
-            style={{ color: 'var(--ifm-color-content)', lineHeight: '1.6' }}
-            dangerouslySetInnerHTML={{ __html: ticket.description }}
-          />
-          <TranslateButton text={ticket.description} isDark={isDark} />
-        </div>
-      )}
-
       {/* Conversation thread */}
       {nonDescConvs.length > 0 && (
-        <div className="rounded-xl border p-5 mb-4" style={cardStyle}>
-          <div className="flex items-center gap-2 mb-4">
+        <div className="rounded-xl border mb-4 overflow-hidden" style={cardStyle}>
+          {/* Header */}
+          <div
+            className="flex items-center gap-2 px-5 py-3.5"
+            style={{ borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}` }}
+          >
             <MessageSquare className="w-4 h-4" style={{ color: '#E8B058' }} />
             <h3 className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#E8B058' }}>
-              Comments ({nonDescConvs.length})
+              {isCustomer ? 'Conversation' : 'Comments'} ({nonDescConvs.length})
             </h3>
+            {isCustomer && (
+              <span
+                className="text-xs px-2 py-0.5 rounded-full font-medium ml-auto"
+                style={{
+                  background: ticket.status === 'Closed' ? 'rgba(34,197,94,0.1)' : 'rgba(232,176,88,0.1)',
+                  color: ticket.status === 'Closed' ? '#22c55e' : '#E8B058',
+                }}
+              >
+                {ticket.status === 'Closed' ? 'Resolved' : 'In Progress'}
+              </span>
+            )}
           </div>
-          <div className="space-y-5">
-            {nonDescConvs.map(conv => {
-              const person = conv.commenter ?? conv.author;
-              const time = conv.commentedTime ?? conv.createdTime;
-              const isAgent = conv.commenter?.type === 'AGENT' || conv.author?.type === 'AGENT';
-              const typeLabel = conv.type === 'replyAll' ? 'Reply All'
-                : conv.type === 'reply' ? 'Reply'
-                : conv.type === 'comment' ? 'Comment'
-                : conv.type;
 
-              return (
-                <div key={conv.id} className="flex gap-3">
-                  <Avatar
-                    name={person?.name ?? '?'}
-                    photoURL={person?.photoURL}
-                    type={conv.commenter?.type ?? conv.author?.type}
-                    isDark={isDark}
-                  />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span className="text-xs font-semibold" style={{ color: 'var(--ifm-color-content)' }}>
-                        {person?.name ?? person?.email ?? 'Unknown'}
-                      </span>
-                      <span
-                        className="text-xs px-1.5 py-0.5 rounded font-medium"
+          {isCustomer ? (
+            /* ── Chat-bubble layout for customers ── */
+            <div className="p-5 space-y-5 max-h-[520px] overflow-y-auto">
+              {nonDescConvs.filter(c => c.isPublic !== false).map(conv => {
+                const isConvAgent = conv.commenter?.type === 'AGENT' || conv.author?.type === 'AGENT';
+                const person = conv.commenter ?? conv.author;
+                const time = conv.commentedTime ?? conv.createdTime;
+                const typeTag = conv.type === 'replyAll' ? 'Reply All'
+                  : conv.type === 'forward' ? 'Forward'
+                  : null;
+                const isEmailType = conv.type === 'replyAll' || conv.type === 'reply' || conv.type === 'forward';
+                const agentBubbleBg = isConvAgent
+                  ? (isEmailType
+                    ? (isDark ? 'rgba(232,176,88,0.08)' : 'rgba(232,176,88,0.06)')
+                    : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)'))
+                  : (isDark ? 'rgba(59,130,246,0.14)' : 'rgba(59,130,246,0.09)');
+                const agentBubbleBorder = isConvAgent
+                  ? (isEmailType
+                    ? (isDark ? 'rgba(232,176,88,0.2)' : 'rgba(232,176,88,0.15)')
+                    : (isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'))
+                  : 'rgba(59,130,246,0.2)';
+                return (
+                  <div key={conv.id} className={`flex gap-3 ${isConvAgent ? '' : 'flex-row-reverse'}`}>
+                    <Avatar
+                      name={person?.name ?? (isConvAgent ? 'Support' : '?')}
+                      photoURL={person?.photoURL}
+                      type={isConvAgent ? 'AGENT' : ''}
+                      isDark={isDark}
+                    />
+                    <div className={`flex flex-col gap-1 max-w-[76%] ${isConvAgent ? 'items-start' : 'items-end'}`}>
+                      <div className="flex items-center gap-1.5 flex-wrap text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                        {isConvAgent ? (
+                          <>
+                            <span className="font-semibold" style={{ color: '#E8B058' }}>{person?.name ?? 'Support Team'}</span>
+                            {typeTag && (
+                              <span
+                                className="px-1.5 py-0.5 rounded text-xs font-medium"
+                                style={{
+                                  background: isEmailType ? 'rgba(232,176,88,0.12)' : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)'),
+                                  color: isEmailType ? '#E8B058' : 'var(--ifm-color-content-secondary)',
+                                }}
+                              >{typeTag}</span>
+                            )}
+                            {!typeTag && (
+                              <span className="px-1.5 py-0.5 rounded text-xs" style={{ background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)', color: 'var(--ifm-color-content-secondary)' }}>
+                                Comment
+                              </span>
+                            )}
+                            {time && <><span>·</span><span>{formatDateTime(time)}</span></>}
+                          </>
+                        ) : (
+                          <>
+                            {time && <><span>{formatDateTime(time)}</span><span>·</span></>}
+                            {typeTag && <span className="px-1.5 rounded" style={{ background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)' }}>{typeTag}</span>}
+                            <span className="font-semibold" style={{ color: '#3b82f6' }}>You</span>
+                          </>
+                        )}
+                      </div>
+                      <div
+                        className="text-sm p-3.5 leading-relaxed"
                         style={{
+                          background: agentBubbleBg,
+                          borderRadius: isConvAgent ? '2px 16px 16px 16px' : '16px 2px 16px 16px',
+                          color: 'var(--ifm-color-content)',
+                          border: `1px solid ${agentBubbleBorder}`,
+                        }}
+                        dangerouslySetInnerHTML={{ __html: renderContent(conv.content) }}
+                      />
+                      <TranslateButton text={conv.content} isDark={isDark} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            /* ── Table layout for agents ── */
+            <div className="p-5 space-y-5">
+              {nonDescConvs.map(conv => {
+                const person = conv.commenter ?? conv.author;
+                const time = conv.commentedTime ?? conv.createdTime;
+                const isAgent = conv.commenter?.type === 'AGENT' || conv.author?.type === 'AGENT';
+                const typeLabel = conv.type === 'replyAll' ? 'Reply All'
+                  : conv.type === 'reply' ? 'Reply'
+                  : conv.type === 'comment' ? 'Comment'
+                  : conv.type;
+                return (
+                  <div key={conv.id} className="flex gap-3">
+                    <Avatar name={person?.name ?? '?'} photoURL={person?.photoURL} type={conv.commenter?.type ?? conv.author?.type} isDark={isDark} />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1 flex-wrap">
+                        <span className="text-xs font-semibold" style={{ color: 'var(--ifm-color-content)' }}>
+                          {person?.name ?? person?.email ?? 'Unknown'}
+                        </span>
+                        <span className="text-xs px-1.5 py-0.5 rounded font-medium" style={{
                           background: isAgent ? 'rgba(232,176,88,0.1)' : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'),
                           color: isAgent ? '#E8B058' : 'var(--ifm-color-content-secondary)',
-                        }}
-                      >
-                        {isAgent ? 'Agent' : 'Customer'}
-                      </span>
-                      {/* Visibility badge */}
-                      <span
-                        className="inline-flex items-center gap-0.5 text-xs px-1.5 py-0.5 rounded font-medium"
-                        title={conv.isPublic ? 'Visible to customer' : 'Internal note'}
-                        style={{
-                          background: conv.isPublic ? 'rgba(34,197,94,0.1)' : 'rgba(139,92,246,0.1)',
-                          color: conv.isPublic ? '#22c55e' : '#8b5cf6',
-                        }}
-                      >
-                        {conv.isPublic ? <Globe className="w-2.5 h-2.5" /> : <Lock className="w-2.5 h-2.5" />}
-                        {conv.isPublic ? 'Public' : 'Private'}
-                      </span>
-                      {/* Reply type */}
-                      {typeLabel && (
-                        <span className="text-xs px-1.5 py-0.5 rounded font-medium" style={{
-                          background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
-                          color: 'var(--ifm-color-content-secondary)',
                         }}>
-                          {typeLabel}
+                          {isAgent ? 'Agent' : 'Customer'}
                         </span>
-                      )}
-                      {time && (
-                        <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                          {formatDateTime(time)}
+                        <span
+                          className="inline-flex items-center gap-0.5 text-xs px-1.5 py-0.5 rounded font-medium"
+                          title={conv.isPublic ? 'Visible to customer' : 'Internal note'}
+                          style={{
+                            background: conv.isPublic ? 'rgba(34,197,94,0.1)' : 'rgba(139,92,246,0.1)',
+                            color: conv.isPublic ? '#22c55e' : '#8b5cf6',
+                          }}
+                        >
+                          {conv.isPublic ? <Globe className="w-2.5 h-2.5" /> : <Lock className="w-2.5 h-2.5" />}
+                          {conv.isPublic ? 'Public' : 'Private'}
                         </span>
-                      )}
+                        {typeLabel && (
+                          <span className="text-xs px-1.5 py-0.5 rounded font-medium" style={{
+                            background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+                            color: 'var(--ifm-color-content-secondary)',
+                          }}>
+                            {typeLabel}
+                          </span>
+                        )}
+                        {time && <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>{formatDateTime(time)}</span>}
+                      </div>
+                      <div
+                        className="text-sm rounded-xl p-3"
+                        style={{
+                          background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
+                          border: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`,
+                          color: 'var(--ifm-color-content)',
+                          lineHeight: '1.5',
+                        }}
+                        dangerouslySetInnerHTML={{ __html: renderContent(conv.content) }}
+                      />
+                      <TranslateButton text={conv.content} isDark={isDark} />
                     </div>
-                    <div
-                      className="text-sm rounded-xl p-3"
-                      style={{
-                        background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
-                        border: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`,
-                        color: 'var(--ifm-color-content)',
-                        lineHeight: '1.5',
-                      }}
-                      dangerouslySetInnerHTML={{ __html: conv.content }}
-                    />
-                    <TranslateButton text={conv.content} isDark={isDark} />
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       )}
 
       {/* Add comment */}
       <div className="rounded-xl border p-5" style={cardStyle}>
+        {/* Reply type selector */}
+        <div className="flex items-center gap-2 mb-4 flex-wrap">
+          <div
+            className="flex gap-1 p-1 rounded-xl"
+            style={{
+              background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
+              border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)'}`,
+            }}
+          >
+            {/* Leave a Comment */}
+            <button
+              onClick={() => { setReplyType('comment'); setShowReplyDropdown(false); }}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
+              style={{
+                background: replyType === 'comment' ? (isDark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.9)') : 'transparent',
+                color: replyType === 'comment' ? 'var(--ifm-color-content)' : 'var(--ifm-color-content-secondary)',
+                border: replyType === 'comment' ? `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)'}` : '1px solid transparent',
+                boxShadow: replyType === 'comment' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                cursor: 'pointer',
+              }}
+            >
+              <MessageSquare className="w-3.5 h-3.5" />
+              Leave a Comment
+            </button>
+
+            {/* Reply All with dropdown */}
+            <div className="relative flex">
+              <button
+                onClick={() => { setReplyType('replyAll'); setShowReplyDropdown(false); }}
+                className="inline-flex items-center gap-1.5 pl-3 pr-1.5 py-1.5 rounded-l-lg text-xs font-medium transition-all"
+                style={{
+                  background: replyType !== 'comment' ? (isDark ? 'rgba(232,176,88,0.15)' : 'rgba(232,176,88,0.1)') : 'transparent',
+                  color: replyType !== 'comment' ? '#E8B058' : 'var(--ifm-color-content-secondary)',
+                  border: replyType !== 'comment' ? `1px solid rgba(232,176,88,0.25)` : '1px solid transparent',
+                  borderRight: 'none',
+                  boxShadow: replyType !== 'comment' ? '0 1px 3px rgba(0,0,0,0.08)' : 'none',
+                  cursor: 'pointer',
+                  borderRadius: '0.5rem 0 0 0.5rem',
+                }}
+              >
+                <Mail className="w-3.5 h-3.5" />
+                {replyType === 'reply' ? 'Reply' : replyType === 'forward' ? 'Forward' : 'Reply All'}
+              </button>
+              <button
+                onClick={() => setShowReplyDropdown(s => !s)}
+                className="inline-flex items-center justify-center px-1.5 py-1.5 rounded-r-lg text-xs transition-all"
+                style={{
+                  background: replyType !== 'comment' ? (isDark ? 'rgba(232,176,88,0.15)' : 'rgba(232,176,88,0.1)') : 'transparent',
+                  color: replyType !== 'comment' ? '#E8B058' : 'var(--ifm-color-content-secondary)',
+                  border: replyType !== 'comment' ? `1px solid rgba(232,176,88,0.25)` : '1px solid transparent',
+                  borderLeft: `1px solid ${isDark ? 'rgba(232,176,88,0.15)' : 'rgba(232,176,88,0.1)'}`,
+                  boxShadow: replyType !== 'comment' ? '0 1px 3px rgba(0,0,0,0.08)' : 'none',
+                  cursor: 'pointer',
+                  borderRadius: '0 0.5rem 0.5rem 0',
+                }}
+              >
+                <ChevronDown className={`w-3 h-3 transition-transform ${showReplyDropdown ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Dropdown */}
+              {showReplyDropdown && (
+                <div
+                  className="absolute top-full left-0 mt-1 rounded-lg overflow-hidden z-20 min-w-[130px]"
+                  style={{
+                    background: isDark ? '#1e2028' : '#fff',
+                    border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+                  }}
+                >
+                  {(['replyAll', 'reply', 'forward'] as const).map(t => {
+                    const labels = { replyAll: 'Reply All', reply: 'Reply', forward: 'Forward' };
+                    return (
+                      <button
+                        key={t}
+                        onClick={() => { setReplyType(t); setShowReplyDropdown(false); }}
+                        className="w-full flex items-center gap-2 px-3 py-2 text-xs transition-all hover:opacity-80 text-left"
+                        style={{
+                          background: replyType === t ? (isDark ? 'rgba(232,176,88,0.12)' : 'rgba(232,176,88,0.08)') : 'transparent',
+                          color: replyType === t ? '#E8B058' : 'var(--ifm-color-content)',
+                          border: 'none',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        {replyType === t && <span style={{ color: '#E8B058' }}>✓</span>}
+                        {replyType !== t && <span style={{ width: '0.75rem' }} />}
+                        {labels[t]}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
         <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
           <div className="flex items-center gap-2">
             <h3 className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#E8B058' }}>
-              Add Comment
+              {isCustomer ? 'Your Reply' : 'Add Comment'}
             </h3>
             {!isCustomer && (
               <div className="relative">
@@ -818,14 +1156,16 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
           ref={commentRef}
           value={comment}
           onChange={e => setComment(e.target.value)}
-          placeholder={isPublicComment ? 'Reply to customer...' : 'Internal note (not visible to customer)...'}
-          rows={4}
+          placeholder={isCustomer ? 'Type your reply here... Our support team will respond as soon as possible.' : (isPublicComment ? 'Reply to customer...' : 'Internal note (not visible to customer)...')}
+          rows={isCustomer ? 5 : 4}
           className="w-full rounded-xl px-4 py-3 text-sm resize-none outline-none transition-all"
           style={{
             background: isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.8)',
-            border: `1px solid ${isPublicComment
-              ? (isDark ? 'rgba(255,255,255,0.1)' : 'rgba(232,176,88,0.2)')
-              : 'rgba(139,92,246,0.3)'}`,
+            border: `1px solid ${isCustomer 
+              ? 'rgba(232,176,88,0.3)' 
+              : (isPublicComment
+                ? (isDark ? 'rgba(255,255,255,0.1)' : 'rgba(232,176,88,0.2)')
+                : 'rgba(139,92,246,0.3)')}`,
             color: 'var(--ifm-color-content)',
           }}
           onKeyDown={e => {
@@ -906,8 +1246,243 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
       </div>
         </div>
 
-        {/* CRM Panel - right side (agents only) */}
-        {!isCustomer && token && (
+        {/* Right panel: Customer Info (customers) or CRM Panel (agents) */}
+        {isCustomer ? (
+          <div className="space-y-4">
+
+            {/* Response Status */}
+            <div className="rounded-xl border p-4" style={cardStyle}>
+              <h3 className="text-xs font-semibold uppercase tracking-wider mb-3 flex items-center gap-2" style={{ color: '#E8B058' }}>
+                <Activity className="w-3.5 h-3.5" /> Response Status
+              </h3>
+              <div className="space-y-2">
+                <div
+                  className="flex items-center justify-between py-1.5"
+                  style={{ borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}` }}
+                >
+                  <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>Priority</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: pStyle.bg, color: pStyle.color }}>
+                    {ticket.priority}
+                  </span>
+                </div>
+                <div
+                  className="flex items-center justify-between py-1.5"
+                  style={{ borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}` }}
+                >
+                  <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>Status</span>
+                  <span
+                    className="text-xs px-2 py-0.5 rounded-full font-medium"
+                    style={{
+                      background: statusColor ? `${statusColor}22` : 'rgba(232,176,88,0.12)',
+                      color: statusColor ?? '#E8B058',
+                    }}
+                  >
+                    {ticket.status}
+                  </span>
+                </div>
+                {ticket.status !== 'Closed' && (
+                  <div className="py-1.5">
+                    <span className="text-xs block mb-1.5" style={{ color: 'var(--ifm-color-content-secondary)' }}>SLA</span>
+                    <SLATimer ticket={ticket} isDark={isDark} />
+                  </div>
+                )}
+                <div
+                  className="p-3 rounded-lg text-xs leading-relaxed"
+                  style={{
+                    background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
+                    color: 'var(--ifm-color-content-secondary)',
+                  }}
+                >
+                  {ticket.priority === 'Critical'
+                    ? '⚡ Critical — we aim to respond within 1 hour'
+                    : ticket.priority === 'High'
+                    ? '🚀 High priority — response within 4 hours'
+                    : ticket.priority === 'Medium'
+                    ? '📬 Response within 8 business hours'
+                    : '📋 Response within 24 business hours'}
+                </div>
+              </div>
+            </div>
+
+            {/* Ticket Timeline */}
+            <div className="rounded-xl border p-4" style={cardStyle}>
+              <h3 className="text-xs font-semibold uppercase tracking-wider mb-3 flex items-center gap-2" style={{ color: '#E8B058' }}>
+                <Clock className="w-3.5 h-3.5" /> Timeline
+              </h3>
+              <div className="relative">
+                <div
+                  className="absolute top-2 bottom-2 w-px"
+                  style={{ left: 5, background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }}
+                />
+                <div className="space-y-3 pl-4">
+                  <div className="relative">
+                    <div
+                      className="absolute -left-4 top-1 w-2.5 h-2.5 rounded-full"
+                      style={{ background: '#22c55e', boxShadow: '0 0 0 3px rgba(34,197,94,0.15)' }}
+                    />
+                    <p className="text-xs font-medium" style={{ color: 'var(--ifm-color-content)' }}>Ticket Created</p>
+                    <p className="text-xs mt-0.5" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                      {formatDateTime(ticket.createdTime)}
+                    </p>
+                  </div>
+
+                  {nonDescConvs.map(conv => {
+                    const isConvAgent = conv.commenter?.type === 'AGENT' || conv.author?.type === 'AGENT';
+                    const convTime = conv.commentedTime ?? conv.createdTime;
+                    return (
+                      <div key={conv.id} className="relative">
+                        <div
+                          className="absolute -left-4 top-1 w-2.5 h-2.5 rounded-full"
+                          style={{
+                            background: isConvAgent ? '#E8B058' : '#3b82f6',
+                            boxShadow: `0 0 0 3px ${isConvAgent ? 'rgba(232,176,88,0.15)' : 'rgba(59,130,246,0.15)'}`,
+                          }}
+                        />
+                        <p className="text-xs font-medium" style={{ color: 'var(--ifm-color-content)' }}>
+                          {isConvAgent ? 'Support replied' : 'You replied'}
+                        </p>
+                        {convTime && (
+                          <p className="text-xs mt-0.5" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                            {formatDateTime(convTime)}
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })}
+
+                  {ticket.status === 'Closed' ? (
+                    <div className="relative">
+                      <div
+                        className="absolute -left-4 top-1 w-2.5 h-2.5 rounded-full"
+                        style={{ background: '#22c55e', boxShadow: '0 0 0 3px rgba(34,197,94,0.15)' }}
+                      />
+                      <p className="text-xs font-medium" style={{ color: '#22c55e' }}>Resolved</p>
+                      <p className="text-xs mt-0.5" style={{ color: 'var(--ifm-color-content-secondary)' }}>Ticket closed</p>
+                    </div>
+                  ) : (
+                    <div className="relative">
+                      <div
+                        className="absolute -left-4 top-1 w-2.5 h-2.5 rounded-full border-2"
+                        style={{
+                          background: 'transparent',
+                          borderColor: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)',
+                        }}
+                      />
+                      <p className="text-xs italic" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                        Awaiting resolution…
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Related Articles */}
+            <div
+              className="rounded-xl border p-4"
+              style={{
+                background: isDark ? 'rgba(59,130,246,0.05)' : 'rgba(59,130,246,0.03)',
+                borderColor: 'rgba(59,130,246,0.18)',
+              }}
+            >
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-xs font-semibold uppercase tracking-wider flex items-center gap-2" style={{ color: '#3b82f6' }}>
+                  <BookOpen className="w-3.5 h-3.5" /> Related Articles
+                </h3>
+                <a
+                  href="/docs"
+                  className="text-xs no-underline hover:opacity-80 transition-all"
+                  style={{ color: '#3b82f6' }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  All docs →
+                </a>
+              </div>
+              <RelatedArticles subject={ticket.subject} isDark={isDark} />
+            </div>
+
+            {/* Request new article */}
+            <div className="rounded-xl border p-4" style={cardStyle}>
+              <h3 className="text-xs font-semibold uppercase tracking-wider mb-2 flex items-center gap-2" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                <FileText className="w-3.5 h-3.5" /> Missing Documentation?
+              </h3>
+              <p className="text-xs mb-3" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                Can't find an answer in our docs? Request that we write an article covering this topic.
+              </p>
+              <button
+                onClick={handleRequestArticle}
+                disabled={requestingArticle || articleRequested}
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold transition-all hover:opacity-90"
+                style={{
+                  background: articleRequested ? 'rgba(34,197,94,0.1)' : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)'),
+                  color: articleRequested ? '#22c55e' : 'var(--ifm-color-content)',
+                  border: `1px solid ${articleRequested ? 'rgba(34,197,94,0.25)' : (isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)')}`,
+                  cursor: requestingArticle || articleRequested ? 'not-allowed' : 'pointer',
+                  opacity: requestingArticle ? 0.7 : 1,
+                }}
+              >
+                {requestingArticle ? (
+                  <><Loader className="w-3.5 h-3.5 animate-spin" /> Sending request…</>
+                ) : articleRequested ? (
+                  <><CheckCircle className="w-3.5 h-3.5" /> Request sent!</>
+                ) : (
+                  <><Plus className="w-3.5 h-3.5" /> Request a new article</>
+                )}
+              </button>
+            </div>
+
+            {/* Ticket Status Action */}
+            {ticket.status !== 'Closed' ? (
+              <div className="rounded-xl border p-4" style={cardStyle}>
+                <h3 className="text-xs font-semibold uppercase tracking-wider mb-2 flex items-center gap-2" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                  <CheckCircle className="w-3.5 h-3.5" /> Issue Resolved?
+                </h3>
+                <p className="text-xs mb-3" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                  If your issue has been resolved, close this ticket so we can track it properly.
+                </p>
+                <button
+                  onClick={() => handleStatusChange('Closed')}
+                  disabled={updatingStatus}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-all hover:opacity-90"
+                  style={{
+                    background: 'rgba(34,197,94,0.1)',
+                    color: '#22c55e',
+                    border: '1px solid rgba(34,197,94,0.25)',
+                    cursor: updatingStatus ? 'not-allowed' : 'pointer',
+                  }}
+                >
+                  {updatingStatus ? <Loader className="w-4 h-4 animate-spin" /> : <CheckCircle className="w-4 h-4" />}
+                  Mark as Resolved
+                </button>
+              </div>
+            ) : (
+              <div className="rounded-xl border p-4" style={cardStyle}>
+                <h3 className="text-xs font-semibold uppercase tracking-wider mb-2 flex items-center gap-2" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                  <RotateCcw className="w-3.5 h-3.5" /> Need More Help?
+                </h3>
+                <p className="text-xs mb-3" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                  If your issue has returned or you need further assistance, reopen this ticket.
+                </p>
+                <button
+                  onClick={() => handleStatusChange('Open')}
+                  disabled={updatingStatus}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-all hover:opacity-90"
+                  style={{
+                    background: 'rgba(59,130,246,0.1)',
+                    color: '#3b82f6',
+                    border: '1px solid rgba(59,130,246,0.25)',
+                    cursor: updatingStatus ? 'not-allowed' : 'pointer',
+                  }}
+                >
+                  {updatingStatus ? <Loader className="w-4 h-4 animate-spin" /> : <RotateCcw className="w-4 h-4" />}
+                  Reopen Ticket
+                </button>
+              </div>
+            )}
+
+          </div>
+        ) : token && (
           <div>
             <CRMPanel token={token} email={ticket.email} isDark={isDark} />
           </div>

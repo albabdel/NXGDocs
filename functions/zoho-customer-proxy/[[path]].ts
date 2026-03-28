@@ -154,11 +154,25 @@ function applyContactScoping(
 ): string {
   const parsedUrl = new URL(url);
 
-  // Ticket list endpoint - enforce contactId filter
-  if (path === 'tickets' || path.startsWith('tickets?')) {
-    // Override any contactId in query with session's contactId
-    parsedUrl.searchParams.set('contactId', session.contactId);
-    return parsedUrl.toString();
+  // Ticket list endpoint — rewrite to sub-resource path (Zoho no longer accepts contactId as query param)
+  // NOTE: /contacts/{id}/tickets only supports pagination params, NOT status/priority filters
+  // NOTE: Zoho limit is 1-100, so we cap it to avoid 422 errors
+  if (path === 'tickets') {
+    const subUrl = new URL(`${ZOHO_DESK_BASE}/contacts/${session.contactId}/tickets`);
+    // Only forward allowed params — strip status/priority as they cause 422 errors
+    const allowedParams = ['from', 'limit', 'sortBy', 'include'];
+    for (const [key, val] of parsedUrl.searchParams) {
+      if (allowedParams.includes(key)) {
+        // Cap limit to Zoho's max of 100
+        if (key === 'limit') {
+          const limitVal = Math.min(parseInt(val, 10) || 50, 100);
+          subUrl.searchParams.set(key, String(limitVal));
+        } else {
+          subUrl.searchParams.set(key, val);
+        }
+      }
+    }
+    return subUrl.toString();
   }
 
   // Contact endpoints - only allow access to own contact

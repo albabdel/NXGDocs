@@ -23,8 +23,9 @@ const AGENT_SCOPES = [
 // Zoho Customer Portal
 // ---------------------------------------------------------------------------
 
-// Portal URL for reference (not used in direct email-lookup flow)
-const ZOHO_PORTAL_URL = 'https://helpdesk.nxgen.io/portal/nxgentechnology';
+// Auth0 configuration for customer portal login
+const AUTH0_DOMAIN = 'nxgen.eu.auth0.com';
+const AUTH0_CLIENT_ID = 'jqiJJISVmCmWWB46m0wMI7CO91KyliIm';
 
 // ---------------------------------------------------------------------------
 // Storage
@@ -40,9 +41,14 @@ const ADMIN_REDIRECT_KEY = 'zoho_admin_redirect';
 // Helpers
 // ---------------------------------------------------------------------------
 
-function getRedirectUri(): string {
+function getAgentRedirectUri(): string {
   if (typeof window === 'undefined') return '';
   return `${window.location.origin}/support`;
+}
+
+function getAuth0RedirectUri(): string {
+  if (typeof window === 'undefined') return '';
+  return `${window.location.origin}/auth/callback`;
 }
 
 function randomString(len = 32): string {
@@ -57,11 +63,22 @@ function buildZohoAgentUrl(): string {
   const params = new URLSearchParams({
     response_type: 'token',
     client_id: ZOHO_CLIENT_ID,
-    redirect_uri: getRedirectUri(),
+    redirect_uri: getAgentRedirectUri(),
     scope: AGENT_SCOPES,
     access_type: 'online',
   });
   return `${ZOHO_AUTH_URL}?${params}`;
+}
+
+function buildAuth0Url(nonce: string): string {
+  const params = new URLSearchParams({
+    response_type: 'id_token',
+    client_id: AUTH0_CLIENT_ID,
+    redirect_uri: getAuth0RedirectUri(),
+    scope: 'openid email profile',
+    nonce,
+  });
+  return `https://${AUTH0_DOMAIN}/authorize?${params}`;
 }
 
 function parseZohoHash(): { accessToken: string; expiry: number } | null {
@@ -73,18 +90,6 @@ function parseZohoHash(): { accessToken: string; expiry: number } | null {
   const expiresIn = params.get('expires_in');
   if (!accessToken) return null;
   return { accessToken, expiry: Date.now() + parseInt(expiresIn ?? '3600') * 1000 };
-}
-
-// --- Auth0 customer (kept for potential future use) ---
-
-function _buildAuth0Url(nonce: string): string {  const params = new URLSearchParams({
-    response_type: 'id_token',
-    client_id: 'UNUSED', // Auth0 not configured
-    redirect_uri: getRedirectUri(),
-    scope: 'openid email profile',
-    nonce,
-  });
-  return `https://unused.auth0.com/authorize?${params}`; // Auth0 not configured
 }
 
 function parseAuth0Hash(): { idToken: string; nonce?: string } | null {
@@ -122,7 +127,7 @@ function loadStoredSession(): ZohoSessionData | null {
     if (!stored) return null;
     const data: ZohoSessionData = JSON.parse(stored);
     // Session cookie validity is checked by server; we just check local expiry
-    if (data.sessionExpiry < Date.now()) {
+    if (data.sessionExpiry && data.sessionExpiry < Date.now()) {
       sessionStorage.removeItem(SESSION_STORAGE_KEY);
       return null;
     }
@@ -343,6 +348,8 @@ export function useZohoAuth() {
                 accountId?: string | null;
                 displayName?: string;
                 account?: string | null;
+                csmEmail?: string | null;
+                csmName?: string | null;
                 sessionExpiry?: number;
               };
             },
@@ -366,6 +373,8 @@ export function useZohoAuth() {
             accountId: data.accountId ?? null,
             displayName: data.displayName ?? '',
             account: data.account ?? null,
+            csmEmail: data.csmEmail ?? null,
+            csmName: data.csmName ?? null,
             sessionExpiry: data.sessionExpiry ?? Date.now() + 3600 * 1000,
           };
           sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(sessionData));
@@ -408,6 +417,8 @@ export function useZohoAuth() {
             contactId: data.contactId ?? '',
             accountId: data.accountId ?? null,
             displayName: data.displayName ?? '',
+            csmEmail: data.csmEmail ?? null,
+            csmName: data.csmName ?? null,
           };
           sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(sessionData));
           setAuthData(sessionData);
@@ -438,37 +449,14 @@ export function useZohoAuth() {
     window.location.href = buildZohoAgentUrl();
   }, []);
 
-  /** Email verification login flow */
+  /** Auth0 customer login — redirects to Auth0 Universal Login */
   const loginCustomer = useCallback(() => {
     setLoginError(null);
     setRetrying(false);
     localStorage.setItem(PENDING_MODE_KEY, 'customer');
-
-    // Prompt for email
-    const email = window.prompt('Enter your email address to receive a login link:');
-    if (!email) return;
-
-    // Request verification email
-    setRetrying(true);
-    fetch('/zoho-customer-verify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email }),
-    })
-      .then(res => res.json())
-      .then(data => {
-        setRetrying(false);
-        if (data.error) {
-          setLoginError({ type: 'network_error', message: data.error, retryable: true });
-        } else {
-          // Show success message
-          alert(data.message || 'Check your inbox for a login link!');
-        }
-      })
-      .catch(() => {
-        setRetrying(false);
-        setLoginError({ type: 'network_error', message: 'Failed to send verification email', retryable: true });
-      });
+    const nonce = randomString(32);
+    localStorage.setItem(PENDING_NONCE_KEY, nonce);
+    window.location.href = buildAuth0Url(nonce);
   }, []);
 
   /** Clear error and retry login */
