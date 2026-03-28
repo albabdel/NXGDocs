@@ -226,52 +226,6 @@
     "timelapseFeatures": null
   },
   {
-    "_id": "device-integration-axis-cs-pro-vms",
-    "_type": "deviceIntegration",
-    "architecture": {
-      "_type": "architectureInfo",
-      "action": null,
-      "api": null,
-      "singleton": null
-    },
-    "brand": null,
-    "cameraHealthFeatures": null,
-    "cloudModeFeatures": null,
-    "connectivity": {
-      "_type": "connectivityInfo",
-      "customerPorts": "Axis Cam Station: 29204",
-      "eventIntegrationMethod": "Callback - Webhook",
-      "genesisPorts": "None",
-      "integrationProtocol": "Axis HTTP API Callback webhook(event)",
-      "loginSecurity": null,
-      "videoStreaming": null
-    },
-    "description": null,
-    "deviceHealthFeatures": null,
-    "deviceType": "vms",
-    "documentation": {
-      "_type": "documentationInfo",
-      "configurationArticle": {
-        "_ref": "GIKqHwCOFsUvADyic7i293",
-        "_type": "reference"
-      },
-      "helpManualUrl": "/docs/devices/axis-cs-pro",
-      "helpdeskUrl": null
-    },
-    "gcxReady": "full",
-    "localModeFeatures": null,
-    "logoUrl": null,
-    "manufacturer": "AXIS CS Pro",
-    "name": null,
-    "notesAndIssues": null,
-    "slug": {
-      "_type": "slug",
-      "current": "axis-cs-pro-vms"
-    },
-    "status": "published",
-    "timelapseFeatures": null
-  },
-  {
     "_id": "device-integration-axis-ip-camera-ip-camera",
     "_type": "deviceIntegration",
     "architecture": {
@@ -2129,52 +2083,6 @@
     "slug": {
       "_type": "slug",
       "current": "viasys-shieldbox-cloud-nvr"
-    },
-    "status": "published",
-    "timelapseFeatures": null
-  },
-  {
-    "_id": "device-integration-victron-router",
-    "_type": "deviceIntegration",
-    "architecture": {
-      "_type": "architectureInfo",
-      "action": null,
-      "api": null,
-      "singleton": null
-    },
-    "brand": null,
-    "cameraHealthFeatures": null,
-    "cloudModeFeatures": null,
-    "connectivity": {
-      "_type": "connectivityInfo",
-      "customerPorts": null,
-      "eventIntegrationMethod": null,
-      "genesisPorts": null,
-      "integrationProtocol": "Victron VRM Cloud API",
-      "loginSecurity": null,
-      "videoStreaming": null
-    },
-    "description": null,
-    "deviceHealthFeatures": null,
-    "deviceType": "gateway",
-    "documentation": {
-      "_type": "documentationInfo",
-      "configurationArticle": {
-        "_ref": "GIKqHwCOFsUvADyic7i9WA",
-        "_type": "reference"
-      },
-      "helpManualUrl": "/docs/devices/victron",
-      "helpdeskUrl": null
-    },
-    "gcxReady": "full",
-    "localModeFeatures": null,
-    "logoUrl": null,
-    "manufacturer": "Victron",
-    "name": null,
-    "notesAndIssues": null,
-    "slug": {
-      "_type": "slug",
-      "current": "victron-router"
     },
     "status": "published",
     "timelapseFeatures": null

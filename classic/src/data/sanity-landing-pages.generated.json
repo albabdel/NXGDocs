@@ -9,7 +9,7 @@
         "label": "Alert Management"
       }
     ],
-    "description": "Comprehensive alert management for critical infrastructure. Intelligent alerting, multi-channel notifications, and automated escalation workflows.",
+    "description": "Comprehensive alert management for critical infrastructure. Intelligent alerting, multi-channel notifications, and automated escalation workflows. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "BellRing",
@@ -307,6 +307,93 @@
         ],
         "description": "Configure intelligent alerting that reduces noise while ensuring critical issues are never missed.",
         "title": "Ready to Optimize Your Alerting?"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -327,7 +414,7 @@
         "label": "Getting Started"
       }
     ],
-    "description": "Your complete guide to getting started with GCXONE - from first login to full operational readiness",
+    "description": "Your complete guide to getting started with GCXONE - from first login to full operational readiness. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "Rocket",
@@ -711,6 +798,93 @@
         ],
         "description": "Begin your GCXONE journey today with our comprehensive onboarding resources.",
         "title": "Ready to Get Started?"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -731,7 +905,7 @@
         "label": "Integrations"
       }
     ],
-    "description": "Connect NXGEN with your existing systems. Native integrations for video, IoT protocols, cloud services, and notification channels.",
+    "description": "Connect NXGEN with your existing systems. Native integrations for video, IoT protocols, cloud services, and notification channels. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "Plug",
@@ -1105,6 +1279,93 @@
         ],
         "description": "Our team can help build integrations for your specific requirements.",
         "title": "Need a Custom Integration?"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -1125,7 +1386,7 @@
         "label": "Monitoring Stations"
       }
     ],
-    "description": "Complete tower and site monitoring solution. Track equipment health, environmental conditions, and security status across your entire infrastructure.",
+    "description": "Complete tower and site monitoring solution. Track equipment health, environmental conditions, and security status across your entire infrastructure. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "RadioTower",
@@ -1245,7 +1506,7 @@
             "color": "#3B82F6",
             "description": "Cell towers, radio sites, and broadcast facilities with generator, rectifier, and environmental monitoring.",
             "icon": "RadioTower",
-            "link": "/docs/towers",
+            "link": "/towers",
             "title": "Telecom Towers"
           },
           {
@@ -1362,6 +1623,93 @@
         ],
         "description": "Deploy monitoring across your entire infrastructure in days, not months.",
         "title": "Ready to Monitor Your Sites?"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -1382,7 +1730,7 @@
         "label": "Platform Overview"
       }
     ],
-    "description": "Comprehensive monitoring platform for tower sites, data centers, and critical infrastructure. Real-time visibility, intelligent alerting, and seamless integrations.",
+    "description": "Comprehensive monitoring platform for tower sites, data centers, and critical infrastructure. Real-time visibility, intelligent alerting, and seamless integrations. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "Cpu",
@@ -1565,6 +1913,93 @@
         ],
         "description": "Join hundreds of organizations using NXGEN to monitor their critical infrastructure.",
         "title": "Ready to Transform Your Operations?"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -1585,7 +2020,7 @@
         "label": "Quick Start"
       }
     ],
-    "description": "Get up and running with NXGEN in minutes. Step-by-step guides for administrators, managers, and operators.",
+    "description": "Get up and running with NXGEN in minutes. Step-by-step guides for administrators, managers, and operators. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "Rocket",
@@ -1824,6 +2259,93 @@
         ],
         "description": "Our support team is ready to help you configure your monitoring environment.",
         "title": "Need Help Getting Started?"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -1833,151 +2355,6 @@
     },
     "status": "published",
     "title": "Quick Start Guide"
-  },
-  {
-    "breadcrumbs": null,
-    "description": "Get started with NXGEN quickly with our comprehensive quick start guides and tutorials.",
-    "hero": {
-      "badge": {
-        "icon": "Zap",
-        "text": "10 min setup"
-      },
-      "ctaButtons": [
-        {
-          "_key": "cta1",
-          "href": "/docs/quick-start-guide",
-          "label": "Start Tutorial",
-          "variant": "primary"
-        },
-        {
-          "_key": "cta2",
-          "href": "/docs/video-tutorials",
-          "label": "Watch Demo",
-          "variant": "secondary"
-        }
-      ],
-      "headline": "Get Started with NXGEN",
-      "subheadline": "Everything you need to set up, configure, and master the NXGEN platform"
-    },
-    "lastUpdated": null,
-    "layoutType": "quick-start",
-    "publishedAt": null,
-    "sections": [
-      {
-        "_key": "features1",
-        "_type": "landingSectionFeatures",
-        "columns": 3,
-        "features": [
-          {
-            "_key": "feat1",
-            "color": "#10B981",
-            "description": "Learn the basics of monitoring and responding to events",
-            "icon": "User",
-            "title": "For Operators"
-          },
-          {
-            "_key": "feat2",
-            "color": "#6366F1",
-            "description": "Configure users, devices, and system settings",
-            "icon": "Settings",
-            "title": "For Admins"
-          },
-          {
-            "_key": "feat3",
-            "color": "#F59E0B",
-            "description": "Set up reports, dashboards, and analytics",
-            "icon": "BarChart",
-            "title": "For Managers"
-          }
-        ],
-        "title": "Quick Start Paths"
-      },
-      {
-        "_key": "quickstart-features",
-        "_type": "landingSectionFeatures",
-        "columns": 3,
-        "description": "Choose your path to get up and running quickly",
-        "features": [
-          {
-            "color": "#3B82F6",
-            "description": "Learn the basics of the platform and its capabilities",
-            "icon": "Compass",
-            "title": "Platform Overview"
-          },
-          {
-            "color": "#10B981",
-            "description": "Connect your first devices and start monitoring",
-            "icon": "Cpu",
-            "title": "Device Integration"
-          },
-          {
-            "color": "#8B5CF6",
-            "description": "Step-by-step guide for new users",
-            "icon": "BookOpen",
-            "title": "Quick Start Guide"
-          }
-        ],
-        "title": "Getting Started Paths"
-      },
-      {
-        "_key": "quickstart-content",
-        "_type": "landingSectionContentGrid",
-        "columns": 2,
-        "description": "Everything you need to get started",
-        "items": [
-          {
-            "description": "Access the platform and configure your account",
-            "icon": "LogIn",
-            "link": "/docs/getting-started/first-time-login--access",
-            "title": "First-Time Login"
-          },
-          {
-            "description": "Configure your hierarchy and structure",
-            "icon": "Building2",
-            "link": "/docs/getting-started/organization--hierarchy-setup",
-            "title": "Organization Setup"
-          },
-          {
-            "description": "Invite team members and assign roles",
-            "icon": "Users",
-            "link": "/docs/getting-started/user-management-setup",
-            "title": "User Management"
-          },
-          {
-            "description": "Complete onboarding checklist",
-            "icon": "CheckSquare",
-            "link": "/docs/getting-started/quick-start-checklist",
-            "title": "Checklist"
-          }
-        ],
-        "title": "Essential Resources"
-      },
-      {
-        "_key": "quickstart-cta",
-        "_type": "landingSectionCTA",
-        "buttons": [
-          {
-            "href": "/quick-start/guide",
-            "label": "Start Here",
-            "variant": "primary"
-          },
-          {
-            "href": "/getting-started",
-            "label": "Watch Videos",
-            "variant": "secondary"
-          }
-        ],
-        "description": "Start using the platform with our comprehensive quick start resources.",
-        "title": "Begin Your Journey"
-      }
-    ],
-    "showBackground": true,
-    "slug": {
-      "_type": "slug",
-      "current": "quick-start"
-    },
-    "status": "published",
-    "title": "Quick Start"
   },
   {
     "breadcrumbs": [
@@ -1993,7 +2370,7 @@
         "label": "Breakthroughs"
       }
     ],
-    "description": "Ten core services that define how GCXONE monitors, correlates, and responds at scale",
+    "description": "Ten core services that define how GCXONE monitors, correlates, and responds at scale. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "FileText",
@@ -2076,6 +2453,93 @@
         ],
         "description": "Learn how our latest breakthroughs can transform your monitoring operations.",
         "title": "Discover Our Innovations"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -2096,7 +2560,7 @@
         "label": "Integration Hub"
       }
     ],
-    "description": "Discover all supported devices and integrations in GCXONE",
+    "description": "Discover all supported devices and integrations in GCXONE. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "FileText",
@@ -2199,6 +2663,93 @@
         ],
         "description": "Connect your devices and systems to unlock powerful monitoring capabilities.",
         "title": "Start Integrating"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -2219,7 +2770,7 @@
         "label": "Internal Releases"
       }
     ],
-    "description": "Internal release notes and sprint documentation",
+    "description": "Internal release notes and sprint documentation. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "Shield",
@@ -2328,6 +2879,93 @@
         ],
         "description": "Stay up to date with the newest features and improvements.",
         "title": "View Latest Releases"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -2352,7 +2990,7 @@
         "label": "Sprint 2025.12-A - Internal Releases"
       }
     ],
-    "description": "Detailed release notes for Sprint 2025.12-A",
+    "description": "Detailed release notes for Sprint 2025.12-A. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "Shield",
@@ -2434,6 +3072,93 @@
         ],
         "description": "Browse the complete release history and upcoming sprints.",
         "title": "View All Internal Releases"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -2458,7 +3183,7 @@
         "label": "Sprint 2026.01-A - Internal Releases"
       }
     ],
-    "description": "Detailed release notes for Sprint 2026.01-A",
+    "description": "Detailed release notes for Sprint 2026.01-A. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "Shield",
@@ -2540,6 +3265,93 @@
         ],
         "description": "Browse the complete release history and upcoming sprints.",
         "title": "View All Internal Releases"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -2564,7 +3376,7 @@
         "label": "Device Integration Guide"
       }
     ],
-    "description": "Complete guide to connecting devices to GCXONE platform",
+    "description": "Complete guide to connecting devices to GCXONE platform. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "Rocket",
@@ -2667,6 +3479,93 @@
         ],
         "description": "Start integrating your devices with our comprehensive guides.",
         "title": "Ready to Connect?"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -2691,7 +3590,7 @@
         "label": "Quick Start Guide"
       }
     ],
-    "description": "Get up and running with GCXONE in 5-10 minutes - Complete step-by-step guide from first login to full monitoring capability",
+    "description": "Get up and running with GCXONE in 5-10 minutes - Complete step-by-step guide from first login to full monitoring capability. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "Rocket",
@@ -2847,6 +3746,93 @@
         ],
         "description": "Complete your setup and start monitoring your infrastructure.",
         "title": "Ready to Go Live?"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -2871,7 +3857,7 @@
         "label": "Platform Overview"
       }
     ],
-    "description": "Complete guide to NXGEN GCXONE architecture, hierarchy model, and core capabilities",
+    "description": "Complete guide to NXGEN GCXONE architecture, hierarchy model, and core capabilities. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "Rocket",
@@ -2987,6 +3973,93 @@
         ],
         "description": "Discover how our platform can transform your operations.",
         "title": "Explore the Platform"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -3007,7 +4080,7 @@
         "label": "Release Notes"
       }
     ],
-    "description": "Latest updates, new features, and improvements to GCXONE",
+    "description": "Latest updates, new features, and improvements to GCXONE. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "Calendar",
@@ -3125,6 +4198,93 @@
         ],
         "description": "Subscribe to release notifications and stay informed.",
         "title": "Stay Updated"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -3149,7 +4309,7 @@
         "label": "Sprint 2025.12-B Release Notes"
       }
     ],
-    "description": "Latest features and improvements in Sprint 2025.12-B",
+    "description": "Latest features and improvements in Sprint 2025.12-B. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "Calendar",
@@ -3231,6 +4391,93 @@
         ],
         "description": "Browse the complete release history and upcoming sprints.",
         "title": "View All Internal Releases"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -3251,7 +4498,7 @@
         "label": "Product Roadmap"
       }
     ],
-    "description": "GCXONE Product Roadmap - Preview of upcoming features and improvements",
+    "description": "GCXONE Product Roadmap - Preview of upcoming features and improvements. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "FileText",
@@ -3380,6 +4627,93 @@
         ],
         "description": "Share your feedback and help us prioritize upcoming features.",
         "title": "Shape Our Future"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -3404,7 +4738,7 @@
         "label": "Admin Workspace"
       }
     ],
-    "description": "Complete administrative control center for GCXONE platform management",
+    "description": "Complete administrative control center for GCXONE platform management. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "Users",
@@ -3466,25 +4800,25 @@
           {
             "description": "Create and manage user accounts and permissions",
             "icon": "User",
-            "link": "/docs/admin/users",
+            "link": "/roles/admin",
             "title": "User Management"
           },
           {
             "description": "Define roles with granular permissions",
             "icon": "Shield",
-            "link": "/docs/admin/roles",
+            "link": "/roles/admin",
             "title": "Role Configuration"
           },
           {
             "description": "Set up your monitoring hierarchy",
             "icon": "Building",
-            "link": "/docs/admin/organization",
+            "link": "/roles/admin",
             "title": "Organization Structure"
           },
           {
             "description": "Configure authentication and security policies",
             "icon": "Lock",
-            "link": "/docs/admin/security",
+            "link": "/roles/admin",
             "title": "Security Settings"
           }
         ],
@@ -3507,6 +4841,103 @@
         ],
         "description": "Access comprehensive guides for all admin functions.",
         "title": "Admin Documentation"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Admin workspace overview.",
+            "link": "/roles/admin",
+            "title": "Admin Guide"
+          },
+          {
+            "description": "Admin tools you’ll need.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          },
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -3531,7 +4962,7 @@
         "label": "Installer Toolkit"
       }
     ],
-    "description": "Technical resources and field tools for GCXONE site commissioning and device integration",
+    "description": "Technical resources and field tools for GCXONE site commissioning and device integration. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "Users",
@@ -3587,25 +5018,25 @@
           {
             "description": "Complete guide to creating and configuring sites",
             "icon": "Building",
-            "link": "/docs/installer/site-setup",
+            "link": "/roles/installer",
             "title": "Site Setup Guide"
           },
           {
             "description": "Add devices using templates or manual configuration",
             "icon": "Plus",
-            "link": "/docs/installer/device-onboarding",
+            "link": "/roles/installer",
             "title": "Device Onboarding"
           },
           {
             "description": "Verify installations meet requirements",
             "icon": "ClipboardCheck",
-            "link": "/docs/installer/commissioning",
+            "link": "/roles/installer",
             "title": "Commissioning Checklist"
           },
           {
             "description": "Common issues and solutions for installers",
             "icon": "Wrench",
-            "link": "/docs/installer/troubleshooting",
+            "link": "/roles/installer",
             "title": "Troubleshooting"
           }
         ],
@@ -3628,6 +5059,103 @@
         ],
         "description": "Access all the tools and guides you need for successful installations.",
         "title": "Start Installing"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Installer workspace overview.",
+            "link": "/roles/installer",
+            "title": "Installer Guide"
+          },
+          {
+            "description": "Admin tools you’ll need.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          },
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -3652,7 +5180,7 @@
         "label": "Manager Overview"
       }
     ],
-    "description": "Strategic insights, performance analytics, and team management for GCXONE operations leaders",
+    "description": "Strategic insights, performance analytics, and team management for GCXONE operations leaders. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "Users",
@@ -3714,25 +5242,25 @@
           {
             "description": "Configure manager dashboards and views",
             "icon": "LayoutDashboard",
-            "link": "/docs/manager/dashboards",
+            "link": "/roles/manager",
             "title": "Dashboard Guide"
           },
           {
             "description": "Create and schedule operational reports",
             "icon": "FileText",
-            "link": "/docs/manager/reporting",
+            "link": "/roles/manager",
             "title": "Reporting"
           },
           {
             "description": "Manage team assignments and schedules",
             "icon": "Users",
-            "link": "/docs/manager/team",
+            "link": "/roles/manager",
             "title": "Team Management"
           },
           {
             "description": "Operational excellence guidelines",
             "icon": "Lightbulb",
-            "link": "/docs/manager/best-practices",
+            "link": "/roles/manager",
             "title": "Best Practices"
           }
         ],
@@ -3755,6 +5283,103 @@
         ],
         "description": "Access comprehensive guides for operational management.",
         "title": "Manager Documentation"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Manager workspace overview.",
+            "link": "/roles/manager",
+            "title": "Manager Guide"
+          },
+          {
+            "description": "Admin tools you’ll need.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          },
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -3779,7 +5404,7 @@
         "label": "Operator Workspace"
       }
     ],
-    "description": "Mission control center for real-time monitoring, alarm response, and security operations",
+    "description": "Mission control center for real-time monitoring, alarm response, and security operations. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "Users",
@@ -3841,25 +5466,25 @@
           {
             "description": "Introduction to real-time monitoring",
             "icon": "Eye",
-            "link": "/docs/operator/monitoring",
+            "link": "/roles/operator",
             "title": "Monitoring Basics"
           },
           {
             "description": "How to handle and resolve alerts",
             "icon": "AlertTriangle",
-            "link": "/docs/operator/alerts",
+            "link": "/alerts",
             "title": "Alert Response"
           },
           {
             "description": "Find and use the information you need",
             "icon": "Compass",
-            "link": "/docs/operator/dashboards",
+            "link": "/roles/operator",
             "title": "Dashboard Navigation"
           },
           {
             "description": "Best practices for shift transitions",
             "icon": "Repeat",
-            "link": "/docs/operator/handover",
+            "link": "/roles/operator",
             "title": "Shift Handover"
           }
         ],
@@ -3882,6 +5507,103 @@
         ],
         "description": "Access training materials and quick reference guides.",
         "title": "Operator Training"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Operator workspace overview.",
+            "link": "/roles/operator",
+            "title": "Operator Guide"
+          },
+          {
+            "description": "Admin tools you’ll need.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          },
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,
@@ -3902,7 +5624,7 @@
         "label": "Towers"
       }
     ],
-    "description": "Complete guide to managing and configuring mobile towers in GCXONE",
+    "description": "Complete guide to managing and configuring mobile towers in GCXONE. For more details, see the Getting Started guide (/getting-started), the Integrations Hub (/integrations), the Alert Management page (/alerts), and the Roadmap (/roadmap).",
     "hero": {
       "badge": {
         "icon": "RadioTower",
@@ -3976,7 +5698,7 @@
           {
             "description": "Set up tower-specific alert rules",
             "icon": "Bell",
-            "link": "/docs/towers/alerts",
+            "link": "/alerts",
             "title": "Alert Configuration"
           },
           {
@@ -4005,6 +5727,93 @@
         ],
         "description": "Set up comprehensive monitoring for your tower infrastructure.",
         "title": "Start Monitoring Towers"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Explore related documentation:",
+        "items": [
+          {
+            "description": "Start here if you’re new to NXGEN.",
+            "link": "/getting-started",
+            "title": "Getting Started"
+          },
+          {
+            "description": "All supported devices and services.",
+            "link": "/integrations",
+            "title": "Integrations Hub"
+          },
+          {
+            "description": "Configure intelligent alerts.",
+            "link": "/alerts",
+            "title": "Alert Management"
+          },
+          {
+            "description": "See what’s coming next.",
+            "link": "/roadmap",
+            "title": "Roadmap"
+          },
+          {
+            "description": "Admin‑level configuration and tools.",
+            "link": "/roles/admin",
+            "title": "Admin Workspace"
+          }
+        ],
+        "title": "Further Reading"
+      },
+      {
+        "_type": "landingSectionContentGrid",
+        "columns": 2,
+        "description": "Key points you’ll love about this feature:",
+        "items": [
+          {
+            "description": "Built on a modular, API‑first core that scales with your needs.",
+            "link": null,
+            "title": "Future‑Ready Architecture"
+          },
+          {
+            "description": "Clean, responsive design that reduces learning curve.",
+            "link": null,
+            "title": "Intuitive UI"
+          },
+          {
+            "description": "End‑to‑end encryption and role‑based access control.",
+            "link": null,
+            "title": "Robust Security"
+          },
+          {
+            "description": "Native connectors for major platforms and custom APIs.",
+            "link": null,
+            "title": "Seamless Integrations"
+          }
+        ],
+        "title": "Highlights"
+      },
+      {
+        "_type": "landingSectionFeatures",
+        "columns": 1,
+        "description": "Our platform delivers unmatched value.",
+        "features": [
+          {
+            "color": "#3B82F6",
+            "description": "Handle thousands of devices without performance loss.",
+            "icon": "Scale",
+            "title": "Scalable"
+          },
+          {
+            "color": "#10B981",
+            "description": "99.9% uptime SLA, built‑in redundancy.",
+            "icon": "CheckCircle",
+            "title": "Reliable"
+          },
+          {
+            "color": "#F59E0B",
+            "description": "SDKs, webhooks, and custom scripts let you adapt quickly.",
+            "icon": "Code",
+            "title": "Extensible"
+          }
+        ],
+        "title": "Why Choose NXGEN?"
       }
     ],
     "showBackground": true,

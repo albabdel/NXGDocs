@@ -9,8 +9,8 @@
     "build:fast": "cd classic && npm run build",
     "start": "cd classic && npm start",
     "serve": "cd classic && npm run serve",
-    "dev": "npm run build:fast && wrangler pages dev classic/build --port 8788 --compatibility-date 2024-01-01 --binding SANITY_PROJECT_ID=fjjuacab --binding SANITY_DATASET=production",
-    "dev:full": "wrangler pages dev classic/build --port 8788 --compatibility-date 2024-01-01",
+    "dev": "npm run build:fast && npx wrangler pages dev classic/build --port 8080 --compatibility-date 2024-01-01 --binding SANITY_PROJECT_ID=fjjuacab --binding SANITY_DATASET=production",
+    "dev:full": "npx wrangler pages dev classic/build --port 8080 --compatibility-date 2024-01-01",
     "sidebar:seed": "node scripts/seed-sidebar-config.js",
     "sidebar:reconcile": "node scripts/reconcile-sanity-sidebar.js",
     "sidebar:reconcile:apply": "node scripts/reconcile-sanity-sidebar.js --apply",
@@ -31,6 +31,7 @@
   "homepage": "https://gitlab.com/yazanabutaa/nxgen-docs#readme",
   "dependencies": {
     "dotenv": "^17.2.3",
+    "exceljs": "^4.4.0",
     "gray-matter": "^4.0.3",
     "pdf-parse": "^2.4.5"
   },
@@ -47,6 +48,6 @@
     "jsdom": "^28.1.0",
     "mammoth": "^1.12.0",
     "typescript": "^5.9.3",
-    "xlsx": "^0.18.5"
+    "wrangler": "^2.21.3"
   }
 }

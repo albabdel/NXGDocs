@@ -190,9 +190,11 @@ async function findContactByEmail(
       const text = await searchRes.text();
       if (text) {
         const data = JSON.parse(text) as { data?: (ZohoContact & { secondaryEmail?: string })[] };
-        const match = (data.data ?? []).find(
-          c => c.email?.toLowerCase() === lowerEmail || c.secondaryEmail?.toLowerCase() === lowerEmail
-        ) ?? null;
+        const contacts = data.data ?? [];
+        // Prefer primary email match (most specific) over secondary email match
+        const match = contacts.find(c => c.email?.toLowerCase() === lowerEmail)
+          ?? contacts.find(c => c.secondaryEmail?.toLowerCase() === lowerEmail)
+          ?? null;
         if (match) return match;
       }
     }
@@ -219,37 +221,38 @@ async function findContactByEmail(
 
 /**
  * Fetch account owner (CSM) using the search endpoint.
- * The search endpoint returns the owner object directly — no extra scopes needed.
- * Strategy:
- *  1. GET /search?searchStr={accountId}&module=accounts — owner in result by default
- *  2. Fallback: GET /accounts/{id}?include=owner (may or may not return owner)
+ * The search endpoint returns the owner object (with emailId) directly — no Desk.agents.READ needed.
+ * We search by account name (text-indexed) and filter by ID to get the exact match.
  */
 async function fetchAccountWithOwner(
   token: string,
   accountId: string,
+  accountName: string | null | undefined,
   orgId: string,
 ): Promise<ZohoAccount | null> {
   const headers = { Authorization: `Zoho-oauthtoken ${token}`, orgId };
 
-  // Primary: search for the account by ID — the search endpoint returns owner by default
-  try {
-    const searchUrl = `https://desk.zoho.eu/api/v1/search?searchStr=${encodeURIComponent(accountId)}&module=accounts&limit=5`;
-    const searchRes = await fetch(searchUrl, { headers });
-    if (searchRes.ok) {
-      const searchText = await searchRes.text();
-      if (searchText) {
-        const searchData = JSON.parse(searchText) as { data?: (ZohoAccount & { ownerId?: string })[] };
-        const match = (searchData.data ?? []).find(a => a.id === accountId);
-        if (match?.owner?.emailId || match?.owner?.email) {
-          return match;
+  // Primary: search by account name — returns owner object by default
+  if (accountName) {
+    try {
+      const searchUrl = `https://desk.zoho.eu/api/v1/search?searchStr=${encodeURIComponent(accountName)}&module=accounts&limit=10`;
+      const searchRes = await fetch(searchUrl, { headers });
+      if (searchRes.ok) {
+        const searchText = await searchRes.text();
+        if (searchText) {
+          const searchData = JSON.parse(searchText) as { data?: ZohoAccount[] };
+          const match = (searchData.data ?? []).find(a => a.id === accountId);
+          if (match?.owner?.emailId || match?.owner?.email) {
+            return match;
+          }
         }
       }
+    } catch {
+      // fall through to direct fetch
     }
-  } catch {
-    // fall through to direct fetch
   }
 
-  // Fallback: direct account fetch (ownerId only, no owner object)
+  // Fallback: direct account fetch (returns ownerId only, no owner object)
   const accountRes = await fetch(`https://desk.zoho.eu/api/v1/accounts/${accountId}?include=owner`, { headers });
   if (!accountRes.ok) return null;
   const accountText = await accountRes.text();
@@ -386,7 +389,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       let csmEmail: string | null = null;
       let csmName: string | null = null;
       if (contact.accountId) {
-        const account = await fetchAccountWithOwner(zToken, contact.accountId, context.env.ZOHO_ORG_ID);
+        const account = await fetchAccountWithOwner(zToken, contact.accountId, contact.account?.accountName, context.env.ZOHO_ORG_ID);
         if (account?.owner) {
           csmEmail = account.owner.emailId ?? account.owner.email ?? null;
           csmName = account.owner.name || `${account.owner.firstName ?? ''} ${account.owner.lastName ?? ''}`.trim() || null;
@@ -453,7 +456,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     let csmEmail: string | null = null;
     let csmName: string | null = null;
     if (contact.accountId) {
-      const account = await fetchAccountWithOwner(zToken, contact.accountId, context.env.ZOHO_ORG_ID);
+      const account = await fetchAccountWithOwner(zToken, contact.accountId, contact.account?.accountName, context.env.ZOHO_ORG_ID);
       if (account?.owner) {
         csmEmail = account.owner.emailId ?? account.owner.email ?? null;
         csmName = account.owner.name || `${account.owner.firstName ?? ''} ${account.owner.lastName ?? ''}`.trim() || null;

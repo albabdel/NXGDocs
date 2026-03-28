@@ -1,4 +1,4 @@
-const XLSX = require('xlsx');
+const ExcelJS = require('exceljs');
 const fs = require('fs');
 const path = require('path');
 
@@ -7,32 +7,49 @@ const outputDir = path.join(__dirname, '..', '.planning', 'test-cases');
 
 const sheets = ['DC09', 'reports'];
 
-const workbook = XLSX.readFile(inputFile);
+async function main() {
+  const workbook = new ExcelJS.Workbook();
+  await workbook.xlsx.readFile(inputFile);
 
-for (const sheetName of sheets) {
-  const worksheet = workbook.Sheets[sheetName];
-  if (!worksheet) {
-    console.error(`Sheet "${sheetName}" not found`);
-    continue;
-  }
-  
-  const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-  
-  if (jsonData.length === 0) {
-    console.log(`Sheet "${sheetName}" is empty`);
-    continue;
-  }
-  
-  const headers = jsonData[0];
-  const rows = jsonData.slice(1).map(row => {
-    const obj = {};
-    headers.forEach((header, i) => {
-      obj[header] = row[i] !== undefined ? row[i] : null;
+  for (const sheetName of sheets) {
+    const worksheet = workbook.getWorksheet(sheetName);
+    if (!worksheet) {
+      console.error(`Sheet "${sheetName}" not found`);
+      continue;
+    }
+    
+    const jsonData = [];
+    let headers = [];
+    
+    worksheet.eachRow((row, rowNumber) => {
+      const rowData = [];
+      row.eachCell({ includeEmpty: true }, (cell) => {
+        rowData[cell.col - 1] = cell.value;
+      });
+      
+      if (rowNumber === 1) {
+        headers = rowData;
+      } else {
+        const obj = {};
+        headers.forEach((header, i) => {
+          obj[header] = rowData[i] !== undefined ? rowData[i] : null;
+        });
+        jsonData.push(obj);
+      }
     });
-    return obj;
-  });
-  
-  const outputPath = path.join(outputDir, `${sheetName}.json`);
-  fs.writeFileSync(outputPath, JSON.stringify(rows, null, 2));
-  console.log(`Extracted ${rows.length} rows from "${sheetName}" to ${outputPath}`);
+    
+    if (jsonData.length === 0) {
+      console.log(`Sheet "${sheetName}" is empty`);
+      continue;
+    }
+    
+    const outputPath = path.join(outputDir, `${sheetName}.json`);
+    fs.writeFileSync(outputPath, JSON.stringify(jsonData, null, 2));
+    console.log(`Extracted ${jsonData.length} rows from "${sheetName}" to ${outputPath}`);
+  }
 }
+
+main().catch(err => {
+  console.error('Error:', err.message);
+  process.exit(1);
+});
