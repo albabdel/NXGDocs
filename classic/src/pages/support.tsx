@@ -19,6 +19,8 @@ export default function SupportPage() {
       title="Support Portal | NXGEN"
       description="Manage your NXGEN support tickets"
     >
+      {/* Hide footer on this page */}
+      <style>{`footer.footer, .footer { display: none !important; }`}</style>
       <main className="min-h-screen relative overflow-hidden" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
         {/* Decorative grid background */}
         <div

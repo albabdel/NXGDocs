@@ -144,26 +144,34 @@ async function refreshZohoToken(env: Env): Promise<{ accessToken: string; expire
   return { accessToken: data.access_token, expiresIn: data.expires_in ?? 3600 };
 }
 
+interface ZohoOwner {
+  id?: string;
+  firstName?: string;
+  lastName?: string;
+  /** Zoho Desk uses "emailId" for agent email fields, not "email" */
+  emailId?: string;
+  email?: string;
+  name?: string;
+}
+
 interface ZohoContact {
   id: string;
   firstName: string;
   lastName: string;
   email: string;
+  secondaryEmail?: string;
   accountId: string | null;
   account?: { accountName: string };
   isEndUser?: boolean;
+  /** Contact owner (CSM) — returned directly from search/contact endpoints */
+  owner?: ZohoOwner;
 }
 
 interface ZohoAccount {
   id: string;
   accountName: string;
-  owner?: {
-    id: string;
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-    name?: string;
-  };
+  ownerId?: string;
+  owner?: ZohoOwner;
 }
 
 async function findContactByEmail(
@@ -210,8 +218,11 @@ async function findContactByEmail(
 }
 
 /**
- * Fetch account details including the owner/CSM.
- * The owner field contains the account manager information.
+ * Fetch account owner (CSM) using the search endpoint.
+ * The search endpoint returns the owner object directly — no extra scopes needed.
+ * Strategy:
+ *  1. GET /search?searchStr={accountId}&module=accounts — owner in result by default
+ *  2. Fallback: GET /accounts/{id}?include=owner (may or may not return owner)
  */
 async function fetchAccountWithOwner(
   token: string,
@@ -219,11 +230,31 @@ async function fetchAccountWithOwner(
   orgId: string,
 ): Promise<ZohoAccount | null> {
   const headers = { Authorization: `Zoho-oauthtoken ${token}`, orgId };
-  const res = await fetch(`https://desk.zoho.eu/api/v1/accounts/${accountId}?include=owner`, { headers });
-  if (!res.ok) return null;
-  const text = await res.text();
-  if (!text) return null;
-  return JSON.parse(text) as ZohoAccount;
+
+  // Primary: search for the account by ID — the search endpoint returns owner by default
+  try {
+    const searchUrl = `https://desk.zoho.eu/api/v1/search?searchStr=${encodeURIComponent(accountId)}&module=accounts&limit=5`;
+    const searchRes = await fetch(searchUrl, { headers });
+    if (searchRes.ok) {
+      const searchText = await searchRes.text();
+      if (searchText) {
+        const searchData = JSON.parse(searchText) as { data?: (ZohoAccount & { ownerId?: string })[] };
+        const match = (searchData.data ?? []).find(a => a.id === accountId);
+        if (match?.owner?.emailId || match?.owner?.email) {
+          return match;
+        }
+      }
+    }
+  } catch {
+    // fall through to direct fetch
+  }
+
+  // Fallback: direct account fetch (ownerId only, no owner object)
+  const accountRes = await fetch(`https://desk.zoho.eu/api/v1/accounts/${accountId}?include=owner`, { headers });
+  if (!accountRes.ok) return null;
+  const accountText = await accountRes.text();
+  if (!accountText) return null;
+  return JSON.parse(accountText) as ZohoAccount;
 }
 
 /**
@@ -350,13 +381,14 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       // Ensure portal access is enabled (non-blocking)
       await ensurePortalAccess(zToken, contact.id, email, context.env.ZOHO_ORG_ID);
 
-      // Fetch account details to get CSM/owner info
+      // Resolve CSM: always use the account (parent company) owner — not the contact owner.
+      // The account owner is the assigned CSM for that customer company.
       let csmEmail: string | null = null;
       let csmName: string | null = null;
       if (contact.accountId) {
         const account = await fetchAccountWithOwner(zToken, contact.accountId, context.env.ZOHO_ORG_ID);
-        if (account?.owner?.email) {
-          csmEmail = account.owner.email;
+        if (account?.owner) {
+          csmEmail = account.owner.emailId ?? account.owner.email ?? null;
           csmName = account.owner.name || `${account.owner.firstName ?? ''} ${account.owner.lastName ?? ''}`.trim() || null;
         }
       }
@@ -416,13 +448,14 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // Ensure portal access is enabled (non-blocking)
     await ensurePortalAccess(zToken, contact.id, email, context.env.ZOHO_ORG_ID);
 
-    // Fetch account details to get CSM/owner info
+    // Resolve CSM: always use the account (parent company) owner — not the contact owner.
+    // The account owner is the assigned CSM for that customer company.
     let csmEmail: string | null = null;
     let csmName: string | null = null;
     if (contact.accountId) {
       const account = await fetchAccountWithOwner(zToken, contact.accountId, context.env.ZOHO_ORG_ID);
-      if (account?.owner?.email) {
-        csmEmail = account.owner.email;
+      if (account?.owner) {
+        csmEmail = account.owner.emailId ?? account.owner.email ?? null;
         csmName = account.owner.name || `${account.owner.firstName ?? ''} ${account.owner.lastName ?? ''}`.trim() || null;
       }
     }

@@ -97,6 +97,19 @@ function htmlToText(html: string | null | undefined): string {
   return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
+/** Parses "Label: Value" pairs from HTML content. Returns array if ≥3 pairs found, null otherwise. */
+function parseKeyValuePairs(html: string | null | undefined): { label: string; value: string }[] | null {
+  if (!html) return null;
+  const text = htmlToText(html);
+  const lines = text.split(/[\n;]/).map(l => l.trim()).filter(Boolean);
+  const pairs: { label: string; value: string }[] = [];
+  for (const line of lines) {
+    const m = line.match(/^([^:\n]{2,45}):\s*(.{1,200})$/);
+    if (m) pairs.push({ label: m[1].trim(), value: m[2].trim() });
+  }
+  return pairs.length >= 3 ? pairs : null;
+}
+
 /** Renders content that is either HTML or plaintext-markdown into safe HTML. */
 function renderContent(text: string | null | undefined): string {
   if (!text) return '';
@@ -277,9 +290,12 @@ function RelatedArticles({ subject, isDark }: { subject: string; isDark: boolean
 
   if (!articles.length) {
     return (
-      <p className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-        No related articles found.
-      </p>
+      <div className="flex flex-col items-center gap-1.5 py-3">
+        <BookOpen className="w-6 h-6 opacity-30" style={{ color: '#3b82f6' }} />
+        <p className="text-xs text-center" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+          No related articles found. Try <a href="/docs" target="_blank" rel="noopener noreferrer" style={{ color: '#3b82f6' }}>searching docs</a>.
+        </p>
+      </div>
     );
   }
 
@@ -444,6 +460,8 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
   const [showReplyDropdown, setShowReplyDropdown] = useState(false);
   const [requestingArticle, setRequestingArticle] = useState(false);
   const [articleRequested, setArticleRequested] = useState(false);
+  const [descExpanded, setDescExpanded] = useState(false);
+  const [expandedMsgs, setExpandedMsgs] = useState<Set<string>>(new Set());
   const fileInputRef = useRef<HTMLInputElement>(null);
   const commentRef = useRef<HTMLTextAreaElement>(null);
 
@@ -619,9 +637,9 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
         <ArrowLeft className="w-4 h-4" /> Back to tickets
       </button>
 
-      {/* Main content grid: Ticket detail on left, CRM panel on right */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
+      {/* Main content grid: Ticket detail on left, sidebar on right */}
+      <div className="grid grid-cols-1 gap-6" style={{ gridTemplateColumns: 'minmax(0,1fr) 260px' }}>
+        <div>
           {/* Header card */}
           <div className="rounded-xl border p-5 mb-4" style={cardStyle}>
         <div className="flex items-start gap-3 justify-between flex-wrap">
@@ -652,10 +670,10 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
               )}
               <SLATimer ticket={ticket} isDark={isDark} />
             </div>
-            <h2 className="text-xl font-bold mb-1.5 leading-tight" style={{ color: 'var(--ifm-color-content)', letterSpacing: '-0.01em' }}>
+            <h2 className="text-2xl font-extrabold mb-1.5 leading-tight" style={{ color: 'var(--ifm-color-content)', letterSpacing: '-0.02em' }}>
               {ticket.subject}
             </h2>
-            <p className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+            <p className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)', opacity: 0.65 }}>
               {ticket.email} · Created {formatDateTime(ticket.createdTime)} · {ticket.channel}
               {ticket.modifiedTime !== ticket.createdTime && ` · Updated ${formatDateTime(ticket.modifiedTime)}`}
             </p>
@@ -676,27 +694,72 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
         </div>
       </div>
 
-      {/* Description — moved above details, more prominent */}
-      {ticket.description && (
-        <div
-          className="rounded-xl border p-5 mb-4"
-          style={{
-            background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.9)',
-            borderColor: isDark ? 'rgba(232,176,88,0.2)' : 'rgba(232,176,88,0.3)',
-            borderLeft: '3px solid #E8B058',
-          }}
-        >
-          <h3 className="text-xs font-semibold uppercase tracking-wider mb-3 flex items-center gap-2" style={{ color: '#E8B058' }}>
-            <FileText className="w-3.5 h-3.5" /> Description
-          </h3>
+      {/* Description */}
+      {ticket.description && (() => {
+        const kvPairs = parseKeyValuePairs(ticket.description);
+        const plainText = htmlToText(ticket.description);
+        const isLong = kvPairs ? kvPairs.length > 6 : plainText.length > 400;
+        const showCollapse = isLong;
+        return (
           <div
-            className="text-sm max-w-none"
-            style={{ color: 'var(--ifm-color-content)', lineHeight: '1.7', fontSize: '0.9rem' }}
-            dangerouslySetInnerHTML={{ __html: renderContent(ticket.description) }}
-          />
-          <TranslateButton text={ticket.description} isDark={isDark} />
-        </div>
-      )}
+            className="rounded-xl border p-5 mb-4"
+            style={{
+              background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.9)',
+              borderColor: isDark ? 'rgba(232,176,88,0.2)' : 'rgba(232,176,88,0.3)',
+              borderLeft: '3px solid #E8B058',
+            }}
+          >
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-xs font-semibold uppercase tracking-wider flex items-center gap-2" style={{ color: '#E8B058' }}>
+                <FileText className="w-3.5 h-3.5" /> Description
+              </h3>
+              {showCollapse && (
+                <button
+                  onClick={() => setDescExpanded(s => !s)}
+                  className="text-xs transition-all hover:opacity-80"
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#E8B058' }}
+                >
+                  {descExpanded ? 'Collapse ↑' : 'Expand ↓'}
+                </button>
+              )}
+            </div>
+            {kvPairs ? (
+              <div
+                className="grid gap-x-6 gap-y-2"
+                style={{
+                  gridTemplateColumns: 'auto 1fr',
+                  maxHeight: showCollapse && !descExpanded ? '9rem' : 'none',
+                  overflow: showCollapse && !descExpanded ? 'hidden' : 'visible',
+                }}
+              >
+                {(showCollapse && !descExpanded ? kvPairs.slice(0, 4) : kvPairs).map((pair, i) => (
+                  <React.Fragment key={i}>
+                    <span className="text-xs font-medium py-0.5 whitespace-nowrap" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                      {pair.label}
+                    </span>
+                    <span className="text-sm py-0.5" style={{ color: 'var(--ifm-color-content)' }}>
+                      {pair.value}
+                    </span>
+                  </React.Fragment>
+                ))}
+              </div>
+            ) : (
+              <div
+                className="text-sm max-w-none"
+                style={{
+                  color: 'var(--ifm-color-content)',
+                  lineHeight: '1.7',
+                  fontSize: '0.9rem',
+                  maxHeight: showCollapse && !descExpanded ? '8rem' : 'none',
+                  overflow: showCollapse && !descExpanded ? 'hidden' : 'visible',
+                }}
+                dangerouslySetInnerHTML={{ __html: renderContent(ticket.description) }}
+              />
+            )}
+            <TranslateButton text={ticket.description} isDark={isDark} />
+          </div>
+        );
+      })()}
 
       {!isCustomer && <div className="rounded-xl border mb-4 overflow-hidden" style={cardStyle}>
         <button
@@ -813,6 +876,17 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
       )}
 
       {/* Conversation thread */}
+      {nonDescConvs.length === 0 && (
+        <div
+          className="rounded-xl border mb-4 p-8 flex flex-col items-center justify-center gap-2"
+          style={cardStyle}
+        >
+          <MessageSquare className="w-8 h-8 opacity-25" style={{ color: 'var(--ifm-color-content-secondary)' }} />
+          <p className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+            No responses yet. Our support team will reply soon.
+          </p>
+        </div>
+      )}
       {nonDescConvs.length > 0 && (
         <div className="rounded-xl border mb-4 overflow-hidden" style={cardStyle}>
           {/* Header */}
@@ -839,7 +913,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
 
           {isCustomer ? (
             /* ── Chat-bubble layout for customers ── */
-            <div className="p-5 space-y-5 max-h-[520px] overflow-y-auto">
+            <div className="p-5 space-y-5">
               {nonDescConvs.filter(c => c.isPublic !== false).map(conv => {
                 const isConvAgent = conv.commenter?.type === 'AGENT' || conv.author?.type === 'AGENT';
                 const person = conv.commenter ?? conv.author;
@@ -867,7 +941,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
                       isDark={isDark}
                     />
                     <div className={`flex flex-col gap-1 max-w-[76%] ${isConvAgent ? 'items-start' : 'items-end'}`}>
-                      <div className="flex items-center gap-1.5 flex-wrap text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                      <div className="flex items-center gap-1.5 flex-wrap text-xs" style={{ color: 'var(--ifm-color-content-secondary)', opacity: 0.8 }}>
                         {isConvAgent ? (
                           <>
                             <span className="font-semibold" style={{ color: '#E8B058' }}>{person?.name ?? 'Support Team'}</span>
@@ -895,16 +969,41 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
                           </>
                         )}
                       </div>
-                      <div
-                        className="text-sm p-3.5 leading-relaxed"
-                        style={{
-                          background: agentBubbleBg,
-                          borderRadius: isConvAgent ? '2px 16px 16px 16px' : '16px 2px 16px 16px',
-                          color: 'var(--ifm-color-content)',
-                          border: `1px solid ${agentBubbleBorder}`,
-                        }}
-                        dangerouslySetInnerHTML={{ __html: renderContent(conv.content) }}
-                      />
+                      {(() => {
+                        const msgText = htmlToText(conv.content);
+                        const isLongMsg = msgText.length > 600;
+                        const isMsgExpanded = expandedMsgs.has(conv.id);
+                        return (
+                          <>
+                            <div
+                              className="text-sm p-3.5 leading-relaxed"
+                              style={{
+                                background: agentBubbleBg,
+                                borderRadius: isConvAgent ? '2px 16px 16px 16px' : '16px 2px 16px 16px',
+                                color: 'var(--ifm-color-content)',
+                                border: `1px solid ${agentBubbleBorder}`,
+                                borderLeft: isConvAgent ? '3px solid #E8B058' : '3px solid #3b82f6',
+                                maxHeight: isLongMsg && !isMsgExpanded ? '8rem' : 'none',
+                                overflow: isLongMsg && !isMsgExpanded ? 'hidden' : 'visible',
+                              }}
+                              dangerouslySetInnerHTML={{ __html: renderContent(conv.content) }}
+                            />
+                            {isLongMsg && (
+                              <button
+                                onClick={() => setExpandedMsgs(prev => {
+                                  const next = new Set(prev);
+                                  if (next.has(conv.id)) next.delete(conv.id); else next.add(conv.id);
+                                  return next;
+                                })}
+                                className="text-xs mt-1 transition-all hover:opacity-80"
+                                style={{ background: 'none', border: 'none', cursor: 'pointer', color: isConvAgent ? '#E8B058' : '#3b82f6', padding: 0 }}
+                              >
+                                {isMsgExpanded ? 'Show less ↑' : 'Show more ↓'}
+                              </button>
+                            )}
+                          </>
+                        );
+                      })()}
                       <TranslateButton text={conv.content} isDark={isDark} />
                     </div>
                   </div>
@@ -977,8 +1076,14 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
         </div>
       )}
 
-      {/* Add comment */}
-      <div className="rounded-xl border p-5" style={cardStyle}>
+      {/* Add comment — sticky at bottom */}
+      <div style={{ position: 'sticky', bottom: 0, zIndex: 10 }}>
+      <div className="rounded-xl border p-5" style={{
+        ...cardStyle,
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        borderTop: `2px solid ${isDark ? 'rgba(59,130,246,0.2)' : 'rgba(59,130,246,0.15)'}`,
+      }}>
         {/* Reply type selector */}
         <div className="flex items-center gap-2 mb-4 flex-wrap">
           <div
@@ -1157,7 +1262,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
           value={comment}
           onChange={e => setComment(e.target.value)}
           placeholder={isCustomer ? 'Type your reply here... Our support team will respond as soon as possible.' : (isPublicComment ? 'Reply to customer...' : 'Internal note (not visible to customer)...')}
-          rows={isCustomer ? 5 : 4}
+          rows={isCustomer ? 7 : 5}
           className="w-full rounded-xl px-4 py-3 text-sm resize-none outline-none transition-all"
           style={{
             background: isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.8)',
@@ -1216,21 +1321,22 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
               className="hidden"
               onChange={e => setAttachFile(e.target.files?.[0] ?? null)}
             />
-            <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-              Cmd/Ctrl + Enter to submit
+            <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)', opacity: 0.45 }}>
+              Cmd/Ctrl + Enter
             </span>
           </div>
 
           <button
             onClick={handleAddComment}
             disabled={(!comment.trim() && !attachFile) || submitting || uploading}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
             style={{
-              background: (comment.trim() || attachFile) && !submitting ? '#E8B058' : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'),
-              color: (comment.trim() || attachFile) && !submitting ? '#000' : 'var(--ifm-color-content-secondary)',
+              background: (comment.trim() || attachFile) && !submitting ? '#3b82f6' : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'),
+              color: (comment.trim() || attachFile) && !submitting ? '#fff' : 'var(--ifm-color-content-secondary)',
               cursor: (!comment.trim() && !attachFile) || submitting ? 'not-allowed' : 'pointer',
               opacity: (!comment.trim() && !attachFile) || submitting ? 0.6 : 1,
               border: 'none',
+              boxShadow: (comment.trim() || attachFile) && !submitting ? '0 0 0 3px rgba(59,130,246,0.2)' : 'none',
             }}
           >
             {(submitting || uploading) ? <Loader className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
@@ -1244,11 +1350,12 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
           </p>
         )}
       </div>
-        </div>
+      </div>{/* end sticky wrapper */}
+        </div>{/* end center column */}
 
         {/* Right panel: Customer Info (customers) or CRM Panel (agents) */}
         {isCustomer ? (
-          <div className="space-y-4">
+          <div className="space-y-4" style={{ position: 'sticky', top: 16, alignSelf: 'start' }}>
 
             {/* Response Status */}
             <div className="rounded-xl border p-4" style={cardStyle}>
@@ -1278,6 +1385,17 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
                     }}
                   >
                     {ticket.status}
+                  </span>
+                </div>
+                <div
+                  className="flex items-center justify-between py-1.5"
+                  style={{ borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}` }}
+                >
+                  <span className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>Assigned to</span>
+                  <span className="text-xs font-medium" style={{ color: ticket.assignee ? 'var(--ifm-color-content)' : 'var(--ifm-color-content-secondary)' }}>
+                    {ticket.assignee
+                      ? (ticket.assignee.name || `${ticket.assignee.firstName} ${ticket.assignee.lastName}`.trim())
+                      : 'Unassigned'}
                   </span>
                 </div>
                 {ticket.status !== 'Closed' && (
@@ -1314,7 +1432,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
                   className="absolute top-2 bottom-2 w-px"
                   style={{ left: 5, background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }}
                 />
-                <div className="space-y-3 pl-4">
+                <div className="space-y-1.5 pl-4">
                   <div className="relative">
                     <div
                       className="absolute -left-4 top-1 w-2.5 h-2.5 rounded-full"

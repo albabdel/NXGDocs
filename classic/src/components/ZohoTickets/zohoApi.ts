@@ -73,7 +73,7 @@ export async function listTickets(
     from: String((page - 1) * limit),
     limit: String(limit),
     sortBy: '-createdTime',
-    include: 'team,contacts',
+    include: 'team,contacts,assignee',
   });
   
   if (isCustomer) {
@@ -96,7 +96,7 @@ export interface GetTicketOptions {
 
 export async function getTicket(options: GetTicketOptions): Promise<ZohoTicket> {
   const { id, isCustomer = false, token } = options;
-  return apiCall(`/tickets/${id}?include=team,contacts`, { isCustomer, token });
+  return apiCall(`/tickets/${id}?include=team,contacts,assignee`, { isCustomer, token });
 }
 
 /** Options for getting conversations */

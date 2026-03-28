@@ -132,26 +132,64 @@ export default function TicketPortal() {
                 </p>
               </div>
             </div>
-            <button
-              onClick={logout}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all hover:opacity-80"
-              style={{
-                background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
-                color: 'var(--ifm-color-content-secondary)',
-                border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
-                cursor: 'pointer',
-              }}
-            >
-              <LogOut className="w-4 h-4" />
-              Sign out
-            </button>
+            <div className="flex items-center gap-3">
+              {/* Sub-nav */}
+              <nav className="hidden sm:flex items-center gap-1 rounded-xl p-1" style={{
+                background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}`,
+              }}>
+                {[
+                  { label: 'My Tickets', active: true, onClick: () => setSelectedTicket(null) },
+                  { label: 'New Ticket', active: false, onClick: () => setShowCreate(true) },
+                ].map(tab => (
+                  <button
+                    key={tab.label}
+                    onClick={tab.onClick}
+                    className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
+                    style={{
+                      background: tab.active ? (isDark ? 'rgba(59,130,246,0.2)' : 'rgba(59,130,246,0.12)') : 'transparent',
+                      color: tab.active ? '#3b82f6' : 'var(--ifm-color-content-secondary)',
+                      border: tab.active ? '1px solid rgba(59,130,246,0.25)' : '1px solid transparent',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+                <a
+                  href="/docs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all no-underline"
+                  style={{
+                    color: 'var(--ifm-color-content-secondary)',
+                    border: '1px solid transparent',
+                  }}
+                >
+                  Help Center
+                </a>
+              </nav>
+              <button
+                onClick={logout}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all hover:opacity-80"
+                style={{
+                  background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
+                  color: 'var(--ifm-color-content-secondary)',
+                  border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                  cursor: 'pointer',
+                }}
+              >
+                <LogOut className="w-4 h-4" />
+                Sign out
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Main content with sidebar */}
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Sidebar - hidden on mobile when viewing ticket detail */}
-          <div className={`w-full lg:w-72 flex-shrink-0 ${selectedTicket ? 'hidden lg:block' : ''}`}>
+          <div className={`w-full lg:w-56 flex-shrink-0 ${selectedTicket ? 'hidden lg:block' : ''}`}>
             <CustomerSidebar
               session={session}
               isDark={isDark}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight, AlertCircle, Loader, ExternalLink, LayoutGrid, List, Clock } from 'lucide-react';
+import { ChevronLeft, ChevronRight, AlertCircle, Loader, ExternalLink, LayoutGrid, List, Clock, Ticket } from 'lucide-react';
 import { listTickets, listAgents, listStatuses } from './zohoApi';
 import type { ZohoTicket, ZohoAgent, ZohoStatus } from './types';
 import { calculateSLARemaining, formatSLARemaining } from './supportConfig';
@@ -35,6 +35,23 @@ function formatDate(iso: string): string {
   });
 }
 
+function formatRelativeTime(iso: string): string {
+  const diff = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  if (days < 30) return `${days}d ago`;
+  return formatDate(iso);
+}
+
+function htmlToPlain(html: string | null | undefined): string {
+  if (!html) return '';
+  return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
 function SLATimerMini({ ticket }: { ticket: ZohoTicket }) {
   const [slaData, setSlaData] = useState<ReturnType<typeof calculateSLARemaining>>(null);
   
@@ -68,24 +85,31 @@ function TicketCard({ ticket, onSelect, isDark, style }: {
   isDark: boolean;
   style?: React.CSSProperties;
 }) {
+  const [hovered, setHovered] = useState(false);
   const pStyle = PRIORITY_STYLES[ticket.priority] ?? PRIORITY_STYLES.Medium;
   const sStyle = STATUS_STYLES[ticket.status] ?? { bg: 'rgba(232,176,88,0.12)', color: '#E8B058' };
   const cardStyle = {
     background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.7)',
-    borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(232,176,88,0.15)',
+    borderColor: hovered
+      ? (isDark ? 'rgba(59,130,246,0.3)' : 'rgba(59,130,246,0.25)')
+      : (isDark ? 'rgba(255,255,255,0.08)' : 'rgba(232,176,88,0.15)'),
+    boxShadow: hovered ? (isDark ? '0 4px 16px rgba(0,0,0,0.3)' : '0 4px 16px rgba(0,0,0,0.08)') : 'none',
     ...style,
   };
+  const preview = htmlToPlain(ticket.description);
 
   return (
     <button
       key={ticket.id}
       onClick={() => onSelect(ticket)}
-      className="w-full text-left rounded-xl border p-4 transition-all duration-200 hover:scale-[1.005]"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="w-full text-left rounded-xl border p-3.5 transition-all duration-200"
       style={{ ...cardStyle, cursor: 'pointer', display: 'block' }}
     >
       <div className="flex items-start gap-3">
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1 flex-wrap">
+          <div className="flex items-center gap-1.5 mb-1 flex-wrap">
             <span className="text-xs font-mono font-medium" style={{ color: '#E8B058' }}>
               #{ticket.ticketNumber}
             </span>
@@ -100,23 +124,31 @@ function TicketCard({ ticket, onSelect, isDark, style }: {
                 Overdue
               </span>
             )}
+            <span className="text-xs ml-auto" style={{ color: 'var(--ifm-color-content-secondary)', opacity: 0.6 }}>
+              {formatRelativeTime(ticket.modifiedTime)}
+            </span>
           </div>
           <p className="text-sm font-semibold truncate" style={{ color: 'var(--ifm-color-content)' }}>
             {ticket.subject}
           </p>
-          <div className="flex items-center gap-3 mt-1">
-            <p className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-              {ticket.email} · {formatDate(ticket.createdTime)} · {ticket.channel}
-            </p>
-            <SLATimerMini ticket={ticket} />
-          </div>
-          {ticket.assignee && (
-            <p className="text-xs mt-0.5" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-              Assigned: {ticket.assignee.name || `${ticket.assignee.firstName} ${ticket.assignee.lastName}`}
+          {preview && (
+            <p className="text-xs truncate mt-0.5" style={{ color: 'var(--ifm-color-content-secondary)', opacity: 0.65 }}>
+              {preview.slice(0, 110)}
             </p>
           )}
+          <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+            <p className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)', opacity: 0.65 }}>
+              {ticket.channel} · {formatDate(ticket.createdTime)}
+            </p>
+            <SLATimerMini ticket={ticket} />
+            {ticket.assignee && (
+              <p className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)', opacity: 0.65 }}>
+                · {ticket.assignee.name || `${ticket.assignee.firstName} ${ticket.assignee.lastName}`}
+              </p>
+            )}
+          </div>
         </div>
-        <ExternalLink className="w-4 h-4 flex-shrink-0 mt-1" style={{ color: 'var(--ifm-color-content-secondary)' }} />
+        <ExternalLink className="w-3.5 h-3.5 flex-shrink-0 mt-1 transition-all" style={{ color: hovered ? '#3b82f6' : 'var(--ifm-color-content-secondary)', opacity: hovered ? 1 : 0.5 }} />
       </div>
     </button>
   );
@@ -424,8 +456,14 @@ export default function TicketList({ isDark, isCustomer, onSelect, token }: Prop
           )}
 
           {!loading && !error && tickets.length === 0 && (
-            <div className="text-center py-16" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-              <p className="text-sm">No tickets found{statusFilter !== 'all' ? ` with status "${statusFilter}"` : ''}{agentFilter !== 'all' ? ' for this agent' : ''}.</p>
+            <div className="flex flex-col items-center justify-center py-16 gap-3">
+              <Ticket className="w-10 h-10 opacity-20" style={{ color: 'var(--ifm-color-content-secondary)' }} />
+              <p className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>
+                {statusFilter !== 'all' ? `No "${statusFilter}" tickets` : 'No tickets found'}
+              </p>
+              <p className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                {isCustomer ? 'Create a new support request to get started.' : 'No tickets match the current filters.'}
+              </p>
             </div>
           )}
 
