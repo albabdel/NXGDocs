@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Design System Polish
-status: planned
-stopped_at: "v3.0 Design System Polish - PLANNED"
-last_updated: "2026-04-01T00:00:00Z"
-last_activity: "2026-04-01 — Design system planning complete: 5 phases, 8 plans created"
+status: in_progress
+stopped_at: "24-01 CSS Architecture - COMPLETE"
+last_updated: "2026-03-31T22:35:00Z"
+last_activity: "2026-03-31 — CSS @layer architecture complete: tokens split, style-override deleted"
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 8
-  completed_plans: 0
-  percent: 0
+  completed_plans: 1
+  percent: 12
 ---
 
 # Project State
@@ -26,13 +26,37 @@ See: .planning/ROADMAP-design-system.md (new milestone roadmap)
 
 ## Current Position
 
-Phase: v3.0 PLANNED — Design System Polish ready for execution
-Status: Milestone planned, awaiting execution
-Last activity: 2026-04-01 — Planning complete (0/8 plans executed)
+Phase: 24-css-architecture — CSS @layer Architecture
+Status: Plan 01 complete, continuing to next plan
+Last activity: 2026-03-31 — CSS @layer architecture complete (1/8 plans)
 
-Progress: [          ] 0% (0 of 8 plans complete)
+Progress: [==        ] 12% (1 of 8 plans complete)
 
 **Note:** v3.0 Design System Polish planned. 5 phases covering CSS architecture, component tokens, variant system, UI polish, and modern CSS features. Based on DESIGN_SYSTEM_ANALYSIS_AND_IMPLEMENTATION_PLAN.md.
+
+## Phase 24: CSS Architecture (In Progress)
+
+### Plan 01: CSS @layer Architecture (Complete)
+
+**Summary:** CSS @layer architecture and file split for predictable cascade control and style discoverability.
+
+**Changes:**
+- Added CSS @layer declarations (docusaurus, tokens, components, utilities, overrides)
+- Split 3,906-line custom.css into focused files:
+  - tokens.css — Design tokens with :root and [data-theme='dark']
+  - typography.css — Font families, heading sizes
+  - components/sidebar.css — Sidebar styling with gold theme
+  - components/code-blocks.css — Code block styles
+  - components/cards.css — Card component styles
+- Deleted unused style-override.css
+- Updated docusaurus.config.ts to load all CSS files in order
+
+**Commits:**
+- 1f6cc0d — feat(24-01): add CSS @layer architecture to custom.css
+- db37e50 — feat(24-01): split CSS into focused files
+- b9523fc — chore(24-01): delete unused style-override.css
+
+**Requirements:** CSS-01, CSS-02, CSS-03, CSS-04
 
 ## Phase 10 Complete
 
@@ -115,6 +139,9 @@ All 5 phases complete:
 
 Recent decisions affecting current work:
 
+- [24-01]: Use CSS @layer to override Docusaurus without !important — cascade control
+- [24-01]: Split CSS into tokens, typography, and component files for discoverability
+- [24-01]: Load CSS files in order: tokens -> typography -> components -> custom
 - [v1.1 roadmap]: Zero new npm packages needed — all libraries already installed
 - [v1.1 roadmap]: Build-time JSON is the SSG-safe data contract — no runtime API calls
 - [v1.1 roadmap]: Phases 7 and 8 can run in parallel after Phase 6 is verified
