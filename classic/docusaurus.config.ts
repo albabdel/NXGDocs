@@ -93,7 +93,14 @@ const config: Config = {
         docs: false,
         blog: false, // Disable blog
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: [
+            './src/css/tokens.css',
+            './src/css/typography.css',
+            './src/css/components/sidebar.css',
+            './src/css/components/code-blocks.css',
+            './src/css/components/cards.css',
+            './src/css/custom.css',
+          ],
         },
         sitemap: {
           changefreq: 'weekly',

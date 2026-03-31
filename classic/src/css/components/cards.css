@@ -1,0 +1,134 @@
+/**
+ * NXGEN Card Styles
+ * 
+ * Feature cards, content cards, and card-like components.
+ */
+
+/* === FEATURE CARDS === */
+.feature-card {
+  background: var(--card-bg);
+  border: var(--card-border);
+  border-radius: var(--ifm-card-border-radius);
+  padding: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--card-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card:hover {
+  background: var(--card-bg-hover);
+  border: var(--card-border-hover);
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* Gold gradient border for cards */
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    var(--ifm-color-primary), 
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+/* Dark Mode Cards */
+[data-theme='dark'] .feature-card {
+  background: #202020;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] .feature-card:hover {
+  background: #2a2a2a;
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 24px rgba(232, 176, 88, 0.15);
+}
+
+/* Light Mode Cards */
+[data-theme='light'] .feature-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme='light'] .feature-card:hover {
+  background: #FAFAFA;
+  border-color: var(--nxgen-gold-accessible);
+  box-shadow: 0 8px 24px rgba(200, 148, 70, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* === CARD CONTENT === */
+.feature-card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--heading-color);
+  margin-bottom: 0.5rem;
+}
+
+.feature-card-description {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* === ARTICLE CARDS (for list pages) === */
+article.margin-bottom--lg {
+  background: var(--card-bg);
+  border: var(--card-border);
+  border-radius: var(--ifm-card-border-radius);
+  transition: all 0.3s ease;
+  box-shadow: var(--card-shadow);
+}
+
+article.margin-bottom--lg:hover {
+  background: var(--card-bg-hover);
+  border: var(--card-border-hover);
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+[data-theme='dark'] article.margin-bottom--lg {
+  background: #202020;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='light'] article.margin-bottom--lg {
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+}
+
+/* === GENERIC CARD CLASS === */
+.card {
+  background: var(--card-bg);
+  border: var(--card-border);
+  border-radius: var(--ifm-card-border-radius);
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--card-shadow-hover);
+}
+
+[data-theme='dark'] .card {
+  background: #202020;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='light'] .card {
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+}

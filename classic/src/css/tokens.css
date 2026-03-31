@@ -1,0 +1,258 @@
+/**
+ * NXGEN Design Tokens
+ * 
+ * All CSS custom properties (design tokens) for the NXGEN GCXONE documentation site.
+ * Includes light mode defaults in :root and dark mode overrides in [data-theme='dark'].
+ */
+
+/* ==========================================================================
+   LIGHT MODE TOKENS
+   ========================================================================== */
+:root {
+  /* === NXGEN PRIMARY BRAND COLORS (Gold) === */
+  --ifm-color-primary: #C89446;
+  --nxgen-gold: #C89446;
+  --ifm-color-primary-dark: #B58237;
+  --ifm-color-primary-darker: #A37028;
+  --ifm-color-primary-darkest: #915E19;
+  --ifm-color-primary-light: #D4A574;
+  --nxgen-gold-light: #D4A574;
+  --ifm-color-primary-lighter: #E0B688;
+  --nxgen-gold-lighter: #E0B688;
+  --ifm-color-primary-lightest: #F0CDA5;
+
+  /* === LIGHT MODE ACCESSIBLE GOLD (Darker for WCAG AA on white) === */
+  --nxgen-gold-accessible: #996B1F;
+  --nxgen-gold-accessible-hover: #7A5518;
+
+  /* === NXGEN DARK PALETTE === */
+  --nxgen-black: #000000;
+  --nxgen-dark-100: #0A0A0A;
+  --nxgen-dark-200: #121212;
+  --nxgen-dark-300: #1A1A1A;
+  --nxgen-dark-400: #2A2A2A;
+
+  /* === NXGEN TEXT COLORS === */
+  --nxgen-white: #FFFFFF;
+  --nxgen-gray-100: #EEEEEE;
+  --nxgen-gray-200: #DDDDDD;
+  --nxgen-gray-300: #CCCCCC;
+  --nxgen-gray-400: #AAAAAA;
+  --nxgen-gray-500: #888888;
+  --nxgen-gray-600: #666666;
+
+  /* === NXGEN GLOW EFFECTS === */
+  --nxgen-glow-sm: 0 0 10px rgba(200, 148, 70, 0.2);
+  --nxgen-glow-md: 0 0 20px rgba(200, 148, 70, 0.3);
+  --nxgen-glow-lg: 0 0 30px rgba(200, 148, 70, 0.4);
+  --nxgen-glow-xl: 0 0 40px rgba(200, 148, 70, 0.5);
+
+  /* ==========================================================================
+     SEMANTIC DESIGN TOKENS - LIGHT MODE FIRST
+     These tokens provide theme-aware values for components.
+     CRITICAL: Dark Mode values are set in [data-theme='dark'] section below.
+     ========================================================================== */
+
+  /* --- Card & Surface Tokens --- */
+  --card-bg: #FFFFFF;
+  --card-bg-hover: #F8F9FA;
+  --card-border: 1px solid #E5E5E5;
+  --card-border-hover: 1px solid #D1D5DB;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* --- Text Tokens --- */
+  --text-primary: #1A1A1A;
+  --text-secondary: #4B5563;
+  --text-muted: #6B7280;
+  --text-inverse: #FFFFFF;
+
+  /* --- Heading Tokens --- */
+  --heading-color: #1A1A1A;
+  --heading-color-secondary: #374151;
+
+  /* --- Border Tokens --- */
+  --border-subtle: rgba(0, 0, 0, 0.1);
+  --border-default: #E5E7EB;
+  --border-strong: #D1D5DB;
+
+  /* --- Interactive Gold (WCAG AA Compliant on white) --- */
+  --gold-text: #996B1F;
+  --gold-text-hover: #7A5518;
+  --gold-bg: rgba(200, 148, 70, 0.1);
+  --gold-bg-hover: rgba(200, 148, 70, 0.15);
+  --gold-border: rgba(153, 107, 31, 0.3);
+
+  /* --- Component-Specific Tokens --- */
+  --table-bg: #FFFFFF;
+  --table-header-bg: #F9FAFB;
+  --table-border: #E5E7EB;
+  --table-row-hover: #F3F4F6;
+
+  --code-bg: #F5F5F7;
+  --code-border: #E5E7EB;
+
+  --breadcrumb-bg: rgba(255, 255, 255, 0.9);
+  --breadcrumb-text: #4B5563;
+  --breadcrumb-link: #1A1A1A;
+
+  --toc-bg: rgba(248, 250, 252, 0.95);
+  --toc-border: rgba(203, 213, 225, 0.6);
+  --toc-text: #475569;
+  --toc-text-hover: var(--nxgen-gold-accessible);
+
+  /* === APPLE-INSPIRED TYPOGRAPHY === */
+  --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+
+  /* Fixed Font Scale - Apple's Typography Scale */
+  --ifm-font-size-base: 17px; /* Apple's preferred reading size */
+  --ifm-h1-font-size: 2.5rem; /* 42px */
+  --ifm-h2-font-size: 2rem;   /* 34px */
+  --ifm-h3-font-size: 1.5rem; /* 25px */
+  --ifm-h4-font-size: 1.25rem; /* 21px */
+  --ifm-h5-font-size: 1.125rem; /* 19px */
+  --ifm-h6-font-size: 1rem;   /* 17px */
+  --ifm-line-height-base: 1.6; /* Apple's preferred line height */
+
+  --ifm-font-weight-light: 300;
+  --ifm-font-weight-normal: 400;
+  --ifm-font-weight-medium: 500;
+  --ifm-font-weight-semibold: 600;
+  --ifm-font-weight-bold: 700;
+
+  /* === LIGHT MODE COLORS - Modern Clean Design === */
+  --ifm-background-color: #f8f9fa; /* Light gray background */
+  --ifm-background-surface-color: #ffffff; /* Pure white for cards and surfaces */
+  --ifm-color-content: #1a1a1a; /* Dark text for excellent readability */
+  --ifm-color-content-secondary: #6b7280; /* Medium gray for secondary text */
+  --ifm-color-emphasis-100: #f3f4f6; /* Very light gray for subtle backgrounds */
+  --ifm-color-emphasis-200: #e5e7eb; /* Light gray for borders and dividers */
+  --ifm-color-emphasis-300: #d1d5db; /* Medium-light gray */
+  --ifm-color-emphasis-400: #9ca3af; /* Medium gray */
+  --ifm-color-emphasis-500: #6b7280; /* Darker gray for muted text */
+
+  /* === SEMANTIC COLORS === */
+  --color-success: #22C55E; /* Green - Success states */
+  --color-warning: #F59E0B; /* Amber/Orange - Warnings */
+  --color-danger: #EF4444; /* Red - Errors, destructive actions */
+  --color-info: #3B82F6; /* Blue - Informational messages */
+
+  /* === SPACING - Apple's 8pt Grid System === */
+  --space-1: 0.25rem;  /* 4px - Tight spacing, icons */
+  --space-2: 0.5rem;   /* 8px - Small gaps */
+  --space-3: 0.75rem;  /* 12px - Default spacing */
+  --space-4: 1rem;     /* 16px - Standard spacing */
+  --space-6: 1.5rem;   /* 24px - Medium spacing */
+  --space-8: 2rem;     /* 32px - Large spacing */
+  --space-12: 3rem;    /* 48px - Section spacing */
+  --space-16: 4rem;    /* 64px - Major section spacing */
+
+  --ifm-spacing-horizontal: 1.5rem;
+  --ifm-navbar-height: 0px;
+  --ifm-sidebar-width: 300px;
+
+  /* === BORDER RADIUS - Apple's Design Language === */
+  --ifm-border-radius: 12px;
+  --ifm-card-border-radius: 16px;
+  --ifm-button-border-radius: 22px;
+
+  /* === SHADOWS - Apple's Depth System === */
+  --ifm-global-shadow-lw: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --ifm-global-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --ifm-global-shadow-tl: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+
+  /* === CODE BLOCKS === */
+  --ifm-code-font-size: 0.9em;
+  --ifm-code-background: #f5f5f7;
+  --ifm-code-border-radius: var(--ifm-border-radius);
+  --docusaurus-highlighted-code-line-bg: rgba(232, 176, 88, 0.1);
+
+  /* === TRANSITIONS - Apple's Smooth Animations === */
+  --ifm-transition-fast: 0.2s ease-out;
+  --ifm-transition-slow: 0.3s ease-out;
+
+  /* === RESPONSIVE BREAKPOINTS === */
+  --breakpoint-mobile: 480px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 996px;
+}
+
+/* ==========================================================================
+   DARK MODE TOKENS - NXGEN AUTHENTIC DARK THEME
+   CRITICAL: These values are the "Golden Master" - DO NOT MODIFY
+   ========================================================================== */
+[data-theme='dark'] {
+  /* Core Backgrounds */
+  --ifm-background-color: var(--nxgen-dark-100);
+  --ifm-background-surface-color: var(--nxgen-dark-200);
+  --ifm-card-background: var(--nxgen-dark-200);
+
+  /* Text Colors */
+  --ifm-color-content: var(--nxgen-white);
+  --ifm-color-content-secondary: rgba(204, 204, 204, 0.9);
+
+  /* UI/Borders */
+  --ifm-color-emphasis-100: var(--nxgen-dark-200);
+  --ifm-color-emphasis-200: rgba(200, 148, 70, 0.15);
+  --ifm-color-emphasis-300: var(--nxgen-dark-400);
+  --ifm-color-emphasis-400: #3A3A3A;
+  --ifm-color-emphasis-500: #4A4A4A;
+
+  /* Semantic Colors - Adjusted for dark mode */
+  --color-success: #22C55E;
+  --color-warning: #FBBF24;
+  --color-danger: #F87171;
+  --color-info: #60A5FA;
+
+  --ifm-code-background: var(--nxgen-dark-200);
+  --docusaurus-highlighted-code-line-bg: rgba(200, 148, 70, 0.15);
+
+  /* --- Card & Surface Tokens (Dark) --- */
+  --card-bg: #202020;
+  --card-bg-hover: #2a2a2a;
+  --card-border: 1px solid rgba(255, 255, 255, 0.1);
+  --card-border-hover: 1px solid rgba(255, 255, 255, 0.2);
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --card-shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.4);
+
+  /* --- Text Tokens (Dark) --- */
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-muted: rgba(255, 255, 255, 0.5);
+  --text-inverse: #000000;
+
+  /* --- Heading Tokens (Dark) --- */
+  --heading-color: #FFFFFF;
+  --heading-color-secondary: rgba(255, 255, 255, 0.9);
+
+  /* --- Border Tokens (Dark) --- */
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-default: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.2);
+
+  /* --- Interactive Gold (Original Gold for Dark Mode) --- */
+  --gold-text: #C89446;
+  --gold-text-hover: #D4A574;
+  --gold-bg: rgba(200, 148, 70, 0.15);
+  --gold-bg-hover: rgba(200, 148, 70, 0.25);
+  --gold-border: rgba(200, 148, 70, 0.3);
+
+  /* --- Component-Specific Tokens (Dark) --- */
+  --table-bg: #202020;
+  --table-header-bg: rgba(255, 255, 255, 0.05);
+  --table-border: rgba(255, 255, 255, 0.1);
+  --table-row-hover: rgba(255, 255, 255, 0.05);
+
+  --code-bg: #202020;
+  --code-border: rgba(255, 255, 255, 0.1);
+
+  --breadcrumb-bg: #202020;
+  --breadcrumb-text: rgba(255, 255, 255, 0.7);
+  --breadcrumb-link: #FFFFFF;
+
+  --toc-bg: #202020;
+  --toc-border: rgba(255, 255, 255, 0.1);
+  --toc-text: rgba(255, 255, 255, 0.7);
+  --toc-text-hover: #C89446;
+}

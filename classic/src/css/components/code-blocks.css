@@ -1,0 +1,127 @@
+/**
+ * NXGEN Code Block Styles
+ * 
+ * Syntax highlighting, code blocks, and inline code styling.
+ */
+
+/* === CODE BLOCK CONTAINER === */
+.prism-code {
+  border-radius: var(--ifm-code-border-radius);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--code-border);
+  background: var(--code-bg) !important;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.875rem;
+  line-height: 1.7;
+  padding: 1.25rem;
+  transform: translateZ(0);
+}
+
+/* Light Mode Code Blocks */
+[data-theme='light'] .prism-code {
+  background: #F8F9FA !important;
+  border-color: #E5E7EB;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Dark Mode Code Blocks - IMMUTABLE */
+[data-theme='dark'] .prism-code {
+  background: #202020 !important;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* === HIGHLIGHTED LINE === */
+.theme-code-block-highlighted-line {
+  background-color: var(--docusaurus-highlighted-code-line-bg);
+  display: block;
+  margin: 0 -1rem;
+  padding: 0 1rem;
+  border-left: 3px solid var(--ifm-color-primary);
+}
+
+/* === INLINE CODE === */
+.markdown code:not(pre code),
+.theme-doc-markdown code:not(pre code),
+table code,
+li code,
+ul code,
+ol code,
+p code {
+  background: var(--code-bg);
+  color: var(--ifm-code-font-color, var(--text-primary));
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: var(--ifm-font-family-monospace);
+  border: 1px solid var(--code-border);
+}
+
+[data-theme='light'] .markdown code:not(pre code),
+[data-theme='light'] .theme-doc-markdown code:not(pre code),
+[data-theme='light'] table code,
+[data-theme='light'] li code {
+  background: #F8F9FA;
+  border-color: #E5E7EB;
+  color: #1A1A1A;
+}
+
+[data-theme='dark'] .markdown code:not(pre code),
+[data-theme='dark'] .theme-doc-markdown code:not(pre code),
+[data-theme='dark'] table code,
+[data-theme='dark'] li code {
+  background: #202020;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+/* === CODE BLOCK CONTAINER (Enhanced) === */
+div[class*="codeBlockContainer"] {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(200, 148, 70, 0.15);
+  transition: all 0.3s ease;
+}
+
+div[class*="codeBlockContainer"]:hover {
+  border-color: rgba(200, 148, 70, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme='dark'] div[class*="codeBlockContainer"]:hover {
+  box-shadow: 0 4px 30px rgba(200, 148, 70, 0.1);
+}
+
+/* === CODE BLOCK TITLE/LANGUAGE BADGE === */
+div[class*="codeBlockTitle"] {
+  background: linear-gradient(135deg, rgba(200, 148, 70, 0.15) 0%, rgba(200, 148, 70, 0.05) 100%) !important;
+  border-bottom: 1px solid rgba(200, 148, 70, 0.2) !important;
+  color: #C89446 !important;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem !important;
+}
+
+/* === COPY BUTTON === */
+button[class*="copyButton"] {
+  background: rgba(200, 148, 70, 0.1) !important;
+  border: 1px solid rgba(200, 148, 70, 0.3) !important;
+  border-radius: 8px !important;
+  color: #C89446 !important;
+  transition: all 0.2s ease !important;
+}
+
+button[class*="copyButton"]:hover {
+  background: rgba(200, 148, 70, 0.2) !important;
+  border-color: rgba(200, 148, 70, 0.5) !important;
+  transform: scale(1.05);
+}
+
+/* Copy button success state */
+button[class*="copyButton"][class*="copyButtonCopied"] {
+  background: rgba(34, 197, 94, 0.2) !important;
+  border-color: rgba(34, 197, 94, 0.5) !important;
+  color: #22C55E !important;
+}
