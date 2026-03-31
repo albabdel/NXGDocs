@@ -5,32 +5,28 @@
 - v1.0 MVP - Phases 1-5 (shipped 2026-03-08)
 - v1.1 Releases & Roadmap - Phases 6-10 (shipped 2026-03-16)
 - v1.2 Confluence Integration - Phases 11-15 (on hold)
-- **v2.0 Admin Command Center - Phases 16-23 (current)**
+- v2.0 Admin Command Center - Phases 16-23 (shipped 2026-03-17)
+- **v3.0 Design System Polish - Phases 24-28 (current)**
 
-## Current Milestone: v2.0 Admin Command Center
+## Current Milestone: v3.0 Design System Polish
 
-**See detailed roadmap:** `.planning/ROADMAP-admin-dashboard.md`
+**See detailed roadmap:** `.planning/ROADMAP-design-system.md`
 
-**Goal:** Transform staff login into a full admin command center with:
-- OAuth org-based authentication
-- Content approval workflow (editors submit → admins review)
-- Dynamic routing and block editing
-- Analytics dashboard
-- Audit trail
-- Unified ticketing oversight
-- Source tracking (Sanity vs Confluence)
+**Goal:** Transform CSS from a patchwork of inline styles and `!important` hacks into a maintainable, token-driven design system:
+- CSS @layer architecture for predictable cascade
+- Component tokens replacing 959 `isDark` conditional branches
+- Type-safe component variants (Button, Dialog, Card)
+- Premium UI polish (layered shadows, focus states, reduced motion)
+- Modern CSS features (light-dark, container queries, nesting)
 
 **Phases:**
 | Phase | Name | Status |
 |-------|------|--------|
-| 16 | Auth Foundation | 📋 Planned |
-| 17 | Admin Shell & Sidebar | 📋 Planned |
-| 18 | Content Approval Workflow | 📋 Planned |
-| 19 | Routing & Block Editor | 📋 Planned |
-| 20 | Analytics Dashboard | 📋 Planned |
-| 21 | Audit & Compliance | 📋 Planned |
-| 22 | Ticketing Integration | 📋 Planned |
-| 23 | Polish & Testing | 📋 Planned |
+| 24 | CSS Architecture | 📋 Planned |
+| 25 | Component Tokens | 📋 Planned |
+| 26 | Variant System | 📋 Planned |
+| 27 | UI Polish | 📋 Planned |
+| 28 | Modern CSS | 📋 Planned |
 
 ## Phases
 
