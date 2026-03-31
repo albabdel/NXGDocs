@@ -3,6 +3,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* CSS Layer Architecture - Override Docusaurus without !important */
+@layer docusaurus, tokens, components, utilities, overrides;
 
 /** 
  * NXGEN GCXONE Documentation Design System 
@@ -13,6 +15,11 @@
 
 /* Import Apple's SF Pro font family and Inter as fallback */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+
+/* ==========================================================================
+   TOKENS LAYER - Design tokens and CSS variables
+   ========================================================================== */
+@layer tokens {
 
 :root {
   /* === NXGEN PRIMARY BRAND COLORS (Gold) === */
@@ -287,6 +294,13 @@
   --toc-text: rgba(255, 255, 255, 0.7);
   --toc-text-hover: #C89446;
 }
+
+} /* End @layer tokens */
+
+/* ==========================================================================
+   COMPONENTS LAYER - All component-specific styles
+   ========================================================================== */
+@layer components {
 
 /* === GLOBAL RESET & BASE STYLES === */
 * {
@@ -3904,3 +3918,5 @@ body:has([data-admin-layout]) .background-pattern-container {
     margin-left: 0 !important;
   }
 }
+
+} /* End @layer components */
