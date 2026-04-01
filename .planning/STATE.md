@@ -3,16 +3,16 @@ gsd_state_version: 1.0
 milestone: v5.0
 milestone_name: Multi-Product Architecture
 status: executing
-stopped_at: "37-01 complete"
-last_updated: "2026-04-01T19:15:00Z"
-last_activity: "2026-04-01 â€” Plan 37-01 complete: Multi-build orchestrator script"
+stopped_at: "38 complete"
+last_updated: "2026-04-01T20:00:00Z"
+last_activity: "2026-04-01 — Phase 38 complete: Product Configuration & Branding"
 progress:
   total_phases: 6
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 15
-  completed_plans: 6
-  percent: 40
-  current_phase: 38-product-config-branding
+  completed_plans: 9
+  percent: 60
+  current_phase: 39-cloudflare-multi-project
   current_plan: 01
 ---
 
@@ -23,16 +23,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-13)
 See: .planning/ROADMAP.md (v5.0 phases 35-40)
 
-**Core value:** Non-technical editors can open a web UI, write content, and publish it â€” without a developer as a bottleneck.
-**Current focus:** v5.0 Multi-Product Architecture â€” Phase 37 complete, Phase 38 next
+**Core value:** Non-technical editors can open a web UI, write content, and publish it — without a developer as a bottleneck.
+**Current focus:** v5.0 Multi-Product Architecture — Phase 38 complete, Phase 39 next
 
 ## Current Position
 
-Phase: 38-product-config-branding â€” Product Configuration & Branding
-Status: EXECUTING - Phase 37 complete, ready for Phase 38
-Last activity: 2026-04-01 â€” Plan 37-01 complete: Multi-build orchestrator script
+Phase: 39-cloudflare-multi-project — Cloudflare Multi-Project Deployment
+Status: EXECUTING - Phase 38 complete, ready for Phase 39
+Last activity: 2026-04-01 — Phase 38 complete: Product Configuration & Branding
 
-Progress: [====      ] 40% (6 of 15 plans complete)
+Progress: [======    ] 60% (9 of 15 plans complete)
 
 **Roadmap Summary:** v5.0 transforms single-product docs into multi-product architecture with GCXONE and GC Surge.
 
@@ -46,6 +46,8 @@ Progress: [====      ] 40% (6 of 15 plans complete)
 | Authentication | Auth0 with product_access claim | Multi-product access control |
 | Analytics | PostHog with product context | Per-product dashboards |
 | Deployment | Separate Cloudflare Pages projects | Isolated domains and rebuilds |
+| Product config | product.config.ts + PRODUCT env var | Type-safe configuration per product |
+| Product theming | CSS custom properties + theme class | Dynamic color injection per product |
 
 ## Critical Security Concerns
 
@@ -75,6 +77,9 @@ Recent decisions affecting current work:
 - [35-03]: Product guard pattern enforced at function entry point
 - [Phase 37]: Parallel builds enabled by default (Promise.all) for efficiency
 - [Phase 37]: require cache cleared between builds to ensure fresh PRODUCT env var
+- [Phase 38]: product.config.ts provides type-safe configuration for each product
+- [Phase 38]: Theme class injected via Root.tsx based on PRODUCT env var
+- [Phase 38]: GCXONE uses gold (#C89446), GCSurge uses blue (#3B82F6)
 
 ### Pending Todos
 
@@ -91,14 +96,14 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: 37-01 complete
-Status: v5.0 Multi-Product Architecture - Phase 37 complete
+Stopped at: 38 complete
+Status: v5.0 Multi-Product Architecture - Phase 38 complete
 
 **Next Steps:**
-1. Continue with Phase 38 (Product Configuration & Branding)
-2. Create product.config.ts with product-specific values
-3. Integrate product config with Docusaurus
-4. Implement product-specific theming
+1. Continue with Phase 39 (Cloudflare Multi-Project Deployment)
+2. Set up Cloudflare Pages projects for each product
+3. Configure Sanity webhook routing
+4. Document deployment runbook
 
 ---
-*STATE.md updated: 2026-04-01T19:15:00Z*
+*STATE.md updated: 2026-04-01T20:00:00Z*
