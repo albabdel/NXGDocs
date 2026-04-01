@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Design System Polish
 status: in_progress
-stopped_at: "26-02 Dialog and Card Primitives - COMPLETE"
-last_updated: "2026-04-01T05:42:52Z"
-last_activity: "2026-04-01 — Dialog and Card primitives: Radix wrapper, CVA variants, glass tokens"
+stopped_at: "28-01 Modern CSS Features - COMPLETE"
+last_updated: "2026-04-01T06:36:16Z"
+last_activity: "2026-04-01 — Modern CSS features: light-dark(), container queries, CSS nesting (6/8 plans)"
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 8
-  completed_plans: 5
-  percent: 63
+  completed_plans: 6
+  percent: 75
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/ROADMAP-design-system.md (new milestone roadmap)
 
 ## Current Position
 
-Phase: 26-variant-system — Component Variant System
-Status: Plan 02 complete, phase complete
-Last activity: 2026-04-01 — Dialog and Card primitives (5/8 plans)
+Phase: 28-modern-css — Modern CSS Features
+Status: Plan 01 complete, phase complete
+Last activity: 2026-04-01 — Modern CSS features (6/8 plans)
 
-Progress: [======    ] 63% (5 of 8 plans complete)
+Progress: [=======   ] 75% (6 of 8 plans complete)
 
 **Note:** v3.0 Design System Polish planned. 5 phases covering CSS architecture, component tokens, variant system, UI polish, and modern CSS features. Based on DESIGN_SYSTEM_ANALYSIS_AND_IMPLEMENTATION_PLAN.md.
 
@@ -133,6 +133,44 @@ Progress: [======    ] 63% (5 of 8 plans complete)
 
 **Requirements:** CVA-04, CVA-05
 
+## Phase 27: Premium Hover States (Complete)
+
+### Plan 01: Remove Tailwind @layer Syntax (Complete)
+
+**Summary:** Fixed Docusaurus build by removing Tailwind-style @layer syntax from zoho-tickets.css.
+
+**Commits:**
+- 69ca825 — fix(27-01): remove Tailwind @layer syntax for Docusaurus compatibility
+
+**Requirements:** MOD-04
+
+### Plan 02: Premium Hover States (Complete)
+
+**Summary:** Added premium hover states to cards with lift, shadow, and gold gradient border effects.
+
+**Commits:**
+- 71d24bd — feat(27-02): add premium hover states to cards
+
+**Requirements:** MOD-05
+
+## Phase 28: Modern CSS Features (Complete)
+
+### Plan 01: Modern CSS Features (Complete)
+
+**Summary:** Adopted modern CSS features (light-dark, container queries, CSS nesting) to reduce complexity and improve maintainability.
+
+**Changes:**
+- Added light-dark() for theme tokens (93%+ browser support)
+- Added container queries for responsive cards (89%+ browser support)
+- Added CSS nesting syntax for component styles (92%+ browser support)
+
+**Commits:**
+- ec44eba — feat(28-01): use light-dark() for theme tokens
+- f70a2ec — feat(28-01): add container queries for responsive cards
+- b6e5d88 — feat(28-01): use CSS nesting in component CSS
+
+**Requirements:** MOD-01, MOD-02, MOD-03
+
 ## Phase 10 Complete
 
 ### Implementation Summary
@@ -214,6 +252,9 @@ All 5 phases complete:
 
 Recent decisions affecting current work:
 
+  - [28-01]: Use light-dark() for theme tokens - browser support 93%+, eliminates :root + [data-theme] duplication
+  - [28-01]: Use container queries for cards - enables component-level responsive layouts independent of viewport
+  - [28-01]: Use CSS nesting syntax (&:hover, &:active) for cleaner component selectors - 92%+ browser support
   - [26-01]: Use CVA for type-safe component variants instead of manual className unions
   - [26-01]: Export buttonVariants for className composition with other utilities
   - [26-01]: Use existing CSS tokens (--glass-bg, --gold-text) for theme compatibility
@@ -266,18 +307,15 @@ None — v1.1 milestone complete.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: 26-02 Dialog and Card Primitives - COMPLETE
-Status: Phase 26 complete, ready for next phase
+Stopped at: 28-01 Modern CSS Features - COMPLETE
+Status: Phase 28 complete, ready for next phase
 
 **Completion Summary:**
-- Phase 16: Auth Foundation — OAuth, sessions, protected routes
-- Phase 17: Admin Shell & Sidebar — Layout, navigation, 8 pages
-- Phase 18: Content Approval Workflow — Review queue, approve/reject
-- Phase 19: Routing & Block Editor — Dynamic routes, visual editing
-- Phase 20: Analytics Dashboard — Metrics, charts, performance
-- Phase 21: Audit & Compliance — Complete audit trail, retention
-- Phase 22: Ticketing Integration — Embedded ticketing
-- Phase 23: Polish & Testing — E2E tests, a11y, performance
+- Phase 24: CSS Architecture — @layer, file split, cascade control
+- Phase 25: Component Tokens — Glassmorphism tokens, token migration
+- Phase 26: Variant System — CVA Button, Dialog, Card primitives
+- Phase 27: Premium Hover States — Card hover effects, Tailwind fix
+- Phase 28: Modern CSS Features — light-dark(), container queries, CSS nesting
 
 ---
 
