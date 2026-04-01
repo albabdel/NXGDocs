@@ -1,7 +1,16 @@
 // classic/src/pages/auth/callback.tsx
-// Auth0 callback handler — reads id_token from URL hash, exchanges for Zoho session
+// Auth0 callback handler — handles both Auth0 SDK callback and Zoho session exchange
 //
-// Flow:
+// Two callback modes:
+// 1. Auth0 SDK callback (code in URL search params) — for general auth
+// 2. Zoho callback (id_token in URL hash) — for support portal session
+//
+// Flow for Auth0 SDK:
+//   1. Auth0 redirects here after login: /auth/callback?code=...&state=...
+//   2. Auth0 SDK handles the callback automatically
+//   3. Redirects to stored path or home
+//
+// Flow for Zoho:
 //   1. Auth0 redirects here after login: /auth/callback#id_token=...&nonce=...
 //   2. This page extracts the id_token from the hash
 //   3. POSTs to /zoho-customer-auth with { action: 'auth0-exchange', idToken }
@@ -11,12 +20,19 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '@theme/Layout';
 import BrowserOnly from '@docusaurus/BrowserOnly';
+import { useAuth0 } from '@auth0/auth0-react';
+import { AuthCallback } from '../../components/Auth';
+import '../../css/components/admin.css';
 
 const SESSION_STORAGE_KEY = 'zoho_customer_session';
 const PENDING_NONCE_KEY = 'zoho_pending_nonce';
 const PENDING_MODE_KEY = 'zoho_pending_mode';
 
-function CallbackHandler() {
+/**
+ * Zoho callback handler for support portal authentication.
+ * Exchanges Auth0 id_token for Zoho session.
+ */
+function ZohoCallbackHandler() {
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -105,9 +121,6 @@ function CallbackHandler() {
     })();
   }, []);
 
-  const isDark = typeof document !== 'undefined'
-    && document.documentElement.getAttribute('data-theme') === 'dark';
-
   if (status === 'loading') {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
@@ -125,15 +138,7 @@ function CallbackHandler() {
   if (status === 'error') {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] px-6">
-        <div
-          className="w-full max-w-md rounded-2xl p-8 text-center"
-          style={{
-            background: isDark
-              ? 'linear-gradient(135deg, rgba(239,68,68,0.06) 0%, rgba(0,0,0,0.4) 100%)'
-              : 'linear-gradient(135deg, rgba(239,68,68,0.06) 0%, rgba(255,255,255,0.9) 100%)',
-            border: '1px solid rgba(239,68,68,0.25)',
-          }}
-        >
+        <div className="auth-error-card">
           <div
             className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-5"
             style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)' }}
@@ -180,6 +185,68 @@ function CallbackHandler() {
   );
 }
 
+/**
+ * Router component that determines which callback handler to use.
+ * - Auth0 SDK callback (code in search params) → AuthCallback component
+ * - Zoho callback (id_token in hash) → ZohoCallbackHandler
+ */
+function CallbackRouter() {
+  const { isAuthenticated } = useAuth0();
+
+  // Check callback type based on URL
+  const searchParams = typeof window !== 'undefined'
+    ? new URLSearchParams(window.location.search)
+    : new URLSearchParams();
+  const hashParams = typeof window !== 'undefined'
+    ? new URLSearchParams(window.location.hash.substring(1))
+    : new URLSearchParams();
+
+  const hasAuthCode = searchParams.has('code') || searchParams.has('error');
+  const hasZohoToken = hashParams.has('id_token') || hashParams.has('error');
+
+  // Auth0 SDK callback (authorization code flow)
+  if (hasAuthCode) {
+    return <AuthCallback />;
+  }
+
+  // Zoho callback (implicit flow with id_token in hash)
+  if (hasZohoToken) {
+    return <ZohoCallbackHandler />;
+  }
+
+  // Already authenticated (returning after SDK handled callback)
+  if (isAuthenticated) {
+    // Redirect to stored path or home
+    const redirectPath = sessionStorage.getItem('auth0_redirect_path') || '/';
+    sessionStorage.removeItem('auth0_redirect_path');
+    window.location.href = redirectPath;
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+        <div
+          className="w-8 h-8 rounded-full border-2 animate-spin"
+          style={{ borderColor: '#22c55e', borderTopColor: 'transparent' }}
+        />
+        <p className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+          Redirecting…
+        </p>
+      </div>
+    );
+  }
+
+  // No callback detected - show loading while SDK initializes
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+      <div
+        className="w-8 h-8 rounded-full border-2 animate-spin"
+        style={{ borderColor: '#E8B058', borderTopColor: 'transparent' }}
+      />
+      <p className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+        Signing you in…
+      </p>
+    </div>
+  );
+}
+
 export default function AuthCallbackPage() {
   return (
     <Layout
@@ -195,7 +262,7 @@ export default function AuthCallbackPage() {
             />
           </div>
         }>
-          {() => <CallbackHandler />}
+          {() => <CallbackRouter />}
         </BrowserOnly>
       </main>
     </Layout>
