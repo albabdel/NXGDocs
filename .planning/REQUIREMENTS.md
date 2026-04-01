@@ -73,7 +73,7 @@ Requirements for the Multi-Product Architecture milestone.
 - [x] **MPROD-01**: System supports multiple products via PRODUCT environment variable
 - [ ] **MPROD-02**: Each product has isolated content with no cross-product visibility
 - [ ] **MPROD-03**: Products deploy to separate domains (docs.gcxone.com, docs.gcsurge.com)
-- [ ] **MPROD-04**: Multi-build pipeline produces separate deployments per product
+- [x] **MPROD-04**: Multi-build pipeline produces separate deployments per product
 - [ ] **MPROD-05**: New product can be added in < 1 day (no code changes)
 
 ### Content Management
@@ -181,7 +181,7 @@ Deferred to v1.2, v5.1 or later.
 | MPROD-01 | Phase 35 | Complete |
 | MPROD-02 | Phase 35 | Pending |
 | MPROD-03 | Phase 39 | Pending |
-| MPROD-04 | Phase 37 | Pending |
+| MPROD-04 | Phase 37 | Complete |
 | MPROD-05 | Phase 40 | Pending |
 | CONT-01 | Phase 36 | Pending |
 | CONT-02 | Phase 36 | Pending |
