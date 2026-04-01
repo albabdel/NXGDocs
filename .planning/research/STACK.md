@@ -1,200 +1,300 @@
 # Stack Research
 
-**Domain:** Documentation platform — releases & roadmap features on existing Docusaurus + Sanity
-**Researched:** 2026-03-13
-**Confidence:** HIGH (all decisions derived from live codebase; no new dependencies required for core features)
+**Domain:** Multi-product knowledge base architecture
+**Milestone:** Multi-product capabilities (Auth0, PostHog, separate domains)
+**Researched:** 2026-04-01
+**Confidence:** HIGH
 
 ---
 
-## Context: What Already Exists
+## Overview
 
-This is a brownfield addition to a validated, live system. Verified from codebase:
+This research covers **NEW stack additions** for multi-product capabilities. The existing stack (Docusaurus 3.9.2, Sanity, Cloudflare Pages, Cloudinary, docusaurus-search-local) remains unchanged and is not re-researched here.
 
-| Layer | Technology | Version (package.json) | Status |
-|-------|------------|------------------------|--------|
-| Frontend | Docusaurus | ^3.9.2 | Live |
-| Language | TypeScript | ~5.6.2 | Live |
-| UI | React | ^18.3.1 | Live |
-| CMS | Sanity Studio | ^5.13.0 | Live at nxgen-docs.sanity.studio |
-| Sanity client | `@sanity/client` | ^7.16.0 | Live — used in fetch script |
-| Image URLs | `@sanity/image-url` | ^2.0.3 | Live — used in fetch script |
-| Portable text | `@portabletext/markdown` | ^1.1.4 | Live — used in fetch script |
-| Rich text studio | `sanity` (portableText-ultimate.ts) | ^5.13.0 | Live — image, video, code, table blocks defined |
-| Video (Mux) | `sanity-plugin-mux-input` | ^2.17.0 | Live in studio — already installed |
-| Animation | `framer-motion` | ^12.23.25 | Live — used in hero |
-| Icons | `lucide-react` | ^0.554.0 | Live — used throughout |
-| Tailwind CSS | tailwindcss | ^3.4.18 (dev) | Live — used in all page components |
-| Hosting | Cloudflare Pages + webhook | — | Live — rebuild on Sanity publish |
-| Search | `@easyops-cn/docusaurus-search-local` | ^0.55.1 | Live |
-
-**Key insight:** Every library needed for the three new features is already installed. This milestone requires zero new npm packages for core functionality.
+**What's already in place (from keys.md):**
+- PostHog Project ID: 365239
+- PostHog Token: `phc_tkcgBrQb37g5F7aiSTcuKWoUaSitBNd6JdcULN6xqrwS`
+- PostHog Host: `https://us.i.posthog.com`
+- Sanity Project ID: `fjjuacab`
+- Cloudflare Pages domains: `gcxone.pages.dev`
 
 ---
 
-## Recommended Stack
+## Recommended Stack Additions
 
-### Feature 1: Redesigned Release Notes System in Sanity
+### Core Libraries
 
-**What changes:** Replace the existing flat `releaseNote` schema (one body field) with a `release` schema where each release document contains an `items` array. Each item has its own title, description, screenshot(s), and optional video.
+| Technology | Version | Purpose | Why Recommended |
+|------------|---------|---------|-----------------|
+| `@auth0/auth0-react` | 2.16.1 | Auth0 authentication for external users | Official Auth0 React SDK, handles PKCE flow automatically, provides hooks (`useAuth0`) and HOCs (`withAuthenticationRequired`) that integrate cleanly with Docusaurus's React architecture |
+| `posthog-js` | 1.364.4 | Core analytics SDK | Official PostHog JavaScript library, project token already exists, supports product tracking via `group()` and person properties |
+| `@posthog/react` | 1.8.2 | React integration for PostHog | Provides `PostHogProvider` context and hooks (`usePostHog`, `useFeatureFlagEnabled`), cleaner integration than raw posthog-js in React/Docusaurus apps |
 
-#### Sanity Schema Layer (studio)
+### Infrastructure
 
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| `sanity` defineType / defineField / defineArrayMember | ^5.13.0 (already installed) | Define the new `release` schema with items array | The codebase already uses this exact pattern in every schema file. `defineArrayMember` with `type: 'object'` is the established Sanity pattern for inline structured arrays. |
-| `@sanity/image-url` | ^2.0.3 (already installed) | Resolve image URLs from Sanity asset references in items | Already used in `fetch-sanity-content.js` via `createImageUrlBuilder`. Zero change needed. |
-| `sanity-plugin-mux-input` | ^2.17.0 (already installed) | Video upload and embedding in release items | Already in `studio/package.json`. The `mux.video` type is available in any schema field today. |
+| Service | Purpose | Configuration |
+|---------|---------|---------------|
+| Auth0 Tenant | External user authentication | Create new application in Auth0 dashboard, configure callback URLs for each product domain |
+| PostHog Project | Product analytics | **Already exists** — Project ID: 365239 |
+| Cloudflare Pages | Multi-domain hosting | Create separate Pages projects for each product domain |
 
-**Schema pattern to follow** (from `releaseNote.ts` and `portableText-ultimate.ts`):
+### Sanity Schema Additions
+
+| Field | Type | Purpose | Notes |
+|-------|------|---------|-------|
+| `product` | string | Filter content by product | Add to all content types needing product-specific filtering. Use string values like `"product-a"`, `"product-b"` for simple filtering |
+
+---
+
+## Integration Points
+
+### 1. Auth0 + Docusaurus
+
+**Approach:** Swizzle the Root component to wrap with `Auth0Provider`
 
 ```typescript
-// New schema: studio/schemaTypes/release.ts
-defineField({
-  name: 'items',
-  title: 'Release Items',
-  type: 'array',
-  of: [
-    defineArrayMember({
-      type: 'object',
-      name: 'releaseItem',
-      fields: [
-        defineField({ name: 'title', type: 'string', validation: r => r.required() }),
-        defineField({ name: 'description', type: 'array', of: enhancedBlockContent }),
-        defineField({ name: 'screenshots', type: 'array', of: [{ type: 'image', options: { hotspot: true } }] }),
-        defineField({ name: 'video', type: 'mux.video' }),
-      ],
+// src/theme/Root.tsx
+import { Auth0Provider } from '@auth0/auth0-react';
+import React from 'react';
+import Root from '@theme-original/Root';
+
+export default function RootWrapper(props) {
+  return (
+    <Auth0Provider
+      domain={process.env.AUTH0_DOMAIN}
+      clientId={process.env.AUTH0_CLIENT_ID}
+      authorizationParams={{
+        redirect_uri: window.location.origin
+      }}
+    >
+      <Root {...props} />
+    </Auth0Provider>
+  );
+}
+```
+
+**Configuration needed:**
+- Auth0 domain and client ID (create in Auth0 dashboard)
+- Allowed callback URLs: each product domain
+- Allowed logout URLs: each product domain
+
+**Multi-domain considerations:**
+
+| Approach | When to Use | Trade-offs |
+|----------|-------------|------------|
+| Single Auth0 app, `cookieDomain: '.nxgen.cloud'` | Products share parent domain | Simpler config, shared session, SSO across products |
+| Separate Auth0 apps per product | Products have different user bases | More isolation, different client IDs, separate auth per domain |
+
+**Recommendation:** Single Auth0 application with parent domain cookie if products are under `*.nxgen.cloud` subdomains.
+
+### 2. PostHog + Docusaurus
+
+**Approach:** Initialize PostHog in swizzled Root, wrap with `PostHogProvider`
+
+```typescript
+// src/theme/Root.tsx
+import posthog from 'posthog-js';
+import { PostHogProvider } from '@posthog/react';
+import React from 'react';
+import Root from '@theme-original/Root';
+
+// Initialize with existing token from keys.md
+if (typeof window !== 'undefined') {
+  posthog.init('phc_tkcgBrQb37g5F7aiSTcuKWoUaSitBNd6JdcULN6xqrwS', {
+    api_host: 'https://us.i.posthog.com',
+    defaults: '2026-01-30',
+  });
+}
+
+export default function RootWrapper(props) {
+  return (
+    <PostHogProvider client={posthog}>
+      <Root {...props} />
+    </PostHogProvider>
+  );
+}
+```
+
+**Product tracking:** Use `posthog.group('product', 'product-a')` to tag events with product context. Call this on page load or route change.
+
+**Usage in components:**
+
+```typescript
+import { usePostHog } from '@posthog/react';
+
+function SomeComponent() {
+  const posthog = usePostHog();
+  
+  useEffect(() => {
+    posthog?.group('product', process.env.PRODUCT_NAME);
+  }, [posthog]);
+  
+  return <div>...</div>;
+}
+```
+
+### 3. Multi-Build Pipeline for Separate Product Domains
+
+**Approach:** Use Docusaurus multi-instance plugin pattern OR multiple config files
+
+#### Option A: Multi-Instance Plugins (Same Build)
+
+```javascript
+// docusaurus.config.js
+export default {
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'product-a',
+        path: 'docs/product-a',
+        routeBasePath: '/',
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'product-b',
+        path: 'docs/product-b',
+        routeBasePath: '/',
+      },
+    ],
+  ],
+};
+```
+
+**Limitation:** This creates `/product-a/...` and `/product-b/...` routes on the same domain. Not ideal for separate product domains.
+
+#### Option B: Multiple Config Files + Separate Builds (Recommended for separate domains)
+
+```javascript
+// docusaurus.config.product-a.js
+export default {
+  title: 'Product A Docs',
+  url: 'https://product-a.nxgen.cloud',
+  baseUrl: '/',
+  presets: [
+    ['@docusaurus/preset-classic', {
+      docs: {
+        id: 'default',
+        path: 'docs/product-a',
+        routeBasePath: '/',
+      },
+    }],
+  ],
+  customFields: {
+    product: 'product-a',
+    sanityFilter: 'product == "product-a"',
+  },
+};
+```
+
+```json
+// package.json
+{
+  "scripts": {
+    "build:product-a": "docusaurus build --config docusaurus.config.product-a.js --out-dir build/product-a",
+    "build:product-b": "docusaurus build --config docusaurus.config.product-b.js --out-dir build/product-b"
+  }
+}
+```
+
+**Cloudflare Pages setup:**
+- Project `product-a-docs`: Build command `npm run build:product-a`, output `build/product-a`
+- Project `product-b-docs`: Build command `npm run build:product-b`, output `build/product-b`
+
+### 4. Sanity Content Filtering by Product
+
+**Schema change:** Add `product` field to content types
+
+```typescript
+// studio/schemaTypes/doc.ts
+export default defineType({
+  name: 'doc',
+  type: 'document',
+  fields: [
+    // ... existing fields
+    defineField({
+      name: 'product',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Product A', value: 'product-a' },
+          { title: 'Product B', value: 'product-b' },
+        ],
+      },
     }),
   ],
-})
+});
 ```
 
-This matches Sanity v5's documented `defineArrayMember` pattern (HIGH confidence — used in this codebase already in `portableText-ultimate.ts` which uses `defineArrayMember` extensively).
+**GROQ filtering:**
 
-#### Fetch Script Layer (fetch-sanity-content.js)
+```groq
+# Get all docs for Product A
+*[_type == "doc" && product == "product-a"]
 
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| Node.js `fs` + GROQ projection | (already in use) | Fetch release items array and write to generated JSON | The fetch script already handles `releaseNote` documents and writes `sanity-release-notes.generated.json`. Extend the GROQ projection to include `items[]` and enrich image URLs through existing `enrichLandingMedia()` or `sanityImageUrl()` helpers. |
+# Parameterized query (pass $product from build config)
+*[_type == "doc" && product == $product]
 
-**GROQ projection change** (extend existing query in `getQueries()`):
-
-```javascript
-{
-  type: 'release',
-  query: `*[_type == "release" && ${filter}] | order(publishedAt desc) {
-    title, slug, sprintId, publishedAt, version, status,
-    "items": items[] {
-      title, description, video,
-      "screenshots": screenshots[].asset->url
-    }
-  }`,
+# With joins
+*[_type == "doc" && product == "product-a"]{
+  title,
+  slug,
+  "category": category->{title, slug}
 }
 ```
 
-The items array is serialized to JSON (not MDX) using the same `sanity-release-notes.generated.json` pattern — the `/releases` page will be a React page that reads this file, not a Docusaurus MDX doc.
-
----
-
-### Feature 2: Public Roadmap Page with Client-Side Filter/Search
-
-**What changes:** Add a `roadmapItem` schema to Sanity. Fetch all items at build time into a generated JSON file. Render `/roadmap` as a React page using `useState` for client-side filter and search — no additional library needed.
-
-#### Sanity Schema Layer
-
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| `sanity` defineType | ^5.13.0 (already installed) | New `roadmapItem` document schema with status, business value, change type, UI change flag, UX fixes flag, entities impacted, and reference to a release | Uses the same schema patterns already in the codebase. Reference field to `release` documents for the "Shipped" link uses Sanity's native `reference` type — already used in `portableText-ultimate.ts`. |
-
-**New schema: `roadmapItem`**
-
-Fields to define (derived from PROJECT.md requirements):
-
-```typescript
-{ name: 'title', type: 'string' }
-{ name: 'slug', type: 'slug', options: { source: 'title' } }
-{ name: 'status', type: 'string', options: { list: ['Planned','In Progress','Shipped'] } }
-{ name: 'businessValue', type: 'text' }
-{ name: 'changeType', type: 'string', options: { list: [...] } }
-{ name: 'uiChange', type: 'boolean' }
-{ name: 'uxFix', type: 'boolean' }
-{ name: 'entitiesImpacted', type: 'array', of: [{ type: 'string' }] }
-{ name: 'linkedRelease', type: 'reference', to: [{ type: 'release' }] }
-```
-
-#### Fetch Script Layer
-
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| GROQ + existing fetch script | (already in use) | Fetch roadmap items at build time and write to `src/data/sanity-roadmap.generated.json` | Follows the same pattern as `sanity-release-notes.generated.json`. One new query added to `getQueries()`, one new generated file written. The fetch script's structure already handles multiple document types in a loop. |
-
-**GROQ projection:**
+**Fetch script integration:** Pass product filter from config to GROQ query
 
 ```javascript
-{
-  type: 'roadmapItem',
-  query: `*[_type == "roadmapItem" && ${filter}] | order(_createdAt asc) {
-    title, slug, status, businessValue, changeType, uiChange, uxFix, entitiesImpacted,
-    "linkedReleaseSlug": linkedRelease->slug.current
-  }`,
-}
+// In fetch-sanity-content.js
+const product = process.env.PRODUCT || 'default';
+const query = `*[_type == "doc" && product == "${product}"] { ... }`;
 ```
-
-#### Frontend Layer (Docusaurus React page)
-
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| React `useState` | ^18.3.1 (already installed) | Client-side status filter (Planned / In Progress / Shipped) | The roadmap page is a static React page (like `index.tsx`). `useState` is all that is needed for tab/filter switching — no library required. Pattern already used in `index.tsx` for event handling. |
-| React `useMemo` | ^18.3.1 (already installed) | Derive filtered + searched item list from full dataset | `useMemo` on the full JSON array filtered by `activeStatus` and `searchQuery` avoids re-filtering on every render. No performance library needed at this data scale (tens to hundreds of items). |
-| Tailwind CSS | ^3.4.18 (already installed) | Status badge colors, grid layout, filter bar styling | All existing pages use Tailwind. Roadmap page should match. |
-| `lucide-react` | ^0.554.0 (already installed) | Search icon in filter bar, status icons | Already used throughout the site. |
-
-**Filter implementation pattern** (no new library — pure React):
-
-```tsx
-const [statusFilter, setStatusFilter] = useState<string>('All');
-const [query, setQuery] = useState('');
-
-const filtered = useMemo(() =>
-  roadmapItems
-    .filter(item => statusFilter === 'All' || item.status === statusFilter)
-    .filter(item => item.title.toLowerCase().includes(query.toLowerCase())),
-  [roadmapItems, statusFilter, query]
-);
-```
-
-This is the right approach because: (1) the full dataset is already in the page bundle (generated JSON imported at build time), (2) client-side filtering is instant, (3) it works with the static site constraint — no server needed.
-
-**Do NOT use** a search library (Fuse.js, lunr, etc.) for this feature. The roadmap will have tens to low hundreds of items. Simple string matching on `title` and `businessValue` is sufficient and avoids adding a dependency.
 
 ---
 
-### Feature 3: Dynamic Hero Banner Showing Latest Release
+## Installation
 
-**What changes:** The `NXGENSphereHero.tsx` currently hardcodes "Sprint 2025.12-B is live". This text needs to be replaced with the title and date of the latest release from Sanity.
+```bash
+# Authentication
+npm install @auth0/auth0-react
 
-#### Data Layer
+# Analytics (PostHog project already exists, just need SDK)
+npm install posthog-js @posthog/react
 
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| `sanity-release-notes.generated.json` (extended) | — | Provides latest release title + date to the hero at build time | The fetch script already writes this file. Add `title`, `publishedAt`, and `slug` to the generated JSON structure — they're already in the GROQ query. The hero reads item `[0]` (already ordered `desc` by `publishedAt`). |
-
-**No new library or API call needed.** The hero reads from the generated JSON file that the fetch script already produces. The pattern is:
-
-```tsx
-// In NXGENSphereHero.tsx or index.tsx
-import releases from '../data/sanity-release-notes.generated.json';
-const latest = releases[0]; // ordered desc by publishedAt in fetch script
-// renders: `${latest.title} is live`
+# Type definitions (optional)
+npm install -D @posthog/types
 ```
 
-This preserves the static site constraint — no runtime API call, no useEffect fetch, no loading state.
+**Environment variables:**
 
-#### Hero Component Layer
+```env
+# Auth0 (create new application in dashboard)
+AUTH0_DOMAIN=your-tenant.auth0.com
+AUTH0_CLIENT_ID=your-client-id
 
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| `framer-motion` | ^12.23.25 (already installed) | Existing shimmer animation on the "What's New" chip | No change to animation. The text content changes; the component structure is identical. |
-| Docusaurus `Link` | (Docusaurus core, already installed) | Link the chip to `/releases/${latest.slug.current}` | The chip already uses `<Link to="/releases">`. Update to link directly to the latest release entry. |
+# PostHog (already have from keys.md)
+POSTHOG_TOKEN=phc_tkcgBrQb37g5F7aiSTcuKWoUaSitBNd6JdcULN6xqrwS
+POSTHOG_HOST=https://us.i.posthog.com
+
+# Multi-product build (set per Cloudflare Pages project)
+PRODUCT=product-a
+```
+
+---
+
+## Alternatives Considered
+
+| Recommended | Alternative | Why Not Alternative |
+|-------------|-------------|---------------------|
+| `@auth0/auth0-react` | `@auth0/auth0-spa-js` | SPA SDK is lower-level; React SDK provides hooks and context for cleaner Docusaurus integration |
+| `@auth0/auth0-react` | Clerk, Supabase Auth | Auth0 consistency with existing v2.0 admin (Zoho OAuth via Auth0) |
+| `@posthog/react` | Raw `posthog-js` | React SDK provides hooks (`usePostHog`, `useFeatureFlagEnabled`) easier to use in components |
+| Single dataset + product field | Multiple Sanity datasets | Single dataset is simpler, allows shared content, easier migrations |
+| Multiple config files | Multi-instance plugins in single build | Multi-instance creates paths on same domain; separate configs deploy to separate domains |
+| Client-side Auth0Provider | Server-side auth checks | Docusaurus is static; server-side auth requires Cloudflare Workers/Functions complexity |
 
 ---
 
@@ -202,45 +302,12 @@ This preserves the static site constraint — no runtime API call, no useEffect 
 
 | Avoid | Why | Use Instead |
 |-------|-----|-------------|
-| `Fuse.js` or similar fuzzy search library | Overkill for a list of tens-to-hundreds of items. Adds a dependency and build complexity. | Native `String.includes()` filter on pre-loaded JSON array |
-| `@portabletext/react` for release items | The site uses `@portabletext/markdown` for build-time MDX conversion — adding the React renderer creates two Portable Text paths. Release items should follow the existing pattern: serialize to HTML/Markdown at fetch time. | `serializeBody()` in the existing fetch script, which already handles all custom block types |
-| Sanity's real-time listener (`client.listen()`) | Docusaurus is a static site. Real-time updates have no value — the webhook already handles this. | Cloudflare Pages webhook trigger on Sanity publish (already working) |
-| New Docusaurus plugin for releases/roadmap | The releases and roadmap pages are React pages, not doc trees. They don't need a plugin route. | Direct React page files in `src/pages/` reading generated JSON |
-| Separate `roadmap` schema document type called "feature" or "epic" | The existing `src/data/roadmap.ts` uses a complex multi-level epic/item hierarchy. The new Sanity schema should be simpler: flat list of `roadmapItem` documents. | Flat `roadmapItem` type with a single `status` field and direct reference to a release |
-| `sanity-plugin-mux-input` for screenshots | Mux is for video. For screenshots (static images), use Sanity's native `image` type. | `type: 'image'` with `options: { hotspot: true }` |
-
----
-
-## Integration Points with Existing Sanity Plugin
-
-The two custom plugins in `classic/plugins/` have specific responsibilities:
-
-| Plugin | Role | What Changes for v1.1 |
-|--------|------|-----------------------|
-| `docusaurus-plugin-sanity-content` | Creates `.sanity-cache/` directories at startup for `plugin-content-docs` | No change — releases and roadmap are React pages, not doc-tree content |
-| `docusaurus-plugin-sanity-landing-pages` | Registers dynamic routes for `landingPage` documents | No change — releases/roadmap have dedicated static `.tsx` files in `src/pages/` |
-| `classic/scripts/fetch-sanity-content.js` | Fetches all document types at build time, serializes to MDX and JSON | ADD: (1) new `release` query that fetches items array and writes extended JSON; (2) new `roadmapItem` query that writes `sanity-roadmap.generated.json`; (3) update generated release notes JSON shape to include items |
-
-The fetch script's `getQueries()` array is the single integration point. Add two new entries. The existing `serializeBody()` and `enrichLandingMedia()` helpers already handle image URL resolution — release item screenshots follow the same pattern.
-
-**Generated file targets:**
-
-| File | Consumer | Change |
-|------|----------|--------|
-| `src/data/sanity-release-notes.generated.json` | `/releases` page, `NXGENSphereHero.tsx` | Extend shape to include `items[]` per release; keep existing top-level fields |
-| `src/data/sanity-roadmap.generated.json` | `/roadmap` page | New file — created by new `roadmapItem` query in fetch script |
-
----
-
-## Alternatives Considered
-
-| Recommended | Alternative | When to Use Alternative |
-|-------------|-------------|------------------------|
-| Flat JSON import at build time for roadmap | Sanity `client.fetch()` in a `useEffect` (runtime) | Never — Docusaurus is static. Runtime fetch exposes API token and creates a loading state that degrades UX |
-| `useState` + `useMemo` for roadmap filter | Dedicated filter library (react-select, Fuse.js) | If the roadmap grows to 500+ items with full-text multi-field search. Not the case for this product. |
-| Extend existing fetch script | Add a third custom Docusaurus plugin for releases/roadmap | A plugin is appropriate when you need route generation or lifecycle integration. For JSON data files read by static pages, extending the fetch script is simpler. |
-| Serialize release items at fetch time (inline HTML/Markdown) | Render Portable Text in the browser via `@portabletext/react` | Use `@portabletext/react` only if you need live preview in the browser. The static site build model means serializing at fetch time is correct. |
-| Replace `releaseNote` schema with `release` schema | Keep `releaseNote` and add items as an array field to existing schema | A clean rename with a new schema is less confusing than mutating the existing one. The existing `releaseNote` documents can be migrated with a one-time GROQ patch script. |
+| Multiple Sanity datasets per product | Adds complexity: separate tokens, duplicated schemas, migrations on each, shared content requires duplication | Single dataset with `product` field |
+| Auth0 SPA SDK directly | More boilerplate, manual state management, no React context | `@auth0/auth0-react` |
+| Google Analytics | PostHog already in use, provides feature flags and session replay in one tool | PostHog |
+| Separate git repos per product | Duplicate components/themes/config, maintenance nightmare | Multiple Docusaurus configs in one repo |
+| Build-time auth checks | Docusaurus is static; can't validate auth during build | Client-side `Auth0Provider` wrapper |
+| `docusaurus-search-local` per product | Search index would be built per product anyway | Existing search works; index is per-build |
 
 ---
 
@@ -248,54 +315,105 @@ The fetch script's `getQueries()` array is the single integration point. Add two
 
 | Package | Compatible With | Notes |
 |---------|-----------------|-------|
-| `sanity` ^5.13.0 | `sanity-plugin-mux-input` ^2.17.0 | Already co-installed in studio — confirmed working. |
-| `@sanity/client` ^7.16.0 | Sanity API version `2025-02-06` | apiVersion is set in fetch script; compatible with all current query features. |
-| Docusaurus ^3.9.2 | React ^18.3.1 | Docusaurus 3.x requires React 18 — already the case. |
-| `framer-motion` ^12.23.25 | React ^18.3.1 | Compatible — already working in hero component. |
+| `@auth0/auth0-react@2.x` | React 16.8+ | Docusaurus 3.9.2 uses React 18 — compatible |
+| `posthog-js@1.364.x` | All modern browsers | Works with `@posthog/react` as peer |
+| `@posthog/react@1.8.x` | React 16.8+ | Requires posthog-js as peer dependency |
+| Docusaurus 3.9.2 | Node 18+ | Cloudflare Pages supports Node 18+ |
 
 ---
 
-## Installation
+## Architecture Diagram
 
-No new dependencies are required for the core features. All libraries are already installed.
-
-```bash
-# Verify no new packages needed — all of these are already in package.json:
-# @sanity/client ^7.16.0
-# @sanity/image-url ^2.0.3
-# @portabletext/markdown ^1.1.4
-# framer-motion ^12.23.25
-# lucide-react ^0.554.0
-# tailwindcss ^3.4.18 (dev)
-# sanity-plugin-mux-input ^2.17.0 (studio)
-
-# Nothing to install for v1.1 core features.
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                         Sanity CMS (fjjuacab)                        │
+│  ┌─────────────────────────────────────────────────────────────┐   │
+│  │  Documents with product field:                               │   │
+│  │  - doc { product: "product-a", ... }                         │   │
+│  │  - doc { product: "product-b", ... }                         │   │
+│  │  - roadmapItem { product: "product-a", ... }                 │   │
+│  └─────────────────────────────────────────────────────────────┘   │
+└──────────────────────────┬──────────────────────────────────────────┘
+                           │ Webhook on publish
+                           ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│                     Cloudflare Pages Builds                          │
+│  ┌─────────────────────────┐    ┌─────────────────────────┐        │
+│  │  Product A Build        │    │  Product B Build        │        │
+│  │  PRODUCT=product-a      │    │  PRODUCT=product-b      │        │
+│  │  docusaurus.config.a.js │    │  docusaurus.config.b.js │        │
+│  │  GROQ: product=="a"     │    │  GROQ: product=="b"     │        │
+│  └───────────┬─────────────┘    └───────────┬─────────────┘        │
+└──────────────┼─────────────────────────────┼──────────────────────┘
+               ▼                             ▼
+    ┌──────────────────────┐      ┌──────────────────────┐
+    │ product-a.pages.dev  │      │ product-b.pages.dev  │
+    │ docs.product-a.cloud │      │ docs.product-b.cloud │
+    └──────────┬───────────┘      └──────────┬───────────┘
+               │                              │
+               │   ┌──────────────────────────┼──────────────────┐
+               │   │                          │                  │
+               ▼   ▼                          ▼                  ▼
+    ┌──────────────────────┐     ┌──────────────────────────────────┐
+    │   Auth0 Provider     │     │        PostHog Analytics         │
+    │   (client-side)      │     │  Project: 365239                 │
+    │                      │     │  group('product', 'product-a')   │
+    │  - loginWithRedirect │     │  group('product', 'product-b')  │
+    │  - getUser           │     │                                  │
+    │  - withAuthRequired  │     │  Host: us.i.posthog.com          │
+    └──────────────────────┘     └──────────────────────────────────┘
 ```
 
-If the team later wants Mux video playback embedded in the releases page (not just in Studio), one package would be needed:
+---
+
+## Cloudflare Pages Multi-Build Configuration
+
+**Project creation:**
 
 ```bash
-# Only if rendering Mux video in the browser on the /releases page:
-npm install @mux/mux-player-react
+# Product A
+wrangler pages project create product-a-docs
+wrangler pages deploy build/product-a --project-name=product-a-docs
+
+# Product B  
+wrangler pages project create product-b-docs
+wrangler pages deploy build/product-b --project-name=product-b-docs
 ```
 
-This is NOT required for v1.1 as scoped. Video in release items would be rendered as an iframe embed using the Mux playback URL — no additional package needed.
+**Build settings per project:**
+
+| Setting | Product A | Product B |
+|---------|-----------|-----------|
+| Build command | `npm run build:product-a` | `npm run build:product-b` |
+| Build output | `build/product-a` | `build/product-b` |
+| Environment | `PRODUCT=product-a` | `PRODUCT=product-b` |
+| Domain | `docs.product-a.nxgen.cloud` | `docs.product-b.nxgen.cloud` |
+
+**Sanity webhook configuration:**
+
+Trigger builds for affected products when content changes. Use Sanity webhook with GROQ projection to determine which products are affected:
+
+```groq
+// In webhook payload
+{
+  "affectedProducts": *[_id in $ids].product
+}
+```
 
 ---
 
 ## Sources
 
-- `classic/package.json` — exact installed versions (HIGH confidence — live file)
-- `studio/package.json` — exact studio plugin versions including mux (HIGH confidence — live file)
-- `classic/plugins/docusaurus-plugin-sanity-content/index.js` — plugin architecture (HIGH confidence — live code)
-- `classic/scripts/fetch-sanity-content.js` — GROQ queries, serialization patterns, generated file paths (HIGH confidence — live code)
-- `studio/schemaTypes/releaseNote.ts` — current schema to be replaced (HIGH confidence — live code)
-- `studio/schemaTypes/portableText-ultimate.ts` — `defineArrayMember` usage pattern (HIGH confidence — live code)
-- `classic/src/components/NXGENSphereHero.tsx` — current hardcoded hero banner (HIGH confidence — live code)
-- `classic/src/data/roadmap.ts` — existing static roadmap data shape to replace with Sanity (HIGH confidence — live code)
-- `.planning/PROJECT.md` — v1.1 feature requirements (HIGH confidence — project spec)
+- **Auth0 React SDK** — https://auth0.com/docs/libraries/auth0-react (HIGH confidence - official docs)
+- **PostHog JS SDK** — https://posthog.com/docs/libraries/js (HIGH confidence - official docs)
+- **PostHog React SDK** — https://posthog.com/docs/libraries/react (HIGH confidence - official docs)
+- **Docusaurus Multi-Instance** — https://docusaurus.io/docs/using-plugins#multi-instance-plugins (HIGH confidence - official docs)
+- **Sanity GROQ Cheat Sheet** — https://www.sanity.io/docs/query-cheat-sheet (HIGH confidence - official docs)
+- **Cloudflare Pages Deployment** — https://docusaurus.io/docs/deployment#deploying-to-cloudflare-pages (HIGH confidence - official docs)
+- **keys.md** — PostHog credentials, Sanity project ID (HIGH confidence - project file)
+- **npm registry** — Package versions verified via `npm view` (HIGH confidence - live data)
 
 ---
 
-*Stack research for: NXGEN GCXONE Documentation Platform — v1.1 Releases & Roadmap*
-*Researched: 2026-03-13*
+*Stack research for: Multi-product knowledge base architecture*
+*Researched: 2026-04-01*

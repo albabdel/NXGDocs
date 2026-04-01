@@ -1,243 +1,221 @@
 # Project Research Summary
 
-**Project:** NXGEN GCXONE Documentation Platform — v1.1 Releases & Roadmap
-**Domain:** Brownfield feature addition to a live Docusaurus 3 + Sanity CMS documentation site
-**Researched:** 2026-03-13
+**Project:** Multi-Product Knowledge Base Architecture
+**Domain:** B2B SaaS documentation platform with multi-product/multi-tenancy capabilities
+**Researched:** 2026-04-01
 **Confidence:** HIGH
 
 ## Executive Summary
 
-This is a brownfield v1.1 addition to a fully operational documentation platform. The core infrastructure — Docusaurus 3, Sanity Studio, the `fetch-sanity-content.js` pre-build pipeline, Cloudflare Pages hosting, and the webhook-triggered rebuild workflow — is production-proven and requires no architectural changes. The three features in scope (Sanity-driven release notes with per-item rich media, a Sanity-driven public roadmap with search and status filtering, and a dynamic hero banner showing the latest release) can all be implemented using zero new npm packages. Every library needed is already installed.
+This research addresses transforming an existing single-product Docusaurus + Sanity documentation platform into a multi-product system serving GCXONE and future products. The existing architecture (build-time Sanity fetch, static generation, Cloudflare Pages deployment, Auth0 authentication) is well-established and works well—the transformation extends rather than replaces these foundations.
 
-The recommended approach is strictly build-time: Sanity data is fetched via GROQ at build time into static JSON files, which React pages import directly. Client-side filter and search on the roadmap operate against the fully bundled dataset using `useState` + `useMemo`. No runtime API calls, no SSR, no Cloudflare Functions. This preserves the static site constraint and matches every established pattern in the existing codebase. The single most important architectural decision is replacing the flat `releaseNote` Sanity schema with a new `release` schema that treats each sprint as one document containing an `items[]` inline array — this enables per-item screenshots, video embeds, and metadata without the editorial overhead of managing cross-referenced documents.
+**Recommended approach:** Add multi-product support through environment-driven configuration rather than architectural overhaul. A single `PRODUCT` environment variable flows through the entire pipeline, filtering Sanity content via GROQ queries, scoping builds, and configuring product-specific branding. This preserves the proven static generation pattern while enabling product isolation.
 
-The primary risk in this milestone is the schema migration from `releaseNote` to `release`. Sanity documents are not schema-bound: existing documents survive a type rename, but Studio breaks on them, and the fetch script silently returns empty results because `build.sh` swallows non-zero exit codes with `|| true`. This pitfall is well-understood and has a clear prevention strategy: the migration must be a single atomic sequence — add the new schema alongside the old, migrate documents, update all four registration sites in Studio config, update GROQ queries, then delete the old schema. The second major risk is the `SanityLandingPageRoute` fallback pattern currently used by both `releases.tsx` and `roadmap.tsx`: those wrappers must be replaced entirely, not extended, or the pages will silently render stale hardcoded content after v1.1 deploys.
-
----
+**Key risk:** Content leakage between products is the critical security concern. Multi-layer defense is essential: (1) Sanity schema requires product field on all documents, (2) all GROQ queries include product filter, (3) separate builds per product OR runtime access checks, (4) search index scoped per product, (5) Cloudflare Functions validate product access. Authentication must be extended to include product_access claims before any multi-product content is added.
 
 ## Key Findings
 
 ### Recommended Stack
 
-No new dependencies are required for any core v1.1 feature. The entire implementation uses packages already in `classic/package.json` and `studio/package.json`. The single integration point for new data is `classic/scripts/fetch-sanity-content.js`: two new GROQ queries are added to its `run()` function, producing two new generated JSON files (`sanity-releases.generated.json` and `sanity-roadmap.generated.json`). React pages import these files with static TypeScript `import` statements — the data is baked into the page bundle at build time.
+The existing stack (Docusaurus 3.9.2, Sanity CMS, Cloudflare Pages, Cloudinary, docusaurus-search-local) remains unchanged. New additions for multi-product capabilities:
 
-**Core technologies (all already installed):**
+**Core libraries:**
+- **@auth0/auth0-react (v2.16.1)** — Auth0 authentication for external users — Official React SDK with hooks (`useAuth0`) and HOCs (`withAuthenticationRequired`) that integrate cleanly with Docusaurus
+- **posthog-js (v1.364.4) + @posthog/react (v1.8.2)** — Product analytics — Already have PostHog project (ID: 365239); SDK enables product-scoped tracking via `group()` calls
+- **Multiple Docusaurus config files** — Multi-build pipeline — Separate config per product enables distinct domains without code duplication
 
-- **Sanity Studio ^5.13.0** — schema authoring for `release` (replaces `releaseNote`) and new `roadmapItem` document types; `defineArrayMember` pattern already used in `portableText-ultimate.ts`
-- **`@sanity/client` ^7.16.0** — GROQ queries in the pre-build fetch script; two new queries added, no config changes
-- **React `useState` + `useMemo` ^18.3.1** — client-side filter and search on the roadmap page; zero library additions needed
-- **Tailwind CSS ^3.4.18** — styling for all new components; already used on every page
-- **`lucide-react` ^0.554.0** — icons in filter bar and status badges; already used throughout
-- **`framer-motion` ^12.23.25** — existing hero animation unchanged; no new animation work
-- **`sanity-plugin-mux-input` ^2.17.0** — video support in release items; already installed in Studio
-- **Docusaurus ^3.9.2** — no config changes needed; new features are custom React pages, not doc-tree content
-
-**Explicitly avoid:** `Fuse.js`/fuzzy search (overkill for this dataset scale), `@portabletext/react` as a parallel rendering path unless release item descriptions require rich Portable Text (see Gaps section), runtime `useEffect + fetch()` in any hero or page component (causes hydration flash), Cloudflare Functions for roadmap data (operational complexity for no benefit), and separate `releaseItem` document type (creates editorial UX nightmare vs. inline array).
+**Infrastructure additions:**
+- **Auth0 tenant** — External user authentication with product_access claims
+- **Separate Cloudflare Pages projects** — One per product domain (docs.gcxone.com, docs.gcsurge.com)
+- **Sanity product field** — Required enum field added to all content schemas
 
 ### Expected Features
 
-The legacy `/releases` and `/roadmap` pages are already feature-rich in the hardcoded implementation. The v1.1 gap is that both are driven by static TypeScript data files rather than Sanity, and neither has the cross-linking between shipped roadmap items and their corresponding release notes.
+This milestone focuses on multi-product infrastructure rather than end-user features. The research covers two related concerns:
 
-**Must have — table stakes for release notes (v1.1 launch):**
-- Reverse-chronological list of sprint releases driven by Sanity (replaces hardcoded `releases.tsx`)
-- Per-sprint detail page at `/releases/[slug]` with all items, types, and metadata
-- Item-level grouping within a sprint (items array, not flat prose)
-- Screenshot support per release item (Sanity image assets, CDN URLs resolved at build time)
-- Video embed per release item (YouTube/Vimeo iframe or Mux — already wired in Studio)
-- Change-type badges (New, Fix, Improvement) on index and item level
-- Stable permalinks per sprint entry; "Latest" badge on index; empty state guard
+**Multi-product infrastructure (primary):**
+- Content filtering by product — All Sanity documents tagged with product enum
+- Product-scoped builds — Each product deploys to its own domain
+- Product-aware analytics — PostHog events tagged with product context
+- Auth with product claims — JWT includes product_access array for access control
+- Product-specific branding — Title, tagline, theme colors per product
 
-**Must have — table stakes for roadmap (v1.1 launch):**
-- Status filter (Planned / In Progress / Shipped) and text search driven by Sanity data
-- Per-item business value statement, change type, UI change flag, entities impacted
-- Shipped items link to the corresponding sprint release note — the single highest-value differentiator in the competitive set
-- Results count, empty state with "Clear filters", "last updated" timestamp from Sanity `_updatedAt`
+**Release notes & roadmap (v1.1 carryover, per FEATURES.md):**
+- Sanity-driven `/releases` index with reverse-chronological sprint cards
+- Individual sprint detail pages with per-item media support
+- Sanity-driven `/roadmap` with search, status filter, Shipped→release links
+- Hero banner showing latest release dynamically
+- Legacy hardcoded pages archived with redirects
 
-**Must have — hero banner (v1.1 launch):**
-- Dynamic "Sprint X is live" chip reading from `sanity-releases.generated.json[0]` — replaces the hardcoded `"Sprint 2025.12-B is live"` string at `NXGENSphereHero.tsx` line 418
+**Must have (table stakes for releases):**
+- Reverse-chronological release list with dates and sprint IDs
+- Change-type badges (New/Fix/Improvement)
+- Stable permalinks per release entry
+- Item-level screenshots and video support
 
-**Should have — add after v1.1 validation (P2):**
-- Affected-areas filter on releases index (once editors have populated 5+ entries consistently)
-- Docs reference link per release item (`docsRef` reference field)
-- Change-type filter on roadmap (once 20+ items with consistent tagging exist)
+**Should have (differentiators):**
+- Shipped roadmap items link to specific release notes
+- Hero banner "Latest: Sprint X" badge (dynamic from Sanity)
+- Per-item media (screenshots + video embeds)
 
-**Defer to v1.2+:**
-- RSS feed for releases (requires new build plugin; no equivalent in current codebase)
-- Year/quarter filter on releases index (only useful with 2+ years of data)
-- Mux video playback in the browser (YouTube/Vimeo embed is sufficient for v1.1)
-
-**Anti-features (deliberately not building):**
-- Voting/upvoting on roadmap items — requires auth and server; explicit anti-feature
-- Email subscription to releases — requires mailing list infrastructure out of scope
-- Real-time roadmap updates — static site; webhook rebuild is the correct update cadence
-- Kanban/board view — high complexity, negligible value for a public read-only audience
-- Zoho Sprints integration — explicit out-of-scope decision; fragile API dependency
+**Defer (v1.2+):**
+- RSS feed for releases
+- Year/quarter filters (needs 2+ years of content)
+- Mux video streaming (YouTube/Vimeo embeds sufficient)
 
 ### Architecture Approach
 
-The architecture is a proven three-layer pipeline: Sanity Studio (content authoring) → `fetch-sanity-content.js` (build-time GROQ + JSON generation) → Docusaurus React pages (static import of generated JSON). This pipeline is already proven for landing pages and existing release metadata. The v1.1 addition extends it with two new GROQ queries and two new generated files, then replaces the `SanityLandingPageRoute`-wrapped placeholder pages with purpose-built React components that own their data directly.
+The architecture extends the existing build-time static generation pattern with product-aware filtering. A single environment variable (`PRODUCT`) flows through all layers, eliminating the need for complex multi-tenant infrastructure.
 
-**Major components and their responsibilities:**
+**Major components:**
+1. **Sanity product field** — Required enum on all document types (doc, release, roadmapItem, article, landingPage, sidebarCategory); validates content ownership
+2. **Multi-build pipeline (`build-multi-product.js`)** — Orchestrates builds: for each product, set env → fetch filtered content → generate sidebar → build → output to product directory
+3. **GROQ product filter** — All queries in `fetch-sanity-content.js` include `product == $product` clause; ensures content isolation at data layer
+4. **Product configuration (`product.config.ts`)** — Centralized product-specific values (title, URL, branding); Docusaurus config reads from this
+5. **Auth0 product claims** — JWT custom claim `product_access` array; Cloudflare Functions validate before serving protected content
+6. **PostHog product context** — Analytics events tagged with `product` property; enables per-product dashboards
 
-1. **`studio/schemaTypes/release.ts` (NEW)** — one Sanity document per sprint; `items[]` inline array with per-item title, description, change type, affected areas, optional screenshot, optional video; replaces `releaseNote.ts`
-2. **`studio/schemaTypes/roadmapItem.ts` (NEW)** — flat document with status, businessValue, changeType, uiChange flag, entitiesImpacted array, optional `releaseRef` reference resolved to slug string in GROQ
-3. **`classic/scripts/fetch-sanity-content.js` (MODIFIED)** — adds `fetchReleases()` and `fetchRoadmapItems()` functions; writes two new generated JSON files; removes the obsolete `releaseNote` GROQ query
-4. **`classic/src/pages/releases.tsx` (REPLACED)** — standalone React page importing `sanity-releases.generated.json`; renders sprint list with per-item media; each release container carries `id={slug}` for anchor deep-links from roadmap
-5. **`classic/src/pages/roadmap.tsx` (REPLACED)** — standalone React page importing `sanity-roadmap.generated.json`; `useState` + `useMemo` filter/search adapted from existing `legacy-pages/roadmap.tsx` pattern
-6. **`classic/src/components/NXGENSphereHero.tsx` (MODIFIED)** — static import of `sanity-releases.generated.json`; renders `releases[0].displayTitle` in the "What's New" chip; removes hardcoded sprint string
-7. **`classic/src/pages/index.tsx` (MODIFIED)** — replaces hardcoded `recentReleases` array (lines 105–119) with `releasesData.slice(0, 2)`
-
-**Key patterns:**
-- Build-time JSON as the SSG-safe data contract — no runtime API calls anywhere in the site
-- Client-side filter on fully bundled dataset — no Cloudflare Function, no network round-trip
-- Roadmap-to-release cross-link via resolved slug string (`"releaseSlug": releaseRef->slug.current` in GROQ) — never pass raw `_ref` objects to the frontend
-- Items as an inline `array` field on the `release` document — editorial drag-and-drop reordering is native in Sanity's array UI; separate cross-referenced documents are not needed and create authoring friction
+**Architecture pattern:** Single dataset with product filtering, not separate Sanity datasets. This keeps editorial workflow unified, simplifies cross-product content management, and avoids dataset-level permission complexity.
 
 ### Critical Pitfalls
 
-1. **Schema rename before atomic migration breaks Studio and silently empties fetch output** — Execute as a single atomic sequence: add new `release` schema alongside old `releaseNote`, migrate existing documents via GROQ patch, update all four registration sites in `sanity.config.ts`, `structure.ts`, and `schemaTypes/index.ts`, update GROQ queries, then delete the old schema. Never rename first and migrate later. (PITFALLS.md Pitfall 1)
+**1. Content leakage between products (CRITICAL SECURITY)** — Multi-layer defense: (a) schema-level product field required, (b) GROQ filter on all queries, (c) separate builds OR runtime checks, (d) scoped search index, (e) function-level product validation. Prevented in Phase 1 (Auth Foundation).
 
-2. **`build.sh`'s `|| true` flag makes empty-content deploys invisible** — During migration work, temporarily enable strict mode (`SANITY_FETCH_STRICT=true`). Add a post-fetch assertion that generated JSON files are non-empty when the corresponding schema type has published documents. Cloudflare Pages shows a green build even when releases/roadmap data is an empty array. (PITFALLS.md Pitfall 2)
+**2. Dual auth systems not unified** — Existing admin auth (Zoho OAuth) and customer auth (Auth0) lack product_access tracking. Extend Auth0 with custom claims; add productAccess to session objects. Addressed in Phase 1.
 
-3. **GROQ reference fields missing the `->` dereference operator deliver opaque `_ref` strings to the frontend** — Always use `"releaseSlug": releaseRef->slug.current` in projections; guard null-checks in the component for unpublished or deleted referenced documents; never expose raw `{ _ref: "..." }` objects to React. (PITFALLS.md Pitfall 3)
+**3. Static build leaks all content** — Static sites are inherently public. Solution: product-specific builds with GROQ filtering OR client-side gating with protected content fetched via authenticated API. Decision needed in Phase 1.
 
-4. **`SanityLandingPageRoute` fallback silently renders legacy hardcoded content** — Replace `releases.tsx` and `roadmap.tsx` entirely; do not extend the wrapper. The wrapper falls back to the legacy component when no `landingPage` document with the matching slug exists — which is always true for these dedicated-purpose pages. (PITFALLS.md Pitfall 5)
+**4. Search index exposes cross-product content** — `docusaurus-search-local` builds single index at build time. Must either: (a) generate separate indexes per product, (b) exclude protected docs from search, or (c) use server-side search. Addressed in Phase 2.
 
-5. **Hero banner wired with `useEffect + fetch()` instead of static JSON import** — `useEffect + fetch()` in a Docusaurus static page causes a visible hydration flash. Use a static `import` of the pre-built JSON so the string is baked into HTML at build time with zero client-side fetch. (PITFALLS.md Pitfall 4)
+**5. Migration breaks existing content** — Adding product field to schemas without backfilling existing docs causes them to disappear from filtered queries. Atomic migration required: add field → backfill all existing docs with 'gcxone' → verify count → then filter. Phase 2 priority.
 
----
+**6. Overengineering product separation** — For 2-3 products, avoid separate Sanity datasets, separate repos, or Auth0 Organizations. Single dataset + product field + GROQ filters is sufficient. Architecture decision in Phase 1.
+
+**7. Cloudflare Functions lack product context** — Existing functions check `isAuthenticated` but not product-specific access. Add `requireProductAccess()` guard to all functions handling protected content. Phase 1.
 
 ## Implications for Roadmap
 
-The ARCHITECTURE.md file provides an explicit 6-step build order that research across all four files independently confirms. The sequencing is unambiguous: schema and data pipeline must come before frontend pages, frontend pages before cosmetic polish, cleanup last. No phase has ambiguous ordering and no phase requires additional research before implementation can begin.
+Based on research, suggested phase structure follows the architecture build order with security-first priority:
 
-### Phase 1: Sanity Schema Migration and Data Pipeline
+### Phase 1: Auth Foundation & Architecture Decision
+**Rationale:** Multi-layer content isolation requires authentication to include product_access before any product-specific content is added. Architecture pattern (single vs. separate builds) determines all downstream implementation.
+**Delivers:** Session with productAccess, Auth0 claims, requireProductAccess guards, architecture decision documented
+**Addresses:** Dual auth unification, content leakage prevention, function guards
+**Avoids:** Pitfall 1 (content leakage), Pitfall 2 (dual auth), Pitfall 7 (function context)
+**Research flag:** Standard patterns (Auth0 claims, session extension well-documented)
 
-**Rationale:** Every downstream component depends on having Sanity documents to query and generated JSON files to import. TypeScript compilation of the React pages fails without the JSON files. The schema migration carries the highest risk in the milestone — it involves four registration sites, an atomic document migration, and a verification step that must confirm non-zero document counts before the old schema is deleted.
+### Phase 2: Content Infrastructure
+**Rationale:** Sanity schema changes and migration are prerequisite for any multi-product content. Must backfill before filtering.
+**Delivers:** Product field on all schemas, backfill migration, GROQ product filters in all queries
+**Uses:** Sanity GROQ patterns from STACK.md
+**Implements:** Sanity product field component from ARCHITECTURE.md
+**Avoids:** Pitfall 5 (overengineering - single dataset approach), Pitfall 6 (migration breaks content)
+**Research flag:** Standard patterns (Sanity schema migration established from v1.1)
 
-**Delivers:** New `release` schema with `items[]` array live in Studio; new `roadmapItem` schema live in Studio; `fetch-sanity-content.js` extended with two new GROQ queries; `sanity-releases.generated.json` and `sanity-roadmap.generated.json` written with verified test data; old `releaseNote` schema cleanly removed; fallback empty-array JSON files committed to git for fresh-clone builds; Cloudflare Pages webhook filter scoped to published document types only (not draft saves).
+### Phase 3: Multi-Build Pipeline
+**Rationale:** With product-filtered content, build orchestration produces separate deployments per product.
+**Delivers:** `build-multi-product.js` script, separate build outputs, product-scoped JSON files
+**Implements:** Multi-build pipeline from ARCHITECTURE.md
+**Avoids:** Pitfall 3 (static build leaks) — each build contains only one product's content
+**Research flag:** May need research — Docusaurus multi-config builds, Cloudflare Pages multi-project deployment specifics
 
-**Features addressed (from FEATURES.md):** Schema fields for all P1 features — items array with screenshot/video on release, businessValue/changeType/uiChange/entitiesImpacted/releaseRef on roadmapItem, displayTitle distinct from internal sprintId.
+### Phase 4: Product Configuration & Branding
+**Rationale:** Distinct product identities require configuration-driven approach, not hardcoded conditionals.
+**Delivers:** `product.config.ts`, product-specific Docusaurus config reading, branding variations
+**Implements:** Environment-driven configuration pattern from ARCHITECTURE.md
+**Avoids:** Anti-pattern 3 (hardcoded product references)
+**Research flag:** Standard patterns (Docusaurus config well-documented)
 
-**Pitfalls to avoid:** Schema-rename-before-migration (Pitfall 1); silent empty deploy via `|| true` (Pitfall 2); missing fallback JSON in git (Integration Gotcha); Portable Text body serialization mismatch for rich media (Pitfall 6); `releaseNote` references remaining in all four Studio registration sites; webhook firing on draft saves.
+### Phase 5: Cloudflare Pages Multi-Project Setup
+**Rationale:** Separate domains require separate Pages projects with product-specific environment variables.
+**Delivers:** docs.gcxone.com, docs.gcsurge.com deployed, webhook-triggered rebuilds per product
+**Implements:** Multi-project deployment from STACK.md
+**Research flag:** May need research — Cloudflare Pages multi-project automation, webhook scoping
 
-**Research flag:** No additional research needed. All patterns are instantiated directly from existing codebase code. The atomic migration checklist in PITFALLS.md is the execution guide.
+### Phase 6: PostHog Analytics Integration
+**Rationale:** Product-scoped analytics enable per-product insights. Can run parallel with Phases 3-5.
+**Delivers:** PostHog provider with product context, per-product dashboards
+**Uses:** @posthog/react from STACK.md
+**Research flag:** Standard patterns (PostHog React SDK well-documented)
 
----
-
-### Phase 2: Releases Page and Roadmap Page
-
-**Rationale:** With verified JSON data on disk, both pages can be built in parallel. They share the same data-import pattern and are independent of each other at the page level, though the roadmap page's "Shipped" cross-links require the `releaseSlug` GROQ dereference from Phase 1 to be verified working. Both pages are replacements of the `SanityLandingPageRoute` wrapper, not extensions — this is the most common mistake to avoid.
-
-**Delivers:** `/releases` index page driven by Sanity with sprint cards, change-type badges, and per-sprint detail pages at `/releases/[slug]` with per-item screenshots and video embeds; `/roadmap` page driven by Sanity with status filter and text search; Shipped roadmap items linking to `/releases#[slug]`; deletion of `src/data/roadmap.ts` and archival of `src/legacy-pages/releases.tsx`.
-
-**Features addressed:** All P1 features — Sanity-driven releases index, release detail pages, per-item rich media, Sanity-driven roadmap with filter/search, Shipped-to-release cross-link (primary differentiator), status badges, business value, change type, UI change flag, entities impacted, results count, empty state, "last updated" timestamp.
-
-**Stack used:** React `useState` + `useMemo` for roadmap filter; Tailwind for badge/grid styling; `lucide-react` for search/filter icons; Sanity image CDN URLs (resolved in GROQ) for screenshots; YouTube/Vimeo iframe for video embeds.
-
-**Pitfalls to avoid:** Missing `->` dereference in GROQ for releaseRef (Pitfall 3); `SanityLandingPageRoute` wrapper not fully replaced (Pitfall 5); dual data source by keeping `roadmap.ts` alongside Sanity data (Pitfall 4 — delete in same commit); Zoho internal status labels exposed in public roadmap (UX Pitfalls); `useMemo` missing on roadmap filter causing input lag at scale.
-
-**Research flag:** No additional research needed. The existing `legacy-pages/roadmap.tsx` filter/search pattern is the direct implementation template. ARCHITECTURE.md Steps 3 and 4 provide exact implementation notes.
-
----
-
-### Phase 3: Hero Banner and Home Page Dynamic Data
-
-**Rationale:** This phase depends on Phase 1 (JSON file must exist with correct shape) but is independent of Phase 2. It is cosmetic and low-risk. Implementing it after Phase 1 is verified ensures the hero reads from a JSON structure that has already been confirmed correct by integration testing.
-
-**Delivers:** `NXGENSphereHero.tsx` "What's New" chip reads `sanity-releases.generated.json[0].displayTitle` dynamically — hardcoded sprint string at line 418 is removed; `index.tsx` recent-releases section reads `releasesData.slice(0, 2)` instead of a hardcoded array; `displayTitle` field on the `release` schema provides customer-facing language distinct from the internal `sprintId`.
-
-**Features addressed:** Hero banner latest release badge (P1, PROJECT.md explicit requirement); dynamic recent releases on home page.
-
-**Pitfalls to avoid:** `useEffect + fetch()` in hero component (Pitfall 4 — must use static import, never runtime fetch); hydration flash on first paint; hardcoded sprint string remaining in component after v1.1 (`grep -n "Sprint" NXGENSphereHero.tsx` check from PITFALLS.md checklist).
-
-**Research flag:** No additional research needed. The implementation is a three-line change in `NXGENSphereHero.tsx` and a four-line change in `index.tsx`. ARCHITECTURE.md Pattern 3 gives the exact code.
-
----
-
-### Phase 4: Cleanup and URL Verification
-
-**Rationale:** Post-deployment verification and deletion of now-dead code. Skipping this phase leaves technical debt (superseded generated files, orphaned legacy pages) and risks 404s on previously valid URLs such as `/internal-releases/`.
-
-**Delivers:** Deletion of `src/data/sanity-release-notes.generated.json` (superseded by `sanity-releases.generated.json`); deletion of `src/pages/internal-releases/` with Cloudflare `_redirects` entries if needed; verified anchor links for `/releases#[slug]` deep-links from roadmap Shipped items; confirmed webhook scoping (build logs show triggers only on publish, not draft saves); full "Looks Done But Isn't" checklist from PITFALLS.md executed.
-
-**Pitfalls to avoid:** Webhook firing on draft saves causing spurious rebuilds; broken 404s on archived `/internal-releases/` paths; legacy page components deleted before confirmed as dead (keep `legacy-pages/` as rollback reference until deployment is stable).
-
-**Research flag:** No additional research needed. PITFALLS.md "Looks Done But Isn't" checklist is the execution guide.
-
----
+### Phase 7: Content Seeding for New Products
+**Rationale:** New products need initial content before launch. Can begin after Phase 2.
+**Delivers:** Initial GCSurge content, sidebar structure, verified rendering
+**Dependencies:** Phase 2 complete (schemas support product field)
+**Research flag:** No research needed — content creation task
 
 ### Phase Ordering Rationale
 
-- **Schema before pipeline, pipeline before pages** reflects the compile-time dependency chain independently confirmed across STACK.md, FEATURES.md, and ARCHITECTURE.md: React pages cannot compile without JSON files; JSON files cannot be generated without schema documents.
-- **Phases 2 and 3 can run in parallel** after Phase 1 is verified: the releases page and roadmap page are independent of each other; the hero banner is independent of both pages; all three only share the Phase 1 prerequisite of a valid `sanity-releases.generated.json`.
-- **Pitfall 1 (atomic schema migration) forces Phase 1 to be treated as a single verified pass**, not an incremental one. The team cannot move to Phase 2 until GROQ Vision confirms zero `releaseNote` documents remain and the fetch script logs a non-zero count for the `release` type.
-- **The `|| true` build flag (Pitfall 2) means Phase 1 must include a strict-mode verification run** before handing off to Phase 2, otherwise Phase 2 begins on silently empty JSON data.
+- **Security before content:** Phase 1 establishes access boundaries before any multi-product content exists
+- **Data layer first:** Phase 2 (schemas) before Phase 3 (builds) because builds depend on filtered content
+- **Infrastructure before branding:** Phase 3-5 build and deploy pipeline before Phase 4 customizes it
+- **Parallel opportunities:** PostHog (Phase 6) and content seeding (Phase 7) can overlap with build/deploy phases
 
 ### Research Flags
 
-Phases needing deeper research during planning:
-- **None.** All four research files are grounded in direct codebase inspection of the live production system. All implementation patterns are already present in the codebase. The roadmapper can structure phases directly from this summary without additional research passes.
+Phases likely needing deeper research during planning:
+- **Phase 3:** Docusaurus multi-config builds with separate output directories; build artifact separation
+- **Phase 5:** Cloudflare Pages multi-project automation via wrangler; webhook filtering by Sanity document product field
 
-Phases with well-documented, proven patterns (no research-phase needed):
-- **Phase 1:** `defineArrayMember` schema pattern, atomic migration checklist, GROQ query extension — all sourced from live code.
-- **Phase 2:** Client-side filter pattern is a direct copy-adaptation of `legacy-pages/roadmap.tsx`. React page pattern follows `SanityLandingPageRoute.tsx` and `index.tsx`.
-- **Phase 3:** Three-line component change with exact code provided in ARCHITECTURE.md Pattern 3.
-- **Phase 4:** Execution checklist provided verbatim in PITFALLS.md "Looks Done But Isn't" section.
-
----
+Phases with standard patterns (skip research-phase):
+- **Phase 1:** Auth0 custom claims and session extension are well-documented official patterns
+- **Phase 2:** Sanity schema migration patterns established in v1.1 work
+- **Phase 4:** Docusaurus configuration is extensively documented
+- **Phase 6:** PostHog React SDK has official documentation and examples
+- **Phase 7:** Content seeding is editorial work, not technical research
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | All decisions derived from live `package.json` files and running production code. No inference required. |
-| Features | HIGH (codebase) / MEDIUM (benchmarks) | Table stakes and P1 features derived from direct legacy page inspection. Competitor analysis (Linear, Vercel, Intercom) drawn from training data cutoff August 2025 — treat as directional, not authoritative. |
-| Architecture | HIGH | All patterns grounded in direct inspection of 13+ live source files. No architecture decision requires new technology or an untested pattern. |
-| Pitfalls | HIGH | Every critical pitfall traceable to a specific file and line number in the live codebase. Mitigation steps are verified, not speculative. |
+| Stack | HIGH | Official SDKs with verified versions; existing Auth0/PostHog integrations in codebase |
+| Features | HIGH | Codebase inspection confirmed existing patterns; MEDIUM for external benchmarks from training data |
+| Architecture | HIGH | Direct inspection of existing build pipeline; patterns validated against existing implementation |
+| Pitfalls | HIGH | Based on existing architecture analysis, auth system inspection, and platform capabilities research |
 
-**Overall confidence: HIGH**
+**Overall confidence:** HIGH
 
 ### Gaps to Address
 
-- **`displayTitle` vs. `sprintId` UX field:** PITFALLS.md flags that external customers do not understand internal sprint naming conventions (e.g., "Sprint 2025.12-B"). The `release` schema needs a `displayTitle` field for customer-facing language distinct from `sprintId`. This field is absent from the existing `releaseNote` schema and must be added as a required field in Phase 1. Editors need a brief authoring note explaining the distinction. Decide in Phase 1 requirements whether `displayTitle` is required or optional with `sprintId` as fallback.
-
-- **`@portabletext/react` dependency decision:** PITFALLS.md Pitfall 6 flags that rendering rich release item descriptions (inline images, video embeds as blocks) through the existing `serializeBody()` Markdown pipeline is lossy. If release item descriptions are simple prose, the existing serializer is sufficient and no new package is needed. If they use rich Portable Text blocks (image arrays, video embeds), `@portabletext/react` is needed — and it is not currently in `classic/package.json`. Validate during Phase 1 schema design: if item descriptions will be plain text plus links only, no new dependency. If rich blocks, add the dependency before Phase 2 begins.
-
-- **Projected release date format on roadmap:** PITFALLS.md flags that storing `projectedRelease` as a human string ("Q2 2026") prevents programmatic sorting and causes silent staleness erosion. Adding a `lastReviewedAt` ISO date field alongside the human string is recommended. Decide during Phase 1 requirements whether this is in-scope for v1.1 or deferred to v1.2.
-
-- **Webhook filter scope:** The current Cloudflare Pages webhook may not be scoped — it could fire on draft saves of all document types. PITFALLS.md Integration Gotcha recommends scoping to published `release` and `roadmapItem` documents only. Verify current webhook configuration in Sanity dashboard before Phase 1 begins and update if needed.
-
----
+- **Product entitlements source:** Auth0 claims need to fetch product access from somewhere (Zoho custom field, separate database, or Auth0 app_metadata). Validate which source of truth exists.
+- **Zoho contact product field:** Need to verify if Zoho contact records have a custom field for product entitlements. If not, need to create one or use alternative source.
+- **Private vs. public content strategy:** Decision needed on whether product-specific docs are fully protected (require auth) or partially public. Affects architecture choice (client-side gating vs. protected builds).
+- **Asset isolation:** If product-specific images/videos should not leak, need product-scoped Cloudinary folders OR signed URLs. Verify requirements.
+- **Search index strategy:** Need to decide between (a) separate search indexes per product subdomain, (b) exclude protected docs from static index, or (c) server-side search API. Depends on private/public content decision.
 
 ## Sources
 
-### Primary (HIGH confidence — direct codebase inspection)
+### Primary (HIGH confidence)
+- **Auth0 React SDK** — https://auth0.com/docs/libraries/auth0-react — Integration patterns, hooks, HOCs
+- **PostHog JS SDK** — https://posthog.com/docs/libraries/js — Initialization, group tracking
+- **PostHog React SDK** — https://posthog.com/docs/libraries/react — Provider setup, hooks
+- **Docusaurus Multi-Instance** — https://docusaurus.io/docs/using-plugins#multi-instance-plugins — Plugin configuration patterns
+- **Sanity GROQ Cheat Sheet** — https://www.sanity.io/docs/query-cheat-sheet — Filtering patterns
+- **Cloudflare Pages Deployment** — https://docusaurus.io/docs/deployment#deploying-to-cloudflare-pages — Build configuration
+- **keys.md** — PostHog credentials (Project ID: 365239, Token: phc_tkcgBrQb37g5F7aiSTcuKWoUaSitBNd6JdcULN6xqrwS)
+- **npm registry** — Package versions verified via `npm view`
 
-- `classic/package.json` — verified installed versions for all frontend dependencies
-- `studio/package.json` — verified Studio plugin versions including `sanity-plugin-mux-input`
-- `classic/scripts/fetch-sanity-content.js` — authoritative data pipeline; all GROQ patterns, serialization, backup system, `|| true` flag
-- `studio/schemaTypes/releaseNote.ts` — current schema being replaced; field inventory
-- `studio/schemaTypes/portableText-ultimate.ts` — `defineArrayMember` usage pattern (directly reusable)
-- `studio/schemaTypes/index.ts` — all type registrations; four sites requiring update on migration
-- `studio/sanity.config.ts` — initial value templates, document actions, dashboard widgets (lines 60, 130, 145, 170)
-- `studio/src/structure.ts` — sidebar entry and Published filter referencing `releaseNote`
-- `classic/src/components/NXGENSphereHero.tsx` line 418 — hardcoded sprint string to replace
-- `classic/src/pages/releases.tsx` + `classic/src/pages/roadmap.tsx` — current `SanityLandingPageRoute` wrapper pattern to replace
-- `classic/src/legacy-pages/releases.tsx` + `classic/src/legacy-pages/roadmap.tsx` — legacy implementations to adapt
-- `classic/src/data/roadmap.ts` — existing static TypeScript roadmap data; internal Zoho labels to strip before exposing publicly
-- `classic/src/pages/index.tsx` lines 105–119 — hardcoded `recentReleases` array
-- `build.sh` line 19 — `|| true` flag on fetch-content step
-- `.planning/PROJECT.md` — v1.1 feature requirements and constraints (no backend, static site, webhook rebuilds)
+### Codebase inspection (HIGH confidence)
+- `classic/docusaurus.config.ts` — Current Docusaurus configuration
+- `classic/scripts/fetch-sanity-content.js` — Authoritative data pipeline (all GROQ queries)
+- `classic/plugins/docusaurus-plugin-sanity-content/index.js` — Plugin structure
+- `scripts/generate-sidebar-from-sanity.js` — Sidebar generation
+- `studio/sanity.config.ts` — Sanity Studio configuration
+- `functions/zoho-customer-auth.ts` — Current session creation
+- `functions/lib/zoho-session.ts` — Session interface
+- `.planning/PROJECT.md` — Project constraints
+- `.planning/STATE.md` — v5.0 Auth0 planning
 
-### Secondary (MEDIUM confidence — training data benchmarks)
+### Existing research (HIGH confidence)
+- `.planning/research/ARCHITECTURE.md` — v1.1 architecture patterns
+- `.planning/research/auth0-upgrade-EXISTING-AUTH.md` — Dual auth systems analysis
+- `.planning/research/auth0-upgrade-FEATURES.md` — Auth0 capabilities
 
-- Linear changelog (linear.app/changelog) — "Released in" pattern for shipped items
-- Vercel changelog (vercel.com/changelog) — per-item media and per-entry permalink pattern
-- Intercom changelog (intercom.com/changelog) — category-based filtering pattern
-- Canny.io — upvoting anti-feature reference; corroborates deliberate exclusion from scope
+### Secondary (MEDIUM confidence)
+- Docusaurus i18n documentation — Separation patterns (analogous use case)
+- Auth0 Organizations documentation — Multi-tenant patterns (may be overkill for 2-3 products)
+- Benchmark analysis (training data as of August 2025) — Linear, Vercel, Intercom changelogs; common patterns
 
 ---
-
-*Research completed: 2026-03-13*
+*Research completed: 2026-04-01*
 *Ready for roadmap: yes*

@@ -1,512 +1,805 @@
-# Architecture Research
+# Architecture Research: Multi-Product Knowledge Base
 
-**Domain:** Docusaurus SSG + Sanity CMS — v1.1 Releases & Roadmap milestone
-**Researched:** 2026-03-13
-**Confidence:** HIGH (based on direct codebase inspection of all relevant files)
-
----
-
-## Standard Architecture
-
-### System Overview
-
-```
-┌──────────────────────────────────────────────────────────────────────┐
-│                        SANITY STUDIO (studio/)                        │
-│  ┌─────────────────────┐  ┌──────────────────┐  ┌─────────────────┐  │
-│  │  release (NEW)      │  │  roadmapItem     │  │  doc / article  │  │
-│  │  - title            │  │  (NEW schema)    │  │  (existing,     │  │
-│  │  - sprintId         │  │  - title         │  │   unchanged)    │  │
-│  │  - publishedAt      │  │  - status        │  │                 │  │
-│  │  - items[] (array)  │  │  - businessValue │  │                 │  │
-│  │    - title          │  │  - changeType    │  │                 │  │
-│  │    - description    │  │  - uiChange flag │  │                 │  │
-│  │    - type           │  │  - uxFixes flag  │  │                 │  │
-│  │    - screenshot?    │  │  - entities[]    │  │                 │  │
-│  │    - video?         │  │  - releaseRef?   │  │                 │  │
-│  └─────────────────────┘  └──────────────────┘  └─────────────────┘  │
-│                                                                        │
-│  releaseNote.ts → DELETED. Replaced entirely by release.ts above.     │
-└──────────────────────┬───────────────────────────────────────────────┘
-                       |
-                       |  Sanity publish fires webhook
-                       |
-                       v
-┌──────────────────────────────────────────────────────────────────────┐
-│              CLOUDFLARE PAGES BUILD PIPELINE                          │
-│                                                                        │
-│  webhook received -> Cloudflare Pages triggers rebuild                 │
-│                                                                        │
-│  Pre-build:  node classic/scripts/fetch-sanity-content.js             │
-│    GROQ existing:  docs, articles, referencePages                      │
-│    GROQ existing:  landingPages -> .sanity-landing-pages/ + JSON       │
-│    GROQ NEW:       release      -> src/data/sanity-releases.json       │
-│    GROQ NEW:       roadmapItem  -> src/data/sanity-roadmap.json        │
-│    MDX output:     .sanity-cache/{audience}/*.md  (docs only)         │
-│                                                                        │
-│  Build:      npx docusaurus build                                      │
-│    - plugin-content-docs reads .sanity-cache/ for /docs/*             │
-│    - src/pages/*.tsx compiled with JSON imports baked in               │
-└──────────────────────┬───────────────────────────────────────────────┘
-                       |
-                       v
-┌──────────────────────────────────────────────────────────────────────┐
-│                  STATIC SITE OUTPUT (deployed to Cloudflare CDN)       │
-│                                                                        │
-│  /releases     custom React page - reads sanity-releases.json         │
-│  /roadmap      custom React page - reads sanity-roadmap.json          │
-│  /             hero banner reads releases[0] from sanity-releases.json │
-│  /docs/*       MDX docs via plugin-content-docs (unchanged pipeline)   │
-│                                                                        │
-│  Client-side:  search/filter on /roadmap runs entirely in browser      │
-│                (no API calls; full dataset in JS bundle)               │
-└──────────────────────────────────────────────────────────────────────┘
-```
-
-### Component Responsibilities
-
-| Component | Status | Responsibility | Location |
-|-----------|--------|---------------|----------|
-| `releaseNote.ts` | DELETED | Replaced by `release.ts` | `studio/schemaTypes/` |
-| `release.ts` | NEW | One doc per sprint; items as inline array | `studio/schemaTypes/` |
-| `roadmapItem.ts` | NEW | Individual roadmap item; optional ref to release | `studio/schemaTypes/` |
-| `studio/schemaTypes/index.ts` | MODIFIED | Swap releaseNoteType, add roadmapItemType | `studio/schemaTypes/` |
-| `fetch-sanity-content.js` | MODIFIED | Add two new GROQ queries + JSON output | `classic/scripts/` |
-| `sanity-releases.generated.json` | NEW | Build artifact; all release data for /releases | `classic/src/data/` |
-| `sanity-roadmap.generated.json` | NEW | Build artifact; all roadmap items for /roadmap | `classic/src/data/` |
-| `src/pages/releases.tsx` | REPLACED | Custom React page; reads sanity-releases JSON | `classic/src/pages/` |
-| `src/pages/roadmap.tsx` | REPLACED | Custom React page; reads sanity-roadmap JSON | `classic/src/pages/` |
-| `NXGENSphereHero.tsx` | MODIFIED | Banner chip reads releases[0] from JSON | `classic/src/components/` |
-| `src/pages/index.tsx` | MODIFIED | "Recent Releases" section reads releases[0..1] | `classic/src/pages/` |
-| `src/legacy-pages/releases.tsx` | DELETED | Replaced by CMS-backed page | `classic/src/legacy-pages/` |
-| `src/data/roadmap.ts` | DELETED | Replaced by sanity-roadmap.generated.json | `classic/src/data/` |
+**Domain:** Multi-product Docusaurus + Sanity architecture
+**Researched:** 2026-04-01
+**Confidence:** HIGH (based on direct codebase inspection and existing v5.0 Auth0 planning)
 
 ---
 
-## Recommended Project Structure
+## Executive Summary
+
+This research addresses the **NEW architectural components** required to transform the existing single-product Docusaurus + Sanity documentation platform into a multi-product system. The existing architecture (build-time Sanity fetch, static generation, Cloudflare Pages deployment) is preserved and extended.
+
+**Key Integration Points:**
+1. **Multi-build pipeline** extends the existing `fetch-sanity-content.js` to filter by product
+2. **Sanity schemas** add a `product` field to all content types
+3. **Auth0 integration** (already planned in v5.0) enables content access control
+4. **PostHog analytics** adds product-aware tracking
+5. **Domain routing** maps product builds to their respective domains
+
+---
+
+## Current Architecture Overview
 
 ```
-classic/
-├── scripts/
-│   └── fetch-sanity-content.js         # MODIFIED: new queries + JSON output
-│
-├── src/
-│   ├── data/
-│   │   ├── sanity-releases.generated.json      # NEW: written at build time
-│   │   ├── sanity-roadmap.generated.json       # NEW: written at build time
-│   │   ├── sanity-release-notes.generated.json # KEEP or DELETE (now superseded)
-│   │   └── sanity-landing-pages.generated.json # UNCHANGED
-│   │
-│   ├── pages/
-│   │   ├── releases.tsx         # REPLACED: reads sanity-releases JSON
-│   │   ├── roadmap.tsx          # REPLACED: reads sanity-roadmap JSON
-│   │   └── index.tsx            # MODIFIED: hero + recent releases from JSON
-│   │
-│   └── components/
-│       └── NXGENSphereHero.tsx  # MODIFIED: latest release from JSON import
-│
-studio/
-└── schemaTypes/
-    ├── releaseNote.ts           # DELETED
-    ├── release.ts               # NEW
-    ├── roadmapItem.ts           # NEW
-    └── index.ts                 # MODIFIED
++---------------------------------------------------------------------+
+|                     SANITY STUDIO (studio/)                          |
+|  +---------------------+  +------------------+  +-----------------+   |
+|  |  doc                |  |  release         |  |  article        |   |
+|  |  - title            |  |  - title         |  |  - title        |   |
+|  |  - slug             |  |  - sprintId      |  |  - slug         |   |
+|  |  - targetAudience[] |  |  - items[]       |  |  - body         |   |
+|  |  - body             |  |  - publishedAt   |  |                 |   |
+|  |  - status           |  |                  |  |                 |   |
+|  +---------------------+  +------------------+  +-----------------+   |
+|                                                                       |
+|  CURRENT: Single dataset "production" for single product (GCXONE)    |
+|  NEW: Add product field to all schemas for multi-product support     |
++----------------------------------------------+----------------------+
+                                               |
+                       Sanity webhook -> Cloudflare Pages rebuild
+                                               v
++---------------------------------------------------------------------+
+|             CLOUDFLARE PAGES BUILD PIPELINE (CURRENT)               |
+|                                                                     |
+|  Pre-build:  node classic/scripts/fetch-sanity-content.js          |
+|    GROQ: docs, articles, releases, roadmapItems, landingPages      |
+|    Output: .sanity-cache/{audience}/*.md                           |
+|            src/data/sanity-*.generated.json                         |
+|                                                                     |
+|  Build:      npx docusaurus build                                   |
+|    Output:    classic/build/ -> deployed to docs.nxgen.cloud       |
+|                                                                     |
+|  NEW: Multi-build pipeline runs one build per product              |
++----------------------------------------------+----------------------+
+                                               v
++---------------------------------------------------------------------+
+|               DEPLOYED STATIC SITES (CURRENT + NEW)                  |
+|                                                                     |
+|  CURRENT:  docs.nxgen.cloud      -> single product (GCXONE)        |
+|  NEW:      docs.gcxone.com       -> GCXONE product site            |
+|            docs.gcsurge.com      -> GCSurge product site           |
+|            (Additional products as needed)                         |
++---------------------------------------------------------------------+
 ```
 
-### Structure Rationale
+---
 
-- **`sanity-releases.generated.json` and `sanity-roadmap.generated.json`:** Follow the established pattern of `sanity-landing-pages.generated.json`. Written at build time by the fetch script; imported as static JSON by React pages. Zero runtime API calls. Zero SSG compatibility issues.
-- **Releases as a custom React page (not MDX docs):** The new schema has `items[]` — an array with per-item screenshots and video. MDX docs render one `body` field per document. There is no reasonable way to render a structured items array through the Portable Text to MDX pipeline. A custom page with a direct JSON import is the correct approach. This is already the pattern used by `roadmap.tsx`.
-- **Roadmap items as JSON (not MDX):** Roadmap items are structured data rows — title, status, flags, reference. Running them through the MDX pipeline (GROQ → Portable Text → MDX → sidebar) adds complexity for zero benefit. The filter/search UI requires the full dataset in memory anyway.
+## New Architecture Components
+
+### System Overview (Multi-Product)
+
+```
++-----------------------------------------------------------------------------+
+|                     SANITY STUDIO (MODIFIED)                                 |
+|  +-----------------------------------------------------------------------+  |
+|  |  ALL SCHEMAS (NEW: product field added)                               |  |
+|  |  +------------+  +------------+  +------------+  +------------+       |  |
+|  |  | doc        |  | release    |  | article    |  | roadmapItem|       |  |
+|  |  | + product  |  | + product  |  | + product  |  | + product  |       |  |
+|  |  | (required) |  | (required) |  | (required) |  | (required) |       |  |
+|  |  +------------+  +------------+  +------------+  +------------+       |  |
+|  |                                                                         |  |
+|  |  +-------------------------------------------------------------+       |  |
+|  |  | sidebarCategory + product (for product-specific sidebars)   |       |  |
+|  |  | landingPage + product (for product-specific landing pages)  |       |  |
+|  |  +-------------------------------------------------------------+       |  |
+|  +-----------------------------------------------------------------------+  |
+|                                                                              |
+|  PRODUCT ENUM: ["gcxone", "gcsurge"] (extensible)                           |
++----------------------------------------------+-----------------------------+
+                                               |
+                    Sanity webhook triggers multi-build
+                                               v
++-----------------------------------------------------------------------------+
+|                     MULTI-BUILD PIPELINE (NEW)                              |
+|                                                                             |
+|  +-----------------------------------------------------------------------+  |
+|  |  build-multi-product.js                                               |  |
+|  |                                                                       |  |
+|  |  For each PRODUCT in ["gcxone", "gcsurge"]:                          |  |
+|  |    1. Set PRODUCT env var                                             |  |
+|  |    2. Run fetch-sanity-content.js (GROQ filters by product)          |  |
+|  |    3. Run docusaurus build --out-dir build/${PRODUCT}                |  |
+|  |    4. Output: classic/build/gcxone/ and classic/build/gcsurge/       |  |
+|  +-----------------------------------------------------------------------+  |
+|                                                                             |
+|  MODIFIED: fetch-sanity-content.js adds product filter to ALL GROQ queries |
++----------------------------------------------+-----------------------------+
+                                               v
++-----------------------------------------------------------------------------+
+|                     CLOUDFLARE PAGES DEPLOYMENT (NEW)                       |
+|                                                                             |
+|  +---------------------+    +---------------------+                        |
+|  | docs.gcxone.com     |    | docs.gcsurge.com    |                        |
+|  | (GCXONE Pages proj) |    | (GCSurge Pages proj)|                        |
+|  | -> build/gcxone/    |    | -> build/gcsurge/   |                        |
+|  +---------------------+    +---------------------+                        |
+|                                                                             |
+|  Each domain is a separate Cloudflare Pages project with its own:          |
+|  - Custom domain configuration                                              |
+|  - Environment variables (SANITY_PROJECT_ID, SANITY_DATASET, PRODUCT)      |
+|  - Build hook from Sanity webhook                                          |
++-----------------------------------------------------------------------------+
+```
+
+---
+
+## Component Responsibilities
+
+### New Components
+
+| Component | Type | Responsibility | Location |
+|-----------|------|---------------|----------|
+| `build-multi-product.js` | NEW | Orchestrates multi-build pipeline, one build per product | `classic/scripts/` |
+| `product.config.ts` | NEW | Product-specific configuration (title, branding, domains) | `classic/` |
+| `sanity-product.config.ts` | NEW | Sanity product field validation and preview | `studio/schemaTypes/` |
+| Auth0 Provider wrapper | NEW | Auth0 React SDK integration with product context | `classic/src/theme/Root.tsx` |
+| PostHog Provider | NEW | Analytics with product identification | `classic/src/theme/Root.tsx` |
+| Access control utilities | NEW | Content visibility checks based on product + user roles | `classic/src/utils/` |
+
+### Modified Components
+
+| Component | Modification | Why |
+|-----------|-------------|-----|
+| `fetch-sanity-content.js` | Add product filter to all GROQ queries | Filter content by PRODUCT env var |
+| `docusaurus.config.ts` | Read PRODUCT env var for site title, URL, branding | Product-specific configuration |
+| All Sanity schemas | Add `product` field (required, enum) | Content belongs to specific product |
+| `generate-sidebar-from-sanity.js` | Filter categories by product | Product-specific sidebar structure |
+| `.cfpages.yaml` | Support multi-project deployment | Deploy each product to its domain |
+
+### Unchanged Components
+
+| Component | Why Unchanged |
+|-----------|---------------|
+| `plugin-content-docs` instances | Continue to read from `.sanity-cache/`; content filtered by product |
+| `docusaurus-plugin-sanity-content` | Remains a thin shim; fetch script handles filtering |
+| Cloudflare Functions | Auth and API endpoints work across products |
+| Static generation approach | Each product is a separate static site |
 
 ---
 
 ## Architectural Patterns
 
-### Pattern 1: Build-Time JSON as the SSG-Safe Data Contract
+### Pattern 1: Environment-Driven Product Context
 
-**What:** `fetch-sanity-content.js` runs before `docusaurus build`, executes GROQ queries, and writes typed JSON files to `src/data/`. React pages import these files with static TypeScript `import` statements. No runtime API calls. No SSR.
+**What:** The `PRODUCT` environment variable flows through the entire build pipeline, filtering content, configuring branding, and determining output directory.
 
-**When to use:** All Sanity data that needs to power a custom React page (not an MDX doc). Already established for landing pages and release note metadata.
+**When to use:** Multi-product static sites where each product has distinct content but shares the same codebase.
 
-**Trade-offs:** Extremely fast page loads. Perfect Cloudflare Pages compatibility. Zero runtime API cost. Content is only as fresh as the last build — acceptable because a Sanity publish webhook triggers a new build, and the pipeline completes in under 3 minutes.
+**Trade-offs:** Single codebase maintenance vs. separate deployments per product. Build time scales linearly with number of products. Each product is a complete static site with no runtime product-switching overhead.
 
-**Example — adding releases to fetch-sanity-content.js:**
+**Implementation:**
+
 ```javascript
-// In fetch-sanity-content.js
+// classic/scripts/build-multi-product.js
+const PRODUCTS = ['gcxone', 'gcsurge'];
 
-const RELEASES_GENERATED_FILE = path.join(
-  SITE_DIR, 'src', 'data', 'sanity-releases.generated.json'
-);
-
-const ROADMAP_GENERATED_FILE = path.join(
-  SITE_DIR, 'src', 'data', 'sanity-roadmap.generated.json'
-);
-
-function getReleasesQuery(includeDrafts) {
-  const filter = statusFilterClause(includeDrafts);
-  return `*[_type == "release" && ${filter}] | order(publishedAt desc) {
-    _id, title, slug, sprintId, publishedAt,
-    items[] {
-      _key, title, description, type,
-      "screenshotUrl": screenshot.asset->url,
-      videoUrl
-    }
-  }`;
-}
-
-function getRoadmapQuery(includeDrafts) {
-  const filter = statusFilterClause(includeDrafts);
-  return `*[_type == "roadmapItem" && ${filter}] | order(_createdAt desc) {
-    _id, title, status, businessValue, changeType,
-    uiChange, uxFixes, entities,
-    "releaseSlug": releaseRef->slug.current
-  }`;
+async function buildAllProducts() {
+  for (const product of PRODUCTS) {
+    process.env.PRODUCT = product;
+    
+    // 1. Fetch product-specific content from Sanity
+    await require('./fetch-sanity-content.js').run();
+    
+    // 2. Generate product-specific sidebar
+    await require('../scripts/generate-sidebar-from-sanity.js').run();
+    
+    // 3. Build Docusaurus with product configuration
+    execSync(`npx docusaurus build --out-dir build/${product}`, {
+      stdio: 'inherit',
+      env: { ...process.env, PRODUCT: product }
+    });
+    
+    console.log(`Built ${product} -> build/${product}/`);
+  }
 }
 ```
 
-**Example — consuming in a React page:**
-```typescript
-// src/pages/releases.tsx
-import releases from '../data/sanity-releases.generated.json';
+**Docusaurus config reads product context:**
 
-export default function ReleasesPage() {
+```typescript
+// classic/docusaurus.config.ts
+const product = process.env.PRODUCT || 'gcxone';
+
+const PRODUCT_CONFIG = {
+  gcxone: {
+    title: 'GCXONE Documentation',
+    url: 'https://docs.gcxone.com',
+    tagline: 'Complete documentation for GCXONE platform',
+  },
+  gcsurge: {
+    title: 'GCSurge Documentation',
+    url: 'https://docs.gcsurge.com',
+    tagline: 'Complete documentation for GCSurge platform',
+  },
+};
+
+const config = {
+  title: PRODUCT_CONFIG[product].title,
+  url: PRODUCT_CONFIG[product].url,
+  tagline: PRODUCT_CONFIG[product].tagline,
+  // ...
+};
+```
+
+### Pattern 2: GROQ Product Filter on All Content Queries
+
+**What:** Every GROQ query in `fetch-sanity-content.js` includes a product filter clause. This ensures each product build only fetches its own content.
+
+**When to use:** Multi-tenant Sanity datasets where documents belong to specific tenants.
+
+**Trade-offs:** Simple filtering approach vs. separate Sanity datasets per product. Using a single dataset with product filtering keeps all content in one place for easier cross-product editorial workflows. Separate datasets would require dataset-level permissions and complicate Studio access.
+
+**Implementation:**
+
+```javascript
+// classic/scripts/fetch-sanity-content.js
+
+const PRODUCT = process.env.PRODUCT || 'gcxone';
+
+function getProductFilter() {
+  return `product == "${PRODUCT}"`;
+}
+
+function getQueries(includeDrafts) {
+  const statusFilter = statusFilterClause(includeDrafts);
+  const productFilter = getProductFilter();
+  
+  return [
+    {
+      type: 'doc',
+      query: `*[_type == "doc" && ${statusFilter} && ${productFilter}] | order(sidebarPosition asc) {
+        title, slug, targetAudience, category, sidebarPosition, sidebarLabel, 
+        hideFromSidebar, body, lastUpdated, description, tags, status, product,
+        "categoryId": sidebarCategory->_id,
+        "categorySlug": sidebarCategory->slug.current,
+        "categoryTitle": sidebarCategory->title,
+        "coverImageUrl": coverImage.asset->url
+      }`,
+    },
+    // ... all other queries include product filter
+  ];
+}
+```
+
+### Pattern 3: Sanity Schema Product Field (Required Enum)
+
+**What:** Every content schema includes a required `product` field with an enum of valid products. This ensures all content is explicitly assigned to a product and prevents orphaned documents.
+
+**When to use:** Multi-product content management where content must not be "shared" or ambiguous.
+
+**Trade-offs:** Slightly more editorial overhead (selecting product for each document) vs. clear product ownership. Required field prevents editorial errors where content is not assigned.
+
+**Implementation:**
+
+```typescript
+// studio/schemaTypes/doc.ts (MODIFIED)
+
+export const docType = defineType({
+  name: 'doc',
+  type: 'document',
+  title: 'Documentation Page',
+  fields: [
+    // ... existing fields
+    defineField({
+      name: 'product',
+      type: 'string',
+      title: 'Product',
+      options: {
+        list: [
+          { title: 'GCXONE', value: 'gcxone' },
+          { title: 'GCSurge', value: 'gcsurge' },
+        ],
+        layout: 'radio',
+      },
+      validation: (Rule) => Rule.required(),
+      initialValue: 'gcxone',
+    }),
+  ],
+  preview: {
+    select: {
+      title: 'title',
+      product: 'product',
+      status: 'status',
+    },
+    prepare({ title, product, status }) {
+      return {
+        title,
+        subtitle: `${product?.toUpperCase() || 'No product'} - ${status || 'draft'}`,
+      };
+    },
+  },
+});
+```
+
+### Pattern 4: Product-Specific Sidebar Generation
+
+**What:** The sidebar generation script filters categories and documents by product, generating a unique sidebar structure for each product build.
+
+**Implementation:**
+
+```javascript
+// scripts/generate-sidebar-from-sanity.js (MODIFIED)
+
+const PRODUCT = process.env.PRODUCT || 'gcxone';
+
+async function fetchSanityData() {
+  const client = createClient({
+    projectId: SANITY_PROJECT_ID,
+    dataset: SANITY_DATASET,
+    apiVersion: '2025-02-06',
+  });
+
+  const categories = await client.fetch(`
+    *[_type == "sidebarCategory" && product == "${PRODUCT}"] | order(position asc) {
+      _id, title, slug, icon, position, parent, collapsed, collapsible, link, product
+    }
+  `);
+
+  const docs = await client.fetch(`
+    *[_type == "doc" && status == "published" && product == "${PRODUCT}"] {
+      _id, title, "slug": slug.current, category, "categoryId": sidebarCategory->_id,
+      sidebarPosition, sidebarLabel, product
+    }
+  `);
+
+  return { categories, docs };
+}
+```
+
+### Pattern 5: Auth0 Integration for Access Control (v5.0 Foundation)
+
+**What:** Auth0 provides user authentication with product-specific roles. The existing v5.0 Auth0 planning provides the foundation for content access control.
+
+**Integration with multi-product:** Auth0 custom claims include product roles, enabling per-product content visibility.
+
+**Auth0 Action for product claims:**
+
+```javascript
+// Auth0 Action: Add product roles to JWT claims
+
+exports.onExecutePostLogin = async (event) => {
+  const namespace = 'https://nxgen.cloud/claims';
+  const productAccess = event.user.app_metadata?.productAccess || ['gcxone'];
+  
+  event.authorization.tokens[`${namespace}/product_access`] = productAccess;
+  event.authorization.tokens[`${namespace}/roles`] = event.user.app_metadata?.roles || [];
+};
+```
+
+**Frontend access control:**
+
+```typescript
+// classic/src/utils/contentAccess.ts (NEW)
+
+import { useAuth0 } from '@auth0/auth0-react';
+
+export function useContentAccess() {
+  const { isAuthenticated, user } = useAuth0();
+  
+  const userProductAccess = user?.['https://nxgen.cloud/claims/product_access'] || [];
+  const userRoles = user?.['https://nxgen.cloud/claims/roles'] || [];
+  
+  return {
+    canView: (content: { product: string; visibility: 'public' | 'private' }) => {
+      if (content.visibility === 'public') return true;
+      if (!isAuthenticated) return false;
+      return userProductAccess.includes(content.product);
+    },
+    
+    canEdit: (content: { product: string }) => {
+      if (!isAuthenticated) return false;
+      return userRoles.includes(`editor-${content.product}`) || userRoles.includes('admin');
+    },
+  };
+}
+```
+
+**Important:** The current architecture is **build-time static generation**. Content access control for private content requires either:
+1. **Client-side gating** - All content in build, visibility enforced by React components
+2. **Protected builds** - Private content excluded from public builds, served via authenticated routes
+3. **Edge authentication** - Cloudflare Workers check auth before serving private content
+
+**Recommendation:** For the multi-product milestone, use **client-side gating** for private content. This preserves static generation while adding the UX of gated content.
+
+### Pattern 6: PostHog Product-Aware Analytics
+
+**What:** PostHog tracks user interactions with product context, enabling per-product analytics dashboards.
+
+**Implementation:**
+
+```typescript
+// classic/src/theme/Root.tsx (MODIFIED)
+
+import { PostHogProvider } from 'posthog-js/react';
+
+const PRODUCT = process.env.PRODUCT || 'gcxone';
+
+function Root({ children }) {
+  const posthogConfig = {
+    api_key: process.env.POSTHOG_KEY,
+    options: {
+      properties: { product: PRODUCT },
+    },
+  };
+  
   return (
-    // releases is typed, bundled at build time, zero fetch latency
-    releases.map(release => <ReleaseCard key={release._id} release={release} />)
+    <PostHogProvider {...posthogConfig}>
+      {children}
+    </PostHogProvider>
   );
 }
 ```
-
-### Pattern 2: Client-Side Filter on Build-Time Data
-
-**What:** All data is in the page bundle at build time. Search and filter operate in the browser via React `useState` + `useMemo`. No API calls at filter time.
-
-**When to use:** Datasets small enough to ship in-bundle — dozens to a few hundred items. Both the roadmap and releases qualify. A year of bi-weekly releases is 26 records. A roadmap rarely exceeds a few hundred items.
-
-**Trade-offs:** Zero filter latency (no network round-trip). Works offline. Full dataset is in the HTML payload — fine at this scale; would need pagination beyond ~500 items. The existing legacy roadmap page already uses exactly this pattern.
-
-**Example (adapted from existing legacy roadmap.tsx):**
-```typescript
-const filteredItems = useMemo(() => {
-  return roadmapItems.filter(item => {
-    const matchesSearch = searchQuery === '' ||
-      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.businessValue?.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = selectedStatus === 'All' || item.status === selectedStatus;
-    return matchesSearch && matchesStatus;
-  });
-}, [searchQuery, selectedStatus, roadmapItems]);
-```
-
-### Pattern 3: Hero Banner via Static JSON Import (Not Client-Side Fetch)
-
-**What:** The hero banner in `NXGENSphereHero.tsx` currently hardcodes `"Sprint 2025.12-B is live"` (line 418). Replace this string with a read from `releases[0]` via a static import of the JSON file.
-
-**Why not client-side fetch:** SSG pages are rendered to static HTML at build time. A client-side `fetch()` causes a hydration flash — the server HTML shows nothing, then data appears after JS runs. This is a visible flash directly in the hero on every page load. Unacceptable.
-
-**Why not a Cloudflare Function:** Adding a Function for a banner title adds operational complexity, introduces a runtime dependency, and violates the "no runtime infrastructure" constraint. The data is already available in the JSON that the build script writes.
-
-**How it works:**
-```typescript
-// src/components/NXGENSphereHero.tsx
-import releasesData from '../data/sanity-releases.generated.json';
-
-// releases are already sorted desc by publishedAt in the GROQ query
-const latestRelease = releasesData[0];
-const bannerText = latestRelease
-  ? `${latestRelease.title} is live`
-  : 'Latest release';
-```
-
-When a new release is published in Sanity, the webhook triggers a rebuild. The GROQ query runs, the JSON updates with the new release at index 0, and the new banner text appears in the deployed build — typically within 2-3 minutes of hitting "Publish" in Studio.
-
-### Pattern 4: Roadmap Item → Release Cross-Reference via Slug
-
-**What:** The `roadmapItem` schema has an optional `releaseRef` Sanity reference. In GROQ, resolve this to a slug string so the frontend can render a deep-link without needing to look up the release document separately.
-
-**Example GROQ projection:**
-```groq
-*[_type == "roadmapItem"] {
-  ...,
-  "releaseSlug": releaseRef->slug.current
-}
-```
-
-**Frontend consumption:**
-```typescript
-// In /roadmap page
-{item.releaseSlug && item.status === 'Shipped' && (
-  <Link to={`/releases#${item.releaseSlug}`}>View release notes</Link>
-)}
-```
-
-The `/releases` page renders each release with `id={release.slug.current}` on its container element, making these anchor links work without any routing changes.
 
 ---
 
 ## Data Flow
 
-### Release Data Flow (Build Time)
+### Multi-Build Pipeline Flow
 
 ```
-Editor publishes "release" document in Sanity Studio
-    |
-    | (Sanity fires webhook to Cloudflare Pages deploy hook)
-    v
-Cloudflare Pages triggers rebuild
+Sanity publish webhook received
     |
     v
-node scripts/fetch-sanity-content.js
+build-multi-product.js runs
     |
-    |-- GROQ: *[_type == "release"] | order(publishedAt desc)
-    |   projections: title, slug, sprintId, publishedAt,
-    |                items[]{title, description, type, screenshotUrl, videoUrl}
+    |-- FOR PRODUCT = "gcxone":
+    |       |
+    |       v
+    |   Set process.env.PRODUCT = "gcxone"
+    |       |
+    |       v
+    |   fetch-sanity-content.js
+    |       |-- GROQ: *[_type == "doc" && product == "gcxone"]
+    |       |-- GROQ: *[_type == "release" && product == "gcxone"]
+    |       |-- GROQ: *[_type == "roadmapItem" && product == "gcxone"]
+    |       |-- GROQ: *[_type == "landingPage" && product == "gcxone"]
+    |       v
+    |   .sanity-cache/ populated with GCXONE content only
+    |   src/data/sanity-*.generated.json populated with GCXONE data
+    |       |
+    |       v
+    |   generate-sidebar-from-sanity.js
+    |       |-- GROQ: sidebarCategory + product == "gcxone"
+    |       v
+    |   sidebars.ts generated for GCXONE
+    |       |
+    |       v
+    |   npx docusaurus build --out-dir build/gcxone
+    |       |
+    |       v
+    |   classic/build/gcxone/ (GCXONE static site)
+    |
+    |-- FOR PRODUCT = "gcsurge":
+    |       |
+    |       v
+    |   (same pipeline, product == "gcsurge")
+    |       |
+    |       v
+    |   classic/build/gcsurge/ (GCSurge static site)
     |
     v
-src/data/sanity-releases.generated.json  <-- written to disk
-    |
-    v
-docusaurus build: React pages compiled with JSON baked into bundle
-    |
-    |-- src/pages/releases.tsx         imports JSON -> renders /releases
-    |-- NXGENSphereHero.tsx            reads releases[0] -> hero banner chip
-    |-- src/pages/index.tsx            reads releases[0..1] -> "Recent Releases"
-    |
-    v
-Static HTML + JS deployed to Cloudflare CDN
-User sees latest release data in every page -- no client-side fetch required
+Cloudflare Pages deployment
+    |-- docs.gcxone.com <- build/gcxone/
+    |-- docs.gcsurge.com <- build/gcsurge/
 ```
 
-### Roadmap Data Flow (Build Time + Client-Side Filter)
+### Content Query Flow (Product-Filtered)
 
 ```
-Editor publishes/updates "roadmapItem" documents in Sanity Studio
+Editor publishes doc with product: "gcxone" in Sanity Studio
     |
-    | (webhook -> rebuild)
-    v
-node scripts/fetch-sanity-content.js
+    v   Document stored: { _type: "doc", title: "...", product: "gcxone", ... }
     |
-    |-- GROQ: *[_type == "roadmapItem"] | order(_createdAt desc)
-    |   projections: all fields + "releaseSlug": releaseRef->slug.current
+Sanity webhook triggers Cloudflare Pages rebuild
     |
     v
-src/data/sanity-roadmap.generated.json  <-- written to disk
+build-multi-product.js executes
     |
-    v
-docusaurus build: full roadmap dataset bundled into /roadmap page
+    |-- GCXONE build:
+    |       |
+    |       v
+    |   GROQ query: *[_type == "doc" && product == "gcxone"]
+    |       |
+    |       v
+    |   Document IS included in GCXONE build
     |
-    v
-Browser: user loads /roadmap
-    |
-    |-- Full dataset already in JS bundle (no fetch needed at runtime)
-    |-- useState: searchQuery, selectedStatus, other filters
-    |-- useMemo: filter in-memory on every state change
-    |
-    v
-Filtered list rendered with zero network latency
+    |-- GCSurge build:
+            |
+            v
+        GROQ query: *[_type == "doc" && product == "gcsurge"]
+            |
+            v
+        Document is NOT included (product mismatch)
 ```
 
-### What Does Not Change in the Existing Pipeline
+### Authenticated Content Access Flow
 
-The following existing data flows are unaffected by this milestone:
-
-- GROQ queries for `doc`, `article`, `referencePage` types
-- MDX file generation into `.sanity-cache/{audience}/*.md`
-- `plugin-content-docs` instances reading `.sanity-cache/`
-- `sanity-landing-pages.generated.json` and the `SanityLandingPageRoute` component
-- The `docusaurus-plugin-sanity-content` plugin's `index.js` (remains a no-op shim)
-- Cloudflare Pages webhook configuration (already triggers on any Sanity publish)
+```
+User visits docs.gcxone.com
+    |
+    v
+Auth0Provider checks authentication state
+    |
+    |-- Not authenticated:
+    |       |
+    |       v
+    |   Show public content only
+    |   "Sign in" link in navbar
+    |
+    |-- Authenticated:
+            |
+            v
+        JWT contains product_access claim: ["gcxone"]
+            |
+            v
+        ContentAccess.canView({ product: "gcxone", visibility: "private" })
+            |
+            v
+        Returns true (user has gcxone access)
+            |
+            v
+        Private GCXONE content visible
+```
 
 ---
 
 ## Integration Points
 
-### How New Schemas Interact With the Existing Plugin
-
-The plugin (`docusaurus-plugin-sanity-content/index.js`) has a no-op `loadContent()`. The real work is in `scripts/fetch-sanity-content.js`. This is the only file that needs to change in the data pipeline.
-
-Required changes to `fetch-sanity-content.js`:
-1. Add `RELEASES_GENERATED_FILE` and `ROADMAP_GENERATED_FILE` constants
-2. Add GROQ queries for `release` and `roadmapItem` types (inside `getQueries()` or as separate functions)
-3. Add `fetchReleases()` and `fetchRoadmapItems()` functions modeled on existing `fetchLandingPages()`
-4. Call both at the end of `run()`, alongside `fetchLandingPages()`
-5. Remove the `releaseNote` type from `getQueries()` once `release` schema is in place
-
-No changes to the plugin's `index.js` are needed. No changes to `docusaurus.config.ts` are needed. No new Docusaurus plugin instances are needed.
-
-### Schema Migration: releaseNote -> release
-
-The existing `releaseNote` schema has `title`, `slug`, `version`, `sprintId`, `publishedAt`, `changeType`, `affectedAreas`, `status`, and a single `body` (Portable Text). The new `release` schema replaces this with `items[]` (an inline array of structured objects).
-
-The current fetch script has a `releaseNote` GROQ query that writes both MDX files to `.sanity-cache/docs/` and a `sanity-release-notes.generated.json` metadata file. Both outputs become obsolete when the schema is replaced:
-
-- The MDX files for release notes are no longer needed (releases move to a custom React page)
-- The `sanity-release-notes.generated.json` file can be deleted (superseded by `sanity-releases.generated.json`)
-
-There is currently one live release note document in Sanity (the JSON file is empty `[]`). No migration of existing content is required.
-
 ### External Services
 
-| Service | Integration Pattern | Notes |
-|---------|---------------------|-------|
-| Sanity Content API | GROQ at build time via `@sanity/client` | Add two new queries; no new auth required |
-| Sanity Asset CDN | `asset->url` in GROQ projection | Screenshots in release items resolve to CDN URLs inline; no URL builder logic needed in fetch script |
-| Cloudflare Pages | Webhook -> rebuild | No change; existing webhook covers all Sanity document types |
-| Cloudflare Functions | Existing: page-feedback.ts, voc-feedback.ts | No new Functions needed for this milestone |
-| Cloudinary | Docs images only | Not involved in releases or roadmap; release items use Sanity assets directly |
+| Service | Integration | Product Context | Notes |
+|---------|-------------|-----------------|-------|
+| Sanity Content API | GROQ queries with product filter | `product == "${PRODUCT}"` | All content queries filtered |
+| Sanity Studio | Product field on all schemas | Required enum field | Editors select product per document |
+| Auth0 | v5.0 Auth0 Integration | Custom claims for product_access | Extends existing Auth0 planning |
+| PostHog | Analytics provider | `product` property on all events | Per-product analytics |
+| Cloudflare Pages | Multi-project deployment | Separate project per product domain | Each domain is a Pages project |
+| Cloudflare Workers | (Optional) Edge auth | Product-aware routing | Future: edge-based access control |
 
 ### Internal Boundaries
 
-| Boundary | Communication | Notes |
-|----------|---------------|-------|
-| `fetch-sanity-content.js` -> `src/data/*.json` | File write at build time | One-way; script writes, pages read via static import |
-| `src/pages/releases.tsx` -> `sanity-releases.generated.json` | Static TypeScript import | JSON bundled at build time; no runtime fetch |
-| `src/pages/roadmap.tsx` -> `sanity-roadmap.generated.json` | Static TypeScript import | Replaces current import from `src/data/roadmap.ts` |
-| `NXGENSphereHero.tsx` -> `sanity-releases.generated.json` | Static TypeScript import | Reads `releases[0]` for banner chip text |
-| `src/pages/index.tsx` -> `sanity-releases.generated.json` | Static TypeScript import | Replaces hardcoded `recentReleases` array in index.tsx lines 105-119 |
-| `roadmapItem` schema -> `release` schema | Sanity reference field | Resolved to slug string in GROQ; frontend uses as anchor link |
+| Boundary | Communication | Product Context |
+|----------|---------------|-----------------|
+| `build-multi-product.js` -> `fetch-sanity-content.js` | PRODUCT env var | Determines which content to fetch |
+| `fetch-sanity-content.js` -> Sanity API | GROQ filter clause | `product == "${PRODUCT}"` in all queries |
+| `docusaurus.config.ts` -> PRODUCT env var | Node.js process.env | Site title, URL, branding |
+| `Root.tsx` -> Auth0 | JWT custom claims | `product_access` array for content gating |
+| `Root.tsx` -> PostHog | Provider config | `product` property on events |
+
+### Existing Components (Unchanged Integration)
+
+| Component | Integration | Impact |
+|-----------|-------------|--------|
+| `plugin-content-docs` | Reads `.sanity-cache/` | Content already filtered by product |
+| `docusaurus-plugin-sanity-content` | No-op `loadContent()` | Unchanged; fetch script handles filtering |
+| `docusaurus-plugin-sanity-landing-pages` | Reads landing pages JSON | Content already filtered by product |
+| Cloudflare Functions | Existing auth patterns | Work across products |
 
 ---
 
 ## Suggested Build Order
 
-The following sequence respects dependencies between components. Each step assumes the previous step is complete and verified.
+The following sequence respects dependencies between new and existing components:
 
-### Step 1: Sanity Schema — Replace and Add
+### Phase 1: Sanity Schema Product Field (Foundation)
 
 **Dependencies:** None. Self-contained in `studio/`.
 
-1. Delete `studio/schemaTypes/releaseNote.ts`
-2. Create `studio/schemaTypes/release.ts` — document type with `items[]` array
-3. Create `studio/schemaTypes/roadmapItem.ts` — document type with `releaseRef` reference field
-4. Update `studio/schemaTypes/index.ts` — remove `releaseNoteType`, add `releaseType` and `roadmapItemType`
-5. Verify: open Sanity Studio, confirm `release` and `roadmapItem` appear as document types
-6. Create one test release with 2-3 items, create 3-5 test roadmap items (various statuses)
+1. Create `studio/schemaTypes/fields/product.ts` - reusable product field definition
+2. Add `product` field to ALL content schemas (doc, release, roadmapItem, article, landingPage, sidebarCategory)
+3. Set `validation: Rule.required()` and `initialValue: 'gcxone'`
+4. Add product badge to preview configurations
+5. Run migration script to set `product: 'gcxone'` on all existing documents
+6. Verify: open Sanity Studio, confirm all documents show product badge
 
-**Why first:** Every downstream step depends on having schema documents to query. Steps 2-5 have no data to work with until this is done.
+**Why first:** Every downstream step depends on content having a product field. Without this, queries cannot filter and builds cannot separate content.
 
-### Step 2: Fetch Script — New GROQ Queries + JSON Output
+**Migration script:**
 
-**Dependencies:** Step 1 complete with test documents in Sanity.
+```javascript
+// studio/scripts/migrate-product-field.js
 
-1. Add `RELEASES_GENERATED_FILE` and `ROADMAP_GENERATED_FILE` path constants
-2. Add GROQ query for `release` type with `items[]` and nested `screenshot.asset->url`
-3. Add GROQ query for `roadmapItem` type with `releaseRef->slug.current` projection
-4. Add `fetchReleases()` and `fetchRoadmapItems()` functions
-5. Call both at end of `run()`
-6. Remove `releaseNote` from `getQueries()` (or comment out during transition)
-7. Run script locally: `node classic/scripts/fetch-sanity-content.js`
-8. Verify `src/data/sanity-releases.generated.json` and `src/data/sanity-roadmap.generated.json` contain correct data
+const client = createClient({ projectId, dataset, token, apiVersion: '2025-02-06' });
 
-**Why second:** The React pages (Steps 3 and 4) import these JSON files. Without them, TypeScript compilation fails.
+async function migrate() {
+  const types = ['doc', 'release', 'roadmapItem', 'article', 'landingPage', 'sidebarCategory'];
+  
+  for (const type of types) {
+    const docs = await client.fetch(`*[_type == "${type}" && !defined(product)]`);
+    
+    for (const doc of docs) {
+      await client.patch(doc._id).set({ product: 'gcxone' }).commit();
+    }
+    console.log(`Migrated ${docs.length} ${type} documents`);
+  }
+}
+```
 
-### Step 3: /releases Page — Replace Legacy Implementation
+### Phase 2: Fetch Script Product Filter
 
-**Dependencies:** Step 2 (JSON files must exist with correct structure).
+**Dependencies:** Phase 1 complete (all documents have product field).
 
-1. Replace `src/pages/releases.tsx` — remove `SanityLandingPageRoute` wrapper; write a full custom React page
-2. Import `sanity-releases.generated.json` with a typed interface
-3. Render releases in reverse-chronological order (already sorted by GROQ)
-4. Per-release: header with title, date, sprint ID; per-item: type badge, title, description, optional screenshot image, optional video
-5. Add `id={release.slug.current}` to each release container (for deep-links from roadmap)
-6. Delete or archive `src/legacy-pages/releases.tsx` and `src/pages/releases/` sprint files
+1. Add `PRODUCT` env var reading to `fetch-sanity-content.js`
+2. Create `getProductFilter()` helper function
+3. Add product filter to ALL GROQ queries
+4. Add product filter to sidebar category query in `generate-sidebar-from-sanity.js`
+5. Test locally: `PRODUCT=gcxone node classic/scripts/fetch-sanity-content.js`
+6. Verify: JSON files contain only GCXONE content
 
-**Note on page approach:** Do not route releases through `plugin-content-docs`. The per-item rich media layout cannot be achieved through the Portable Text to MDX pipeline. The existing `/roadmap` page is a custom React page for exactly this reason — follow the same pattern.
+**Why second:** The multi-build pipeline (Phase 3) requires product-filtered content.
 
-### Step 4: /roadmap Page — Replace Static Data Source
+### Phase 3: Multi-Build Pipeline
 
-**Dependencies:** Step 2 (roadmap JSON must exist).
+**Dependencies:** Phase 2 complete (content filtering works).
 
-1. Replace `src/pages/roadmap.tsx` — remove `SanityLandingPageRoute` wrapper; write a full custom React page
-2. Import `sanity-roadmap.generated.json` with typed interface
-3. Adapt existing legacy roadmap filter/search logic to new schema field names
-4. Map status values to the new vocabulary: `Planned`, `In Progress`, `Shipped`
-5. Render "View release notes" link for items where `status === 'Shipped' && item.releaseSlug`
-6. Delete `src/data/roadmap.ts` (static TypeScript data file no longer needed)
+1. Create `classic/scripts/build-multi-product.js` - orchestrates builds
+2. Define `PRODUCTS` array (initially `['gcxone', 'gcsurge']`)
+3. Implement build loop: set env -> fetch -> generate sidebar -> docusaurus build
+4. Test locally: `node classic/scripts/build-multi-product.js`
+5. Verify: `classic/build/gcxone/` and `classic/build/gcsurge/` directories created
 
-### Step 5: Hero Banner + Home Page Recent Releases
+**Why third:** Domain deployment (Phase 4) requires built artifacts.
 
-**Dependencies:** Step 2 (releases JSON must exist). Independent of Steps 3 and 4.
+### Phase 4: Product Configuration and Branding
 
-1. In `NXGENSphereHero.tsx` (line 418): replace hardcoded `"Sprint 2025.12-B is live"` with `${releases[0]?.title ?? 'Latest release'} is live`
-2. Add static import at top of `NXGENSphereHero.tsx`: `import releasesData from '../data/sanity-releases.generated.json'`
-3. In `src/pages/index.tsx` (lines 105-119): replace hardcoded `recentReleases` array with `releasesData.slice(0, 2)` mapped to the `Resource` type
+**Dependencies:** Phase 3 complete (build pipeline works).
 
-**Why last:** This is cosmetic. It depends on Step 2 but has no blocking relationship with Steps 3 or 4.
+1. Create `classic/product.config.ts` - product-specific configuration
+2. Modify `docusaurus.config.ts` to read PRODUCT env var and apply config
+3. Add product-specific: title, tagline, URL, favicon, logo (if different)
+4. Test builds: verify each product has correct branding
 
-### Step 6: Cleanup and URL Verification
+**Configuration structure:**
 
-**Dependencies:** Steps 3-5 complete and deployed.
+```typescript
+// classic/product.config.ts
 
-1. Verify `/releases` renders correctly from Sanity data
-2. Verify `/roadmap` renders correctly from Sanity data
-3. Verify `/` hero banner shows latest release from Sanity
-4. Verify `/releases#sprint-2026-01-a` anchor links work from roadmap "Shipped" items
-5. Delete `src/data/sanity-release-notes.generated.json` and remove it from `fetch-sanity-content.js`
-6. Archive or delete `src/pages/internal-releases/` if no longer needed
-7. Confirm no broken links from `/internal-releases/` (add Cloudflare `_redirects` if needed)
+export const PRODUCT_CONFIGS = {
+  gcxone: {
+    title: 'GCXONE Documentation',
+    tagline: 'Complete documentation for GCXONE platform',
+    url: 'https://docs.gcxone.com',
+    favicon: 'img/favicon-gcxone.png',
+    theme: { primaryColor: '#E8B058' },
+  },
+  gcsurge: {
+    title: 'GCSurge Documentation',
+    tagline: 'Complete documentation for GCSurge platform',
+    url: 'https://docs.gcsurge.com',
+    favicon: 'img/favicon-gcsurge.png',
+    theme: { primaryColor: '#3B82F6' },
+  },
+};
+```
+
+### Phase 5: Cloudflare Pages Multi-Project Setup
+
+**Dependencies:** Phase 4 complete (branding configured).
+
+1. Create separate Cloudflare Pages project for each product domain
+2. Configure custom domains: `docs.gcxone.com`, `docs.gcsurge.com`
+3. Set environment variables per project:
+   - `SANITY_PROJECT_ID` (same)
+   - `SANITY_DATASET` (same)
+   - `SANITY_API_TOKEN` (same)
+   - `PRODUCT` (different per project)
+4. Configure build command: `node scripts/build-multi-product.js`
+5. Configure build output directory: `build/${PRODUCT}`
+6. Test deployment: verify each domain serves correct product
+
+**Recommendation:** Start with separate Pages projects per product. Simpler initial setup, clear separation, independent deployment.
+
+### Phase 6: Auth0 Integration (Extends v5.0)
+
+**Dependencies:** v5.0 Auth0 foundation in place.
+
+1. Extend Auth0 Actions to include `product_access` claim
+2. Create product-specific roles in Auth0: `editor-gcxone`, `editor-gcsurge`, `admin`
+3. Update `useContentAccess` hook to check product access
+4. Add visibility field to Sanity schemas: `public` | `private`
+5. Implement client-side content gating in React components
+6. Test: verify private content hidden for users without access
+
+**Note:** This phase extends the v5.0 Auth0 Integration milestone. Coordinate with that planning.
+
+### Phase 7: PostHog Analytics Integration
+
+**Dependencies:** None (can run in parallel with Phases 2-5).
+
+1. Install PostHog dependencies (already in root package.json)
+2. Create `PostHogProvider` wrapper in `Root.tsx`
+3. Add product context to all events
+4. Configure PostHog project to receive events
+5. Create per-product analytics dashboards
+
+### Phase 8: Content Seeding for GCSurge
+
+**Dependencies:** Phase 1 complete (schemas support product field).
+
+1. Create initial GCSurge content in Sanity Studio
+2. Mirror essential docs, releases, roadmap items with `product: 'gcsurge'`
+3. Verify sidebar structure renders correctly
+4. Deploy to docs.gcsurge.com
+5. Verify content accessible and branded correctly
 
 ---
 
 ## Anti-Patterns
 
-### Anti-Pattern 1: Client-Side Fetch for the Hero Banner
+### Anti-Pattern 1: Separate Sanity Datasets Per Product
 
-**What people do:** `useEffect(() => { fetch('https://...api.sanity.io/...').then(setLatestRelease) }, [])` in `NXGENSphereHero.tsx`.
+**What people do:** Create `production-gcxone` and `production-gcsurge` datasets.
 
-**Why it's wrong:** SSG pages render to static HTML at build time. The first paint shows the HTML without any client data. The `useEffect` fires only after JavaScript hydrates, causing a visible flash where the banner shows empty or stale content. For a component rendered immediately on page load, this is noticeable. Additionally, this introduces a runtime API dependency requiring CORS headers or a proxy — complexity not justified for a single string.
+**Why it's wrong:** Requires managing multiple dataset connections in Studio, complicates cross-product editorial workflows, requires dataset-level permissions, and prevents easy content sharing or migration. Studio editors must switch datasets manually.
 
-**Do this instead:** Static import of the pre-built JSON file. The string is baked into the HTML at build time. Zero flash. Zero runtime API dependency.
+**Do this instead:** Single dataset with `product` field on all documents. GROQ filtering at build time is efficient. Studio editors see all products in one view with product badges. Content migration between products is a simple field change.
 
-### Anti-Pattern 2: Routing Releases Through plugin-content-docs
+### Anti-Pattern 2: Build-Time Auth Checks for Private Content
 
-**What people do:** Write one MDX file per release to `.sanity-cache/docs/releases/sprint-xxx.md`, register a "releases" docs plugin instance, let Docusaurus handle routing.
+**What people do:** Attempt to filter private content from builds based on user authentication.
 
-**Why it's wrong:** The new `release` schema has `items[]` — an array of structured objects each with a type badge, screenshot, and optional video. The MDX pipeline renders one `body` Portable Text field per document. There is no clean way to serialize an items array through Portable Text into MDX that preserves the structured layout. The result would be fragile markdown with hardcoded sub-sections and no type-safe rendering.
+**Why it's wrong:** Static builds are generated at build time, before any user authentication. There is no "current user" during build. All content in the build is publicly accessible once deployed.
 
-**Do this instead:** A custom React page at `src/pages/releases.tsx` that imports the JSON directly and renders items with full control over layout — type badge chip, `<img>` for screenshot, `<video>` or `<iframe>` for video. This is already how `roadmap.tsx` works.
+**Do this instead:** Client-side content gating for the MVP. Private content is in the build but hidden by React components based on auth state. For truly sensitive content, use protected builds (separate authenticated deployment) or Cloudflare Workers for edge auth.
 
-### Anti-Pattern 3: One Sanity Document Per Release Item
+### Anti-Pattern 3: Hardcoded Product References in Components
 
-**What people do:** Create a `releaseItem` document type and cross-reference items from the release document via a `references()` array.
+**What people do:** Write `if (product === 'gcxone')` conditionals throughout React components.
 
-**Why it's wrong:** Each sprint has 5-20 items. Editors must create 5-20 separate Studio documents per sprint, navigate between them to reorder, and manage reference arrays manually. Studio UX becomes a drag-and-drop nightmare. Ordering becomes a separate operation. The relationship between items and their release is maintained through references rather than co-location.
+**Why it's wrong:** Makes adding new products require code changes. Violates open/closed principle. Components become coupled to specific product names.
 
-**Do this instead:** Items as an inline `array` field directly on the `release` document. Sanity's array field UI handles drag-and-drop reordering natively. All items are authored in a single document edit session.
+**Do this instead:** Use configuration-driven approach. `product.config.ts` provides product-specific values. Components read from config via context or props. Adding a new product is a config change, not a code change.
 
-### Anti-Pattern 4: Keeping roadmap.ts as a Parallel Data Source
+### Anti-Pattern 4: Single Cloudflare Pages Project with Subpaths
 
-**What people do:** Add new roadmap items to `src/data/roadmap.ts` (the existing static TypeScript file) as a "quick fix" before the Sanity schema is ready, intending to migrate later.
+**What people do:** Deploy all products to a single domain with subpaths: `docs.nxgen.cloud/gcxone/`, `docs.nxgen.cloud/gcsurge/`.
 
-**Why it's wrong:** Creates dual-source-of-truth immediately. When Sanity data lands, merging static file content back into Sanity is manual and error-prone. The existing `roadmap.ts` uses different status vocabulary (`Launched`, `In Development`, `Beta`, `Planning`, `Coming Soon`) than the new schema defines (`Planned`, `In Progress`, `Shipped`). Reconciling this later adds unnecessary risk.
+**Why it's wrong:** Requires `baseUrl` changes per product in Docusaurus config, complicates routing, makes custom domains impossible, and creates confusion with relative URLs.
 
-**Do this instead:** Delete `roadmap.ts` in the same commit that introduces `sanity-roadmap.generated.json`. Seed historical roadmap data directly into Sanity Studio as part of Step 1. There is no reason to maintain both simultaneously.
+**Do this instead:** Separate Cloudflare Pages projects with custom domains. Each product has its own domain: `docs.gcxone.com`, `docs.gcsurge.com`. Clean separation, independent deployments, proper branding.
 
-### Anti-Pattern 5: Adding a Cloudflare Function for Roadmap Search
+### Anti-Pattern 5: Duplicating Entire Codebase Per Product
 
-**What people do:** Create a Cloudflare Function that queries Sanity at runtime, enabling "real-time" search.
+**What people do:** Clone the entire `classic/` directory for each product.
 
-**Why it's wrong:** The existing roadmap dataset fits comfortably in a JavaScript bundle. The legacy `roadmap.tsx` already does client-side filtering on a similar dataset. A Cloudflare Function adds deployment complexity, a runtime failure mode, cold start latency, and an API billing surface. For a dataset of dozens to hundreds of items, in-browser filtering is faster than a network round-trip to a Function.
+**Why it's wrong:** Maintenance nightmare. Bug fixes and features must be applied to multiple codebases. Divergence occurs quickly. No code sharing between products.
 
-**Do this instead:** Client-side filter on the bundled JSON. If the roadmap ever exceeds ~500 items, revisit — but at bi-weekly cadence that threshold is years away.
+**Do this instead:** Single codebase with environment-driven configuration. The multi-build pipeline produces separate deployments from the same source. All products benefit from shared improvements.
 
 ---
 
 ## Scaling Considerations
 
-This site is internal product documentation for a team of editors and a public customer audience. Scaling to millions of users is not a relevant concern. The relevant operational constraints are:
+| Scale | Architecture | Notes |
+|-------|-------------|-------|
+| 2 products | Multi-build pipeline | Each build runs sequentially; build time ~2x single |
+| 3-5 products | Parallel builds | Run builds in parallel; build time ~same as single |
+| 10+ products | Consider separate repos | Build time and Sanity API quota become factors |
+| 50+ products | Sanity multi-tenant | Re-evaluate architecture; consider Sanity multi-tenant features |
 
-| Concern | Current | With Releases + Roadmap | Assessment |
-|---------|---------|------------------------|------------|
-| Build time | ~60-90s (fetch + Docusaurus) | +5-15s for two new GROQ queries | Acceptable |
-| JSON bundle size | landing pages JSON is small | 26 releases/year at ~5KB each = ~130KB/year | Well within budget |
-| Roadmap bundle | N/A (static TS file) | 100-200 items at ~1KB each = ~200KB | Fine for client-side filtering |
-| Cloudflare Functions | 2 existing | No new Functions this milestone | No change |
-| Sanity API quota | Low-volume build-time fetches | 2 additional GROQ queries per build | Negligible |
-| Content freshness | Rebuild on publish | Same; webhook already configured | No change |
+### Build Time Scaling
 
-If the roadmap grows beyond ~500 items in a single page, introduce pagination in the React component (slice the imported JSON, render a "Load more" control). The JSON import approach accommodates this without any pipeline changes.
+| Products | Sequential Build | Parallel Build | Notes |
+|----------|-----------------|----------------|-------|
+| 1 (current) | ~90s | N/A | Current single-product build |
+| 2 | ~3 min | ~90s | Two sequential builds; parallel keeps same time |
+| 5 | ~7.5 min | ~90s | Sequential becomes problematic; parallel recommended |
+| 10 | ~15 min | ~90s | Parallel essential; consider CI optimization |
+
+**Recommendation:** For 2-5 products, use parallel builds via Promise.all() in build-multi-product.js. For 10+ products, consider CI matrix builds or separate repositories.
+
+### Sanity API Quota
+
+The free tier includes 1,000,000 API requests/month. Each build makes ~10 GROQ queries.
+
+| Builds/day | Monthly Requests | Status |
+|------------|-----------------|--------|
+| 10 (single product) | 300 | Well within limit |
+| 20 (2 products) | 600 | Well within limit |
+| 50 (5 products) | 1,500 | Well within limit |
+| 200+ | 6,000+ | Monitor; consider caching |
 
 ---
 
@@ -514,21 +807,56 @@ If the roadmap grows beyond ~500 items in a single page, introduce pagination in
 
 All findings are based on direct inspection of the following files:
 
-- `classic/scripts/fetch-sanity-content.js` — the authoritative data pipeline (all GROQ queries, all JSON output logic)
-- `classic/plugins/docusaurus-plugin-sanity-content/index.js` — confirms plugin is a thin shim; no-op `loadContent()`
-- `studio/schemaTypes/releaseNote.ts` — current schema being replaced
-- `studio/schemaTypes/index.ts` — current schema registry
-- `classic/src/pages/releases.tsx` — current implementation (thin SanityLandingPageRoute wrapper)
-- `classic/src/pages/roadmap.tsx` — current implementation (thin SanityLandingPageRoute wrapper)
-- `classic/src/legacy-pages/releases.tsx` — legacy static implementation with hardcoded data
-- `classic/src/legacy-pages/roadmap.tsx` — legacy filter/search pattern to be adapted
-- `classic/src/components/NXGENSphereHero.tsx` — hardcoded banner text at line 418
-- `classic/src/pages/index.tsx` — hardcoded recentReleases array at lines 105-119
-- `classic/src/components/SanityLandingPageRoute.tsx` — JSON-backed page pattern
-- `classic/src/data/sanity-releases.generated.json` — currently empty `[]`
-- `.planning/PROJECT.md` — constraints (no backend, Cloudflare Pages, webhook rebuilds, no SSR)
+**Existing Architecture:**
+- `classic/docusaurus.config.ts` - Main Docusaurus configuration
+- `classic/scripts/fetch-sanity-content.js` - The authoritative data pipeline (all GROQ queries)
+- `classic/plugins/docusaurus-plugin-sanity-content/index.js` - Plugin structure
+- `scripts/generate-sidebar-from-sanity.js` - Sidebar generation
+- `studio/sanity.config.ts` - Sanity Studio configuration
+- `.planning/STATE.md` - Project state and v5.0 Auth0 planning
+- `.planning/PROJECT.md` - Project constraints
+
+**Existing Research:**
+- `.planning/research/ARCHITECTURE.md` - Previous architecture research (v1.1 Releases & Roadmap)
+- `.planning/research/auth0-upgrade-FEATURES.md` - Auth0 capabilities
+- `.planning/research/auth0-upgrade-UX-PATTERNS.md` - UX patterns for auth
+
+**Configuration:**
+- `.cfpages.yaml` - Current Cloudflare Pages configuration
+- `wrangler.toml` - Cloudflare environment variables
+- `package.json` (root and classic) - Dependencies
 
 ---
 
-*Architecture research for: NXGEN GCXONE Docs — v1.1 Releases & Roadmap*
-*Researched: 2026-03-13*
+## Summary
+
+**Multi-product architecture integrates with existing Docusaurus/Sanity setup through:**
+
+1. **PRODUCT env var** - Single environment variable flows through entire pipeline
+2. **GROQ product filter** - All queries in `fetch-sanity-content.js` add product clause
+3. **Sanity product field** - All schemas get required product enum field
+4. **Multi-build pipeline** - New `build-multi-product.js` orchestrates builds
+5. **Separate deployments** - Each product deploys to its own Cloudflare Pages project
+
+**Build Order:**
+1. Sanity schema product field (foundation)
+2. Fetch script product filter (data pipeline)
+3. Multi-build pipeline (build orchestration)
+4. Product configuration (branding)
+5. Cloudflare Pages setup (deployment)
+6. Auth0 integration (extends v5.0)
+7. PostHog analytics (parallel)
+8. Content seeding (GCSurge initial content)
+
+**Key Integration Points:**
+- `fetch-sanity-content.js` -> All GROQ queries modified
+- `docusaurus.config.ts` -> Reads PRODUCT env var for branding
+- `generate-sidebar-from-sanity.js` -> Filters by product
+- Sanity schemas -> All add product field
+- `Root.tsx` -> Auth0 + PostHog providers with product context
+
+---
+
+*Architecture research for: Multi-Product Knowledge Base*
+*Researched: 2026-04-01*
+```

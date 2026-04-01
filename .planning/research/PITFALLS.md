@@ -1,161 +1,539 @@
-# Pitfalls Research
+# Pitfalls Research: Multi-Product Architecture
 
-**Domain:** SSG (Docusaurus) + Headless CMS (Sanity) — Releases & Public Roadmap (v1.1 milestone)
-**Researched:** 2026-03-13
-**Confidence:** HIGH (all pitfalls grounded in direct codebase inspection of the v1.0-completed system; no training-data guesses)
+**Domain:** Adding multi-product/multi-tenancy to existing Docusaurus + Sanity documentation platform
+**Researched:** 2026-04-01
+**Confidence:** HIGH (based on existing architecture analysis, auth system inspection, and platform capabilities research)
 
-> Note: This file supersedes the v1.0 pitfalls document. The v1.0 pitfalls (dead CMS code, build pipeline, Storyblok removal, etc.) are resolved and archived. This document focuses exclusively on the v1.1 additions: schema migration, releases page, roadmap page, hero banner dynamic data, rich media in releases, and cross-document linking.
+> **CRITICAL:** This document focuses exclusively on pitfalls when ADDING multi-product support to an existing single-product system. The existing v1.0+v1.1 system works well — the risks are in the transformation, not in the current architecture.
 
 ---
 
 ## Critical Pitfalls
 
-### Pitfall 1: Removing `releaseNote` from the schema before migrating existing documents
+### Pitfall 1: Content Leakage Between Products (CRITICAL SECURITY RISK)
 
 **What goes wrong:**
-The current schema registers `releaseNoteType` in four places: `schemaTypes/index.ts`, `sanity.config.ts` (initial value templates on line 60, document actions list on line 170, dashboard widget `types` arrays on lines 130 and 145), and `studio/src/structure.ts` (two list items: the "Release Notes" sidebar entry and the "Published > Release Notes" filter). If the type name is changed or the file is deleted while Sanity still holds documents of `_type == "releaseNote"`, Studio breaks with "Unknown document type" errors on every existing release note. The structure sidebar becomes unusable.
-
-Simultaneously, `fetch-sanity-content.js` line 72 queries `_type == "releaseNote"`. After the rename, this query returns zero results. The script writes an empty `sanity-release-notes.generated.json` without error — and because `build.sh` runs `npm run fetch-content || true`, the build still succeeds. The `/releases` page silently falls back to the legacy component.
+A user authenticates for Product A but can access documentation intended for Product B. This can happen through:
+- URL guessing (`/docs/product-b/secret-feature` accessible to Product A users)
+- Search results showing content from all products
+- Sidebar navigation exposing document structure of other products
+- API endpoints returning unfiltered Sanity data
+- Generated JSON files bundling content from all products without access checks
 
 **Why it happens:**
-Developers rename the schema type first (the obvious first step) and plan to migrate documents later. In Sanity, documents are not schema-bound — existing `releaseNote` documents survive in the dataset — but Studio can no longer display them.
+The existing single-product architecture has no access boundaries. The GROQ queries fetch all documents of a type. The static build includes all content. The search index covers the entire site. When adding multi-product, developers often add a `product` field to schemas but forget to:
+1. Add the filter to every GROQ query
+2. Restrict the search plugin to product-scoped content
+3. Protect the JSON endpoints at the function level
+4. Verify access before rendering deep-linked pages
 
 **How to avoid:**
-Execute the migration as a single atomic sequence:
-1. Keep `releaseNoteType` registered as-is (do not touch it yet)
-2. Add the new `release` schema type alongside it
-3. Migrate existing `releaseNote` documents to `release` using the Sanity CLI or MCP mutations: `*[_type == "releaseNote"]` patched with `_type: "release"` and any new required fields populated
-4. Update the GROQ query in `fetch-sanity-content.js` from `_type == "releaseNote"` to `_type == "release"`
-5. Update all four registration sites in `sanity.config.ts`, `structure.ts`, and `index.ts`
-6. Verify the fetch returns expected counts, then delete the old `releaseNote` schema file
+
+**Layer 1 - Sanity Schema Level:**
+```javascript
+// EVERY document type must have a product field
+defineType({
+  name: 'doc',
+  fields: [
+    { name: 'product', type: 'string', options: {
+      list: [
+        { title: 'GCXONE', value: 'gcxone' },
+        { title: 'Product B', value: 'product-b' }
+      ]
+    }},
+    // ... other fields
+  ],
+  // Validation: product is required
+  validation: Rule => Rule.required()
+})
+```
+
+**Layer 2 - GROQ Query Level:**
+```javascript
+// NEVER query without product filter
+// WRONG:
+*[_type == "doc"]
+
+// CORRECT:
+*[_type == "doc" && product == $product]
+
+// ALWAYS parameterize from session/auth context
+const product = await getProductFromSession(request);
+const docs = await client.fetch(groqQuery, { product });
+```
+
+**Layer 3 - Build Level:**
+```javascript
+// Generate SEPARATE JSON files per product
+// sanity-gcxone-docs.generated.json
+// sanity-product-b-docs.generated.json
+
+// OR: Generate one file with product filtering at runtime
+// But verify the filter is applied BEFORE any content reaches the page
+```
+
+**Layer 4 - Search Level:**
+```javascript
+// docusaurus-search-local must be configured per-product
+// Option A: Separate search indexes per product subdomain
+// Option B: Runtime filter on search results (less secure, prone to timing attacks)
+```
+
+**Layer 5 - Cloudflare Function Level:**
+```javascript
+// EVERY function must verify product access
+export const onRequest = async (context) => {
+  const session = await verifySession(context.request);
+  const allowedProduct = session.productAccess; // ['gcxone'] or ['product-b'] or both
+  
+  const requestedProduct = new URL(context.request.url).pathname.split('/')[2];
+  
+  if (!allowedProduct.includes(requestedProduct)) {
+    return new Response('Forbidden', { status: 403 });
+  }
+  // ... proceed
+}
+```
 
 **Warning signs:**
-- Studio shows "Unknown document type" on any document in the Release Notes section
-- `sanity-release-notes.generated.json` contains `[]` after a deploy
-- The `/releases` page shows the legacy hardcoded sprint content instead of Sanity data
-- `fetch-sanity-content.js` build log line reads `-> 0 releaseNote document(s)`
+- GROQ queries without `product == $product` filter anywhere in codebase
+- Single `sanity-docs.generated.json` file containing all products
+- Search results showing documents the user shouldn't see
+- Direct URL access to `/docs/product-b/...` works without auth check
+- Cloudflare Functions reading from request path without product validation
 
-**Phase to address:** Phase 1 — Sanity schema migration
+**Phase to address:** Phase 1 (Auth Foundation) - Access boundaries must be defined BEFORE any multi-product content is added
 
 ---
 
-### Pitfall 2: The `|| true` flag in `build.sh` makes empty-content deploys invisible
+### Pitfall 2: Dual Auth Systems Not Unified for Multi-Product Access
 
 **What goes wrong:**
-`build.sh` line 19 reads `npm run fetch-content || true`. This means any non-zero exit from the fetch script is swallowed — the build continues. If a GROQ query is wrong, credentials are invalid, or a new schema type returns zero results because documents have not been migrated yet, the build succeeds and deploys an empty or stale site. The Cloudflare Pages dashboard shows a green build. No one knows the content is missing until a user visits the page.
+The existing system has TWO separate auth systems:
+1. **Admin auth** — Zoho OAuth → admin session (sessionStorage + HttpOnly cookie)
+2. **Customer auth** — Auth0 → Zoho session (HttpOnly cookie only)
 
-This is especially dangerous for the hero banner: `NXGENSphereHero.tsx` line 418 currently has `Sprint 2025.12-B is live` hardcoded. If the dynamic fetch fails, the banner stays at that string indefinitely.
+When adding multi-product:
+- Admin auth has no concept of "product access" — it's org-wide
+- Customer auth ties to Zoho contact which may have different product entitlements
+- Neither system tracks which products a user can access
+- A user might authenticate via Auth0 for the docs site but their Zoho contact lacks the product entitlement field
 
 **Why it happens:**
-The `|| true` was added to prevent build failures during Sanity outages — a legitimate production safeguard. It becomes a trap during schema migrations when empty results are a symptom of a bug, not a Sanity outage.
+The auth systems were built for single-product access (GCXONE only). The Zoho contact record has no `productEntitlements` field. The Auth0 user metadata has no `productAccess` array. The session cookies store contact info but not product permissions.
 
 **How to avoid:**
-- During active schema migration work: temporarily use `npm run sanity:pull:strict` (sets `SANITY_FETCH_STRICT=true`) in the build command to surface warnings as hard failures. Revert to `|| true` once migration is confirmed stable.
-- Add a post-fetch validation check: after the fetch, assert that `sanity-release-notes.generated.json` is non-empty if the `release` schema type exists and has published documents. The fetch script already logs document counts — pipe these to a check.
-- For the hero banner: treat the latest-release data as required. If the generated file is empty, the build step should warn loudly (log a WARN line) even if it does not abort.
+
+**Option A - Extend Auth0 with product claims (RECOMMENDED):**
+```javascript
+// Auth0 Action: Post-login
+exports.onExecutePostLogin = async (event, api) => {
+  // Fetch product entitlements from source of truth (Zoho, Supabase, etc.)
+  const entitlements = await fetchProductEntitlements(event.user.email);
+  
+  // Add to ID token claims
+  api.idToken.setCustomClaim('https://docs.nxgen.cloud/product_access', entitlements);
+  
+  // Add to app_metadata for server-side access
+  api.user.setAppMetadata('product_access', entitlements);
+};
+
+// Cloudflare Function: Verify product access
+const claims = await verifyAuth0Token(request);
+const allowedProducts = claims['https://docs.nxgen.cloud/product_access'] || [];
+```
+
+**Option B - Extend Zoho session with product field:**
+```javascript
+// When creating session, fetch product entitlements
+const contact = await getZohoContact(email);
+const productAccess = contact.cf_product_entitlements?.split(',') || ['gcxone'];
+
+const session = {
+  contactId: contact.id,
+  displayName: contact.first_name,
+  productAccess, // NEW FIELD
+  exp: Date.now() + 24 * 60 * 60 * 1000
+};
+```
+
+**Option C - Migrate admin auth to Auth0 first:**
+This is recommended in the existing auth research. Unifying on Auth0 before adding multi-product eliminates the dual-system complexity.
 
 **Warning signs:**
-- `sanity-release-notes.generated.json` is `[]` after deploy
-- `sanity-landing-pages.generated.json` is `[]` after deploy
-- Cloudflare Pages build log shows `-> 0 X document(s)` for a type that should have data
-- The `/releases` or `/roadmap` pages render legacy fallback content on the live site
+- Session objects have no `productAccess` or `product_access` field
+- Auth0 ID token lacks product-related claims
+- Cloudflare Functions check `isAuthenticated` but not product-specific access
+- Admin session grants access to all products implicitly (acceptable for admins)
+- Customer session grants access to all products implicitly (UNACCEPTABLE)
 
-**Phase to address:** Phase 1 — Build pipeline hardening; revisit in every phase that introduces new GROQ queries
+**Phase to address:** Phase 1 (Auth Foundation) - Product access must be in session before content boundaries matter
 
 ---
 
-### Pitfall 3: Cross-document Sanity references not dereferenced in GROQ — opaque `_ref` strings reach the frontend
+### Pitfall 3: Static Build Leaks All Content to All Users
 
 **What goes wrong:**
-A Sanity `reference` field stores only `{ _ref: "abc123" }` in the document. If the GROQ projection does not use the `->` dereference operator, the generated JSON passes this opaque object to the frontend. The React component receives `{ _ref: "abc123..." }` where it expects `{ title: "Sprint 2026-01-A", slug: { current: "sprint-2026-01-a" } }`. The "View Release" link on a shipped roadmap item either renders as `undefined`, `[object Object]`, or crashes with a null-access error.
+The current architecture is a static site generator. At build time, `fetch-sanity-content.js` fetches ALL documents and writes them to JSON files. The Docusaurus build compiles ALL pages. Every user receives the same static HTML bundle.
 
-This is invisible in Studio because Studio resolves references natively for editors. The bug only appears in the built site.
+If Product B has sensitive documentation:
+- Its content exists in `sanity-docs.generated.json` (visible in page source)
+- Its pages exist in the static HTML (visible to search engines, archived)
+- Its content is in the JavaScript bundle (downloadable by anyone)
 
 **Why it happens:**
-Developers write the schema, test references in Studio (where they look correct), then write the GROQ query without the `->` operator, not realizing the frontend sees raw `_ref` strings.
+Static sites are inherently public. The build doesn't know who the user is. All content is pre-rendered. This is fundamental to SSG architecture.
 
 **How to avoid:**
-Always use one of two approaches — never mix them:
 
-Option A (reference + dereference in GROQ): Store a `reference` field pointing to the `release` document. In the GROQ projection, dereference: `linkedRelease->{ title, "slug": slug.current }`. Add a null-guard in the React component for the case where the referenced document is unpublished or deleted.
+**Pattern A - Product-specific builds (for strongly isolated products):**
+```
+docs-gcxone.nxgen.cloud → Build with GROQ filter: product == 'gcxone'
+docs-productb.nxgen.cloud → Build with GROQ filter: product == 'product-b'
+```
 
-Option B (slug string + optional reference): Store both a `releaseSlug` string field (used by the frontend for URL construction — always a plain string) and an optional `linkedRelease` reference field (used only for Studio navigation). The frontend reads only the slug string; the reference is irrelevant to the build output. This is more resilient because if the referenced document is deleted, the slug string still renders a link (which may 404, but is not a runtime crash).
+Each subdomain is a separate Cloudflare Pages project with its own build command:
+```bash
+# Project: docs-gcxone
+PRODUCT_FILTER=gcxone npm run build
 
-Option B is recommended for this project given the build-time SSG pattern.
+# Project: docs-productb
+PRODUCT_FILTER=product-b npm run build
+```
+
+**Pattern B - Runtime filtering with ISR/SSR (for shared infrastructure):**
+Move from pure SSG to Incremental Static Regeneration or Server-Side Rendering:
+- Public content: Pre-rendered static HTML
+- Product-specific content: Rendered on-demand with access check
+- Requires Docusaurus + server runtime (Cloudflare Workers, not Pages Functions)
+
+**Pattern C - Hybrid approach (RECOMMENDED for this project):**
+```
+Public content (releases, roadmap, general docs): Static build, no secrets
+Product-specific docs: Protected by auth, loaded via API after login
+```
+
+The sensitive documentation pages:
+1. Show login prompt if not authenticated
+2. Fetch content via Cloudflare Function that validates product access
+3. Content never exists in static HTML
 
 **Warning signs:**
-- Roadmap page renders `[object Object]` or an empty string where the release link should appear
-- Browser console errors: `Cannot read properties of null (reading 'slug')` or `Cannot read properties of undefined (reading 'current')`
-- `sanity-release-notes.generated.json` contains objects with `_ref` strings rather than titles and slugs
+- `sanity-docs.generated.json` contains Product B content
+- Docusaurus `plugin-content-docs` configured without product filter
+- Build script lacks `PRODUCT_FILTER` environment variable
+- No distinction between "public" and "product-protected" docs
+- Search index includes product-specific docs without access control
 
-**Phase to address:** Phase 2 — Roadmap schema design and frontend wiring
+**Phase to address:** Phase 1 (Architecture decision) - Must choose pattern before content migration
 
 ---
 
-### Pitfall 4: Hero banner hardcoded sprint text — SSG cannot self-update without dynamic data injection
+### Pitfall 4: Search Index Exposes Cross-Product Content
 
 **What goes wrong:**
-`NXGENSphereHero.tsx` line 418 contains `Sprint 2025.12-B is live` hardcoded in JSX. When v1.1 ships a new release, this text does not update. A developer must manually edit the file and push a commit — defeating the purpose of a CMS-managed release workflow.
+`docusaurus-search-local` indexes ALL pages at build time. When a Product A user searches:
+1. The entire search index is downloaded to their browser
+2. They can search for Product B terms
+3. Results show Product B page titles and snippets
+4. Clicking results may fail (403 or 404) but the exposure has happened
 
-The failure mode if someone wires this to `useEffect + fetch()` instead of the correct build-time pattern: the banner shows a loading state (or old text) until JavaScript hydrates the component, creating a flash of stale content. This is unnecessary and adds complexity — the Sanity webhook already triggers a full rebuild on every publish.
+Even if the page itself is protected, the search metadata leaks information.
 
 **Why it happens:**
-Developers reach for `useEffect + fetch()` as the React way to make data dynamic, forgetting that Docusaurus pages are pre-rendered at build time and all Sanity data is already available via generated JSON files.
+The search plugin has no concept of user identity or product scope. It builds a single Lunr.js index at build time. This index is a static file served to all users.
 
 **How to avoid:**
-Extend `fetch-sanity-content.js` to derive the latest release from `sanity-release-notes.generated.json` (already written) and write a `sanity-hero-data.generated.json` containing `{ latestRelease: { displayTitle: "...", date: "...", slug: "..." } }`. Import this file statically in `NXGENSphereHero.tsx`. The import is resolved at build time — zero client-side fetch, no hydration flash, and the data is always current because every publish triggers a rebuild.
+
+**Option A - Separate search indexes per product:**
+```javascript
+// docusaurus.config.ts
+plugins: [
+  [
+    require.resolve('@easyops-cn/docusaurus-search-local'),
+    {
+      // Generate separate index per product subdomain
+      indexDocs: true,
+      indexDocSidebar: 'default',
+      // Filter docs by product at build time
+      docsRouteBasePath: process.env.PRODUCT_FILTER === 'gcxone' 
+        ? '/docs/gcxone' 
+        : '/docs/product-b'
+    }
+  ]
+]
+```
+
+**Option B - Exclude product-specific docs from search:**
+```yaml
+# In Sanity doc schema
+hiddenFromSearch: boolean  # Set true for sensitive docs
+
+# In GROQ query
+*[_type == "doc" && !hiddenFromSearch && product == $product]
+
+# Or: Never index protected docs
+# Use server-side search for those instead
+```
+
+**Option C - Runtime search via Cloudflare Function:**
+For protected content, never include in static index:
+```javascript
+// functions/search.ts
+export const onRequest = async (context) => {
+  const session = await verifySession(context.request);
+  const query = new URL(context.request.url).searchParams.get('q');
+  
+  // GROQ query filtered by product access
+  const results = await client.fetch(
+    `*[_type == "doc" && product in $products && title match $query]`,
+    { products: session.productAccess, query: `*${query}*` }
+  );
+  
+  return new Response(JSON.stringify(results));
+};
+```
 
 **Warning signs:**
-- `NXGENSphereHero.tsx` contains a hardcoded sprint identifier string (search for `Sprint` in the file)
-- A `useEffect` + `fetch()` pattern appears in any top-level Docusaurus page component
-- The "What's New" chip text flickers or shows a loading state on first paint
-- The chip text differs between a fresh page load and a reload (hydration mismatch)
+- `search-index.json` contains Product B content
+- No product filter in search plugin config
+- Search results show pages the user cannot access
+- `docusaurus-search-local` configured without docs filtering
 
-**Phase to address:** Phase 3 — Hero banner dynamic data
+**Phase to address:** Phase 2 (Content Infrastructure) - Search must be scoped before content is indexed
 
 ---
 
-### Pitfall 5: `SanityLandingPageRoute` fallback silently renders legacy content for the new dedicated pages
+### Pitfall 5: Overengineering Product Separation
 
 **What goes wrong:**
-`releases.tsx` and `roadmap.tsx` both use `SanityLandingPageRoute` with a legacy page as fallback. The pattern is: look for a `landingPage` document with the matching slug in Sanity; if not found, render the legacy component. For v1.1, the releases and roadmap pages are not `landingPage` documents — they are purpose-built pages reading from `sanity-release-notes.generated.json` and a new `sanity-roadmap.generated.json`. If these pages are not replaced but only extended, the `SanityLandingPageRoute` wrapper will continue to check for a non-existent `landingPage` slug and fall back to the legacy component — silently rendering old hardcoded content even after v1.1 is deployed.
+Developers create elaborate multi-tenant infrastructure:
+- Separate Sanity datasets per product (unnecessary for 2-3 products)
+- Separate Docusaurus instances per product (doubles maintenance)
+- Complex microservices for content routing
+- Enterprise-grade RBAC when simple role checks would suffice
+- Organizations in Auth0 when a `productAccess` claim is enough
+
+The existing single-product architecture works well. Overengineering creates:
+- Deployment complexity (multiple build pipelines)
+- Sync issues (shared content must be duplicated)
+- Maintenance burden (changes applied in multiple places)
+- Debugging nightmare (which instance is broken?)
 
 **Why it happens:**
-The `SanityLandingPageRoute` wrapper was the correct v1.0 migration pattern for landing pages. It is wrong for v1.1 dedicated pages. The pattern looks like it should "just work" because it did in v1.0.
+Developers assume multi-tenant = enterprise architecture. They look at how SaaS platforms with 1000s of tenants are built, not how docs sites with 2-3 products should be built.
 
 **How to avoid:**
-For v1.1, replace the contents of `releases.tsx` and `roadmap.tsx` entirely. Remove the `SanityLandingPageRoute` import and replace it with a direct-import component that reads the dedicated generated JSON files. Do NOT delete the legacy components in `legacy-pages/` until the new pages are confirmed live and correct — they serve as a rollback reference.
+
+**Start simple:**
+```
+2-3 products → Single Sanity dataset + product field + GROQ filters
+2-3 products → Single Docusaurus instance + product-specific routes
+2-3 products → Single Auth0 app + product claims
+```
+
+**Only escalate if you actually need:**
+- 10+ products with independent teams → Consider separate Sanity projects
+- Regulatory isolation requirements → Separate subdomains with isolated builds
+- Independent release schedules → Separate Cloudflare Pages projects
+
+**For this project (NXGEN GCXONE + Product B):**
+```javascript
+// SIMPLER APPROACH:
+// One Sanity dataset with product field
+// One Docusaurus build with product-scoped routes
+// One Auth0 app with product_access claim
+
+// Sanity schema:
+{ name: 'product', type: 'string', options: { list: ['gcxone', 'product-b'] } }
+
+// GROQ:
+*[_type == "doc" && product == $product]
+
+// Auth0:
+claims.product_access = ['gcxone'] or ['product-b'] or ['gcxone', 'product-b']
+
+// Routes:
+/gcxone/docs/...  // filtered to product == 'gcxone'
+/product-b/docs/...  // filtered to product == 'product-b'
+```
 
 **Warning signs:**
-- After v1.1 deploys, `releases.tsx` still imports `SanityLandingPageRoute`
-- The live `/releases` page shows the old hardcoded sprint-2025-12-B content instead of Sanity data
-- Sanity Studio has no `landingPage` document with slug `releases` but the page still renders content (from the legacy fallback)
+- Planning separate Sanity projects for 2-3 products
+- Planning separate Docusaurus repos
+- Planning Auth0 Organizations for 2-3 products
+- Multiple Cloudflare Pages projects when one would work
+- "We need a multi-tenant architecture" discussion starting before defining actual requirements
 
-**Phase to address:** Phase 1 — Page routing replacement (part of the schema migration phase)
+**Phase to address:** Phase 1 (Architecture decision) - Start with simplest viable approach
 
 ---
 
-### Pitfall 6: Portable Text body field on release items — `serializeCustomBlock` must be extended for new block types
+### Pitfall 6: Migration Breaks Existing Single-Product Content
 
 **What goes wrong:**
-`fetch-sanity-content.js` serializes Portable Text to Markdown via `serializeBody()`. Any `_type` not handled by `serializeCustomBlock()` produces an empty string and a warning counter increment. If the new `release` schema adds item-level blocks (e.g., a `screenshotGallery` array, a `videoEmbed` inline block) that are not explicitly handled in `serializeCustomBlock`, those blocks render as blank in the built Markdown. The bug is silent — no build error.
-
-For releases rendered as a React page (not MDX), serializing to Markdown and then parsing Markdown back is an unnecessary lossy step. Rich media (video, image galleries) should be passed as raw Portable Text JSON and rendered directly with `@portabletext/react`.
+When adding multi-product support:
+1. New `product` field added to schemas as optional
+2. Existing documents have `product: undefined`
+3. GROQ query `product == $product` excludes all old content
+4. Existing GCXONE docs disappear from the site
+5. Editors panic, customers see empty pages
 
 **Why it happens:**
-The existing pattern was designed for doc pages that become Markdown files. Release notes pages are better served as React components reading JSON directly — the Markdown intermediate format loses rich media fidelity.
+The migration path from single-product to multi-product is not atomic. Adding the field doesn't populate it. The query starts filtering before the data is backfilled.
 
 **How to avoid:**
-For the `release` schema type, store the full Portable Text body array in `sanity-release-notes.generated.json` (not converted to Markdown). Render it on the `/releases` page using `@portabletext/react` with custom components for each block type. The fetch script already writes a metadata-only version to the JSON for the releases list — add a `body` key with the raw Portable Text array.
 
-If Markdown output is needed for some use case, extend `serializeCustomBlock` to handle each new block type before shipping.
+**Step 1 - Add field with default value:**
+```javascript
+// Sanity schema
+{
+  name: 'product',
+  type: 'string',
+  options: { list: [...] },
+  initialValue: 'gcxone',  // Default for NEW documents
+  // Don't make required yet
+}
+```
+
+**Step 2 - Backfill existing content:**
+```javascript
+// One-time migration script
+await client.patch(
+  { query: '*[_type == "doc" && !defined(product)]' },
+  { set: { product: 'gcxone' } }
+).commit();
+```
+
+**Step 3 - Verify backfill:**
+```groq
+// GROQ Vision
+*[_type == "doc" && !defined(product)] | count()
+// Should return 0
+```
+
+**Step 4 - Make field required:**
+```javascript
+// Update schema
+validation: Rule => Rule.required()
+```
+
+**Step 5 - Add GROQ filter:**
+```javascript
+// Now safe to filter
+*[_type == "doc" && product == $product]
+```
+
+**Step 6 - Update queries in all locations:**
+- `fetch-sanity-content.js`
+- `SanityLandingPageRoute.tsx`
+- Cloudflare Functions
+- Any hardcoded GROQ in components
 
 **Warning signs:**
-- Release note pages render blank sections where screenshots or video embeds should appear
-- `fetch-sanity-content.js` build log shows warning lines for unhandled block types (look for `Serialize warning:` lines)
-- The release notes JSON contains truncated body content
+- Schema has `product` field but existing documents show `undefined`
+- GROQ queries filtering by `product` before backfill complete
+- `count` of documents matching query drops after schema change
+- `/docs` pages showing empty or fewer results than before
 
-**Phase to address:** Phase 1 — Release schema design and fetch script extension
+**Phase to address:** Phase 2 (Content Infrastructure) - Migration must be atomic and verified
+
+---
+
+### Pitfall 7: Cloudflare Functions Lack Product Context
+
+**What goes wrong:**
+The existing Cloudflare Functions (`zoho-customer-auth.ts`, `admin-auth-callback.ts`, etc.) have no product awareness:
+
+```javascript
+// Current zoho-customer-auth.ts
+// Creates session with contactId, accountId, displayName
+// NO product access information
+
+// Current page-feedback.ts
+// Accepts feedback from any page
+// NO verification that user can access that product's docs
+```
+
+When Product B launches:
+- Functions still accept feedback on Product B pages from GCXONE users
+- Functions still serve content requests without product check
+- Session validation passes for any authenticated user
+
+**Why it happens:**
+Functions were written for single-product context. The session verification checks "is authenticated" not "is authenticated for this product."
+
+**How to avoid:**
+
+**Update session to include product access:**
+```javascript
+// lib/session.ts - Update session interface
+interface Session {
+  userId: string;
+  email: string;
+  displayName: string;
+  productAccess: string[];  // ['gcxone'] | ['product-b'] | ['gcxone', 'product-b']
+  exp: number;
+}
+
+// Update createSession to populate productAccess
+async function createSession(user: Auth0User | ZohoContact) {
+  const productAccess = await fetchProductEntitlements(user.email);
+  return {
+    ...user,
+    productAccess,
+    exp: Date.now() + 24 * 60 * 60 * 1000
+  };
+}
+```
+
+**Update function guards:**
+```javascript
+// lib/requireProductAccess.ts - New utility
+export async function requireProductAccess(
+  request: Request,
+  product: string,
+  secret: string
+): Promise<Session> {
+  const session = await verifySessionCookie(
+    request.headers.get('Cookie'),
+    secret
+  );
+  
+  if (!session) {
+    throw new Response('Unauthorized', { status: 401 });
+  }
+  
+  if (!session.productAccess.includes(product)) {
+    throw new Response('Forbidden - No access to this product', { status: 403 });
+  }
+  
+  return session;
+}
+
+// functions/docs-feedback.ts - Updated
+import { requireProductAccess } from '../lib/requireProductAccess';
+
+export const onRequestPost = async (context) => {
+  const product = context.params.product; // from /:product/docs/...
+  const session = await requireProductAccess(
+    context.request,
+    product,
+    context.env.SESSION_SECRET
+  );
+  
+  // Now safe to accept feedback
+  // ...
+}
+```
+
+**Warning signs:**
+- Cloudflare Functions check `isAuthenticated` but not product access
+- No `requireProductAccess` utility exists
+- Session interface lacks `productAccess` field
+- Function routes don't include product parameter (`/:product/...`)
+
+**Phase to address:** Phase 1 (Auth Foundation) - Functions need product guards before content is added
 
 ---
 
@@ -163,12 +541,12 @@ If Markdown output is needed for some use case, extend `serializeCustomBlock` to
 
 | Shortcut | Immediate Benefit | Long-term Cost | When Acceptable |
 |----------|-------------------|----------------|-----------------|
-| Keep `\|\| true` in `build.sh` unconditionally | Build never aborts due to Sanity outage | Silent empty-content deploys during schema migrations | Acceptable in steady-state production; disable temporarily during migration work |
-| Keep roadmap data in `src/data/roadmap.ts` (TypeScript file) instead of Sanity | No Sanity API call; git-based updates | Non-technical editors cannot update the roadmap without a developer | Never acceptable after v1.1 if the goal is editor-managed content |
-| Use slug strings for release cross-links instead of Sanity references | No GROQ dereferencing complexity; resilient to document deletion | Slug drift: if a release slug changes, roadmap items silently point to 404s | Acceptable if slugs are treated as stable identifiers enforced by validation rules |
-| Write full Portable Text body into the releases generated JSON | One fetch pass, simpler fetch script | Large JSON file slows build and page load if releases accumulate many images | Acceptable for up to ~30 rich releases; split per-release for larger catalogs |
-| Add `useEffect + fetch()` for hero banner dynamic data | Quick to implement | Hydration flash; unnecessary on SSG; breaks without JS | Never on Docusaurus static pages |
-| Store `projectedRelease` dates as human strings ("Q2 2026") instead of ISO dates | Easy for editors to author | Cannot sort or filter programmatically; dates go stale silently | Acceptable for display-only roadmap; add a machine-readable `estimatedDate` ISO field alongside |
+| Add `product` field but don't filter queries yet | Faster to implement schema | Content leakage if Product B docs added before filtering | NEVER - This is how leaks happen |
+| Use single session for all products | Simpler auth | No way to restrict access per product | ONLY if all products are public |
+| Skip product validation in Functions | Less code | Any authenticated user can call any function | NEVER for protected content |
+| Copy existing docs to Product B instead of sharing | Quick launch | Divergence, sync issues | NEVER - Use references or shared content |
+| Hardcode product list in GROQ | Avoids config | Adding Product C requires code change | SHORT-TERM - Acceptable for MVP if config is planned |
+| Trust client-side filtering | Simpler implementation | User can modify JS to see other products | NEVER - Client-side is presentation only |
 
 ---
 
@@ -176,12 +554,12 @@ If Markdown output is needed for some use case, extend `serializeCustomBlock` to
 
 | Integration | Common Mistake | Correct Approach |
 |-------------|----------------|------------------|
-| Sanity schema → fetch script | Adding new schema fields without updating the GROQ projection in `fetch-sanity-content.js` | Every new Sanity field must be explicitly named in the GROQ projection; Sanity does not auto-include added fields |
-| Sanity → Cloudflare Pages webhook | Assuming every Sanity publish triggers exactly one build, or that drafts do not trigger the webhook | Configure the Sanity webhook with a filter: `_type in ["release", "roadmapItem"] && !(_id in path("drafts.**"))` to prevent spurious rebuilds on draft saves |
-| `sanity-release-notes.generated.json` → React import | Assuming the file always exists on a fresh clone | The file is created by `fetch-sanity-content.js`. On a fresh clone before the script runs, the import fails at build time. Commit a `[]` fallback file to git |
-| Mux video in release items | Uploading video to generic Sanity asset pipeline using `enhancedVideoType` | `sanity-plugin-mux-input` is already installed in `studio/sanity.config.ts`. Use the Mux block type for streaming video — it handles playback, thumbnails, and CDN delivery natively |
-| `docusaurus-search-local` + roadmap filter | Assuming the plugin's search index covers dynamically filtered roadmap items | `docusaurus-search-local` indexes static Docusaurus pages, not React component state. The roadmap search/filter must be a separate in-component `useState` + `useMemo` implementation (as the existing `legacy-pages/roadmap.tsx` already does correctly) — do not try to integrate with the docs search plugin |
-| Sanity structure.ts + new types | Adding new schema types to `schemaTypes/index.ts` without adding them to `structure.ts` | New types appear in the auto-generated fallback list at the bottom of the Studio sidebar. Add explicit list items in `structure.ts` for `release` and `roadmapItem` so they appear in the correct grouped position |
+| **Sanity → Docusaurus** | Single JSON file with all products | Separate JSON per product OR filter at function level |
+| **Auth0 → Cloudflare Functions** | Session has email but no productAccess | Add product_access claim to Auth0 token, validate in functions |
+| **Zoho Contact → Session** | Assume all contacts have GCXONE access | Query product entitlements from Zoho custom field |
+| **Cloudflare Pages Build** | One build for all products | Either: separate builds per product, or: runtime access checks |
+| **Search Index** | Index all docs regardless of product | Filter by product at build time OR use server-side search |
+| **Webhook Rebuild** | Rebuild all products on any change | Scope webhooks to product-specific Sanity documents |
 
 ---
 
@@ -189,10 +567,10 @@ If Markdown output is needed for some use case, extend `serializeCustomBlock` to
 
 | Trap | Symptoms | Prevention | When It Breaks |
 |------|----------|------------|----------------|
-| All roadmap items animating with `initial/animate` stagger simultaneously | Page jank or dropped frames on first render | Use `whileInView` + `viewport={{ once: true }}` for below-the-fold cards (the backlog section in legacy roadmap already does this correctly); do not stagger more than 20 items | Beyond ~50 items all animating on mount |
-| Embedding full Portable Text body in `sanity-release-notes.generated.json` | JSON file grows to 1MB+; slower Docusaurus build; slower page load | Separate the metadata (for the releases list) from the full body (for the detail view). For a single-page releases view, use lazy accordion expansion so only visible content is parsed | When release body includes many images/embeds; at ~25+ rich releases |
-| Client-side text search across all roadmap items on every keystroke without `useMemo` | Input lag as the roadmap grows | Use `useMemo` for the filtered array (the legacy implementation does this correctly). When a status filter is active, apply it before the text search — short-circuit on the smaller array | Beyond ~200 items with complex compound filters |
-| Importing all of `sanity-landing-pages.generated.json` in a component that only needs one page | Entire landing pages dataset included in every component bundle that imports it | The file is only imported in `SanityLandingPageRoute.tsx`, which is route-level — acceptable. If new components import it for other reasons, extract a per-slug file at build time instead | At 50+ landing pages with large section arrays |
+| **Multiple full site builds** | Deploy takes 10+ minutes, high build minutes | Separate critical path - only rebuild affected product | At 5+ products with shared infrastructure |
+| **Large JSON with all products** | Slow page load, large bundle size | Split JSON per product OR lazy-load protected content | At 1000+ docs across products |
+| **Per-request GROQ for protected content** | Slow page render, API rate limits | Cache product-filtered results in KV with session-scoped key | At high traffic + many protected docs |
+| **Search index includes all products** | Large search file download | Split search index per product | At 500+ total docs |
 
 ---
 
@@ -200,9 +578,12 @@ If Markdown output is needed for some use case, extend `serializeCustomBlock` to
 
 | Mistake | Risk | Prevention |
 |---------|------|------------|
-| Using a Sanity `editor` or `administrator` token in the Cloudflare Pages build environment | Write-capable token exposed in build logs or misconfigured CF Pages settings | Use a read-only `viewer` token for `SANITY_API_TOKEN` in the Cloudflare Pages environment variables. The fetch script only reads — it never needs write access |
-| Exposing internal sprint identifiers, assignee names, or Zoho item IDs in the public roadmap JSON | Internal workflow data visible in page source and network requests | The current `roadmap.ts` data contains `assignees` and internal Zoho ID formats (e.g., `"TW-I13"`). Strip these from the Sanity roadmap schema or exclude them from the GROQ projection before they appear in the generated JSON |
-| `rawHtml` Portable Text block type in release notes rendered via `dangerouslySetInnerHTML` | XSS if an editor pastes malicious HTML into a rawHtml block | `portableText-ultimate.ts` defines a `rawHtml` block type. Audit whether this type is included in the new `release` and `roadmapItem` schemas. If not needed, exclude it. If included, sanitize the HTML output at render time using `sanitize-html` (not `dompurify` — SSG context has no DOM) |
+| **Static build includes Product B content** | Product B docs in page source, searchable, archivable | Use runtime fetch for protected content OR separate builds |
+| **Search results show Product B** | Information disclosure through search metadata | Product-scoped search index OR server-side search |
+| **Session lacks productAccess** | Any authenticated user can access any product | Add product_access claim to Auth0 token |
+| **Function doesn't check product** | Authenticated GCXONE user can call Product B APIs | requireProductAccess guard in every function |
+| **URL path determines product without validation** | User changes `/gcxone/...` to `/product-b/...` | Validate product from session, not just URL |
+| **Shared assets between products** | Images/videos leak through asset URLs | Use product-scoped asset folders OR signed URLs |
 
 ---
 
@@ -210,26 +591,27 @@ If Markdown output is needed for some use case, extend `serializeCustomBlock` to
 
 | Pitfall | User Impact | Better Approach |
 |---------|-------------|-----------------|
-| Roadmap shows "Projected Release: Q2 2026" on items that did not ship by Q2 | Customers lose trust; the roadmap feels abandoned or dishonest | Add a `lastReviewedAt` date field. Display "Estimated Q2 2026 — last reviewed March 2026" so customers can see the estimate is actively maintained, not forgotten |
-| Status values copied from Zoho Sprints internal labels ("To do", "In Staging", "In Progress") | Customers see internal workflow jargon | Map Zoho statuses to public-facing labels in the Sanity schema: "To do" → "Planned", "In Staging" → "In Progress", "Done" → "Shipped". The Sanity schema stores the public label; Zoho sync is out of scope |
-| Shipped roadmap item has no link to the release note where the feature was documented | Customers cannot find where a shipped feature was documented | Add a Sanity validation rule: when `status == "Shipped"`, the `releaseSlug` field is required. Editors cannot publish a shipped item without linking it |
-| Hero banner "What's New" chip shows internal sprint identifier ("Sprint 2025.12-B") to external customers | Customers do not understand internal sprint naming conventions | The `release` schema needs a `displayTitle` field (e.g., "December 2025 Release") distinct from the internal `sprintId` field. The hero uses `displayTitle`; the internal sprint ID is editor-facing only |
-| Releases page shows only the most recent sprint with no way to browse older releases | Customers cannot audit what changed 3 months ago | Default view: last 3–4 releases expanded; older releases collapsed with a "Show earlier releases" disclosure. Do not paginate — a single-page accordion is simpler and works without routing complexity |
+| **Login required for public docs** | Users frustrated, bounce | Only require auth for product-specific protected content |
+| **No indication of product after login** | User unsure which docs they can access | Show product badge/chip in nav, "Your access: GCXONE" |
+| **Product switcher shows inaccessible products** | User clicks, gets 403 | Only show products in user's productAccess |
+| **Deep link to wrong product** | User follows link, gets 403 | Redirect to their accessible product OR show "You don't have access to Product B. You have access to: GCXONE" |
+| **Search returns inaccessible results** | User sees result, clicks, blocked | Filter search to user's products |
+| **"Request access" leads nowhere** | Dead end, frustration | Link to sales/support with product context |
 
 ---
 
 ## "Looks Done But Isn't" Checklist
 
-- [ ] **Schema migration complete:** Verify `*[_type == "releaseNote"] | count` in GROQ Vision returns 0 before removing the `releaseNoteType` schema file.
-- [ ] **Hero banner dynamic:** Search for hardcoded sprint text: `grep -n "Sprint" classic/src/components/NXGENSphereHero.tsx`. The file should contain no hardcoded sprint identifiers after v1.1.
-- [ ] **Fetch script GROQ updated:** Verify `fetch-sanity-content.js` queries `_type == "release"` not `_type == "releaseNote"` after migration.
-- [ ] **All four registration sites updated in Studio:** `schemaTypes/index.ts`, `sanity.config.ts` (initial value template, document actions, two dashboard widget `types` arrays), `structure.ts` (sidebar entry and Published filter entry) — all reference the new type name.
-- [ ] **Roadmap cross-links resolve:** Open any shipped roadmap item on the live site. Confirm the "View Release" link resolves to a real `/releases/[slug]` URL — not `undefined`, `#`, or `[object Object]`.
-- [ ] **Fallback JSON files in git:** `git ls-files classic/src/data/sanity-roadmap.generated.json` returns the file. It exists as an empty array so fresh clones build without running the fetch script first.
-- [ ] **Webhook filter scoped:** The Cloudflare Pages deploy hook in Sanity only fires on published documents of the new types — not on draft saves of all document types.
-- [ ] **Legacy page components not deleted:** `classic/src/legacy-pages/releases.tsx` and `classic/src/legacy-pages/roadmap.tsx` still exist as rollback references. They are no longer imported as active fallbacks by the new page components, but they exist in the repo.
-- [ ] **`SanityLandingPageRoute` removed from releases and roadmap:** `releases.tsx` and `roadmap.tsx` do not import `SanityLandingPageRoute`. Both are now standalone components importing from dedicated generated JSON files.
-- [ ] **Rich media renders in release notes:** Open a release note that contains an image array and/or a video embed in the built site. Both render correctly — not as blank sections.
+- [ ] **Product field on all document types** — Verify EVERY schema has product field (doc, article, landingPage, release, roadmapItem, etc.)
+- [ ] **Backfill complete** — GROQ Vision: `*[_type == "doc" && !defined(product)] | count` returns 0
+- [ ] **All GROQ queries filtered** — Search codebase for `*[_type ==` and verify each has `&& product == $product`
+- [ ] **Session has productAccess** — Log session object, verify productAccess array exists
+- [ ] **Functions check product access** — Every function handling protected content calls requireProductAccess
+- [ ] **Search index scoped** — Download search-index.json, verify it doesn't contain other products
+- [ ] **Static build filtered** — View page source, search for Product B terms, find nothing
+- [ ] **Auth0 claims populated** — Decode ID token at jwt.io, verify product_access claim exists
+- [ ] **Product switcher accurate** — Only shows products in user's session.productAccess
+- [ ] **Cross-product links handled** — Link from GCXONE doc to Product B doc shows access denied, not 404
 
 ---
 
@@ -237,12 +619,12 @@ If Markdown output is needed for some use case, extend `serializeCustomBlock` to
 
 | Pitfall | Recovery Cost | Recovery Steps |
 |---------|---------------|----------------|
-| Schema type deleted while documents still exist | MEDIUM | Re-add the old type as a stub (just `name` and `type: "document"` and a title field). Studio can open documents again. Export via `sanity dataset export`. Re-migrate to the new type. |
-| Deployed with empty `sanity-release-notes.generated.json` | LOW | Restore from `.sanity-backups/` (the fetch script maintains up to 10 timestamped backups). Run `npm run sanity:pull` locally, commit the regenerated file, push to trigger a new build. |
-| Hero banner stuck on old sprint text after v1.1 | LOW | Update the release `displayTitle` field in Studio and re-publish — the webhook triggers a rebuild and the banner updates automatically (if the dynamic pattern was implemented correctly). |
-| Roadmap cross-links broken (null reference) | LOW | In Studio: open the affected roadmap item, set the `releaseSlug` string field. Re-publish. The link resolves after the next webhook-triggered build. |
-| `SanityLandingPageRoute` fallback rendering legacy content | LOW | Confirm: (a) Does a `landingPage` document with slug `"releases"` exist in Sanity? Delete it if it was a v1.0 placeholder. (b) Has `releases.tsx` been updated to remove the `SanityLandingPageRoute` wrapper? Deploy after fix. |
-| Build fails after schema rename — GROQ query mismatch | LOW | Revert the GROQ query in `fetch-sanity-content.js` to use the old type name. Fix the schema rename and query update together as one atomic change. |
+| **Content leaked via static build** | HIGH | Rebuild with filtering, request search engine de-index, rotate asset URLs if sensitive |
+| **Session lacks productAccess** | MEDIUM | Add claim to Auth0, force re-login for all users, update function guards |
+| **Search exposes other products** | MEDIUM | Rebuild search index with product filter, clear browser cache |
+| **Function doesn't validate product** | LOW | Add guard, deploy function — no data exposure if caught quickly |
+| **Backfill incomplete** | LOW | Run migration script again, verify count |
+| **Product field missing from schema** | LOW | Add field, backfill, verify — no leakage if no Product B content yet |
 
 ---
 
@@ -250,34 +632,89 @@ If Markdown output is needed for some use case, extend `serializeCustomBlock` to
 
 | Pitfall | Prevention Phase | Verification |
 |---------|------------------|--------------|
-| Schema type rename breaks documents and queries | Phase 1: Schema migration | GROQ Vision: `*[_type == "releaseNote"] \| count` returns 0; fetch log shows expected non-zero count for `release` type |
-| Silent empty-content deploy from `\|\| true` | Phase 1: Build pipeline hardening | Run `npm run sanity:pull:strict` — zero warnings. Generated JSON files are non-empty. |
-| Cross-references not dereferenced in GROQ | Phase 2: Roadmap schema + frontend wiring | Shipped roadmap items on `/roadmap` show a valid href linking to `/releases/[slug]` |
-| Hero banner hardcoded text | Phase 3: Hero banner dynamic data | `grep -n "Sprint" src/components/NXGENSphereHero.tsx` returns no hardcoded sprint strings |
-| `SanityLandingPageRoute` wrapping dedicated pages | Phase 1: Page routing replacement | `releases.tsx` and `roadmap.tsx` do not import `SanityLandingPageRoute` |
-| Portable Text body not extended for rich media | Phase 1: Release schema + fetch script | Release notes with images and video embeds render correctly in the built site |
-| Internal labels in public roadmap | Phase 2: Roadmap schema design | All `status` values in Sanity are public-facing labels ("Planned", "In Progress", "Shipped") — no Zoho internal labels |
-| Stale projected-release dates | Phase 2: Roadmap schema design | Schema includes `lastReviewedAt` date field; roadmap page renders it alongside the estimate |
-| Fallback JSON files missing from git | Phase 1: Schema migration | `git ls-files classic/src/data/sanity-roadmap.generated.json` confirms the file is tracked |
-| Webhook firing on draft saves | Phase 1: Build pipeline hardening | Cloudflare Pages build history shows builds triggered only on publish events, not on draft saves |
+| **Content leakage** | Phase 1 (Auth Foundation) | Penetration test: authenticated GCXONE user cannot access Product B URLs |
+| **Dual auth not unified** | Phase 1 (Auth Foundation) | Session object has productAccess field for both admin and customer auth |
+| **Static build leaks** | Phase 1 (Architecture Decision) | Page source contains only accessible product content |
+| **Search index exposes** | Phase 2 (Content Infrastructure) | search-index.json contains only one product's content |
+| **Overengineering** | Phase 1 (Architecture Decision) | Architecture doc shows single dataset, single build, product field approach |
+| **Migration breaks content** | Phase 2 (Content Infrastructure) | GROQ Vision count matches pre-migration, all docs have product field |
+| **Functions lack product context** | Phase 1 (Auth Foundation) | Every function has requireProductAccess guard |
 
 ---
 
 ## Sources
 
-- Direct codebase inspection: `studio/schemaTypes/releaseNote.ts` — current schema structure and field names
-- Direct codebase inspection: `studio/schemaTypes/index.ts` — all type registrations
-- Direct codebase inspection: `studio/sanity.config.ts` — all four places where `releaseNote` is referenced (initial value template line 60, document actions line 170, dashboard widget lines 130 and 145)
-- Direct codebase inspection: `studio/src/structure.ts` — two list items referencing `releaseNote` (sidebar entry and Published filter)
-- Direct codebase inspection: `classic/scripts/fetch-sanity-content.js` — full implementation including GROQ queries (line 72), `|| true` fallback, backup system, and `serializeCustomBlock` handlers
-- Direct codebase inspection: `classic/src/components/NXGENSphereHero.tsx` line 418 — hardcoded sprint string
-- Direct codebase inspection: `classic/src/pages/releases.tsx` and `classic/src/pages/roadmap.tsx` — current `SanityLandingPageRoute` wrapper pattern
-- Direct codebase inspection: `classic/src/legacy-pages/roadmap.tsx` — existing filter/search implementation using `useState` + `useMemo` (correct pattern)
-- Direct codebase inspection: `classic/src/data/roadmap.ts` — internal Zoho status labels and assignee data in the current hardcoded roadmap
-- Direct codebase inspection: `build.sh` line 19 — `|| true` flag on fetch-content step
-- Direct codebase inspection: `classic/package.json` — `sanity-plugin-mux-input` already a dependency in studio; `@portabletext/react` not yet a dependency in classic (would be needed for direct Portable Text rendering)
-- Project documentation: `.planning/PROJECT.md`
+### Primary (HIGH confidence)
+- `.planning/PROJECT.md` — Existing single-product architecture constraints
+- `.planning/research/auth0-upgrade-EXISTING-AUTH.md` — Dual auth systems analysis
+- `.planning/research/auth0-upgrade-FEATURES.md` — Auth0 Organizations and claims patterns
+- `.planning/research/ARCHITECTURE.md` — Current build pipeline and data flow
+- `.planning/research/PITFALLS.md` — Existing v1.1 pitfalls (schema migration patterns apply)
+- `functions/zoho-customer-auth.ts` — Current session creation (lacks productAccess)
+- `functions/lib/zoho-session.ts` — Session interface (lacks productAccess)
+
+### Secondary (MEDIUM confidence)
+- Docusaurus i18n documentation — Separation patterns (different use case but relevant structure)
+- Auth0 Organizations documentation — Multi-tenant patterns (may be overkill for 2-3 products)
+- Sanity GROQ documentation — Filtering patterns
+
+### Patterns inferred from existing codebase (HIGH confidence)
+- Build-time JSON pattern established and working
+- HttpOnly cookie session pattern established and secure
+- Auth0 integration pattern established and working
+- Schema migration patterns established from v1.1 work
 
 ---
-*Pitfalls research for: Docusaurus SSG + Sanity CMS — Releases & Public Roadmap (v1.1)*
-*Researched: 2026-03-13*
+
+## Additional Recommendations
+
+### Test Strategy for Content Isolation
+
+Before any Product B content is added, create automated tests:
+
+```javascript
+// tests/product-isolation.test.ts
+describe('Product Isolation', () => {
+  it('GCXONE user cannot access Product B URLs', async () => {
+    const session = await loginAsGcxoneUser();
+    const response = await fetch('/product-b/docs/secret-feature', {
+      headers: { Cookie: session.cookie }
+    });
+    expect(response.status).toBe(403);
+  });
+  
+  it('Search does not return Product B results for GCXONE user', async () => {
+    const session = await loginAsGcxoneUser();
+    const response = await fetch('/search?q=product-b-feature', {
+      headers: { Cookie: session.cookie }
+    });
+    const results = await response.json();
+    expect(results.every(r => r.product === 'gcxone')).toBe(true);
+  });
+  
+  it('Static build does not include Product B content', async () => {
+    const build = await fetch('/docs/sanity-docs.generated.json');
+    const docs = await build.json();
+    expect(docs.every(d => d.product === 'gcxone')).toBe(true);
+  });
+});
+```
+
+### Checklist Before Adding Product B
+
+1. [ ] All schemas have `product` field
+2. [ ] All existing docs have `product: 'gcxone'`
+3. [ ] Session includes `productAccess: ['gcxone']`
+4. [ ] Functions check `requireProductAccess`
+5. [ ] Search index filtered to product
+6. [ ] Static build filtered to product
+7. [ ] Tests pass for isolation
+8. [ ] Penetration test confirms no cross-product access
+
+Only then: Create first Product B document.
+
+---
+
+*Pitfalls research for: Multi-Product Architecture Migration*
+*Researched: 2026-04-01*
+*Context: Adding multi-product support to existing Docusaurus + Sanity docs platform*
