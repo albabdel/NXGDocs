@@ -38,7 +38,7 @@ Create a unified, Sanity-powered Updates Hub that consolidates all platform upda
 
 Plans:
 - [x] 29-01-PLAN.md — Create Sanity update schema with type enum and conditional fields
-- [ ] 29-02-PLAN.md — Add GROQ queries and generate sanity-updates.generated.json
+- [x] 29-02-PLAN.md — Add GROQ queries and generate sanity-updates.generated.json
 - [ ] 29-03-PLAN.md — Build Updates hub page, type-specific cards, and detail page
 
 ---

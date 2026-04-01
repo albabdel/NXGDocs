@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v3.1
 milestone_name: Updates Hub
 status: in_progress
-stopped_at: "29-01 Update Schema - COMPLETE"
-last_updated: "2026-04-01T16:45:00Z"
-last_activity: "2026-04-01 — Updates Hub: Created update schema with type enum and conditional fields"
+stopped_at: "29-02 Updates Data Pipeline - COMPLETE"
+last_updated: "2026-04-01T13:50:00Z"
+last_activity: "2026-04-01 — Updates Hub: Added GROQ query and JSON generation for updates"
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 4
-  completed_plans: 1
-  percent: 25
+  completed_plans: 2
+  percent: 50
 ---
 
 # Project State
@@ -27,10 +27,10 @@ See: .planning/ROADMAP-design-system.md (new milestone roadmap)
 ## Current Position
 
 Phase: 29-updates-hub — Updates Hub
-Status: Plan 01 complete, continuing
-Last activity: 2026-04-01 — Updates Hub: Created update schema with type enum and conditional fields
+Status: Plan 02 complete, continuing
+Last activity: 2026-04-01 — Updates Hub: Added GROQ query and JSON generation for updates
 
-Progress: [==        ] 25% (1 of 4 plans complete)
+Progress: [====      ] 50% (2 of 4 plans complete)
 
 **Note:** v3.1 Updates Hub planned. 4 phases covering update schema, data pipeline, UI components, and integration. Based on ROADMAP-updates-hub.md.
 
@@ -190,6 +190,23 @@ Progress: [==        ] 25% (1 of 4 plans complete)
 
 **Requirements:** UHUB-01
 
+### Plan 02: Updates Data Pipeline (Complete)
+
+**Summary:** GROQ query and JSON generation pipeline for fetching update documents from Sanity at build time.
+
+**Changes:**
+- Added UPDATES_GENERATED_FILE constant for output path
+- Added getUpdatesQuery() with type-specific field projections
+- Added fetchUpdates() function following existing patterns
+- Created sanity-updates.generated.json fallback file
+- Integrated fetchUpdates() call in run() function
+
+**Commits:**
+- e882a9a — feat(29-02): add GROQ query for updates to fetch script
+- c6bf7c4 — feat(29-02): create initial empty updates JSON file
+
+**Requirements:** UHUB-05
+
 ## Phase 10 Complete
 
 ### Implementation Summary
@@ -271,6 +288,8 @@ All 5 phases complete:
 
 Recent decisions affecting current work:
 
+  - [29-02]: Type-specific fields projected as nested objects (releaseFields, bugfixFields, roadmapFields) in GROQ query
+  - [29-02]: Updates sorted by publishedAt descending for chronological display
   - [29-01]: Single update schema replaces separate schemas per category (announcement/release/bugfix/roadmap)
   - [29-01]: Conditional fields use hidden: ({parent}) => parent?.type !== 'typeValue' pattern
   - [29-01]: Field groups organize schema: Main, Content, Release Fields, Bugfix Fields, Roadmap Fields
@@ -330,11 +349,11 @@ None — v1.1 milestone complete.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: 29-01 Update Schema - COMPLETE
-Status: Phase 29 in progress, ready for Plan 02
+Stopped at: 29-02 Updates Data Pipeline - COMPLETE
+Status: Phase 29 in progress, ready for Plan 03
 
 **Completion Summary:**
-- Phase 29: Updates Hub — Update schema with type enum and conditional fields (in progress)
+- Phase 29: Updates Hub — GROQ query and JSON generation for updates (in progress)
 - Phase 28: Modern CSS Features — light-dark(), container queries, CSS nesting
 
 ---
