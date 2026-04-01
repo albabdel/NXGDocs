@@ -1,0 +1,463 @@
+// classic/src/css/components/reading-progress.css
+// Reading progress components styles
+//
+// Purpose:
+//   - Progress bar styles (thin, fixed position)
+//   - Reading stats card styles
+//   - Mark as read button
+//   - Completion animation
+//
+// Reference:
+//   - .planning/research/auth0-upgrade-UX-PATTERNS.md
+
+/* ============================================================================
+   Reading Progress Bar
+   ============================================================================ */
+
+.reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--ifm-color-emphasis-200);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.reading-progress-bar__fill {
+  height: 100%;
+  background: linear-gradient(90deg, #E8B058 0%, #C89446 100%);
+  transition: width 0.1s ease-out;
+  position: relative;
+}
+
+.reading-progress-bar__fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 100%);
+}
+
+/* Progress indicator with percentage */
+.reading-progress-indicator {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.reading-progress-indicator__badge {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.625rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(232, 176, 88, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ifm-color-content);
+  pointer-events: auto;
+  transition: all 0.2s ease;
+}
+
+[data-theme='dark'] .reading-progress-indicator__badge {
+  background: rgba(30, 30, 30, 0.9);
+  border-color: rgba(232, 176, 88, 0.4);
+}
+
+.reading-progress-indicator__badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.reading-progress-indicator__icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: #E8B058;
+}
+
+.reading-progress-indicator__text {
+  color: #E8B058;
+}
+
+/* ============================================================================
+   Mark as Read Button
+   ============================================================================ */
+
+.mark-as-read-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.mark-as-read-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.mark-as-read-btn--unmarked {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-content);
+}
+
+[data-theme='light'] .mark-as-read-btn--unmarked {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(232, 176, 88, 0.3);
+}
+
+.mark-as-read-btn--unmarked:hover {
+  border-color: #E8B058;
+  background: rgba(232, 176, 88, 0.1);
+}
+
+.mark-as-read-btn--marked {
+  background: linear-gradient(135deg, #E8B058 0%, #C89446 100%);
+  color: #000;
+  border: none;
+  box-shadow: 0 4px 12px rgba(232, 176, 88, 0.3);
+}
+
+.mark-as-read-btn--marked:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 16px rgba(232, 176, 88, 0.4);
+}
+
+.mark-as-read-btn__icon {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.mark-as-read-btn--marked .mark-as-read-btn__icon {
+  animation: checkmark-bounce 0.4s ease;
+}
+
+@keyframes checkmark-bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* Celebration animation */
+.mark-as-read-celebration {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(232, 176, 88, 0.3);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  animation: celebration-pop 0.4s ease;
+}
+
+[data-theme='dark'] .mark-as-read-celebration {
+  background: rgba(30, 30, 30, 0.95);
+}
+
+@keyframes celebration-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.mark-as-read-celebration__icon {
+  width: 4rem;
+  height: 4rem;
+  color: #E8B058;
+  animation: celebration-icon 0.6s ease;
+}
+
+@keyframes celebration-icon {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.1) rotate(-10deg);
+  }
+  75% {
+    transform: scale(1.1) rotate(10deg);
+  }
+}
+
+.mark-as-read-celebration__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ifm-color-content);
+}
+
+.mark-as-read-celebration__text {
+  font-size: 0.875rem;
+  color: var(--ifm-color-content-secondary);
+  text-align: center;
+}
+
+/* ============================================================================
+   Reading Stats
+   ============================================================================ */
+
+.reading-stats-card {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='light'] .reading-stats-card {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(232, 176, 88, 0.15);
+}
+
+.reading-stats-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.reading-stats-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ifm-color-content);
+}
+
+.reading-stats-title-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #E8B058;
+}
+
+.reading-stats-period {
+  font-size: 0.75rem;
+  color: var(--ifm-color-content-secondary);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  background: var(--ifm-color-emphasis-100);
+}
+
+/* Stats Grid */
+.reading-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.reading-stat {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='light'] .reading-stat {
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(232, 176, 88, 0.1);
+}
+
+.reading-stat-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.375rem;
+  border-radius: 0.5rem;
+  background: rgba(232, 176, 88, 0.1);
+  color: #E8B058;
+}
+
+.reading-stat--pages .reading-stat-icon {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3B82F6;
+}
+
+.reading-stat--time .reading-stat-icon {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22C55E;
+}
+
+.reading-stat--streak .reading-stat-icon {
+  background: rgba(249, 115, 22, 0.1);
+  color: #F97316;
+}
+
+.reading-stat--complete .reading-stat-icon {
+  background: rgba(168, 85, 247, 0.1);
+  color: #A855F7;
+}
+
+.reading-stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ifm-color-content);
+  line-height: 1.2;
+}
+
+.reading-stat-label {
+  font-size: 0.75rem;
+  color: var(--ifm-color-content-secondary);
+  margin-top: 0.125rem;
+}
+
+/* Detailed Stats */
+.reading-stats-details {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.reading-stats-details-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ifm-color-content);
+  margin-bottom: 0.75rem;
+}
+
+.reading-stats-detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+
+.reading-stats-detail-label {
+  font-size: 0.8125rem;
+  color: var(--ifm-color-content-secondary);
+}
+
+.reading-stats-detail-value {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ifm-color-content);
+}
+
+/* Progress Ring */
+.reading-progress-ring {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+}
+
+.reading-progress-ring svg {
+  transform: rotate(-90deg);
+}
+
+.reading-progress-ring__bg {
+  fill: none;
+  stroke: var(--ifm-color-emphasis-200);
+  stroke-width: 3;
+}
+
+.reading-progress-ring__fill {
+  fill: none;
+  stroke: #E8B058;
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.3s ease;
+}
+
+.reading-progress-ring__text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: var(--ifm-color-content);
+}
+
+/* ============================================================================
+   Mini Stats (for sidebar)
+   ============================================================================ */
+
+.reading-stats-mini {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='light'] .reading-stats-mini {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(232, 176, 88, 0.15);
+}
+
+.reading-stats-mini__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+.reading-stats-mini__value {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--ifm-color-content);
+}
+
+.reading-stats-mini__label {
+  font-size: 0.625rem;
+  color: var(--ifm-color-content-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================================
+   Responsive
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .reading-progress-indicator {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .reading-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mark-as-read-celebration {
+    width: 90%;
+    max-width: 320px;
+  }
+}
