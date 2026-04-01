@@ -6,8 +6,12 @@
 // Uses the ZeptoMail HTTP API via fetch() — Cloudflare Workers have no TCP sockets,
 // so nodemailer SMTP cannot be used here.
 
+import { requireProductAccess, getProductFromRequest } from './lib/require-product-access';
+
 interface Env {
   ZEPTO_API_KEY: string;
+  ZOHO_SESSION_SECRET: string;
+  PRODUCT?: string;
 }
 
 interface FeedbackPayload {
@@ -235,6 +239,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   };
 
   try {
+    // Validate product access before processing feedback submission
+    const session = await requireProductAccess(context.request, context.env);
+    const product = getProductFromRequest(context.request, context.env);
+
     const payload = await context.request.json() as FeedbackPayload;
 
     // Validate required fields
