@@ -11,22 +11,19 @@
 //   const { bookmarks, isBookmarked, toggleBookmark, loading } = useBookmarks();
 //
 // Reference:
-//   - classic/src/hooks/useUserProfile.ts (existing patterns)
+//   - classic/src/hooks/useAuthSession.ts
 //   - classic/src/services/bookmarks.ts
 
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useAuthSession } from './useAuthSession';
 import { useSupabase } from '../lib/supabase';
 import {
   Bookmark,
   BookmarkInput,
-  BookmarkItemType,
   getBookmarks as fetchBookmarks,
-  addBookmark as addBookmarkService,
+  toggleBookmark as toggleBookmarkService,
   removeBookmark as removeBookmarkService,
-  removeBookmarkBySlug,
-  getBookmarkBySlug,
-  getBookmarkCount,
 } from '../services/bookmarks';
 
 // ---------------------------------------------------------------------------
@@ -38,14 +35,9 @@ export interface UseBookmarksReturn {
   loading: boolean;
   error: Error | null;
   isBookmarked: (slug: string) => boolean;
-  getBookmark: (slug: string) => Bookmark | undefined;
   toggleBookmark: (item: BookmarkInput) => Promise<void>;
-  addBookmark: (item: BookmarkInput) => Promise<void>;
   removeBookmark: (id: string) => Promise<void>;
-  removeBySlug: (slug: string) => Promise<void>;
   refetch: () => Promise<void>;
-  count: number;
-  getByType: (type: BookmarkItemType) => Bookmark[];
 }
 
 // ---------------------------------------------------------------------------
@@ -55,9 +47,12 @@ export interface UseBookmarksReturn {
 /**
  * Hook for managing user bookmarks.
  * Auto-loads bookmarks on mount and provides toggle functionality.
+ * 
+ * Uses useAuthSession to get user ID, then bookmarks service for operations.
  */
 export function useBookmarks(): UseBookmarksReturn {
-  const { isAuthenticated, isLoading: authLoading, getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
+  const { user, isAuthenticated, isLoading: authLoading } = useAuthSession();
   const supabase = useSupabase(getAccessTokenSilently);
 
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
@@ -70,7 +65,7 @@ export function useBookmarks(): UseBookmarksReturn {
 
   // Fetch bookmarks
   const fetchData = useCallback(async () => {
-    if (!isAuthenticated) {
+    if (!isAuthenticated || !user) {
       setBookmarks([]);
       setLoading(false);
       return;
@@ -88,7 +83,7 @@ export function useBookmarks(): UseBookmarksReturn {
     } finally {
       setLoading(false);
     }
-  }, [isAuthenticated, supabase]);
+  }, [isAuthenticated, user, supabase]);
 
   // Fetch on mount and when auth state changes
   useEffect(() => {
@@ -97,7 +92,7 @@ export function useBookmarks(): UseBookmarksReturn {
     }
   }, [authLoading, fetchData]);
 
-  // Check if a slug is bookmarked
+  // Check if a slug is bookmarked (local check for performance)
   const isBookmarked = useCallback(
     (slug: string): boolean => {
       return bookmarkMap.has(slug);
@@ -105,101 +100,28 @@ export function useBookmarks(): UseBookmarksReturn {
     [bookmarkMap]
   );
 
-  // Get bookmark by slug
-  const getBookmark = useCallback(
-    (slug: string): Bookmark | undefined => {
-      return bookmarkMap.get(slug);
-    },
-    [bookmarkMap]
-  );
-
-  // Toggle bookmark with optimistic update
+  // Toggle bookmark
   const toggleBookmark = useCallback(
     async (item: BookmarkInput) => {
-      const existing = bookmarkMap.get(item.item_slug);
-
-      if (existing) {
-        // Optimistic remove
-        setBookmarks((prev) => prev.filter((b) => b.item_slug !== item.item_slug));
-
-        try {
-          await removeBookmarkService(supabase, existing.id);
-        } catch (err) {
-          // Revert on error
-          setBookmarks((prev) => [...prev, existing].sort(
-            (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-          ));
-          console.error('[useBookmarks] Error removing bookmark:', err);
-          throw err;
-        }
-      } else {
-        // Optimistic add
-        const tempBookmark: Bookmark = {
-          id: 'temp-' + Date.now(),
-          user_id: '',
-          item_type: item.item_type,
-          item_slug: item.item_slug,
-          item_title: item.item_title,
-          item_url: item.item_url,
-          metadata: item.metadata || {},
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        };
-
-        setBookmarks((prev) => [tempBookmark, ...prev]);
-
-        try {
-          const newBookmark = await addBookmarkService(supabase, item);
-          // Replace temp bookmark with real one
-          setBookmarks((prev) =>
-            prev.map((b) => (b.id === tempBookmark.id ? newBookmark : b))
-          );
-        } catch (err) {
-          // Revert on error
-          setBookmarks((prev) => prev.filter((b) => b.id !== tempBookmark.id));
-          console.error('[useBookmarks] Error adding bookmark:', err);
-          throw err;
-        }
-      }
-    },
-    [bookmarkMap, supabase]
-  );
-
-  // Add bookmark
-  const addBookmark = useCallback(
-    async (item: BookmarkInput) => {
-      // Check if already bookmarked
-      if (bookmarkMap.has(item.item_slug)) {
-        return;
-      }
-
-      // Optimistic add
-      const tempBookmark: Bookmark = {
-        id: 'temp-' + Date.now(),
-        user_id: '',
-        item_type: item.item_type,
-        item_slug: item.item_slug,
-        item_title: item.item_title,
-        item_url: item.item_url,
-        metadata: item.metadata || {},
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      };
-
-      setBookmarks((prev) => [tempBookmark, ...prev]);
+      setError(null);
 
       try {
-        const newBookmark = await addBookmarkService(supabase, item);
-        setBookmarks((prev) =>
-          prev.map((b) => (b.id === tempBookmark.id ? newBookmark : b))
-        );
+        const result = await toggleBookmarkService(supabase, item);
+
+        if (result.added && result.bookmark) {
+          // Add to local state
+          setBookmarks((prev) => [result.bookmark!, ...prev]);
+        } else {
+          // Remove from local state
+          setBookmarks((prev) => prev.filter((b) => b.item_slug !== item.item_slug));
+        }
       } catch (err) {
-        setBookmarks((prev) => prev.filter((b) => b.id !== tempBookmark.id));
-        console.error('[useBookmarks] Error adding bookmark:', err);
+        console.error('[useBookmarks] Error toggling bookmark:', err);
+        setError(err instanceof Error ? err : new Error('Failed to toggle bookmark'));
         throw err;
       }
     },
-    [bookmarkMap, supabase]
+    [supabase]
   );
 
   // Remove bookmark by ID
@@ -219,52 +141,26 @@ export function useBookmarks(): UseBookmarksReturn {
           (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
         ));
         console.error('[useBookmarks] Error removing bookmark:', err);
+        setError(err instanceof Error ? err : new Error('Failed to remove bookmark'));
         throw err;
       }
     },
     [bookmarks, supabase]
   );
 
-  // Remove bookmark by slug
-  const removeBySlug = useCallback(
-    async (slug: string) => {
-      const bookmark = bookmarkMap.get(slug);
-      if (!bookmark) return;
-
-      await removeBookmark(bookmark.id);
-    },
-    [bookmarkMap, removeBookmark]
-  );
-
-  // Refetch bookmarks
+  // Refetch bookmarks from server
   const refetch = useCallback(async () => {
     await fetchData();
   }, [fetchData]);
-
-  // Get count
-  const count = bookmarks.length;
-
-  // Get bookmarks by type
-  const getByType = useCallback(
-    (type: BookmarkItemType): Bookmark[] => {
-      return bookmarks.filter((b) => b.item_type === type);
-    },
-    [bookmarks]
-  );
 
   return {
     bookmarks,
     loading: authLoading || loading,
     error,
     isBookmarked,
-    getBookmark,
     toggleBookmark,
-    addBookmark,
     removeBookmark,
-    removeBySlug,
     refetch,
-    count,
-    getByType,
   };
 }
 
