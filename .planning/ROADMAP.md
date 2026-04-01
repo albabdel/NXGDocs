@@ -76,7 +76,10 @@ Plans:
   2. Each build run produces separate output directory per product
   3. Product-scoped JSON files contain only that product's content
   4. Build artifacts are isolated with no cross-product content leakage
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [ ] 37-01-PLAN.md — Create multi-build orchestrator script with parallel builds
 
 ### Phase 38: Product Configuration & Branding
 **Goal**: Each product has distinct branding, title, and navigation structure
@@ -131,7 +134,7 @@ Plans:
 | 29. Updates Hub | v4.0 | 3/3 | Complete | 2026-04-01 |
 | 35. Auth Foundation & Product Access | v5.0 | 0/3 | Planned | - |
 | 36. Content Infrastructure | v5.0 | 0/2 | Planned | - |
-| 37. Multi-Build Pipeline | v5.0 | 0/TBD | Not started | - |
+| 37. Multi-Build Pipeline | v5.0 | 0/1 | Planned | - |
 | 38. Product Configuration & Branding | v5.0 | 0/TBD | Not started | - |
 | 39. Cloudflare Multi-Project Deployment | v5.0 | 0/TBD | Not started | - |
 | 40. PostHog Analytics | v5.0 | 0/TBD | Not started | - |
