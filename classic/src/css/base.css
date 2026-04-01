@@ -1,51 +1,50 @@
 /* Base Accessibility Styles */
-@layer base {
-  /* Focus visible - keyboard navigation indicator */
-  :focus-visible {
-    outline: 2px solid var(--ifm-color-primary);
-    outline-offset: 2px;
-    border-radius: 4px;
-  }
 
-  /* Remove outline for mouse users */
-  :focus:not(:focus-visible) {
-    outline: none;
-  }
+/* Focus visible - keyboard navigation indicator */
+:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
 
-  /* Reduced motion preference */
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
+/* Remove outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
 
-  /* High contrast mode support */
-  @media (prefers-contrast: high) {
-    :root {
-      --border-subtle: rgba(0, 0, 0, 0.3);
-      --glass-border: rgba(200, 148, 70, 0.4);
-    }
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
+}
 
-  /* Selection styling */
-  ::selection {
-    background: rgba(200, 148, 70, 0.3);
-    color: inherit;
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border-subtle: rgba(0, 0, 0, 0.3);
+    --glass-border: rgba(200, 148, 70, 0.4);
   }
+}
 
-  /* Smooth scrolling (respects reduced motion) */
+/* Selection styling */
+::selection {
+  background: rgba(200, 148, 70, 0.3);
+  color: inherit;
+}
+
+/* Smooth scrolling (respects reduced motion) */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
   html {
-    scroll-behavior: smooth;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
+    scroll-behavior: auto;
   }
 }
