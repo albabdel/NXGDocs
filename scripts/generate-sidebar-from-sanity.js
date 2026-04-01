@@ -10,6 +10,12 @@ const SANITY_API_TOKEN = 'sk6UtQrIiszU0whyrdZeIcc2bQiyKivrm4FQVDCukFHw3PuHa8QLrq
 
 const OUTPUT_FILE = path.join(__dirname, '..', 'classic', 'sidebars.ts');
 
+const PRODUCT = process.env.PRODUCT || 'gcxone';
+
+function getProductFilter() {
+  return `(product == "${PRODUCT}" || product == "shared")`;
+}
+
 function stripEmojis(str) {
   if (!str) return '';
   return str
@@ -47,9 +53,12 @@ async function fetchSanityData() {
   });
 
   console.log('Fetching sidebarCategory documents from Sanity...');
+  console.log(`Product filter: ${PRODUCT} (includes shared)`);
+  
+  const productFilter = getProductFilter();
   
   const categories = await client.fetch(`
-    *[_type == "sidebarCategory"] | order(position asc) {
+    *[_type == "sidebarCategory" && ${productFilter}] | order(position asc) {
       _id,
       title,
       slug,
@@ -59,7 +68,8 @@ async function fetchSanityData() {
       collapsed,
       collapsible,
       link,
-      targetAudience
+      targetAudience,
+      product
     }
   `);
 
@@ -68,14 +78,15 @@ async function fetchSanityData() {
   console.log('Fetching published docs from Sanity...');
   
   const docs = await client.fetch(`
-    *[_type == "doc" && status == "published"] {
+    *[_type == "doc" && status == "published" && ${productFilter}] {
       _id,
       title,
       "slug": slug.current,
       category,
       "categoryId": sidebarCategory->_id,
       sidebarPosition,
-      sidebarLabel
+      sidebarLabel,
+      product
     }
   `);
 

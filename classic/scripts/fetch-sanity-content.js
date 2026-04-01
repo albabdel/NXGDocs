@@ -93,19 +93,27 @@ function statusFilterClause(includeDrafts) {
   return 'defined(slug.current) && (!defined(status) || status == "published")';
 }
 
+function getProductFilter() {
+  const PRODUCT = process.env.PRODUCT || 'gcxone';
+  return `(product == "${PRODUCT}" || product == "shared")`;
+}
+
 function getLandingPageQuery(includeDrafts) {
-  return `*[_type == "landingPage" && ${statusFilterClause(includeDrafts)}] {
-    title, slug, description, layoutType, showBackground, breadcrumbs, hero, sections, status, publishedAt, lastUpdated
+  const filter = statusFilterClause(includeDrafts);
+  const productFilter = getProductFilter();
+  return `*[_type == "landingPage" && ${filter} && ${productFilter}] {
+    title, slug, description, layoutType, showBackground, breadcrumbs, hero, sections, status, publishedAt, lastUpdated, product
   }`;
 }
 
 function getQueries(includeDrafts) {
   const filter = statusFilterClause(includeDrafts);
+  const productFilter = getProductFilter();
   return [
     {
       type: 'doc',
-      query: `*[_type == "doc" && ${filter}] | order(sidebarPosition asc) {
-        title, slug, targetAudience, category, sidebarPosition, sidebarLabel, hideFromSidebar, body, lastUpdated, description, tags, status, reviewedBy,
+      query: `*[_type == "doc" && ${filter} && ${productFilter}] | order(sidebarPosition asc) {
+        title, slug, targetAudience, category, sidebarPosition, sidebarLabel, hideFromSidebar, body, lastUpdated, description, tags, status, reviewedBy, product,
         "categoryId": sidebarCategory->_id,
         "categorySlug": sidebarCategory->slug.current,
         "categoryTitle": sidebarCategory->title,
@@ -114,15 +122,15 @@ function getQueries(includeDrafts) {
     },
     {
       type: 'article',
-      query: `*[_type == "article" && ${filter}] | order(publishedAt desc) {
-        title, slug, tags, publishedAt, body, description, author, featured, status,
+      query: `*[_type == "article" && ${filter} && ${productFilter}] | order(publishedAt desc) {
+        title, slug, tags, publishedAt, body, description, author, featured, status, product,
         "coverImageUrl": coverImage.asset->url
       }`,
     },
     {
       type: 'referencePage',
-      query: `*[_type == "referencePage" && ${filter}] {
-        title, slug, body, description, apiVersion, status
+      query: `*[_type == "referencePage" && ${filter} && ${productFilter}] {
+        title, slug, body, description, apiVersion, status, product
       }`,
     },
   ];
@@ -289,13 +297,15 @@ function escapeHtmlAttr(str) {
 
 function getReleasesQuery(includeDrafts) {
   const filter = statusFilterClause(includeDrafts);
-  return `*[_type == "release" && ${filter}] | order(publishedAt desc) {
+  const productFilter = getProductFilter();
+  return `*[_type == "release" && ${filter} && ${productFilter}] | order(publishedAt desc) {
     _id,
     displayTitle,
     sprintId,
     slug,
     publishedAt,
     summary,
+    product,
     items[] {
       _key,
       title,
@@ -311,7 +321,8 @@ function getReleasesQuery(includeDrafts) {
 
 function getRoadmapQuery(includeDrafts) {
   const filter = includeDrafts ? 'true' : '!(_id in path("drafts.**"))';
-  return `*[_type == "roadmapItem" && ${filter}] | order(_createdAt desc) {
+  const productFilter = getProductFilter();
+  return `*[_type == "roadmapItem" && ${filter} && ${productFilter}] | order(_createdAt desc) {
     _id,
     _updatedAt,
     title,
@@ -322,13 +333,15 @@ function getRoadmapQuery(includeDrafts) {
     uiChange,
     entitiesImpacted,
     projectedRelease,
+    product,
     "releaseSlug": releaseRef->slug.current
   }`;
 }
 
 function getUpdatesQuery(includeDrafts) {
   const filter = statusFilterClause(includeDrafts);
-  return `*[_type == "update" && ${filter}] | order(publishedAt desc) {
+  const productFilter = getProductFilter();
+  return `*[_type == "update" && ${filter} && ${productFilter}] | order(publishedAt desc) {
     _id,
     _updatedAt,
     title,
@@ -336,6 +349,7 @@ function getUpdatesQuery(includeDrafts) {
     type,
     publishedAt,
     excerpt,
+    product,
     "releaseFields": {
       "version": releaseFields.version,
       "releaseNotes": releaseFields.releaseNotes
@@ -353,7 +367,8 @@ function getUpdatesQuery(includeDrafts) {
 
 function getDeviceIntegrationsQuery(includeDrafts) {
   const filter = statusFilterClause(includeDrafts);
-  return `*[_type == "deviceIntegration" && ${filter}] | order(name asc) {
+  const productFilter = getProductFilter();
+  return `*[_type == "deviceIntegration" && ${filter} && ${productFilter}] | order(name asc) {
     _id,
     _type,
     name,
@@ -364,6 +379,7 @@ function getDeviceIntegrationsQuery(includeDrafts) {
     gcxReady,
     status,
     description,
+    product,
     cloudModeFeatures,
     localModeFeatures,
     deviceHealthFeatures,
@@ -446,6 +462,8 @@ async function run() {
   console.log(
     `[sanity-content] Fetch mode: ${includeDrafts ? 'drafts (includes drafts)' : 'published-only'}`
   );
+  const PRODUCT = process.env.PRODUCT || 'gcxone';
+  console.log(`[sanity-content] Product filter: ${PRODUCT} (includes shared)`);
 
   const builder = createImageUrlBuilder(client);
 
