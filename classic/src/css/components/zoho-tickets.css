@@ -1,213 +1,213 @@
 /* ZohoTickets Component Styles */
-@layer components {
-  /* Ticket Portal Container */
-  .ticket-portal {
-    background: var(--glass-bg);
-    border-color: var(--glass-border);
-    backdrop-filter: blur(12px) saturate(140%);
-  }
+/* Using CSS custom properties - no Tailwind layer needed */
 
-  /* Portal Header - Customer (blue) */
-  .portal-header-customer {
-    background: linear-gradient(135deg, rgba(59,130,246,0.06) 0%, rgba(0,0,0,0.4) 100%);
-    border-color: rgba(59,130,246,0.18);
-  }
+/* Ticket Portal Container */
+.ticket-portal {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+  backdrop-filter: blur(12px) saturate(140%);
+}
 
-  [data-theme='light'] .portal-header-customer {
-    background: linear-gradient(135deg, rgba(59,130,246,0.08) 0%, rgba(255,255,255,0.9) 100%);
-    border-color: rgba(59,130,246,0.25);
-  }
+/* Portal Header - Customer (blue) */
+.portal-header-customer {
+  background: linear-gradient(135deg, rgba(59,130,246,0.06) 0%, rgba(0,0,0,0.4) 100%);
+  border-color: rgba(59,130,246,0.18);
+}
 
-  /* Portal Header - Agent (gold) */
-  .portal-header-agent {
-    background: linear-gradient(135deg, rgba(232,176,88,0.06) 0%, rgba(0,0,0,0.4) 100%);
-    border-color: rgba(232,176,88,0.18);
-  }
+[data-theme='light'] .portal-header-customer {
+  background: linear-gradient(135deg, rgba(59,130,246,0.08) 0%, rgba(255,255,255,0.9) 100%);
+  border-color: rgba(59,130,246,0.25);
+}
 
-  [data-theme='light'] .portal-header-agent {
-    background: linear-gradient(135deg, rgba(232,176,88,0.1) 0%, rgba(255,255,255,0.9) 100%);
-    border-color: rgba(232,176,88,0.25);
-  }
+/* Portal Header - Agent (gold) */
+.portal-header-agent {
+  background: linear-gradient(135deg, rgba(232,176,88,0.06) 0%, rgba(0,0,0,0.4) 100%);
+  border-color: rgba(232,176,88,0.18);
+}
 
-  /* Portal Content Area */
-  .portal-content {
-    background: rgba(255,255,255,0.02);
-    border-color: rgba(255,255,255,0.08);
-  }
+[data-theme='light'] .portal-header-agent {
+  background: linear-gradient(135deg, rgba(232,176,88,0.1) 0%, rgba(255,255,255,0.9) 100%);
+  border-color: rgba(232,176,88,0.25);
+}
 
-  [data-theme='light'] .portal-content {
-    background: rgba(255,255,255,0.6);
-    border-color: rgba(232,176,88,0.15);
-  }
+/* Portal Content Area */
+.portal-content {
+  background: rgba(255,255,255,0.02);
+  border-color: rgba(255,255,255,0.08);
+}
 
-  /* Navigation Tabs */
-  .portal-nav {
-    background: rgba(255,255,255,0.04);
-    border-color: rgba(255,255,255,0.08);
-  }
+[data-theme='light'] .portal-content {
+  background: rgba(255,255,255,0.6);
+  border-color: rgba(232,176,88,0.15);
+}
 
-  [data-theme='light'] .portal-nav {
-    background: rgba(0,0,0,0.04);
-    border-color: rgba(0,0,0,0.08);
-  }
+/* Navigation Tabs */
+.portal-nav {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.08);
+}
 
-  .portal-tab {
-    background: transparent;
-    color: var(--ifm-color-content-secondary);
-    border-color: transparent;
-  }
+[data-theme='light'] .portal-nav {
+  background: rgba(0,0,0,0.04);
+  border-color: rgba(0,0,0,0.08);
+}
 
-  .portal-tab.active {
-    background: rgba(59,130,246,0.2);
-    color: #3b82f6;
-    border-color: rgba(59,130,246,0.25);
-  }
+.portal-tab {
+  background: transparent;
+  color: var(--ifm-color-content-secondary);
+  border-color: transparent;
+}
 
-  [data-theme='light'] .portal-tab.active {
-    background: rgba(59,130,246,0.12);
-  }
+.portal-tab.active {
+  background: rgba(59,130,246,0.2);
+  color: #3b82f6;
+  border-color: rgba(59,130,246,0.25);
+}
 
-  /* Ticket Detail Card */
-  .ticket-detail-card {
-    background: var(--glass-bg);
-    border-color: var(--glass-border);
-    box-shadow: var(--glass-shadow-inset);
-  }
+[data-theme='light'] .portal-tab.active {
+  background: rgba(59,130,246,0.12);
+}
 
-  /* Ticket Header */
-  .ticket-header {
-    background: var(--glass-bg-hover);
-    border-bottom: 1px solid var(--glass-border);
-  }
+/* Ticket Detail Card */
+.ticket-detail-card {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+  box-shadow: var(--glass-shadow-inset);
+}
 
-  /* Ticket Meta */
-  .ticket-meta {
-    background: var(--card-bg);
-    border-color: var(--border-subtle);
-  }
+/* Ticket Header */
+.ticket-header {
+  background: var(--glass-bg-hover);
+  border-bottom: 1px solid var(--glass-border);
+}
 
-  /* Comment Container */
-  .ticket-comment {
-    background: var(--glass-bg);
-    border-color: var(--glass-border);
-  }
+/* Ticket Meta */
+.ticket-meta {
+  background: var(--card-bg);
+  border-color: var(--border-subtle);
+}
 
-  .ticket-comment.agent {
-    background: rgba(232, 176, 88, 0.1);
-    border-color: rgba(232, 176, 88, 0.2);
-  }
+/* Comment Container */
+.ticket-comment {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+}
 
-  /* Input Fields */
-  .ticket-input {
-    background: var(--card-bg);
-    border-color: var(--border-default);
-    color: var(--text-primary);
-  }
+.ticket-comment.agent {
+  background: rgba(232, 176, 88, 0.1);
+  border-color: rgba(232, 176, 88, 0.2);
+}
 
-  .ticket-input:focus {
-    border-color: var(--ifm-color-primary);
-    box-shadow: 0 0 0 2px rgba(200, 148, 70, 0.2);
-  }
+/* Input Fields */
+.ticket-input {
+  background: var(--card-bg);
+  border-color: var(--border-default);
+  color: var(--text-primary);
+}
 
-  /* Buttons */
-  .ticket-button {
-    background: var(--glass-bg);
-    border-color: var(--glass-border);
-    color: var(--text-primary);
-  }
+.ticket-input:focus {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 2px rgba(200, 148, 70, 0.2);
+}
 
-  .ticket-button:hover {
-    background: var(--glass-bg-hover);
-    border-color: var(--glass-border-hover);
-  }
+/* Buttons */
+.ticket-button {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+  color: var(--text-primary);
+}
 
-  .ticket-button-primary {
-    background: #3b82f6;
-    color: white;
-  }
+.ticket-button:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+}
 
-  .ticket-button-primary:hover {
-    background: #2563eb;
-  }
+.ticket-button-primary {
+  background: #3b82f6;
+  color: white;
+}
 
-  /* Attachments */
-  .ticket-attachment {
-    background: var(--glass-bg);
-    border-color: var(--glass-border);
-  }
+.ticket-button-primary:hover {
+  background: #2563eb;
+}
 
-  /* Tags/Badges */
-  .ticket-tag {
-    background: var(--glass-bg);
-    color: var(--text-secondary);
-  }
+/* Attachments */
+.ticket-attachment {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+}
 
-  .ticket-tag.status-open {
-    background: rgba(59, 130, 246, 0.1);
-    color: #3b82f6;
-  }
+/* Tags/Badges */
+.ticket-tag {
+  background: var(--glass-bg);
+  color: var(--text-secondary);
+}
 
-  .ticket-tag.status-closed {
-    background: rgba(34, 197, 94, 0.1);
-    color: #22c55e;
-  }
+.ticket-tag.status-open {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
 
-  /* Avatar */
-  .ticket-avatar {
-    background: var(--icon-bg);
-  }
+.ticket-tag.status-closed {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+}
 
-  .ticket-avatar.agent {
-    background: rgba(232, 176, 88, 0.15);
-  }
+/* Avatar */
+.ticket-avatar {
+  background: var(--icon-bg);
+}
 
-  /* SLA Timer */
-  .sla-timer {
-    background: var(--glass-bg);
-    border-color: var(--glass-border);
-  }
+.ticket-avatar.agent {
+  background: rgba(232, 176, 88, 0.15);
+}
 
-  /* Related Articles */
-  .related-article {
-    background: var(--glass-bg);
-    border-color: var(--glass-border);
-  }
+/* SLA Timer */
+.sla-timer {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+}
 
-  /* Light mode overrides for glass surfaces */
-  [data-theme='light'] .ticket-portal,
-  [data-theme='light'] .ticket-detail-card,
-  [data-theme='light'] .ticket-comment,
-  [data-theme='light'] .ticket-button,
-  [data-theme='light'] .ticket-attachment,
-  [data-theme='light'] .related-article {
-    background: rgba(255, 255, 255, 0.72);
-    border-color: rgba(232, 176, 88, 0.12);
-  }
+/* Related Articles */
+.related-article {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+}
 
-  [data-theme='light'] .ticket-header {
-    background: rgba(255, 255, 255, 0.85);
-  }
+/* Light mode overrides for glass surfaces */
+[data-theme='light'] .ticket-portal,
+[data-theme='light'] .ticket-detail-card,
+[data-theme='light'] .ticket-comment,
+[data-theme='light'] .ticket-button,
+[data-theme='light'] .ticket-attachment,
+[data-theme='light'] .related-article {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(232, 176, 88, 0.12);
+}
 
-  [data-theme='light'] .ticket-avatar {
-    background: rgba(232, 176, 88, 0.10);
-  }
+[data-theme='light'] .ticket-header {
+  background: rgba(255, 255, 255, 0.85);
+}
 
-  /* Dark mode overrides */
-  [data-theme='dark'] .ticket-portal,
-  [data-theme='dark'] .ticket-detail-card,
-  [data-theme='dark'] .ticket-comment,
-  [data-theme='dark'] .ticket-button,
-  [data-theme='dark'] .ticket-attachment,
-  [data-theme='dark'] .related-article {
-    background: rgba(255, 255, 255, 0.025);
-    border-color: rgba(255, 255, 255, 0.07);
-  }
+[data-theme='light'] .ticket-avatar {
+  background: rgba(232, 176, 88, 0.10);
+}
 
-  [data-theme='dark'] .ticket-header {
-    background: rgba(255, 255, 255, 0.05);
-  }
+/* Dark mode overrides */
+[data-theme='dark'] .ticket-portal,
+[data-theme='dark'] .ticket-detail-card,
+[data-theme='dark'] .ticket-comment,
+[data-theme='dark'] .ticket-button,
+[data-theme='dark'] .ticket-attachment,
+[data-theme='dark'] .related-article {
+  background: rgba(255, 255, 255, 0.025);
+  border-color: rgba(255, 255, 255, 0.07);
+}
 
-  [data-theme='dark'] .ticket-avatar {
-    background: rgba(232, 176, 88, 0.12);
-  }
+[data-theme='dark'] .ticket-header {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='dark'] .ticket-avatar {
+  background: rgba(232, 176, 88, 0.12);
 }
