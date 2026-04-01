@@ -469,3 +469,55 @@ article.margin-bottom--lg:hover {
 [data-theme='dark'] .hero-description {
   color: rgb(156, 163, 175);
 }
+
+/* ==========================================================================
+   CONTAINER QUERIES - Responsive Cards
+   Browser support: 89%+ (Chrome 105+, Firefox 110+, Safari 16+)
+   ========================================================================== */
+
+/* Container Query Support for Cards */
+.card-container {
+  container-type: inline-size;
+  container-name: card;
+}
+
+/* Responsive card layout based on container width */
+@container card (min-width: 480px) {
+  .card-horizontal {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+  }
+
+  .card-horizontal .card-icon {
+    grid-row: span 2;
+  }
+}
+
+@container card (max-width: 479px) {
+  .card-horizontal {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-horizontal .card-icon {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Feature card container */
+.feature-card-container {
+  container-type: inline-size;
+}
+
+@container (min-width: 320px) {
+  .feature-card {
+    padding: 1.5rem;
+  }
+}
+
+@container (min-width: 480px) {
+  .feature-card {
+    padding: 2rem;
+  }
+}
