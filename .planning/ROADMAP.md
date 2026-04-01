@@ -6,18 +6,18 @@
 - v1.1 Releases & Roadmap - Phases 6-10 (shipped 2026-03-16)
 - v1.2 Confluence Integration - Phases 11-15 (on hold)
 - v2.0 Admin Command Center - Phases 16-23 (shipped 2026-03-17)
-- **v3.0 Design System Polish - Phases 24-28 (current)**
+- v3.0 Design System Polish - Phases 24-28 (shipped 2026-04-01)
+- **v4.0 Updates Hub - Phase 29 (current)**
 
-## Current Milestone: v3.0 Design System Polish
+## Current Milestone: v4.0 Updates Hub
 
-**See detailed roadmap:** `.planning/ROADMAP-design-system.md`
+**See detailed roadmap:** `.planning/ROADMAP-updates-hub.md`
 
-**Goal:** Transform CSS from a patchwork of inline styles and `!important` hacks into a maintainable, token-driven design system:
-- CSS @layer architecture for predictable cascade
-- Component tokens replacing 959 `isDark` conditional branches
-- Type-safe component variants (Button, Dialog, Card)
-- Premium UI polish (layered shadows, focus states, reduced motion)
-- Modern CSS features (light-dark, container queries, nesting)
+**Goal:** Build a unified Updates Hub that consolidates all platform updates (announcements, releases, bug fixes, roadmap items) into a single, filterable, searchable interface:
+- Single `update` Sanity schema with type enum
+- Tab-filtered hub page at `/updates`
+- Type-specific card layouts and detail pages
+- Sanity Studio field groups for clean editing
 
 **Phases:**
 | Phase | Name | Status |
