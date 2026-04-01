@@ -302,11 +302,18 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     
     // Return success with session cookie
     // The frontend will redirect to /support
+    // Include productAccess for frontend use
+    const session = await getSessionFromHeader(
+      `zoho_session=${sessionToken}`,
+      context.env.ZOHO_SESSION_SECRET
+    );
+
     return new Response(JSON.stringify({
       ok: true,
       contactId: contact.id,
       displayName,
       account: contact.account?.accountName ?? null,
+      productAccess: session?.productAccess ?? ['gcxone'],
     }), {
       headers: {
         'Set-Cookie': buildSessionCookieHeader(sessionToken),
