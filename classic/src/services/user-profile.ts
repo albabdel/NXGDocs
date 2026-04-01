@@ -37,6 +37,14 @@ export interface UserProfile {
   updated_at: string;
 }
 
+export interface QuickLink {
+  id: string;
+  title: string;
+  url: string;
+  icon?: string;
+  addedAt: string;
+}
+
 export interface UserPreferences {
   id: string;
   user_id: string;
@@ -45,6 +53,7 @@ export interface UserPreferences {
   sidebar_collapsed: boolean;
   notification_settings: Record<string, boolean>;
   homepage_view: string;
+  quick_links?: QuickLink[];
   created_at: string;
   updated_at: string;
 }
@@ -70,6 +79,7 @@ export interface UpdateUserPreferencesInput {
   sidebar_collapsed?: boolean;
   notification_settings?: Record<string, boolean>;
   homepage_view?: string;
+  quick_links?: QuickLink[];
 }
 
 // ---------------------------------------------------------------------------
