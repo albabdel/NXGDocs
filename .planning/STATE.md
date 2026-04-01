@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v3.1
+milestone: v4.0
 milestone_name: Updates Hub
-status: in_progress
-stopped_at: "29-03 Updates Hub Frontend - COMPLETE"
-last_updated: "2026-04-01T17:00:00Z"
-last_activity: "2026-04-01 — Updates Hub: Created frontend pages with tab navigation and type-specific cards"
+status: complete
+stopped_at: "Phase 29: Updates Hub - COMPLETE"
+last_updated: "2026-04-01T18:00:00Z"
+last_activity: "2026-04-01 — Updates Hub: Complete (schema, pipeline, frontend, test data)"
 progress:
-  total_phases: 4
-  completed_phases: 0
-  total_plans: 4
+  total_phases: 1
+  completed_phases: 1
+  total_plans: 3
   completed_plans: 3
-  percent: 75
+  percent: 100
 ---
 
 # Project State
@@ -22,17 +22,17 @@ See: .planning/PROJECT.md (updated 2026-03-13)
 See: .planning/ROADMAP-design-system.md (new milestone roadmap)
 
 **Core value:** Non-technical editors can open a web UI, write content, and publish it — without a developer as a bottleneck.
-**Current focus:** v3.1 Updates Hub — Unified content model for platform updates and announcements
+**Current focus:** v4.0 Updates Hub — COMPLETE ✓
 
 ## Current Position
 
 Phase: 29-updates-hub — Updates Hub
-Status: Plan 03 complete, continuing
-Last activity: 2026-04-01 — Updates Hub: Created frontend pages with tab navigation and type-specific cards
+Status: COMPLETE
+Last activity: 2026-04-01 — Updates Hub: Complete (schema, pipeline, frontend, test data)
 
-Progress: [=======   ] 75% (3 of 4 plans complete)
+Progress: [==========] 100% (3 of 3 plans complete)
 
-**Note:** v3.1 Updates Hub planned. 4 phases covering update schema, data pipeline, UI components, and integration. Based on ROADMAP-updates-hub.md.
+**Milestone Complete:** v4.0 Updates Hub — Unified content model for platform updates.
 
 ## Phase 24: CSS Architecture (In Progress)
 

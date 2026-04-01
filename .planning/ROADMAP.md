@@ -7,17 +7,18 @@
 - v1.2 Confluence Integration - Phases 11-15 (on hold)
 - v2.0 Admin Command Center - Phases 16-23 (shipped 2026-03-17)
 - v3.0 Design System Polish - Phases 24-28 (shipped 2026-04-01)
-- **v4.0 Updates Hub - Phase 29 (current)**
+- v4.0 Updates Hub - Phase 29 (shipped 2026-04-01)
 
-## Current Milestone: v4.0 Updates Hub
+## Current Milestone: v4.0 Updates Hub ✓ COMPLETE
 
 **See detailed roadmap:** `.planning/ROADMAP-updates-hub.md`
 
 **Goal:** Build a unified Updates Hub that consolidates all platform updates (announcements, releases, bug fixes, roadmap items) into a single, filterable, searchable interface:
-- Single `update` Sanity schema with type enum
-- Tab-filtered hub page at `/updates`
-- Type-specific card layouts and detail pages
-- Sanity Studio field groups for clean editing
+- ✓ Single `update` Sanity schema with type enum
+- ✓ Tab-filtered hub page at `/updates`
+- ✓ Type-specific card layouts and detail pages
+- ✓ Sanity Studio field groups for clean editing
+- ✓ Test data seeded
 
 **Phases:**
 | Phase | Name | Status |
@@ -34,6 +35,7 @@
 | 8. Roadmap Page & Hero Banner | v1.1 | 2/2 | Complete | 2026-03-13 |
 | 9. Cleanup & URL Continuity | v1.1 | 3/3 | Complete | 2026-03-13 |
 | 10. Deep Cleanup | v1.1 | 1/1 | Complete | 2026-03-16 |
+| 29. Updates Hub | v4.0 | 3/3 | Complete | 2026-04-01 |
 | 11. Confluence API Setup | v1.2 | 0/3 | In progress | - |
 | 12. Content Sync Pipeline | v1.2 | 0/3 | Pending | - |
 | 13. Bulk Migration | v1.2 | 0/2 | Pending | - |
