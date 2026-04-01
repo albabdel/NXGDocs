@@ -2,16 +2,18 @@
 gsd_state_version: 1.0
 milestone: v5.0
 milestone_name: Multi-Product Architecture
-status: planning
-stopped_at: "Roadmap Created"
-last_updated: "2026-04-01T22:00:00Z"
-last_activity: "2026-04-01 — Multi-Product Architecture roadmap created (6 phases, 24 requirements)"
+status: executing
+stopped_at: "35-01 complete"
+last_updated: "2026-04-01T17:45:00Z"
+last_activity: "2026-04-01 — Plan 35-01 complete: Session product access foundation"
 progress:
   total_phases: 6
   completed_phases: 0
-  total_plans: TBD
-  completed_plans: 0
-  percent: 0
+  total_plans: 6
+  completed_plans: 1
+  percent: 4
+current_phase: 35-auth-foundation
+current_plan: 02
 ---
 
 # Project State
@@ -27,10 +29,10 @@ See: .planning/ROADMAP.md (v5.0 phases 35-40)
 ## Current Position
 
 Phase: 35-auth-foundation — Auth Foundation & Product Access
-Status: ROADMAP CREATED - Ready for Planning
-Last activity: 2026-04-01 — Multi-Product Architecture roadmap created (6 phases, 24 requirements)
+Status: EXECUTING - Plan 01 complete
+Last activity: 2026-04-01 — Plan 35-01 complete: Session product access foundation
 
-Progress: [          ] 0% (0 of 6 phases complete)
+Progress: [          ] 4% (1 of ~24 plans complete)
 
 **Roadmap Summary:** v5.0 transforms single-product docs into multi-product architecture with GCXONE and GC Surge.
 
@@ -64,6 +66,9 @@ Recent decisions affecting current work:
 - [Research]: Multi-build pipeline produces separate static sites per product
 - [Research]: Auth0 Actions add product_access claim to JWT
 - [Research]: PostHog group() calls enable product-scoped analytics
+- [35-01]: Default productAccess to ['gcxone'] for backwards compatibility
+- [35-01]: Admins default to all products ['gcxone', 'gcsurge'] for full access
+- [35-01]: Product detection cascade: X-Product header > URL path > PRODUCT env > 'gcxone'
 
 ### Pending Todos
 
@@ -80,14 +85,14 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: Roadmap Created
-Status: v5.0 Multi-Product Architecture - Roadmap complete, ready for phase planning
+Stopped at: 35-01 complete
+Status: v5.0 Multi-Product Architecture - Phase 35 in progress
 
 **Next Steps:**
-1. Execute `/gsd-plan-phase 35` to create plans for Auth Foundation
+1. Continue with plan 35-02 (Auth0 integration)
 2. User must verify Auth0 tenant configuration
 3. User must decide private vs. public content strategy
 4. User must configure product entitlements source
 
 ---
-*STATE.md updated: 2026-04-01*
+*STATE.md updated: 2026-04-01T17:45:00Z*

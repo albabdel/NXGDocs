@@ -70,7 +70,7 @@ Requirements for the Multi-Product Architecture milestone.
 
 ### Multi-Product Infrastructure
 
-- [ ] **MPROD-01**: System supports multiple products via PRODUCT environment variable
+- [x] **MPROD-01**: System supports multiple products via PRODUCT environment variable
 - [ ] **MPROD-02**: Each product has isolated content with no cross-product visibility
 - [ ] **MPROD-03**: Products deploy to separate domains (docs.gcxone.com, docs.gcsurge.com)
 - [ ] **MPROD-04**: Multi-build pipeline produces separate deployments per product
@@ -88,7 +88,7 @@ Requirements for the Multi-Product Architecture milestone.
 
 - [ ] **AUTH-01**: Auth0 authentication with product_access custom claim
 - [ ] **AUTH-02**: Users only access content for products they're entitled to
-- [ ] **AUTH-03**: Session includes productAccess array for runtime checks
+- [x] **AUTH-03**: Session includes productAccess array for runtime checks
 - [ ] **AUTH-04**: Content visibility tiers supported (public, authenticated, role-based)
 - [ ] **AUTH-05**: Cloudflare Functions validate product access before serving protected content
 
@@ -178,7 +178,7 @@ Deferred to v1.2, v5.1 or later.
 | UHUB-04 | Phase 29 | Complete |
 | UHUB-05 | Phase 29 | Complete |
 | UHUB-06 | Phase 29 | Deferred |
-| MPROD-01 | Phase 35 | Pending |
+| MPROD-01 | Phase 35 | Complete |
 | MPROD-02 | Phase 35 | Pending |
 | MPROD-03 | Phase 39 | Pending |
 | MPROD-04 | Phase 37 | Pending |
@@ -190,7 +190,7 @@ Deferred to v1.2, v5.1 or later.
 | CONT-05 | Phase 36 | Pending |
 | AUTH-01 | Phase 35 | Pending |
 | AUTH-02 | Phase 35 | Pending |
-| AUTH-03 | Phase 35 | Pending |
+| AUTH-03 | Phase 35 | Complete |
 | AUTH-04 | Phase 35 | Pending |
 | AUTH-05 | Phase 35 | Pending |
 | ANLT-01 | Phase 40 | Pending |
@@ -212,4 +212,4 @@ Deferred to v1.2, v5.1 or later.
 
 ---
 *Requirements defined: 2026-03-13*
-*Last updated: 2026-03-13 — SCHEMA-02 and SCHEMA-04 marked complete after 06-01 execution verified*
+*Last updated: 2026-04-01 — MPROD-01 and AUTH-03 marked complete after 35-01 execution*
