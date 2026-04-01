@@ -6,7 +6,7 @@ import {
   BookOpen, CheckCircle, Activity, Mail, Copy, Check, RotateCcw,
 } from 'lucide-react';
 import {
-  getTicket, getConversations, addComment, updateTicket,
+  getTicket, getConversations, addComment, addThread, sendReply, updateTicket,
   listStatuses, listAgents, getAttachments, uploadAttachment, translateText,
 } from './zohoApi';
 import type { ZohoTicket, ZohoConversationItem, ZohoAgent, ZohoStatus, ZohoAttachment } from './types';
@@ -24,6 +24,8 @@ interface Props {
   onBack: () => void;
   /** Agent token (only for agents - used by CRMPanel) */
   token?: string;
+  /** Customer's Zoho contactId — used to identify own messages in chat view */
+  contactId?: string;
 }
 
 const PRIORITY_STYLES: Record<string, { bg: string; color: string }> = {
@@ -97,6 +99,15 @@ function htmlToText(html: string | null | undefined): string {
   return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
+/**
+ * Strip any legacy [cid:...] markers left over from a previous implementation.
+ * These should no longer be injected, but old messages may still have them.
+ */
+function stripCidMarker(raw: string | null | undefined): string {
+  if (!raw) return '';
+  return raw.replace(/^\[cid:\d+(?:\|[^\]]+)?\]\s*/, '');
+}
+
 /** Parses "Label: Value" pairs from HTML content. Returns array if ≥3 pairs found, null otherwise. */
 function parseKeyValuePairs(html: string | null | undefined): { label: string; value: string }[] | null {
   if (!html) return null;
@@ -126,19 +137,13 @@ function renderContent(text: string | null | undefined): string {
     .replace(/$/, '</p>');
 }
 
-function CopyButton({ value, label, isDark }: { value: string; label: string; isDark: boolean }) {
+function CopyButton({ value, label }: { value: string; label: string }) {
   const [copied, setCopied] = useState(false);
   return (
     <button
       onClick={() => { navigator.clipboard.writeText(value).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); }); }}
       title={`Copy ${label}`}
-      className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs transition-all hover:opacity-80"
-      style={{
-        background: copied ? 'rgba(34,197,94,0.1)' : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)'),
-        color: copied ? '#22c55e' : 'var(--ifm-color-content-secondary)',
-        border: `1px solid ${copied ? 'rgba(34,197,94,0.2)' : (isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)')}`,
-        cursor: 'pointer',
-      }}
+      className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs transition-all hover:opacity-80 ticket-button ${copied ? 'ticket-tag status-closed' : ''}`}
     >
       {copied ? <Check className="w-2.5 h-2.5" /> : <Copy className="w-2.5 h-2.5" />}
       {copied ? 'Copied!' : label}
@@ -146,8 +151,8 @@ function CopyButton({ value, label, isDark }: { value: string; label: string; is
   );
 }
 
-function Avatar({ name, photoURL, type, isDark }: {
-  name: string; photoURL?: string; type?: string; isDark: boolean;
+function Avatar({ name, photoURL, type }: {
+  name: string; photoURL?: string; type?: string;
 }) {
   const initials = (name || 'Unknown').split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase();
   const isAgent = type === 'AGENT';
@@ -160,18 +165,15 @@ function Avatar({ name, photoURL, type, isDark }: {
     />
   ) : (
     <div
-      className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold"
-      style={{
-        background: isAgent ? 'rgba(232,176,88,0.15)' : (isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'),
-        color: isAgent ? '#E8B058' : 'var(--ifm-color-content-secondary)',
-      }}
+      className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold ticket-avatar ${isAgent ? 'agent' : ''}`}
+      style={{ color: isAgent ? '#E8B058' : 'var(--ifm-color-content-secondary)' }}
     >
       {initials || <User className="w-3.5 h-3.5" />}
     </div>
   );
 }
 
-function TranslateButton({ text, isDark }: { text: string | null | undefined; isDark: boolean }) {
+function TranslateButton({ text }: { text: string | null | undefined }) {
   const [translated, setTranslated] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
@@ -196,22 +198,15 @@ function TranslateButton({ text, isDark }: { text: string | null | undefined; is
       <button
         onClick={handleTranslate}
         title="Translate to English"
-        className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs mt-2 transition-all hover:opacity-80"
-        style={{
-          background: show ? 'rgba(59,130,246,0.12)' : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)'),
-          color: show ? '#3b82f6' : 'var(--ifm-color-content-secondary)',
-          border: `1px solid ${show ? 'rgba(59,130,246,0.3)' : (isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)')}`,
-          cursor: 'pointer',
-        }}
+        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs mt-2 transition-all hover:opacity-80 ticket-button ${show ? 'ticket-tag status-open' : ''}`}
       >
         {loading ? <Loader className="w-3 h-3 animate-spin" /> : <Languages className="w-3 h-3" />}
         {show ? 'Original' : 'Translate'}
       </button>
       {show && translated && (
         <div
-          className="mt-2 p-3 rounded-lg text-sm"
+          className="mt-2 p-3 rounded-lg text-sm ticket-comment"
           style={{
-            background: isDark ? 'rgba(59,130,246,0.06)' : 'rgba(59,130,246,0.04)',
             border: '1px solid rgba(59,130,246,0.2)',
             color: 'var(--ifm-color-content)',
             lineHeight: '1.5',
@@ -257,7 +252,7 @@ function scoreEntry(entry: SearchEntry, keywords: string[]): number {
   return score;
 }
 
-function RelatedArticles({ subject, isDark }: { subject: string; isDark: boolean }) {
+function RelatedArticles({ subject }: { subject: string }) {
   const [articles, setArticles] = useState<Array<{ title: string; url: string; excerpt: string }>>([]);
   const [loading, setLoading] = useState(true);
 
@@ -307,8 +302,7 @@ function RelatedArticles({ subject, isDark }: { subject: string; isDark: boolean
           href={a.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-start gap-2.5 p-2.5 rounded-lg no-underline transition-all hover:opacity-80"
-          style={{ background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)' }}
+          className="flex items-start gap-2.5 p-2.5 rounded-lg no-underline transition-all hover:opacity-80 related-article"
         >
           <BookOpen className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" style={{ color: '#3b82f6' }} />
           <div className="min-w-0">
@@ -328,19 +322,13 @@ function RelatedArticles({ subject, isDark }: { subject: string; isDark: boolean
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-function AttachmentItem({ att, isDark }: { att: ZohoAttachment; isDark: boolean }) {
+function AttachmentItem({ att }: { att: ZohoAttachment }) {
   const [lightbox, setLightbox] = useState(false);
   const isImage = IMAGE_TYPES.includes(att.fileType);
 
   return (
     <>
-      <div
-        className="flex items-center gap-3 rounded-xl p-3"
-        style={{
-          background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
-          border: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`,
-        }}
-      >
+      <div className="flex items-center gap-3 rounded-xl p-3 ticket-attachment">
         <div
           className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
           style={{ background: isImage ? 'rgba(232,176,88,0.1)' : 'rgba(107,114,128,0.1)' }}
@@ -375,8 +363,7 @@ function AttachmentItem({ att, isDark }: { att: ZohoAttachment; isDark: boolean 
             target="_blank"
             rel="noopener noreferrer"
             title="Download"
-            className="p-1.5 rounded-lg transition-all hover:opacity-80 inline-flex"
-            style={{ background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)', color: 'var(--ifm-color-content-secondary)', border: 'none' }}
+            className="p-1.5 rounded-lg transition-all hover:opacity-80 inline-flex ticket-button"
           >
             <Download className="w-3.5 h-3.5" />
           </a>
@@ -412,20 +399,17 @@ function AttachmentItem({ att, isDark }: { att: ZohoAttachment; isDark: boolean 
 interface SelectProps {
   value: string;
   onChange: (val: string) => void;
-  isDark: boolean;
   children: React.ReactNode;
   style?: React.CSSProperties;
 }
 
-function StyledSelect({ value, onChange, isDark, children, style }: SelectProps) {
+function StyledSelect({ value, onChange, children, style }: SelectProps) {
   return (
     <select
       value={value}
       onChange={e => onChange(e.target.value)}
+      className="ticket-input"
       style={{
-        background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
-        color: 'var(--ifm-color-content)',
-        border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)'}`,
         borderRadius: '0.5rem',
         padding: '0.25rem 0.6rem',
         fontSize: '0.75rem',
@@ -439,7 +423,7 @@ function StyledSelect({ value, onChange, isDark, children, style }: SelectProps)
   );
 }
 
-export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, token }: Props) {
+export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, token, contactId }: Props) {
   const [ticket, setTicket] = useState<ZohoTicket | null>(null);
   const [conversations, setConversations] = useState<ZohoConversationItem[]>([]);
   const [attachments, setAttachments] = useState<ZohoAttachment[]>([]);
@@ -462,6 +446,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
   const [articleRequested, setArticleRequested] = useState(false);
   const [descExpanded, setDescExpanded] = useState(false);
   const [expandedMsgs, setExpandedMsgs] = useState<Set<string>>(new Set());
+  const [ownCommentIds, setOwnCommentIds] = useState<Set<string>>(new Set());
   const fileInputRef = useRef<HTMLInputElement>(null);
   const commentRef = useRef<HTMLTextAreaElement>(null);
 
@@ -475,7 +460,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
     setTimeout(() => setActionMsg(null), 4000);
   }, []);
 
-  async function load() {
+  async function load(): Promise<ZohoConversationItem[]> {
     setLoading(true);
     setError(null);
     try {
@@ -505,8 +490,10 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
       setAttachments(a.data ?? []);
       if (!isCustomer && !statuses.length) setStatuses(st.data ?? []);
       if (!isCustomer && !agents.length) setAgents(ag.data ?? []);
+      return sorted;
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : 'Failed to load ticket');
+      return [];
     } finally {
       setLoading(false);
     }
@@ -553,8 +540,35 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
     setSubmitting(true);
     try {
       if (comment.trim()) {
-        const effectiveType = replyType === 'comment' ? undefined : replyType;
-        await addComment({ ticketId, content: comment.trim(), isPublic: isCustomer ? true : isPublicComment, isCustomer, token, replyType: effectiveType });
+        if (isCustomer) {
+          // Zoho REST API v1 has no way to post a message attributed to a contact
+          // via a service account token. POST /threads doesn't exist (405), sendReply
+          // is agent-to-customer direction only. Comments is the only working endpoint.
+          await addComment({
+            ticketId,
+            content: comment.trim(),
+            isPublic: true,
+            isCustomer,
+            token,
+          });
+        } else if (!isCustomer && replyType !== 'comment') {
+          // Agent email reply — sends via Zoho's sendReply (outbound email to customer)
+          await sendReply({
+            ticketId,
+            content: comment.trim(),
+            to: ticket?.contact?.email ?? ticket?.email,
+            token,
+          });
+        } else {
+          // Agent internal/public note
+          await addComment({
+            ticketId,
+            content: comment.trim(),
+            isPublic: isPublicComment,
+            isCustomer: false,
+            token,
+          });
+        }
       }
       if (attachFile) {
         setUploading(true);
@@ -564,7 +578,18 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
       }
       setComment('');
       showMsg('Comment added.');
-      await load();
+      const prevIds = new Set(conversations.map(c => c.id));
+      const newConvs = await load();
+      if (isCustomer) {
+        const newIds = newConvs.filter(c => !prevIds.has(c.id)).map(c => c.id);
+        if (newIds.length > 0) {
+          setOwnCommentIds(prev => {
+            const next = new Set(prev);
+            newIds.forEach(id => next.add(id));
+            return next;
+          });
+        }
+      }
     } catch (e: unknown) {
       showMsg(e instanceof Error ? e.message : 'Failed to add comment', false);
       setUploading(false);
@@ -649,7 +674,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
                 <span className="text-xs font-mono font-semibold" style={{ color: '#E8B058' }}>
                   #{ticket.ticketNumber}
                 </span>
-                <CopyButton value={ticket.ticketNumber} label="ID" isDark={isDark} />
+                <CopyButton value={ticket.ticketNumber} label="ID" />
               </div>
               <span
                 className="text-xs px-2 py-0.5 rounded-full font-medium"
@@ -756,7 +781,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
                 dangerouslySetInnerHTML={{ __html: renderContent(ticket.description) }}
               />
             )}
-            <TranslateButton text={ticket.description} isDark={isDark} />
+            <TranslateButton text={ticket.description} />
           </div>
         );
       })()}
@@ -787,7 +812,6 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
                 <StyledSelect
                   value={ticket.status}
                   onChange={handleStatusChange}
-                  isDark={isDark}
                   style={{ flex: 1 }}
                 >
                   {statuses.length > 0
@@ -810,7 +834,6 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
                 <StyledSelect
                   value={ticket.assigneeId ?? ''}
                   onChange={handleAssigneeChange}
-                  isDark={isDark}
                   style={{ flex: 1 }}
                 >
                   <option value="">Unassigned</option>
@@ -830,7 +853,6 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
               <StyledSelect
                 value={ticket.priority}
                 onChange={val => updateTicket({ ticketId, fields: { priority: val }, isCustomer, token }).then(setTicket).catch(() => {})}
-                isDark={isDark}
                 style={{ width: '100%' }}
               >
                 {['Critical', 'High', 'Medium', 'Low'].map(p => <option key={p} value={p}>{p}</option>)}
@@ -869,7 +891,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
           </h3>
           <div className="grid grid-cols-1 gap-2">
             {attachments.map(att => (
-              <AttachmentItem key={att.id ?? att.attachmentId} att={att} isDark={isDark} />
+              <AttachmentItem key={att.id ?? att.attachmentId} att={att} />
             ))}
           </div>
         </div>
@@ -915,7 +937,10 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
             /* ── Chat-bubble layout for customers ── */
             <div className="p-5 space-y-5">
               {nonDescConvs.filter(c => c.isPublic !== false).map(conv => {
-                const isConvAgent = conv.commenter?.type === 'AGENT' || conv.author?.type === 'AGENT';
+                const convContent = stripCidMarker(conv.content);
+                // A message is "mine" if we submitted it this session (tracked client-side)
+                const isOwnMessage = ownCommentIds.has(conv.id);
+                const isConvAgent = !isOwnMessage && (conv.commenter?.type === 'AGENT' || conv.author?.type === 'AGENT');
                 const person = conv.commenter ?? conv.author;
                 const time = conv.commentedTime ?? conv.createdTime;
                 const typeTag = conv.type === 'replyAll' ? 'Reply All'
@@ -938,7 +963,6 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
                       name={person?.name ?? (isConvAgent ? 'Support' : '?')}
                       photoURL={person?.photoURL}
                       type={isConvAgent ? 'AGENT' : ''}
-                      isDark={isDark}
                     />
                     <div className={`flex flex-col gap-1 max-w-[76%] ${isConvAgent ? 'items-start' : 'items-end'}`}>
                       <div className="flex items-center gap-1.5 flex-wrap text-xs" style={{ color: 'var(--ifm-color-content-secondary)', opacity: 0.8 }}>
@@ -970,7 +994,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
                         )}
                       </div>
                       {(() => {
-                        const msgText = htmlToText(conv.content);
+                        const msgText = htmlToText(convContent);
                         const isLongMsg = msgText.length > 600;
                         const isMsgExpanded = expandedMsgs.has(conv.id);
                         return (
@@ -986,7 +1010,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
                                 maxHeight: isLongMsg && !isMsgExpanded ? '8rem' : 'none',
                                 overflow: isLongMsg && !isMsgExpanded ? 'hidden' : 'visible',
                               }}
-                              dangerouslySetInnerHTML={{ __html: renderContent(conv.content) }}
+                              dangerouslySetInnerHTML={{ __html: renderContent(convContent) }}
                             />
                             {isLongMsg && (
                               <button
@@ -1004,7 +1028,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
                           </>
                         );
                       })()}
-                      <TranslateButton text={conv.content} isDark={isDark} />
+                      <TranslateButton text={conv.content} />
                     </div>
                   </div>
                 );
@@ -1023,7 +1047,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
                   : conv.type;
                 return (
                   <div key={conv.id} className="flex gap-3">
-                    <Avatar name={person?.name ?? '?'} photoURL={person?.photoURL} type={conv.commenter?.type ?? conv.author?.type} isDark={isDark} />
+                    <Avatar name={person?.name ?? '?'} photoURL={person?.photoURL} type={conv.commenter?.type ?? conv.author?.type} />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1 flex-wrap">
                         <span className="text-xs font-semibold" style={{ color: 'var(--ifm-color-content)' }}>
@@ -1066,7 +1090,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
                         }}
                         dangerouslySetInnerHTML={{ __html: renderContent(conv.content) }}
                       />
-                      <TranslateButton text={conv.content} isDark={isDark} />
+                      <TranslateButton text={conv.content} />
                     </div>
                   </div>
                 );
@@ -1517,7 +1541,7 @@ export default function TicketDetail({ ticketId, isDark, isCustomer, onBack, tok
                   All docs →
                 </a>
               </div>
-              <RelatedArticles subject={ticket.subject} isDark={isDark} />
+              <RelatedArticles subject={ticket.subject} />
             </div>
 
             {/* Request new article */}

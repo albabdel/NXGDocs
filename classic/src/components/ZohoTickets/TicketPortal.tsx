@@ -73,24 +73,14 @@ export default function TicketPortal() {
     );
   }
 
-  const cardBorder = {
-    borderColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(232,176,88,0.15)',
-  };
+
 
   // Customer view with sidebar layout
   if (isCustomer && session) {
     return (
       <div>
         {/* Portal header */}
-        <div
-          className="relative overflow-hidden rounded-2xl p-5 mb-6"
-          style={{
-            background: isDark
-              ? 'linear-gradient(135deg, rgba(59,130,246,0.06) 0%, rgba(0,0,0,0.4) 100%)'
-              : 'linear-gradient(135deg, rgba(59,130,246,0.08) 0%, rgba(255,255,255,0.9) 100%)',
-            border: `1px solid ${isDark ? 'rgba(59,130,246,0.18)' : 'rgba(59,130,246,0.25)'}`,
-          }}
-        >
+        <div className="relative overflow-hidden rounded-2xl p-5 mb-6 portal-header-customer border">
           <div
             className="absolute top-0 left-0 right-0 h-[2px]"
             style={{
@@ -102,12 +92,7 @@ export default function TicketPortal() {
               {selectedTicket && (
                 <button
                   onClick={() => setSelectedTicket(null)}
-                  className="p-2 rounded-lg transition-all hover:opacity-80"
-                  style={{
-                    background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
-                    border: 'none',
-                    cursor: 'pointer',
-                  }}
+                  className="p-2 rounded-lg transition-all hover:opacity-80 ticket-button"
                 >
                   <ArrowLeft className="w-4 h-4" style={{ color: 'var(--ifm-color-content)' }} />
                 </button>
@@ -134,10 +119,7 @@ export default function TicketPortal() {
             </div>
             <div className="flex items-center gap-3">
               {/* Sub-nav */}
-              <nav className="hidden sm:flex items-center gap-1 rounded-xl p-1" style={{
-                background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)',
-                border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}`,
-              }}>
+              <nav className="hidden sm:flex items-center gap-1 rounded-xl p-1 portal-nav border">
                 {[
                   { label: 'My Tickets', active: true, onClick: () => setSelectedTicket(null) },
                   { label: 'New Ticket', active: false, onClick: () => setShowCreate(true) },
@@ -145,13 +127,7 @@ export default function TicketPortal() {
                   <button
                     key={tab.label}
                     onClick={tab.onClick}
-                    className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
-                    style={{
-                      background: tab.active ? (isDark ? 'rgba(59,130,246,0.2)' : 'rgba(59,130,246,0.12)') : 'transparent',
-                      color: tab.active ? '#3b82f6' : 'var(--ifm-color-content-secondary)',
-                      border: tab.active ? '1px solid rgba(59,130,246,0.25)' : '1px solid transparent',
-                      cursor: 'pointer',
-                    }}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all portal-tab ${tab.active ? 'active' : ''}`}
                   >
                     {tab.label}
                   </button>
@@ -160,24 +136,14 @@ export default function TicketPortal() {
                   href="/docs"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all no-underline"
-                  style={{
-                    color: 'var(--ifm-color-content-secondary)',
-                    border: '1px solid transparent',
-                  }}
+                  className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all no-underline portal-tab"
                 >
                   Help Center
                 </a>
               </nav>
               <button
                 onClick={logout}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all hover:opacity-80"
-                style={{
-                  background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
-                  color: 'var(--ifm-color-content-secondary)',
-                  border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
-                  cursor: 'pointer',
-                }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all hover:opacity-80 ticket-button"
               >
                 <LogOut className="w-4 h-4" />
                 Sign out
@@ -200,13 +166,7 @@ export default function TicketPortal() {
 
           {/* Main content */}
           <div className="flex-1 min-w-0">
-            <div
-              className="rounded-xl border p-6"
-              style={{
-                background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.6)',
-                ...cardBorder,
-              }}
-            >
+            <div className="rounded-xl border p-6 portal-content">
               {selectedTicket ? (
                 <TicketDetail
                   ticketId={selectedTicket.id}
@@ -214,6 +174,7 @@ export default function TicketPortal() {
                   isCustomer={isCustomer}
                   onBack={() => setSelectedTicket(null)}
                   token={token ?? undefined}
+                  contactId={session?.contactId}
                 />
               ) : (
                 <TicketList
@@ -245,15 +206,7 @@ export default function TicketPortal() {
   return (
     <div>
       {/* Portal header */}
-      <div
-        className="relative overflow-hidden rounded-2xl p-6 mb-8"
-        style={{
-          background: isDark
-            ? 'linear-gradient(135deg, rgba(232,176,88,0.06) 0%, rgba(0,0,0,0.4) 100%)'
-            : 'linear-gradient(135deg, rgba(232,176,88,0.1) 0%, rgba(255,255,255,0.9) 100%)',
-          border: `1px solid ${isDark ? 'rgba(232,176,88,0.18)' : 'rgba(232,176,88,0.25)'}`,
-        }}
-      >
+      <div className="relative overflow-hidden rounded-2xl p-6 mb-8 portal-header-agent border">
         <div
           className="absolute top-0 left-0 right-0 h-[2px]"
           style={{
@@ -303,13 +256,7 @@ export default function TicketPortal() {
             )}
             <button
               onClick={logout}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all hover:opacity-80"
-              style={{
-                background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
-                color: 'var(--ifm-color-content-secondary)',
-                border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
-                cursor: 'pointer',
-              }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all hover:opacity-80 ticket-button"
             >
               <LogOut className="w-4 h-4" />
               Sign out
@@ -319,13 +266,7 @@ export default function TicketPortal() {
       </div>
 
       {/* Content */}
-      <div
-        className="rounded-xl border p-6"
-        style={{
-          background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.6)',
-          ...cardBorder,
-        }}
-      >
+      <div className="rounded-xl border p-6 portal-content">
         {selectedTicket ? (
           <TicketDetail
             ticketId={selectedTicket.id}
@@ -333,6 +274,7 @@ export default function TicketPortal() {
             isCustomer={isCustomer}
             onBack={() => setSelectedTicket(null)}
             token={token ?? undefined}
+            contactId={session?.contactId}
           />
         ) : (
           <TicketList

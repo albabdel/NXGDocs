@@ -7,6 +7,66 @@
     backdrop-filter: blur(12px) saturate(140%);
   }
 
+  /* Portal Header - Customer (blue) */
+  .portal-header-customer {
+    background: linear-gradient(135deg, rgba(59,130,246,0.06) 0%, rgba(0,0,0,0.4) 100%);
+    border-color: rgba(59,130,246,0.18);
+  }
+
+  [data-theme='light'] .portal-header-customer {
+    background: linear-gradient(135deg, rgba(59,130,246,0.08) 0%, rgba(255,255,255,0.9) 100%);
+    border-color: rgba(59,130,246,0.25);
+  }
+
+  /* Portal Header - Agent (gold) */
+  .portal-header-agent {
+    background: linear-gradient(135deg, rgba(232,176,88,0.06) 0%, rgba(0,0,0,0.4) 100%);
+    border-color: rgba(232,176,88,0.18);
+  }
+
+  [data-theme='light'] .portal-header-agent {
+    background: linear-gradient(135deg, rgba(232,176,88,0.1) 0%, rgba(255,255,255,0.9) 100%);
+    border-color: rgba(232,176,88,0.25);
+  }
+
+  /* Portal Content Area */
+  .portal-content {
+    background: rgba(255,255,255,0.02);
+    border-color: rgba(255,255,255,0.08);
+  }
+
+  [data-theme='light'] .portal-content {
+    background: rgba(255,255,255,0.6);
+    border-color: rgba(232,176,88,0.15);
+  }
+
+  /* Navigation Tabs */
+  .portal-nav {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255,255,255,0.08);
+  }
+
+  [data-theme='light'] .portal-nav {
+    background: rgba(0,0,0,0.04);
+    border-color: rgba(0,0,0,0.08);
+  }
+
+  .portal-tab {
+    background: transparent;
+    color: var(--ifm-color-content-secondary);
+    border-color: transparent;
+  }
+
+  .portal-tab.active {
+    background: rgba(59,130,246,0.2);
+    color: #3b82f6;
+    border-color: rgba(59,130,246,0.25);
+  }
+
+  [data-theme='light'] .portal-tab.active {
+    background: rgba(59,130,246,0.12);
+  }
+
   /* Ticket Detail Card */
   .ticket-detail-card {
     background: var(--glass-bg);
