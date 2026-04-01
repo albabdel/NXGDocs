@@ -83,6 +83,9 @@ Recent decisions affecting current work:
 - [Phase 39]: gcxone.pages.dev and gcsurge.pages.dev Cloudflare Pages projects
 - [Phase 39]: Sanity webhook triggers product-scoped rebuilds via /api/sanity-webhook
 - [Phase 39]: Using subdomains (.pages.dev) per user request, custom domains later
+- [31-02]: useUserProfile hook auto-creates profile on first login
+- [31-02]: useThemeSync syncs Docusaurus theme with Supabase preferences
+- [31-02]: UserProtectedRoute uses Auth0 directly (separate from admin ProtectedRoute)
 
 ### Pending Todos
 
