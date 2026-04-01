@@ -3,17 +3,17 @@ gsd_state_version: 1.0
 milestone: v5.0
 milestone_name: Multi-Product Architecture
 status: executing
-stopped_at: "39 complete"
-last_updated: "2026-04-01T21:00:00Z"
-last_activity: "2026-04-01 – Phase 39 complete: Cloudflare Multi-Project Deployment"
+stopped_at: "33-01 complete"
+last_updated: "2026-04-01T22:30:00Z"
+last_activity: "2026-04-01 – Phase 33-01 complete: Role-Based Personalization"
 progress:
   total_phases: 6
   completed_phases: 5
   total_plans: 18
-  completed_plans: 12
-  percent: 67
-  current_phase: 40-posthog-analytics
-  current_plan: 01
+  completed_plans: 13
+  percent: 72
+  current_phase: 33-personalization
+  current_plan: 02
 ---
 
 # Project State
@@ -23,16 +23,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-13)
 See: .planning/ROADMAP.md (v5.0 phases 35-40)
 
-**Core value:** Non-technical editors can open a web UI, write content, and publish it � without a developer as a bottleneck.
-**Current focus:** v5.0 Multi-Product Architecture � Phase 38 complete, Phase 39 next
+**Core value:** Non-technical editors can open a web UI, write content, and publish it – without a developer as a bottleneck.
+**Current focus:** v5.0 Multi-Product Architecture – Phase 33-01 complete, continuing personalization
 
 ## Current Position
 
-Phase: 40-posthog-analytics – PostHog Analytics with Product Context
-Status: EXECUTING - Phase 39 complete, ready for Phase 40
-Last activity: 2026-04-01 – Phase 39 complete: Cloudflare Multi-Project Deployment
+Phase: 33-personalization – Role-Based Content Personalization
+Status: EXECUTING - Phase 33-01 complete (personalization components)
+Last activity: 2026-04-01 – Phase 33-01 complete: Role-Based Personalization
 
-Progress: [=======   ] 67% (12 of 18 plans complete)
+Progress: [========  ] 72% (13 of 18 plans complete)
 
 **Roadmap Summary:** v5.0 transforms single-product docs into multi-product architecture with GCXONE and GC Surge.
 
@@ -86,6 +86,10 @@ Recent decisions affecting current work:
 - [31-02]: useUserProfile hook auto-creates profile on first login
 - [31-02]: useThemeSync syncs Docusaurus theme with Supabase preferences
 - [31-02]: UserProtectedRoute uses Auth0 directly (separate from admin ProtectedRoute)
+- [33-01]: Quick links stored in user_preferences.quick_links JSON field
+- [33-01]: Max 10 quick links per user enforced
+- [33-01]: Role-to-interest mapping for recommended reading (static, ML later)
+- [33-01]: RoleBasedContent component for role-based content filtering
 
 ### Pending Todos
 
@@ -102,14 +106,14 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: 39 complete
-Status: v5.0 Multi-Product Architecture - Phase 39 complete
+Stopped at: 33-01 complete
+Status: v5.0 Multi-Product Architecture - Phase 33-01 complete
 
 **Next Steps:**
-1. Continue with Phase 40 (PostHog Analytics)
-2. Configure PostHog for multi-product tracking
-3. Add product context to analytics events
-4. Create product-scoped dashboards
+1. Continue with Phase 33-02 (if exists) or next phase
+2. Add role selection to profile settings
+3. Integrate QuickLinks into sidebar navigation
+4. Add dynamic recommendations from Sanity content
 
 ---
-*STATE.md updated: 2026-04-01T20:00:00Z*
+*STATE.md updated: 2026-04-01T22:30:00Z*
