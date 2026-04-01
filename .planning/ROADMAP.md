@@ -90,7 +90,12 @@ Plans:
   2. Docusaurus config reads from product configuration file
   3. Each product has its own navigation menu and sidebar structure
   4. Theme colors and branding elements differ by product
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 38-01-PLAN.md — Create product.config.ts + Docusaurus config integration
+- [ ] 38-02-PLAN.md — Product-specific theming with CSS custom properties
+- [ ] 38-03-PLAN.md — Product-aware Footer and navigation components
 
 ### Phase 39: Cloudflare Multi-Project Deployment
 **Goal**: Each product deploys to its own domain with isolated rebuilds
