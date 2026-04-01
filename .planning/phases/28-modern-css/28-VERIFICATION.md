@@ -3,15 +3,18 @@ phase: 28-modern-css
 verified: 2026-04-01T12:00:00Z
 status: passed
 score: 3/3 must-haves verified
-re_verification: false
+re_verification: true
+re_verification_date: 2026-04-01
+re_verification_status: passed-with-fix
+fix_commit: 2cb4e92
 ---
 
 # Phase 28: Modern CSS Verification Report
 
 **Phase Goal:** Adopt modern CSS features to reduce complexity and improve maintainability
 **Verified:** 2026-04-01T12:00:00Z
-**Status:** passed
-**Re-verification:** No — initial verification
+**Status:** passed (re-verified with fix — see Bugs Fixed section below)
+**Re-verification:** 2026-04-01 — 3 bugs found and fixed in post-execution code review
 
 ## Goal Achievement
 
@@ -58,6 +61,34 @@ re_verification: false
 | `ec44eba` | feat(28-01): use light-dark() for theme tokens | ✓ EXISTS | tokens.css (+23 lines) |
 | `f70a2ec` | feat(28-01): add container queries for responsive cards | ✓ EXISTS | cards.css (+52 lines) |
 | `b6e5d88` | feat(28-01): use CSS nesting in component CSS | ✓ EXISTS | buttons.css (new +78), cards.css (+109/-49) |
+
+---
+
+## Bugs Fixed in Post-Execution Review (commit 2cb4e92)
+
+### Bug 1: `light-dark()` didn't respond to Docusaurus theme toggle
+
+`light-dark()` reads the CSS `color-scheme` property — not the `data-theme` HTML attribute Docusaurus uses. Without `color-scheme: dark` on `[data-theme='dark']`, the tokens followed OS preference instead of the user's toggle.
+
+**Broken scenario:** User with OS light mode who switched to Docusaurus dark theme got *light* glass values.
+
+**Fix:** Added `color-scheme: dark` to `[data-theme='dark']` and `color-scheme: light` to a new `[data-theme='light']` rule.
+
+### Bug 2: Static duplicate definitions overrode `light-dark()` values
+
+The same CSS variables were defined twice in `:root` — once with `light-dark()` (added by this phase) and again with static values further down in the same block. CSS last-wins, so the static values always won and the `light-dark()` declarations were dead code.
+
+**Affected tokens:** `--glass-bg`, `--glass-bg-hover`, `--glass-border`, `--glass-border-hover`, `--icon-bg`, `--icon-bg-hover`, `--border-subtle`, `--border-default`.
+
+**Fix:** Removed the redundant static definitions from `:root`. Dark overrides for `--border-subtle`/`--border-default` intentionally retained in `[data-theme='dark']` (values differ from `light-dark()` dark values and represent canonical dark theme intent).
+
+### Bug 3: Malformed `--shadow-sm` `light-dark()` declaration
+
+Multi-value shadows use commas to separate layers (e.g. `shadow1, shadow2`). `light-dark()` also uses commas as its argument separator. The browser parsed `light-dark(val1, val2, val3, val4)` as a 4-argument call (invalid) and silently discarded it.
+
+**Fix:** Removed the malformed `light-dark()` shadow declaration. Static layered shadow tokens in `:root` and `[data-theme='dark']` remain authoritative.
+
+---
 
 ### Anti-Patterns Found
 
