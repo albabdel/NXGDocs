@@ -22,6 +22,7 @@ const FOOTER_LINKS: Record<string, FooterLinkSection[]> = {
     ]},
     { title: 'Resources', links: [
       { label: 'Support Center', href: 'https://nxgen.cloud/support', external: true },
+      { label: 'Updates Hub', href: '/updates' },
       { label: 'Release Notes', href: '/releases' },
       { label: 'Product Roadmap', href: '/roadmap' },
       { label: 'NXGEN Website', href: 'https://nxgen.cloud', external: true },
@@ -41,6 +42,7 @@ const FOOTER_LINKS: Record<string, FooterLinkSection[]> = {
     ]},
     { title: 'Resources', links: [
       { label: 'Support', href: 'https://nxgen.cloud/support', external: true },
+      { label: 'Updates Hub', href: '/updates' },
       { label: 'Release Notes', href: '/releases' },
     ]},
     { title: 'Company', links: [

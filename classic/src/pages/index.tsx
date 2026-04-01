@@ -226,6 +226,17 @@ export default function Home(): React.JSX.Element {
                             Documentation Index
                         </Link>
                         <Link
+                            to="/updates"
+                            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium no-underline border"
+                            style={{
+                                borderColor: 'rgba(232,176,88,0.35)',
+                                color: '#E8B058',
+                                background: 'rgba(232,176,88,0.07)',
+                            }}
+                        >
+                            Updates Hub
+                        </Link>
+                        <Link
                             to="/releases"
                             className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium no-underline border"
                             style={{
