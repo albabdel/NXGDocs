@@ -51,6 +51,19 @@ Requirements for the Releases & Roadmap milestone.
 - [x] **ARCH-02**: Existing sprint URL patterns (e.g. /releases/sprint-2025-12-b) continue to resolve after migration — no 404s introduced
 - [x] **ARCH-03**: Existing Sprint 2025.12-A and Sprint 2025.12-B entries are archived (removed from public site)
 
+## v3.1 Requirements
+
+Requirements for the Updates Hub milestone.
+
+### Updates Hub Schema
+
+- [x] **UHUB-01**: Create Sanity `update` schema with type enum and conditional fields
+- [ ] **UHUB-02**: Build `/updates` hub page with tabs and filtering
+- [ ] **UHUB-03**: Create type-specific card components
+- [ ] **UHUB-04**: Build detail page `/updates/[slug]` with type-specific layouts
+- [ ] **UHUB-05**: Create GROQ queries for efficient fetching
+- [ ] **UHUB-06**: Migrate existing release/roadmap data to update schema (optional)
+
 ## Future Requirements
 
 Deferred to v1.2 or later.
@@ -109,10 +122,17 @@ Deferred to v1.2 or later.
 | ARCH-01 | Phase 9 | Pending |
 | ARCH-02 | Phase 9 | Pending |
 | ARCH-03 | Phase 9 | Pending |
+| UHUB-01 | Phase 29 | Complete |
+| UHUB-02 | Phase 29 | Pending |
+| UHUB-03 | Phase 29 | Pending |
+| UHUB-04 | Phase 29 | Pending |
+| UHUB-05 | Phase 29 | Pending |
+| UHUB-06 | Phase 29 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 26 total
-- Mapped to phases: 26
+- v3.1 requirements: 6 total
+- Mapped to phases: 32
 - Unmapped: 0
 
 ---

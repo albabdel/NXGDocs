@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v3.0
-milestone_name: Design System Polish
+milestone: v3.1
+milestone_name: Updates Hub
 status: in_progress
-stopped_at: "28-01 Modern CSS Features - COMPLETE"
-last_updated: "2026-04-01T06:36:16Z"
-last_activity: "2026-04-01 — Modern CSS features: light-dark(), container queries, CSS nesting (6/8 plans)"
+stopped_at: "29-01 Update Schema - COMPLETE"
+last_updated: "2026-04-01T16:45:00Z"
+last_activity: "2026-04-01 — Updates Hub: Created update schema with type enum and conditional fields"
 progress:
-  total_phases: 5
+  total_phases: 4
   completed_phases: 0
-  total_plans: 8
-  completed_plans: 6
-  percent: 75
+  total_plans: 4
+  completed_plans: 1
+  percent: 25
 ---
 
 # Project State
@@ -22,17 +22,17 @@ See: .planning/PROJECT.md (updated 2026-03-13)
 See: .planning/ROADMAP-design-system.md (new milestone roadmap)
 
 **Core value:** Non-technical editors can open a web UI, write content, and publish it — without a developer as a bottleneck.
-**Current focus:** v3.0 Design System Polish — Transform CSS from patchwork to maintainable system
+**Current focus:** v3.1 Updates Hub — Unified content model for platform updates and announcements
 
 ## Current Position
 
-Phase: 28-modern-css — Modern CSS Features
-Status: Plan 01 complete, phase complete
-Last activity: 2026-04-01 — Modern CSS features (6/8 plans)
+Phase: 29-updates-hub — Updates Hub
+Status: Plan 01 complete, continuing
+Last activity: 2026-04-01 — Updates Hub: Created update schema with type enum and conditional fields
 
-Progress: [=======   ] 75% (6 of 8 plans complete)
+Progress: [==        ] 25% (1 of 4 plans complete)
 
-**Note:** v3.0 Design System Polish planned. 5 phases covering CSS architecture, component tokens, variant system, UI polish, and modern CSS features. Based on DESIGN_SYSTEM_ANALYSIS_AND_IMPLEMENTATION_PLAN.md.
+**Note:** v3.1 Updates Hub planned. 4 phases covering update schema, data pipeline, UI components, and integration. Based on ROADMAP-updates-hub.md.
 
 ## Phase 24: CSS Architecture (In Progress)
 
@@ -171,6 +171,25 @@ Progress: [=======   ] 75% (6 of 8 plans complete)
 
 **Requirements:** MOD-01, MOD-02, MOD-03
 
+## Phase 29: Updates Hub (In Progress)
+
+### Plan 01: Update Schema (Complete)
+
+**Summary:** Sanity update schema with type enum (announcement/release/bugfix/roadmap) and conditional fields for unified Updates Hub content model.
+
+**Changes:**
+- Created updateType document schema with 4-value type enum
+- Implemented conditional fields that show/hide based on selected type
+- Configured field groups: Main, Content, Release Fields, Bugfix Fields, Roadmap Fields
+- Added preview configuration with type emoji badges
+- Registered schema in Sanity Studio
+
+**Commits:**
+- ffd5761 — feat(29-01): create update schema with type enum and conditional fields
+- 891dd7b — feat(29-01): register updateType schema in index.ts
+
+**Requirements:** UHUB-01
+
 ## Phase 10 Complete
 
 ### Implementation Summary
@@ -252,6 +271,10 @@ All 5 phases complete:
 
 Recent decisions affecting current work:
 
+  - [29-01]: Single update schema replaces separate schemas per category (announcement/release/bugfix/roadmap)
+  - [29-01]: Conditional fields use hidden: ({parent}) => parent?.type !== 'typeValue' pattern
+  - [29-01]: Field groups organize schema: Main, Content, Release Fields, Bugfix Fields, Roadmap Fields
+  - [29-01]: Preview shows emoji badge based on type for visual identification
   - [28-01]: Use light-dark() for theme tokens - browser support 93%+, eliminates :root + [data-theme] duplication
   - [28-01]: Use container queries for cards - enables component-level responsive layouts independent of viewport
   - [28-01]: Use CSS nesting syntax (&:hover, &:active) for cleaner component selectors - 92%+ browser support
@@ -307,14 +330,11 @@ None — v1.1 milestone complete.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: 28-01 Modern CSS Features - COMPLETE
-Status: Phase 28 complete, ready for next phase
+Stopped at: 29-01 Update Schema - COMPLETE
+Status: Phase 29 in progress, ready for Plan 02
 
 **Completion Summary:**
-- Phase 24: CSS Architecture — @layer, file split, cascade control
-- Phase 25: Component Tokens — Glassmorphism tokens, token migration
-- Phase 26: Variant System — CVA Button, Dialog, Card primitives
-- Phase 27: Premium Hover States — Card hover effects, Tailwind fix
+- Phase 29: Updates Hub — Update schema with type enum and conditional fields (in progress)
 - Phase 28: Modern CSS Features — light-dark(), container queries, CSS nesting
 
 ---
