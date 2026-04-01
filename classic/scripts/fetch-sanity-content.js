@@ -61,6 +61,12 @@ const ROADMAP_GENERATED_FILE = path.join(
   'data',
   'sanity-roadmap.generated.json'
 );
+const UPDATES_GENERATED_FILE = path.join(
+  SITE_DIR,
+  'src',
+  'data',
+  'sanity-updates.generated.json'
+);
 const INTEGRATIONS_GENERATED_FILE = path.join(
   SITE_DIR,
   'src',
@@ -317,6 +323,31 @@ function getRoadmapQuery(includeDrafts) {
     entitiesImpacted,
     projectedRelease,
     "releaseSlug": releaseRef->slug.current
+  }`;
+}
+
+function getUpdatesQuery(includeDrafts) {
+  const filter = statusFilterClause(includeDrafts);
+  return `*[_type == "update" && ${filter}] | order(publishedAt desc) {
+    _id,
+    _updatedAt,
+    title,
+    slug,
+    type,
+    publishedAt,
+    excerpt,
+    "releaseFields": {
+      "version": releaseFields.version,
+      "releaseNotes": releaseFields.releaseNotes
+    },
+    "bugfixFields": {
+      "status": bugfixFields.status,
+      "severity": bugfixFields.severity
+    },
+    "roadmapFields": {
+      "roadmapStatus": roadmapFields.roadmapStatus,
+      "targetDate": roadmapFields.targetDate
+    }
   }`;
 }
 
@@ -1051,10 +1082,32 @@ async function run() {
     console.log('[sanity-content] Wrote device integrations -> src/data/sanity-integrations.generated.json');
   }
 
+  async function fetchUpdates() {
+    console.log('[sanity-content] Fetching updates...');
+    let updates;
+    try {
+      updates = await client.fetch(getUpdatesQuery(includeDrafts));
+    } catch (err) {
+      stats.warnings += 1;
+      console.warn(`[sanity-content] Warning: Failed to fetch updates: ${err.message}`);
+      updates = [];
+    }
+    stats.fetched.update = updates.length;
+    console.log(`[sanity-content] -> ${updates.length} update(s)`);
+    writeTrackedFile(
+      UPDATES_GENERATED_FILE,
+      JSON.stringify(updates, null, 2),
+      writtenFiles
+    );
+    stats.written.update = (stats.written.update || 0) + 1;
+    console.log('[sanity-content] Wrote updates -> src/data/sanity-updates.generated.json');
+  }
+
   await fetchLandingPages();
   await fetchReleases();
   await fetchRoadmapItems();
   await fetchDeviceIntegrations();
+  await fetchUpdates();
 
   const manifest = {
     runId,
