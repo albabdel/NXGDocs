@@ -23,7 +23,7 @@
 - PostHog analytics with product context
 
 **Phases:**
-- [ ] **Phase 35: Auth Foundation & Product Access** - Auth0 with product_access claims, session management, access validation
+- [x] **Phase 35: Auth Foundation & Product Access** - Auth0 with product_access claims, session management, access validation (completed 2026-04-01)
 - [ ] **Phase 36: Content Infrastructure** - Sanity product field, GROQ filtering, content backfill
 - [ ] **Phase 37: Multi-Build Pipeline** - Build orchestration for separate product deployments
 - [ ] **Phase 38: Product Configuration & Branding** - Product-specific theming and navigation
@@ -147,7 +147,7 @@ Plans:
 | 9. Cleanup & URL Continuity | v1.1 | 3/3 | Complete | 2026-03-13 |
 | 10. Deep Cleanup | v1.1 | 1/1 | Complete | 2026-03-16 |
 | 29. Updates Hub | v4.0 | 3/3 | Complete | 2026-04-01 |
-| 35. Auth Foundation & Product Access | v5.0 | 3/3 | Complete | 2026-04-01 |
+| 35. Auth Foundation & Product Access | v5.0 | Complete    | 2026-04-01 | 2026-04-01 |
 | 36. Content Infrastructure | v5.0 | 0/2 | Planned | - |
 | 37. Multi-Build Pipeline | v5.0 | 0/1 | Planned | - |
 | 38. Product Configuration & Branding | v5.0 | 0/3 | Planned | - |
