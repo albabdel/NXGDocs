@@ -19,6 +19,7 @@ export async function onRequest(context: { request: Request; env: AdminEnv }) {
       name: session.name,
       orgId: session.orgId,
       role: session.role,
+      productAccess: session.productAccess,
     },
   }), {
     headers: { 'Content-Type': 'application/json' },
