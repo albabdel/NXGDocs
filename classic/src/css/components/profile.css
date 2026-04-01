@@ -1,0 +1,403 @@
+/**
+ * NXGEN Profile Page Styles
+ * 
+ * Styles for user profile and settings pages.
+ * Matches existing site design with gold accent and glass cards.
+ */
+
+/* === PROFILE PAGE === */
+
+/* Profile header card with gold gradient */
+.profile-header-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, rgba(232,176,88,0.06) 0%, rgba(0,0,0,0.4) 100%);
+  border: 1px solid rgba(232,176,88,0.2);
+}
+
+[data-theme='light'] .profile-header-card {
+  background: linear-gradient(135deg, rgba(232,176,88,0.1) 0%, rgba(255,255,255,0.9) 100%);
+  border-color: rgba(232,176,88,0.3);
+}
+
+/* Profile top bar gradient */
+.profile-header-top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #E8B058 25%, #C89446 50%, #E8B058 75%, transparent 100%);
+}
+
+/* Profile avatar container */
+.profile-avatar-container {
+  position: relative;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: rgba(232,176,88,0.12);
+  border: 2px solid rgba(232,176,88,0.25);
+}
+
+.profile-avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-avatar-initials {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #E8B058;
+}
+
+/* Profile info */
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: var(--ifm-color-content);
+}
+
+.profile-email {
+  font-size: 0.875rem;
+  color: var(--ifm-color-content-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.profile-role-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: rgba(232,176,88,0.15);
+  color: #E8B058;
+  border: 1px solid rgba(232,176,88,0.3);
+}
+
+/* Profile stats row */
+.profile-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+[data-theme='dark'] .profile-stat-item {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.profile-stat-item {
+  border-radius: 0.75rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+[data-theme='light'] .profile-stat-item {
+  background: rgba(255,255,255,0.6);
+  border-color: rgba(232,176,88,0.15);
+}
+
+.profile-stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #E8B058;
+}
+
+.profile-stat-label {
+  font-size: 0.75rem;
+  color: var(--ifm-color-content-secondary);
+}
+
+/* Profile quick links */
+.profile-quick-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.profile-quick-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+[data-theme='light'] .profile-quick-link {
+  background: rgba(255,255,255,0.6);
+  border-color: rgba(232,176,88,0.15);
+}
+
+.profile-quick-link:hover {
+  transform: scale(1.02);
+  border-color: rgba(232,176,88,0.3);
+}
+
+.profile-quick-link-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(232,176,88,0.12);
+  border: 1px solid rgba(232,176,88,0.2);
+}
+
+.profile-quick-link-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ifm-color-content);
+}
+
+.profile-quick-link-desc {
+  font-size: 0.75rem;
+  color: var(--ifm-color-content-secondary);
+}
+
+/* === SETTINGS PAGE === */
+
+/* Settings section card */
+.settings-section-card {
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+[data-theme='light'] .settings-section-card {
+  background: rgba(255,255,255,0.6);
+  border-color: rgba(232,176,88,0.15);
+}
+
+.settings-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--ifm-color-content);
+}
+
+/* Theme selector */
+.theme-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.theme-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgba(255,255,255,0.02);
+  border: 2px solid rgba(255,255,255,0.08);
+}
+
+[data-theme='light'] .theme-option {
+  background: rgba(255,255,255,0.4);
+  border-color: rgba(0,0,0,0.08);
+}
+
+.theme-option:hover {
+  border-color: rgba(232,176,88,0.3);
+}
+
+.theme-option--selected {
+  border-color: #E8B058;
+  background: rgba(232,176,88,0.1);
+}
+
+.theme-option-icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--ifm-color-content-secondary);
+}
+
+.theme-option--selected .theme-option-icon {
+  color: #E8B058;
+}
+
+.theme-option-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ifm-color-content-secondary);
+}
+
+.theme-option--selected .theme-option-label {
+  color: #E8B058;
+}
+
+/* Toggle switch */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  margin-bottom: 0.5rem;
+}
+
+[data-theme='light'] .toggle-row {
+  background: rgba(255,255,255,0.4);
+  border-color: rgba(232,176,88,0.1);
+}
+
+.toggle-label {
+  font-size: 0.875rem;
+  color: var(--ifm-color-content);
+}
+
+.toggle-switch {
+  position: relative;
+  width: 2.5rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgba(156,163,175,0.3);
+}
+
+.toggle-switch--on {
+  background: #22c55e;
+}
+
+.toggle-switch-thumb {
+  position: absolute;
+  top: 0.125rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+  background: white;
+  left: 0.125rem;
+}
+
+.toggle-switch--on .toggle-switch-thumb {
+  left: 1.25rem;
+}
+
+/* Select dropdown */
+.settings-select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  background: rgba(255,255,255,0.05);
+  color: var(--ifm-color-content);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+[data-theme='light'] .settings-select {
+  background: rgba(255,255,255,0.8);
+  border-color: rgba(232,176,88,0.2);
+}
+
+/* Save button */
+.settings-save-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: linear-gradient(135deg, #E8B058 0%, #C89446 100%);
+  color: #000;
+  border: none;
+  box-shadow: 0 4px 20px rgba(232,176,88,0.3);
+}
+
+.settings-save-btn:hover {
+  transform: scale(1.02);
+}
+
+.settings-save-btn:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+/* Toast notifications */
+.profile-toast {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  z-index: 100;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.profile-toast--success {
+  background: rgba(34,197,94,0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34,197,94,0.3);
+}
+
+.profile-toast--error {
+  background: rgba(239,68,68,0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239,68,68,0.3);
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .profile-header-card {
+    padding: 1.5rem;
+  }
+
+  .profile-stats-row {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-quick-links {
+    grid-template-columns: 1fr;
+  }
+
+  .theme-selector-grid {
+    grid-template-columns: 1fr;
+  }
+}
