@@ -99,6 +99,7 @@ const config: Config = {
             './src/css/components/sidebar.css',
             './src/css/components/code-blocks.css',
             './src/css/components/cards.css',
+            './src/css/components/zoho-tickets.css',
             './src/css/custom.css',
           ],
         },
