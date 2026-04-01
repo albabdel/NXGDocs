@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Design System Polish
 status: in_progress
-stopped_at: "25-01 Component Tokens - COMPLETE"
-last_updated: "2026-04-01T02:40:49Z"
-last_activity: "2026-04-01 — Component tokens migration: glassmorphism tokens, FeatureCard and DocsIndex CSS classes"
+stopped_at: "25-02 ZohoTickets Token Migration - COMPLETE"
+last_updated: "2026-04-01T12:30:00Z"
+last_activity: "2026-04-01 — ZohoTickets token migration: 45+ CSS classes, reduced isDark ternaries by 68%"
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 8
-  completed_plans: 2
-  percent: 25
+  completed_plans: 3
+  percent: 38
 ---
 
 # Project State
@@ -27,10 +27,10 @@ See: .planning/ROADMAP-design-system.md (new milestone roadmap)
 ## Current Position
 
 Phase: 25-component-tokens — Component Tokens Migration
-Status: Plan 01 complete, continuing to next plan
-Last activity: 2026-04-01 — Component tokens migration (2/8 plans)
+Status: Plan 02 complete, continuing to next plan
+Last activity: 2026-04-01 — ZohoTickets token migration (3/8 plans)
 
-Progress: [===       ] 25% (2 of 8 plans complete)
+Progress: [====      ] 38% (3 of 8 plans complete)
 
 **Note:** v3.0 Design System Polish planned. 5 phases covering CSS architecture, component tokens, variant system, UI polish, and modern CSS features. Based on DESIGN_SYSTEM_ANALYSIS_AND_IMPLEMENTATION_PLAN.md.
 
@@ -76,6 +76,24 @@ Progress: [===       ] 25% (2 of 8 plans complete)
 - 1986645 — feat(25-01): migrate DocsIndex components to CSS tokens
 
 **Requirements:** TOKN-01, TOKN-02, TOKN-03
+
+### Plan 02: ZohoTickets Token Migration (Complete)
+
+**Summary:** Migrated ZohoTickets from 63 inline style branches to 45+ CSS token-based classes.
+
+**Changes:**
+- Created zoho-tickets.css with 45+ token-based component classes
+- Added portal-header-customer and portal-header-agent gradient classes
+- Migrated 6 helper components (CopyButton, Avatar, TranslateButton, AttachmentItem, RelatedArticles, StyledSelect) to CSS classes
+- Reduced isDark ternary patterns from 63 to ~20 (state-dependent styles remain)
+- Removed unused cardBorder variable from TicketPortal
+
+**Commits:**
+- 0b8791b — feat(25-02): add zoho-tickets.css with token-based styles
+- 9a18063 — feat(25-02): migrate ZohoTickets inline styles to CSS classes
+- e33314b — verify(25-02): confirm CSS token migration compiles
+
+**Requirements:** TOKN-04, TOKN-05
 
 ## Phase 10 Complete
 
