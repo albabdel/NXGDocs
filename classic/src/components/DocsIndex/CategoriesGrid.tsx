@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
-import { useColorMode } from '@docusaurus/theme-common';
 import { motion } from 'framer-motion';
 import {
   BookOpen,
@@ -114,20 +113,11 @@ function Rocket({ className }: { className?: string }) {
 }
 
 export default function CategoriesGrid({ categories = defaultCategories }: CategoriesGridProps) {
-  const { colorMode } = useColorMode();
-  const isDark = colorMode === 'dark';
-
   return (
     <section className="mb-16">
       <div className="flex items-end justify-between mb-8">
         <div>
-          <span
-            className={`inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase mb-3 ${
-              isDark
-                ? 'bg-[#E8B058]/10 text-[#E8B058] border border-[#E8B058]/20'
-                : 'bg-[#E8B058]/10 text-[#7A5518] border border-[#E8B058]/25'
-            }`}
-          >
+          <span className="section-badge">
             Documentation
           </span>
           <h2
@@ -145,9 +135,7 @@ export default function CategoriesGrid({ categories = defaultCategories }: Categ
         </div>
         <Link
           to="/docs"
-          className={`hidden md:inline-flex items-center gap-1.5 text-sm font-medium no-underline group ${
-            isDark ? 'text-[#E8B058] hover:text-[#D4A047]' : 'text-[#7A5518] hover:text-[#5A3B10]'
-          }`}
+          className="hidden md:inline-flex items-center gap-1.5 text-sm font-medium no-underline group text-gold-link"
         >
           View All Docs
           <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -166,15 +154,7 @@ export default function CategoriesGrid({ categories = defaultCategories }: Categ
           >
             <Link
               to={category.href}
-              className="block p-5 rounded-xl border no-underline group transition-all duration-200 h-full"
-              style={{
-                background: isDark
-                  ? 'rgba(255,255,255,0.025)'
-                  : 'rgba(255,255,255,0.65)',
-                borderColor: isDark
-                  ? 'rgba(255,255,255,0.07)'
-                  : 'rgba(232,176,88,0.12)',
-              }}
+              className="docs-index-card no-underline group h-full"
             >
               <div className="relative">
                 <div
@@ -187,27 +167,11 @@ export default function CategoriesGrid({ categories = defaultCategories }: Categ
               </div>
 
               <div className="flex items-start justify-between mb-3">
-                <div
-                  className="w-10 h-10 flex items-center justify-center rounded-lg"
-                  style={{
-                    background: 'rgba(232,176,88,0.1)',
-                    color: 'var(--ifm-color-primary)',
-                  }}
-                >
+                <div className="icon-container">
                   {category.icon}
                 </div>
                 {(category.isNew || category.updatedRecently) && (
-                  <span
-                    className={`flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded-full ${
-                      category.isNew
-                        ? isDark
-                          ? 'bg-green-500/15 text-green-400 border border-green-500/25'
-                          : 'bg-green-500/10 text-green-600 border border-green-500/20'
-                        : isDark
-                        ? 'bg-[#E8B058]/15 text-[#E8B058] border border-[#E8B058]/25'
-                        : 'bg-[#E8B058]/10 text-[#7A5518] border border-[#E8B058]/20'
-                    }`}
-                  >
+                  <span className={category.isNew ? 'status-badge-new' : 'status-badge-updated'}>
                     {category.isNew ? (
                       <>
                         <Sparkles className="w-2.5 h-2.5" />
@@ -238,11 +202,7 @@ export default function CategoriesGrid({ categories = defaultCategories }: Categ
               </p>
 
               <div className="flex items-center justify-between">
-                <span
-                  className={`text-xs font-medium ${
-                    isDark ? 'text-white/40' : 'text-[#5A3B10]/50'
-                  }`}
-                >
+                <span className="text-xs font-medium text-muted-light">
                   {category.articleCount} articles
                 </span>
                 <ArrowRight

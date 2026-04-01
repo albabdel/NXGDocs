@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
-import { useColorMode } from '@docusaurus/theme-common';
 import { motion } from 'framer-motion';
 import { Rocket, Plug, PlayCircle, HelpCircle, ArrowRight } from 'lucide-react';
 
@@ -43,19 +42,10 @@ const quickLinks: QuickLinkItem[] = [
 ];
 
 export default function QuickLinksSection() {
-  const { colorMode } = useColorMode();
-  const isDark = colorMode === 'dark';
-
   return (
     <section className="mb-16">
       <div className="text-center mb-8">
-        <span
-          className={`inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase mb-3 ${
-            isDark
-              ? 'bg-[#E8B058]/10 text-[#E8B058] border border-[#E8B058]/20'
-              : 'bg-[#E8B058]/10 text-[#7A5518] border border-[#E8B058]/25'
-          }`}
-        >
+        <span className="section-badge">
           Quick Access
         </span>
         <h2
@@ -83,33 +73,16 @@ export default function QuickLinksSection() {
           >
             <Link
               to={item.href}
-              className={`flex items-center p-5 rounded-xl border no-underline group transition-all duration-200 ${
-                item.variant === 'primary'
-                  ? isDark
-                    ? 'bg-[#E8B058]/8 border-[#E8B058]/25 hover:border-[#E8B058]/40'
-                    : 'bg-[#E8B058]/8 border-[#E8B058]/25 hover:border-[#E8B058]/50'
-                  : ''
+              className={`quick-link-card no-underline group ${
+                item.variant === 'primary' ? 'quick-link-card-primary' : ''
               }`}
-              style={
-                item.variant !== 'primary'
-                  ? {
-                      background: isDark
-                        ? 'rgba(255,255,255,0.025)'
-                        : 'rgba(255,255,255,0.65)',
-                      borderColor: isDark
-                        ? 'rgba(255,255,255,0.07)'
-                        : 'rgba(232,176,88,0.12)',
-                    }
-                  : {}
-              }
             >
               <div
-                className="w-11 h-11 flex items-center justify-center rounded-lg flex-shrink-0 mr-4"
+                className="icon-container icon-container-lg flex-shrink-0 mr-4"
                 style={{
                   background: item.variant === 'primary'
                     ? 'rgba(232,176,88,0.15)'
-                    : 'rgba(232,176,88,0.1)',
-                  color: 'var(--ifm-color-primary)',
+                    : undefined,
                 }}
               >
                 {item.icon}
@@ -123,13 +96,7 @@ export default function QuickLinksSection() {
                     {item.title}
                   </h3>
                   {item.badge && (
-                    <span
-                      className={`px-2 py-0.5 text-[10px] font-semibold rounded-full ${
-                        isDark
-                          ? 'bg-[#E8B058]/20 text-[#E8B058]'
-                          : 'bg-[#E8B058]/15 text-[#7A5518]'
-                      }`}
-                    >
+                    <span className="status-badge-updated">
                       {item.badge}
                     </span>
                   )}

@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
-import { useColorMode } from '@docusaurus/theme-common';
 import { motion } from 'framer-motion';
 import {
   Code,
@@ -8,7 +7,6 @@ import {
   FileText,
   Map,
   ArrowRight,
-  Database,
   Sparkles,
 } from 'lucide-react';
 
@@ -30,9 +28,6 @@ export default function ResourcesSection({
   releaseCount = 0,
   roadmapCount = 0,
 }: ResourcesSectionProps) {
-  const { colorMode } = useColorMode();
-  const isDark = colorMode === 'dark';
-
   const resources: ResourceItem[] = [
     {
       title: 'API Reference',
@@ -67,13 +62,7 @@ export default function ResourcesSection({
   return (
     <section className="mb-16">
       <div className="text-center mb-8">
-        <span
-          className={`inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase mb-3 ${
-            isDark
-              ? 'bg-[#E8B058]/10 text-[#E8B058] border border-[#E8B058]/20'
-              : 'bg-[#E8B058]/10 text-[#7A5518] border border-[#E8B058]/25'
-          }`}
-        >
+        <span className="section-badge">
           Resources
         </span>
         <h2
@@ -102,34 +91,14 @@ export default function ResourcesSection({
           >
             <Link
               to={resource.href}
-              className="block p-5 rounded-xl border no-underline group transition-all duration-200 h-full"
-              style={{
-                background: isDark
-                  ? 'rgba(255,255,255,0.025)'
-                  : 'rgba(255,255,255,0.65)',
-                borderColor: isDark
-                  ? 'rgba(255,255,255,0.07)'
-                  : 'rgba(232,176,88,0.12)',
-              }}
+              className="docs-index-card no-underline group h-full"
             >
               <div className="flex items-start justify-between mb-3">
-                <div
-                  className="w-10 h-10 flex items-center justify-center rounded-lg"
-                  style={{
-                    background: 'rgba(232,176,88,0.1)',
-                    color: 'var(--ifm-color-primary)',
-                  }}
-                >
+                <div className="icon-container">
                   {resource.icon}
                 </div>
                 {resource.badge && (
-                  <span
-                    className={`flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded-full ${
-                      isDark
-                        ? 'bg-[#E8B058]/15 text-[#E8B058] border border-[#E8B058]/25'
-                        : 'bg-[#E8B058]/10 text-[#7A5518] border border-[#E8B058]/20'
-                    }`}
-                  >
+                  <span className="status-badge-updated">
                     <Sparkles className="w-2.5 h-2.5" />
                     {resource.badge}
                   </span>
@@ -152,11 +121,7 @@ export default function ResourcesSection({
 
               <div className="flex items-center justify-between">
                 {resource.count && (
-                  <span
-                    className={`text-xs font-medium ${
-                      isDark ? 'text-white/40' : 'text-[#5A3B10]/50'
-                    }`}
-                  >
+                  <span className="text-xs font-medium text-muted-light">
                     {resource.count}
                   </span>
                 )}

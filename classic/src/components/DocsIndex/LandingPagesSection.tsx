@@ -1,8 +1,7 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
-import { useColorMode } from '@docusaurus/theme-common';
 import { motion } from 'framer-motion';
-import { ExternalLink, ArrowRight, FileText, Clock } from 'lucide-react';
+import { ExternalLink, ArrowRight, Clock } from 'lucide-react';
 
 interface LandingPageItem {
   title: string;
@@ -23,9 +22,6 @@ interface LandingPagesSectionProps {
 }
 
 export default function LandingPagesSection({ landingPages }: LandingPagesSectionProps) {
-  const { colorMode } = useColorMode();
-  const isDark = colorMode === 'dark';
-
   const publishedPages = landingPages.filter(page => page.status === 'published');
   const pageGroups: Record<string, LandingPageItem[]> = {};
 
@@ -57,13 +53,7 @@ export default function LandingPagesSection({ landingPages }: LandingPagesSectio
     <section className="mb-16">
       <div className="flex items-end justify-between mb-8">
         <div>
-          <span
-            className={`inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase mb-3 ${
-              isDark
-                ? 'bg-[#E8B058]/10 text-[#E8B058] border border-[#E8B058]/20'
-                : 'bg-[#E8B058]/10 text-[#7A5518] border border-[#E8B058]/25'
-            }`}
-          >
+          <span className="section-badge">
             Featured Pages
           </span>
           <h2
@@ -84,11 +74,7 @@ export default function LandingPagesSection({ landingPages }: LandingPagesSectio
       <div className="space-y-6">
         {Object.entries(pageGroups).map(([type, pages], groupIndex) => (
           <div key={type}>
-            <h3
-              className={`text-sm font-semibold mb-3 ${
-                isDark ? 'text-white/60' : 'text-[#5A3B10]/60'
-              }`}
-            >
+            <h3 className="text-sm font-semibold mb-3 text-muted-dark">
               {getLayoutLabel(type)}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -103,26 +89,12 @@ export default function LandingPagesSection({ landingPages }: LandingPagesSectio
                 >
                   <Link
                     to={`/${page.slug.current}`}
-                    className="block p-5 rounded-xl border no-underline group transition-all duration-200 h-full"
-                    style={{
-                      background: isDark
-                        ? 'rgba(255,255,255,0.025)'
-                        : 'rgba(255,255,255,0.65)',
-                      borderColor: isDark
-                        ? 'rgba(255,255,255,0.07)'
-                        : 'rgba(232,176,88,0.12)',
-                    }}
+                    className="docs-index-card no-underline group h-full"
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center gap-2">
                         {page.hero?.badge && (
-                          <span
-                            className={`px-2 py-0.5 text-[10px] font-medium rounded-full ${
-                              isDark
-                                ? 'bg-[#E8B058]/10 text-[#E8B058] border border-[#E8B058]/20'
-                                : 'bg-[#E8B058]/8 text-[#7A5518] border border-[#E8B058]/15'
-                            }`}
-                          >
+                          <span className="status-badge-updated" style={{ fontSize: '0.625rem' }}>
                             {page.hero.badge.text}
                           </span>
                         )}
@@ -148,19 +120,11 @@ export default function LandingPagesSection({ landingPages }: LandingPagesSectio
                     </p>
 
                     <div className="flex items-center justify-between">
-                      <span
-                        className={`flex items-center gap-1 text-[10px] ${
-                          isDark ? 'text-white/40' : 'text-[#5A3B10]/50'
-                        }`}
-                      >
+                      <span className="flex items-center gap-1 text-[10px] text-muted-light">
                         <Clock className="w-3 h-3" />
                         {formatLastUpdated(page.lastUpdated)}
                       </span>
-                      <span
-                        className={`flex items-center gap-1 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity ${
-                          isDark ? 'text-[#E8B058]' : 'text-[#7A5518]'
-                        }`}
-                      >
+                      <span className="flex items-center gap-1 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity text-gold-link">
                         View
                         <ArrowRight className="w-3 h-3" />
                       </span>
