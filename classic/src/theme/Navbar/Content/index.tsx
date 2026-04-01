@@ -1,8 +1,8 @@
 import React from 'react';
 import Content from '@theme-original/Navbar/Content';
 import { useAuth0 } from '@auth0/auth0-react';
-import { LoginButton, ProfileDropdown } from '../../components/Auth';
-import '../../css/components/navbar-auth.css';
+import { LoginButton, ProfileDropdown } from '@site/src/components/Auth';
+import '@site/src/css/components/navbar-auth.css';
 
 /**
  * Navbar Content wrapper with authentication UI.
