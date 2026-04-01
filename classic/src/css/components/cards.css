@@ -5,7 +5,7 @@
  */
 
 /* === FEATURE CARDS === */
-/* Feature Card - Premium Hover */
+/* Feature Card - Premium Hover with CSS Nesting */
 .feature-card {
   background: var(--card-bg);
   border: var(--card-border);
@@ -15,38 +15,58 @@
   box-shadow: var(--card-shadow);
   position: relative;
   overflow: hidden;
-}
 
-.feature-card:hover {
-  background: var(--card-bg-hover);
-  border-color: var(--glass-border-hover);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-gold);
-}
+  &:hover {
+    background: var(--card-bg-hover);
+    border-color: var(--glass-border-hover);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-gold);
+  }
 
-.feature-card:active {
-  transform: translateY(-2px);
-}
+  &:active {
+    transform: translateY(-2px);
+  }
 
-/* Gold gradient border for cards */
-.feature-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, 
-    transparent, 
-    var(--ifm-color-primary), 
-    transparent
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
+  /* Gold gradient border for cards */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent,
+      var(--ifm-color-primary),
+      transparent
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
 
-.feature-card:hover::before {
-  opacity: 1;
+  &:hover::before {
+    opacity: 1;
+  }
+
+  /* Card Icon */
+  & .card-icon {
+    background: var(--icon-bg);
+    transition: all 0.2s ease;
+  }
+
+  &:hover .card-icon {
+    transform: scale(1.05);
+    background: var(--icon-bg-hover);
+  }
+
+  /* Card Title */
+  & .card-title {
+    transition: color 0.2s ease;
+  }
+
+  &:hover .card-title {
+    color: var(--gold-text);
+  }
 }
 
 /* Dark Mode Cards */
@@ -75,43 +95,34 @@
   box-shadow: 0 8px 24px rgba(200, 148, 70, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* Card Featured Accent */
+/* Card Featured Accent - CSS Nesting */
 .card-featured {
   border-top: 2px solid var(--ifm-color-primary);
+
+  &:hover {
+    border-top-color: var(--ifm-color-primary-light);
+  }
 }
 
-.card-featured:hover {
-  border-top-color: var(--ifm-color-primary-light);
-}
-
-/* Card Elevated Variant */
+/* Card Elevated Variant - CSS Nesting */
 .card-elevated {
   box-shadow: var(--shadow-md);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
 }
 
-.card-elevated:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
-}
-
-/* Card Icon Hover */
+/* Card Icon Hover - standalone */
 .card-icon {
   transition: all 0.2s ease;
 }
 
-.feature-card:hover .card-icon {
-  transform: scale(1.05);
-  background: var(--icon-bg-hover);
-}
-
-/* Card Title Hover */
+/* Card Title Hover - standalone */
 .card-title {
   transition: color 0.2s ease;
-}
-
-.feature-card:hover .card-title {
-  color: var(--gold-text);
 }
 
 /* === CARD CONTENT === */

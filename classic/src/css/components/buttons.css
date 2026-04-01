@@ -1,0 +1,78 @@
+/**
+ * NXGEN Button Styles
+ * 
+ * Premium hover states and button variants.
+ * Uses modern CSS nesting (Chrome 120+, Firefox 117+, Safari 17.2+)
+ */
+
+/* === BUTTON BASE === */
+/* Button Base with CSS Nesting */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ifm-color-primary);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+/* === BUTTON VARIANTS === */
+
+/* Button Primary with CSS Nesting */
+.btn-primary {
+  &:hover {
+    box-shadow: var(--shadow-gold-sm);
+  }
+}
+
+/* Button Secondary with CSS Nesting */
+.btn-secondary {
+  &:hover {
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+/* Button Ghost with CSS Nesting */
+.btn-ghost {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold-bg);
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Button Destructive with CSS Nesting */
+.btn-destructive {
+  &:hover {
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  }
+}
