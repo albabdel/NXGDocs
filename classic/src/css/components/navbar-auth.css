@@ -1,0 +1,284 @@
+/**
+ * NXGEN Navbar Authentication Styles
+ * 
+ * Styles for login button and profile dropdown in navbar.
+ * Uses existing CSS tokens (gold-text, glass-bg) for consistency.
+ */
+
+/* === AUTH SECTION === */
+.navbar-auth {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: 1rem;
+}
+
+.navbar-auth-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.navbar-auth-loading-spinner {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--ifm-color-emphasis-200);
+  border-top-color: var(--gold-text);
+  border-radius: 50%;
+  animation: navbar-auth-spin 0.8s linear infinite;
+}
+
+@keyframes navbar-auth-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* === LOGIN BUTTON (Navbar Variant) === */
+.navbar-login-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(135deg, #E8B058 0%, #C89446 100%);
+  color: #000;
+  box-shadow: 0 4px 12px rgba(232, 176, 88, 0.25);
+}
+
+.navbar-login-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(232, 176, 88, 0.35);
+}
+
+.navbar-login-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(232, 176, 88, 0.2);
+}
+
+.navbar-login-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.navbar-login-btn svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* === PROFILE DROPDOWN === */
+.navbar-profile {
+  position: relative;
+}
+
+.navbar-profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+[data-theme='light'] .navbar-profile-trigger:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='dark'] .navbar-profile-trigger:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.navbar-profile-trigger:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.navbar-profile-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-profile-initials {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, rgba(232, 176, 88, 0.2) 0%, rgba(200, 148, 70, 0.1) 100%);
+  border: 2px solid rgba(232, 176, 88, 0.25);
+  color: #E8B058;
+}
+
+.navbar-profile-name {
+  max-width: 7.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ifm-color-content);
+}
+
+.navbar-profile-chevron {
+  width: 1rem;
+  height: 1rem;
+  color: var(--ifm-color-content-secondary);
+  transition: transform 0.2s ease;
+}
+
+.navbar-profile-trigger[aria-expanded="true"] .navbar-profile-chevron {
+  transform: rotate(180deg);
+}
+
+/* === DROPDOWN MENU === */
+.navbar-profile-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  width: 14rem;
+  border-radius: 0.75rem;
+  padding: 0.25rem 0;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  background-color: var(--ifm-background-color);
+  z-index: 100;
+}
+
+.navbar-profile-header {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.navbar-profile-header-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ifm-color-content);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navbar-profile-header-email {
+  font-size: 0.75rem;
+  color: var(--ifm-color-content-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navbar-profile-menu {
+  padding: 0.25rem 0;
+}
+
+.navbar-profile-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  color: var(--ifm-color-content);
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+}
+
+[data-theme='light'] .navbar-profile-menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='dark'] .navbar-profile-menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.navbar-profile-menu-item svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--ifm-color-content-secondary);
+  flex-shrink: 0;
+}
+
+.navbar-profile-menu-item--logout {
+  color: #ef4444;
+}
+
+.navbar-profile-menu-item--logout svg {
+  color: #ef4444;
+}
+
+[data-theme='light'] .navbar-profile-menu-item--logout:hover {
+  background-color: rgba(239, 68, 68, 0.05);
+}
+
+[data-theme='dark'] .navbar-profile-menu-item--logout:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.navbar-profile-divider {
+  height: 1px;
+  background-color: var(--ifm-color-emphasis-200);
+  margin: 0.25rem 0;
+}
+
+/* === MOBILE RESPONSIVE === */
+@media (max-width: 996px) {
+  .navbar-auth {
+    margin-left: 0.5rem;
+  }
+
+  .navbar-profile-name {
+    display: none;
+  }
+
+  .navbar-profile-dropdown {
+    width: 12rem;
+    right: -0.5rem;
+  }
+}
+
+/* === MOBILE SIDEBAR (hamburger menu) === */
+.navbar-sidebar .navbar-auth {
+  padding: 1rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  margin-top: 0.5rem;
+  margin-left: 0;
+}
+
+.navbar-sidebar .navbar-login-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.navbar-sidebar .navbar-profile-trigger {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+}
+
+.navbar-sidebar .navbar-profile-dropdown {
+  position: static;
+  width: 100%;
+  margin-top: 0.5rem;
+  box-shadow: none;
+  border: 1px solid var(--ifm-color-emphasis-200);
+}
