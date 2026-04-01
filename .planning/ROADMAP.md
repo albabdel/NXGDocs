@@ -118,7 +118,12 @@ Plans:
   3. Search queries tracked with product context
   4. Per-product analytics dashboards available in PostHog
   5. New product can be added to analytics in under 1 day
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 40-01-PLAN.md — Product context integration (PostHog SDK + group() call)
+- [ ] 40-02-PLAN.md — Article & search tracking with product context
+- [ ] 40-03-PLAN.md — PostHog dashboard setup and documentation
 
 ---
 
@@ -142,7 +147,7 @@ Plans:
 | 37. Multi-Build Pipeline | v5.0 | 0/1 | Planned | - |
 | 38. Product Configuration & Branding | v5.0 | 0/TBD | Not started | - |
 | 39. Cloudflare Multi-Project Deployment | v5.0 | 0/TBD | Not started | - |
-| 40. PostHog Analytics | v5.0 | 0/TBD | Not started | - |
+| 40. PostHog Analytics | v5.0 | 0/3 | Planned | - |
 
 ---
 
