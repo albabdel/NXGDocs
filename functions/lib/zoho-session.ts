@@ -20,6 +20,7 @@ export interface ZohoSession {
   contactId: string;
   accountId: string | null;
   displayName: string;
+  productAccess: string[]; // Products user has access to (e.g., 'gcxone', 'gcsurge')
   iat: number; // Issued at (Unix seconds)
   exp: number; // Expiration (Unix seconds)
 }
@@ -97,18 +98,22 @@ export async function hmacVerify(secret: string, data: string, signature: string
  * Create a signed session cookie value.
  * Format: base64url(payload).signature
  * Where payload is JSON of ZohoSession, signature is HMAC-SHA256 of payload.
+ *
+ * @param productAccess - Array of products user has access to. Defaults to ['gcxone'] for backwards compatibility.
  */
 export async function createSessionCookie(
   contactId: string,
   accountId: string | null,
   displayName: string,
   secret: string,
+  productAccess: string[] = ['gcxone'],
 ): Promise<string> {
   const now = Math.floor(Date.now() / 1000);
   const session: ZohoSession = {
     contactId,
     accountId,
     displayName,
+    productAccess,
     iat: now,
     exp: now + SESSION_DURATION_SECONDS,
   };
