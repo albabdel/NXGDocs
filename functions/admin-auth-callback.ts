@@ -92,6 +92,8 @@ export async function onRequest(context: { request: Request; env: Env }) {
       email: profile.email,
       name: profile.name || profile.email.split('@')[0],
       orgId: profile.OrganizationId,
+      // Admins have access to all products for administrative purposes
+      productAccess: ['gcxone', 'gcsurge'],
     };
 
     const { cookieHeader } = await createAdminSession(request, env, user);
