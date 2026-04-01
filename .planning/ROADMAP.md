@@ -8,22 +8,106 @@
 - v2.0 Admin Command Center - Phases 16-23 (shipped 2026-03-17)
 - v3.0 Design System Polish - Phases 24-28 (shipped 2026-04-01)
 - v4.0 Updates Hub - Phase 29 (shipped 2026-04-01)
+- v5.0 Multi-Product Architecture - Phases 35-40 (current)
 
-## Current Milestone: v4.0 Updates Hub ✓ COMPLETE
+## Current Milestone: v5.0 Multi-Product Architecture
 
-**See detailed roadmap:** `.planning/ROADMAP-updates-hub.md`
+**Goal:** Transform single-product documentation into multi-product architecture supporting GCXONE and future products (GC Surge). Each product has isolated content, separate domain deployment, and product-scoped analytics.
 
-**Goal:** Build a unified Updates Hub that consolidates all platform updates (announcements, releases, bug fixes, roadmap items) into a single, filterable, searchable interface:
-- ✓ Single `update` Sanity schema with type enum
-- ✓ Tab-filtered hub page at `/updates`
-- ✓ Type-specific card layouts and detail pages
-- ✓ Sanity Studio field groups for clean editing
-- ✓ Test data seeded
+**Key Features:**
+- Auth0 authentication with product_access claims
+- Sanity product field for content ownership
+- Multi-build pipeline with separate deployments
+- Product-specific branding and navigation
+- Cloudflare Pages multi-project deployment
+- PostHog analytics with product context
 
 **Phases:**
-| Phase | Name | Status |
-|-------|------|--------|
-| 24 | CSS Architecture | Complete    | 2026-03-31 | 25 | 2/2 | Complete    | 2026-04-01 | 26 | 2/2 | Complete    | 2026-04-01 | 27 | UI Polish | Complete    | 2026-04-01 | 28 | Modern CSS | Complete    | 2026-04-01 | Phase | Milestone | Plans Complete | Status | Completed |
+- [ ] **Phase 35: Auth Foundation & Product Access** - Auth0 with product_access claims, session management, access validation
+- [ ] **Phase 36: Content Infrastructure** - Sanity product field, GROQ filtering, content backfill
+- [ ] **Phase 37: Multi-Build Pipeline** - Build orchestration for separate product deployments
+- [ ] **Phase 38: Product Configuration & Branding** - Product-specific theming and navigation
+- [ ] **Phase 39: Cloudflare Multi-Project Deployment** - Separate domains, product-scoped webhooks
+- [ ] **Phase 40: PostHog Analytics** - Product-scoped events and dashboards
+
+---
+
+## Phase Details
+
+### Phase 35: Auth Foundation & Product Access
+**Goal**: Authentication includes product_access claims enabling multi-product content filtering and access control
+**Depends on**: Phase 29 (Updates Hub complete)
+**Requirements**: AUTH-01, AUTH-02, AUTH-03, AUTH-04, AUTH-05, MPROD-01, MPROD-02
+**Success Criteria** (what must be TRUE):
+  1. User authenticates via Auth0 and receives JWT with product_access array claim
+  2. User session includes productAccess array for runtime visibility checks
+  3. Users only see content for products they are entitled to access
+  4. Cloudflare Functions validate product access before serving protected content
+  5. PRODUCT environment variable enables multi-product system configuration
+**Plans**: TBD
+
+### Phase 36: Content Infrastructure - Sanity Product Field
+**Goal**: All content is tagged with product ownership and queryable by product
+**Depends on**: Phase 35
+**Requirements**: CONT-01, CONT-02, CONT-03, CONT-04, CONT-05
+**Success Criteria** (what must be TRUE):
+  1. Every Sanity document has required product field (enum: gcxone, gcsurge, shared)
+  2. Editor can assign content to one or multiple products in Sanity Studio
+  3. All GROQ queries filter content by product at build time
+  4. Existing GCXONE content is backfilled with product=gcxone (no content lost)
+  5. Shared content appears in multiple product builds without duplication
+**Plans**: TBD
+
+### Phase 37: Multi-Build Pipeline
+**Goal**: Build pipeline produces separate deployments for each product
+**Depends on**: Phase 36
+**Requirements**: MPROD-04
+**Success Criteria** (what must be TRUE):
+  1. `build-multi-product.js` script orchestrates builds for each product
+  2. Each build run produces separate output directory per product
+  3. Product-scoped JSON files contain only that product's content
+  4. Build artifacts are isolated with no cross-product content leakage
+**Plans**: TBD
+
+### Phase 38: Product Configuration & Branding
+**Goal**: Each product has distinct branding, title, and navigation structure
+**Depends on**: Phase 37
+**Requirements**: DOM-03, DOM-04
+**Success Criteria** (what must be TRUE):
+  1. `product.config.ts` defines product-specific values (title, tagline, theme)
+  2. Docusaurus config reads from product configuration file
+  3. Each product has its own navigation menu and sidebar structure
+  4. Theme colors and branding elements differ by product
+**Plans**: TBD
+
+### Phase 39: Cloudflare Multi-Project Deployment
+**Goal**: Each product deploys to its own domain with isolated rebuilds
+**Depends on**: Phase 38
+**Requirements**: MPROD-03, DOM-01, DOM-02, DOM-05
+**Success Criteria** (what must be TRUE):
+  1. docs.gcxone.com serves GCXONE content only
+  2. docs.gcsurge.com serves GC Surge content only
+  3. Sanity webhook triggers rebuild only for affected product (scoped by document product field)
+  4. Products deploy as separate Cloudflare Pages projects
+**Plans**: TBD
+
+### Phase 40: PostHog Analytics
+**Goal**: Product-scoped analytics enable per-product insights and dashboards
+**Depends on**: Phase 39
+**Requirements**: ANLT-01, ANLT-02, ANLT-03, ANLT-04, MPROD-05
+**Success Criteria** (what must be TRUE):
+  1. All PostHog events include product context property
+  2. Article views tracked with product identifier
+  3. Search queries tracked with product context
+  4. Per-product analytics dashboards available in PostHog
+  5. New product can be added to analytics in under 1 day
+**Plans**: TBD
+
+---
+
+## Progress
+
+| Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 1. Cleanup | v1.0 | 8/8 | Complete | 2026-03-07 |
 | 2. CMS Setup | v1.0 | 3/3 | Complete | 2026-03-07 |
@@ -36,19 +120,19 @@
 | 9. Cleanup & URL Continuity | v1.1 | 3/3 | Complete | 2026-03-13 |
 | 10. Deep Cleanup | v1.1 | 1/1 | Complete | 2026-03-16 |
 | 29. Updates Hub | v4.0 | 3/3 | Complete | 2026-04-01 |
-| 11. Confluence API Setup | v1.2 | 0/3 | In progress | - |
-| 12. Content Sync Pipeline | v1.2 | 0/3 | Pending | - |
-| 13. Bulk Migration | v1.2 | 0/2 | Pending | - |
-| 14. Webhook Integration | v1.2 | 0/2 | Pending | - |
-| 15. Validation & Monitoring | v1.2 | 0/2 | Pending | - |
+| 35. Auth Foundation & Product Access | v5.0 | 0/TBD | Not started | - |
+| 36. Content Infrastructure | v5.0 | 0/TBD | Not started | - |
+| 37. Multi-Build Pipeline | v5.0 | 0/TBD | Not started | - |
+| 38. Product Configuration & Branding | v5.0 | 0/TBD | Not started | - |
+| 39. Cloudflare Multi-Project Deployment | v5.0 | 0/TBD | Not started | - |
+| 40. PostHog Analytics | v5.0 | 0/TBD | Not started | - |
 
 ---
 
-### v1.2 Confluence Integration (Planned)
+<details>
+<summary>📋 v1.2 Confluence Integration (On Hold) - Phases 11-15</summary>
 
 **Milestone Goal:** Mirror all Sanity content to Confluence automatically — editors publish in Sanity, content appears in both the public docs site and the internal Confluence knowledge base.
-
-**Phase Numbering:** v1.2 starts at 11 (continuing from v1.1 which ended at 10).
 
 ### Phase 11: Confluence API Setup
 **Goal**: Confluence API is authenticated and tested, Space structure is defined, and a proof-of-concept page can be created programmatically
@@ -61,11 +145,6 @@
   4. A sample Sanity document can be fetched and transformed to Confluence Storage Format
 **Plans**: 3 plans
 
-Plans:
-- [ ] 11-01-PLAN.md — Validate Confluence API credentials, install atlassian-api client, create test page
-- [ ] 11-02-PLAN.md — Create Confluence Space structure (NXGEN Documentation), define page hierarchy
-- [ ] 11-03-PLAN.md — Build Portable Text to Confluence Storage Format transformer (PoC)
-
 ### Phase 12: Content Sync Pipeline
 **Goal**: Core sync infrastructure exists — content type mappers, image handlers, and the sync engine
 **Depends on**: Phase 11
@@ -76,11 +155,6 @@ Plans:
   3. Sync engine can process a batch of documents and create/update Confluence pages
   4. Sync metadata (page IDs, sync timestamps) is tracked for incremental updates
 **Plans**: 3 plans
-
-Plans:
-- [ ] 12-01-PLAN.md — Build content type mappers (doc, article, release, roadmapItem)
-- [ ] 12-02-PLAN.md — Implement image sync (Cloudinary download → Confluence attachment upload)
-- [ ] 12-03-PLAN.md — Create sync engine with batch processing and metadata tracking
 
 ### Phase 13: Bulk Migration
 **Goal**: All existing Sanity content is migrated to Confluence in one execution
@@ -93,10 +167,6 @@ Plans:
   4. Migration log shows success/failure counts with error details for any failures
 **Plans**: 2 plans
 
-Plans:
-- [ ] 13-01-PLAN.md — Build bulk migration script with progress tracking
-- [ ] 13-02-PLAN.md — Execute migration and verify all content synced
-
 ### Phase 14: Webhook Integration
 **Goal**: Sanity webhook triggers automatic Confluence sync on publish
 **Depends on**: Phase 13
@@ -107,10 +177,6 @@ Plans:
   3. Publishing a document in Sanity Studio updates Confluence within 2 minutes
   4. Deleted documents in Sanity are archived (not deleted) in Confluence
 **Plans**: 2 plans
-
-Plans:
-- [ ] 14-01-PLAN.md — Create Sanity webhook and Cloudflare Pages Function handler
-- [ ] 14-02-PLAN.md — Implement incremental sync logic with error handling
 
 ### Phase 15: Validation & Monitoring
 **Goal**: Sync is reliable, monitored, and any issues are surfaced
@@ -123,6 +189,4 @@ Plans:
   4. All content in Confluence matches Sanity (validated by spot-check)
 **Plans**: 2 plans
 
-Plans:
-- [ ] 15-01-PLAN.md — Add monitoring, logging, and retry logic
-- [ ] 15-02-PLAN.md — Build admin sync UI and validation tools
+</details>

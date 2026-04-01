@@ -58,15 +58,58 @@ Requirements for the Updates Hub milestone.
 ### Updates Hub Schema
 
 - [x] **UHUB-01**: Create Sanity `update` schema with type enum and conditional fields
-- [ ] **UHUB-02**: Build `/updates` hub page with tabs and filtering
-- [ ] **UHUB-03**: Create type-specific card components
-- [ ] **UHUB-04**: Build detail page `/updates/[slug]` with type-specific layouts
-- [ ] **UHUB-05**: Create GROQ queries for efficient fetching
+- [x] **UHUB-02**: Build `/updates` hub page with tabs and filtering
+- [x] **UHUB-03**: Create type-specific card components
+- [x] **UHUB-04**: Build detail page `/updates/[slug]` with type-specific layouts
+- [x] **UHUB-05**: Create GROQ queries for efficient fetching
 - [ ] **UHUB-06**: Migrate existing release/roadmap data to update schema (optional)
+
+## v5.0 Requirements
+
+Requirements for the Multi-Product Architecture milestone.
+
+### Multi-Product Infrastructure
+
+- [ ] **MPROD-01**: System supports multiple products via PRODUCT environment variable
+- [ ] **MPROD-02**: Each product has isolated content with no cross-product visibility
+- [ ] **MPROD-03**: Products deploy to separate domains (docs.gcxone.com, docs.gcsurge.com)
+- [ ] **MPROD-04**: Multi-build pipeline produces separate deployments per product
+- [ ] **MPROD-05**: New product can be added in < 1 day (no code changes)
+
+### Content Management
+
+- [ ] **CONT-01**: All Sanity documents have required product field (enum: gcxone, gcsurge, shared)
+- [ ] **CONT-02**: Editors can assign content to one or multiple products
+- [ ] **CONT-03**: GROQ queries filter content by product at build time
+- [ ] **CONT-04**: Existing GCXONE content is backfilled with product=gcxone
+- [ ] **CONT-05**: Shared content appears in multiple products without duplication
+
+### Authentication & Access
+
+- [ ] **AUTH-01**: Auth0 authentication with product_access custom claim
+- [ ] **AUTH-02**: Users only access content for products they're entitled to
+- [ ] **AUTH-03**: Session includes productAccess array for runtime checks
+- [ ] **AUTH-04**: Content visibility tiers supported (public, authenticated, role-based)
+- [ ] **AUTH-05**: Cloudflare Functions validate product access before serving protected content
+
+### Analytics
+
+- [ ] **ANLT-01**: PostHog tracks events with product context
+- [ ] **ANLT-02**: Article views include product identifier
+- [ ] **ANLT-03**: Search queries tracked with product context
+- [ ] **ANLT-04**: Per-product analytics dashboards available
+
+### Domain & Branding
+
+- [ ] **DOM-01**: docs.gcxone.com serves GCXONE content only
+- [ ] **DOM-02**: docs.gcsurge.com serves GC Surge content only
+- [ ] **DOM-03**: Each product has distinct branding (title, tagline, theme)
+- [ ] **DOM-04**: Product-specific navigation and sidebar structure
+- [ ] **DOM-05**: Webhook triggers rebuild only for affected product
 
 ## Future Requirements
 
-Deferred to v1.2 or later.
+Deferred to v1.2, v5.1 or later.
 
 ### Releases
 
@@ -78,6 +121,13 @@ Deferred to v1.2 or later.
 
 - **ROAD-F01**: Year/quarter filter on /roadmap (useful once 2+ years of releases exist)
 - **ROAD-F02**: Kanban/board view (customer audience needs to read, not manage)
+
+### Multi-Product (v5.1+)
+
+- **MPROD-F01**: Context-aware documentation based on user setup
+- **MPROD-F02**: Recommended articles engine
+- **MPROD-F03**: A/B testing of documentation experiences
+- **MPROD-F04**: Full internal admin dashboard for multi-product insights
 
 ## Out of Scope
 
@@ -100,39 +150,64 @@ Deferred to v1.2 or later.
 | SCHEMA-02 | Phase 6 | Complete |
 | SCHEMA-03 | Phase 6 | Complete |
 | SCHEMA-04 | Phase 6 | Complete |
-| MOCK-01 | Phase 6 | Pending |
-| MOCK-02 | Phase 6 | Pending |
-| REL-01 | Phase 7 | Pending |
-| REL-02 | Phase 7 | Pending |
-| REL-03 | Phase 7 | Pending |
-| REL-04 | Phase 7 | Pending |
-| REL-05 | Phase 7 | Pending |
-| REL-06 | Phase 7 | Pending |
-| REL-07 | Phase 7 | Pending |
-| REL-08 | Phase 7 | Pending |
-| REL-09 | Phase 7 | Pending |
-| ROAD-01 | Phase 8 | Pending |
-| ROAD-02 | Phase 8 | Pending |
-| ROAD-03 | Phase 8 | Pending |
-| ROAD-04 | Phase 8 | Pending |
-| ROAD-05 | Phase 8 | Pending |
-| ROAD-06 | Phase 8 | Pending |
-| ROAD-07 | Phase 8 | Pending |
-| HERO-01 | Phase 8 | Pending |
-| ARCH-01 | Phase 9 | Pending |
-| ARCH-02 | Phase 9 | Pending |
-| ARCH-03 | Phase 9 | Pending |
+| MOCK-01 | Phase 6 | Complete |
+| MOCK-02 | Phase 6 | Complete |
+| REL-01 | Phase 7 | Complete |
+| REL-02 | Phase 7 | Complete |
+| REL-03 | Phase 7 | Complete |
+| REL-04 | Phase 7 | Complete |
+| REL-05 | Phase 7 | Complete |
+| REL-06 | Phase 7 | Complete |
+| REL-07 | Phase 7 | Complete |
+| REL-08 | Phase 7 | Complete |
+| REL-09 | Phase 7 | Complete |
+| ROAD-01 | Phase 8 | Complete |
+| ROAD-02 | Phase 8 | Complete |
+| ROAD-03 | Phase 8 | Complete |
+| ROAD-04 | Phase 8 | Complete |
+| ROAD-05 | Phase 8 | Complete |
+| ROAD-06 | Phase 8 | Complete |
+| ROAD-07 | Phase 8 | Complete |
+| HERO-01 | Phase 8 | Complete |
+| ARCH-01 | Phase 9 | Complete |
+| ARCH-02 | Phase 9 | Complete |
+| ARCH-03 | Phase 9 | Complete |
 | UHUB-01 | Phase 29 | Complete |
-| UHUB-02 | Phase 29 | Pending |
-| UHUB-03 | Phase 29 | Pending |
-| UHUB-04 | Phase 29 | Pending |
-| UHUB-05 | Phase 29 | Pending |
-| UHUB-06 | Phase 29 | Pending |
+| UHUB-02 | Phase 29 | Complete |
+| UHUB-03 | Phase 29 | Complete |
+| UHUB-04 | Phase 29 | Complete |
+| UHUB-05 | Phase 29 | Complete |
+| UHUB-06 | Phase 29 | Deferred |
+| MPROD-01 | Phase 35 | Pending |
+| MPROD-02 | Phase 35 | Pending |
+| MPROD-03 | Phase 39 | Pending |
+| MPROD-04 | Phase 37 | Pending |
+| MPROD-05 | Phase 40 | Pending |
+| CONT-01 | Phase 36 | Pending |
+| CONT-02 | Phase 36 | Pending |
+| CONT-03 | Phase 36 | Pending |
+| CONT-04 | Phase 36 | Pending |
+| CONT-05 | Phase 36 | Pending |
+| AUTH-01 | Phase 35 | Pending |
+| AUTH-02 | Phase 35 | Pending |
+| AUTH-03 | Phase 35 | Pending |
+| AUTH-04 | Phase 35 | Pending |
+| AUTH-05 | Phase 35 | Pending |
+| ANLT-01 | Phase 40 | Pending |
+| ANLT-02 | Phase 40 | Pending |
+| ANLT-03 | Phase 40 | Pending |
+| ANLT-04 | Phase 40 | Pending |
+| DOM-01 | Phase 39 | Pending |
+| DOM-02 | Phase 39 | Pending |
+| DOM-03 | Phase 38 | Pending |
+| DOM-04 | Phase 38 | Pending |
+| DOM-05 | Phase 39 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 26 total
 - v3.1 requirements: 6 total
-- Mapped to phases: 32
+- v5.0 requirements: 24 total
+- Mapped to phases: 56
 - Unmapped: 0
 
 ---
