@@ -5,12 +5,13 @@
  */
 
 /* === FEATURE CARDS === */
+/* Feature Card - Premium Hover */
 .feature-card {
   background: var(--card-bg);
   border: var(--card-border);
   border-radius: var(--ifm-card-border-radius);
   padding: 1.5rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: var(--card-shadow);
   position: relative;
   overflow: hidden;
@@ -18,9 +19,13 @@
 
 .feature-card:hover {
   background: var(--card-bg-hover);
-  border: var(--card-border-hover);
+  border-color: var(--glass-border-hover);
   transform: translateY(-4px);
-  box-shadow: var(--card-shadow-hover);
+  box-shadow: var(--shadow-gold);
+}
+
+.feature-card:active {
+  transform: translateY(-2px);
 }
 
 /* Gold gradient border for cards */
@@ -68,6 +73,45 @@
   background: #FAFAFA;
   border-color: var(--nxgen-gold-accessible);
   box-shadow: 0 8px 24px rgba(200, 148, 70, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Card Featured Accent */
+.card-featured {
+  border-top: 2px solid var(--ifm-color-primary);
+}
+
+.card-featured:hover {
+  border-top-color: var(--ifm-color-primary-light);
+}
+
+/* Card Elevated Variant */
+.card-elevated {
+  box-shadow: var(--shadow-md);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-elevated:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+/* Card Icon Hover */
+.card-icon {
+  transition: all 0.2s ease;
+}
+
+.feature-card:hover .card-icon {
+  transform: scale(1.05);
+  background: var(--icon-bg-hover);
+}
+
+/* Card Title Hover */
+.card-title {
+  transition: color 0.2s ease;
+}
+
+.feature-card:hover .card-title {
+  color: var(--gold-text);
 }
 
 /* === CARD CONTENT === */
