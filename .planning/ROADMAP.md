@@ -61,7 +61,11 @@ Plans:
   3. All GROQ queries filter content by product at build time
   4. Existing GCXONE content is backfilled with product=gcxone (no content lost)
   5. Shared content appears in multiple product builds without duplication
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 36-01-PLAN.md — Add product field to all schemas + migration script
+- [ ] 36-02-PLAN.md — Add product filtering to GROQ queries
 
 ### Phase 37: Multi-Build Pipeline
 **Goal**: Build pipeline produces separate deployments for each product
@@ -126,7 +130,7 @@ Plans:
 | 10. Deep Cleanup | v1.1 | 1/1 | Complete | 2026-03-16 |
 | 29. Updates Hub | v4.0 | 3/3 | Complete | 2026-04-01 |
 | 35. Auth Foundation & Product Access | v5.0 | 0/3 | Planned | - |
-| 36. Content Infrastructure | v5.0 | 0/TBD | Not started | - |
+| 36. Content Infrastructure | v5.0 | 0/2 | Planned | - |
 | 37. Multi-Build Pipeline | v5.0 | 0/TBD | Not started | - |
 | 38. Product Configuration & Branding | v5.0 | 0/TBD | Not started | - |
 | 39. Cloudflare Multi-Project Deployment | v5.0 | 0/TBD | Not started | - |
