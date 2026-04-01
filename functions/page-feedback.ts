@@ -2,8 +2,13 @@
 // Cloudflare Pages Function — Web Standards API only (no Node.js require, no nodemailer)
 // Docs: https://developers.cloudflare.com/pages/functions/api-reference/
 
+import { requireProductAccess, getProductFromRequest } from './lib/require-product-access';
+import type { UserSession } from './lib/require-product-access';
+
 interface Env {
   ZEPTO_API_KEY: string;
+  ZOHO_SESSION_SECRET: string;
+  PRODUCT?: string;
 }
 
 interface PageFeedbackPayload {
@@ -143,6 +148,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   };
 
   try {
+    // Validate product access before processing feedback
+    const session = await requireProductAccess(context.request, context.env);
+    const product = getProductFromRequest(context.request, context.env);
+
     const payload = await context.request.json() as PageFeedbackPayload;
 
     if (!payload.type || payload.type !== 'page_feedback') {
