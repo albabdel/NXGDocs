@@ -9,6 +9,29 @@
    LIGHT MODE TOKENS
    ========================================================================== */
 :root {
+  /* Enable color-scheme for light-dark() function */
+  color-scheme: light dark;
+
+  /* === GLASSMORPHISM TOKENS - Using light-dark() === */
+  --glass-bg: light-dark(rgba(255,255,255,0.72), rgba(255,255,255,0.025));
+  --glass-bg-hover: light-dark(rgba(255,255,255,0.85), rgba(255,255,255,0.05));
+  --glass-border: light-dark(rgba(232,176,88,0.12), rgba(255,255,255,0.07));
+  --glass-border-hover: light-dark(rgba(232,176,88,0.2), rgba(255,255,255,0.12));
+
+  /* === ICON TOKENS - Using light-dark() === */
+  --icon-bg: light-dark(rgba(232,176,88,0.10), rgba(232,176,88,0.12));
+  --icon-bg-hover: light-dark(rgba(232,176,88,0.15), rgba(232,176,88,0.18));
+
+  /* === BORDER TOKENS - Using light-dark() === */
+  --border-subtle: light-dark(rgba(0,0,0,0.1), rgba(255,255,255,0.06));
+  --border-default: light-dark(#E5E7EB, rgba(255,255,255,0.12));
+
+  /* === SHADOW TOKENS - Using light-dark() === */
+  --shadow-sm: light-dark(
+    0 1px 2px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.10),
+    0 1px 2px rgba(0,0,0,0.30), 0 1px 3px rgba(0,0,0,0.40)
+  );
+
   /* === NXGEN PRIMARY BRAND COLORS (Gold) === */
   --ifm-color-primary: #C89446;
   --nxgen-gold: #C89446;
