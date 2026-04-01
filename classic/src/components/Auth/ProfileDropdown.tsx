@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { User, Settings, LogOut, ChevronDown } from 'lucide-react';
+import { User, Settings, LogOut, ChevronDown, Bookmark, Clock } from 'lucide-react';
 import { clsx } from 'clsx';
 
 interface ProfileDropdownProps {
@@ -165,7 +165,7 @@ export default function ProfileDropdown({ className }: ProfileDropdownProps) {
               <span>Profile</span>
             </a>
             <a
-              href="/settings"
+              href="/profile/settings"
               onClick={() => setIsOpen(false)}
               className={clsx(
                 'flex items-center gap-3 px-4 py-2.5 text-sm',
@@ -176,6 +176,32 @@ export default function ProfileDropdown({ className }: ProfileDropdownProps) {
             >
               <Settings className="w-4 h-4" style={{ color: 'var(--ifm-color-content-secondary)' }} />
               <span>Settings</span>
+            </a>
+            <a
+              href="/profile/bookmarks"
+              onClick={() => setIsOpen(false)}
+              className={clsx(
+                'flex items-center gap-3 px-4 py-2.5 text-sm',
+                'transition-colors hover:bg-black/5 dark:hover:bg-white/5'
+              )}
+              style={{ color: 'var(--ifm-color-content)' }}
+              role="menuitem"
+            >
+              <Bookmark className="w-4 h-4" style={{ color: 'var(--ifm-color-content-secondary)' }} />
+              <span>Bookmarks</span>
+            </a>
+            <a
+              href="/profile/history"
+              onClick={() => setIsOpen(false)}
+              className={clsx(
+                'flex items-center gap-3 px-4 py-2.5 text-sm',
+                'transition-colors hover:bg-black/5 dark:hover:bg-white/5'
+              )}
+              style={{ color: 'var(--ifm-color-content)' }}
+              role="menuitem"
+            >
+              <Clock className="w-4 h-4" style={{ color: 'var(--ifm-color-content-secondary)' }} />
+              <span>History</span>
             </a>
           </div>
 
