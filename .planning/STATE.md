@@ -3,17 +3,17 @@ gsd_state_version: 1.0
 milestone: v5.0
 milestone_name: Multi-Product Architecture
 status: executing
-stopped_at: "35-01 complete"
-last_updated: "2026-04-01T17:45:00Z"
-last_activity: "2026-04-01 — Plan 35-01 complete: Session product access foundation"
+stopped_at: "35-03 complete"
+last_updated: "2026-04-01T18:10:00Z"
+last_activity: "2026-04-01 — Plan 35-03 complete: Product access guards and visibility utilities"
 progress:
   total_phases: 6
-  completed_phases: 0
-  total_plans: 6
-  completed_plans: 1
-  percent: 4
-current_phase: 35-auth-foundation
-current_plan: 02
+  completed_phases: 1
+  total_plans: 15
+  completed_plans: 3
+  percent: 20
+  current_phase: 36-content-infrastructure
+  current_plan: 01
 ---
 
 # Project State
@@ -24,15 +24,15 @@ See: .planning/PROJECT.md (updated 2026-03-13)
 See: .planning/ROADMAP.md (v5.0 phases 35-40)
 
 **Core value:** Non-technical editors can open a web UI, write content, and publish it — without a developer as a bottleneck.
-**Current focus:** v5.0 Multi-Product Architecture — ROADMAP CREATED
+**Current focus:** v5.0 Multi-Product Architecture — Phase 35 complete, Phase 36 next
 
 ## Current Position
 
-Phase: 35-auth-foundation — Auth Foundation & Product Access
-Status: EXECUTING - Plan 01 complete
-Last activity: 2026-04-01 — Plan 35-01 complete: Session product access foundation
+Phase: 36-content-infrastructure — Content Infrastructure
+Status: EXECUTING - Phase 35 complete, ready for Phase 36
+Last activity: 2026-04-01 — Plan 35-03 complete: Product access guards and visibility utilities
 
-Progress: [          ] 4% (1 of ~24 plans complete)
+Progress: [==        ] 20% (3 of 15 plans complete)
 
 **Roadmap Summary:** v5.0 transforms single-product docs into multi-product architecture with GCXONE and GC Surge.
 
@@ -69,6 +69,10 @@ Recent decisions affecting current work:
 - [35-01]: Default productAccess to ['gcxone'] for backwards compatibility
 - [35-01]: Admins default to all products ['gcxone', 'gcsurge'] for full access
 - [35-01]: Product detection cascade: X-Product header > URL path > PRODUCT env > 'gcxone'
+- [35-02]: ProductAccessContext provides session state and product entitlements
+- [35-02]: useProductAccess hook for component-level visibility checks
+- [35-03]: Visibility tiers defined: public, authenticated, restricted
+- [35-03]: Product guard pattern enforced at function entry point
 
 ### Pending Todos
 
@@ -85,14 +89,14 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: 35-01 complete
-Status: v5.0 Multi-Product Architecture - Phase 35 in progress
+Stopped at: 35-03 complete
+Status: v5.0 Multi-Product Architecture - Phase 35 complete
 
 **Next Steps:**
-1. Continue with plan 35-02 (Auth0 integration)
-2. User must verify Auth0 tenant configuration
-3. User must decide private vs. public content strategy
-4. User must configure product entitlements source
+1. Continue with Phase 36 (Content Infrastructure)
+2. Add product field to all Sanity schemas
+3. Implement GROQ product filtering
+4. Backfill existing content with product=gcxone
 
 ---
-*STATE.md updated: 2026-04-01T17:45:00Z*
+*STATE.md updated: 2026-04-01T18:10:00Z*

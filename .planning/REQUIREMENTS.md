@@ -89,8 +89,8 @@ Requirements for the Multi-Product Architecture milestone.
 - [ ] **AUTH-01**: Auth0 authentication with product_access custom claim
 - [ ] **AUTH-02**: Users only access content for products they're entitled to
 - [x] **AUTH-03**: Session includes productAccess array for runtime checks
-- [ ] **AUTH-04**: Content visibility tiers supported (public, authenticated, role-based)
-- [ ] **AUTH-05**: Cloudflare Functions validate product access before serving protected content
+- [x] **AUTH-04**: Content visibility tiers supported (public, authenticated, role-based)
+- [x] **AUTH-05**: Cloudflare Functions validate product access before serving protected content
 
 ### Analytics
 
@@ -191,8 +191,8 @@ Deferred to v1.2, v5.1 or later.
 | AUTH-01 | Phase 35 | Pending |
 | AUTH-02 | Phase 35 | Pending |
 | AUTH-03 | Phase 35 | Complete |
-| AUTH-04 | Phase 35 | Pending |
-| AUTH-05 | Phase 35 | Pending |
+| AUTH-04 | Phase 35 | Complete |
+| AUTH-05 | Phase 35 | Complete |
 | ANLT-01 | Phase 40 | Pending |
 | ANLT-02 | Phase 40 | Pending |
 | ANLT-03 | Phase 40 | Pending |
@@ -212,4 +212,4 @@ Deferred to v1.2, v5.1 or later.
 
 ---
 *Requirements defined: 2026-03-13*
-*Last updated: 2026-04-01 — MPROD-01 and AUTH-03 marked complete after 35-01 execution*
+*Last updated: 2026-04-01 — AUTH-04 and AUTH-05 marked complete after 35-03 execution*

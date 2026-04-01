@@ -48,8 +48,8 @@
 
 Plans:
 - [x] 35-01-PLAN.md — Session extension with productAccess + requireProductAccess guard ✓ 2026-04-01
-- [ ] 35-02-PLAN.md — Auth0 product_access claim extraction + React context
-- [ ] 35-03-PLAN.md — Cloudflare Function guards + content visibility utilities
+- [x] 35-02-PLAN.md — Auth0 product_access claim extraction + React context ✓ 2026-04-01
+- [x] 35-03-PLAN.md — Cloudflare Function guards + content visibility utilities ✓ 2026-04-01
 
 ### Phase 36: Content Infrastructure - Sanity Product Field
 **Goal**: All content is tagged with product ownership and queryable by product
@@ -147,7 +147,7 @@ Plans:
 | 9. Cleanup & URL Continuity | v1.1 | 3/3 | Complete | 2026-03-13 |
 | 10. Deep Cleanup | v1.1 | 1/1 | Complete | 2026-03-16 |
 | 29. Updates Hub | v4.0 | 3/3 | Complete | 2026-04-01 |
-| 35. Auth Foundation & Product Access | v5.0 | 1/3 | In Progress | 2026-04-01 (01) |
+| 35. Auth Foundation & Product Access | v5.0 | 3/3 | Complete | 2026-04-01 |
 | 36. Content Infrastructure | v5.0 | 0/2 | Planned | - |
 | 37. Multi-Build Pipeline | v5.0 | 0/1 | Planned | - |
 | 38. Product Configuration & Branding | v5.0 | 0/3 | Planned | - |
