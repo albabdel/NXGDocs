@@ -1,5 +1,20 @@
 name = "gcxone"
 compatibility_date = "2024-01-01"
+
+# Multi-project configuration
+# Each product deploys to its own Cloudflare Pages project:
+#   - gcxone.pages.dev (gcxone product)
+#   - gcsurge.pages.dev (gcsurge product)
+#
+# Deploy commands:
+#   npm run deploy:gcxone  -> deploys to gcxone.pages.dev
+#   npm run deploy:gcsurge -> deploys to gcsurge.pages.dev
+#   npm run deploy:all     -> deploys both products
+#
+# Environment variables set in Cloudflare Pages dashboard:
+#   PRODUCT=gcxone or PRODUCT=gcsurge
+#   SANITY_PROJECT_ID, SANITY_DATASET, SANITY_API_TOKEN
+
 pages_build_output_dir = "classic/build"
 
 [vars]
