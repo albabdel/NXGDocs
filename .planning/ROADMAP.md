@@ -44,7 +44,12 @@
   3. Users only see content for products they are entitled to access
   4. Cloudflare Functions validate product access before serving protected content
   5. PRODUCT environment variable enables multi-product system configuration
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 35-01-PLAN.md — Session extension with productAccess + requireProductAccess guard
+- [ ] 35-02-PLAN.md — Auth0 product_access claim extraction + React context
+- [ ] 35-03-PLAN.md — Cloudflare Function guards + content visibility utilities
 
 ### Phase 36: Content Infrastructure - Sanity Product Field
 **Goal**: All content is tagged with product ownership and queryable by product
@@ -120,7 +125,7 @@
 | 9. Cleanup & URL Continuity | v1.1 | 3/3 | Complete | 2026-03-13 |
 | 10. Deep Cleanup | v1.1 | 1/1 | Complete | 2026-03-16 |
 | 29. Updates Hub | v4.0 | 3/3 | Complete | 2026-04-01 |
-| 35. Auth Foundation & Product Access | v5.0 | 0/TBD | Not started | - |
+| 35. Auth Foundation & Product Access | v5.0 | 0/3 | Planned | - |
 | 36. Content Infrastructure | v5.0 | 0/TBD | Not started | - |
 | 37. Multi-Build Pipeline | v5.0 | 0/TBD | Not started | - |
 | 38. Product Configuration & Branding | v5.0 | 0/TBD | Not started | - |
