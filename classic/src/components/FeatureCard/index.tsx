@@ -2,7 +2,6 @@ import React from 'react';
 import Link from '@docusaurus/Link';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useColorMode } from '@docusaurus/theme-common';
 
 export default function FeatureCard({
     title,
@@ -17,9 +16,6 @@ export default function FeatureCard({
     link: string;
     badge?: string;
 }) {
-    const { colorMode } = useColorMode();
-    const isDark = colorMode === 'dark';
-
     return (
         <motion.div
             whileHover={{ y: -5, scale: 1.02 }}
@@ -30,35 +26,13 @@ export default function FeatureCard({
         >
             <Link
                 to={link}
-                className="block p-6 rounded-xl border no-underline group"
-                style={{
-                    background: isDark
-                        ? 'rgba(255, 255, 255, 0.025)'
-                        : 'rgba(255, 255, 255, 0.72)',
-                    backdropFilter: 'blur(12px) saturate(140%)',
-                    WebkitBackdropFilter: 'blur(12px) saturate(140%)',
-                    borderColor: isDark
-                        ? 'rgba(255, 255, 255, 0.07)'
-                        : 'rgba(232, 176, 88, 0.12)',
-                    transition: 'all 0.25s ease',
-                    /* Top gold shimmer */
-                    boxShadow: isDark
-                        ? 'inset 0 1px 0 rgba(232,176,88,0.08)'
-                        : 'inset 0 1px 0 rgba(232,176,88,0.12), 0 2px 8px rgba(0,0,0,0.04)',
-                }}
+                className="feature-card-glass block p-6 rounded-xl border no-underline group"
             >
                 <div className="flex items-start justify-between mb-4">
                     <motion.div
-                        className="w-12 h-12 flex items-center justify-center rounded-lg flex-shrink-0"
+                        className="card-icon w-12 h-12 flex items-center justify-center rounded-lg flex-shrink-0"
                         style={{
-                            background: isDark
-                                ? 'rgba(232, 176, 88, 0.12)'
-                                : 'rgba(232, 176, 88, 0.1)',
                             color: 'var(--ifm-color-primary)',
-                            boxShadow: isDark
-                                ? 'inset 0 1px 0 rgba(255,255,255,0.05)'
-                                : 'none',
-                            transition: 'all 0.25s ease',
                         }}
                         whileHover={{ rotate: 5, scale: 1.1 }}
                         transition={{ type: 'spring', stiffness: 400 }}
