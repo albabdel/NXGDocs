@@ -1,0 +1,345 @@
+// classic/src/css/components/search-history.css
+// Search history dropdown styles
+//
+// Purpose:
+//   - Style the search history dropdown
+//   - Recent searches list with hover states
+//   - Clear history button
+//   - Remove individual items
+//
+// Reference:
+//   - .planning/research/auth0-upgrade-UX-PATTERNS.md
+
+/* ============================================================================
+   Search History Dropdown
+   ============================================================================ */
+
+.search-history-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+[data-theme='light'] .search-history-dropdown {
+  border-color: rgba(232, 176, 88, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.search-history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.search-history-title {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ifm-color-content-secondary);
+}
+
+.search-history-title-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: #E8B058;
+}
+
+.search-history-clear-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  background: transparent;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-content-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.search-history-clear-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+}
+
+/* List */
+.search-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.search-history-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.625rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
+}
+
+.search-history-item:hover {
+  background: rgba(232, 176, 88, 0.08);
+  border-color: rgba(232, 176, 88, 0.15);
+}
+
+.search-history-item-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: var(--ifm-color-content-secondary);
+  flex-shrink: 0;
+}
+
+.search-history-item:hover .search-history-item-icon {
+  color: #E8B058;
+}
+
+.search-history-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-history-item-query {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ifm-color-content);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-history-item:hover .search-history-item-query {
+  color: #E8B058;
+}
+
+.search-history-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.125rem;
+  font-size: 0.6875rem;
+  color: var(--ifm-color-content-secondary);
+}
+
+.search-history-item-time {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.search-history-item-result {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #22c55e;
+}
+
+.search-history-item-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 0.25rem;
+  opacity: 0;
+  transition: all 0.15s ease;
+  color: var(--ifm-color-content-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.search-history-item:hover .search-history-item-remove {
+  opacity: 1;
+}
+
+.search-history-item-remove:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+/* Empty State */
+.search-history-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.search-history-empty-icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--ifm-color-content-secondary);
+  margin-bottom: 0.5rem;
+  opacity: 0.5;
+}
+
+.search-history-empty-text {
+  font-size: 0.8125rem;
+  color: var(--ifm-color-content-secondary);
+}
+
+/* ============================================================================
+   Search History Widget (for sidebar/profile)
+   ============================================================================ */
+
+.search-history-widget {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='light'] .search-history-widget {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(232, 176, 88, 0.15);
+}
+
+.search-history-widget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.search-history-widget-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ifm-color-content);
+}
+
+.search-history-widget-title-icon {
+  width: 1rem;
+  height: 1rem;
+  color: #E8B058;
+}
+
+.search-history-widget-link {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #E8B058;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.search-history-widget-link:hover {
+  color: #C89446;
+}
+
+.search-history-widget-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.search-history-widget-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.625rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+}
+
+[data-theme='light'] .search-history-widget-item {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.search-history-widget-item:hover {
+  background: rgba(232, 176, 88, 0.08);
+  border-color: rgba(232, 176, 88, 0.15);
+}
+
+.search-history-widget-item-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--ifm-color-content-secondary);
+  flex-shrink: 0;
+}
+
+.search-history-widget-item:hover .search-history-widget-item-icon {
+  color: #E8B058;
+}
+
+.search-history-widget-item-query {
+  flex: 1;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ifm-color-content);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-history-widget-item:hover .search-history-widget-item-query {
+  color: #E8B058;
+}
+
+.search-history-widget-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  text-align: center;
+}
+
+.search-history-widget-empty-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--ifm-color-content-secondary);
+  margin-bottom: 0.5rem;
+  opacity: 0.5;
+}
+
+.search-history-widget-empty-text {
+  font-size: 0.75rem;
+  color: var(--ifm-color-content-secondary);
+}
+
+/* ============================================================================
+   Responsive
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .search-history-dropdown {
+    max-height: 280px;
+  }
+
+  .search-history-item-remove {
+    opacity: 1;
+  }
+}
