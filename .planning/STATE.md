@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v3.1
 milestone_name: Updates Hub
 status: in_progress
-stopped_at: "29-02 Updates Data Pipeline - COMPLETE"
-last_updated: "2026-04-01T13:50:00Z"
-last_activity: "2026-04-01 — Updates Hub: Added GROQ query and JSON generation for updates"
+stopped_at: "29-03 Updates Hub Frontend - COMPLETE"
+last_updated: "2026-04-01T17:00:00Z"
+last_activity: "2026-04-01 — Updates Hub: Created frontend pages with tab navigation and type-specific cards"
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 4
-  completed_plans: 2
-  percent: 50
+  completed_plans: 3
+  percent: 75
 ---
 
 # Project State
@@ -27,10 +27,10 @@ See: .planning/ROADMAP-design-system.md (new milestone roadmap)
 ## Current Position
 
 Phase: 29-updates-hub — Updates Hub
-Status: Plan 02 complete, continuing
-Last activity: 2026-04-01 — Updates Hub: Added GROQ query and JSON generation for updates
+Status: Plan 03 complete, continuing
+Last activity: 2026-04-01 — Updates Hub: Created frontend pages with tab navigation and type-specific cards
 
-Progress: [====      ] 50% (2 of 4 plans complete)
+Progress: [=======   ] 75% (3 of 4 plans complete)
 
 **Note:** v3.1 Updates Hub planned. 4 phases covering update schema, data pipeline, UI components, and integration. Based on ROADMAP-updates-hub.md.
 
@@ -207,6 +207,24 @@ Progress: [====      ] 50% (2 of 4 plans complete)
 
 **Requirements:** UHUB-05
 
+### Plan 03: Updates Hub Frontend (Complete)
+
+**Summary:** Complete Updates Hub frontend with tab navigation, type-specific cards, and detail pages.
+
+**Changes:**
+- Created updates.tsx hub page with 5 tabs (All, Announcements, Releases, Bug Fixes, Roadmap)
+- Created UpdateCard.tsx with 4 type-specific card variants
+- Created [slug].tsx detail page with type-specific layouts
+- Seeded test data (1 announcement, 2 releases, 2 bugfixes, 2 roadmap items)
+
+**Commits:**
+- e5fe307 — feat(29-03): create updates hub page with tab navigation
+- 8c0f5b2 — feat(29-03): create type-specific UpdateCard components
+- aa806c6 — feat(29-03): create update detail page with type-specific layouts
+- c6aba32 — feat(29-03): seed test data for updates hub
+
+**Requirements:** UHUB-02, UHUB-03, UHUB-04
+
 ## Phase 10 Complete
 
 ### Implementation Summary
@@ -288,6 +306,11 @@ All 5 phases complete:
 
 Recent decisions affecting current work:
 
+  - [29-03]: Tab filtering uses useMemo with type map for performance
+  - [29-03]: UpdateCard uses switch statement for type-specific rendering
+  - [29-03]: Bugfix cards designed minimal/compact per UX requirements
+  - [29-03]: Detail page uses useParams for slug-based routing
+  - [29-03]: Test data seeded directly in JSON file for immediate visibility
   - [29-02]: Type-specific fields projected as nested objects (releaseFields, bugfixFields, roadmapFields) in GROQ query
   - [29-02]: Updates sorted by publishedAt descending for chronological display
   - [29-01]: Single update schema replaces separate schemas per category (announcement/release/bugfix/roadmap)
@@ -349,11 +372,11 @@ None — v1.1 milestone complete.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: 29-02 Updates Data Pipeline - COMPLETE
-Status: Phase 29 in progress, ready for Plan 03
+Stopped at: 29-03 Updates Hub Frontend - COMPLETE
+Status: Phase 29 in progress, ready for Plan 04
 
 **Completion Summary:**
-- Phase 29: Updates Hub — GROQ query and JSON generation for updates (in progress)
+- Phase 29: Updates Hub — Frontend pages with tab navigation and type-specific cards (in progress)
 - Phase 28: Modern CSS Features — light-dark(), container queries, CSS nesting
 
 ---
