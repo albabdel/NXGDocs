@@ -24,7 +24,7 @@
 
 **Phases:**
 - [x] **Phase 35: Auth Foundation & Product Access** - Auth0 with product_access claims, session management, access validation (completed 2026-04-01)
-- [ ] **Phase 36: Content Infrastructure** - Sanity product field, GROQ filtering, content backfill
+- [x] **Phase 36: Content Infrastructure** - Sanity product field, GROQ filtering, content backfill (completed 2026-04-01)
 - [ ] **Phase 37: Multi-Build Pipeline** - Build orchestration for separate product deployments
 - [ ] **Phase 38: Product Configuration & Branding** - Product-specific theming and navigation
 - [ ] **Phase 39: Cloudflare Multi-Project Deployment** - Separate domains, product-scoped webhooks
@@ -148,7 +148,7 @@ Plans:
 | 10. Deep Cleanup | v1.1 | 1/1 | Complete | 2026-03-16 |
 | 29. Updates Hub | v4.0 | 3/3 | Complete | 2026-04-01 |
 | 35. Auth Foundation & Product Access | v5.0 | Complete    | 2026-04-01 | 2026-04-01 |
-| 36. Content Infrastructure | v5.0 | 0/2 | Planned | - |
+| 36. Content Infrastructure | v5.0 | Complete    | 2026-04-01 | - |
 | 37. Multi-Build Pipeline | v5.0 | 0/1 | Planned | - |
 | 38. Product Configuration & Branding | v5.0 | 0/3 | Planned | - |
 | 39. Cloudflare Multi-Project Deployment | v5.0 | 0/3 | Planned | - |
