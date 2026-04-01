@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Design System Polish
 status: in_progress
-stopped_at: "25-02 ZohoTickets Token Migration - COMPLETE"
-last_updated: "2026-04-01T12:30:00Z"
-last_activity: "2026-04-01 — ZohoTickets token migration: 45+ CSS classes, reduced isDark ternaries by 68%"
+stopped_at: "26-01 CVA Button Primitive - COMPLETE"
+last_updated: "2026-04-01T05:39:10Z"
+last_activity: "2026-04-01 — CVA Button primitive: type-safe variants, UI primitives pattern"
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 8
-  completed_plans: 3
-  percent: 38
+  completed_plans: 4
+  percent: 50
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/ROADMAP-design-system.md (new milestone roadmap)
 
 ## Current Position
 
-Phase: 25-component-tokens — Component Tokens Migration
-Status: Plan 02 complete, continuing to next plan
-Last activity: 2026-04-01 — ZohoTickets token migration (3/8 plans)
+Phase: 26-variant-system — Component Variant System
+Status: Plan 01 complete, continuing to next plan
+Last activity: 2026-04-01 — CVA Button primitive (4/8 plans)
 
-Progress: [====      ] 38% (3 of 8 plans complete)
+Progress: [=====     ] 50% (4 of 8 plans complete)
 
 **Note:** v3.0 Design System Polish planned. 5 phases covering CSS architecture, component tokens, variant system, UI polish, and modern CSS features. Based on DESIGN_SYSTEM_ANALYSIS_AND_IMPLEMENTATION_PLAN.md.
 
@@ -94,6 +94,26 @@ Progress: [====      ] 38% (3 of 8 plans complete)
 - e33314b — verify(25-02): confirm CSS token migration compiles
 
 **Requirements:** TOKN-04, TOKN-05
+
+## Phase 26: Variant System (In Progress)
+
+### Plan 01: CVA Button Primitive (Complete)
+
+**Summary:** Type-safe Button component with 4 variants and 3 sizes using class-variance-authority.
+
+**Changes:**
+- Installed class-variance-authority@0.7.1 for type-safe component variants
+- Created Button primitive with primary, secondary, ghost, destructive variants
+- Added sm, md, lg size variants with VariantProps typing
+- Created UI primitives barrel export pattern (src/components/ui/index.ts)
+- Fixed blocking Tailwind @layer issue in zoho-tickets.css
+
+**Commits:**
+- dba5ba0 — feat(26-01): install class-variance-authority for variant system
+- b1d0856 — feat(26-01): create Button primitive with CVA variants
+- 82c86ed — fix(26-01): remove Tailwind @layer from zoho-tickets.css
+
+**Requirements:** CVA-01, CVA-02, CVA-03
 
 ## Phase 10 Complete
 
@@ -176,6 +196,9 @@ All 5 phases complete:
 
 Recent decisions affecting current work:
 
+  - [26-01]: Use CVA for type-safe component variants instead of manual className unions
+  - [26-01]: Export buttonVariants for className composition with other utilities
+  - [26-01]: Use existing CSS tokens (--glass-bg, --gold-text) for theme compatibility
   - [25-01]: Use CSS tokens instead of JavaScript colorMode branching for styling
   - [25-01]: Keep useColorMode only where needed for non-styling purposes (canvas animation)
   - [25-01]: Add glassmorphism tokens for glass surfaces in both light and dark themes
@@ -222,7 +245,7 @@ None — v1.1 milestone complete.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: 25-01 Component Tokens - COMPLETE
+Stopped at: 26-01 CVA Button Primitive - COMPLETE
 Status: Plan complete, continuing to next plan
 
 **Completion Summary:**
