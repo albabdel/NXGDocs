@@ -57,6 +57,7 @@ export interface AdminSession {
   name: string;
   orgId: string;
   role: 'admin';
+  productAccess: string[]; // Products admin has access to (e.g., 'gcxone', 'gcsurge')
   loginTimestamp: number;
   expiresAt: number;
 }
@@ -66,6 +67,7 @@ export interface AdminUser {
   email: string;
   name: string;
   orgId: string;
+  productAccess?: string[]; // Optional: Products admin has access to
 }
 
 export interface AdminEnv {
@@ -88,12 +90,15 @@ async function createAdminSessionCookie(
   secret: string,
 ): Promise<string> {
   const now = Math.floor(Date.now() / 1000);
+  // Admins default to all products if not specified
+  const productAccess = user.productAccess ?? ['gcxone', 'gcsurge'];
   const session: AdminSession = {
     userId: user.userId,
     email: user.email,
     name: user.name,
     orgId: user.orgId,
     role: 'admin',
+    productAccess,
     loginTimestamp: now,
     expiresAt: now + ADMIN_SESSION_DURATION_SECONDS,
   };
@@ -191,12 +196,15 @@ export async function createAdminSession(
   const cookieHeader = buildAdminSessionCookieHeader(cookieValue, secure);
 
   const now = Math.floor(Date.now() / 1000);
+  // Admins default to all products if not specified
+  const productAccess = user.productAccess ?? ['gcxone', 'gcsurge'];
   const session: AdminSession = {
     userId: user.userId,
     email: user.email,
     name: user.name,
     orgId: user.orgId,
     role: 'admin',
+    productAccess,
     loginTimestamp: now,
     expiresAt: now + ADMIN_SESSION_DURATION_SECONDS,
   };
