@@ -311,3 +311,28 @@
 [data-theme='light'] {
   color-scheme: light;
 }
+
+/* ==========================================================================
+   PRODUCT-SPECIFIC TOKENS (set via JS in Root.tsx)
+   These tokens are overridden by theme classes in product-themes.css
+   ========================================================================== */
+
+/* === PRODUCT-SPECIFIC TOKENS (defaults to GCXONE gold) === */
+:root {
+  --product-primary: #C89446;
+  --product-primary-dark: #B58237;
+  --product-primary-darker: #A37028;
+  --product-primary-light: #D4A574;
+  --product-primary-lighter: #E0B688;
+  --product-primary-lightest: #F0CDA5;
+  --product-accent: var(--product-primary);
+  --product-glow: 0 0 20px rgba(200, 148, 70, 0.3);
+  --product-glow-sm: 0 0 10px rgba(200, 148, 70, 0.2);
+}
+
+[data-theme='dark'] {
+  --product-primary: #D4A574;
+  --product-primary-light: #E0B688;
+  --product-glow: 0 0 20px rgba(200, 148, 70, 0.2);
+  --product-glow-sm: 0 0 10px rgba(200, 148, 70, 0.15);
+}

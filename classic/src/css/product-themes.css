@@ -1,0 +1,60 @@
+/**
+ * Product-Specific Theme CSS
+ * 
+ * Each product gets its own color scheme applied via CSS custom properties.
+ * Theme class is injected on document element by Root.tsx based on PRODUCT env var.
+ */
+
+/* GCXONE Theme - Gold Accent */
+.theme-gcxone {
+  --product-primary: #C89446;
+  --product-primary-dark: #B58237;
+  --product-primary-darker: #A37028;
+  --product-primary-light: #D4A574;
+  --product-primary-lighter: #E0B688;
+  --product-primary-lightest: #F0CDA5;
+  
+  --product-glow: 0 0 20px rgba(200, 148, 70, 0.3);
+  --product-glow-sm: 0 0 10px rgba(200, 148, 70, 0.2);
+  
+  --product-primary-accessible: #996B1F;
+}
+
+.theme-gcxone[data-theme='dark'] {
+  --product-primary: #D4A574;
+  --product-primary-light: #E0B688;
+  --product-glow: 0 0 20px rgba(200, 148, 70, 0.2);
+  --product-glow-sm: 0 0 10px rgba(200, 148, 70, 0.15);
+}
+
+/* GCSurge Theme - Blue Accent */
+.theme-gcsurge {
+  --product-primary: #3B82F6;
+  --product-primary-dark: #2563EB;
+  --product-primary-darker: #1D4ED8;
+  --product-primary-light: #60A5FA;
+  --product-primary-lighter: #93C5FD;
+  --product-primary-lightest: #BFDBFE;
+  
+  --product-glow: 0 0 20px rgba(59, 130, 246, 0.3);
+  --product-glow-sm: 0 0 10px rgba(59, 130, 246, 0.2);
+  
+  --product-primary-accessible: #1D4ED8;
+}
+
+.theme-gcsurge[data-theme='dark'] {
+  --product-primary: #60A5FA;
+  --product-primary-light: #93C5FD;
+  --product-glow: 0 0 20px rgba(59, 130, 246, 0.25);
+  --product-glow-sm: 0 0 10px rgba(59, 130, 246, 0.18);
+}
+
+/* Apply product tokens to Docusaurus variables */
+[class*="theme-"] {
+  --ifm-color-primary: var(--product-primary);
+  --ifm-color-primary-dark: var(--product-primary-dark);
+  --ifm-color-primary-darker: var(--product-primary-darker);
+  --ifm-color-primary-light: var(--product-primary-light);
+  --ifm-color-primary-lighter: var(--product-primary-lighter);
+  --ifm-color-primary-lightest: var(--product-primary-lightest);
+}

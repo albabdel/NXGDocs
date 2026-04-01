@@ -4,175 +4,107 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { ExternalLink, Heart } from 'lucide-react';
 import styles from './Footer.module.css';
 
+declare const PRODUCT: string;
+const productId = typeof process !== 'undefined' ? (process.env.PRODUCT || 'gcxone') : 'gcxone';
+
+interface FooterLinkSection {
+  title: string;
+  links: { label: string; href: string; external?: boolean }[];
+}
+
+const FOOTER_LINKS: Record<string, FooterLinkSection[]> = {
+  gcxone: [
+    { title: 'Documentation', links: [
+      { label: 'Breakthroughs', href: '/docs/breakthroughs' },
+      { label: 'Getting Started', href: '/docs/getting-started' },
+      { label: 'Devices', href: '/docs/devices' },
+      { label: 'Features', href: '/docs/features' },
+    ]},
+    { title: 'Resources', links: [
+      { label: 'Support Center', href: 'https://nxgen.cloud/support', external: true },
+      { label: 'Release Notes', href: '/releases' },
+      { label: 'Product Roadmap', href: '/roadmap' },
+      { label: 'NXGEN Website', href: 'https://nxgen.cloud', external: true },
+    ]},
+    { title: 'Company', links: [
+      { label: 'About Us', href: 'https://nxgen.cloud/about', external: true },
+      { label: 'Contact', href: 'https://nxgen.cloud/contact', external: true },
+      { label: 'Privacy Policy', href: 'https://nxgen.cloud/privacy', external: true },
+      { label: 'Terms of Service', href: 'https://nxgen.cloud/terms', external: true },
+    ]},
+  ],
+  gcsurge: [
+    { title: 'Documentation', links: [
+      { label: 'Overview', href: '/docs/overview' },
+      { label: 'Getting Started', href: '/docs/getting-started' },
+      { label: 'API Reference', href: '/docs/api' },
+    ]},
+    { title: 'Resources', links: [
+      { label: 'Support', href: 'https://nxgen.cloud/support', external: true },
+      { label: 'Release Notes', href: '/releases' },
+    ]},
+    { title: 'Company', links: [
+      { label: 'About Us', href: 'https://nxgen.cloud/about', external: true },
+      { label: 'Contact', href: 'https://nxgen.cloud/contact', external: true },
+    ]},
+  ],
+};
+
+const PRODUCT_INFO: Record<string, { name: string; tagline: string; description: string }> = {
+  gcxone: { name: 'GCXONE', tagline: 'Proactive Monitoring Operating System', description: 'GCXONE is the industry\'s most advanced security platform, redefining how organizations protect what matters most.' },
+  gcsurge: { name: 'GC Surge', tagline: 'Next-Generation Security Platform', description: 'GC Surge delivers powerful security capabilities with modern architecture.' },
+};
+
 export default function Footer(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   const currentYear = new Date().getFullYear();
+  const productInfo = PRODUCT_INFO[productId] || PRODUCT_INFO.gcxone;
+  const footerLinks = FOOTER_LINKS[productId] || FOOTER_LINKS.gcxone;
 
   return (
     <footer className={styles.footer}>
-      {/* Decorative top border with gold accent */}
       <div className={styles.topBorder} />
-
       <div className={styles.container}>
-        {/* Main Footer Content */}
         <div className={styles.content}>
-          {/* Brand Section */}
           <div className={styles.brandSection}>
             <div className={styles.logoWrapper}>
-              <img 
-                src="/img/xo-logo.png" 
-                alt="NXGEN Logo" 
-                className={styles.logo}
-              />
+              <img src="/img/xo-logo.png" alt={productInfo.name + ' Logo'} className={styles.logo} />
             </div>
-            <p className={styles.tagline}>
-              Proactive Monitoring Operating System
-            </p>
-            <p className={styles.description}>
-              GCXONE is the industry's most advanced security platform,
-              redefining how organizations protect what matters most.
-            </p>
+            <p className={styles.tagline}>{productInfo.tagline}</p>
+            <p className={styles.description}>{productInfo.description}</p>
           </div>
-
-          {/* Documentation Links */}
-          <div className={styles.linksSection}>
-            <h4 className={styles.sectionTitle}>Documentation</h4>
-            <ul className={styles.linksList}>
-              <li>
-                <Link to="/docs/breakthroughs" className={styles.footerLink}>
-                  Breakthroughs
-                </Link>
-              </li>
-              <li>
-                <Link to="/docs/getting-started" className={styles.footerLink}>
-                  Getting Started
-                </Link>
-              </li>
-              <li>
-                <Link to="/docs/devices" className={styles.footerLink}>
-                  Devices
-                </Link>
-              </li>
-              <li>
-                <Link to="/docs/features" className={styles.footerLink}>
-                  Features
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Resources Links */}
-          <div className={styles.linksSection}>
-            <h4 className={styles.sectionTitle}>Resources</h4>
-            <ul className={styles.linksList}>
-              <li>
-                <a
-                  href="https://nxgen.cloud/support"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.footerLink}
-                >
-                  Support Center
-                  <ExternalLink className={styles.externalIcon} />
-                </a>
-              </li>
-              <li>
-                <Link to="/releases" className={styles.footerLink}>
-                  Release Notes
-                </Link>
-              </li>
-              <li>
-                <Link to="/roadmap" className={styles.footerLink}>
-                  Product Roadmap
-                </Link>
-              </li>
-              <li>
-                <a
-                  href="https://nxgen.cloud"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.footerLink}
-                >
-                  NXGEN Website
-                  <ExternalLink className={styles.externalIcon} />
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Company Links */}
-          <div className={styles.linksSection}>
-            <h4 className={styles.sectionTitle}>Company</h4>
-            <ul className={styles.linksList}>
-              <li>
-                <a
-                  href="https://nxgen.cloud/about"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.footerLink}
-                >
-                  About Us
-                  <ExternalLink className={styles.externalIcon} />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://nxgen.cloud/contact"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.footerLink}
-                >
-                  Contact
-                  <ExternalLink className={styles.externalIcon} />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://nxgen.cloud/privacy"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.footerLink}
-                >
-                  Privacy Policy
-                  <ExternalLink className={styles.externalIcon} />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://nxgen.cloud/terms"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.footerLink}
-                >
-                  Terms of Service
-                  <ExternalLink className={styles.externalIcon} />
-                </a>
-              </li>
-            </ul>
-          </div>
+          {footerLinks.map((section) => (
+            <div key={section.title} className={styles.linksSection}>
+              <h4 className={styles.sectionTitle}>{section.title}</h4>
+              <ul className={styles.linksList}>
+                {section.links.map((link) => (
+                  <li key={link.href}>
+                    {link.external ? (
+                      <a href={link.href} target="_blank" rel="noopener noreferrer" className={styles.footerLink}>
+                        {link.label}
+                        <ExternalLink className={styles.externalIcon} />
+                      </a>
+                    ) : (
+                      <Link to={link.href} className={styles.footerLink}>{link.label}</Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-
-        {/* Bottom Bar */}
         <div className={styles.bottomBar}>
           <div className={styles.copyright}>
-            <span>© {currentYear} NXGEN. All rights reserved.</span>
+            <span>(c) {currentYear} NXGEN. All rights reserved.</span>
           </div>
           <div className={styles.builtWith}>
             <span>Built with</span>
             <Heart className={styles.heartIcon} />
             <span>using</span>
-            <a
-              href="https://docusaurus.io"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.docusaurusLink}
-            >
-              Docusaurus
-            </a>
+            <a href="https://docusaurus.io" target="_blank" rel="noopener noreferrer" className={styles.docusaurusLink}>Docusaurus</a>
           </div>
         </div>
       </div>
     </footer>
   );
 }
-
