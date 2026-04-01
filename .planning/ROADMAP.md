@@ -106,7 +106,12 @@ Plans:
   2. docs.gcsurge.com serves GC Surge content only
   3. Sanity webhook triggers rebuild only for affected product (scoped by document product field)
   4. Products deploy as separate Cloudflare Pages projects
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 39-01-PLAN.md — Cloudflare Pages projects setup (gcxone-docs, gcsurge-docs) with custom domains
+- [ ] 39-02-PLAN.md — Sanity webhook routing for product-scoped rebuilds
+- [ ] 39-03-PLAN.md — Deployment verification and runbook documentation
 
 ### Phase 40: PostHog Analytics
 **Goal**: Product-scoped analytics enable per-product insights and dashboards
@@ -145,8 +150,8 @@ Plans:
 | 35. Auth Foundation & Product Access | v5.0 | 0/3 | Planned | - |
 | 36. Content Infrastructure | v5.0 | 0/2 | Planned | - |
 | 37. Multi-Build Pipeline | v5.0 | 0/1 | Planned | - |
-| 38. Product Configuration & Branding | v5.0 | 0/TBD | Not started | - |
-| 39. Cloudflare Multi-Project Deployment | v5.0 | 0/TBD | Not started | - |
+| 38. Product Configuration & Branding | v5.0 | 0/3 | Planned | - |
+| 39. Cloudflare Multi-Project Deployment | v5.0 | 0/3 | Planned | - |
 | 40. PostHog Analytics | v5.0 | 0/3 | Planned | - |
 
 ---
