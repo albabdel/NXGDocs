@@ -4,6 +4,7 @@
 // Purpose:
 //   - Display user profile information
 //   - Show account stats (member since, role, etc.)
+//   - Show reading statistics
 //   - Provide quick links to settings, bookmarks, history
 
 import React from 'react';
@@ -12,6 +13,7 @@ import BrowserOnly from '@docusaurus/BrowserOnly';
 import { useAuth0 } from '@auth0/auth0-react';
 import { UserProtectedRoute } from '../../components/Auth/UserProtectedRoute';
 import { useUserProfile } from '../../hooks/useUserProfile';
+import { ReadingStats } from '../../components/ReadingProgress';
 import {
   User,
   Settings,
@@ -26,6 +28,7 @@ import Link from '@docusaurus/Link';
 
 // Import profile styles
 import '../../css/components/profile.css';
+import '../../css/components/reading-progress.css';
 
 // ---------------------------------------------------------------------------
 // Profile Page Content
@@ -174,6 +177,11 @@ function ProfilePageContent() {
             <div className="profile-quick-link-desc">Get help with your account</div>
           </div>
         </a>
+      </div>
+
+      {/* Reading Statistics */}
+      <div style={{ marginTop: '2rem' }}>
+        <ReadingStats showDetails />
       </div>
     </div>
   );
