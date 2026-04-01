@@ -87,6 +87,9 @@ interface Auth0Claims {
   exp: number;
   iat: number;
   nonce?: string;
+  // Custom namespaced claims from Auth0 Actions
+  // Auth0 requires custom claims to be namespaced to avoid collisions
+  'https://nxgen.cloud/claims/product_access'?: string[];
 }
 
 /**
@@ -399,11 +402,16 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       // SECURITY: Create HttpOnly session cookie - token NEVER exposed to JavaScript
       const displayName = `${contact.firstName ?? ''} ${contact.lastName ?? ''}`.trim() || email;
 
+      // For email-lookup flow, default to gcxone access
+      // Product access can be enriched later via Zoho contact custom field or Auth0 metadata
+      const productAccess = ['gcxone'];
+
       const sessionToken = await createSessionCookie(
         contact.id,
         contact.accountId ?? null,
         displayName,
         context.env.ZOHO_SESSION_SECRET,
+        productAccess,
       );
 
       // Return only safe profile data - NO access token
@@ -467,11 +475,16 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const displayName = claims.name
       ?? (`${contact.firstName ?? ''} ${contact.lastName ?? ''}`.trim() || email);
 
+    // Extract productAccess from Auth0 custom claim (set by Auth0 Action)
+    // Falls back to ['gcxone'] for backwards compatibility if claim missing
+    const productAccess = claims['https://nxgen.cloud/claims/product_access'] ?? ['gcxone'];
+
     const sessionToken = await createSessionCookie(
       contact.id,
       contact.accountId ?? null,
       displayName,
       context.env.ZOHO_SESSION_SECRET,
+      productAccess,
     );
 
     // Return only safe profile data - NO access token
