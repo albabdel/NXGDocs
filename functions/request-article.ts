@@ -2,11 +2,13 @@
 // Cloudflare Pages Function — handles customer requests to create new documentation articles.
 // Sends a notification email to the docs team via ZeptoMail.
 
-import { getSessionFromHeader } from './lib/zoho-session';
+import { requireProductAccess, getProductFromRequest } from './lib/require-product-access';
+import type { ZohoSession } from './lib/zoho-session';
 
 interface Env {
   ZEPTO_API_KEY: string;
   ZOHO_SESSION_SECRET: string;
+  PRODUCT?: string;
 }
 
 interface RequestPayload {
@@ -69,12 +71,9 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const corsHeaders = { 'Content-Type': 'application/json' };
 
   try {
-    // Verify the customer session cookie — ensures only authenticated customers can call this
-    const cookieHeader = context.request.headers.get('Cookie');
-    const session = await getSessionFromHeader(cookieHeader, context.env.ZOHO_SESSION_SECRET).catch(() => null);
-    if (!session) {
-      return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: corsHeaders });
-    }
+    // Validate product access before processing article request
+    const session = await requireProductAccess(context.request, context.env);
+    const product = getProductFromRequest(context.request, context.env);
 
     const payload = await context.request.json() as RequestPayload;
     if (!payload.ticketId || !payload.subject) {
@@ -91,7 +90,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         from: { address: 'noreply@nxgen.io' },
         to: [{ email_address: { address: 'abed.badarnah@nxgen.io' } }],
         subject: `[Article Request] ${payload.subject}`,
-        htmlbody: buildEmailHtml(payload, session.contactId),
+        htmlbody: buildEmailHtml(payload, 'contactId' in session ? session.contactId : session.email),
       }),
     });
 
