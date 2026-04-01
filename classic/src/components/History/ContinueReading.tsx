@@ -4,7 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { Clock, FileText, Video, File, ArrowRight, BookOpen } from 'lucide-react';
 import { useReadingHistory } from '../../hooks/useReadingHistory';
 import { HistoryItemType } from '../../services/history';
-import './history.css';
+import '../../css/components/history.css';
 
 interface ContinueReadingProps {
   /** Maximum number of items to show */

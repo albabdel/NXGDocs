@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
+import BrowserOnly from '@docusaurus/BrowserOnly';
+import { useAuth0 } from '@auth0/auth0-react';
 import {
     LayoutDashboard,
     Server,
@@ -17,10 +19,14 @@ import {
     Radio,
     ArrowUpRight,
     Circle,
+    Loader,
 } from 'lucide-react';
 import FeatureCard from '../components/FeatureCard';
 import QuickLink from '../components/QuickLink';
 import NXGENSphereHero from '../components/NXGENSphereHero';
+import { ContinueReading } from '../components/History/ContinueReading';
+import { RoleBasedContent, RecommendedReading } from '../components/Personalization';
+import { useUserProfile } from '../hooks/useUserProfile';
 import styles from './index.module.css';
 import releasesData from '../data/sanity-releases.generated.json';
 import roadmapData from '../data/sanity-roadmap.generated.json';
@@ -185,9 +191,12 @@ const helpResources: Resource[] = [
     },
 ];
 
-// --- Main Page ---
+// --- Main Page Content ---
 
-export default function Home(): React.JSX.Element {
+function HomePageContent(): React.JSX.Element {
+    const { isAuthenticated, user } = useAuth0();
+    const { profile } = useUserProfile();
+
     const handleSearchOpen = () => {
         const event = new KeyboardEvent('keydown', {
             key: 'k',
@@ -198,6 +207,10 @@ export default function Home(): React.JSX.Element {
         });
         document.dispatchEvent(event);
     };
+
+    // Get user's first name for welcome message
+    const firstName = user?.name?.split(' ')[0] || user?.email?.split('@')[0] || 'there';
+    const userRole = profile?.role || 'user';
 
     return (
         <Layout
@@ -210,6 +223,42 @@ export default function Home(): React.JSX.Element {
                 <NXGENSphereHero onOpenSearch={handleSearchOpen} />
 
                 <div className="max-w-7xl mx-auto px-6 pb-24">
+
+                    {/* ── Welcome Back (for logged-in users) ───────────────── */}
+                    {isAuthenticated && (
+                        <div 
+                            className="mt-8 mb-4 p-4 rounded-xl"
+                            style={{
+                                background: 'linear-gradient(135deg, rgba(232,176,88,0.08) 0%, rgba(232,176,88,0.02) 100%)',
+                                border: '1px solid rgba(232,176,88,0.2)',
+                            }}
+                        >
+                            <div className="flex items-center gap-3">
+                                <div 
+                                    className="w-10 h-10 rounded-full flex items-center justify-center"
+                                    style={{
+                                        background: 'rgba(232,176,88,0.15)',
+                                        border: '2px solid rgba(232,176,88,0.3)',
+                                    }}
+                                >
+                                    <span className="text-lg font-bold" style={{ color: '#E8B058' }}>
+                                        {firstName.charAt(0).toUpperCase()}
+                                    </span>
+                                </div>
+                                <div>
+                                    <p className="text-lg font-semibold" style={{ color: 'var(--ifm-color-content)' }}>
+                                        Welcome back, {firstName}
+                                    </p>
+                                    <p className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                                        Your role: <span style={{ color: '#E8B058' }}>{userRole.charAt(0).toUpperCase() + userRole.slice(1)}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* ── Continue Reading (for logged-in users) ───────────── */}
+                    <ContinueReading maxItems={5} showWelcome={false} />
 
                     {/* ── Quick Access Bar ────────────────────────────── */}
                     <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
@@ -298,6 +347,20 @@ export default function Home(): React.JSX.Element {
                             ))}
                         </div>
                     </section>
+
+                    {/* ── Role-Based Recommendations ─────────────────────── */}
+                    <RoleBasedContent allowedRoles={['operator']}>
+                        <RecommendedReading role="operator" maxItems={4} />
+                    </RoleBasedContent>
+                    <RoleBasedContent allowedRoles={['manager']}>
+                        <RecommendedReading role="manager" maxItems={4} />
+                    </RoleBasedContent>
+                    <RoleBasedContent allowedRoles={['engineer']}>
+                        <RecommendedReading role="engineer" maxItems={4} />
+                    </RoleBasedContent>
+                    <RoleBasedContent allowedRoles={['admin']}>
+                        <RecommendedReading role="admin" maxItems={4} />
+                    </RoleBasedContent>
 
                     {/* ── Roles ───────────────────────────────────────── */}
                     <section className="mt-24">
@@ -520,5 +583,23 @@ export default function Home(): React.JSX.Element {
                 </div>
             </main>
         </Layout>
+    );
+}
+
+// --- Main Page Export with BrowserOnly ---
+
+export default function Home(): React.JSX.Element {
+    return (
+        <BrowserOnly
+            fallback={
+                <Layout title="Documentation" description="GCXONE Technical Documentation">
+                    <main className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
+                        <Loader className="w-8 h-8 animate-spin" style={{ color: '#E8B058' }} />
+                    </main>
+                </Layout>
+            }
+        >
+            {() => <HomePageContent />}
+        </BrowserOnly>
     );
 }
