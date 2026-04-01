@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Design System Polish
 status: in_progress
-stopped_at: "24-01 CSS Architecture - COMPLETE"
-last_updated: "2026-03-31T22:35:00Z"
-last_activity: "2026-03-31 — CSS @layer architecture complete: tokens split, style-override deleted"
+stopped_at: "25-01 Component Tokens - COMPLETE"
+last_updated: "2026-04-01T02:40:49Z"
+last_activity: "2026-04-01 — Component tokens migration: glassmorphism tokens, FeatureCard and DocsIndex CSS classes"
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 8
-  completed_plans: 1
-  percent: 12
+  completed_plans: 2
+  percent: 25
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/ROADMAP-design-system.md (new milestone roadmap)
 
 ## Current Position
 
-Phase: 24-css-architecture — CSS @layer Architecture
+Phase: 25-component-tokens — Component Tokens Migration
 Status: Plan 01 complete, continuing to next plan
-Last activity: 2026-03-31 — CSS @layer architecture complete (1/8 plans)
+Last activity: 2026-04-01 — Component tokens migration (2/8 plans)
 
-Progress: [==        ] 12% (1 of 8 plans complete)
+Progress: [===       ] 25% (2 of 8 plans complete)
 
 **Note:** v3.0 Design System Polish planned. 5 phases covering CSS architecture, component tokens, variant system, UI polish, and modern CSS features. Based on DESIGN_SYSTEM_ANALYSIS_AND_IMPLEMENTATION_PLAN.md.
 
@@ -57,6 +57,25 @@ Progress: [==        ] 12% (1 of 8 plans complete)
 - b9523fc — chore(24-01): delete unused style-override.css
 
 **Requirements:** CSS-01, CSS-02, CSS-03, CSS-04
+
+## Phase 25: Component Tokens (In Progress)
+
+### Plan 01: Component Tokens Migration (Complete)
+
+**Summary:** Glassmorphism CSS tokens and theme-agnostic components replacing inline style branches.
+
+**Changes:**
+- Added glassmorphism CSS tokens (glass-bg, glass-border, glass-shadow, icon-bg) for both themes
+- Migrated FeatureCard from inline style branches to CSS classes
+- Migrated DocsIndex components (DocsHero, CategoriesGrid, QuickLinksSection, ResourcesSection, LandingPagesSection, ReturnHomeBanner) to CSS tokens
+- Removed useColorMode from 6 components (kept only for canvas animation)
+
+**Commits:**
+- abfae50 — feat(25-01): add glassmorphism CSS tokens
+- 1a3a8bf — feat(25-01): migrate FeatureCard to CSS tokens
+- 1986645 — feat(25-01): migrate DocsIndex components to CSS tokens
+
+**Requirements:** TOKN-01, TOKN-02, TOKN-03
 
 ## Phase 10 Complete
 
@@ -139,7 +158,10 @@ All 5 phases complete:
 
 Recent decisions affecting current work:
 
-- [24-01]: Use CSS @layer to override Docusaurus without !important — cascade control
+  - [25-01]: Use CSS tokens instead of JavaScript colorMode branching for styling
+  - [25-01]: Keep useColorMode only where needed for non-styling purposes (canvas animation)
+  - [25-01]: Add glassmorphism tokens for glass surfaces in both light and dark themes
+  - [24-01]: Use CSS @layer to override Docusaurus without !important — cascade control
 - [24-01]: Split CSS into tokens, typography, and component files for discoverability
 - [24-01]: Load CSS files in order: tokens -> typography -> components -> custom
 - [v1.1 roadmap]: Zero new npm packages needed — all libraries already installed
@@ -181,9 +203,9 @@ None — v1.1 milestone complete.
 
 ## Session Continuity
 
-Last session: 2026-03-17
-Stopped at: v2.0 Admin Command Center — COMPLETE
-Status: Milestone shipped
+Last session: 2026-04-01
+Stopped at: 25-01 Component Tokens - COMPLETE
+Status: Plan complete, continuing to next plan
 
 **Completion Summary:**
 - Phase 16: Auth Foundation — OAuth, sessions, protected routes
