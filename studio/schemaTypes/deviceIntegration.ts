@@ -1,5 +1,6 @@
 import {defineType, defineField} from 'sanity'
 import {enhancedBodyField} from './portableText-ultimate'
+import {productField} from './fields/product'
 
 export const deviceIntegrationType = defineType({
   name: 'deviceIntegration',
@@ -13,9 +14,10 @@ export const deviceIntegrationType = defineType({
       deviceType: 'deviceType',
       gcxReady: 'gcxReady',
       status: 'status',
+      product: 'product',
       logo: 'logo',
     },
-    prepare({title, manufacturer, brand, deviceType, gcxReady, status, logo}) {
+    prepare({title, manufacturer, brand, deviceType, gcxReady, status, product, logo}) {
       const statusEmoji: Record<string, string> = {
         draft: '🔘',
         review: '🟡',
@@ -38,9 +40,10 @@ export const deviceIntegrationType = defineType({
       const emoji = statusEmoji[status as string] ?? '⚪'
       const typeIcon = typeEmoji[deviceType as string] ?? '📦'
       const gcxBadge = gcxReady ? '✓ GCX' : ''
+      const productLabel = product?.toUpperCase() || 'GCXONE'
       return {
         title: title ?? 'Untitled Integration',
-        subtitle: `${emoji} ${manufacturer ?? ''} ${brand ?? ''} ${typeIcon} ${gcxBadge}`.trim(),
+        subtitle: `${productLabel} - ${emoji} ${manufacturer ?? ''} ${brand ?? ''} ${typeIcon} ${gcxBadge}`.trim(),
         media: logo,
       }
     },
@@ -70,6 +73,7 @@ export const deviceIntegrationType = defineType({
       },
       validation: (rule) => rule.required(),
     }),
+    productField,
     defineField({
       name: 'manufacturer',
       title: 'Manufacturer',

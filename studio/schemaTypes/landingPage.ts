@@ -1,5 +1,6 @@
 import {defineType, defineField} from 'sanity'
 import {enhancedBodyField} from './portableText-ultimate'
+import {productField} from './fields/product'
 
 export const landingPageType = defineType({
   name: 'landingPage',
@@ -10,9 +11,10 @@ export const landingPageType = defineType({
       title: 'title',
       status: 'status',
       slug: 'slug',
+      product: 'product',
       heroImage: 'hero.backgroundImage',
     },
-    prepare({title, status, slug, heroImage}) {
+    prepare({title, status, slug, product, heroImage}) {
       const statusEmoji: Record<string, string> = {
         draft: '🔘',
         review: '🟡',
@@ -20,9 +22,10 @@ export const landingPageType = defineType({
         archived: '📦',
       }
       const emoji = statusEmoji[status as string] ?? '🔘'
+      const productLabel = product?.toUpperCase() || 'GCXONE'
       return {
         title: `${emoji} ${title ?? 'Untitled'}`,
-        subtitle: slug?.current ? `/${slug.current}` : 'No slug',
+        subtitle: `${productLabel} - ${slug?.current ? `/${slug.current}` : 'No slug'}`,
         media: heroImage,
       }
     },
@@ -52,6 +55,7 @@ export const landingPageType = defineType({
       },
       validation: (rule) => rule.required(),
     }),
+    productField,
     defineField({
       name: 'description',
       title: 'Meta Description',

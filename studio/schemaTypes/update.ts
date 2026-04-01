@@ -1,4 +1,5 @@
 import {defineType, defineField} from 'sanity'
+import {productField} from './fields/product'
 
 export const updateType = defineType({
   name: 'update',
@@ -9,8 +10,9 @@ export const updateType = defineType({
       title: 'title',
       type: 'type',
       publishedAt: 'publishedAt',
+      product: 'product',
     },
-    prepare({title, type, publishedAt}) {
+    prepare({title, type, publishedAt, product}) {
       const typeEmoji: Record<string, string> = {
         announcement: '📢',
         release: '🚀',
@@ -21,9 +23,10 @@ export const updateType = defineType({
       const date = publishedAt
         ? new Date(publishedAt).toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'})
         : 'No date'
+      const productLabel = product?.toUpperCase() || 'GCXONE'
       return {
         title: title ?? 'Untitled Update',
-        subtitle: `${emoji} ${type ?? 'announcement'} • ${date}`,
+        subtitle: `${productLabel} - ${emoji} ${type ?? 'announcement'} • ${date}`,
       }
     },
   },
@@ -81,6 +84,7 @@ export const updateType = defineType({
       validation: (rule) => rule.required(),
       group: 'main',
     }),
+    productField,
     defineField({
       name: 'type',
       title: 'Update Type',

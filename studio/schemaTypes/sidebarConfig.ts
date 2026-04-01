@@ -1,4 +1,5 @@
 import {defineType, defineField} from 'sanity'
+import {productField} from './fields/product'
 
 export const sidebarCategoryType = defineType({
   name: 'sidebarCategory',
@@ -128,6 +129,7 @@ export const sidebarCategoryType = defineType({
       },
       initialValue: ['all'],
     }),
+    productField,
   ],
   orderings: [
     {
@@ -147,11 +149,13 @@ export const sidebarCategoryType = defineType({
       icon: 'icon',
       position: 'position',
       parent: 'parent.title',
+      product: 'product',
     },
-    prepare({title, icon, position, parent}) {
+    prepare({title, icon, position, parent, product}) {
+      const productLabel = product?.toUpperCase() || 'GCXONE'
       return {
         title: `${icon || '📁'} ${title}`,
-        subtitle: parent ? `Position ${position} → Inside: ${parent}` : `Position ${position}`,
+        subtitle: `${productLabel} - ${parent ? `Position ${position} → Inside: ${parent}` : `Position ${position}`}`,
       }
     },
   },

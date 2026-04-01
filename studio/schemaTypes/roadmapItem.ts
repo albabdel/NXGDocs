@@ -1,4 +1,5 @@
 import {defineType, defineField} from 'sanity'
+import {productField} from './fields/product'
 
 export const roadmapItemType = defineType({
   name: 'roadmapItem',
@@ -17,6 +18,7 @@ export const roadmapItemType = defineType({
       type: 'text',
       rows: 3,
     }),
+    productField,
     defineField({
       name: 'status',
       title: 'Status',
@@ -159,8 +161,8 @@ export const roadmapItemType = defineType({
     }),
   ],
   preview: {
-    select: {title: 'title', status: 'status'},
-    prepare({title, status}: {title?: string; status?: string}) {
+    select: {title: 'title', status: 'status', product: 'product'},
+    prepare({title, status, product}: {title?: string; status?: string; product?: string}) {
       const statusEmoji: Record<string, string> = {
         draft: '🔘',
         planned: '🔵',
@@ -177,7 +179,8 @@ export const roadmapItemType = defineType({
       }
       const emoji = statusEmoji[status as string] ?? '🔘'
       const label = statusLabel[status as string] ?? 'Unknown'
-      return {title: `${emoji} ${title ?? 'Untitled'}`, subtitle: label}
+      const productLabel = product?.toUpperCase() || 'GCXONE'
+      return {title: `${emoji} ${title ?? 'Untitled'}`, subtitle: `${productLabel} - ${label}`}
     },
   },
 })

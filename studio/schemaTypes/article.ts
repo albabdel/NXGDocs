@@ -1,5 +1,6 @@
 import {defineType, defineField} from 'sanity'
 import {enhancedBodyField} from './portableText-ultimate'
+import {productField} from './fields/product'
 
 export const articleType = defineType({
   name: 'article',
@@ -10,9 +11,10 @@ export const articleType = defineType({
       title: 'title',
       status: 'status',
       author: 'author',
+      product: 'product',
       media: 'coverImage',
     },
-    prepare({title, status, author, media}) {
+    prepare({title, status, author, product, media}) {
       const statusEmoji: Record<string, string> = {
         draft: '🔘',
         review: '🟡',
@@ -20,9 +22,10 @@ export const articleType = defineType({
         archived: '📦',
       }
       const emoji = statusEmoji[status as string] ?? '🔘'
+      const productLabel = product?.toUpperCase() || 'GCXONE'
       return {
         title: `${emoji} ${title ?? 'Untitled'}`,
-        subtitle: author ? `by ${author}` : undefined,
+        subtitle: `${productLabel}${author ? ` - by ${author}` : ''}`,
         media,
       }
     },
@@ -42,6 +45,7 @@ export const articleType = defineType({
       options: {source: 'title'},
       validation: (rule) => rule.required(),
     }),
+    productField,
     defineField({
       name: 'description',
       title: 'Short Description',

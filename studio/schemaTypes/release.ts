@@ -1,4 +1,5 @@
 import {defineType, defineField, defineArrayMember} from 'sanity'
+import {productField} from './fields/product'
 
 export const releaseType = defineType({
   name: 'release',
@@ -25,6 +26,7 @@ export const releaseType = defineType({
       options: {source: 'displayTitle'},
       validation: (rule) => rule.required(),
     }),
+    productField,
     defineField({
       name: 'publishedAt',
       title: 'Published Date',
@@ -201,9 +203,10 @@ export const releaseType = defineType({
     }),
   ],
   preview: {
-    select: {title: 'displayTitle', publishedAt: 'publishedAt'},
-    prepare({title, publishedAt}: {title?: string; publishedAt?: string}) {
-      return {title: title ?? 'Untitled', subtitle: publishedAt ?? ''}
+    select: {title: 'displayTitle', publishedAt: 'publishedAt', product: 'product'},
+    prepare({title, publishedAt, product}: {title?: string; publishedAt?: string; product?: string}) {
+      const productLabel = product?.toUpperCase() || 'GCXONE'
+      return {title: title ?? 'Untitled', subtitle: `${productLabel} - ${publishedAt ?? ''}`}
     },
   },
 })
