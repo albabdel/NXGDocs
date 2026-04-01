@@ -6,26 +6,29 @@ import BackgroundPattern from '../components/BackgroundPattern';
 import Footer from '../components/Footer';
 import SearchModal from '../components/SearchModal';
 import { AdminAuthProvider } from '../contexts/AdminAuthContext';
+import { ProductAccessProvider } from '../contexts/ProductAccessContext';
 
 export default function Root({ children }: { children: React.ReactNode }) {
   return (
     <AdminAuthProvider>
-      <BackgroundPattern />
-      <ScrollProgress />
-      <div style={{
-        position: 'fixed',
-        top: '12px',
-        right: '64px',
-        zIndex: 1000,
-      }}>
-        <Suspense fallback={null}>
-          <SearchModal />
-        </Suspense>
-      </div>
-      {children}
-      <Footer />
-      <ThemeToggle />
-      <VoCWidget />
+      <ProductAccessProvider>
+        <BackgroundPattern />
+        <ScrollProgress />
+        <div style={{
+          position: 'fixed',
+          top: '12px',
+          right: '64px',
+          zIndex: 1000,
+        }}>
+          <Suspense fallback={null}>
+            <SearchModal />
+          </Suspense>
+        </div>
+        {children}
+        <Footer />
+        <ThemeToggle />
+        <VoCWidget />
+      </ProductAccessProvider>
     </AdminAuthProvider>
   );
 }
