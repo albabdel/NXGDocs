@@ -3,17 +3,17 @@ gsd_state_version: 1.0
 milestone: v5.0
 milestone_name: Multi-Product Architecture
 status: executing
-stopped_at: "33-01 complete"
-last_updated: "2026-04-01T22:30:00Z"
-last_activity: "2026-04-01 – Phase 33-01 complete: Role-Based Personalization"
+stopped_at: "33-02 complete"
+last_updated: "2026-04-01T23:00:00Z"
+last_activity: "2026-04-01 – Phase 33-02 complete: Search History & Reading Progress"
 progress:
   total_phases: 6
   completed_phases: 5
   total_plans: 18
-  completed_plans: 13
-  percent: 72
+  completed_plans: 14
+  percent: 78
   current_phase: 33-personalization
-  current_plan: 02
+  current_plan: 03
 ---
 
 # Project State
@@ -24,15 +24,15 @@ See: .planning/PROJECT.md (updated 2026-03-13)
 See: .planning/ROADMAP.md (v5.0 phases 35-40)
 
 **Core value:** Non-technical editors can open a web UI, write content, and publish it – without a developer as a bottleneck.
-**Current focus:** v5.0 Multi-Product Architecture – Phase 33-01 complete, continuing personalization
+**Current focus:** v5.0 Multi-Product Architecture – Phase 33-02 complete, continuing personalization
 
 ## Current Position
 
 Phase: 33-personalization – Role-Based Content Personalization
-Status: EXECUTING - Phase 33-01 complete (personalization components)
-Last activity: 2026-04-01 – Phase 33-01 complete: Role-Based Personalization
+Status: EXECUTING - Phase 33-02 complete (search history & reading progress)
+Last activity: 2026-04-01 – Phase 33-02 complete: Search History & Reading Progress
 
-Progress: [========  ] 72% (13 of 18 plans complete)
+Progress: [========  ] 78% (14 of 18 plans complete)
 
 **Roadmap Summary:** v5.0 transforms single-product docs into multi-product architecture with GCXONE and GC Surge.
 
@@ -90,6 +90,10 @@ Recent decisions affecting current work:
 - [33-01]: Max 10 quick links per user enforced
 - [33-01]: Role-to-interest mapping for recommended reading (static, ML later)
 - [33-01]: RoleBasedContent component for role-based content filtering
+- [33-02]: Search history stored in localStorage (client-side only, max 50 items)
+- [33-02]: Reading progress persisted to Supabase for cross-device sync
+- [33-02]: Progress bar uses scroll-based calculation with 500ms debounce
+- [33-02]: Mark as read triggers celebration animation on completion
 
 ### Pending Todos
 
@@ -106,14 +110,14 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: 33-01 complete
-Status: v5.0 Multi-Product Architecture - Phase 33-01 complete
+Stopped at: 33-02 complete
+Status: v5.0 Multi-Product Architecture - Phase 33-02 complete
 
 **Next Steps:**
-1. Continue with Phase 33-02 (if exists) or next phase
-2. Add role selection to profile settings
-3. Integrate QuickLinks into sidebar navigation
-4. Add dynamic recommendations from Sanity content
+1. Continue with Phase 33-03 (if exists) or next phase
+2. Fix pre-existing build issues (missing modules in updates pages)
+3. Add role selection to profile settings
+4. Integrate QuickLinks into sidebar navigation
 
 ---
-*STATE.md updated: 2026-04-01T22:30:00Z*
+*STATE.md updated: 2026-04-01T23:00:00Z*
