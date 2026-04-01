@@ -3,16 +3,16 @@ gsd_state_version: 1.0
 milestone: v5.0
 milestone_name: Multi-Product Architecture
 status: executing
-stopped_at: "38 complete"
-last_updated: "2026-04-01T20:00:00Z"
-last_activity: "2026-04-01 � Phase 38 complete: Product Configuration & Branding"
+stopped_at: "39 complete"
+last_updated: "2026-04-01T21:00:00Z"
+last_activity: "2026-04-01 – Phase 39 complete: Cloudflare Multi-Project Deployment"
 progress:
   total_phases: 6
-  completed_phases: 4
-  total_plans: 15
-  completed_plans: 9
-  percent: 60
-  current_phase: 39-cloudflare-multi-project
+  completed_phases: 5
+  total_plans: 18
+  completed_plans: 12
+  percent: 67
+  current_phase: 40-posthog-analytics
   current_plan: 01
 ---
 
@@ -28,11 +28,11 @@ See: .planning/ROADMAP.md (v5.0 phases 35-40)
 
 ## Current Position
 
-Phase: 39-cloudflare-multi-project � Cloudflare Multi-Project Deployment
-Status: EXECUTING - Phase 38 complete, ready for Phase 39
-Last activity: 2026-04-01 � Phase 38 complete: Product Configuration & Branding
+Phase: 40-posthog-analytics – PostHog Analytics with Product Context
+Status: EXECUTING - Phase 39 complete, ready for Phase 40
+Last activity: 2026-04-01 – Phase 39 complete: Cloudflare Multi-Project Deployment
 
-Progress: [======    ] 60% (9 of 15 plans complete)
+Progress: [=======   ] 67% (12 of 18 plans complete)
 
 **Roadmap Summary:** v5.0 transforms single-product docs into multi-product architecture with GCXONE and GC Surge.
 
@@ -80,6 +80,9 @@ Recent decisions affecting current work:
 - [Phase 38]: product.config.ts provides type-safe configuration for each product
 - [Phase 38]: Theme class injected via Root.tsx based on PRODUCT env var
 - [Phase 38]: GCXONE uses gold (#C89446), GCSurge uses blue (#3B82F6)
+- [Phase 39]: gcxone.pages.dev and gcsurge.pages.dev Cloudflare Pages projects
+- [Phase 39]: Sanity webhook triggers product-scoped rebuilds via /api/sanity-webhook
+- [Phase 39]: Using subdomains (.pages.dev) per user request, custom domains later
 
 ### Pending Todos
 
@@ -96,14 +99,14 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: 38 complete
-Status: v5.0 Multi-Product Architecture - Phase 38 complete
+Stopped at: 39 complete
+Status: v5.0 Multi-Product Architecture - Phase 39 complete
 
 **Next Steps:**
-1. Continue with Phase 39 (Cloudflare Multi-Project Deployment)
-2. Set up Cloudflare Pages projects for each product
-3. Configure Sanity webhook routing
-4. Document deployment runbook
+1. Continue with Phase 40 (PostHog Analytics)
+2. Configure PostHog for multi-product tracking
+3. Add product context to analytics events
+4. Create product-scoped dashboards
 
 ---
 *STATE.md updated: 2026-04-01T20:00:00Z*
