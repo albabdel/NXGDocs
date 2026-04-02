@@ -182,7 +182,10 @@ async function fetchPageContent(
   env: ConfluenceEnv
 ): Promise<string> {
   const baseUrl = env.CONFLUENCE_SITE_URL.replace(/\/$/, '');
-  const credentials = btoa(`${env.CONFLUENCE_EMAIL}:${env.CONFLUENCE_API_TOKEN}`);
+  // Use Node.js Buffer for Base64 encoding (btoa is browser-only)
+  const credentials = Buffer.from(
+    `${env.CONFLUENCE_EMAIL}:${env.CONFLUENCE_API_TOKEN}`
+  ).toString('base64');
   
   const response = await fetch(
     `${baseUrl}/wiki/rest/api/content/${pageId}?expand=body.storage`,
@@ -198,7 +201,7 @@ async function fetchPageContent(
     throw new Error(`Failed to fetch page ${pageId}: ${response.status}`);
   }
   
-  const data = await response.json();
+  const data = await response.json() as { body?: { storage?: { value?: string } } };
   return data.body?.storage?.value || '';
 }
 
