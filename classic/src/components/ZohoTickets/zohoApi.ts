@@ -138,6 +138,33 @@ export async function addComment(options: AddCommentOptions): Promise<void> {
   });
 }
 
+/** Options for sending a reply */
+export interface SendReplyOptions {
+  ticketId: string;
+  content: string;
+  to?: string;
+  cc?: string[];
+  bcc?: string[];
+  isCustomer?: boolean;
+  token?: string;
+}
+
+export async function sendReply(options: SendReplyOptions): Promise<void> {
+  const { ticketId, content, to, cc, bcc, isCustomer = false, token } = options;
+  await apiCall(`/tickets/${ticketId}/sendReply`, {
+    isCustomer,
+    token,
+    method: 'POST',
+    body: JSON.stringify({
+      content,
+      contentType: 'plainText',
+      ...(to ? { to } : {}),
+      ...(cc ? { cc } : {}),
+      ...(bcc ? { bcc } : {}),
+    }),
+  });
+}
+
 /** Options for updating ticket status */
 export interface UpdateTicketStatusOptions {
   ticketId: string;

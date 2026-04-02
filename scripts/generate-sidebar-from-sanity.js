@@ -375,11 +375,14 @@ async function run() {
     const sidebarItems = [];
 
     const homeLabel = sidebarConfig?.homeLinkLabel || 'Home';
-    sidebarItems.push({
-      type: 'doc',
-      id: 'index',
-      label: homeLabel,
-    });
+    // Only add index link if the index.md file exists on disk
+    if (onDiskIds.has('index')) {
+      sidebarItems.push({
+        type: 'doc',
+        id: 'index',
+        label: homeLabel,
+      });
+    }
 
     for (const root of roots) {
       const categoryItem = buildCategoryItem(root, onDiskIds);

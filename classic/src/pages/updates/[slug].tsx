@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import { useParams } from '@docusaurus/router';
+import { useLocation } from '@docusaurus/router';
 import { motion } from 'framer-motion';
 import PageHeader from '../../components/PageHeader';
 import LandingPageBackground from '../../components/LandingPageBackground/LandingPageBackground';
@@ -412,7 +412,8 @@ function UpdateNotFound() {
 
 // Main Detail Page Component
 function UpdateDetailContent(): JSX.Element {
-    const { slug } = useParams<{ slug: string }>();
+    const location = useLocation();
+    const slug = location.pathname.split('/').pop() || '';
     const updates = updatesData as UpdatesArray;
     
     // Find the update by slug

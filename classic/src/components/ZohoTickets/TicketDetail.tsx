@@ -6,7 +6,7 @@ import {
   BookOpen, CheckCircle, Activity, Mail, Copy, Check, RotateCcw,
 } from 'lucide-react';
 import {
-  getTicket, getConversations, addComment, addThread, sendReply, updateTicket,
+  getTicket, getConversations, addComment, sendReply, updateTicket,
   listStatuses, listAgents, getAttachments, uploadAttachment, translateText,
 } from './zohoApi';
 import type { ZohoTicket, ZohoConversationItem, ZohoAgent, ZohoStatus, ZohoAttachment } from './types';
