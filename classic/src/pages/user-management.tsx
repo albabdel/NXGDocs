@@ -3,6 +3,7 @@ import Layout from '@theme/Layout';
 import { motion } from 'framer-motion';
 import Link from '@docusaurus/Link';
 import GradientText from '@site/src/components/GradientText';
+import { useProduct } from '@theme/Root';
 import {
     Users,
     Shield,
@@ -155,6 +156,7 @@ const levelLabels = {
 };
 
 export default function UserManagementHub() {
+    const { productName } = useProduct();
     const [selectedCategory, setSelectedCategory] = useState('All Features');
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -171,7 +173,7 @@ export default function UserManagementHub() {
     return (
         <Layout
             title="User Management"
-            description="Role-based access control, user administration, and comprehensive security management for GCXONE platform"
+            description={`Role-based access control, user administration, and comprehensive security management for ${productName} platform`}
         >
             {/* Hero Section */}
             <div className="relative overflow-hidden border-b transition-colors duration-500" style={{

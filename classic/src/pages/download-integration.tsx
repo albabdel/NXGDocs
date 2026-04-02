@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import Layout from '@theme/Layout';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from '@docusaurus/Link';
+import { useProduct } from '@theme/Root';
 import {
     Download,
     Search,
@@ -63,7 +64,7 @@ const deviceClients: DeviceClient[] = [
                 size: '45.2 MB',
                 releaseDate: '2024-12-15',
                 downloadUrl: '#',
-                description: 'Test client for validating Hikvision NVR/camera integrations with GCXONE platform'
+                description: 'Test client for validating Hikvision NVR/camera integrations with the platform'
             },
             {
                 name: 'Hikvision SDK',
