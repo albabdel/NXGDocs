@@ -27,6 +27,7 @@ import NXGENSphereHero from '../components/NXGENSphereHero';
 import { ContinueReading } from '../components/History/ContinueReading';
 import { RoleBasedContent, RecommendedReading } from '../components/Personalization';
 import { useUserProfile } from '../hooks/useUserProfile';
+import { useProduct } from '@theme/Root';
 import styles from './index.module.css';
 import releasesData from '../data/sanity-releases.generated.json';
 import roadmapData from '../data/sanity-roadmap.generated.json';
@@ -61,10 +62,11 @@ type RoadmapItem = {
     changeType: string;
 };
 
-const quickStartLinks: Resource[] = [
+// Get product name for dynamic descriptions
+const getQuickStartLinks = (productName: string): Resource[] => [
     {
         title: 'Breakthroughs',
-        description: 'Ten core services that define how GCXONE works at scale',
+        description: `Ten core services that define how ${productName} works at scale`,
         link: '/docs/breakthroughs',
         icon: <Zap className="w-5 h-5" />,
     },
@@ -94,7 +96,7 @@ const quickStartLinks: Resource[] = [
     },
     {
         title: 'Server Setup',
-        description: 'Configure and deploy your GCXONE server',
+        description: `Configure and deploy your ${productName} server`,
         link: '/quick-start/platform-overview',
         icon: <Server className="w-5 h-5" />,
     },
@@ -196,6 +198,10 @@ const helpResources: Resource[] = [
 function HomePageContent(): React.JSX.Element {
     const { isAuthenticated, user } = useAuth0();
     const { profile } = useUserProfile();
+    const { productName } = useProduct();
+    
+    // Get product-specific quick start links
+    const quickStartLinks = getQuickStartLinks(productName);
 
     const handleSearchOpen = () => {
         const event = new KeyboardEvent('keydown', {
@@ -215,7 +221,7 @@ function HomePageContent(): React.JSX.Element {
     return (
         <Layout
             title="Documentation"
-            description="GCXONE Technical Documentation - Comprehensive guides for alarm management and IoT device integration">
+            description={`${productName} Technical Documentation - Comprehensive guides for alarm management and IoT device integration`}>
 
             <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
 
