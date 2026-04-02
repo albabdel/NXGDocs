@@ -63,7 +63,7 @@ interface PageHeaderProps {
 export default function PageHeader({ breadcrumbs, showThemeToggle = false }: PageHeaderProps) {
     const defaultBreadcrumbs = breadcrumbs || [
         { label: 'Home', href: '/' },
-        { label: 'GCXONE' }
+        { label: 'Docs' }
     ];
 
     return (

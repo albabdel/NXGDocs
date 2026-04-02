@@ -15,7 +15,7 @@ export default function InstallerLandingPage() {
     return (
         <Layout
             title="Installer Toolkit"
-            description="Technical resources and field tools for GCXONE site commissioning and device integration"
+            description="Technical resources and field tools for site commissioning and device integration"
         >
             <LandingPageBackground />
             <main className="min-h-screen">
@@ -43,7 +43,7 @@ export default function InstallerLandingPage() {
                             Installer Toolkit
                         </h1>
                         <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed mb-8">
-                            Complete technical resources for GCXONE site commissioning, device integration, 
+                            Complete technical resources for site commissioning, device integration, 
                             and field troubleshooting. Get sites online fast with professional-grade tools.
                         </p>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
@@ -93,7 +93,7 @@ export default function InstallerLandingPage() {
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold text-white mb-4">Site Commissioning</h2>
                             <p className="text-white/70 text-lg max-w-3xl mx-auto">
-                                Step-by-step guides for preparing and configuring new GCXONE installations
+                                Step-by-step guides for preparing and configuring new installations
                             </p>
                         </div>
 
@@ -193,7 +193,7 @@ export default function InstallerLandingPage() {
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold text-white mb-4">Device Integration</h2>
                             <p className="text-white/70 text-lg max-w-3xl mx-auto">
-                                Connect cameras, sensors, and security devices to the GCXONE platform
+                                Connect cameras, sensors, and security devices to the platform
                             </p>
                         </div>
 

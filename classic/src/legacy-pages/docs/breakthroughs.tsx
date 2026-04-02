@@ -140,7 +140,7 @@ function BreakthroughsContent(): JSX.Element {
     return (
         <Layout
             title="Breakthroughs"
-            description="Ten core services that define how GCXONE monitors, correlates, and responds at scale"
+            description="Ten core services that define how the platform monitors, correlates, and responds at scale"
         >
             <LandingPageBackground />
             <main className="min-h-screen">
@@ -190,7 +190,7 @@ function BreakthroughsContent(): JSX.Element {
                                 color: 'var(--ifm-color-content)',
                                 opacity: 0.9
                             }}>
-                                Ten core services that define how GCXONE monitors, correlates, and responds at scale
+                                Ten core services that define how the platform monitors, correlates, and responds at scale
                             </p>
 
                             {/* Stats Row */}

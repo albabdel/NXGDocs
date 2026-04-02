@@ -212,7 +212,7 @@ export default function UserManagementHub() {
                             User <GradientText>Management</GradientText>
                         </h1>
                         <p className="text-xl sm:text-2xl mb-8 max-w-3xl mx-auto" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                            Complete guide to roles, permissions, access control, and user administration in GCXONE
+                            Complete guide to roles, permissions, access control, and user administration
                         </p>
                         <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700 max-w-3xl mx-auto shadow-lg">
                             <p className="text-base mb-4" style={{ color: 'var(--ifm-color-content)' }}>
@@ -526,7 +526,7 @@ export default function UserManagementHub() {
                         {[
                             {
                                 title: 'User Management Overview',
-                                description: 'Complete guide to user management, roles, permissions, and access control in GCXONE.',
+                                description: 'Complete guide to user management, roles, permissions, and access control.',
                                 link: '/docs/getting-started/user-management-setup',
                                 icon: <BookOpen className="w-6 h-6" />
                             },
@@ -595,19 +595,19 @@ export default function UserManagementHub() {
                         {[
                             {
                                 title: 'User Management Overview',
-                                description: 'Complete guide to user management, roles, permissions, and access control in GCXONE and Talos.',
+                                description: 'Complete guide to user management, roles, permissions, and access control.',
                                 link: '/docs/getting-started/user-management-setup',
                                 category: 'Getting Started'
                             },
                             {
                                 title: 'Roles and Access Levels',
-                                description: 'Detailed breakdown of default roles, permission scopes, and access levels in GCXONE.',
+                                description: 'Detailed breakdown of default roles, permission scopes, and access levels.',
                                 link: '/docs/getting-started/user-management-setup',
                                 category: 'Role Management'
                             },
                             {
                                 title: 'Creating and Configuring Roles',
-                                description: 'Complete guide to creating custom roles, configuring permissions, and managing roles in GCXONE.',
+                                description: 'Complete guide to creating custom roles, configuring permissions, and managing roles.',
                                 link: '/docs/getting-started/user-management-setup',
                                 category: 'Role Management'
                             },

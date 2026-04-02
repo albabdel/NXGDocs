@@ -257,7 +257,7 @@ export default function RoadmapPage() {
     return (
         <Layout
             title="Product Roadmap"
-            description="GCXONE Product Roadmap - Preview of upcoming features and improvements"
+            description="Product Roadmap - Preview of upcoming features and improvements"
         >
             <LandingPageBackground />
             <main className="min-h-screen">
@@ -277,10 +277,10 @@ export default function RoadmapPage() {
                         className="text-center mb-12"
                     >
                         <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-                            GCXONE Product Roadmap
+                            Product Roadmap
                         </h1>
                         <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
-                            GCXONE remains committed to empowering security operations with enterprise-grade capabilities. 
+                            We remain committed to empowering security operations with enterprise-grade capabilities. 
                             Our Product Roadmap page is here to give you a preview of what's in our pipeline.
                         </p>
                     </motion.div>

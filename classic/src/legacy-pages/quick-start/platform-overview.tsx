@@ -269,7 +269,7 @@ export default function PlatformOverview() {
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold text-white mb-4">Live Platform Experience</h2>
                             <p className="text-white/70 text-lg max-w-3xl mx-auto">
-                                See GCXONE in action with real-time data, live device monitoring, and interactive analytics
+                                See {productName} in action with real-time data, live device monitoring, and interactive analytics
                             </p>
                         </div>
 
@@ -497,7 +497,7 @@ export default function PlatformOverview() {
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold text-white mb-4">5-Level Hierarchy Model</h2>
                             <p className="text-white/70 text-lg max-w-3xl mx-auto">
-                                GCXONE uses a structured 5-level hierarchy to organize security assets, 
+                                {productName} uses a structured 5-level hierarchy to organize security assets, 
                                 manage access control, and ensure complete data isolation
                             </p>
                         </div>
@@ -650,7 +650,7 @@ export default function PlatformOverview() {
                                 <h2 className="text-3xl font-bold text-white mb-6">Robust AWS Infrastructure</h2>
                                 <p className="text-lg text-slate-300 mb-6 leading-relaxed">
                                     Built on Amazon Web Services (AWS) with Kubernetes orchestration, 
-                                    GCXONE delivers enterprise-grade reliability and global reach.
+                                    {productName} delivers enterprise-grade reliability and global reach.
                                 </p>
                                 <div className="space-y-4 mb-8">
                                     {[
@@ -788,7 +788,7 @@ export default function PlatformOverview() {
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold text-white mb-4">Universal Translator (Proxy Architecture)</h2>
                             <p className="text-white/70 text-lg max-w-3xl mx-auto">
-                                The core innovation that allows GCXONE to communicate with diverse manufacturers 
+                                The core innovation that allows {productName} to communicate with diverse manufacturers 
                                 by translating their specific protocols into standardized system commands
                             </p>
                         </div>
@@ -798,7 +798,7 @@ export default function PlatformOverview() {
                                 { icon: 'Video', title: 'Diverse Hardware', desc: 'SDK/HTTP Protocols', color: '#374151' },
                                 { icon: 'Settings', title: 'Proxy Layer', desc: 'Protocol Translation', color: '#4F46E5' },
                                 { icon: 'Integration', title: 'Unified Interface', desc: 'Standardized Stream', color: '#06B6D4' },
-                                { icon: 'AI', title: 'GCXONE Core', desc: 'SaaS & AI Engine', color: '#D946EF' }
+                                { icon: 'AI', title: `${productName} Core`, desc: 'SaaS & AI Engine', color: '#D946EF' }
                             ].map((step, idx) => (
                                 <div key={idx} className="relative">
                                     <div className="text-center p-6 rounded-xl border border-white/10" style={{ backgroundColor: step.color }}>
@@ -901,9 +901,9 @@ export default function PlatformOverview() {
                                         <text x="400" y="303" textAnchor="middle" fill="white" fontSize="9">PTZ Commands</text>
                                         <text x="400" y="315" textAnchor="middle" fill="white" fontSize="9">Configuration</text>
                                         
-                                        {/* GCXONE Core */}
+                                        {/* Platform Core */}
                                         <rect x="500" y="50" width="80" height="300" rx="10" fill="#232F3E" stroke="#E8B058" strokeWidth="2" />
-                                        <text x="540" y="35" textAnchor="middle" fill="#E8B058" fontSize="14" fontWeight="bold">GCXONE</text>
+                                        <text x="540" y="35" textAnchor="middle" fill="#E8B058" fontSize="14" fontWeight="bold">{productName}</text>
                                         
                                         <rect x="510" y="80" width="60" height="40" rx="4" fill="#EF4444" stroke="white" strokeWidth="1" />
                                         <text x="540" y="95" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold">AI Engine</text>
@@ -1051,9 +1051,9 @@ export default function PlatformOverview() {
                         className="mb-32"
                     >
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-white mb-4">GCXONE & Talos Integration</h2>
+                            <h2 className="text-3xl font-bold text-white mb-4">{productName} & Talos Integration</h2>
                             <p className="text-white/70 text-lg max-w-3xl mx-auto">
-                                Seamless integration between GCXONE video analytics and Evalink Talos alarm management platform
+                                Seamless integration between {productName} video analytics and Evalink Talos alarm management platform
                             </p>
                         </div>
 
@@ -1089,9 +1089,9 @@ export default function PlatformOverview() {
                                         <rect x="60" y="140" width="40" height="25" rx="3" fill="#F59E0B" stroke="white" strokeWidth="1" />
                                         <text x="80" y="152" textAnchor="middle" fill="white" fontSize="9">NVR</text>
                                         
-                                        {/* GCXONE Processing */}
+                                        {/* Platform Processing */}
                                         <rect x="180" y="30" width="140" height="160" rx="10" fill="#232F3E" stroke="#E8B058" strokeWidth="2" />
-                                        <text x="250" y="20" textAnchor="middle" fill="#E8B058" fontSize="14" fontWeight="bold">GCXONE Platform</text>
+                                        <text x="250" y="20" textAnchor="middle" fill="#E8B058" fontSize="14" fontWeight="bold">{productName} Platform</text>
                                         
                                         {/* Raw Alarms Input */}
                                         <rect x="195" y="50" width="110" height="30" rx="4" fill="#EF4444" stroke="white" strokeWidth="1" />
@@ -1222,7 +1222,7 @@ export default function PlatformOverview() {
                                             <div className="p-2 bg-[#E8B058]/10 rounded-lg">
                                                 <Cpu className="w-5 h-5 text-[#E8B058]" />
                                             </div>
-                                            <h3 className="font-semibold text-white">GCXONE Role</h3>
+                                            <h3 className="font-semibold text-white">{productName} Role</h3>
                                         </div>
                                         <ul className="text-white/70 text-sm space-y-1">
                                             <li>• Advanced video analytics and AI processing</li>
@@ -1253,7 +1253,7 @@ export default function PlatformOverview() {
                                             <h3 className="font-semibold text-white">Data Flow</h3>
                                         </div>
                                         <p className="text-white/70 text-sm">
-                                            Raw alarms → GCXONE AI analysis → Verified events → Talos operator dashboard. 
+                                            Raw alarms → {productName} AI analysis → Verified events → Talos operator dashboard. 
                                             This intelligent pipeline ensures operators only see genuine security threats.
                                         </p>
                                     </div>
@@ -1343,7 +1343,7 @@ export default function PlatformOverview() {
                         className="mb-32"
                     >
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-white mb-4">Experience GCXONE Live</h2>
+                            <h2 className="text-3xl font-bold text-white mb-4">Experience {productName} Live</h2>
                             <p className="text-white/70 text-lg max-w-2xl mx-auto">
                                 Interactive demonstrations of key platform capabilities
                             </p>
@@ -1430,7 +1430,7 @@ export default function PlatformOverview() {
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold text-white mb-4">Ready to Get Started?</h2>
                             <p className="text-white/70 text-lg max-w-2xl mx-auto">
-                                Explore the platform capabilities and begin your GCXONE journey
+                                Explore the platform capabilities and begin your {productName} journey
                             </p>
                         </div>
 

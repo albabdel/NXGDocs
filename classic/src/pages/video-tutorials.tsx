@@ -24,7 +24,7 @@ type Video = {
 
 const videos: Video[] = [
     { id: 'I7dccOLTOsk', title: 'First-Time Login Setup', category: 'Getting Started', duration: '5:32' },
-    { id: 'ER-tnAvGXow', title: 'GCXONE Product Overview', category: 'Getting Started', duration: '12:45' },
+    { id: 'ER-tnAvGXow', title: 'Platform Overview', category: 'Getting Started', duration: '12:45' },
     { id: 'p--04PIIO-M', title: 'Platform Walkthrough', category: 'Features', duration: '18:20' },
     { id: 'AxHOF8cV88Q', title: 'Dashboard Deep Dive', category: 'Features', duration: '15:10' },
     { id: 'H2WhN1p3x9E', title: 'Tower Management', category: 'Advanced', duration: '8:45' },
@@ -60,7 +60,7 @@ export default function VideoTutorials() {
     };
 
     return (
-        <Layout title="Video Tutorials | GCXONE" description="Learn GCXONE with video tutorials">
+        <Layout title="Video Tutorials" description="Learn with video tutorials">
             <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
                 <div className="max-w-7xl mx-auto px-6 py-8">
                     <nav className="flex items-center gap-2 text-sm mb-8" style={{ color: 'var(--ifm-color-content-secondary)' }}>
@@ -80,7 +80,7 @@ export default function VideoTutorials() {
                             Video Tutorials
                         </h1>
                         <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                            Master GCXONE with step-by-step video guides for all skill levels.
+                            Master the platform with step-by-step video guides for all skill levels.
                         </p>
                     </div>
 

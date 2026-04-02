@@ -35,7 +35,7 @@ export default function RolesIndex(): React.JSX.Element {
     return (
         <Layout
             title="Choose Your Role"
-            description="Get started with role-specific guides for GCXONE"
+            description="Get started with role-specific guides"
         >
             <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
                 <div className="max-w-7xl mx-auto px-6 pb-24">

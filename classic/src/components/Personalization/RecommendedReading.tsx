@@ -122,7 +122,7 @@ const staticRecommendations: Record<UserRole, RecommendedItem[]> = {
     {
       id: 'op-5',
       title: 'Quick Start for Operators',
-      description: 'Get up and running with GCXONE operations in minutes.',
+      description: 'Get up and running with operations in minutes.',
       url: '/quick-start/guide',
       icon: 'zap',
       tags: ['getting-started', 'operations'],
@@ -174,7 +174,7 @@ const staticRecommendations: Record<UserRole, RecommendedItem[]> = {
     {
       id: 'eng-1',
       title: 'Installation Guide',
-      description: 'Step-by-step instructions for deploying GCXONE.',
+      description: 'Step-by-step instructions for deployment.',
       url: '/quick-start/platform-overview',
       icon: 'wrench',
       tags: ['installation', 'setup'],
@@ -182,7 +182,7 @@ const staticRecommendations: Record<UserRole, RecommendedItem[]> = {
     {
       id: 'eng-2',
       title: 'API Documentation',
-      description: 'Integrate with GCXONE using our REST API.',
+      description: 'Integrate with the platform using our REST API.',
       url: '/api',
       icon: 'cpu',
       tags: ['api', 'integration'],
@@ -190,7 +190,7 @@ const staticRecommendations: Record<UserRole, RecommendedItem[]> = {
     {
       id: 'eng-3',
       title: 'Device Integration',
-      description: 'Connect and configure devices with GCXONE.',
+      description: 'Connect and configure devices with the platform.',
       url: '/quick-start/device-integration',
       icon: 'cpu',
       tags: ['integration', 'configuration'],
@@ -258,7 +258,7 @@ const staticRecommendations: Record<UserRole, RecommendedItem[]> = {
     {
       id: 'user-1',
       title: 'Getting Started Guide',
-      description: 'Your first steps with GCXONE documentation.',
+      description: 'Your first steps with the documentation.',
       url: '/quick-start/guide',
       icon: 'zap',
       tags: ['getting-started', 'basics'],

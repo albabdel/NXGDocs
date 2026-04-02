@@ -1107,7 +1107,7 @@ export default function IntegrationHub() {
     return (
         <Layout
             title="Integration Hub"
-            description="Discover all supported devices and integrations in GCXONE"
+            description="Discover all supported devices and integrations"
         >
             <LandingPageBackground />
             <main className="min-h-screen">

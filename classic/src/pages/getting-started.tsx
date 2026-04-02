@@ -87,7 +87,7 @@ const quickStartSteps: QuickStartStep[] = [
     {
         id: 'platform-overview',
         title: 'Platform Overview',
-        description: 'Learn about GCXONE architecture and capabilities',
+        description: 'Learn about platform architecture and capabilities',
         icon: <Globe className="w-5 h-5" />,
         link: '/quick-start/platform-overview',
         estimatedTime: '10 min',
@@ -129,7 +129,7 @@ const quickStartSteps: QuickStartStep[] = [
 const videoResources: VideoResource[] = [
     {
         id: 'v1',
-        title: 'GCXONE Platform Overview',
+        title: 'Platform Overview',
         description: 'Complete introduction to the platform',
         youtubeId: 'ER-tnAvGXow',
         thumbnail: 'https://img.youtube.com/vi/ER-tnAvGXow/maxresdefault.jpg',
@@ -153,8 +153,8 @@ const videoResources: VideoResource[] = [
     },
     {
         id: 'v4',
-        title: 'GCXONE & Talos Integration',
-        description: 'How GCXONE works with Talos devices',
+        title: 'Platform & Talos Integration',
+        description: 'How the platform works with Talos devices',
         youtubeId: 'p--04PIIO-M',
         thumbnail: 'https://img.youtube.com/vi/p--04PIIO-M/maxresdefault.jpg',
         duration: '10:15',

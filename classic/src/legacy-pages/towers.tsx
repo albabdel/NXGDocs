@@ -193,7 +193,7 @@ export default function TowersLandingPage() {
     return (
         <Layout
             title="Towers"
-            description="Complete guide to managing and configuring mobile towers in GCXONE"
+            description="Complete guide to managing and configuring mobile towers"
         >
             <LandingPageBackground />
             <main className="min-h-screen">
@@ -231,7 +231,7 @@ export default function TowersLandingPage() {
                             Towers
                         </h1>
                         <p className="text-xl max-w-3xl mx-auto leading-relaxed mb-8" style={{ color: 'var(--ifm-font-color-secondary)' }}>
-                            Complete guide to adding, configuring, and managing mobile towers in GCXONE.
+                            Complete guide to adding, configuring, and managing mobile towers.
                             From marketplace template creation to final deployment, learn everything you need to deploy and maintain your tower infrastructure.
                         </p>
                         <div className="flex items-center justify-center gap-6 text-sm flex-wrap">
@@ -268,7 +268,7 @@ export default function TowersLandingPage() {
                         <div className="max-w-4xl mx-auto">
                             <VideoPlayer
                                 title="Add and Configure a New Mobile Tower"
-                                description="Complete walkthrough of adding and configuring a new mobile tower in GCXONE, from marketplace template creation to final deployment and activation."
+                                description="Complete walkthrough of adding and configuring a new mobile tower, from marketplace template creation to final deployment and activation."
                             />
                         </div>
                     </motion.section>
@@ -766,7 +766,7 @@ export default function TowersLandingPage() {
                             >
                                 <BookOpen className="w-10 h-10 text-[#E8B058] mb-4 group-hover:scale-110 transition-transform" />
                                 <h3 className="text-lg font-bold text-white mb-2">Getting Started</h3>
-                                <p className="text-sm text-white/70">Complete onboarding guide for GCXONE platform</p>
+                                <p className="text-sm text-white/70">Complete onboarding guide</p>
                             </Link>
                             <Link
                                 to={towersDocLink}
@@ -799,7 +799,7 @@ export default function TowersLandingPage() {
                             <Star className="w-12 h-12 text-[#E8B058] mx-auto mb-4" />
                             <h2 className="text-2xl font-bold text-white mb-4">Ready to Configure Your Tower?</h2>
                             <p className="text-white/70 mb-8 max-w-xl mx-auto">
-                                Follow our complete 36-step guide to add and configure your first mobile tower in GCXONE.
+                                Follow our complete 36-step guide to add and configure your first mobile tower.
                                 Watch the video tutorial and follow along with the detailed steps above.
                             </p>
                             <div className="inline-flex gap-4 flex-wrap justify-center">
