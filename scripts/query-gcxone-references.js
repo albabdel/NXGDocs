@@ -2,8 +2,13 @@
 'use strict';
 
 /**
- * Query Sanity for documents with GCXONE references in descriptions
- * Used to identify content that needs product-specific descriptions for GC Surge
+ * Query Sanity for documents with GCXONE references
+ * Used to identify content that needs product-specific handling
+ * 
+ * GCXONE and GC Surge are separate platforms:
+ * - GCXONE content should have GCXONE branding
+ * - GC Surge content should have GC Surge branding
+ * - Shared content with GCXONE refs needs to be split into product-specific versions
  */
 
 const { createClient } = require('@sanity/client');
@@ -21,14 +26,34 @@ async function queryGCXONEReferences() {
     token: SANITY_API_TOKEN,
   });
 
-  console.log('='.repeat(60));
+  console.log('='.repeat(70));
   console.log('  Querying Sanity for GCXONE References');
-  console.log('='.repeat(60));
+  console.log('='.repeat(70));
+  console.log();
+  console.log('📋 Product Strategy:');
+  console.log('   - GCXONE (product=gcxone): Documents with GCXONE branding');
+  console.log('   - GC Surge (product=gcsurge): Documents with GC Surge branding');
+  console.log('   - Shared (product=shared): Shared documents - need product separation');
   console.log();
 
-  // Query 1: Documents with GCXONE in description
-  const descQuery = `*[
-    (product == "gcsurge" || product == "shared") && 
+  // Query 1: Shared documents with GCXONE (need to be split)
+  const sharedQuery = `*[
+    product == "shared" && 
+    (description match "*GCXONE*" || description match "*gcxone*" ||
+     title match "*GCXONE*" || title match "*gcxone*")
+  ] {
+    _id,
+    _type,
+    title,
+    "slug": slug.current,
+    product,
+    description,
+    "matchField": "shared"
+  }`;
+
+  // Query 2: GC Surge documents with GCXONE (need fixing - wrong branding)
+  const gcsurgeQuery = `*[
+    product == "gcsurge" && 
     (description match "*GCXONE*" || description match "*gcxone*")
   ] {
     _id,
@@ -37,24 +62,10 @@ async function queryGCXONEReferences() {
     "slug": slug.current,
     product,
     description,
-    "matchField": "description"
+    "matchField": "gcsurge"
   }`;
 
-  // Query 2: Documents with GCXONE in title
-  const titleQuery = `*[
-    (product == "gcsurge" || product == "shared") && 
-    (title match "*GCXONE*" || title match "*gcxone*")
-  ] {
-    _id,
-    _type,
-    title,
-    "slug": slug.current,
-    product,
-    description,
-    "matchField": "title"
-  }`;
-
-  // Query 3: Landing pages with GCXONE in tagline or description
+  // Query 3: Landing pages with GCXONE
   const landingQuery = `*[
     _type == "landingPage" && 
     (product == "gcsurge" || product == "shared") &&
@@ -72,96 +83,102 @@ async function queryGCXONEReferences() {
   }`;
 
   console.log('Running GROQ queries...');
-  console.log('Checking: description, title, tagline fields');
-  console.log('Filter: product=gcsurge OR product=shared');
-  console.log('Pattern: contains "GCXONE" (case-insensitive)');
   console.log();
 
   try {
-    const [descResults, titleResults, landingResults] = await Promise.all([
-      client.fetch(descQuery),
-      client.fetch(titleQuery),
+    const [sharedResults, gcsurgeResults, landingResults] = await Promise.all([
+      client.fetch(sharedQuery),
+      client.fetch(gcsurgeQuery),
       client.fetch(landingQuery)
     ]);
 
-    // Deduplicate by _id (documents may match multiple queries)
-    const allResults = [...descResults, ...titleResults, ...landingResults];
+    // Deduplicate by _id
+    const allResults = [...sharedResults, ...gcsurgeResults, ...landingResults];
     const seenIds = new Set();
     const uniqueResults = [];
-    const resultsByField = { description: [], title: [], landingPage: [] };
     
     allResults.forEach(doc => {
       if (!seenIds.has(doc._id)) {
         seenIds.add(doc._id);
         uniqueResults.push(doc);
       }
-      if (!resultsByField[doc.matchField].find(d => d._id === doc._id)) {
-        resultsByField[doc.matchField].push(doc);
-      }
     });
 
-    // Group by product
-    const gcsurgeDocs = uniqueResults.filter(d => d.product === 'gcsurge');
-    const sharedDocs = uniqueResults.filter(d => d.product === 'shared');
+    // Categorize results
+    const sharedDocs = sharedResults;
+    const gcsurgeDocs = gcsurgeResults;
+    const landingPages = landingResults;
 
-    console.log('='.repeat(60));
-    console.log('  RESULTS BY FIELD');
-    console.log('='.repeat(60));
-    console.log(`Description field matches: ${resultsByField.description.length}`);
-    console.log(`Title field matches: ${resultsByField.title.length}`);
-    console.log(`Landing page matches: ${resultsByField.landingPage.length}`);
+    console.log('='.repeat(70));
+    console.log('  RESULTS');
+    console.log('='.repeat(70));
     console.log();
 
-    console.log('='.repeat(60));
-    console.log('  GC SURGE DOCUMENTS');
-    console.log('='.repeat(60));
-    console.log(`Count: ${gcsurgeDocs.length}`);
-    console.log();
-    
-    gcsurgeDocs.forEach((doc, i) => {
-      console.log(`${i + 1}. ${doc.title}`);
-      console.log(`   ID: ${doc._id}`);
-      console.log(`   Type: ${doc._type}`);
-      console.log(`   Slug: ${doc.slug || 'N/A'}`);
-      console.log(`   Product: ${doc.product}`);
-      console.log(`   Match: ${doc.matchField}`);
-      if (doc.description) console.log(`   Description: ${doc.description}`);
-      if (doc.tagline) console.log(`   Tagline: ${doc.tagline}`);
+    // SHARED documents - need to be split into product-specific versions
+    if (sharedDocs.length > 0) {
+      console.log('📁 SHARED DOCUMENTS (need product separation):');
+      console.log(`   Count: ${sharedDocs.length}`);
+      console.log('   Action: Split into GCXONE + GC Surge versions');
       console.log();
-    });
+      
+      sharedDocs.forEach((doc, i) => {
+        console.log(`   ${i + 1}. ${doc.title}`);
+        console.log(`      ID: ${doc._id}`);
+        console.log(`      Slug: ${doc.slug || 'N/A'}`);
+        console.log(`      Description: "${doc.description || 'N/A'}"`);
+        console.log();
+      });
+    }
 
-    console.log('='.repeat(60));
-    console.log('  SHARED DOCUMENTS');
-    console.log('='.repeat(60));
-    console.log(`Count: ${sharedDocs.length}`);
-    console.log();
-
-    sharedDocs.forEach((doc, i) => {
-      console.log(`${i + 1}. ${doc.title}`);
-      console.log(`   ID: ${doc._id}`);
-      console.log(`   Type: ${doc._type}`);
-      console.log(`   Slug: ${doc.slug || 'N/A'}`);
-      console.log(`   Product: ${doc.product}`);
-      console.log(`   Match: ${doc.matchField}`);
-      if (doc.description) console.log(`   Description: ${doc.description}`);
-      if (doc.tagline) console.log(`   Tagline: ${doc.tagline}`);
+    // GC SURGE documents - have wrong branding (need fix)
+    if (gcsurgeDocs.length > 0) {
+      console.log('❌ GC SURGE DOCUMENTS (have wrong branding):');
+      console.log(`   Count: ${gcsurgeDocs.length}`);
+      console.log('   Action: Replace GCXONE with GC Surge in descriptions');
       console.log();
-    });
+      
+      gcsurgeDocs.forEach((doc, i) => {
+        console.log(`   ${i + 1}. ${doc.title}`);
+        console.log(`      ID: ${doc._id}`);
+        console.log(`      Description: "${doc.description || 'N/A'}"`);
+        console.log();
+      });
+    }
+
+    // LANDING PAGES
+    if (landingPages.length > 0) {
+      console.log('📄 LANDING PAGES:');
+      console.log(`   Count: ${landingPages.length}`);
+      console.log();
+      
+      landingPages.forEach((doc, i) => {
+        console.log(`   ${i + 1}. ${doc.title}`);
+        console.log(`      ID: ${doc._id}`);
+        console.log(`      Product: ${doc.product}`);
+        if (doc.description) console.log(`      Description: "${doc.description}"`);
+        if (doc.tagline) console.log(`      Tagline: "${doc.tagline}"`);
+        console.log();
+      });
+    }
 
     // Summary
-    console.log('='.repeat(60));
+    console.log('='.repeat(70));
     console.log('  SUMMARY');
-    console.log('='.repeat(60));
-    console.log(`Total unique documents found: ${uniqueResults.length}`);
-    console.log(`GC Surge documents: ${gcsurgeDocs.length}`);
-    console.log(`Shared documents: ${sharedDocs.length}`);
+    console.log('='.repeat(70));
+    console.log(`Total documents found: ${uniqueResults.length}`);
+    console.log(`Shared (need split): ${sharedDocs.length}`);
+    console.log(`GC Surge (need fix): ${gcsurgeDocs.length}`);
+    console.log(`Landing pages: ${landingPages.length}`);
     console.log();
 
-    // Output document IDs for migration script
-    console.log('Document IDs for migration:');
-    uniqueResults.forEach(doc => {
-      console.log(`  ${doc._id} (${doc.product}, ${doc.matchField})`);
-    });
+    if (sharedDocs.length > 0) {
+      console.log('🔧 RECOMMENDED ACTION:');
+      console.log('   Run: node scripts/update-gcsurge-descriptions.js --commit');
+      console.log('   This will:');
+      console.log('   1. Create GC Surge copies with GC Surge branding');
+      console.log('   2. Convert shared docs to GCXONE (product=gcxone)');
+      console.log('   3. Each platform gets its own branded content');
+    }
 
     return uniqueResults;
   } catch (error) {
