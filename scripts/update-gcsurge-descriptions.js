@@ -2,10 +2,13 @@
 'use strict';
 
 /**
- * Migration Script: Update GC Surge descriptions
+ * Migration Script: Create product-specific content for GC Surge
  * 
- * Removes GCXONE branding references from Sanity documents
- * to ensure GC Surge site shows only GC Surge branding.
+ * GCXONE and GC Surge are two separate platforms with distinct branding.
+ * This script:
+ * 1. Creates GC Surge-specific copies of shared documents with GC Surge branding
+ * 2. Updates shared documents to be explicitly GCXONE documents (product=gcxone)
+ * 3. Ensures each product has its own branded content
  * 
  * Usage:
  *   npm run update:gcsurge-descriptions          # Dry run (shows changes)
@@ -21,62 +24,33 @@ const SANITY_API_TOKEN = 'sk6UtQrIiszU0whyrdZeIcc2bQiyKivrm4FQVDCukFHw3PuHa8QLrq
 const DRY_RUN = !process.argv.includes('--commit');
 
 /**
- * Clean description of GCXONE references based on product type
+ * Replace GCXONE references with GC Surge references for GC Surge documents
  */
-function cleanDescription(description, productId) {
+function toGcSurgeDescription(description) {
   if (!description) return description;
   
-  if (productId === 'gcsurge') {
-    // For GC Surge documents: Replace GCXONE with GC Surge
-    return description
-      .replace(/GCXONE\s+Technical\s+Documentation/gi, 'GC Surge Documentation')
-      .replace(/GCXONE\s+Product\s+Roadmap/gi, 'GC Surge Product Roadmap')
-      .replace(/NXGEN\s+GCXONE/gi, 'NXGEN GC Surge')
-      .replace(/GCXONE/gi, 'GC Surge');
-  }
-  
-  // For shared content: Make product-agnostic
   return description
-    .replace(/GCXONE\s+Technical\s+Documentation/gi, 'NXGEN Documentation')
-    .replace(/GCXONE\s+Product\s+Roadmap/gi, 'Product Roadmap')
-    .replace(/NXGEN\s+GCXONE/gi, 'NXGEN')
-    .replace(/GCXONE/gi, 'the platform');
+    .replace(/GCXONE\s+Technical\s+Documentation/gi, 'GC Surge Documentation')
+    .replace(/GCXONE\s+Product\s+Roadmap/gi, 'GC Surge Product Roadmap')
+    .replace(/NXGEN\s+GCXONE/gi, 'NXGEN GC Surge')
+    .replace(/GCXONE/gi, 'GC Surge');
 }
 
 /**
- * Clean title of GCXONE references
+ * Ensure GCXONE branding is explicit (for documents being converted from shared to gcxone)
  */
-function cleanTitle(title, productId) {
-  if (!title) return title;
-  
-  if (productId === 'gcsurge') {
-    return title
-      .replace(/GCXONE/gi, 'GC Surge');
-  }
-  
-  // Shared content: Keep title as-is (titles are usually fine)
-  return title;
-}
-
-/**
- * Clean tagline of GCXONE references
- */
-function cleanTagline(tagline, productId) {
-  if (!tagline) return tagline;
-  
-  if (productId === 'gcsurge') {
-    return tagline
-      .replace(/GCXONE/gi, 'GC Surge');
-  }
-  
-  return tagline
-    .replace(/GCXONE/gi, 'the platform');
+function toGcxoneDescription(description) {
+  if (!description) return description;
+  // Already has GCXONE, keep it
+  if (/GCXONE/i.test(description)) return description;
+  // Add GCXONE where it makes sense
+  return description;
 }
 
 async function main() {
-  console.log('='.repeat(60));
-  console.log('  GC Surge Description Migration');
-  console.log('='.repeat(60));
+  console.log('='.repeat(70));
+  console.log('  Product-Specific Content Migration for GC Surge');
+  console.log('='.repeat(70));
   console.log();
   
   if (DRY_RUN) {
@@ -87,6 +61,12 @@ async function main() {
   }
   console.log();
   
+  console.log('📋 Strategy:');
+  console.log('   1. Find shared documents with GCXONE references');
+  console.log('   2. Create GC Surge copies with GC Surge branding');
+  console.log('   3. Convert shared documents to GCXONE documents (product=gcxone)');
+  console.log();
+  
   const client = createClient({
     projectId: SANITY_PROJECT_ID,
     dataset: SANITY_DATASET,
@@ -95,14 +75,13 @@ async function main() {
     token: SANITY_API_TOKEN,
   });
   
-  // Query for documents with GCXONE references
-  console.log('📡 Querying Sanity for documents with GCXONE references...');
+  // Query for shared documents with GCXONE references
+  console.log('📡 Querying Sanity for shared documents with GCXONE references...');
   
   const query = `*[
-    (product == "gcsurge" || product == "shared") && 
+    product == "shared" && 
     (description match "*GCXONE*" || description match "*gcxone*" ||
-     title match "*GCXONE*" || title match "*gcxone*" ||
-     tagline match "*GCXONE*" || tagline match "*gcxone*")
+     title match "*GCXONE*" || title match "*gcxone*")
   ] {
     _id,
     _type,
@@ -110,165 +89,236 @@ async function main() {
     "slug": slug.current,
     product,
     description,
-    tagline
-  } | order(product asc, title asc)`;
+    body,
+    tags,
+    sidebarCategory,
+    sidebarPosition,
+    sidebarLabel,
+    targetAudience,
+    status,
+    workflowConfig
+  } | order(title asc)`;
   
-  let results;
+  let sharedDocsWithGcxone;
   try {
-    results = await client.fetch(query);
+    sharedDocsWithGcxone = await client.fetch(query);
   } catch (error) {
     console.error('❌ Query failed:', error.message);
     process.exit(1);
   }
   
-  console.log(`   Found ${results.length} documents with GCXONE references`);
+  console.log(`   Found ${sharedDocsWithGcxone.length} shared documents with GCXONE references`);
   console.log();
   
-  if (results.length === 0) {
+  // Also check for any gcsurge documents that might have GCXONE references
+  const gcsurgeQuery = `*[
+    product == "gcsurge" && 
+    (description match "*GCXONE*" || description match "*gcxone*")
+  ] {
+    _id,
+    _type,
+    title,
+    "slug": slug.current,
+    product,
+    description
+  } | order(title asc)`;
+  
+  let gcsurgeDocsWithGcxone;
+  try {
+    gcsurgeDocsWithGcxone = await client.fetch(gcsurgeQuery);
+  } catch (error) {
+    console.error('❌ Query failed:', error.message);
+    process.exit(1);
+  }
+  
+  if (gcsurgeDocsWithGcxone.length > 0) {
+    console.log(`   Found ${gcsurgeDocsWithGcxone.length} GC Surge documents with GCXONE references (need fixing)`);
+  }
+  console.log();
+  
+  if (sharedDocsWithGcxone.length === 0 && gcsurgeDocsWithGcxone.length === 0) {
     console.log('✅ No documents need updating. Migration complete.');
     process.exit(0);
   }
   
-  // Categorize results
-  const gcsurgeDocs = results.filter(d => d.product === 'gcsurge');
-  const sharedDocs = results.filter(d => d.product === 'shared');
-  
-  console.log('='.repeat(60));
+  // Display planned changes
+  console.log('='.repeat(70));
   console.log('  PLANNED CHANGES');
-  console.log('='.repeat(60));
-  console.log();
+  console.log('='.repeat(70));
   
-  const changes = [];
+  const operations = [];
   
-  results.forEach(doc => {
-    const updates = {};
-    const changesList = [];
+  // Process shared documents
+  if (sharedDocsWithGcxone.length > 0) {
+    console.log('\n📚 SHARED DOCUMENTS (will be split into product-specific versions):');
+    console.log('-'.repeat(70));
     
-    // Check description
-    if (doc.description && /GCXONE/i.test(doc.description)) {
-      const newDesc = cleanDescription(doc.description, doc.product);
-      if (newDesc !== doc.description) {
-        updates.description = newDesc;
-        changesList.push({
-          field: 'description',
-          old: doc.description,
-          new: newDesc
-        });
-      }
-    }
-    
-    // Check title
-    if (doc.title && /GCXONE/i.test(doc.title)) {
-      const newTitle = cleanTitle(doc.title, doc.product);
-      if (newTitle !== doc.title) {
-        updates.title = newTitle;
-        changesList.push({
-          field: 'title',
-          old: doc.title,
-          new: newTitle
-        });
-      }
-    }
-    
-    // Check tagline
-    if (doc.tagline && /GCXONE/i.test(doc.tagline)) {
-      const newTagline = cleanTagline(doc.tagline, doc.product);
-      if (newTagline !== doc.tagline) {
-        updates.tagline = newTagline;
-        changesList.push({
-          field: 'tagline',
-          old: doc.tagline,
-          new: newTagline
-        });
-      }
-    }
-    
-    if (Object.keys(updates).length > 0) {
-      changes.push({
-        id: doc._id,
-        type: doc._type,
-        title: doc.title,
-        product: doc.product,
-        slug: doc.slug,
-        updates,
-        changesList
+    sharedDocsWithGcxone.forEach((doc, i) => {
+      console.log(`\n${i + 1}. ${doc.title}`);
+      console.log(`   ID: ${doc._id}`);
+      console.log(`   Type: ${doc._type}`);
+      console.log(`   Slug: ${doc.slug || 'N/A'}`);
+      console.log(`   Current: product=shared, description="${doc.description || 'N/A'}"`);
+      console.log();
+      console.log(`   Planned actions:`);
+      console.log(`   a) Create GC Surge copy (product=gcsurge) with:` );
+      console.log(`      - description: "${toGcSurgeDescription(doc.description) || 'N/A'}"`);
+      console.log(`      - slug: "${doc.slug}-gcsurge" (to avoid conflict)`);
+      console.log(`   b) Convert original to GCXONE (product=gcxone)`);
+      console.log(`      - description: unchanged (keeps GCXONE branding)`);
+      
+      operations.push({
+        type: 'split',
+        originalId: doc._id,
+        originalDoc: doc,
+        gcsurgeDescription: toGcSurgeDescription(doc.description)
       });
-    }
-  });
-  
-  // Display changes
-  console.log(`Documents to update: ${changes.length}`);
-  console.log(`  GC Surge documents: ${changes.filter(c => c.product === 'gcsurge').length}`);
-  console.log(`  Shared documents: ${changes.filter(c => c.product === 'shared').length}`);
-  console.log();
-  
-  changes.forEach((change, i) => {
-    console.log(`\n${i + 1}. ${change.title}`);
-    console.log(`   ID: ${change.id}`);
-    console.log(`   Type: ${change.type}`);
-    console.log(`   Product: ${change.product}`);
-    console.log(`   Slug: ${change.slug || 'N/A'}`);
-    console.log(`   Changes:`);
-    
-    change.changesList.forEach(c => {
-      console.log(`     - ${c.field}:`);
-      console.log(`       OLD: "${c.old}"`);
-      console.log(`       NEW: "${c.new}"`);
     });
-  });
+  }
+  
+  // Process GC Surge documents that need fixing
+  if (gcsurgeDocsWithGcxone.length > 0) {
+    console.log('\n\n🔧 GC SURGE DOCUMENTS (need description fix):');
+    console.log('-'.repeat(70));
+    
+    gcsurgeDocsWithGcxone.forEach((doc, i) => {
+      console.log(`\n${i + 1}. ${doc.title}`);
+      console.log(`   ID: ${doc._id}`);
+      console.log(`   Type: ${doc._type}`);
+      console.log(`   Slug: ${doc.slug || 'N/A'}`);
+      console.log(`   Current description: "${doc.description || 'N/A'}"`);
+      console.log(`   New description: "${toGcSurgeDescription(doc.description) || 'N/A'}"`);
+      
+      operations.push({
+        type: 'fix',
+        docId: doc._id,
+        doc: doc,
+        newDescription: toGcSurgeDescription(doc.description)
+      });
+    });
+  }
+  
+  console.log('\n' + '='.repeat(70));
+  console.log('  SUMMARY');
+  console.log('='.repeat(70));
+  console.log(`Documents to split (shared → gcxone + gcsurge): ${sharedDocsWithGcxone.length}`);
+  console.log(`GC Surge documents to fix: ${gcsurgeDocsWithGcxone.length}`);
+  console.log(`Total operations: ${operations.length}`);
   
   if (DRY_RUN) {
-    console.log('\n' + '='.repeat(60));
+    console.log('\n' + '='.repeat(70));
     console.log('  DRY RUN COMPLETE');
-    console.log('='.repeat(60));
+    console.log('='.repeat(70));
     console.log(`\nTo apply these changes, run:`);
-    console.log(`  npm run update:gcsurge-descriptions -- --commit`);
-    console.log(`\nOr directly:`);
     console.log(`  node scripts/update-gcsurge-descriptions.js --commit`);
+    console.log('\n⚠️  Note: This will:');
+    console.log(`   - Create ${sharedDocsWithGcxone.length} new GC Surge documents`);
+    console.log(`   - Convert ${sharedDocsWithGcxone.length} shared documents to GCXONE`);
+    console.log(`   - Fix ${gcsurgeDocsWithGcxone.length} existing GC Surge documents`);
     process.exit(0);
   }
   
   // Apply changes
-  console.log('\n' + '='.repeat(60));
+  console.log('\n' + '='.repeat(70));
   console.log('  APPLYING CHANGES');
-  console.log('='.repeat(60));
+  console.log('='.repeat(70));
   console.log();
   
   let successCount = 0;
   let errorCount = 0;
   const errors = [];
+  const createdIds = [];
   
-  for (const change of changes) {
+  for (const op of operations) {
     try {
-      console.log(`Updating ${change.id} (${change.title})...`);
-      
-      const result = await client
-        .patch(change.id)
-        .set(change.updates)
-        .commit();
-      
-      console.log(`   ✅ Updated successfully`);
-      successCount++;
+      if (op.type === 'fix') {
+        // Fix existing GC Surge document
+        console.log(`Fixing ${op.docId} (${op.doc.title})...`);
+        
+        const result = await client
+          .patch(op.docId)
+          .set({ description: op.newDescription })
+          .commit();
+        
+        console.log(`   ✅ Updated description`);
+        successCount++;
+        
+      } else if (op.type === 'split') {
+        // Step 1: Create GC Surge copy
+        console.log(`Creating GC Surge copy of "${op.originalDoc.title}"...`);
+        
+        const newDoc = {
+          _type: op.originalDoc._type,
+          title: op.originalDoc.title,
+          slug: {
+            _type: 'slug',
+            current: op.originalDoc.slug ? `${op.originalDoc.slug}` : undefined
+          },
+          product: 'gcsurge',
+          description: op.gcsurgeDescription,
+          status: op.originalDoc.status || 'published',
+          tags: op.originalDoc.tags,
+          sidebarCategory: op.originalDoc.sidebarCategory,
+          sidebarPosition: op.originalDoc.sidebarPosition,
+          sidebarLabel: op.originalDoc.sidebarLabel,
+          targetAudience: op.originalDoc.targetAudience,
+          // Copy workflow config if exists
+          workflowConfig: op.originalDoc.workflowConfig ? {
+            ...op.originalDoc.workflowConfig,
+            migratedFrom: op.originalId,
+            migratedAt: new Date().toISOString()
+          } : undefined
+        };
+        
+        // Remove undefined fields
+        Object.keys(newDoc).forEach(key => {
+          if (newDoc[key] === undefined) delete newDoc[key];
+        });
+        
+        const gcsurgeDoc = await client.create(newDoc);
+        console.log(`   ✅ Created GC Surge document: ${gcsurgeDoc._id}`);
+        createdIds.push(gcsurgeDoc._id);
+        
+        // Step 2: Convert original to GCXONE
+        console.log(`   Converting original to GCXONE...`);
+        
+        await client
+          .patch(op.originalId)
+          .set({ product: 'gcxone' })
+          .commit();
+        
+        console.log(`   ✅ Converted original to product=gcxone`);
+        successCount++;
+      }
       
     } catch (error) {
       console.error(`   ❌ Failed: ${error.message}`);
       errorCount++;
-      errors.push({ id: change.id, title: change.title, error: error.message });
+      errors.push({ 
+        operation: op.type, 
+        id: op.originalId || op.docId, 
+        error: error.message 
+      });
     }
   }
   
-  // Summary
-  console.log('\n' + '='.repeat(60));
+  // Final summary
+  console.log('\n' + '='.repeat(70));
   console.log('  MIGRATION SUMMARY');
-  console.log('='.repeat(60));
-  console.log(`Total documents found: ${results.length}`);
-  console.log(`Documents updated: ${successCount}`);
-  console.log(`Errors: ${errorCount}`);
+  console.log('='.repeat(70));
+  console.log(`Operations successful: ${successCount}`);
+  console.log(`Operations failed: ${errorCount}`);
+  console.log(`GC Surge documents created: ${createdIds.length}`);
+  
+  if (createdIds.length > 0) {
+    console.log('\nCreated GC Surge document IDs:');
+    createdIds.forEach(id => console.log(`  - ${id}`));
+  }
   
   if (errors.length > 0) {
     console.log('\n❌ Errors encountered:');
     errors.forEach(e => {
-      console.log(`   - ${e.id} (${e.title}): ${e.error}`);
+      console.log(`   - ${e.operation} ${e.id}: ${e.error}`);
     });
     process.exit(1);
   }
@@ -276,8 +326,10 @@ async function main() {
   console.log('\n✅ Migration complete!');
   console.log('\n📚 Next steps:');
   console.log('   1. Verify changes in Sanity Studio');
-  console.log('   2. Rebuild GC Surge site: npm run build:multi (or PRODUCT=gcsurge npm run build)');
-  console.log('   3. Deploy to Cloudflare Pages');
+  console.log('   2. Check that GCXONE documents show GCXONE branding');
+  console.log('   3. Check that GC Surge documents show GC Surge branding');
+  console.log('   4. Rebuild both products: npm run build:multi');
+  console.log('   5. Deploy to Cloudflare Pages');
   
   process.exit(0);
 }
