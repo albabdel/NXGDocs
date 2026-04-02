@@ -9,6 +9,7 @@ const SANITY_DATASET = 'production';
 const SANITY_API_TOKEN = 'sk6UtQrIiszU0whyrdZeIcc2bQiyKivrm4FQVDCukFHw3PuHa8QLrqCaemoMuIqCkMYpi47P1j6Uoiceo3V3PBagrqAMm867RlT8hG0dLc17kIJPa89WAbxH394p2poRxCrcwFWoQmuNV80lC9zBp19sZp1gXngErxnYYZbEkQUeZe3Z4YZN';
 
 const OUTPUT_FILE = path.join(__dirname, '..', 'classic', 'sidebars.ts');
+const DOCS_DIR = path.join(__dirname, '..', 'classic', '.sanity-cache', 'docs');
 
 const PRODUCT = process.env.PRODUCT || 'gcxone';
 
@@ -40,6 +41,32 @@ function normalizeSlug(slug) {
     .replace(/\\/g, '/')
     .replace(/^\/+/, '')
     .replace(/\/+$/, '');
+}
+
+/**
+ * Scan the on-disk docs directory and return a Map of
+ *   lowercased-doc-id -> actual-cased-doc-id
+ * This lets us validate sidebar entries against what was really written to disk
+ * and correct case mismatches (e.g. Sanity slug "Devices/foo" vs file "devices/foo").
+ */
+function getOnDiskDocIds() {
+  const ids = new Map();
+
+  function walk(dir, prefix) {
+    if (!fs.existsSync(dir)) return;
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const rel = prefix ? `${prefix}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) {
+        walk(path.join(dir, entry.name), rel);
+      } else if (entry.name.endsWith('.md')) {
+        const docId = rel.slice(0, -3); // strip .md
+        ids.set(docId.toLowerCase(), docId);
+      }
+    }
+  }
+
+  walk(DOCS_DIR, '');
+  return ids;
 }
 
 async function fetchSanityData() {
@@ -245,18 +272,22 @@ function buildSidebarStructure(categories, docs) {
   return { roots: dedupedRoots, categoryMap };
 }
 
-function buildCategoryItem(node, depth = 0) {
+function buildCategoryItem(node, onDiskIds, depth = 0) {
   const items = [];
 
   for (const child of node.children) {
-    const childItem = buildCategoryItem(child, depth + 1);
+    const childItem = buildCategoryItem(child, onDiskIds, depth + 1);
     if (childItem) items.push(childItem);
   }
 
   for (const doc of node.docs) {
+    // Resolve the actual on-disk ID (handles case mismatches).
+    // Skip entirely if the file doesn't exist on disk.
+    const onDiskId = onDiskIds.get(doc.slug.toLowerCase());
+    if (!onDiskId) continue;
     items.push({
       type: 'doc',
-      id: doc.slug,
+      id: onDiskId,
       label: stripEmojis(doc.sidebarLabel || doc.title) || doc.slug,
     });
   }
@@ -331,11 +362,14 @@ export default sidebars;
 async function run() {
   try {
     const { categories, docs, sidebarConfig } = await fetchSanityData();
-    
+
     const { roots, categoryMap } = buildSidebarStructure(categories, docs);
-    
+
+    const onDiskIds = getOnDiskDocIds();
+    console.log(`Found ${onDiskIds.size} doc files on disk in .sanity-cache/docs/`);
+
     const sidebarItems = [];
-    
+
     const homeLabel = sidebarConfig?.homeLinkLabel || 'Home';
     sidebarItems.push({
       type: 'doc',
@@ -344,7 +378,7 @@ async function run() {
     });
 
     for (const root of roots) {
-      const categoryItem = buildCategoryItem(root);
+      const categoryItem = buildCategoryItem(root, onDiskIds);
       if (categoryItem) {
         sidebarItems.push(categoryItem);
       }
