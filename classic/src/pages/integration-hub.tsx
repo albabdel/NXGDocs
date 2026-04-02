@@ -261,7 +261,7 @@ export default function IntegrationHub() {
     const activeFilterCount = filters.manufacturers.length + filters.categories.length + (filters.gcxOnly ? 1 : 0);
 
     return (
-        <Layout title="Integration Hub | GCXONE" description="Browse supported devices and integrations">
+        <Layout title="Integration Hub" description="Browse supported devices and integrations">
             <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
                 <div className="max-w-7xl mx-auto px-6 py-8">
                     <nav className="flex items-center gap-2 text-sm mb-8" style={{ color: 'var(--ifm-color-content-secondary)' }}>
@@ -281,7 +281,7 @@ export default function IntegrationHub() {
                             Integration Hub
                         </h1>
                         <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                            Browse {allDevices.length}+ supported devices and integrations for GCXONE monitoring platform.
+                            Browse {allDevices.length}+ supported devices and integrations for the monitoring platform.
                         </p>
                     </div>
 

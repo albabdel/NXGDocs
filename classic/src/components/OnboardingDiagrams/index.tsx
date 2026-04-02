@@ -1,6 +1,8 @@
 import React from 'react';
+import { useProduct } from '@theme/Root';
 
 export function OverviewDiagram(): React.JSX.Element {
+    const { productName } = useProduct();
     return (
         <div className="w-full">
             <div className="flex items-center justify-center gap-4 flex-wrap">
@@ -38,13 +40,13 @@ export function OverviewDiagram(): React.JSX.Element {
                 {/* Arrow */}
                 <div className="text-gray-500 text-2xl">→</div>
 
-                {/* GCXONE Cloud */}
+                {/* Platform Cloud */}
                 <div className="flex flex-col items-center gap-2">
                     <div
                         className="p-4 rounded-lg border-2 border-yellow-500 bg-gray-800"
                         style={{ minWidth: '100px', textAlign: 'center' }}
                     >
-                        <div className="text-yellow-400 text-sm font-bold font-mono">GCXONE</div>
+                        <div className="text-yellow-400 text-sm font-bold font-mono">{productName}</div>
                         <div className="text-gray-400 text-xs mt-1">Cloud Platform</div>
                     </div>
                     <div className="text-gray-500 text-xs uppercase tracking-wide">Cloud</div>

@@ -357,7 +357,7 @@ function RoadmapContent(): JSX.Element {
                     className="text-center mb-12"
                 >
                     <h1 className={`text-5xl md:text-6xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                        GCXONE Product Roadmap
+                        Product Roadmap
                     </h1>
                     <p className={`text-xl max-w-3xl mx-auto leading-relaxed ${isDark ? 'text-white/70' : 'text-gray-600'}`}>
                         Stay informed about our development priorities and upcoming features.
@@ -513,7 +513,7 @@ export default function RoadmapPage(): JSX.Element {
     return (
         <Layout
             title="Product Roadmap"
-            description="GCXONE Product Roadmap - Preview of upcoming features and improvements"
+            description="Product Roadmap - Preview of upcoming features and improvements"
         >
             <LandingPageBackground />
             <RoadmapContent />

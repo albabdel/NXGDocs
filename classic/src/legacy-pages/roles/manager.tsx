@@ -15,7 +15,7 @@ export default function ManagerLandingPage() {
     return (
         <Layout
             title="Manager Overview"
-            description="Strategic insights, performance analytics, and team management for GCXONE operations leaders"
+            description="Strategic insights, performance analytics, and team management for operations leaders"
         >
             <LandingPageBackground />
             <main className="min-h-screen">
@@ -43,7 +43,7 @@ export default function ManagerLandingPage() {
                             Manager Overview
                         </h1>
                         <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed mb-8">
-                            Strategic insights, performance analytics, and team management tools for GCXONE operations leaders. 
+                            Strategic insights, performance analytics, and team management tools for operations leaders. 
                             Drive efficiency, ensure compliance, and optimize your security operations.
                         </p>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">

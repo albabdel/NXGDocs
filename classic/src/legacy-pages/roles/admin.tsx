@@ -15,7 +15,7 @@ export default function AdminLandingPage() {
     return (
         <Layout
             title="Admin Workspace"
-            description="Complete administrative control center for GCXONE platform management"
+            description="Complete administrative control center for platform management"
         >
             <LandingPageBackground />
             <main className="min-h-screen">
@@ -43,7 +43,7 @@ export default function AdminLandingPage() {
                             Admin Workspace
                         </h1>
                         <p className="text-xl text-themed-secondary max-w-3xl mx-auto leading-relaxed mb-8">
-                            Complete control center for managing your GCXONE organization, users, security policies, 
+                            Complete control center for managing your organization, users, security policies, 
                             and system-wide configurations. Enterprise-grade administration tools at your fingertips.
                         </p>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
@@ -75,7 +75,7 @@ export default function AdminLandingPage() {
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold text-themed-heading mb-4">Core Administration</h2>
                             <p className="text-themed-secondary text-lg max-w-3xl mx-auto">
-                                Essential tools for managing your GCXONE organization and security infrastructure
+                                Essential tools for managing your organization and security infrastructure
                             </p>
                         </div>
 

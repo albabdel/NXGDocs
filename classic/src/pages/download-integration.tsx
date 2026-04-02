@@ -261,7 +261,7 @@ export default function DownloadIntegrationHub() {
     return (
         <Layout
             title="Download Integration Tools"
-            description="Download SDK clients and test tools to validate your device integrations with GCXONE"
+            description="Download SDK clients and test tools to validate your device integrations"
         >
             {/* Hero Section */}
             <div className="relative overflow-hidden border-b transition-colors duration-500" style={{ backgroundColor: "var(--ifm-background-color)", borderColor: "var(--ifm-color-emphasis-200)" }}>
@@ -295,7 +295,7 @@ export default function DownloadIntegrationHub() {
                             Test and validate your device integrations
                         </p>
                         <p className="text-lg max-w-2xl mx-auto" style={{ color: "var(--ifm-color-content-secondary)" }}>
-                            Download SDK clients, test tools, and configuration utilities to connect your devices and validate GCXONE integration in your own environment.
+                            Download SDK clients, test tools, and configuration utilities to connect your devices and validate integration in your own environment.
                         </p>
                     </motion.div>
                 </div>

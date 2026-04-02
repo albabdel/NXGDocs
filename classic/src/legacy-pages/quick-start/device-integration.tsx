@@ -3,6 +3,7 @@ import Layout from '@theme/Layout';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from '@docusaurus/Link';
 import LandingPageBackground from '../../components/LandingPageBackground';
+import { useProduct } from '@theme/Root';
 import {
     Wifi, Video, Camera, Cpu, Radio, Speaker, AlertTriangle, Network, MonitorPlay, Router,
     Home, ChevronRight, Eye, Server, Database, Cloud, Smartphone, Settings, Zap, Activity,
@@ -12,6 +13,7 @@ import {
 } from 'lucide-react';
 
 export default function DeviceIntegration() {
+    const { productName } = useProduct();
     const [activeStep, setActiveStep] = useState(0);
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [isPlaying, setIsPlaying] = useState(false);
@@ -29,7 +31,7 @@ export default function DeviceIntegration() {
             desc: 'Automatic network scanning and device identification',
             icon: <Search className="w-6 h-6" />,
             color: '#10B981',
-            details: 'GCXONE automatically discovers compatible devices on your network using UPnP, ONVIF, and manufacturer-specific protocols.'
+            details: 'The platform automatically discovers compatible devices on your network using UPnP, ONVIF, and manufacturer-specific protocols.'
         },
         {
             title: 'Protocol Translation',
@@ -191,7 +193,7 @@ export default function DeviceIntegration() {
     return (
         <Layout
             title="Device Integration Guide"
-            description="Complete guide to connecting devices to GCXONE platform"
+            description="Complete guide to connecting devices to the platform"
         >
             <LandingPageBackground />
             <main className="min-h-screen">
@@ -229,7 +231,7 @@ export default function DeviceIntegration() {
                             Device Integration Guide
                         </h1>
                         <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed mb-8">
-                            Connect cameras, NVRs, sensors, and IoT devices to GCXONE with our comprehensive integration guides. 
+                            Connect cameras, NVRs, sensors, and IoT devices with our comprehensive integration guides. 
                             Universal compatibility through advanced proxy architecture.
                         </p>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
@@ -337,9 +339,9 @@ export default function DeviceIntegration() {
                                     <rect x="235" y="155" width="70" height="25" rx="3" fill="#06B6D4" stroke="white" strokeWidth="1" />
                                     <text x="270" y="170" textAnchor="middle" fill="white" fontSize="9">Protocol Bridge</text>
                                     
-                                    {/* GCXONE Cloud */}
+                                    {/* Platform Cloud */}
                                     <rect x="370" y="50" width="120" height="200" rx="10" fill="#1a1a1a" stroke="#E8B058" strokeWidth="2" />
-                                    <text x="430" y="35" textAnchor="middle" fill="#E8B058" fontSize="12" fontWeight="bold">GCXONE Cloud</text>
+                                    <text x="430" y="35" textAnchor="middle" fill="#E8B058" fontSize="12" fontWeight="bold">{productName} Cloud</text>
                                     
                                     <rect x="385" y="70" width="90" height="30" rx="4" fill="#10B981" stroke="white" strokeWidth="1" />
                                     <text x="430" y="88" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold">Stream Processing</text>

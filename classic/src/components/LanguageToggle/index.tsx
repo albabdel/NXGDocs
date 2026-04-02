@@ -3,12 +3,12 @@ import { useState, useEffect } from 'react';
 
 const translations = {
   en: {
-    'What is GCXONE GCXONE?': 'What is GCXONE GCXONE?',
+    'What is the Platform?': 'What is the Platform?',
     'Benefits': 'Benefits',
     'Documentation': 'Documentation'
   },
   de: {
-    'What is GCXONE GCXONE?': 'Was ist GCXONE GCXONE?',
+    'What is the Platform?': 'Was ist die Plattform?',
     'Benefits': 'Vorteile',
     'Documentation': 'Dokumentation'
   }

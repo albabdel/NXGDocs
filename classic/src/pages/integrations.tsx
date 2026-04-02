@@ -377,7 +377,7 @@ export default function IntegrationsPage(): React.JSX.Element {
     }, []);
 
     return (
-        <Layout title="Integrations | GCXONE" description="Connect and manage integrations with GCXONE">
+        <Layout title="Integrations" description="Connect and manage integrations">
             <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
                 <div className="max-w-7xl mx-auto px-6 py-8">
                     <nav className="flex items-center gap-2 text-sm mb-8" style={{ color: 'var(--ifm-color-content-secondary)' }}>
@@ -409,7 +409,7 @@ export default function IntegrationsPage(): React.JSX.Element {
                                         Integrations
                                     </h1>
                                     <p className="text-lg max-w-2xl" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                                        Connect GCXONE with the tools and services you already use. Manage video systems, IoT devices, cloud services, and notification channels.
+                                        Connect with the tools and services you already use. Manage video systems, IoT devices, cloud services, and notification channels.
                                     </p>
                                 </div>
 

@@ -117,7 +117,7 @@ export default function ReleasesPage() {
     return (
         <Layout
             title="Release Notes"
-            description="Latest updates, new features, and improvements to GCXONE"
+            description="Latest updates, new features, and improvements"
         >
             <LandingPageBackground />
             <main className="min-h-screen">
@@ -144,7 +144,7 @@ export default function ReleasesPage() {
                             Release Notes
                         </h1>
                         <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed mb-8">
-                            Stay up to date with the latest features, improvements, and enhancements to the GCXONE platform.
+                            Stay up to date with the latest features, improvements, and enhancements to the platform.
                             We release updates twice monthly to continuously improve your experience.
                         </p>
                         <Link

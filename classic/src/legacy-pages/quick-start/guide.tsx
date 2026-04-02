@@ -194,7 +194,7 @@ export default function QuickStartGuide() {
     return (
         <Layout
             title="Quick Start Guide"
-            description="Get up and running with GCXONE in 5-10 minutes - Complete step-by-step guide from first login to full monitoring capability"
+            description="Get up and running in 5-10 minutes - Complete step-by-step guide from first login to full monitoring capability"
         >
             <LandingPageBackground />
             <main className="min-h-screen">
@@ -232,7 +232,7 @@ export default function QuickStartGuide() {
                             Quick Start Guide
                         </h1>
                         <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed mb-8">
-                            Follow this comprehensive guide to configure your GCXONE platform from initial login to full monitoring capability.
+                            Follow this comprehensive guide to configure your platform from initial login to full monitoring capability.
                             Get your security operations center up and running in minutes.
                         </p>
                         <div className="flex items-center justify-center gap-6 text-sm flex-wrap">
@@ -404,11 +404,11 @@ export default function QuickStartGuide() {
                             <StepCard
                                 step={1}
                                 title="Navigate to Login Portal"
-                                description="Access the GCXONE platform at your organization's URL. If you don't have the URL, contact your administrator."
+                                description="Access the platform at your organization's URL. If you don't have the URL, contact your administrator."
                                 image="/img/getting-started/first-time-login/img_c7a1f8ab36.png"
                                 details={
                                     <div className="mt-4">
-                                        <CodeBlock code="https://yourcompany.gcxone.cloud" />
+                                        <CodeBlock code="https://yourcompany.nxgen.cloud" />
                                         <p className="text-xs text-white/60 mt-2">Replace 'yourcompany' with your organization's subdomain</p>
                                     </div>
                                 }
@@ -613,12 +613,12 @@ Auto-sync Sites: Enabled`} />
                                     </div>
                                 </div>
                                 <p className="text-sm text-white/70 mb-4">
-                                    Connect to third-party monitoring platforms via GCXONE Bridge using standard protocols (SIA DC-09, Contact ID).
+                                    Connect to third-party monitoring platforms via Bridge using standard protocols (SIA DC-09, Contact ID).
                                 </p>
                                 <div className="space-y-3">
                                     <div>
                                         <h5 className="text-sm font-semibold text-white mb-2">Configuration:</h5>
-                                        <CodeBlock code={`# Install GCXONE Bridge (STOS)
+                                        <CodeBlock code={`# Install Bridge (STOS)
 # Configure alarm receiver:
 
 Protocol: SIA DC-09
@@ -664,7 +664,7 @@ Account Format: [Your Site ID Format]`} />
                                     </div>
                                     <div className="flex items-start gap-2">
                                         <span className="text-[#E8B058] font-mono">4.</span>
-                                        <span>Check GCXONE Event Log for transmission confirmation</span>
+                                        <span>Check Event Log for transmission confirmation</span>
                                     </div>
                                 </div>
                             </div>
@@ -890,7 +890,7 @@ Account Format: [Your Site ID Format]`} />
                                 <div className="flex-1">
                                     <h3 className="text-2xl font-bold text-white mb-2">You're All Set!</h3>
                                     <p className="text-white/80 mb-3 text-lg">
-                                        Your GCXONE platform is fully configured and ready for monitoring operations.
+                                        Your platform is fully configured and ready for monitoring operations.
                                     </p>
                                     <p className="text-sm text-white/70">
                                         Next step: Connect your first device to start receiving and processing alarms.
@@ -929,7 +929,7 @@ Account Format: [Your Site ID Format]`} />
                                     </h3>
                                 </div>
                                 <p className="text-sm text-white/70 mb-4">
-                                    Learn how to connect your first IP camera, sensor, or other security device to GCXONE
+                                    Learn how to connect your first IP camera, sensor, or other security device
                                 </p>
                                 <div className="flex items-center text-sm text-[#E8B058] font-medium">
                                     Get Started
@@ -950,7 +950,7 @@ Account Format: [Your Site ID Format]`} />
                                     </h3>
                                 </div>
                                 <p className="text-sm text-white/70 mb-4">
-                                    Explore the full capabilities of GCXONE including features, integrations, and advanced configurations
+                                    Explore the full capabilities including features, integrations, and advanced configurations
                                 </p>
                                 <div className="flex items-center text-sm text-[#E8B058] font-medium">
                                     Explore Platform

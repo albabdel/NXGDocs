@@ -48,7 +48,7 @@ function GettingStartedContent() {
                 {/* Page Title */}
                 <div className="text-center mb-12">
                     <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--ifm-font-color-base)' }}>
-                        Getting Started with GCXONE
+                        Getting Started
                     </h1>
                     <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--ifm-font-color-secondary)' }}>
                         Your guided path to operational readiness
@@ -92,7 +92,7 @@ export default function GettingStarted() {
     return (
         <Layout
             title="Getting Started"
-            description="Guided onboarding for GCXONE - complete setup path to operational readiness"
+            description="Guided onboarding - complete setup path to operational readiness"
         >
             <LandingPageBackground />
             <main className="min-h-screen">
