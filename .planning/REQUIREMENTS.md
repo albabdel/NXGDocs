@@ -116,8 +116,8 @@ Deferred to v1.2, v5.1 or later.
 - [x] **SURGE-01**: GC Surge branding assets (logo, favicon) in place ✓ 2026-04-02
 - [ ] **SURGE-02**: Confluence Surge space content imported to Sanity
 - [ ] **SURGE-03**: All GC Surge content has product=gcsurge field
-- [ ] **SURGE-04**: gcsurge.pages.dev serves complete documentation
-- [ ] **SURGE-05**: GC Surge works independently from GCXONE
+- [x] **SURGE-04**: gcsurge.pages.dev serves complete documentation
+- [x] **SURGE-05**: GC Surge works independently from GCXONE
 
 ### Releases
 
