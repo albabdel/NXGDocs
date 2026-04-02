@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
+import { useProduct } from '@theme/Root';
 import {
     Headphones,
     Mail,
@@ -112,6 +113,7 @@ const officeLocations: OfficeLocation[] = [
 ];
 
 export default function ContactPage(): React.JSX.Element {
+    const { productName } = useProduct();
     const [expandedFaq, setExpandedFaq] = useState<string | null>(null);
     const [isDark, setIsDark] = useState(true);
     const [formData, setFormData] = useState({
@@ -146,7 +148,7 @@ export default function ContactPage(): React.JSX.Element {
     };
 
     return (
-        <Layout title="Contact | NXGEN Support" description="Contact NXGEN Support - Get help with GCXONE platform">
+        <Layout title="Contact | NXGEN Support" description={`Contact NXGEN Support - Get help with ${productName} platform`}>
             <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
                 <div className="max-w-7xl mx-auto px-6 py-8">
                     <nav className="flex items-center gap-2 text-sm mb-8" style={{ color: 'var(--ifm-color-content-secondary)' }}>
@@ -186,7 +188,7 @@ export default function ContactPage(): React.JSX.Element {
                                         Contact NXGEN Support
                                     </h1>
                                     <p className="text-lg mb-6 max-w-2xl" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                                        Get help with GCXONE platform. Our team is available around the clock to assist you with any questions or issues.
+                                        Get help with {productName} platform. Our team is available around the clock to assist you with any questions or issues.
                                     </p>
 
                                     <div className="flex flex-wrap gap-3">

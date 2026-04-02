@@ -24,7 +24,7 @@ import {
 } from 'lucide-react';
 import styles from './index.module.css';
 import landingPagesData from '../data/sanity-landing-pages.generated.json';
-import { onboardingPhases } from '../data/onboardingPhases';
+import { getOnboardingPhases } from '../data/onboardingPhases';
 import { StepType } from '../types/onboarding';
 import { useProduct } from '@theme/Root';
 
@@ -265,9 +265,12 @@ export default function GettingStartedPage(): React.JSX.Element {
         return pages.find(p => p.slug.current === 'getting-started');
     }, []);
 
+    // Get product-specific onboarding phases
+    const onboardingPhases = useMemo(() => getOnboardingPhases(productName), [productName]);
+
     const totalSteps = useMemo(() => 
         onboardingPhases.reduce((acc, phase) => acc + phase.steps.length, 0) + quickStartSteps.length,
-        []
+        [onboardingPhases]
     );
 
     const completedCount = useMemo(() => {
@@ -281,7 +284,7 @@ export default function GettingStartedPage(): React.JSX.Element {
             });
         });
         return count;
-    }, [isComplete]);
+    }, [isComplete, onboardingPhases]);
 
     const progressPercent = totalSteps > 0 ? Math.round((completedCount / totalSteps) * 100) : 0;
 

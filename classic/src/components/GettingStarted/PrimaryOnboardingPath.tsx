@@ -1,11 +1,14 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
 import { useOnboarding } from './OnboardingContext';
-import { onboardingPhases } from '../../data/onboardingPhases';
+import { getOnboardingPhases } from '../../data/onboardingPhases';
 import { StepType } from '../../types/onboarding';
+import { useProduct } from '@theme/Root';
 
 export function PrimaryOnboardingPath(): React.JSX.Element {
     const { isStepComplete, toggleStepComplete, activePhaseId, setActivePhase } = useOnboarding();
+    const { productName } = useProduct();
+    const onboardingPhases = getOnboardingPhases(productName);
 
     return (
         <div className="space-y-4 mb-8">

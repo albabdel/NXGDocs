@@ -3,6 +3,7 @@ import Link from '@docusaurus/Link';
 import { useColorMode } from '@docusaurus/theme-common';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Search, Home, Clock } from 'lucide-react';
+import { useProduct } from '@theme/Root';
 
 interface DocsHeroProps {
   onOpenSearch: () => void;
@@ -18,6 +19,7 @@ export default function DocsHero({
   totalCategories,
 }: DocsHeroProps) {
   const { colorMode } = useColorMode();
+  const { productName } = useProduct();
   const isDark = colorMode === 'dark';
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const prefersReducedMotion = useReducedMotion();
@@ -217,7 +219,7 @@ export default function DocsHero({
               backgroundClip: 'text',
             }}
           >
-            GCXONE Platform
+            {productName} Platform
           </span>
         </motion.h1>
 
@@ -225,7 +227,7 @@ export default function DocsHero({
           variants={itemVariants}
           className="hero-description text-base md:text-lg font-light leading-relaxed max-w-xl mb-8"
         >
-          Comprehensive technical documentation for the NXGEN GCXONE platform.
+          Comprehensive technical documentation for the NXGEN {productName} platform.
           Guides, API references, integrations, and troubleshooting resources.
         </motion.p>
 

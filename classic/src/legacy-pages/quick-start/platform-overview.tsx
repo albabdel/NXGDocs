@@ -3,6 +3,7 @@ import Layout from '@theme/Layout';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from '@docusaurus/Link';
 import LandingPageBackground from '../../components/LandingPageBackground';
+import { useProduct } from '@theme/Root';
 import {
     Cpu, Network, Shield, Cloud, Server, Database, Zap, Activity, Globe, Radio, Home, ChevronRight,
     Building, Users, MapPin, Camera, CheckCircle, ArrowRight, BarChart3, Lock, Layers, GitBranch,
@@ -17,6 +18,7 @@ declare global {
 }
 
 export default function PlatformOverview() {
+    const { productName } = useProduct();
     const [activeTab, setActiveTab] = useState('live');
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentMetric, setCurrentMetric] = useState(0);
@@ -132,7 +134,7 @@ export default function PlatformOverview() {
     return (
         <Layout
             title="Platform Overview"
-            description="Complete guide to NXGEN GCXONE architecture, hierarchy model, and core capabilities"
+            description={`Complete guide to NXGEN ${productName} architecture, hierarchy model, and core capabilities`}
         >
             <LandingPageBackground />
             <main className="min-h-screen">
@@ -167,7 +169,7 @@ export default function PlatformOverview() {
                             <span className="text-sm font-medium text-[#E8B058]">Platform Overview</span>
                         </div>
                         <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-                            NXGEN GCXONE Platform
+                            NXGEN {productName} Platform
                         </h1>
                         <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed mb-8">
                             The world's most advanced cloud-native Video Surveillance as a Service platform. 

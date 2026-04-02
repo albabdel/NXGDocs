@@ -3,6 +3,7 @@ import Link from '@docusaurus/Link';
 import { useColorMode } from '@docusaurus/theme-common';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, ExternalLink, Sparkles, Search } from 'lucide-react';
+import { useProduct } from '@theme/Root';
 import releasesData from '../data/sanity-releases.generated.json';
 
 /**
@@ -33,6 +34,7 @@ interface Props {
 
 export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
   const { colorMode } = useColorMode();
+  const { productName } = useProduct();
   const isDark = colorMode === 'dark';
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -321,7 +323,7 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
             <div className="absolute -inset-8 bg-[#E8B058]/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             <img
               src="/img/xo-logo.png"
-              alt="GCXONE"
+              alt={productName}
               className="w-20 md:w-24 relative z-10 drop-shadow-2xl hover:scale-105 transition-transform duration-300"
               onError={(e) => {
                 const target = e.currentTarget;
@@ -351,7 +353,7 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
             }`}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#E8B058] animate-pulse flex-shrink-0" />
-            GCXONE Documentation
+            {productName} Documentation
           </span>
         </motion.div>
 
@@ -384,7 +386,7 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
             isDark ? 'text-gray-400' : 'text-[#5A5A5A]'
           }`}
         >
-          The complete technical reference for GCXONE — unified security, IoT
+          The complete technical reference for {productName} — unified security, IoT
           management, and real-time monitoring at scale.
         </motion.p>
 

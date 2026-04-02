@@ -1,9 +1,12 @@
 import React from 'react';
 import { useOnboarding } from './OnboardingContext';
-import { onboardingPhases } from '../../data/onboardingPhases';
+import { getOnboardingPhases } from '../../data/onboardingPhases';
+import { useProduct } from '@theme/Root';
 
 export function ContextHeader(): React.JSX.Element {
     const { completedSteps } = useOnboarding();
+    const { productName } = useProduct();
+    const onboardingPhases = getOnboardingPhases(productName);
 
     const totalSteps = onboardingPhases.reduce((acc, phase) => {
         return acc + phase.steps.length;

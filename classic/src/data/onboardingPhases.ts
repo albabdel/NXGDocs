@@ -5,7 +5,12 @@
 
 import { OnboardingPhase, StepType, UserRole, SystemHealthItem, SystemHealthStatus } from '../types/onboarding';
 
-export const onboardingPhases: OnboardingPhase[] = [
+/**
+ * Get onboarding phases with product-specific branding
+ * @param productName - The product name to use in descriptions (e.g., 'GCXONE' or 'GC Surge')
+ */
+export function getOnboardingPhases(productName: string): OnboardingPhase[] {
+return [
     {
         id: 'account-access',
         title: 'Account & Access',
@@ -14,7 +19,7 @@ export const onboardingPhases: OnboardingPhase[] = [
             {
                 id: 'first-login',
                 title: 'Complete First Time Login',
-                description: 'Access your GCXONE account and set up authentication',
+                description: `Access your ${productName} account and set up authentication`,
                 type: StepType.ACTION,
                 roles: [UserRole.ADMIN, UserRole.OPERATOR, UserRole.INSTALLER, UserRole.MANAGER],
                 actionLink: '/docs/getting-started/first-time-login--access',
@@ -26,16 +31,16 @@ export const onboardingPhases: OnboardingPhase[] = [
                 }
             },
             {
-                id: 'understand-gcxone',
-                title: 'Understand What is GCXONE',
+                id: 'understand-platform',
+                title: `Understand What is ${productName}`,
                 description: 'Learn about the platform capabilities',
                 type: StepType.ACTION,
                 roles: [UserRole.ADMIN, UserRole.OPERATOR, UserRole.INSTALLER, UserRole.MANAGER],
                 actionLink: '/docs/getting-started/what-is-gcxone',
                 learningContent: {
                     videoId: 'ER-tnAvGXow',
-                    title: 'GCXONE Product Overview',
-                    description: 'Discover what GCXONE can do for your security operations and why leading companies trust our platform.'
+                    title: `${productName} Product Overview`,
+                    description: `Discover what ${productName} can do for your security operations and why leading companies trust our platform.`
                 }
             },
             {
@@ -58,14 +63,14 @@ export const onboardingPhases: OnboardingPhase[] = [
         description: 'Learn the interface and navigation',
         steps: [
             {
-                id: 'what-is-gcxone',
-                title: 'What is GCXONE?',
-                description: 'Introduction to the GCXONE platform',
+                id: 'what-is-platform',
+                title: `What is ${productName}?`,
+                description: `Introduction to the ${productName} platform`,
                 type: StepType.ACTION,
                 roles: [UserRole.ADMIN, UserRole.INSTALLER],
                 actionLink: '/docs/getting-started/what-is-gcxone',
                 learningContent: {
-                    description: 'GCXONE is the cloud platform for security monitoring and alarm management.',
+                    description: `${productName} is the cloud platform for security monitoring and alarm management.`,
                     tips: ['Each site typically requires one Talos unit']
                 }
             },
@@ -95,12 +100,12 @@ export const onboardingPhases: OnboardingPhase[] = [
             {
                 id: 'required-ports',
                 title: 'Configure Required Ports',
-                description: 'Open necessary ports for GCXONE',
+                description: `Open necessary ports for ${productName}`,
                 type: StepType.ACTION,
                 roles: [UserRole.ADMIN, UserRole.INSTALLER],
                 actionLink: '/docs/getting-started/pre-deployment-requirements',
                 learningContent: {
-                    description: 'List of all ports that must be open for GCXONE to function properly.',
+                    description: `List of all ports that must be open for ${productName} to function properly.`,
                     warnings: ['Work with your network team to configure firewall rules'],
                     tips: ['Document which ports are already open in your network']
                 }
@@ -149,7 +154,7 @@ export const onboardingPhases: OnboardingPhase[] = [
                 },
                 actionLink: '/docs/devices',
                 learningContent: {
-                    description: 'Connect cameras, alarm panels, and other devices to Talos and GCXONE.',
+                    description: `Connect cameras, alarm panels, and other devices to Talos and ${productName}.`,
                     tips: ['Test each device connection before proceeding'],
                     warnings: ['Ensure all devices have unique identifiers']
                 }
@@ -178,7 +183,7 @@ export const onboardingPhases: OnboardingPhase[] = [
                     [UserRole.INSTALLER]: 'Verify Alarm Delivery'
                 },
                 learningContent: {
-                    description: 'Trigger a test alarm and verify it appears correctly in GCXONE.',
+                    description: `Trigger a test alarm and verify it appears correctly in ${productName}.`,
                     tips: ['Document the alarm flow time from trigger to receipt'],
                     warnings: ['If alarms don\'t appear, check firewall and network configuration']
                 }
@@ -259,6 +264,10 @@ export const onboardingPhases: OnboardingPhase[] = [
         ]
     }
 ];
+}
+
+// Default export for backward compatibility (uses GCXONE as default)
+export const onboardingPhases: OnboardingPhase[] = getOnboardingPhases('GCXONE');
 
 // System Health Checklist (Educational/Display purposes)
 export const systemHealthChecklist: SystemHealthItem[] = [
