@@ -133,7 +133,7 @@ Plans:
 - [ ] 40-03-PLAN.md — PostHog dashboard setup and documentation
 
 ### Phase 41: GC Surge Launch
-**Goal**: Complete GC Surge product with branding, content from Confluence, and deployment
+**Goal**: Complete GC Surge product with branding, content from Confluence, and deployment - with independent branding (no GCXONE references)
 **Depends on**: Phase 40
 **Requirements**: SURGE-01, SURGE-02, SURGE-03, SURGE-04, SURGE-05
 **Success Criteria** (what must be TRUE):
@@ -142,12 +142,14 @@ Plans:
   3. GC Surge content shows product=gcsurge field
   4. gcsurge.pages.dev serves complete GC Surge documentation
   5. End-to-end GC Surge experience works independently
-**Plans**: 3 plans
+  6. No GCXONE branding references in GC Surge build (meta descriptions, titles)
+**Plans**: 4 plans
 
 Plans:
 - [x] 41-01-PLAN.md — Verify branding assets (logo, favicon, theme CSS) and product config ✓ 2026-04-02
 - [x] 41-02-PLAN.md — Create Confluence import script and import Surge space content to Sanity ✓ 2026-04-02 (17 pages)
 - [x] 41-03-PLAN.md — Build gcsurge product, deploy to Cloudflare Pages, verify end-to-end ✓ 2026-04-02 (606 files deployed)
+- [ ] 41-04-PLAN.md — Remove GCXONE references from GC Surge descriptions and rebuild
 
 ---
 
@@ -172,7 +174,7 @@ Plans:
 | 38. Product Configuration & Branding | v5.0 | Complete    | Complete | 2026-04-01 |
 | 39. Cloudflare Multi-Project Deployment | v5.0 | Complete    | Complete | 2026-04-01 |
 | 40. PostHog Analytics | v5.0 | Complete    | Complete | 2026-04-01 |
-| 41. GC Surge Launch | 3/3 | Complete   | 2026-04-02 | 2026-04-02 |
+| 41. GC Surge Launch | v5.1 | 3/4 | In Progress | 2026-04-02 |
 
 ---
 
