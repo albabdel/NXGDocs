@@ -6,7 +6,7 @@ export function ContextHeader(): React.JSX.Element {
     const { selectedRole, completedSteps } = useOnboarding();
 
     const totalSteps = onboardingPhases.reduce((acc, phase) => {
-        return acc + phase.steps.filter(s => s.roles.includes(selectedRole)).length;
+        return acc + phase.steps.filter(s => s.roles?.includes(selectedRole)).length;
     }, 0);
 
     const completedCount = completedSteps.length;

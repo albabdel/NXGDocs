@@ -9,7 +9,7 @@ export function PrimaryOnboardingPath(): React.JSX.Element {
 
     const filteredPhases = onboardingPhases.map(phase => ({
         ...phase,
-        steps: phase.steps.filter(step => step.roles.includes(selectedRole)),
+        steps: phase.steps.filter(step => step.roles?.includes(selectedRole)),
     })).filter(phase => phase.steps.length > 0);
 
     return (

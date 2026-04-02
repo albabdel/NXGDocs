@@ -285,19 +285,19 @@ export default function GettingStartedPage(): React.JSX.Element {
     }, []);
 
     const filteredSteps = useMemo(() => 
-        quickStartSteps.filter(step => step.roles.includes(selectedRole)),
+        quickStartSteps.filter(step => step.roles?.includes(selectedRole)),
         [selectedRole]
     );
 
     const filteredVideos = useMemo(() => 
-        videoResources.filter(video => video.roles.includes(selectedRole)),
+        videoResources.filter(video => video.roles?.includes(selectedRole)),
         [selectedRole]
     );
 
     const filteredPhases = useMemo(() => 
         onboardingPhases.map(phase => ({
             ...phase,
-            steps: phase.steps.filter(step => step.roles.includes(selectedRole)),
+            steps: phase.steps.filter(step => step.roles?.includes(selectedRole)),
         })).filter(phase => phase.steps.length > 0),
         [selectedRole]
     );

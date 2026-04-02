@@ -14,7 +14,7 @@ export function NextRequiredAction(): React.JSX.Element {
 
     for (const phase of onboardingPhases) {
         for (const step of phase.steps) {
-            if (step.roles.includes(selectedRole) && !isStepComplete(step.id)) {
+            if (step.roles?.includes(selectedRole) && !isStepComplete(step.id)) {
                 nextStep = {
                     title: step.roleSpecificTitle?.[selectedRole] || step.title,
                     link: step.actionLink,
