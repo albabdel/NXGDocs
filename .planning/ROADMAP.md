@@ -8,9 +8,10 @@
 - v2.0 Admin Command Center - Phases 16-23 (shipped 2026-03-17)
 - v3.0 Design System Polish - Phases 24-28 (shipped 2026-04-01)
 - v4.0 Updates Hub - Phase 29 (shipped 2026-04-01)
-- v5.0 Multi-Product Architecture - Phases 35-40 (current)
+- v5.0 Multi-Product Architecture - Phases 35-40 (shipped 2026-04-01)
+- v5.1 GC Surge Launch - Phase 41 (current)
 
-## Current Milestone: v5.0 Multi-Product Architecture
+## Current Milestone: v5.1 GC Surge Launch
 
 **Goal:** Transform single-product documentation into multi-product architecture supporting GCXONE and future products (GC Surge). Each product has isolated content, separate domain deployment, and product-scoped analytics.
 
@@ -131,6 +132,23 @@ Plans:
 - [ ] 40-02-PLAN.md — Article & search tracking with product context
 - [ ] 40-03-PLAN.md — PostHog dashboard setup and documentation
 
+### Phase 41: GC Surge Launch
+**Goal**: Complete GC Surge product with branding, content from Confluence, and deployment
+**Depends on**: Phase 40
+**Requirements**: SURGE-01, SURGE-02, SURGE-03, SURGE-04, SURGE-05
+**Success Criteria** (what must be TRUE):
+  1. GC Surge branding assets (logo, favicon) are in place
+  2. Content imported from Confluence Surge space to Sanity
+  3. GC Surge content shows product=gcsurge field
+  4. gcsurge.pages.dev serves complete GC Surge documentation
+  5. End-to-end GC Surge experience works independently
+**Plans**: 3 plans
+
+Plans:
+- [ ] 41-01-PLAN.md — Verify branding assets (logo, favicon, theme CSS) and product config
+- [ ] 41-02-PLAN.md — Create Confluence import script and import Surge space content to Sanity
+- [ ] 41-03-PLAN.md — Build gcsurge product, deploy to Cloudflare Pages, verify end-to-end
+
 ---
 
 ## Progress
@@ -148,12 +166,13 @@ Plans:
 | 9. Cleanup & URL Continuity | v1.1 | 3/3 | Complete | 2026-03-13 |
 | 10. Deep Cleanup | v1.1 | 1/1 | Complete | 2026-03-16 |
 | 29. Updates Hub | v4.0 | 3/3 | Complete | 2026-04-01 |
-| 35. Auth Foundation & Product Access | v5.0 | Complete    | 2026-04-01 | 2026-04-01 |
-| 36. Content Infrastructure | v5.0 | Complete    | 2026-04-01 | - |
-| 37. Multi-Build Pipeline | v5.0 | 0/1 | Planned | - |
-| 38. Product Configuration & Branding | v5.0 | 0/3 | Planned | - |
-| 39. Cloudflare Multi-Project Deployment | v5.0 | Complete    | 2026-04-01 | - |
-| 40. PostHog Analytics | v5.0 | Complete    | 2026-04-01 | - |
+| 35. Auth Foundation & Product Access | v5.0 | Complete    | Complete | 2026-04-01 |
+| 36. Content Infrastructure | v5.0 | Complete    | Complete | 2026-04-01 |
+| 37. Multi-Build Pipeline | v5.0 | Complete    | Complete | 2026-04-01 |
+| 38. Product Configuration & Branding | v5.0 | Complete    | Complete | 2026-04-01 |
+| 39. Cloudflare Multi-Project Deployment | v5.0 | Complete    | Complete | 2026-04-01 |
+| 40. PostHog Analytics | v5.0 | Complete    | Complete | 2026-04-01 |
+| 41. GC Surge Launch | v5.1 | 0/3 | Planned | - |
 
 ---
 
