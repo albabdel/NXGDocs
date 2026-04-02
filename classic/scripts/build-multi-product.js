@@ -37,7 +37,7 @@ async function buildProduct(product) {
   }
 
   return new Promise((resolve, reject) => {
-    const child = spawn('npx', ['docusaurus', 'build', '--out-dir', `build/${product}`], {
+    const child = spawn('npm', ['run', 'docusaurus', '--', 'build', '--out-dir', `build/${product}`], {
       cwd: SITE_DIR,
       stdio: 'inherit',
       shell: true,
