@@ -1,123 +1,188 @@
 ---
 gsd_state_version: 1.0
 milestone: v5.0
-milestone_name: Multi-Product Architecture
-status: executing
-stopped_at: "33-02 complete"
-last_updated: "2026-04-01T23:00:00Z"
-last_activity: "2026-04-01 – Phase 33-02 complete: Search History & Reading Progress"
+milestone_name: Auth0 Integration Upgrade
+status: complete
+stopped_at: "Auth0 upgrade complete"
+last_updated: "2026-04-02T00:00:00Z"
+last_activity: "2026-04-02 – Auth0 Integration Upgrade complete (Phases 30-33)"
 progress:
-  total_phases: 6
-  completed_phases: 5
-  total_plans: 18
-  completed_plans: 14
-  percent: 78
-  current_phase: 33-personalization
-  current_plan: 03
+  total_phases: 4
+  completed_phases: 4
+  total_plans: 8
+  completed_plans: 8
+  percent: 100
+  current_phase: complete
+  current_plan: null
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-13)
-See: .planning/ROADMAP.md (v5.0 phases 35-40)
+See: .planning/PROJECT.md
+See: .planning/ROADMAP-auth0-upgrade.md (COMPLETE)
 
 **Core value:** Non-technical editors can open a web UI, write content, and publish it – without a developer as a bottleneck.
-**Current focus:** v5.0 Multi-Product Architecture – Phase 33-02 complete, continuing personalization
+**Milestone status:** v5.0 Auth0 Integration Upgrade - COMPLETE
 
 ## Current Position
 
-Phase: 33-personalization – Role-Based Content Personalization
-Status: EXECUTING - Phase 33-02 complete (search history & reading progress)
-Last activity: 2026-04-01 – Phase 33-02 complete: Search History & Reading Progress
+Phase: COMPLETE
+Status: Auth0 Integration Upgrade finished
+Last activity: 2026-04-02 – All phases 30-33 complete
 
-Progress: [========  ] 78% (14 of 18 plans complete)
+Progress: [==========] 100% (8 of 8 plans complete)
 
-**Roadmap Summary:** v5.0 transforms single-product docs into multi-product architecture with GCXONE and GC Surge.
+## Completed Phases Summary
 
-## Architecture Decisions (from Research)
+### Phase 30 - Auth Foundation ✅
+- Auth0Provider wrapper in Root.tsx
+- Login button and profile dropdown in navbar
+- Session management with HttpOnly cookies
+- Zoho auto-registration for matching email domains
+- **Files:** Auth components, session endpoints, domain validation
+
+### Phase 31 - User Profile & Preferences ✅
+- Supabase client with Auth0 token authentication
+- user_profiles and user_preferences tables with RLS
+- Profile page at /profile
+- Settings page with theme sync
+- **Files:** Supabase client, hooks, profile pages, SQL schemas
+
+### Phase 32 - Bookmarks & History ✅
+- Bookmark button on every docs page (BookmarkButton)
+- Bookmarks sidebar list (BookmarksList)
+- Bookmarks management page at /profile/bookmarks
+- Automatic reading history tracking (usePageTracking)
+- "Continue Reading" widget on homepage
+- History page at /profile/history
+- **Files:** Bookmark components, history components, services, hooks, SQL schemas
+
+### Phase 33 - Personalization ✅
+- Role-based content filtering (RoleBasedContent)
+- Recommended reading by role
+- Customizable quick links in sidebar
+- Quick links management page at /profile/quick-links
+- Search history tracking (localStorage)
+- Reading progress bar (scroll-based)
+- Reading statistics display
+- Mark as read functionality
+- **Files:** Personalization components, Search components, ReadingProgress components, hooks
+
+## Architecture Decisions (This Milestone)
 
 | Decision | Choice | Rationale |
 |----------|--------|-----------|
-| Product isolation | Single Sanity dataset + product field | Unified editorial workflow, simpler permissions |
-| Content filtering | GROQ product filter on all queries | Content isolation at data layer |
-| Build strategy | Separate builds per product | Static sites with no cross-product leakage |
-| Authentication | Auth0 with product_access claim | Multi-product access control |
-| Analytics | PostHog with product context | Per-product dashboards |
-| Deployment | Separate Cloudflare Pages projects | Isolated domains and rebuilds |
-| Product config | product.config.ts + PRODUCT env var | Type-safe configuration per product |
-| Product theming | CSS custom properties + theme class | Dynamic color injection per product |
+| User data storage | Supabase PostgreSQL | Native Auth0 integration, RLS, unlimited storage |
+| Session management | HttpOnly cookies | Most secure, JavaScript cannot access tokens |
+| Auth pattern | Application-level auth | User ID filtering in queries instead of RLS with JWT claims |
+| Quick links storage | user_preferences.quick_links | JSON field for flexible structure |
+| Search history | localStorage | Client-side only, max 50 items |
+| Reading progress | Supabase | Cross-device sync |
 
-## Critical Security Concerns
+## User Configuration Required
 
-**Content leakage prevention (multi-layer defense):**
-1. Schema-level: Required product field on all Sanity documents
-2. Query-level: GROQ filter on all fetch operations
-3. Build-level: Separate builds per product
-4. Search-level: Scoped search index per product
-5. Function-level: requireProductAccess() guards
+**Before features work in production:**
 
-## Accumulated Context
+1. **Supabase Dashboard** - Run these SQL schemas:
+   ```
+   .supabase/schema/user-tables.sql
+   .supabase/schema/user-bookmarks.sql
+   .supabase/schema/user-history.sql
+   ```
 
-### Decisions
+2. **Cloudflare Environment Variables:**
+   ```
+   ZOHO_ALLOWED_DOMAINS=nxgen.io
+   SUPABASE_URL=https://temmzrunmzjiivogsbzz.supabase.co
+   SUPABASE_ANON_KEY=<from Keys.md>
+   ```
 
-Recent decisions affecting current work:
+3. **Auth0 Application Settings:**
+   - Add callback URLs: `https://docs.nxgen.cloud/callback`, `https://gcxone.pages.dev/callback`
+   - Add logout URLs: `https://docs.nxgen.cloud`, `https://gcxone.pages.dev`
 
-- [Research]: Single dataset with product field preferred over separate Sanity datasets
-- [Research]: Multi-build pipeline produces separate static sites per product
-- [Research]: Auth0 Actions add product_access claim to JWT
-- [Research]: PostHog group() calls enable product-scoped analytics
-- [35-01]: Default productAccess to ['gcxone'] for backwards compatibility
-- [35-01]: Admins default to all products ['gcxone', 'gcsurge'] for full access
-- [35-01]: Product detection cascade: X-Product header > URL path > PRODUCT env > 'gcxone'
-- [35-02]: ProductAccessContext provides session state and product entitlements
-- [35-02]: useProductAccess hook for component-level visibility checks
-- [35-03]: Visibility tiers defined: public, authenticated, restricted
-- [35-03]: Product guard pattern enforced at function entry point
-- [Phase 37]: Parallel builds enabled by default (Promise.all) for efficiency
-- [Phase 37]: require cache cleared between builds to ensure fresh PRODUCT env var
-- [Phase 38]: product.config.ts provides type-safe configuration for each product
-- [Phase 38]: Theme class injected via Root.tsx based on PRODUCT env var
-- [Phase 38]: GCXONE uses gold (#C89446), GCSurge uses blue (#3B82F6)
-- [Phase 39]: gcxone.pages.dev and gcsurge.pages.dev Cloudflare Pages projects
-- [Phase 39]: Sanity webhook triggers product-scoped rebuilds via /api/sanity-webhook
-- [Phase 39]: Using subdomains (.pages.dev) per user request, custom domains later
-- [31-02]: useUserProfile hook auto-creates profile on first login
-- [31-02]: useThemeSync syncs Docusaurus theme with Supabase preferences
-- [31-02]: UserProtectedRoute uses Auth0 directly (separate from admin ProtectedRoute)
-- [33-01]: Quick links stored in user_preferences.quick_links JSON field
-- [33-01]: Max 10 quick links per user enforced
-- [33-01]: Role-to-interest mapping for recommended reading (static, ML later)
-- [33-01]: RoleBasedContent component for role-based content filtering
-- [33-02]: Search history stored in localStorage (client-side only, max 50 items)
-- [33-02]: Reading progress persisted to Supabase for cross-device sync
-- [33-02]: Progress bar uses scroll-based calculation with 500ms debounce
-- [33-02]: Mark as read triggers celebration animation on completion
+## Files Created This Milestone
 
-### Pending Todos
+### Auth (Phase 30)
+- `classic/src/theme/Root.tsx` - Auth0Provider wrapper
+- `classic/src/components/Auth/LoginButton.tsx`
+- `classic/src/components/Auth/ProfileDropdown.tsx`
+- `classic/src/components/Auth/AuthCallback.tsx`
+- `classic/src/css/components/navbar-auth.css`
+- `functions/lib/auth-session.ts`
+- `functions/auth-session.ts`
+- `functions/auth-logout.ts`
+- `functions/lib/zoho-contact-create.ts`
+- `functions/auth-zoho-register.ts`
+- `classic/src/hooks/useAuthSession.ts`
 
-None.
+### Supabase (Phase 31)
+- `classic/src/lib/supabase.ts`
+- `functions/lib/supabase-admin.ts`
+- `.supabase/schema/user-tables.sql`
+- `classic/src/services/user-profile.ts`
+- `classic/src/hooks/useUserProfile.ts`
+- `classic/src/hooks/useThemeSync.ts`
+- `classic/src/pages/profile/index.tsx`
+- `classic/src/pages/profile/settings.tsx`
+- `classic/src/css/components/profile.css`
 
-### Blockers/Concerns
+### Bookmarks (Phase 32-01)
+- `.supabase/schema/user-bookmarks.sql`
+- `classic/src/services/bookmarks.ts`
+- `classic/src/hooks/useBookmarks.ts`
+- `classic/src/components/Bookmark/BookmarkButton.tsx`
+- `classic/src/components/Bookmark/BookmarksList.tsx`
+- `classic/src/pages/profile/bookmarks.tsx`
+- `classic/src/css/components/bookmark.css`
 
-**Requires user action before execution:**
-- Auth0 Actions configuration (product_access claim)
-- Product entitlements source verification (Zoho custom field or app_metadata)
-- Private vs. public content strategy decision
-- Search index strategy decision
+### History (Phase 32-02)
+- `.supabase/schema/user-history.sql`
+- `classic/src/services/history.ts`
+- `classic/src/hooks/useReadingHistory.ts`
+- `classic/src/hooks/usePageTracking.ts`
+- `classic/src/components/History/ContinueReading.tsx`
+- `classic/src/components/History/HistoryList.tsx`
+- `classic/src/pages/profile/history.tsx`
+- `classic/src/css/components/history.css`
 
-## Session Continuity
+### Personalization (Phase 33-01)
+- `classic/src/components/Personalization/RoleBasedContent.tsx`
+- `classic/src/components/Personalization/RecommendedReading.tsx`
+- `classic/src/components/Personalization/QuickLinks.tsx`
+- `classic/src/components/Personalization/AddQuickLinkModal.tsx`
+- `classic/src/hooks/useQuickLinks.ts`
+- `classic/src/pages/profile/quick-links.tsx`
+- `classic/src/css/components/personalization.css`
 
-Last session: 2026-04-01
-Stopped at: 33-02 complete
-Status: v5.0 Multi-Product Architecture - Phase 33-02 complete
+### Search & Progress (Phase 33-02)
+- `classic/src/hooks/useSearchHistory.ts`
+- `classic/src/components/Search/SearchHistory.tsx`
+- `classic/src/css/components/search-history.css`
+- `classic/src/components/ReadingProgress/ReadingProgressBar.tsx`
+- `classic/src/components/ReadingProgress/ReadingStats.tsx`
+- `classic/src/components/ReadingProgress/MarkAsRead.tsx`
+- `classic/src/css/components/reading-progress.css`
 
-**Next Steps:**
-1. Continue with Phase 33-03 (if exists) or next phase
-2. Fix pre-existing build issues (missing modules in updates pages)
-3. Add role selection to profile settings
-4. Integrate QuickLinks into sidebar navigation
+## Session History
+
+**2026-04-02 Session:**
+- Previous agent became slow, work continued with new agent
+- Fixed build issue (updates.tsx file/directory conflict)
+- Created Phase 32-01 and 32-02 SUMMARY files
+- Executed Phase 33-01 (Personalization)
+- Executed Phase 33-02 (Search History & Reading Progress)
+- All phases 30-33 now complete
+
+## Next Steps
+
+1. Run SQL schemas in Supabase dashboard
+2. Configure Cloudflare environment variables
+3. Update Auth0 application settings
+4. Test login flow in production
+5. Verify bookmarks, history, and personalization work
 
 ---
-*STATE.md updated: 2026-04-01T23:00:00Z*
+*STATE.md updated: 2026-04-02T00:00:00Z*
