@@ -4,19 +4,19 @@ import { useOnboarding } from './OnboardingContext';
 import { onboardingPhases } from '../../data/onboardingPhases';
 
 export function NextRequiredAction(): React.JSX.Element {
-    const { selectedRole, isStepComplete } = useOnboarding();
+    const { isStepComplete } = useOnboarding();
     const [dismissed, setDismissed] = useState(false);
 
     if (dismissed) return <></>;
 
-    // Find the first incomplete step for the selected role
+    // Find the first incomplete step
     let nextStep: { title: string; link?: string } | null = null;
 
     for (const phase of onboardingPhases) {
         for (const step of phase.steps) {
-            if (step.roles?.includes(selectedRole) && !isStepComplete(step.id)) {
+            if (!isStepComplete(step.id)) {
                 nextStep = {
-                    title: step.roleSpecificTitle?.[selectedRole] || step.title,
+                    title: step.title,
                     link: step.actionLink,
                 };
                 break;

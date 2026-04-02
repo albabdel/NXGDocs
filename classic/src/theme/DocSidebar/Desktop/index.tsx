@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import type { Props } from '@theme/DocSidebar/Desktop';
 import { useLocation } from '@docusaurus/router';
 import Link from '@docusaurus/Link';
-import RoleSwitcher from '../../../components/RoleSwitcher';
 import styles from './styles.module.css';
 
 interface SidebarItem {
@@ -22,39 +21,6 @@ interface ContextMenuState {
   y: number;
   href?: string;
   label?: string;
-}
-
-// Map role IDs to className values
-const roleToClassName: Record<string, string[]> = {
-  'admin': ['role-admin', 'role-manager', 'role-minimal'],
-  'manager': ['role-manager', 'role-minimal'],
-  'operator': ['role-minimal', 'role-manager'],
-  'operator-minimal': ['role-minimal'],
-};
-
-function getCurrentRole(): string {
-  if (typeof window === 'undefined') return 'admin';
-  return localStorage.getItem('selectedRole') || 'admin';
-}
-
-function isItemVisibleForRole(item: SidebarItem, currentRole: string): boolean {
-  if (!item.className) return true;
-  const allowedClasses = roleToClassName[currentRole] || [];
-  return allowedClasses.includes(item.className);
-}
-
-function filterSidebarByRole(items: SidebarItem[], currentRole: string): SidebarItem[] {
-  return items
-    .filter(item => isItemVisibleForRole(item, currentRole))
-    .map(item => {
-      if (item.items) {
-        return {
-          ...item,
-          items: filterSidebarByRole(item.items, currentRole),
-        };
-      }
-      return item;
-    });
 }
 
 function isPathActive(itemHref: string | undefined, activePath: string): boolean {
@@ -320,24 +286,9 @@ function SidebarMenuItem({
   return null;
 }
 
-// Loading Skeleton Component
-function LoadingSkeleton() {
-  return (
-    <div className={styles.skeletonContainer}>
-      {[1, 2, 3, 4].map((i) => (
-        <div key={i} className={styles.skeletonItem}>
-          <div className={styles.skeletonLine} style={{ width: `${60 + Math.random() * 30}%` }} />
-        </div>
-      ))}
-    </div>
-  );
-}
-
 function DocSidebarDesktop(props: Props) {
   const location = useLocation();
   const sidebar = props.sidebar || [];
-  const [currentRole, setCurrentRole] = useState<string>(getCurrentRole());
-  const [isFiltering, setIsFiltering] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [contextMenu, setContextMenu] = useState<ContextMenuState>({
     visible: false,
@@ -345,39 +296,6 @@ function DocSidebarDesktop(props: Props) {
     y: 0,
   });
   const navRef = useRef<HTMLElement>(null);
-  const previousRoleRef = useRef(currentRole);
-
-  // Listen for role changes
-  useEffect(() => {
-    const handleRoleChange = () => {
-      const newRole = getCurrentRole();
-      if (newRole !== previousRoleRef.current) {
-        setIsFiltering(true);
-        previousRoleRef.current = newRole;
-        
-        setTimeout(() => {
-          setCurrentRole(newRole);
-          setIsFiltering(false);
-          setShowSuccess(true);
-          setTimeout(() => setShowSuccess(false), 2000);
-        }, 300);
-      } else {
-        setCurrentRole(newRole);
-      }
-    };
-
-    handleRoleChange();
-    window.addEventListener('roleChanged', handleRoleChange as EventListener);
-
-    return () => {
-      window.removeEventListener('roleChanged', handleRoleChange as EventListener);
-    };
-  }, []);
-
-  // Filter sidebar based on current role
-  const filteredSidebar = useMemo(() => {
-    return filterSidebarByRole(sidebar, currentRole);
-  }, [sidebar, currentRole]);
 
   const handleContextMenu = useCallback((e: React.MouseEvent, href: string, label: string) => {
     e.preventDefault();
@@ -396,7 +314,6 @@ function DocSidebarDesktop(props: Props) {
 
   const handleContextAction = useCallback((action: string) => {
     if (action === 'copy') {
-      // Show success feedback
       setShowSuccess(true);
       setTimeout(() => setShowSuccess(false), 1500);
     }
@@ -417,7 +334,7 @@ function DocSidebarDesktop(props: Props) {
   }, [contextMenu.visible, closeContextMenu]);
 
   return (
-    <div className={`${styles.sidebarWrapper} ${isFiltering ? styles.filtering : ''} ${showSuccess ? styles.success : ''}`}>
+    <div className={`${styles.sidebarWrapper} ${showSuccess ? styles.success : ''}`}>
       {/* Premium Header */}
       <div className={styles.sidebarHeader}>
         <div className={styles.logoSection}>
@@ -434,47 +351,21 @@ function DocSidebarDesktop(props: Props) {
             </div>
           </Link>
         </div>
-
-        <div className={styles.roleSwitcherContainer}>
-          <RoleSwitcher type="sidebar" />
-        </div>
-
-        {/* Loading Indicator */}
-        {isFiltering && (
-          <div className={styles.loadingIndicator}>
-            <div className={styles.loadingSpinner}></div>
-            <span>Filtering content...</span>
-          </div>
-        )}
-
-        {/* Success Indicator */}
-        {showSuccess && !isFiltering && (
-          <div className={styles.successIndicator}>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M13.5 4L6 11.5L2.5 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <span>Done!</span>
-          </div>
-        )}
       </div>
 
       {/* Navigation Menu */}
       <nav ref={navRef} className={styles.sidebarNav}>
-        {isFiltering ? (
-          <LoadingSkeleton />
-        ) : (
-          <div className={styles.menuList}>
-            {filteredSidebar.map((item, idx) => (
-              <SidebarMenuItem 
-                key={idx} 
-                item={item} 
-                activePath={location.pathname}
-                index={idx}
-                onContextMenu={handleContextMenu}
-              />
-            ))}
-          </div>
-        )}
+        <div className={styles.menuList}>
+          {sidebar.map((item, idx) => (
+            <SidebarMenuItem 
+              key={idx} 
+              item={item} 
+              activePath={location.pathname}
+              index={idx}
+              onContextMenu={handleContextMenu}
+            />
+          ))}
+        </div>
       </nav>
 
       {/* Context Menu */}

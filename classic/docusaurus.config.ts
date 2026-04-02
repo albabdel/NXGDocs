@@ -52,6 +52,7 @@ const config: Config = {
     } satisfies Preset.Options],
   ],
   plugins: [
+    './plugins/webpack-config-plugin',
     './plugins/docusaurus-plugin-sanity-content',
     './plugins/docusaurus-plugin-sanity-landing-pages',
     './plugins/docusaurus-plugin-release-pages',
@@ -67,10 +68,6 @@ const config: Config = {
       person_profiles: 'identified_only',
     }],
     ['@docusaurus/plugin-content-docs', { id: 'internal', path: 'docs-internal', routeBasePath: 'internal', sidebarPath: './sidebars-internal.ts', showLastUpdateTime: false, showLastUpdateAuthor: false, editUrl: undefined }],
-    ['@docusaurus/plugin-content-docs', { id: 'admin', path: 'docs-admin', routeBasePath: 'role-admin', sidebarPath: './sidebars-admin.ts', showLastUpdateTime: false, showLastUpdateAuthor: false, editUrl: undefined, sidebarCollapsible: true, sidebarCollapsed: true, breadcrumbs: true }],
-    ['@docusaurus/plugin-content-docs', { id: 'manager', path: 'docs-manager', routeBasePath: 'manager', sidebarPath: './sidebars-manager.ts', showLastUpdateTime: false, showLastUpdateAuthor: false, editUrl: undefined, sidebarCollapsible: true, sidebarCollapsed: true, breadcrumbs: true }],
-    ['@docusaurus/plugin-content-docs', { id: 'operator', path: 'docs-operator', routeBasePath: 'operator', sidebarPath: './sidebars-operator.ts', showLastUpdateTime: false, showLastUpdateAuthor: false, editUrl: undefined, sidebarCollapsible: true, sidebarCollapsed: true, breadcrumbs: true }],
-    ['@docusaurus/plugin-content-docs', { id: 'operator-minimal', path: 'docs-operator-minimal', routeBasePath: 'operator-minimal', sidebarPath: './sidebars-operator-minimal.ts', showLastUpdateTime: false, showLastUpdateAuthor: false, editUrl: undefined, sidebarCollapsible: true, sidebarCollapsed: true, breadcrumbs: true }],
     ['@docusaurus/plugin-content-docs', { id: 'sanity-docs', path: '.sanity-cache/docs', routeBasePath: 'docs', sidebarPath: './sidebars.ts', showLastUpdateTime: false, showLastUpdateAuthor: false, editUrl: undefined, sidebarCollapsible: true, sidebarCollapsed: true, breadcrumbs: true }],
   ],
   themes: ['@docusaurus/theme-mermaid'],

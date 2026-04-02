@@ -9,10 +9,7 @@ import {
     ChevronUp,
     Clock,
     Rocket,
-    Shield,
     Activity,
-    Wrench,
-    LayoutDashboard,
     ArrowRight,
     Monitor,
     Wifi,
@@ -28,7 +25,7 @@ import {
 import styles from './index.module.css';
 import landingPagesData from '../data/sanity-landing-pages.generated.json';
 import { onboardingPhases } from '../data/onboardingPhases';
-import { UserRole, StepType } from '../types/onboarding';
+import { StepType } from '../types/onboarding';
 
 type LandingPage = {
     slug: { current: string };
@@ -49,7 +46,6 @@ type QuickStartStep = {
     icon: React.ReactNode;
     link: string;
     estimatedTime: string;
-    roles: UserRole[];
 };
 
 type VideoResource = {
@@ -59,7 +55,6 @@ type VideoResource = {
     youtubeId: string;
     thumbnail: string;
     duration: string;
-    roles: UserRole[];
 };
 
 type FeaturedArticle = {
@@ -87,7 +82,6 @@ const quickStartSteps: QuickStartStep[] = [
         icon: <Lock className="w-5 h-5" />,
         link: '/docs/getting-started/first-time-login--access',
         estimatedTime: '5 min',
-        roles: [UserRole.ADMIN, UserRole.OPERATOR, UserRole.INSTALLER, UserRole.MANAGER],
     },
     {
         id: 'platform-overview',
@@ -96,7 +90,6 @@ const quickStartSteps: QuickStartStep[] = [
         icon: <Globe className="w-5 h-5" />,
         link: '/quick-start/platform-overview',
         estimatedTime: '10 min',
-        roles: [UserRole.ADMIN, UserRole.OPERATOR, UserRole.INSTALLER, UserRole.MANAGER],
     },
     {
         id: 'network-setup',
@@ -105,7 +98,6 @@ const quickStartSteps: QuickStartStep[] = [
         icon: <Wifi className="w-5 h-5" />,
         link: '/docs/getting-started/pre-deployment-requirements',
         estimatedTime: '15 min',
-        roles: [UserRole.ADMIN, UserRole.INSTALLER],
     },
     {
         id: 'device-integration',
@@ -114,7 +106,6 @@ const quickStartSteps: QuickStartStep[] = [
         icon: <Cpu className="w-5 h-5" />,
         link: '/quick-start/device-integration',
         estimatedTime: '20 min',
-        roles: [UserRole.ADMIN, UserRole.INSTALLER],
     },
     {
         id: 'user-management',
@@ -123,7 +114,6 @@ const quickStartSteps: QuickStartStep[] = [
         icon: <Users className="w-5 h-5" />,
         link: '/docs/getting-started/user-management-setup',
         estimatedTime: '10 min',
-        roles: [UserRole.ADMIN],
     },
     {
         id: 'alarm-processing',
@@ -132,7 +122,6 @@ const quickStartSteps: QuickStartStep[] = [
         icon: <Activity className="w-5 h-5" />,
         link: '/docs/alarm-management',
         estimatedTime: '15 min',
-        roles: [UserRole.ADMIN, UserRole.OPERATOR],
     },
 ];
 
@@ -144,7 +133,6 @@ const videoResources: VideoResource[] = [
         youtubeId: 'ER-tnAvGXow',
         thumbnail: 'https://img.youtube.com/vi/ER-tnAvGXow/maxresdefault.jpg',
         duration: '12:30',
-        roles: [UserRole.ADMIN, UserRole.OPERATOR, UserRole.INSTALLER, UserRole.MANAGER],
     },
     {
         id: 'v2',
@@ -153,7 +141,6 @@ const videoResources: VideoResource[] = [
         youtubeId: 'I7dccOLTOsk',
         thumbnail: 'https://img.youtube.com/vi/I7dccOLTOsk/maxresdefault.jpg',
         duration: '8:45',
-        roles: [UserRole.ADMIN, UserRole.OPERATOR, UserRole.INSTALLER, UserRole.MANAGER],
     },
     {
         id: 'v3',
@@ -162,7 +149,6 @@ const videoResources: VideoResource[] = [
         youtubeId: 'AxHOF8cV88Q',
         thumbnail: 'https://img.youtube.com/vi/AxHOF8cV88Q/maxresdefault.jpg',
         duration: '15:20',
-        roles: [UserRole.ADMIN, UserRole.OPERATOR, UserRole.MANAGER],
     },
     {
         id: 'v4',
@@ -171,7 +157,6 @@ const videoResources: VideoResource[] = [
         youtubeId: 'p--04PIIO-M',
         thumbnail: 'https://img.youtube.com/vi/p--04PIIO-M/maxresdefault.jpg',
         duration: '10:15',
-        roles: [UserRole.ADMIN, UserRole.INSTALLER],
     },
 ];
 
@@ -213,12 +198,7 @@ const systemRequirements: SystemRequirement[] = [
     { name: 'Memory', minimum: '4 GB RAM', recommended: '8+ GB RAM', icon: <HardDrive className="w-5 h-5" /> },
 ];
 
-const roles: { value: UserRole; label: string; description: string; icon: React.ReactNode }[] = [
-    { value: UserRole.ADMIN, label: 'Admin', description: 'Full platform access', icon: <Shield className="w-4 h-4" /> },
-    { value: UserRole.OPERATOR, label: 'Operator', description: 'Alarm monitoring', icon: <Activity className="w-4 h-4" /> },
-    { value: UserRole.INSTALLER, label: 'Installer', description: 'Device setup', icon: <Wrench className="w-4 h-4" /> },
-    { value: UserRole.MANAGER, label: 'Manager', description: 'Reports & oversight', icon: <LayoutDashboard className="w-4 h-4" /> },
-];
+
 
 function getYouTubeThumbnail(videoId: string): string {
     return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
@@ -263,7 +243,6 @@ function useProgress() {
 }
 
 export default function GettingStartedPage(): React.JSX.Element {
-    const [selectedRole, setSelectedRole] = useState<UserRole>(UserRole.ADMIN);
     const [activePhaseId, setActivePhaseId] = useState<string | undefined>('account-access');
     const [videoModal, setVideoModal] = useState<VideoResource | null>(null);
     const [isDark, setIsDark] = useState(true);
@@ -284,41 +263,23 @@ export default function GettingStartedPage(): React.JSX.Element {
         return pages.find(p => p.slug.current === 'getting-started');
     }, []);
 
-    const filteredSteps = useMemo(() => 
-        quickStartSteps.filter(step => step.roles?.includes(selectedRole)),
-        [selectedRole]
-    );
-
-    const filteredVideos = useMemo(() => 
-        videoResources.filter(video => video.roles?.includes(selectedRole)),
-        [selectedRole]
-    );
-
-    const filteredPhases = useMemo(() => 
-        onboardingPhases.map(phase => ({
-            ...phase,
-            steps: phase.steps.filter(step => step.roles?.includes(selectedRole)),
-        })).filter(phase => phase.steps.length > 0),
-        [selectedRole]
-    );
-
     const totalSteps = useMemo(() => 
-        filteredPhases.reduce((acc, phase) => acc + phase.steps.length, 0) + filteredSteps.length,
-        [filteredPhases, filteredSteps]
+        onboardingPhases.reduce((acc, phase) => acc + phase.steps.length, 0) + quickStartSteps.length,
+        []
     );
 
     const completedCount = useMemo(() => {
         let count = 0;
-        filteredSteps.forEach(step => {
+        quickStartSteps.forEach(step => {
             if (isComplete(step.id)) count++;
         });
-        filteredPhases.forEach(phase => {
+        onboardingPhases.forEach(phase => {
             phase.steps.forEach(step => {
                 if (isComplete(step.id)) count++;
             });
         });
         return count;
-    }, [filteredSteps, filteredPhases, isComplete]);
+    }, [isComplete]);
 
     const progressPercent = totalSteps > 0 ? Math.round((completedCount / totalSteps) * 100) : 0;
 
@@ -386,7 +347,7 @@ export default function GettingStartedPage(): React.JSX.Element {
                                             Start Tutorial
                                         </Link>
                                         <button
-                                            onClick={() => filteredVideos[0] && setVideoModal(filteredVideos[0])}
+                                            onClick={() => videoResources[0] && setVideoModal(videoResources[0])}
                                             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium border transition-all duration-200"
                                             style={{
                                                 background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.7)',
@@ -426,60 +387,17 @@ export default function GettingStartedPage(): React.JSX.Element {
                                         </div>
                                         <div className="grid grid-cols-2 gap-2 text-xs">
                                             <div className="p-2 rounded-lg" style={{ background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.5)' }}>
-                                                <div className="font-medium" style={{ color: 'var(--ifm-color-content)' }}>{filteredSteps.length}</div>
+                                                <div className="font-medium" style={{ color: 'var(--ifm-color-content)' }}>{quickStartSteps.length}</div>
                                                 <div style={{ color: 'var(--ifm-color-content-secondary)' }}>Quick Steps</div>
                                             </div>
                                             <div className="p-2 rounded-lg" style={{ background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.5)' }}>
-                                                <div className="font-medium" style={{ color: 'var(--ifm-color-content)' }}>{filteredPhases.length}</div>
+                                                <div className="font-medium" style={{ color: 'var(--ifm-color-content)' }}>{onboardingPhases.length}</div>
                                                 <div style={{ color: 'var(--ifm-color-content-secondary)' }}>Phases</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-
-                    <section className="mb-12">
-                        <div className="flex items-center gap-2 mb-4">
-                            <Users className="w-5 h-5" style={{ color: '#E8B058' }} />
-                            <span className="text-sm font-medium" style={{ color: 'var(--ifm-color-content)' }}>
-                                Filter content by your role:
-                            </span>
-                        </div>
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                            {roles.map((role) => {
-                                const isActive = selectedRole === role.value;
-                                return (
-                                    <button
-                                        key={role.value}
-                                        onClick={() => setSelectedRole(role.value)}
-                                        className="flex items-center gap-3 p-4 rounded-xl border transition-all duration-200 text-left"
-                                        style={{
-                                            background: isActive
-                                                ? 'rgba(232, 176, 88, 0.1)'
-                                                : isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.5)',
-                                            borderColor: isActive ? '#E8B058' : isDark ? 'rgba(255,255,255,0.08)' : 'rgba(232,176,88,0.15)',
-                                            transform: isActive ? 'scale(1.02)' : 'scale(1)',
-                                        }}
-                                    >
-                                        <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style={{
-                                            background: isActive ? 'rgba(232,176,88,0.2)' : 'rgba(232,176,88,0.1)',
-                                            color: '#E8B058',
-                                        }}>
-                                            {role.icon}
-                                        </div>
-                                        <div>
-                                            <div className="font-medium text-sm" style={{ color: isActive ? '#E8B058' : 'var(--ifm-color-content)' }}>
-                                                {role.label}
-                                            </div>
-                                            <div className="text-xs" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                                                {role.description}
-                                            </div>
-                                        </div>
-                                    </button>
-                                );
-                            })}
                         </div>
                     </section>
 
@@ -494,7 +412,7 @@ export default function GettingStartedPage(): React.JSX.Element {
                             </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {filteredSteps.map((step) => {
+                            {quickStartSteps.map((step) => {
                                 const complete = isComplete(step.id);
                                 return (
                                     <div
@@ -584,7 +502,7 @@ export default function GettingStartedPage(): React.JSX.Element {
                             )}
                         </div>
                         <div className="space-y-4">
-                            {filteredPhases.map((phase, phaseIndex) => {
+                            {onboardingPhases.map((phase, phaseIndex) => {
                                 const isExpanded = activePhaseId === phase.id;
                                 const phaseCompletedSteps = phase.steps.filter(s => isComplete(s.id)).length;
                                 const phaseTotal = phase.steps.length;
@@ -642,7 +560,7 @@ export default function GettingStartedPage(): React.JSX.Element {
                                             <div className="px-5 pb-5 space-y-2">
                                                 {phase.steps.map((step) => {
                                                     const complete = isComplete(step.id);
-                                                    const title = step.roleSpecificTitle?.[selectedRole] || step.title;
+                                                    const title = step.title;
 
                                                     return (
                                                         <div
@@ -692,12 +610,11 @@ export default function GettingStartedPage(): React.JSX.Element {
                                                                 <button
                                                                     onClick={() => setVideoModal({
                                                                         id: step.id,
-                                                                        title: step.learningContent.title || title,
-                                                                        description: step.learningContent.description || '',
-                                                                        youtubeId: step.learningContent.videoId,
-                                                                        thumbnail: getYouTubeThumbnail(step.learningContent.videoId),
+                                                                        title: step.learningContent?.title || title,
+                                                                        description: step.learningContent?.description || '',
+                                                                        youtubeId: step.learningContent?.videoId || '',
+                                                                        thumbnail: getYouTubeThumbnail(step.learningContent?.videoId || ''),
                                                                         duration: '',
-                                                                        roles: step.roles,
                                                                     })}
                                                                     className="p-2 rounded-lg transition-colors hover:bg-[#E8B058]/20"
                                                                     style={{
@@ -732,7 +649,7 @@ export default function GettingStartedPage(): React.JSX.Element {
                             </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            {filteredVideos.map((video) => (
+                            {videoResources.map((video) => (
                                 <div
                                     key={video.id}
                                     className="rounded-xl border overflow-hidden cursor-pointer group transition-all duration-200 hover:scale-[1.02]"

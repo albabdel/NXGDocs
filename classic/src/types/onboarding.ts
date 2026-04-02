@@ -69,7 +69,6 @@ export interface SystemHealthItem {
 }
 
 export interface OnboardingState {
-    selectedRole: UserRole;
     completedSteps: string[];   // Array of step IDs
     activePhaseId?: string;     // Currently expanded phase
     activeStepId?: string;      // Currently active step

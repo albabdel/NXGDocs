@@ -3,9 +3,9 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import { useParams } from '@docusaurus/router';
 import { motion } from 'framer-motion';
-import PageHeader from '../components/PageHeader';
-import LandingPageBackground from '../components/LandingPageBackground/LandingPageBackground';
-import { Card } from '../components/ui';
+import PageHeader from '../../components/PageHeader';
+import LandingPageBackground from '../../components/LandingPageBackground/LandingPageBackground';
+import { Card } from '../../components/ui';
 import {
     Package,
     Bug,

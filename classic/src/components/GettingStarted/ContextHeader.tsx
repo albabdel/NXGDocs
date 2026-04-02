@@ -3,10 +3,10 @@ import { useOnboarding } from './OnboardingContext';
 import { onboardingPhases } from '../../data/onboardingPhases';
 
 export function ContextHeader(): React.JSX.Element {
-    const { selectedRole, completedSteps } = useOnboarding();
+    const { completedSteps } = useOnboarding();
 
     const totalSteps = onboardingPhases.reduce((acc, phase) => {
-        return acc + phase.steps.filter(s => s.roles?.includes(selectedRole)).length;
+        return acc + phase.steps.length;
     }, 0);
 
     const completedCount = completedSteps.length;
@@ -26,8 +26,7 @@ export function ContextHeader(): React.JSX.Element {
                         Your Onboarding Progress
                     </h2>
                     <p className="text-sm m-0 mt-1" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                        {completedCount} of {totalSteps} steps completed for{' '}
-                        <span className="font-medium capitalize">{selectedRole}</span> role
+                        {completedCount} of {totalSteps} steps completed
                     </p>
                 </div>
                 <div className="text-2xl font-bold" style={{ color: '#E8B058' }}>

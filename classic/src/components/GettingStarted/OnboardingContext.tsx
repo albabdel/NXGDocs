@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
-import { UserRole, OnboardingState } from '../../types/onboarding';
+import { OnboardingState } from '../../types/onboarding';
 
 interface OnboardingContextValue extends OnboardingState {
-    setSelectedRole: (role: UserRole) => void;
     toggleStepComplete: (stepId: string) => void;
     setActivePhase: (phaseId: string | undefined) => void;
     setActiveStep: (stepId: string | undefined) => void;
@@ -13,15 +12,10 @@ const OnboardingContext = createContext<OnboardingContextValue | null>(null);
 
 export function OnboardingProvider({ children }: { children: React.ReactNode }): React.JSX.Element {
     const [state, setState] = useState<OnboardingState>({
-        selectedRole: UserRole.ADMIN,
         completedSteps: [],
         activePhaseId: undefined,
         activeStepId: undefined,
     });
-
-    const setSelectedRole = useCallback((role: UserRole) => {
-        setState(prev => ({ ...prev, selectedRole: role }));
-    }, []);
 
     const toggleStepComplete = useCallback((stepId: string) => {
         setState(prev => {
@@ -50,7 +44,6 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }):
     return (
         <OnboardingContext.Provider value={{
             ...state,
-            setSelectedRole,
             toggleStepComplete,
             setActivePhase,
             setActiveStep,

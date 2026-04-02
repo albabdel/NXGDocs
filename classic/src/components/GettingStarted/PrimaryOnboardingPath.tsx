@@ -5,19 +5,14 @@ import { onboardingPhases } from '../../data/onboardingPhases';
 import { StepType } from '../../types/onboarding';
 
 export function PrimaryOnboardingPath(): React.JSX.Element {
-    const { selectedRole, isStepComplete, toggleStepComplete, activePhaseId, setActivePhase } = useOnboarding();
-
-    const filteredPhases = onboardingPhases.map(phase => ({
-        ...phase,
-        steps: phase.steps.filter(step => step.roles?.includes(selectedRole)),
-    })).filter(phase => phase.steps.length > 0);
+    const { isStepComplete, toggleStepComplete, activePhaseId, setActivePhase } = useOnboarding();
 
     return (
         <div className="space-y-4 mb-8">
             <h2 className="text-xl font-bold mb-4" style={{ color: 'var(--ifm-color-content)' }}>
                 Setup Path
             </h2>
-            {filteredPhases.map((phase, phaseIndex) => {
+            {onboardingPhases.map((phase, phaseIndex) => {
                 const isExpanded = activePhaseId === phase.id;
                 const phaseCompletedSteps = phase.steps.filter(s => isStepComplete(s.id)).length;
                 const phaseTotal = phase.steps.length;
@@ -67,7 +62,7 @@ export function PrimaryOnboardingPath(): React.JSX.Element {
                             <div className="px-4 pb-4 space-y-2">
                                 {phase.steps.map((step) => {
                                     const complete = isStepComplete(step.id);
-                                    const title = step.roleSpecificTitle?.[selectedRole] || step.title;
+                                    const title = step.title;
 
                                     return (
                                         <div

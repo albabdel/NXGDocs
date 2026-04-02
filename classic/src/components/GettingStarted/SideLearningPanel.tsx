@@ -4,12 +4,12 @@ import { useOnboarding } from './OnboardingContext';
 import { onboardingPhases } from '../../data/onboardingPhases';
 
 export function SideLearningPanel(): React.JSX.Element {
-    const { selectedRole, activePhaseId } = useOnboarding();
+    const { activePhaseId } = useOnboarding();
 
     // Find the active phase
     const activePhase = onboardingPhases.find(p => p.id === activePhaseId);
     const stepsWithContent = (activePhase?.steps ?? onboardingPhases[0]?.steps ?? [])
-        .filter(s => s.roles?.includes(selectedRole) && s.learningContent);
+        .filter(s => s.learningContent);
 
     const resources = stepsWithContent.slice(0, 3);
 

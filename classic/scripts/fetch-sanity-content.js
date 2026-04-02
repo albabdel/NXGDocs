@@ -77,16 +77,7 @@ const BACKUP_ROOT = path.join(SITE_DIR, '.sanity-backups');
 const VERSION_HISTORY_DIR = path.join(SITE_DIR, '.sanity-version-history');
 const DEFAULT_BACKUP_KEEP = 10;
 
-const AUDIENCE_DIR_MAP = {
-  all: 'docs',
-  admin: 'docs-admin',
-  manager: 'docs-manager',
-  operator: 'docs-operator',
-  'operator-minimal': 'docs-operator-minimal',
-  internal: 'docs-internal',
-};
-
-const ALL_CACHE_DIRS = Object.values(AUDIENCE_DIR_MAP);
+const ALL_CACHE_DIRS = ['docs'];
 
 function statusFilterClause(includeDrafts) {
   if (includeDrafts) return 'defined(slug.current)';
@@ -113,7 +104,7 @@ function getQueries(includeDrafts) {
     {
       type: 'doc',
       query: `*[_type == "doc" && ${filter} && ${productFilter}] | order(sidebarPosition asc) {
-        title, slug, targetAudience, category, sidebarPosition, sidebarLabel, hideFromSidebar, body, lastUpdated, description, tags, status, reviewedBy, product,
+        title, slug, category, sidebarPosition, sidebarLabel, hideFromSidebar, body, lastUpdated, description, tags, status, reviewedBy, product,
         "categoryId": sidebarCategory->_id,
         "categorySlug": sidebarCategory->slug.current,
         "categoryTitle": sidebarCategory->title,
@@ -971,33 +962,10 @@ async function run() {
         if (type === 'doc') {
           const frontmatter = buildDocFrontmatter(doc);
           const content = frontmatter + (bodyMd ? '\n\n' + bodyMd : '');
-          const audiences = Array.isArray(doc.targetAudience) && doc.targetAudience.length ? doc.targetAudience : ['all'];
-
-          const subDirs = [];
-          for (const audience of audiences) {
-            const subDir = AUDIENCE_DIR_MAP[audience];
-            if (!subDir) {
-              stats.warnings += 1;
-              console.warn(
-                `[sanity-content] Warning: Unknown targetAudience "${audience}" for doc "${safeSlug}".`
-              );
-              continue;
-            }
-            subDirs.push(subDir);
-          }
-
-          if (subDirs.length === 0) {
-            stats.warnings += 1;
-            console.warn(`[sanity-content] Warning: No valid audiences for doc "${safeSlug}", defaulting to "all".`);
-            subDirs.push(AUDIENCE_DIR_MAP.all);
-          }
-
-          for (const subDir of new Set(subDirs)) {
-            const filePath = path.join(CACHE_ROOT, subDir, `${safeSlug}.md`);
-            writeTrackedFile(filePath, content, writtenFiles);
-            stats.written.doc += 1;
-            console.log(`[sanity-content] Wrote doc -> ${subDir}/${safeSlug}.md`);
-          }
+          const filePath = path.join(CACHE_ROOT, 'docs', `${safeSlug}.md`);
+          writeTrackedFile(filePath, content, writtenFiles);
+          stats.written.doc += 1;
+          console.log(`[sanity-content] Wrote doc -> docs/${safeSlug}.md`);
         } else {
           const extra = {};
           if (type === 'article') {
