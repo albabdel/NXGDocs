@@ -498,8 +498,8 @@ function HomePageContent(): React.JSX.Element {
                                 Platform Features
                             </h2>
                             <p className="mt-1 text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                                Explore core capabilities of GCXONE
-                            </p>
+                                 Explore core capabilities of {productName}
+                             </p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                             {featuredFeatures.map((item) => (
@@ -570,7 +570,7 @@ function HomePageContent(): React.JSX.Element {
                                         className="text-base md:text-lg"
                                         style={{ color: 'var(--ifm-color-content-secondary)' }}
                                     >
-                                        Begin your journey with GCXONE today
+                                        Begin your journey with {productName} today
                                     </p>
                                 </div>
 
@@ -598,7 +598,7 @@ export default function Home(): React.JSX.Element {
     return (
         <BrowserOnly
             fallback={
-                <Layout title="Documentation" description="GCXONE Technical Documentation">
+                <Layout title="Documentation" description="Technical Documentation">
                     <main className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
                         <Loader className="w-8 h-8 animate-spin" style={{ color: '#E8B058' }} />
                     </main>

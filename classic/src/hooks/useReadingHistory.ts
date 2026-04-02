@@ -15,6 +15,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useAuthSession } from './useAuthSession';
 import { useSupabase } from '../lib/supabase';
 import {
   HistoryItem,
@@ -43,7 +44,8 @@ export interface UseReadingHistoryReturn {
  * Loads history on mount when authenticated.
  */
 export function useReadingHistory(limit?: number): UseReadingHistoryReturn {
-  const { isAuthenticated, isLoading: authLoading, getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
+  const { user, isAuthenticated, isLoading: authLoading } = useAuthSession();
   const supabase = useSupabase(getAccessTokenSilently);
 
   const [history, setHistory] = useState<HistoryItem[]>([]);
@@ -52,7 +54,7 @@ export function useReadingHistory(limit?: number): UseReadingHistoryReturn {
 
   // Fetch history
   const fetchHistory = useCallback(async () => {
-    if (!isAuthenticated) {
+    if (!isAuthenticated || !user?.userId) {
       setHistory([]);
       setLoading(false);
       return;
@@ -62,7 +64,7 @@ export function useReadingHistory(limit?: number): UseReadingHistoryReturn {
     setError(null);
 
     try {
-      const data = await getHistory(supabase, limit);
+      const data = await getHistory(supabase, user.userId, limit);
       setHistory(data);
     } catch (err) {
       console.error('[useReadingHistory] Error fetching history:', err);
@@ -70,7 +72,7 @@ export function useReadingHistory(limit?: number): UseReadingHistoryReturn {
     } finally {
       setLoading(false);
     }
-  }, [isAuthenticated, supabase, limit]);
+  }, [isAuthenticated, user?.userId, supabase, limit]);
 
   // Fetch on mount and when auth state changes
   useEffect(() => {
@@ -81,11 +83,11 @@ export function useReadingHistory(limit?: number): UseReadingHistoryReturn {
 
   // Clear history
   const clearHistory = useCallback(async () => {
-    if (!isAuthenticated) return;
+    if (!isAuthenticated || !user?.userId) return;
 
     setLoading(true);
     try {
-      await clearHistoryService(supabase);
+      await clearHistoryService(supabase, user.userId);
       setHistory([]);
     } catch (err) {
       console.error('[useReadingHistory] Error clearing history:', err);
@@ -94,7 +96,7 @@ export function useReadingHistory(limit?: number): UseReadingHistoryReturn {
     } finally {
       setLoading(false);
     }
-  }, [isAuthenticated, supabase]);
+  }, [isAuthenticated, user?.userId, supabase]);
 
   // Refetch history
   const refetch = useCallback(async () => {

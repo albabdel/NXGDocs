@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import type { Props } from '@theme/DocSidebar/Desktop';
 import { useLocation } from '@docusaurus/router';
 import Link from '@docusaurus/Link';
+import { useProduct } from '@theme/Root';
 import styles from './styles.module.css';
 
 interface SidebarItem {
@@ -288,6 +289,7 @@ function SidebarMenuItem({
 
 function DocSidebarDesktop(props: Props) {
   const location = useLocation();
+  const { productName } = useProduct();
   const sidebar = props.sidebar || [];
   const [showSuccess, setShowSuccess] = useState(false);
   const [contextMenu, setContextMenu] = useState<ContextMenuState>({
@@ -347,7 +349,7 @@ function DocSidebarDesktop(props: Props) {
               />
             </div>
             <div className={styles.brandText}>
-              <span className={styles.brandName}>GCXONE</span>
+              <span className={styles.brandName}>{productName}</span>
             </div>
           </Link>
         </div>

@@ -1,10 +1,15 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
 import { useOnboarding } from './OnboardingContext';
-import { onboardingPhases } from '../../data/onboardingPhases';
+import { getOnboardingPhases } from '../../data/onboardingPhases';
+import { useProduct } from '@theme/Root';
 
 export function SideLearningPanel(): React.JSX.Element {
     const { activePhaseId } = useOnboarding();
+    const { productName } = useProduct();
+    
+    // Get product-specific onboarding phases
+    const onboardingPhases = getOnboardingPhases(productName);
 
     // Find the active phase
     const activePhase = onboardingPhases.find(p => p.id === activePhaseId);

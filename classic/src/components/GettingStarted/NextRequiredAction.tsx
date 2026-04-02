@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import Link from '@docusaurus/Link';
 import { useOnboarding } from './OnboardingContext';
-import { onboardingPhases } from '../../data/onboardingPhases';
+import { getOnboardingPhases } from '../../data/onboardingPhases';
+import { useProduct } from '@theme/Root';
 
 export function NextRequiredAction(): React.JSX.Element {
     const { isStepComplete } = useOnboarding();
     const [dismissed, setDismissed] = useState(false);
+    const { productName } = useProduct();
+    const onboardingPhases = getOnboardingPhases(productName);
 
     if (dismissed) return <></>;
 

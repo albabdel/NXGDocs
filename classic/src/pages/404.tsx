@@ -11,29 +11,31 @@ import {
     FileQuestion
 } from 'lucide-react';
 import QuickLink from '../components/QuickLink';
-
-const popularPages = [
-    {
-        title: 'Getting Started',
-        description: 'Learn the basics of GCXONE',
-        icon: <BookOpen className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
-        href: '#',
-    },
-    {
-        title: 'Device Integration',
-        description: 'Connect your devices to the platform',
-        icon: <BookOpen className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
-        href: '/docs/devices',
-    },
-    {
-        title: 'Help Center',
-        description: 'Get support and answers',
-        icon: <HelpCircle className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
-        href: '/docs/support/contact',
-    },
-];
+import { useProduct } from '@theme/Root';
 
 export default function NotFound(): React.JSX.Element {
+    const { productName } = useProduct();
+
+    const popularPages = [
+        {
+            title: 'Getting Started',
+            description: `Learn the basics of ${productName}`,
+            icon: <BookOpen className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
+            href: '#',
+        },
+        {
+            title: 'Device Integration',
+            description: 'Connect your devices to the platform',
+            icon: <BookOpen className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
+            href: '/docs/devices',
+        },
+        {
+            title: 'Help Center',
+            description: 'Get support and answers',
+            icon: <HelpCircle className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
+            href: '/docs/support/contact',
+        },
+    ];
     return (
         <Layout title="Page Not Found">
             <main className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center px-6">

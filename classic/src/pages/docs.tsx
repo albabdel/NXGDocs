@@ -88,7 +88,7 @@ const docsCategories = [
     {
         id: 'getting-started',
         label: 'Getting Started',
-        description: 'First steps to set up and configure GCXONE',
+        description: 'First steps to set up and configure the platform',
         icon: <Rocket className="w-5 h-5" />,
         href: '/docs/getting-started/what-is-gcxone',
         color: '#3B82F6',
@@ -179,8 +179,8 @@ const docsCategories = [
 
 const quickLinks = [
     {
-        title: 'What is GCXONE?',
-        description: 'Platform overview and capabilities',
+        title: 'Platform Overview',
+        description: 'Overview and capabilities',
         icon: <BookOpen className="w-4 h-4" />,
         href: '/docs/getting-started/what-is-gcxone',
     },
@@ -326,10 +326,10 @@ export default function DocsIndex(): React.JSX.Element {
                             <span className="text-sm font-medium text-[#E8B058]">Documentation</span>
                         </div>
                         <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--ifm-color-content)' }}>
-                            GCXONE Documentation
+                            {productName} Documentation
                         </h1>
                         <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                            Everything you need to configure, operate, and integrate with GCXONE
+                            Everything you need to configure, operate, and integrate with {productName}
                         </p>
 
                         {/* Search Bar */}
