@@ -242,7 +242,7 @@ function extractKeywords(text: string): string[] {
 }
 
 function scoreEntry(entry: SearchEntry, keywords: string[]): number {
-  const title = entry.title.toLowerCase();
+  const title = (entry.title ?? '').toLowerCase();
   const body = (entry.excerpt ?? '').toLowerCase();
   let score = 0;
   for (const kw of keywords) {
@@ -324,7 +324,7 @@ function RelatedArticles({ subject }: { subject: string }) {
 
 function AttachmentItem({ att }: { att: ZohoAttachment }) {
   const [lightbox, setLightbox] = useState(false);
-  const isImage = IMAGE_TYPES.includes(att.fileType);
+  const isImage = att.fileType && IMAGE_TYPES.includes(att.fileType);
 
   return (
     <>
