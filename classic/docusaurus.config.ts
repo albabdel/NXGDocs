@@ -57,6 +57,14 @@ const config: Config = {
     './plugins/docusaurus-plugin-sanity-landing-pages',
     './plugins/docusaurus-plugin-release-pages',
     './plugins/docusaurus-plugin-last-update',
+    [
+      require.resolve('@docusaurus/plugin-client-redirects'),
+      {
+        redirects: [
+          { from: '/docs/alarm-management/overflow-thresholds', to: '/docs/alarm-management/event-overflow' },
+        ],
+      },
+    ],
     ['posthog-docusaurus', {
       apiKey: 'phc_tkcgBrQb37g5F7aiSTcuKWoUaSitBNd6JdcULN6xqrwS',
       appUrl: 'https://us.i.posthog.com',

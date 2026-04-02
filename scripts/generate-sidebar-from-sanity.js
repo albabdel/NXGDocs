@@ -274,6 +274,7 @@ function buildSidebarStructure(categories, docs) {
 
 function buildCategoryItem(node, onDiskIds, depth = 0) {
   const items = [];
+  const seenDocIds = new Set();
 
   for (const child of node.children) {
     const childItem = buildCategoryItem(child, onDiskIds, depth + 1);
@@ -285,6 +286,9 @@ function buildCategoryItem(node, onDiskIds, depth = 0) {
     // Skip entirely if the file doesn't exist on disk.
     const onDiskId = onDiskIds.get(doc.slug.toLowerCase());
     if (!onDiskId) continue;
+    // Skip duplicates within the same category.
+    if (seenDocIds.has(onDiskId)) continue;
+    seenDocIds.add(onDiskId);
     items.push({
       type: 'doc',
       id: onDiskId,
