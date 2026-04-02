@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, Suspense } from 'react';
 import { useFeatureFlag } from '../../hooks/usePostHog';
 
 interface FeatureFlagProps {
