@@ -21,7 +21,8 @@
     "build:multi": "cd classic && npm run build:multi",
     "build:multi:sequential": "cd classic && npm run build:multi:sequential",
     "build:gcxone": "cd classic && npm run build:gcxone",
-    "build:gcsurge": "cd classic && npm run build:gcsurge"
+    "build:gcsurge": "cd classic && npm run build:gcsurge",
+    "import:confluence:surge": "npx ts-node scripts/import-confluence-surge.ts"
   },
   "repository": {
     "type": "git",
@@ -54,6 +55,8 @@
     "form-data": "^4.0.5",
     "jsdom": "^28.1.0",
     "mammoth": "^1.12.0",
+    "pg": "^8.20.0",
+    "supabase": "^2.84.6",
     "typescript": "^5.9.3",
     "wrangler": "^2.21.3"
   }
