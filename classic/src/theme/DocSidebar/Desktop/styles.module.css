@@ -108,11 +108,6 @@
   font-family: var(--ifm-font-family-base);
 }
 
-.roleSwitcherContainer {
-  width: 100%;
-  margin-top: 0.5rem;
-}
-
 /* Loading & Success Indicators */
 .loadingIndicator {
   display: flex;

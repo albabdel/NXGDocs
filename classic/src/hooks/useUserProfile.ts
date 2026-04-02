@@ -62,7 +62,7 @@ export function useUserProfile(): UseUserProfileReturn {
 
   // Fetch profile and preferences
   const fetchData = useCallback(async () => {
-    if (!isAuthenticated || !user?.sub) {
+    if (!isAuthenticated || !user?.userId) {
       setProfile(null);
       setPreferences(null);
       setLoading(false);
@@ -74,7 +74,7 @@ export function useUserProfile(): UseUserProfileReturn {
 
     try {
       // Get or create profile (auto-creation on first login)
-      const userProfile = await getOrCreateUserProfile(supabase, user.sub, {
+      const userProfile = await getOrCreateUserProfile(supabase, user.userId, {
         email: user.email,
         display_name: user.name || user.email?.split('@')[0],
         avatar_url: user.picture,
@@ -83,7 +83,7 @@ export function useUserProfile(): UseUserProfileReturn {
       setProfile(userProfile);
 
       // Get or create preferences
-      const userPreferences = await getOrCreateUserPreferences(supabase, userProfile.id);
+      const userPreferences = await getOrCreateUserPreferences(supabase, user.userId);
       setPreferences(userPreferences);
     } catch (err) {
       console.error('[useUserProfile] Error fetching data:', err);
@@ -91,7 +91,7 @@ export function useUserProfile(): UseUserProfileReturn {
     } finally {
       setLoading(false);
     }
-  }, [isAuthenticated, user?.sub, user?.email, user?.name, user?.picture, supabase]);
+  }, [isAuthenticated, user?.userId, user?.email, user?.name, user?.picture, supabase]);
 
   // Fetch on mount and when auth state changes
   useEffect(() => {
@@ -103,11 +103,11 @@ export function useUserProfile(): UseUserProfileReturn {
   // Update profile
   const updateProfile = useCallback(
     async (data: Partial<UserProfile>) => {
-      if (!profile) return;
+      if (!profile || !user?.userId) return;
 
       setLoading(true);
       try {
-        const updated = await updateProfileService(supabase, data as UpdateUserProfileInput);
+        const updated = await updateProfileService(supabase, user.userId, data as UpdateUserProfileInput);
         setProfile(updated);
       } catch (err) {
         console.error('[useUserProfile] Error updating profile:', err);
@@ -117,17 +117,17 @@ export function useUserProfile(): UseUserProfileReturn {
         setLoading(false);
       }
     },
-    [profile, supabase]
+    [profile, user?.userId, supabase]
   );
 
   // Update preferences
   const updatePreferences = useCallback(
     async (prefs: Partial<UserPreferences>) => {
-      if (!preferences) return;
+      if (!preferences || !user?.userId) return;
 
       setLoading(true);
       try {
-        const updated = await updatePreferencesService(supabase, prefs as UpdateUserPreferencesInput);
+        const updated = await updatePreferencesService(supabase, user.userId, prefs as UpdateUserPreferencesInput);
         setPreferences(updated);
       } catch (err) {
         console.error('[useUserProfile] Error updating preferences:', err);
@@ -137,7 +137,7 @@ export function useUserProfile(): UseUserProfileReturn {
         setLoading(false);
       }
     },
-    [preferences, supabase]
+    [preferences, user?.userId, supabase]
   );
 
   // Refetch all data

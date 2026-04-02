@@ -65,7 +65,7 @@ export function useBookmarks(): UseBookmarksReturn {
 
   // Fetch bookmarks
   const fetchData = useCallback(async () => {
-    if (!isAuthenticated || !user) {
+    if (!isAuthenticated || !user?.userId) {
       setBookmarks([]);
       setLoading(false);
       return;
@@ -75,7 +75,7 @@ export function useBookmarks(): UseBookmarksReturn {
     setError(null);
 
     try {
-      const data = await fetchBookmarks(supabase);
+      const data = await fetchBookmarks(supabase, user.userId);
       setBookmarks(data);
     } catch (err) {
       console.error('[useBookmarks] Error fetching bookmarks:', err);
@@ -83,7 +83,7 @@ export function useBookmarks(): UseBookmarksReturn {
     } finally {
       setLoading(false);
     }
-  }, [isAuthenticated, user, supabase]);
+  }, [isAuthenticated, user?.userId, supabase]);
 
   // Fetch on mount and when auth state changes
   useEffect(() => {
@@ -103,10 +103,12 @@ export function useBookmarks(): UseBookmarksReturn {
   // Toggle bookmark
   const toggleBookmark = useCallback(
     async (item: BookmarkInput) => {
+      if (!user?.userId) return;
+
       setError(null);
 
       try {
-        const result = await toggleBookmarkService(supabase, item);
+        const result = await toggleBookmarkService(supabase, user.userId, item);
 
         if (result.added && result.bookmark) {
           // Add to local state
@@ -121,12 +123,14 @@ export function useBookmarks(): UseBookmarksReturn {
         throw err;
       }
     },
-    [supabase]
+    [supabase, user?.userId]
   );
 
   // Remove bookmark by ID
   const removeBookmark = useCallback(
     async (id: string) => {
+      if (!user?.userId) return;
+
       const bookmark = bookmarks.find((b) => b.id === id);
       if (!bookmark) return;
 
@@ -134,7 +138,7 @@ export function useBookmarks(): UseBookmarksReturn {
       setBookmarks((prev) => prev.filter((b) => b.id !== id));
 
       try {
-        await removeBookmarkService(supabase, id);
+        await removeBookmarkService(supabase, user.userId, id);
       } catch (err) {
         // Revert on error
         setBookmarks((prev) => [...prev, bookmark].sort(
@@ -145,7 +149,7 @@ export function useBookmarks(): UseBookmarksReturn {
         throw err;
       }
     },
-    [bookmarks, supabase]
+    [bookmarks, supabase, user?.userId]
   );
 
   // Refetch bookmarks from server

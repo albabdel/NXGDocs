@@ -53,15 +53,17 @@ export interface BookmarkInput {
 // ---------------------------------------------------------------------------
 
 /**
- * Get all bookmarks for the current user.
+ * Get all bookmarks for a user.
  * Ordered by created_at descending (most recent first).
  */
 export async function getBookmarks(
   supabase: SupabaseClient,
+  userId: string,
 ): Promise<Bookmark[]> {
   const { data, error } = await supabase
     .from('user_bookmarks')
     .select('*')
+    .eq('user_id', userId)
     .order('created_at', { ascending: false });
 
   if (error) {
@@ -77,11 +79,13 @@ export async function getBookmarks(
  */
 export async function getBookmarksByType(
   supabase: SupabaseClient,
+  userId: string,
   itemType: BookmarkItemType,
 ): Promise<Bookmark[]> {
   const { data, error } = await supabase
     .from('user_bookmarks')
     .select('*')
+    .eq('user_id', userId)
     .eq('item_type', itemType)
     .order('created_at', { ascending: false });
 
@@ -99,11 +103,13 @@ export async function getBookmarksByType(
  */
 export async function getBookmarkBySlug(
   supabase: SupabaseClient,
+  userId: string,
   slug: string,
 ): Promise<Bookmark | null> {
   const { data, error } = await supabase
     .from('user_bookmarks')
     .select('*')
+    .eq('user_id', userId)
     .eq('item_slug', slug)
     .maybeSingle();
 
@@ -120,9 +126,10 @@ export async function getBookmarkBySlug(
  */
 export async function isBookmarked(
   supabase: SupabaseClient,
+  userId: string,
   slug: string,
 ): Promise<boolean> {
-  const bookmark = await getBookmarkBySlug(supabase, slug);
+  const bookmark = await getBookmarkBySlug(supabase, userId, slug);
   return bookmark !== null;
 }
 
@@ -132,22 +139,9 @@ export async function isBookmarked(
  */
 export async function addBookmark(
   supabase: SupabaseClient,
+  userId: string,
   input: BookmarkInput,
 ): Promise<Bookmark> {
-  // Get user ID from JWT (handled by RLS, but we need to pass it)
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    throw new Error('User not authenticated');
-  }
-
-  // The user_id in JWT is the Auth0 sub claim
-  // We need to use the auth.jwt() function in RLS
-  // But for INSERT we need to pass the user_id from the JWT
-  const userId = user.id;
-
   const { data, error } = await supabase
     .from('user_bookmarks')
     .insert({
@@ -175,11 +169,13 @@ export async function addBookmark(
  */
 export async function removeBookmark(
   supabase: SupabaseClient,
+  userId: string,
   id: string,
 ): Promise<void> {
   const { error } = await supabase
     .from('user_bookmarks')
     .delete()
+    .eq('user_id', userId)
     .eq('id', id);
 
   if (error) {
@@ -194,11 +190,13 @@ export async function removeBookmark(
  */
 export async function removeBookmarkBySlug(
   supabase: SupabaseClient,
+  userId: string,
   slug: string,
 ): Promise<void> {
   const { error } = await supabase
     .from('user_bookmarks')
     .delete()
+    .eq('user_id', userId)
     .eq('item_slug', slug);
 
   if (error) {
@@ -213,15 +211,16 @@ export async function removeBookmarkBySlug(
  */
 export async function toggleBookmark(
   supabase: SupabaseClient,
+  userId: string,
   input: BookmarkInput,
 ): Promise<{ added: boolean; bookmark?: Bookmark }> {
-  const existing = await getBookmarkBySlug(supabase, input.item_slug);
+  const existing = await getBookmarkBySlug(supabase, userId, input.item_slug);
 
   if (existing) {
-    await removeBookmark(supabase, existing.id);
+    await removeBookmark(supabase, userId, existing.id);
     return { added: false };
   } else {
-    const bookmark = await addBookmark(supabase, input);
+    const bookmark = await addBookmark(supabase, userId, input);
     return { added: true, bookmark };
   }
 }
@@ -231,11 +230,13 @@ export async function toggleBookmark(
  */
 export async function searchBookmarks(
   supabase: SupabaseClient,
+  userId: string,
   query: string,
 ): Promise<Bookmark[]> {
   const { data, error } = await supabase
     .from('user_bookmarks')
     .select('*')
+    .eq('user_id', userId)
     .ilike('item_title', `%${query}%`)
     .order('created_at', { ascending: false });
 
@@ -252,10 +253,12 @@ export async function searchBookmarks(
  */
 export async function getBookmarkCount(
   supabase: SupabaseClient,
+  userId: string,
 ): Promise<number> {
   const { count, error } = await supabase
     .from('user_bookmarks')
-    .select('*', { count: 'exact', head: true });
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', userId);
 
   if (error) {
     console.error('[bookmarks] Error getting bookmark count:', error);
