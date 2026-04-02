@@ -26,6 +26,7 @@ import styles from './index.module.css';
 import landingPagesData from '../data/sanity-landing-pages.generated.json';
 import { onboardingPhases } from '../data/onboardingPhases';
 import { StepType } from '../types/onboarding';
+import { useProduct } from '@theme/Root';
 
 type LandingPage = {
     slug: { current: string };
@@ -243,6 +244,7 @@ function useProgress() {
 }
 
 export default function GettingStartedPage(): React.JSX.Element {
+    const { productName } = useProduct();
     const [activePhaseId, setActivePhaseId] = useState<string | undefined>('account-access');
     const [videoModal, setVideoModal] = useState<VideoResource | null>(null);
     const [isDark, setIsDark] = useState(true);
@@ -292,7 +294,7 @@ export default function GettingStartedPage(): React.JSX.Element {
     }, []);
 
     return (
-        <Layout title="Getting Started | GCXONE" description="Guided onboarding for GCXONE - complete setup path to operational readiness">
+        <Layout title={`Getting Started | ${productName}`} description={`Guided onboarding for ${productName} - complete setup path to operational readiness`}>
             <main className="min-h-screen" style={{ backgroundColor: 'var(--ifm-background-color)' }}>
                 <div className="max-w-7xl mx-auto px-6 py-8">
                     <nav className="flex items-center gap-2 text-sm mb-8" style={{ color: 'var(--ifm-color-content-secondary)' }}>
@@ -334,7 +336,7 @@ export default function GettingStartedPage(): React.JSX.Element {
                                         {sanityPage?.hero?.headline || 'Getting Started'}
                                     </h1>
                                     <p className="text-lg mb-6 max-w-2xl" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                                        {sanityPage?.hero?.subheadline || sanityPage?.description || 'Guided onboarding for GCXONE - complete setup path to operational readiness'}
+                                        {sanityPage?.hero?.subheadline || sanityPage?.description || `Guided onboarding for ${productName} - complete setup path to operational readiness`}
                                     </p>
 
                                     <div className="flex flex-wrap gap-3">

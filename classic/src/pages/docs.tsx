@@ -4,6 +4,7 @@ import Link from '@docusaurus/Link';
 import { motion } from 'framer-motion';
 import PageHeader from '../components/PageHeader';
 import LandingPageBackground from '../components/LandingPageBackground/LandingPageBackground';
+import { useProduct } from '@theme/Root';
 import {
     Search,
     BookOpen,
@@ -274,6 +275,7 @@ function useIsDark() {
 
 export default function DocsIndex(): React.JSX.Element {
     const isDark = useIsDark();
+    const { productName } = useProduct();
 
     const publishedLandingPages = (landingPagesData as LandingPage[]).filter(
         (page) => page.status === 'published'
@@ -297,7 +299,7 @@ export default function DocsIndex(): React.JSX.Element {
     return (
         <Layout
             title="Documentation"
-            description="Comprehensive GCXONE documentation - guides, API references, and best practices"
+            description={`Comprehensive ${productName} documentation - guides, API references, and best practices`}
         >
             <LandingPageBackground />
             <main className="min-h-screen">

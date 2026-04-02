@@ -9,13 +9,17 @@ import Footer from '../components/Footer';
 import SearchModal from '../components/SearchModal';
 import { AdminAuthProvider } from '../contexts/AdminAuthContext';
 import { ProductAccessProvider } from '../contexts/ProductAccessContext';
-import { getProductConfig } from '../utils/productConfig';
+import { getProductConfig, PRODUCTS } from '../utils/productConfig';
 
 declare const PRODUCT: string;
 const productId = typeof process !== 'undefined' ? (process.env.PRODUCT || 'gcxone') : 'gcxone';
+const productConfig = PRODUCTS[productId] || PRODUCTS.gcxone;
 
 interface ProductContextValue {
   productId: string;
+  productName: string;
+  productTagline: string;
+  productDomain: string;
 }
 
 const ProductContext = createContext<ProductContextValue | null>(null);
@@ -23,7 +27,12 @@ const ProductContext = createContext<ProductContextValue | null>(null);
 export function useProduct(): ProductContextValue {
   const context = useContext(ProductContext);
   if (!context) {
-    return { productId: 'gcxone' };
+    return { 
+      productId: 'gcxone', 
+      productName: 'GCXONE',
+      productTagline: 'Complete documentation for NXGEN GCXONE platform',
+      productDomain: 'docs.gcxone.com'
+    };
   }
   return context;
 }
@@ -76,7 +85,12 @@ export default function Root({ children }: { children: React.ReactNode }) {
       useRefreshTokens={true}
       cacheLocation="memory"
     >
-      <ProductContext.Provider value={{ productId }}>
+      <ProductContext.Provider value={{ 
+        productId, 
+        productName: productConfig.name,
+        productTagline: productConfig.tagline || '',
+        productDomain: productConfig.domain || ''
+      }}>
         <AdminAuthProvider>
           <ProductAccessProvider>
             <PostHogProvider

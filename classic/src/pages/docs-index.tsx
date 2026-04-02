@@ -11,6 +11,7 @@ import {
 import releasesData from '../data/sanity-releases.generated.json';
 import roadmapData from '../data/sanity-roadmap.generated.json';
 import landingPagesData from '../data/sanity-landing-pages.generated.json';
+import { useProduct } from '@theme/Root';
 import styles from './docs-index.module.css';
 
 type Release = {
@@ -47,6 +48,8 @@ type LandingPage = {
 };
 
 export default function DocsIndexPage(): React.JSX.Element {
+  const { productName } = useProduct();
+  
   const handleSearchOpen = () => {
     const event = new KeyboardEvent('keydown', {
       key: 'k',
@@ -68,8 +71,8 @@ export default function DocsIndexPage(): React.JSX.Element {
 
   return (
     <Layout
-      title="Documentation Center | NXGEN GCXONE"
-      description="Complete technical documentation for NXGEN GCXONE platform. Guides, API references, integrations, and troubleshooting resources."
+      title={`Documentation Center | NXGEN ${productName}`}
+      description={`Complete technical documentation for NXGEN ${productName} platform. Guides, API references, integrations, and troubleshooting resources.`}
     >
       <main className={styles.main}>
         <DocsHero
