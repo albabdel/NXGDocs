@@ -1,0 +1,214 @@
+/**
+ * NXGEN Workstation Styles
+ * 
+ * Styles for Support Workstation components including header, dashboard, and widgets.
+ */
+
+/* === WORKSTATION HEADER === */
+
+.workstation-header {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, rgba(232,176,88,0.06) 0%, rgba(0,0,0,0.4) 100%);
+  border: 1px solid rgba(232,176,88,0.18);
+}
+
+[data-theme='light'] .workstation-header {
+  background: linear-gradient(135deg, rgba(232,176,88,0.1) 0%, rgba(255,255,255,0.9) 100%);
+  border-color: rgba(232,176,88,0.25);
+}
+
+.workstation-header-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #E8B058 25%, #C89446 50%, #E8B058 75%, transparent 100%);
+}
+
+.workstation-header-icon-box {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(232,176,88,0.12);
+  border: 1px solid rgba(232,176,88,0.2);
+}
+
+.workstation-mode-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: rgba(255,255,255,0.06);
+  color: var(--ifm-color-content-secondary);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+[data-theme='light'] .workstation-mode-indicator {
+  background: rgba(0,0,0,0.06);
+  border-color: rgba(0,0,0,0.1);
+}
+
+.theme-icon-dark,
+.mode-text-dark {
+  display: inline;
+}
+
+.theme-icon-light,
+.mode-text-light {
+  display: none;
+}
+
+[data-theme='light'] .theme-icon-dark,
+[data-theme='light'] .mode-text-dark {
+  display: none;
+}
+
+[data-theme='light'] .theme-icon-light,
+[data-theme='light'] .mode-text-light {
+  display: inline;
+}
+
+.workstation-signout-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: rgba(255,255,255,0.06);
+  color: var(--ifm-color-content-secondary);
+  border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+[data-theme='light'] .workstation-signout-btn {
+  background: rgba(0,0,0,0.06);
+  border-color: rgba(0,0,0,0.1);
+}
+
+.workstation-signout-btn:hover {
+  opacity: 0.8;
+}
+
+/* === WIDGET CARD === */
+
+.widget-card {
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  overflow: hidden;
+  transition: all 0.2s ease;
+  background: rgba(255,255,255,0.02);
+}
+
+[data-theme='light'] .widget-card {
+  background: rgba(255,255,255,0.6);
+  border-color: rgba(232,176,88,0.15);
+}
+
+.widget-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem;
+  background: rgba(255,255,255,0.02);
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+[data-theme='light'] .widget-card-header {
+  background: rgba(0,0,0,0.02);
+}
+
+.widget-card-header:hover {
+  opacity: 0.8;
+}
+
+.widget-card-header--expanded {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+[data-theme='light'] .widget-card-header--expanded {
+  border-color: rgba(0,0,0,0.08);
+}
+
+.widget-card-icon-box {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(232,176,88,0.08);
+  border: 1px solid rgba(232,176,88,0.18);
+}
+
+.widget-card-content {
+  padding: 1rem;
+}
+
+/* === PLACEHOLDER WIDGET === */
+
+.placeholder-widget-icon-box {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  background: rgba(232,176,88,0.06);
+  border: 1px solid rgba(232,176,88,0.12);
+}
+
+/* === SELECTED TICKET INDICATOR === */
+
+.selected-ticket-indicator {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.9);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+[data-theme='light'] .selected-ticket-indicator {
+  background: rgba(255,255,255,0.95);
+  border-color: rgba(0,0,0,0.1);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* === WIDGET LOADER === */
+
+.widget-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+/* === WIDGET ERROR === */
+
+.widget-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}

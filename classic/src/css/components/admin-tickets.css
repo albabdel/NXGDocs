@@ -1,0 +1,269 @@
+/**
+ * Admin Tickets Page Styles
+ * 
+ * CSS tokens replace inline isDark ternary branches.
+ * Uses design tokens from tokens.css for theme-aware styling.
+ */
+
+/* === PAGE HEADER (Gold gradient header) */
+.admin-tickets-header {
+  background: linear-gradient(135deg, rgba(232,176,88,0.06) 0%, rgba(0,0,0,0.4) 100%);
+  border: 1px solid rgba(232,176,88,0.18);
+}
+
+[data-theme='light'] .admin-tickets-header {
+  background: linear-gradient(135deg, rgba(232,176,88,0.1) 0%, rgba(255,255,255,0.9) 100%);
+  border-color: rgba(232,176,88,0.25);
+}
+
+/* === CONTENT CARDS (Stats, filters, tables, empty states) */
+.admin-tickets-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+[data-theme='light'] .admin-tickets-card {
+  background: rgba(255,255,255,0.6);
+  border-color: rgba(232,176,88,0.15);
+}
+
+/* === STAT CARDS */
+.admin-stat-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+[data-theme='light'] .admin-stat-card {
+  background: rgba(255,255,255,0.6);
+  border-color: rgba(232,176,88,0.15);
+}
+
+/* === FILTER CONTROLS */
+.admin-filter-bar {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+[data-theme='light'] .admin-filter-bar {
+  background: rgba(255,255,255,0.6);
+  border-color: rgba(232,176,88,0.15);
+}
+
+/* Filter buttons */
+.admin-filter-btn {
+  background: rgba(255,255,255,0.05);
+  color: var(--ifm-color-content-secondary);
+  border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+}
+
+[data-theme='light'] .admin-filter-btn {
+  background: rgba(0,0,0,0.05);
+  border-color: rgba(0,0,0,0.1);
+}
+
+.admin-filter-btn.active {
+  background: #E8B058;
+  color: #000;
+  border-color: #E8B058;
+}
+
+/* Filter select dropdowns */
+.admin-filter-select {
+  background: rgba(255,255,255,0.05);
+  color: var(--ifm-color-content);
+  border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  outline: none;
+}
+
+[data-theme='light'] .admin-filter-select {
+  background: rgba(0,0,0,0.05);
+  border-color: rgba(0,0,0,0.1);
+}
+
+/* Filter search input */
+.admin-filter-search {
+  background: rgba(255,255,255,0.05);
+  color: var(--ifm-color-content);
+  border: 1px solid rgba(255,255,255,0.1);
+  outline: none;
+}
+
+[data-theme='light'] .admin-filter-search {
+  background: rgba(0,0,0,0.05);
+  border-color: rgba(0,0,0,0.1);
+}
+
+/* Filter divider */
+.admin-filter-divider {
+  background: rgba(255,255,255,0.1);
+}
+
+[data-theme='light'] .admin-filter-divider {
+  background: rgba(0,0,0,0.1);
+}
+
+/* === TABLE STYLES */
+.admin-tickets-table-container {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+[data-theme='light'] .admin-tickets-table-container {
+  background: rgba(255,255,255,0.6);
+  border-color: rgba(232,176,88,0.15);
+}
+
+.admin-tickets-table thead tr {
+  background: rgba(255,255,255,0.04);
+}
+
+[data-theme='light'] .admin-tickets-table thead tr {
+  background: rgba(0,0,0,0.03);
+}
+
+.admin-tickets-table tbody tr {
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+[data-theme='light'] .admin-tickets-table tbody tr {
+  border-top-color: rgba(0,0,0,0.06);
+}
+
+.admin-tickets-table tbody tr:first-child {
+  border-top: none;
+}
+
+/* External link button in table */
+.admin-table-link-btn {
+  background: rgba(255,255,255,0.06);
+  color: var(--ifm-color-content-secondary);
+  text-decoration: none;
+}
+
+[data-theme='light'] .admin-table-link-btn {
+  background: rgba(0,0,0,0.06);
+}
+
+/* === PAGINATION */
+.admin-pagination-btn {
+  background: rgba(255,255,255,0.05);
+  color: var(--ifm-color-content);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+[data-theme='light'] .admin-pagination-btn {
+  background: rgba(0,0,0,0.05);
+  border-color: rgba(0,0,0,0.1);
+}
+
+.admin-pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  color: var(--ifm-color-content-secondary);
+}
+
+/* === GOLD ACCENT ELEMENTS (Icon containers, brand buttons) */
+.admin-gold-icon-container {
+  background: rgba(232,176,88,0.12);
+  border: 1px solid rgba(232,176,88,0.2);
+}
+
+.admin-gold-btn {
+  background: rgba(232,176,88,0.12);
+  border: 1px solid rgba(232,176,88,0.2);
+  color: #E8B058;
+  text-decoration: none;
+}
+
+.admin-gold-btn:hover {
+  opacity: 0.8;
+}
+
+.admin-gold-primary-btn {
+  background: #E8B058;
+  color: #000;
+  text-decoration: none;
+}
+
+.admin-gold-primary-btn:hover {
+  opacity: 0.9;
+}
+
+/* === TICKET DETAIL MODAL */
+.admin-modal-overlay {
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+}
+
+.admin-modal-content {
+  background: #0d1117;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+[data-theme='light'] .admin-modal-content {
+  background: #ffffff;
+  border-color: rgba(232,176,88,0.2);
+}
+
+.admin-modal-header {
+  background: rgba(232,176,88,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+[data-theme='light'] .admin-modal-header {
+  background: rgba(232,176,88,0.05);
+  border-color: rgba(232,176,88,0.2);
+}
+
+.admin-modal-sidebar {
+  background: rgba(255,255,255,0.02);
+  border-left: 1px solid rgba(255,255,255,0.1);
+}
+
+[data-theme='light'] .admin-modal-sidebar {
+  background: rgba(0,0,0,0.02);
+  border-color: rgba(232,176,88,0.2);
+}
+
+.admin-modal-detail-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+[data-theme='light'] .admin-modal-detail-card {
+  background: rgba(0,0,0,0.02);
+  border-color: rgba(0,0,0,0.06);
+}
+
+.admin-modal-textarea {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--ifm-color-content);
+}
+
+[data-theme='light'] .admin-modal-textarea {
+  background: rgba(255,255,255,0.9);
+  border-color: rgba(0,0,0,0.12);
+}
+
+.admin-modal-link-btn {
+  background: rgba(255,255,255,0.06);
+  color: var(--ifm-color-content-secondary);
+  text-decoration: none;
+}
+
+[data-theme='light'] .admin-modal-link-btn {
+  background: rgba(0,0,0,0.06);
+}
+
+.admin-modal-dropdown {
+  background: #0d1117;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+[data-theme='light'] .admin-modal-dropdown {
+  background: #ffffff;
+  border-color: rgba(232,176,88,0.2);
+}

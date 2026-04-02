@@ -1,0 +1,12 @@
+/**
+ * NXGEN Breakthroughs Page Styles
+ */
+
+.breakthroughs-hero {
+    border-color: var(--ifm-color-emphasis-200);
+    background: linear-gradient(180deg, rgba(232, 176, 88, 0.03) 0%, transparent 100%);
+}
+
+[data-theme='light'] .breakthroughs-hero {
+    background: linear-gradient(180deg, rgba(232, 176, 88, 0.05) 0%, transparent 100%);
+}

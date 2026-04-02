@@ -1,0 +1,254 @@
+/* CalendarWidget Component Styles */
+/* Using CSS custom properties for theme-aware styling */
+
+/* Widget Card - main container */
+.calendar-widget-card {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='light'] .calendar-widget-card {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(34, 197, 94, 0.15);
+}
+
+/* Widget Header */
+.calendar-widget-header {
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='light'] .calendar-widget-header {
+  background: rgba(0, 0, 0, 0.02);
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+.calendar-widget-header-expanded {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='light'] .calendar-widget-header-expanded {
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Event Item */
+.calendar-event-item {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+[data-theme='light'] .calendar-event-item {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+/* Modal Container */
+.calendar-modal {
+  background: #0f0f1a;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='light'] .calendar-modal {
+  background: #ffffff;
+  border-color: rgba(34, 197, 94, 0.2);
+}
+
+/* Event Detail Modal - slightly different background */
+.calendar-event-detail-modal {
+  background: #1a1a2e;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='light'] .calendar-event-detail-modal {
+  background: #ffffff;
+  border-color: rgba(34, 197, 94, 0.2);
+}
+
+/* Modal Header */
+.calendar-modal-header {
+  background: rgba(34, 197, 94, 0.08);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='light'] .calendar-modal-header {
+  background: rgba(34, 197, 94, 0.05);
+  border-bottom-color: rgba(34, 197, 94, 0.2);
+}
+
+/* Input Field */
+.calendar-input {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.12);
+  border-radius: 0.5rem;
+  color: var(--ifm-color-content);
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+  outline: none;
+  width: 100%;
+}
+
+[data-theme='light'] .calendar-input {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* Button Subtle */
+.calendar-btn-subtle {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='light'] .calendar-btn-subtle {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Button Toggle - for all-day toggle and similar */
+.calendar-btn-toggle {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--ifm-color-content);
+}
+
+[data-theme='light'] .calendar-btn-toggle {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Calendar Grid Cell */
+.calendar-grid-cell {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='light'] .calendar-grid-cell {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Calendar Grid Cell Today */
+.calendar-grid-cell-today {
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+/* Calendar Day View Hour */
+.calendar-hour-row {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='light'] .calendar-hour-row {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+/* View Mode Toggle */
+.calendar-view-toggle {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='light'] .calendar-view-toggle {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Navigation Button */
+.calendar-nav-btn {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='light'] .calendar-nav-btn {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Today Button */
+.calendar-today-btn {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='light'] .calendar-today-btn {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* Attendee Item */
+.calendar-attendee {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='light'] .calendar-attendee {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Attendee Tag */
+.calendar-attendee-tag {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='light'] .calendar-attendee-tag {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Cancel Button */
+.calendar-cancel-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='light'] .calendar-cancel-btn {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Add Attendee Button (disabled state) */
+.calendar-add-btn {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme='light'] .calendar-add-btn {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* Border */
+.calendar-border {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='light'] .calendar-border {
+  border-color: rgba(34, 197, 94, 0.2);
+}
+
+/* Border bottom for navigation section */
+.calendar-border-bottom {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='light'] .calendar-border-bottom {
+  border-bottom-color: rgba(34, 197, 94, 0.2);
+}
+
+/* Modal Overlay */
+.calendar-modal-overlay {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+/* Event Modal Overlay - slightly different opacity */
+.calendar-event-modal-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+/* Close button */
+.calendar-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ifm-color-content-secondary);
+}
+
+/* Transparent button base */
+.calendar-btn-transparent {
+  background: none;
+  border: none;
+  cursor: pointer;
+}

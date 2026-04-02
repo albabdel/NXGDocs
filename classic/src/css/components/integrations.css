@@ -1,0 +1,235 @@
+/**
+ * NXGEN Integrations Page Styles
+ * 
+ * Styles for the Integrations page using CSS custom properties (tokens).
+ */
+
+/* === HERO SECTION === */
+.integrations-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(232,176,88,0.12) 0%, rgba(255,255,255,0.8) 50%, rgba(232,176,88,0.08) 100%);
+  border: 1px solid rgba(232,176,88,0.3);
+}
+
+[data-theme='dark'] .integrations-hero {
+  background: linear-gradient(135deg, rgba(232,176,88,0.08) 0%, rgba(0,0,0,0.5) 50%, rgba(232,176,88,0.05) 100%);
+  border-color: rgba(232,176,88,0.2);
+}
+
+@media (min-width: 768px) {
+  .integrations-hero {
+    padding: 3rem;
+  }
+}
+
+.integrations-hero-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #E8B058 25%, #C89446 50%, #E8B058 75%, transparent 100%);
+}
+
+/* === STATUS STAT CARDS === */
+.stat-card {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  text-align: center;
+}
+
+.stat-card-connected {
+  background: rgba(34,197,94,0.08);
+  border: 1px solid rgba(34,197,94,0.15);
+}
+
+[data-theme='dark'] .stat-card-connected {
+  background: rgba(34,197,94,0.1);
+  border-color: rgba(34,197,94,0.2);
+}
+
+.stat-card-setup {
+  background: rgba(245,158,11,0.08);
+  border: 1px solid rgba(245,158,11,0.15);
+}
+
+[data-theme='dark'] .stat-card-setup {
+  background: rgba(245,158,11,0.1);
+  border-color: rgba(245,158,11,0.2);
+}
+
+.stat-card-failed {
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.15);
+}
+
+[data-theme='dark'] .stat-card-failed {
+  background: rgba(239,68,68,0.1);
+  border-color: rgba(239,68,68,0.2);
+}
+
+/* === CATEGORY BUTTONS === */
+.category-button {
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid;
+  text-align: left;
+  transition: all 0.2s;
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+}
+
+.category-button:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+}
+
+.category-button.active {
+  background: rgba(232, 176, 88, 0.1);
+  border-color: #E8B058;
+  transform: scale(1.02);
+}
+
+/* === SEARCH INPUT === */
+.integrations-search {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 3rem;
+  border-radius: 0.75rem;
+  border: 1px solid;
+  transition: border-color 0.2s;
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+  color: var(--ifm-color-content);
+}
+
+.integrations-search:focus {
+  outline: none;
+  border-color: var(--gold-border);
+}
+
+.integrations-search::placeholder {
+  color: var(--text-muted);
+}
+
+/* === SELECT DROPDOWN === */
+.integrations-select {
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid;
+  min-width: 160px;
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+  color: var(--ifm-color-content);
+}
+
+.integrations-select:focus {
+  outline: none;
+  border-color: var(--gold-border);
+}
+
+/* === EMPTY STATE === */
+.integrations-empty {
+  text-align: center;
+  padding: 4rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid;
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+}
+
+/* === INTEGRATION CARD === */
+.integration-card {
+  position: relative;
+  border-radius: 0.75rem;
+  border: 1px solid;
+  overflow: hidden;
+  transition: all 0.2s;
+  cursor: pointer;
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+}
+
+.integration-card:hover {
+  transform: scale(1.02);
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+}
+
+.integration-card-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+}
+
+.integration-card-accent.connected {
+  background: linear-gradient(90deg, #22c55e, transparent);
+}
+
+.integration-card-accent.failed {
+  background: linear-gradient(90deg, #ef4444, transparent);
+}
+
+.integration-card-accent.setup {
+  background: linear-gradient(90deg, #E8B058, transparent);
+}
+
+.integration-card-divider {
+  border-top: 1px solid;
+  border-color: var(--border-subtle);
+}
+
+/* === CTA SECTION === */
+.integrations-cta {
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid;
+  text-align: center;
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+}
+
+/* === SECONDARY BUTTON === */
+.integrations-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  border: 1px solid;
+  transition: all 0.2s;
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border);
+  color: var(--ifm-color-content);
+}
+
+.integrations-secondary-btn:hover {
+  background: var(--glass-bg);
+  border-color: var(--glass-border-hover);
+}
+
+/* === ICON CONTAINER === */
+.integration-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  background: rgba(232,176,88,0.1);
+}
+
+/* === FEATURE TAG === */
+.feature-tag {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  background: rgba(232,176,88,0.1);
+  color: #E8B058;
+}

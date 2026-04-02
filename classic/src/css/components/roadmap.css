@@ -1,0 +1,71 @@
+.roadmap-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-default);
+}
+
+.roadmap-card:hover {
+  border-color: rgba(232, 176, 88, 0.3);
+}
+
+[data-theme='light'] .roadmap-card {
+  box-shadow: var(--shadow-sm);
+}
+
+.roadmap-card-button:hover {
+  background: var(--card-bg-hover);
+}
+
+.roadmap-expanded-section {
+  background: var(--card-bg-hover);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.roadmap-business-value-card {
+  background: var(--gold-bg);
+  border: 1px solid var(--gold-border);
+}
+
+.roadmap-entity-tag {
+  background: var(--card-bg-hover);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.roadmap-stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-default);
+}
+
+[data-theme='light'] .roadmap-stat-card {
+  box-shadow: var(--shadow-sm);
+}
+
+.roadmap-search-input {
+  background: var(--card-bg);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+}
+
+.roadmap-search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.roadmap-search-input:focus {
+  border-color: rgba(232, 176, 88, 0.5);
+}
+
+.roadmap-filter-button {
+  background: var(--card-bg);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+}
+
+.roadmap-filter-button:hover {
+  border-color: rgba(232, 176, 88, 0.3);
+  color: var(--text-primary);
+}
+
+.roadmap-filter-button-active {
+  background: var(--nxgen-gold);
+  color: var(--nxgen-black);
+}

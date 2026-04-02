@@ -1,0 +1,118 @@
+/**
+ * NXGEN Contact Page Styles
+ * 
+ * CSS classes for the contact page using design tokens.
+ * Replaces inline isDark style branches with theme-aware CSS.
+ */
+
+/* === CONTACT HERO SECTION === */
+.contact-hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+}
+
+[data-theme='dark'] .contact-hero {
+    background: linear-gradient(135deg, rgba(232,176,88,0.08) 0%, rgba(0,0,0,0.5) 50%, rgba(232,176,88,0.05) 100%);
+    border-color: rgba(232,176,88,0.2);
+}
+
+[data-theme='light'] .contact-hero {
+    background: linear-gradient(135deg, rgba(232,176,88,0.12) 0%, rgba(255,255,255,0.8) 50%, rgba(232,176,88,0.08) 100%);
+    border-color: rgba(232,176,88,0.3);
+}
+
+/* === CONTACT CARDS (Methods, Form Container, Info Cards) === */
+.contact-card {
+    border-radius: 0.75rem;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    transition: all 0.2s ease;
+}
+
+.contact-card:hover {
+    transform: scale(1.02);
+}
+
+/* === CONTACT FORM INPUTS === */
+.contact-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+}
+
+.contact-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(232,176,88,0.3);
+}
+
+.contact-input::placeholder {
+    color: var(--text-muted);
+}
+
+/* === SECONDARY BUTTON === */
+.contact-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 500;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.contact-btn-secondary:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-hover);
+}
+
+/* === RESPONSE TIME CARD === */
+.contact-response-card {
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+}
+
+/* === INFO/TIP CARDS === */
+.contact-info-card {
+    border-radius: 0.75rem;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+}
+
+.contact-info-card-gold {
+    border-radius: 0.75rem;
+    border: 1px solid var(--gold-border);
+    background: var(--gold-bg);
+}
+
+/* === FAQ ITEMS === */
+.contact-faq-item {
+    border-radius: 0.75rem;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.contact-faq-item[data-expanded="true"] {
+    border-color: rgba(232,176,88,0.3);
+}
+
+/* === OFFICE LOCATION CARDS === */
+.contact-office-card {
+    border-radius: 0.75rem;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+}
