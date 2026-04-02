@@ -103,7 +103,7 @@ function ReleaseCard({ update, index = 0 }: { update: Update; index?: number }) 
     
     // Count items in each section
     const sectionCounts = releaseNotes.reduce((acc, section) => {
-        const title = section.title.toLowerCase();
+        const title = (section.title || '').toLowerCase();
         if (title.includes('new') || title.includes('feature')) {
             acc.new = (acc.new || 0) + section.items.length;
         } else if (title.includes('improve') || title.includes('enhance')) {

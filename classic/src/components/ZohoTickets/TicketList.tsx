@@ -424,7 +424,7 @@ export default function TicketList({ isDark, isCustomer, onSelect, token }: Prop
           <div>
             <p className="text-sm font-medium" style={{ color: '#ef4444' }}>Failed to load tickets</p>
             <p className="text-xs mt-0.5" style={{ color: 'var(--ifm-color-content-secondary)' }}>{error}</p>
-            {(error.includes('CORS') || error.includes('Failed to fetch')) && (
+            {(error?.includes('CORS') || error?.includes('Failed to fetch')) && (
               <p className="text-xs mt-2" style={{ color: '#E8B058' }}>
                 CORS restriction detected. The API proxy may need to be configured for this domain.
               </p>

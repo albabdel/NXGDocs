@@ -746,7 +746,7 @@ function AdminDashboardContent() {
                     <div
                       className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0"
                       style={{
-                        background: notif.type.includes('warning') || notif.type.includes('alert') ? '#f59e0b' : notif.type.includes('approved') || notif.type.includes('success') ? '#22c55e' : '#3b82f6',
+                        background: (notif.type?.includes('warning') || notif.type?.includes('alert')) ? '#f59e0b' : (notif.type?.includes('approved') || notif.type?.includes('success')) ? '#22c55e' : '#3b82f6',
                       }}
                     />
                     <div className="flex-1">
