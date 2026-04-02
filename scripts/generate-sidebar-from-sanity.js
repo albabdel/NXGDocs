@@ -29,7 +29,8 @@ function toDocId(slug) {
   return slug
     .replace(/\\/g, '/')
     .replace(/^\/+/, '')
-    .replace(/\/+$/, '');
+    .replace(/\/+$/, '')
+    .replace(/-+$/, '');
 }
 
 function normalizeSlug(slug) {
@@ -82,6 +83,7 @@ async function fetchSanityData() {
       _id,
       title,
       "slug": slug.current,
+      targetAudience,
       category,
       "categoryId": sidebarCategory->_id,
       sidebarPosition,
@@ -90,7 +92,18 @@ async function fetchSanityData() {
     }
   `);
 
-  console.log(`Found ${docs.length} published docs`);
+  // Only include docs written to the main `docs/` directory (audience "all").
+  // Docs with other audiences (admin, manager, operator) are served from separate
+  // Docusaurus plugins and their IDs don't exist in the main sidebar.
+  const filteredDocs = docs.filter((doc) => {
+    const audiences = Array.isArray(doc.targetAudience) && doc.targetAudience.length
+      ? doc.targetAudience
+      : ['all'];
+    return audiences.includes('all');
+  });
+
+  console.log(`Found ${docs.length} published docs (${filteredDocs.length} with audience "all")`);
+  const docs_all = filteredDocs;
 
   console.log('Fetching sidebarConfig from Sanity...');
   
@@ -103,7 +116,7 @@ async function fetchSanityData() {
 
   console.log(`Found sidebarConfig: ${sidebarConfig ? 'yes' : 'no'}`);
 
-  return { categories, docs, sidebarConfig };
+  return { categories, docs: docs_all, sidebarConfig };
 }
 
 function buildSidebarStructure(categories, docs) {
