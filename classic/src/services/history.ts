@@ -65,11 +65,13 @@ export interface UpdateProgressInput {
  */
 export async function getHistory(
   supabase: SupabaseClient,
+  userId: string,
   limit?: number,
 ): Promise<HistoryItem[]> {
   let query = supabase
     .from('user_history')
     .select('*')
+    .eq('user_id', userId)
     .order('last_accessed_at', { ascending: false });
 
   if (limit) {
@@ -92,11 +94,13 @@ export async function getHistory(
  */
 export async function getRecentIncomplete(
   supabase: SupabaseClient,
+  userId: string,
   limit?: number,
 ): Promise<HistoryItem[]> {
   let query = supabase
     .from('user_history')
     .select('*')
+    .eq('user_id', userId)
     .lt('progress_percent', 100)
     .order('last_accessed_at', { ascending: false });
 
@@ -119,11 +123,13 @@ export async function getRecentIncomplete(
  */
 export async function getHistoryItem(
   supabase: SupabaseClient,
+  userId: string,
   slug: string,
 ): Promise<HistoryItem | null> {
   const { data, error } = await supabase
     .from('user_history')
     .select('*')
+    .eq('user_id', userId)
     .eq('item_slug', slug)
     .maybeSingle();
 
@@ -141,12 +147,14 @@ export async function getHistoryItem(
  */
 export async function recordVisit(
   supabase: SupabaseClient,
+  userId: string,
   input: HistoryInput,
 ): Promise<HistoryItem> {
   const { data, error } = await supabase
     .from('user_history')
     .upsert(
       {
+        user_id: userId,
         item_type: input.item_type,
         item_slug: input.item_slug,
         item_title: input.item_title,
@@ -176,6 +184,7 @@ export async function recordVisit(
  */
 export async function updateProgress(
   supabase: SupabaseClient,
+  userId: string,
   slug: string,
   progress: number,
   timeSpent: number,
@@ -195,6 +204,7 @@ export async function updateProgress(
   const { error } = await supabase
     .from('user_history')
     .update(updateData)
+    .eq('user_id', userId)
     .eq('item_slug', slug);
 
   if (error) {
@@ -208,11 +218,13 @@ export async function updateProgress(
  */
 export async function deleteHistoryItem(
   supabase: SupabaseClient,
+  userId: string,
   slug: string,
 ): Promise<void> {
   const { error } = await supabase
     .from('user_history')
     .delete()
+    .eq('user_id', userId)
     .eq('item_slug', slug);
 
   if (error) {
@@ -226,11 +238,12 @@ export async function deleteHistoryItem(
  */
 export async function clearHistory(
   supabase: SupabaseClient,
+  userId: string,
 ): Promise<void> {
   const { error } = await supabase
     .from('user_history')
     .delete()
-    .neq('id', '00000000-0000-0000-0000-000000000000'); // Delete all
+    .eq('user_id', userId);
 
   if (error) {
     console.error('[history] Error clearing history:', error);
@@ -243,6 +256,7 @@ export async function clearHistory(
  */
 export async function getHistoryStats(
   supabase: SupabaseClient,
+  userId: string,
 ): Promise<{
   totalItems: number;
   completedItems: number;
@@ -251,7 +265,8 @@ export async function getHistoryStats(
 }> {
   const { data, error } = await supabase
     .from('user_history')
-    .select('item_type, progress_percent, time_spent_seconds');
+    .select('item_type, progress_percent, time_spent_seconds')
+    .eq('user_id', userId);
 
   if (error) {
     console.error('[history] Error fetching history stats:', error);

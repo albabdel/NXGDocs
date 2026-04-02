@@ -92,10 +92,12 @@ export interface UpdateUserPreferencesInput {
  */
 export async function getUserProfile(
   supabase: SupabaseClient,
+  auth0UserId: string,
 ): Promise<UserProfile | null> {
   const { data, error } = await supabase
     .from('user_profiles')
     .select('*')
+    .eq('auth0_user_id', auth0UserId)
     .maybeSingle();
 
   if (error) {
@@ -134,11 +136,13 @@ export async function createUserProfile(
  */
 export async function updateUserProfile(
   supabase: SupabaseClient,
+  auth0UserId: string,
   input: UpdateUserProfileInput,
 ): Promise<UserProfile> {
   const { data, error } = await supabase
     .from('user_profiles')
     .update(input)
+    .eq('auth0_user_id', auth0UserId)
     .select()
     .single();
 
@@ -161,7 +165,7 @@ export async function getOrCreateUserProfile(
   defaults?: Partial<CreateUserProfileInput>,
 ): Promise<UserProfile> {
   // Try to get existing profile
-  const existing = await getUserProfile(supabase);
+  const existing = await getUserProfile(supabase, auth0UserId);
   if (existing) {
     return existing;
   }
@@ -183,10 +187,12 @@ export async function getOrCreateUserProfile(
  */
 export async function getUserPreferences(
   supabase: SupabaseClient,
+  userId: string,
 ): Promise<UserPreferences | null> {
   const { data, error } = await supabase
     .from('user_preferences')
     .select('*')
+    .eq('user_id', userId)
     .maybeSingle();
 
   if (error) {
@@ -228,11 +234,13 @@ export async function createUserPreferences(
  */
 export async function updateUserPreferences(
   supabase: SupabaseClient,
+  userId: string,
   input: UpdateUserPreferencesInput,
 ): Promise<UserPreferences> {
   const { data, error } = await supabase
     .from('user_preferences')
     .update(input)
+    .eq('user_id', userId)
     .select()
     .single();
 
@@ -253,7 +261,7 @@ export async function getOrCreateUserPreferences(
   userId: string,
 ): Promise<UserPreferences> {
   // Try to get existing preferences
-  const existing = await getUserPreferences(supabase);
+  const existing = await getUserPreferences(supabase, userId);
   if (existing) {
     return existing;
   }
@@ -271,9 +279,10 @@ export async function getOrCreateUserPreferences(
  */
 export async function setTheme(
   supabase: SupabaseClient,
+  userId: string,
   theme: 'light' | 'dark' | 'system',
 ): Promise<void> {
-  await updateUserPreferences(supabase, { theme });
+  await updateUserPreferences(supabase, userId, { theme });
 }
 
 /**
@@ -281,9 +290,10 @@ export async function setTheme(
  */
 export async function setLanguage(
   supabase: SupabaseClient,
+  userId: string,
   language: string,
 ): Promise<void> {
-  await updateUserPreferences(supabase, { language });
+  await updateUserPreferences(supabase, userId, { language });
 }
 
 /**
@@ -291,9 +301,10 @@ export async function setLanguage(
  */
 export async function toggleSidebar(
   supabase: SupabaseClient,
+  userId: string,
   collapsed: boolean,
 ): Promise<void> {
-  await updateUserPreferences(supabase, { sidebar_collapsed: collapsed });
+  await updateUserPreferences(supabase, userId, { sidebar_collapsed: collapsed });
 }
 
 /**
@@ -301,10 +312,11 @@ export async function toggleSidebar(
  */
 export async function setNotificationSettings(
   supabase: SupabaseClient,
+  userId: string,
   settings: Partial<Record<string, boolean>>,
 ): Promise<void> {
   // Get current settings and merge
-  const current = await getUserPreferences(supabase);
+  const current = await getUserPreferences(supabase, userId);
   const defaults: Record<string, boolean> = { email: true, browser: true, updates: true };
   const existing: Record<string, boolean> = current?.notification_settings || defaults;
   
@@ -320,5 +332,5 @@ export async function setNotificationSettings(
     ...existing,
     ...filteredSettings,
   };
-  await updateUserPreferences(supabase, { notification_settings: merged });
+  await updateUserPreferences(supabase, userId, { notification_settings: merged });
 }

@@ -53,6 +53,7 @@
     "@cloudinary/react": "^1.14.3",
     "@cloudinary/url-gen": "^1.22.0",
     "@docusaurus/core": "^3.9.2",
+    "@docusaurus/plugin-client-redirects": "^3.9.2",
     "@docusaurus/preset-classic": "^3.9.2",
     "@docusaurus/theme-mermaid": "^3.9.2",
     "@google/generative-ai": "^0.24.1",

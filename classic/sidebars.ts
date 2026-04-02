@@ -308,11 +308,6 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: "doc",
-          id: "reporting/scheduled-reports",
-          label: "Scheduled Reports"
-        },
-        {
-          type: "doc",
           id: "reporting/standard-reports",
           label: "Standard Reports"
         }
@@ -332,60 +327,6 @@ const sidebars: SidebarsConfig = {
           type: "doc",
           id: "support/contact",
           label: "Contact Support"
-        }
-      ]
-    },
-    {
-      type: "category",
-      label: "Alarm Management",
-      collapsible: true,
-      collapsed: false,
-      link: {
-        type: "generated-index",
-        slug: "/alarm-management"
-      },
-      items: [
-        {
-          type: "doc",
-          id: "alarm-management/technical-alarms",
-          label: "Technical Alarms"
-        },
-        {
-          type: "doc",
-          id: "alarm-management/redundant-alarms",
-          label: "Redundant Alarms"
-        }
-      ]
-    },
-    {
-      type: "category",
-      label: "Operator Guide",
-      collapsible: true,
-      collapsed: false,
-      link: {
-        type: "generated-index",
-        slug: "/operator-guide"
-      },
-      items: [
-        {
-          type: "doc",
-          id: "operator-guide/training-guide",
-          label: "Training Guide"
-        },
-        {
-          type: "doc",
-          id: "operator-guide/site-navigation",
-          label: "Site Navigation"
-        },
-        {
-          type: "doc",
-          id: "operator-guide/handling-alarms",
-          label: "Handling Alarms"
-        },
-        {
-          type: "doc",
-          id: "operator-guide/notes-annotations",
-          label: "Notes Annotations"
         }
       ]
     }

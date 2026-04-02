@@ -12,7 +12,7 @@ if (config.includes('Breakthroughs')) {
   process.exit(0);
 }
 
-// Add Breakthroughs to navbar items (after Documentation, before RoleSwitcher)
+// Add Breakthroughs to navbar items (after Documentation)
 const navbarAddition = `        {
           type: 'doc',
           docId: 'breakthroughs/index',
@@ -21,8 +21,8 @@ const navbarAddition = `        {
         },`;
 
 config = config.replace(
-  /(\{\s*type: 'docSidebar',\s*sidebarId: 'tutorialSidebar',\s*position: 'left',\s*label: 'Documentation',\s*\},)\s*(\{\s*type: 'custom-RoleSwitcher',)/,
-  `$1\n${navbarAddition}\n        $2`
+  /(\{\s*type: 'docSidebar',\s*sidebarId: 'tutorialSidebar',\s*position: 'left',\s*label: 'Documentation',\s*\},)/,
+  `$1\n${navbarAddition}`
 );
 
 // Add to Quick Links dropdown

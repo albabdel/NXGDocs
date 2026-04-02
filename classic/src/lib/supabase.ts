@@ -27,7 +27,7 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 // Supabase URL and anon key are safe to expose publicly (they're meant for client-side use)
 // The anon key is a publishable key with Row Level Security enforcing data access
 const SUPABASE_URL = 'https://temmzrunmzjiivogsbzz.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_JqYChtiG2IZr_3ZtjfLMNA_q6roK3U';
+const SUPABASE_ANON_KEY = 'sb_publishable_JqYChtiG2IZr_3ZtjfLMNA_q6roK3UX';
 
 /**
  * Get Supabase URL from environment or use default.
