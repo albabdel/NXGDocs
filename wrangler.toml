@@ -15,7 +15,7 @@ compatibility_date = "2024-01-01"
 #   PRODUCT=gcxone or PRODUCT=gcsurge
 #   SANITY_PROJECT_ID, SANITY_DATASET, SANITY_API_TOKEN
 
-pages_build_output_dir = "classic/build"
+pages_build_output_dir = "classic/build/gcxone"
 
 [vars]
 SANITY_PROJECT_ID = "fjjuacab"
