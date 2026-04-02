@@ -146,7 +146,7 @@ Plans:
 
 Plans:
 - [x] 41-01-PLAN.md — Verify branding assets (logo, favicon, theme CSS) and product config ✓ 2026-04-02
-- [ ] 41-02-PLAN.md — Create Confluence import script and import Surge space content to Sanity
+- [x] 41-02-PLAN.md — Create Confluence import script and import Surge space content to Sanity ✓ 2026-04-02 (17 pages)
 - [ ] 41-03-PLAN.md — Build gcsurge product, deploy to Cloudflare Pages, verify end-to-end
 
 ---
@@ -172,7 +172,7 @@ Plans:
 | 38. Product Configuration & Branding | v5.0 | Complete    | Complete | 2026-04-01 |
 | 39. Cloudflare Multi-Project Deployment | v5.0 | Complete    | Complete | 2026-04-01 |
 | 40. PostHog Analytics | v5.0 | Complete    | Complete | 2026-04-01 |
-| 41. GC Surge Launch | v5.1 | 1/3 | In Progress | 2026-04-02 |
+| 41. GC Surge Launch | v5.1 | 2/3 | In Progress | 2026-04-02 |
 
 ---
 
