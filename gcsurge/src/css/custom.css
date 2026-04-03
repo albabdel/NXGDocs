@@ -1,0 +1,159 @@
+/* Tailwind CSS Integration */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * GC Surge Documentation Design System
+ * Primary Color: #3B82F6 (Blue-500)
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+
+/* ============================================================
+   CSS Variables — Blue theme
+   ============================================================ */
+
+:root {
+  --ifm-color-primary: #3B82F6;
+  --ifm-color-primary-dark: #2563EB;
+  --ifm-color-primary-darker: #1D4ED8;
+  --ifm-color-primary-darkest: #1e3a8a;
+  --ifm-color-primary-light: #60a5fa;
+  --ifm-color-primary-lighter: #93c5fd;
+  --ifm-color-primary-lightest: #bfdbfe;
+
+  --surge-blue: #3B82F6;
+  --surge-blue-dark: #2563EB;
+  --surge-blue-accessible: #1D4ED8;
+
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', 'Fira Code', monospace;
+  --ifm-code-font-size: 90%;
+  --ifm-heading-font-weight: 700;
+  --ifm-link-color: var(--ifm-color-primary);
+
+  --ifm-navbar-height: 3.75rem;
+  --ifm-navbar-background-color: rgba(255, 255, 255, 0.95);
+  --ifm-navbar-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+
+  --ifm-background-color: #ffffff;
+  --ifm-background-surface-color: #f8fafc;
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #60a5fa;
+  --ifm-color-primary-dark: #3B82F6;
+  --ifm-color-primary-darker: #2563EB;
+  --ifm-color-primary-darkest: #1D4ED8;
+  --ifm-color-primary-light: #93c5fd;
+  --ifm-color-primary-lighter: #bfdbfe;
+  --ifm-color-primary-lightest: #dbeafe;
+
+  --ifm-navbar-background-color: rgba(10, 10, 20, 0.95);
+  --ifm-background-color: #000000;
+  --ifm-background-surface-color: #0a0a14;
+}
+
+/* ============================================================
+   Navbar
+   ============================================================ */
+
+.navbar {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.navbar__logo {
+  height: 28px;
+  width: auto;
+}
+
+/* ============================================================
+   Sidebar
+   ============================================================ */
+
+.theme-doc-sidebar-container {
+  border-right: 1px solid var(--ifm-color-emphasis-200) !important;
+}
+
+/* ============================================================
+   Docs content area
+   ============================================================ */
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4 {
+  font-weight: 700;
+}
+
+/* ============================================================
+   Code blocks
+   ============================================================ */
+
+code {
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+/* ============================================================
+   Tables
+   ============================================================ */
+
+table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table th {
+  background: var(--ifm-color-emphasis-100);
+  font-weight: 600;
+}
+
+table th,
+table td {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  padding: 0.5rem 0.75rem;
+}
+
+/* ============================================================
+   Admonitions (:::note, :::info, :::warning)
+   ============================================================ */
+
+.alert--info {
+  --ifm-alert-background-color: rgba(59, 130, 246, 0.08);
+  --ifm-alert-border-color: rgba(59, 130, 246, 0.4);
+  border-left: 4px solid var(--ifm-color-primary);
+}
+
+/* ============================================================
+   Scrollbar (dark mode)
+   ============================================================ */
+
+[data-theme='dark'] ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+[data-theme='dark'] ::-webkit-scrollbar-track { background: #0a0a14; }
+[data-theme='dark'] ::-webkit-scrollbar-thumb { background: #2563EB; border-radius: 3px; }
+[data-theme='dark'] ::-webkit-scrollbar-thumb:hover { background: #3B82F6; }
+
+/* ============================================================
+   Utility — visually hidden
+   ============================================================ */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

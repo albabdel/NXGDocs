@@ -1,0 +1,58 @@
+.container {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.baseBackground {
+  position: absolute;
+  inset: 0;
+  background-color: var(--ifm-background-color);
+  transition: background-color 0.3s ease;
+}
+.pattern {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+}
+.circles {
+  color: rgba(59, 130, 246, 0.25);
+  transition: color 0.3s ease;
+}
+:global([data-theme='light']) .circles {
+  color: rgba(37, 99, 235, 0.15);
+}
+.particles {
+  position: absolute;
+  inset: 0;
+}
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.35);
+  animation: twinkle 4s ease-in-out infinite;
+}
+:global([data-theme='light']) .particle {
+  background: rgba(37, 99, 235, 0.2);
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+.vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 100% 0%, transparent 0%, transparent 40%, rgba(0,0,0,0.1) 100%),
+    linear-gradient(to bottom, transparent 0%, transparent 60%, rgba(0,0,0,0.15) 100%);
+  pointer-events: none;
+}
+:global([data-theme='light']) .vignette {
+  background:
+    radial-gradient(ellipse 80% 60% at 100% 0%, transparent 0%, transparent 40%, rgba(255,255,255,0.3) 100%),
+    linear-gradient(to bottom, transparent 0%, transparent 60%, rgba(255,255,255,0.5) 100%);
+}
