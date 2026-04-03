@@ -289,7 +289,8 @@ function SidebarMenuItem({
 
 function DocSidebarDesktop(props: Props) {
   const location = useLocation();
-  const { productName } = useProduct();
+  const { productName, productId } = useProduct();
+  const sidebarLogoSrc = productId === 'gcsurge' ? '/img/gcsurge-logo.png' : '/img/Xo.png';
   const sidebar = props.sidebar || [];
   const [showSuccess, setShowSuccess] = useState(false);
   const [contextMenu, setContextMenu] = useState<ContextMenuState>({
@@ -343,8 +344,8 @@ function DocSidebarDesktop(props: Props) {
           <Link to="/" className={styles.logoLink} aria-label="Home">
             <div className={styles.logoContainer}>
               <img
-                src="/img/Xo.png"
-                alt="XO Logo"
+                src={sidebarLogoSrc}
+                alt={productName}
                 className={styles.logo}
               />
             </div>
