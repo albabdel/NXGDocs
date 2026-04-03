@@ -9,8 +9,8 @@ const ICONS = {
 };
 
 const STYLES: Record<CalloutType, React.CSSProperties & { borderLeft: string }> = {
-    info:      { borderLeft: '4px solid #3B82F6', background: 'rgba(59,130,246,0.08)', color: 'inherit' },
-    note:      { borderLeft: '4px solid #3B82F6', background: 'rgba(59,130,246,0.08)', color: 'inherit' },
+    info:      { borderLeft: '4px solid #C89446', background: 'rgba(200,148,70,0.08)', color: 'inherit' },
+    note:      { borderLeft: '4px solid #C89446', background: 'rgba(200,148,70,0.08)', color: 'inherit' },
     tip:       { borderLeft: '4px solid #10B981', background: 'rgba(16,185,129,0.08)', color: 'inherit' },
     success:   { borderLeft: '4px solid #10B981', background: 'rgba(16,185,129,0.08)', color: 'inherit' },
     warning:   { borderLeft: '4px solid #F59E0B', background: 'rgba(245,158,11,0.08)',  color: 'inherit' },
@@ -20,7 +20,7 @@ const STYLES: Record<CalloutType, React.CSSProperties & { borderLeft: string }> 
 };
 
 const ICON_COLOR: Record<CalloutType, string> = {
-    info: '#3B82F6', note: '#3B82F6', tip: '#10B981', success: '#10B981',
+    info: '#C89446', note: '#C89446', tip: '#10B981', success: '#10B981',
     warning: '#F59E0B', important: '#F59E0B', caution: '#F97316', error: '#EF4444',
 };
 

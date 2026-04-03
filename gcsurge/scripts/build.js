@@ -12,21 +12,26 @@ const fs = require('fs');
 const SITE_DIR = path.join(__dirname, '..');
 
 async function main() {
+  const docsCacheDir = path.join(SITE_DIR, '.sanity-cache', 'docs');
+  const docsExist = fs.existsSync(docsCacheDir) && fs.readdirSync(docsCacheDir).length > 2;
+  const skipFetch = process.env.SKIP_CONFLUENCE_FETCH === 'true' || docsExist;
+
   console.log('\n── Step 1: Fetching Confluence content ────────────────────────');
 
-  // Validate required env vars
-  const required = ['CONFLUENCE_EMAIL', 'CONFLUENCE_API_TOKEN', 'CONFLUENCE_SITE_URL', 'CONFLUENCE_SPACE_KEY'];
-  const missing = required.filter(v => !process.env[v]);
-  if (missing.length > 0) {
-    console.error(`\n❌ Missing required env vars: ${missing.join(', ')}`);
-    console.error('   Set them in CF Pages → Settings → Environment Variables');
-    process.exit(1);
+  if (skipFetch) {
+    console.log('   ℹ️  Skipping Confluence fetch (docs already cached or SKIP_CONFLUENCE_FETCH=true)');
+  } else {
+    const required = ['CONFLUENCE_EMAIL', 'CONFLUENCE_API_TOKEN', 'CONFLUENCE_SITE_URL', 'CONFLUENCE_SPACE_KEY'];
+    const missing = required.filter(v => !process.env[v]);
+    if (missing.length > 0) {
+      console.error(`\n❌ Missing required env vars: ${missing.join(', ')}`);
+      console.error('   Set them in CF Pages → Settings → Environment Variables');
+      process.exit(1);
+    }
+    const fetchScript = path.join(__dirname, 'fetch-confluence-gcsurge.js');
+    const { run } = require(fetchScript);
+    await run();
   }
-
-  // Run the Confluence fetcher
-  const fetchScript = path.join(__dirname, 'fetch-confluence-gcsurge.js');
-  const { run } = require(fetchScript);
-  await run();
 
   console.log('\n── Step 2: Building Docusaurus ─────────────────────────────────');
 

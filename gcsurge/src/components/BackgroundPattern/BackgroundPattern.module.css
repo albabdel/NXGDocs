@@ -18,11 +18,11 @@
   opacity: 1;
 }
 .circles {
-  color: rgba(59, 130, 246, 0.25);
+  color: rgba(200, 148, 70, 0.25);
   transition: color 0.3s ease;
 }
 :global([data-theme='light']) .circles {
-  color: rgba(37, 99, 235, 0.15);
+  color: rgba(200, 148, 70, 0.15);
 }
 .particles {
   position: absolute;
@@ -33,11 +33,11 @@
   width: 2px;
   height: 2px;
   border-radius: 50%;
-  background: rgba(59, 130, 246, 0.35);
+  background: rgba(200, 148, 70, 0.35);
   animation: twinkle 4s ease-in-out infinite;
 }
 :global([data-theme='light']) .particle {
-  background: rgba(37, 99, 235, 0.2);
+  background: rgba(200, 148, 70, 0.2);
 }
 @keyframes twinkle {
   0%, 100% { opacity: 0.2; transform: scale(1); }
