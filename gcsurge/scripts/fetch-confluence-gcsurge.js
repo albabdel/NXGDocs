@@ -335,6 +335,23 @@ async function run() {
     }));
   }
 
+  // Write index.md — the /docs landing page
+  const indexPath = path.join(CACHE_DOCS_DIR, 'index.md');
+  fs.writeFileSync(indexPath, [
+    '---',
+    'title: "GC Surge Documentation"',
+    'slug: /',
+    'sidebar_position: 0',
+    'hide_table_of_contents: true',
+    '---',
+    '',
+    '# GC Surge Documentation',
+    '',
+    'Welcome to the GC Surge documentation.',
+    'Use the sidebar to navigate guides for connecting your cameras via Email (SMTP), FTP, or API.',
+    '',
+  ].join('\n'), 'utf8');
+
   fs.writeFileSync(SIDEBARS_FILE, buildSidebarsTs(processedPages), 'utf8');
   console.log('[confluence-gcsurge] Wrote sidebars.ts');
   console.log(`[confluence-gcsurge] Done — ${processedPages.length} pages. General:${processedPages.filter(p=>p.category==='general').length} Email:${processedPages.filter(p=>p.category==='email').length} FTP:${processedPages.filter(p=>p.category==='ftp').length}`);

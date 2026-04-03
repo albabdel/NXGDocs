@@ -5,7 +5,7 @@
  * 2. Run docusaurus build
  */
 
-const { execSync, spawnSync } = require('child_process');
+const { execSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
@@ -37,19 +37,14 @@ async function main() {
     process.exit(1);
   }
 
-  const result = spawnSync(
-    process.platform === 'win32' ? docusaurusBin + '.cmd' : docusaurusBin,
-    ['build', '--out-dir', 'build'],
-    {
-      cwd: SITE_DIR,
-      stdio: 'inherit',
-      env: { ...process.env },
-    }
-  );
-
-  if (result.status !== 0) {
+  try {
+    execSync(
+      `"${docusaurusBin}${process.platform === 'win32' ? '.cmd' : ''}" build --out-dir build`,
+      { cwd: SITE_DIR, stdio: 'inherit', env: { ...process.env } }
+    );
+  } catch (err) {
     console.error('\n❌ Docusaurus build failed');
-    process.exit(result.status ?? 1);
+    process.exit(1);
   }
 
   console.log('\n✅ GC Surge build complete → gcsurge/build/');
