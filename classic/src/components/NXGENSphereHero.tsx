@@ -34,7 +34,8 @@ interface Props {
 
 export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
   const { colorMode } = useColorMode();
-  const { productName } = useProduct();
+  const { productName, productId } = useProduct();
+  const logoSrc = productId === 'gcsurge' ? '/img/gcsurge-logo.png' : '/img/xo-logo.png';
   const isDark = colorMode === 'dark';
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -322,14 +323,12 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
           >
             <div className="absolute -inset-8 bg-[#E8B058]/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             <img
-              src="/img/xo-logo.png"
+              src={logoSrc}
               alt={productName}
               className="w-20 md:w-24 relative z-10 drop-shadow-2xl hover:scale-105 transition-transform duration-300"
               onError={(e) => {
                 const target = e.currentTarget;
-                if (target.src.includes('xo-logo.png')) target.src = '/img/Xo.png';
-                else if (target.src.includes('Xo.png')) target.src = '/img/XoLogo.png';
-                else target.style.display = 'none';
+                target.style.display = 'none';
               }}
             />
             <div

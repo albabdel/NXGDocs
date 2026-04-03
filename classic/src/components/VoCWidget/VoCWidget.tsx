@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { useLocation } from '@docusaurus/router';
+import { useProduct } from '@theme/Root';
 import VoCModal from './VoCModal';
 import styles from './VoCWidget.module.css';
+
+const PRODUCT_LOGOS: Record<string, string> = { gcxone: '/img/Xo.png', gcsurge: '/img/gcsurge-logo.png' };
 
 export default function VoCWidget() {
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
+    const { productId } = useProduct();
 
     const toggleModal = () => setIsOpen(!isOpen);
 
@@ -23,7 +27,7 @@ export default function VoCWidget() {
                 aria-label="Share Feedback"
             >
                 <img
-                    src="/img/Xo.png"
+                    src={PRODUCT_LOGOS[productId] || '/img/Xo.png'}
                     alt="VoC"
                     style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                 />

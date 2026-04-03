@@ -6,6 +6,7 @@ import styles from './Footer.module.css';
 
 declare const PRODUCT: string;
 const productId = typeof process !== 'undefined' ? (process.env.PRODUCT || 'gcxone') : 'gcxone';
+const PRODUCT_LOGOS: Record<string, string> = { gcxone: '/img/xo-logo.png', gcsurge: '/img/gcsurge-logo.png' };
 
 interface FooterLinkSection {
   title: string;
@@ -70,7 +71,7 @@ export default function Footer(): JSX.Element {
         <div className={styles.content}>
           <div className={styles.brandSection}>
             <div className={styles.logoWrapper}>
-              <img src="/img/xo-logo.png" alt={productInfo.name + ' Logo'} className={styles.logo} />
+              <img src={PRODUCT_LOGOS[productId] || '/img/xo-logo.png'} alt={productInfo.name + ' Logo'} className={styles.logo} />
             </div>
             <p className={styles.tagline}>{productInfo.tagline}</p>
             <p className={styles.description}>{productInfo.description}</p>
