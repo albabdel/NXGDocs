@@ -1,0 +1,27 @@
+{
+  "extends": "@docusaurus/tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "types": ["react", "react-dom", "@docusaurus/types", "node"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "strict": true,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": false,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/**/*",
+    ".docusaurus/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    ".docusaurus/dist"
+  ]
+}
