@@ -22,7 +22,7 @@ export default function ScrollProgress() {
       className="fixed top-0 left-0 right-0 h-1 z-50 origin-left"
       style={{
         scaleX: scrollProgress,
-        background: 'linear-gradient(90deg, #3B82F6 0%, #2563EB 50%, #3B82F6 100%)',
+        background: 'linear-gradient(90deg, #C89446 0%, #B58237 50%, #C89446 100%)',
       }}
       initial={{ scaleX: 0 }}
       animate={{ scaleX: scrollProgress }}

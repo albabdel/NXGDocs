@@ -6,7 +6,7 @@ import { ArrowRight, ExternalLink, Search } from 'lucide-react';
 import { useProduct } from '@theme/Root';
 
 /**
- * GC Surge Hero Component — blue theme, no Sanity releases dependency.
+ * GC Surge Hero Component — gold theme, no Sanity releases dependency.
  */
 
 interface Props {
@@ -19,9 +19,9 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
   const isDark = colorMode === 'dark';
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Blue accent values
-  const blueDark = '59, 130, 246';   // #3B82F6
-  const blueLight = '37, 99, 235';   // #2563EB
+  // Gold accent values
+  const goldDark = '200, 148, 70';   // #C89446
+  const goldLight = '181, 130, 55';   // #B58237
 
   // IoT Network Graph Particle System
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
     let animationFrameId: number;
     let particles: Particle[] = [];
 
-    const particleColor = isDark ? blueDark : blueLight;
+    const particleColor = isDark ? goldDark : goldLight;
     const particleCount = isDark ? 50 : 35;
     const maxDist = 140;
 
@@ -125,7 +125,7 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
     { value: '17', label: 'Guide Pages' },
     { value: 'SMTP', label: 'Email Alerts' },
     { value: 'FTP', label: 'FTP Support' },
-    { value: '24/7', label: 'Monitoring' },
+    { value: 'API', label: 'REST API' },
   ];
 
   return (
@@ -134,17 +134,17 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
       style={{
         minHeight: '90vh',
         background: isDark
-          ? '#000010'
-          : 'linear-gradient(160deg, #F0F9FF 0%, #E0F2FE 50%, #F0F9FF 100%)',
+          ? '#000000'
+          : 'linear-gradient(160deg, #f8f9fa 0%, #ffffff 50%, #f8f9fa 100%)',
         borderBottom: isDark
-          ? '1px solid rgba(255,255,255,0.05)'
-          : '1px solid rgba(59,130,246,0.15)',
+          ? '1px solid rgba(200,148,70,0.15)'
+          : '1px solid rgba(200,148,70,0.15)',
       }}
     >
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url("/img/Background.jpg")', opacity: isDark ? 0.35 : 0.15, filter: isDark ? 'hue-rotate(200deg) saturate(0.5)' : 'hue-rotate(200deg) saturate(0.3)' }}
+        style={{ backgroundImage: 'url("/img/Background.jpg")', opacity: isDark ? 0.35 : 0.15, filter: isDark ? 'sepia(0.3) saturate(0.5)' : 'sepia(0.2) saturate(0.3)' }}
       />
 
       {/* Dark mode radial vignette */}
@@ -152,41 +152,41 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
         <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 40%, transparent 0%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0.92) 100%)' }} />
       )}
 
-      {/* Animated floating blue orbs */}
-      <motion.div className="absolute rounded-full pointer-events-none" style={{ width: '600px', height: '600px', top: '-15%', left: '-12%', background: isDark ? 'radial-gradient(circle, rgba(59,130,246,0.09) 0%, transparent 65%)' : 'radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 65%)', filter: 'blur(40px)' }} animate={orbVariants.animate1} />
-      <motion.div className="absolute rounded-full pointer-events-none" style={{ width: '700px', height: '700px', bottom: '-20%', right: '-15%', background: isDark ? 'radial-gradient(circle, rgba(37,99,235,0.07) 0%, transparent 60%)' : 'radial-gradient(circle, rgba(37,99,235,0.10) 0%, transparent 60%)', filter: 'blur(50px)' }} animate={orbVariants.animate2} />
-      <motion.div className="absolute rounded-full pointer-events-none" style={{ width: '350px', height: '350px', top: '30%', right: '10%', background: isDark ? 'radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 60%)' : 'radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 60%)', filter: 'blur(30px)' }} animate={orbVariants.animate3} />
+      {/* Animated floating gold orbs */}
+      <motion.div className="absolute rounded-full pointer-events-none" style={{ width: '600px', height: '600px', top: '-15%', left: '-12%', background: isDark ? 'radial-gradient(circle, rgba(200,148,70,0.09) 0%, transparent 65%)' : 'radial-gradient(circle, rgba(200,148,70,0.12) 0%, transparent 65%)', filter: 'blur(40px)' }} animate={orbVariants.animate1} />
+      <motion.div className="absolute rounded-full pointer-events-none" style={{ width: '700px', height: '700px', bottom: '-20%', right: '-15%', background: isDark ? 'radial-gradient(circle, rgba(181,130,55,0.07) 0%, transparent 60%)' : 'radial-gradient(circle, rgba(181,130,55,0.10) 0%, transparent 60%)', filter: 'blur(50px)' }} animate={orbVariants.animate2} />
+      <motion.div className="absolute rounded-full pointer-events-none" style={{ width: '350px', height: '350px', top: '30%', right: '10%', background: isDark ? 'radial-gradient(circle, rgba(200,148,70,0.05) 0%, transparent 60%)' : 'radial-gradient(circle, rgba(200,148,70,0.08) 0%, transparent 60%)', filter: 'blur(30px)' }} animate={orbVariants.animate3} />
 
       {/* Top accent bar */}
       {!isDark && (
-        <div className="absolute top-0 left-0 right-0 h-[2px] z-20 pointer-events-none" style={{ background: 'linear-gradient(90deg, transparent 0%, #3B82F6 25%, #60a5fa 50%, #3B82F6 75%, transparent 100%)' }} />
+        <div className="absolute top-0 left-0 right-0 h-[2px] z-20 pointer-events-none" style={{ background: 'linear-gradient(90deg, transparent 0%, #C89446 25%, #D4A574 50%, #C89446 75%, transparent 100%)' }} />
       )}
 
       {/* Network canvas */}
       <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none" style={{ width: '100%', height: '100%', opacity: isDark ? 0.75 : 0.9 }} />
 
       {/* Bottom fade */}
-      <div className="absolute inset-x-0 bottom-0 h-52 pointer-events-none" style={{ background: isDark ? 'linear-gradient(to bottom, transparent, #000010)' : 'linear-gradient(to bottom, transparent, #F0F9FF)' }} />
+      <div className="absolute inset-x-0 bottom-0 h-52 pointer-events-none" style={{ background: isDark ? 'linear-gradient(to bottom, transparent, #000000)' : 'linear-gradient(to bottom, transparent, #f8f9fa)' }} />
 
       {/* Content */}
       <motion.div variants={containerVariants} initial="hidden" animate="show" className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center text-center py-20">
 
         {/* Logo */}
-        <motion.div variants={itemVariants} className="mb-7 group">
+        <motion.div variants={itemVariants} className="mb-10 group">
           <a href="https://nxgen.io" target="_blank" rel="noopener noreferrer" className="relative block">
-            <div className="absolute -inset-8 bg-blue-500/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            <img src="/img/gcsurge-logo.png" alt="GC Surge" className="w-20 md:w-24 relative z-10 drop-shadow-2xl hover:scale-105 transition-transform duration-300" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
-            <div className={`mt-3 flex items-center justify-center gap-1 text-[10px] tracking-[0.4em] font-semibold uppercase opacity-70 group-hover:opacity-100 transition-opacity ${isDark ? 'text-blue-400' : 'text-blue-700'}`}>
+            <div className="absolute -inset-12 bg-[#C89446]/30 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+            <img src="/img/gcsurge-logo.png" alt="GC Surge" className="w-36 md:w-44 lg:w-52 relative z-10 drop-shadow-2xl hover:scale-105 transition-transform duration-300" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+            <div className={`mt-4 flex items-center justify-center gap-1.5 text-[11px] tracking-[0.4em] font-semibold uppercase opacity-70 group-hover:opacity-100 transition-opacity ${isDark ? 'text-[#D4A574]' : 'text-[#B58237]'}`}>
               <span>By NXGEN</span>
-              <ExternalLink className="w-2.5 h-2.5" />
+              <ExternalLink className="w-3 h-3" />
             </div>
           </a>
         </motion.div>
 
         {/* Badge chip */}
         <motion.div variants={itemVariants} className="mb-6">
-          <span className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide border ${isDark ? 'bg-blue-500/10 border-blue-500/25 text-blue-400' : 'bg-blue-500/10 border-blue-500/30 text-blue-700'}`}>
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse flex-shrink-0" />
+          <span className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide border ${isDark ? 'bg-[#C89446]/10 border-[#C89446]/25 text-[#D4A574]' : 'bg-[#C89446]/10 border-[#C89446]/30 text-[#B58237]'}`}>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C89446] animate-pulse flex-shrink-0" />
             {productName} Documentation
           </span>
         </motion.div>
@@ -195,7 +195,7 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
         <motion.h1 variants={itemVariants} className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-5 leading-[1.05]">
           <span className={isDark ? 'text-white' : 'text-[#0F0F0F]'}>Cloud Surveillance</span>
           <br />
-          <span style={{ backgroundImage: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 40%, #60a5fa 70%, #3B82F6 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+          <span style={{ backgroundImage: 'linear-gradient(135deg, #C89446 0%, #B58237 40%, #D4A574 70%, #C89446 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             Reimagined.
           </span>
         </motion.h1>
@@ -216,25 +216,25 @@ export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-3 mb-0">
           <Link
             to="/docs"
-            className={`inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-semibold no-underline transition-all duration-200 hover:-translate-y-0.5 group ${isDark ? 'bg-blue-500 text-white hover:bg-blue-600' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
-            style={{ boxShadow: isDark ? '0 4px 20px rgba(59,130,246,0.28)' : '0 4px 20px rgba(37,99,235,0.32)' }}
+            className={`inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-semibold no-underline transition-all duration-200 hover:-translate-y-0.5 group ${isDark ? 'bg-[#C89446] text-white hover:bg-[#B58237]' : 'bg-[#B58237] text-white hover:bg-[#A37028]'}`}
+            style={{ boxShadow: isDark ? '0 4px 20px rgba(200,148,70,0.28)' : '0 4px 20px rgba(181,130,55,0.32)' }}
           >
             View Documentation
             <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
           <Link
             to="/docs"
-            className={`inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-medium no-underline border transition-all duration-200 hover:-translate-y-0.5 ${isDark ? 'bg-white/5 backdrop-blur-sm border-white/10 text-white hover:bg-white/10 hover:border-white/25' : 'bg-white/70 backdrop-blur-sm border-blue-500/30 text-blue-700 hover:border-blue-500/60 shadow-md'}`}
+            className={`inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-medium no-underline border transition-all duration-200 hover:-translate-y-0.5 ${isDark ? 'bg-white/5 backdrop-blur-sm border-white/10 text-white hover:bg-white/10 hover:border-white/25' : 'bg-white/70 backdrop-blur-sm border-[#C89446]/30 text-[#B58237] hover:border-[#C89446]/60 shadow-md'}`}
           >
             Device Integrations
           </Link>
         </motion.div>
 
         {/* Stats row */}
-        <motion.div variants={itemVariants} className={`mt-10 pt-8 w-full max-w-lg flex items-center justify-center gap-6 sm:gap-10 ${isDark ? 'border-t border-white/[0.06]' : 'border-t border-blue-500/12'}`}>
+        <motion.div variants={itemVariants} className={`mt-10 pt-8 w-full max-w-lg flex items-center justify-center gap-6 sm:gap-10 ${isDark ? 'border-t border-white/[0.06]' : 'border-t border-[#C89446]/12'}`}>
           {stats.map(({ value, label }) => (
             <div key={label} className="text-center">
-              <div className={`text-xl font-bold tabular-nums ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>{value}</div>
+              <div className={`text-xl font-bold tabular-nums ${isDark ? 'text-[#D4A574]' : 'text-[#B58237]'}`}>{value}</div>
               <div className={`text-xs mt-0.5 ${isDark ? 'text-gray-600' : 'text-[#999]'}`}>{label}</div>
             </div>
           ))}
@@ -252,8 +252,8 @@ function HeroSearchBar({ isDark, onClick, prefersReducedMotion }: { isDark: bool
       style={{
         width: '100%', display: 'flex', alignItems: 'center', gap: '12px',
         padding: '14px 18px', borderRadius: '14px',
-        border: `1px solid ${hovered ? (isDark ? 'rgba(59,130,246,0.5)' : 'rgba(37,99,235,0.55)') : (isDark ? 'rgba(59,130,246,0.2)' : 'rgba(37,99,235,0.28)')}`,
-        background: isDark ? (hovered ? 'rgba(59,130,246,0.06)' : 'rgba(255,255,255,0.03)') : (hovered ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.65)'),
+        border: `1px solid ${hovered ? (isDark ? 'rgba(200,148,70,0.5)' : 'rgba(181,130,55,0.55)') : (isDark ? 'rgba(200,148,70,0.2)' : 'rgba(181,130,55,0.28)')}`,
+        background: isDark ? (hovered ? 'rgba(200,148,70,0.06)' : 'rgba(255,255,255,0.03)') : (hovered ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.65)'),
         backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
         cursor: 'pointer', transition: prefersReducedMotion ? 'none' : 'all 0.2s ease', textAlign: 'left' as const,
       }}
@@ -262,13 +262,13 @@ function HeroSearchBar({ isDark, onClick, prefersReducedMotion }: { isDark: bool
       onMouseLeave={() => setHovered(false)}
       aria-label="Open search (Ctrl+K)"
     >
-      <Search size={17} strokeWidth={2} style={{ color: '#3B82F6', flexShrink: 0 }} />
+      <Search size={17} strokeWidth={2} style={{ color: '#C89446', flexShrink: 0 }} />
       <span style={{ flex: 1, fontSize: '14px', color: isDark ? 'rgba(255,255,255,0.28)' : 'rgba(0,0,0,0.32)', userSelect: 'none' }}>
         Search documentation…
       </span>
       <span style={{ display: 'flex', alignItems: 'center', gap: '3px', flexShrink: 0 }}>
         {(['Ctrl', 'K'] as const).map(k => (
-          <kbd key={k} style={{ display: 'inline-flex', alignItems: 'center', padding: '2px 6px', fontSize: '11px', background: isDark ? 'rgba(59,130,246,0.08)' : 'rgba(37,99,235,0.08)', border: `1px solid ${isDark ? 'rgba(59,130,246,0.18)' : 'rgba(37,99,235,0.22)'}`, borderRadius: '5px', color: isDark ? 'rgba(96,165,250,0.7)' : '#1D4ED8', lineHeight: 1.5, fontFamily: 'inherit' }}>{k}</kbd>
+          <kbd key={k} style={{ display: 'inline-flex', alignItems: 'center', padding: '2px 6px', fontSize: '11px', background: isDark ? 'rgba(200,148,70,0.08)' : 'rgba(181,130,55,0.08)', border: `1px solid ${isDark ? 'rgba(200,148,70,0.18)' : 'rgba(181,130,55,0.22)'}`, borderRadius: '5px', color: isDark ? 'rgba(212,165,116,0.7)' : '#A37028', lineHeight: 1.5, fontFamily: 'inherit' }}>{k}</kbd>
         ))}
       </span>
     </button>

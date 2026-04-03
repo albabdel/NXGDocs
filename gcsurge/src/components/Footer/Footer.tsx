@@ -7,11 +7,11 @@ const FOOTER_LINKS = [
   {
     title: 'Documentation',
     links: [
-      { label: 'Device Integration Guide', href: '/docs' },
-      { label: 'API Integration', href: '/docs' },
-      { label: 'Pricing Model', href: '/docs' },
-      { label: 'SMTP Setup', href: '/docs' },
-      { label: 'FTP Setup', href: '/docs' },
+      { label: 'Device Integration Guide', href: '/docs/gc-surge-device-integration-with-nxgen-platform-api-email-and-ftp-methods' },
+      { label: 'API Integration', href: '/docs/gc-surge-api-integration-guide-for-sending-events-to-nxgen-platform' },
+      { label: 'Pricing Model', href: '/docs/gc-surge-pricing-model' },
+      { label: 'SMTP Setup', href: '/docs/hikvision-smtp' },
+      { label: 'FTP Setup', href: '/docs/hikvision-ftp' },
     ],
   },
   {

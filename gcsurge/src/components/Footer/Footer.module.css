@@ -9,9 +9,9 @@
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent 0%, #3B82F6 20%, #60a5fa 50%, #3B82F6 80%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, #C89446 20%, #D4A574 50%, #C89446 80%, transparent 100%);
   opacity: 0.6;
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 20px rgba(200, 148, 70, 0.3);
 }
 .container { max-width: 1400px; margin: 0 auto; padding: 4rem 2rem 2rem; }
 .content {
@@ -26,7 +26,7 @@
 .logoWrapper { display: flex; align-items: center; margin-bottom: 0.5rem; }
 .logo { height: 40px; width: auto; transition: transform 0.3s ease; }
 .logo:hover { transform: scale(1.05); }
-.tagline { font-size: 0.95rem; font-weight: 600; color: #60a5fa; margin: 0; }
+.tagline { font-size: 0.95rem; font-weight: 600; color: #D4A574; margin: 0; }
 .description { font-size: 0.9rem; line-height: 1.6; color: #888; margin: 0; max-width: 350px; }
 .linksSection { display: flex; flex-direction: column; gap: 1rem; }
 .sectionTitle {
@@ -44,7 +44,7 @@
   position: absolute;
   bottom: 0; left: 0;
   width: 30px; height: 2px;
-  background: #3B82F6;
+  background: #C89446;
   border-radius: 2px;
 }
 .linksList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.65rem; }
@@ -54,7 +54,7 @@
   text-decoration: none; transition: all 0.2s ease;
   position: relative; width: fit-content;
 }
-.footerLink:hover { color: #60a5fa; transform: translateX(4px); }
+.footerLink:hover { color: #D4A574; transform: translateX(4px); }
 .externalIcon { width: 14px; height: 14px; opacity: 0.6; }
 .footerLink:hover .externalIcon { opacity: 1; }
 .bottomBar {
@@ -67,13 +67,13 @@
 .builtWith { display: flex; align-items: center; gap: 0.5rem; }
 .heartIcon { width: 14px; height: 14px; color: #ef4444; animation: heartbeat 1.5s ease-in-out infinite; }
 @keyframes heartbeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-.docusaurusLink { color: #3B82F6; text-decoration: none; font-weight: 600; }
-.docusaurusLink:hover { color: #60a5fa; text-decoration: underline; }
+.docusaurusLink { color: #C89446; text-decoration: none; font-weight: 600; }
+.docusaurusLink:hover { color: #D4A574; text-decoration: underline; }
 [data-theme='light'] .footer { background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%); }
 [data-theme='light'] .topBorder { opacity: 0.4; }
-[data-theme='light'] .tagline { color: #1D4ED8; }
+[data-theme='light'] .tagline { color: #A37028; }
 [data-theme='light'] .description { color: #555; }
 [data-theme='light'] .footerLink { color: #555; }
-[data-theme='light'] .footerLink:hover { color: #2563EB; }
+[data-theme='light'] .footerLink:hover { color: #B58237; }
 [data-theme='light'] .bottomBar { color: #555; }
-[data-theme='light'] .docusaurusLink { color: #2563EB; }
+[data-theme='light'] .docusaurusLink { color: #B58237; }

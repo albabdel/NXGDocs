@@ -25,16 +25,16 @@ export default function QuickLink({
                 background: isDark ? 'rgba(255,255,255,0.025)' : 'rgba(255,255,255,0.65)',
                 backdropFilter: 'blur(10px) saturate(130%)',
                 WebkitBackdropFilter: 'blur(10px) saturate(130%)',
-                borderColor: isDark ? 'rgba(255,255,255,0.07)' : 'rgba(59,130,246,0.12)',
+                borderColor: isDark ? 'rgba(255,255,255,0.07)' : 'rgba(200,148,70,0.12)',
                 boxShadow: isDark
-                    ? 'inset 0 1px 0 rgba(59,130,246,0.06)'
-                    : 'inset 0 1px 0 rgba(59,130,246,0.1), 0 1px 4px rgba(0,0,0,0.04)',
+                    ? 'inset 0 1px 0 rgba(200,148,70,0.06)'
+                    : 'inset 0 1px 0 rgba(200,148,70,0.1), 0 1px 4px rgba(0,0,0,0.04)',
             }}
         >
             <div
                 className="w-10 h-10 flex items-center justify-center rounded-lg flex-shrink-0 mr-4 transition-all duration-200"
                 style={{
-                    background: 'rgba(59,130,246,0.1)',
+                    background: 'rgba(200,148,70,0.1)',
                     color: 'var(--ifm-color-primary)',
                 }}
             >
