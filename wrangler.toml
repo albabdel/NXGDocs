@@ -15,7 +15,11 @@ compatibility_date = "2024-01-01"
 #   PRODUCT=gcxone or PRODUCT=gcsurge
 #   SANITY_PROJECT_ID, SANITY_DATASET, SANITY_API_TOKEN
 
-pages_build_output_dir = "classic/build/gcxone"
+# pages_build_output_dir is intentionally NOT set here.
+# Each CF Pages project has its own destination_dir configured in the dashboard:
+#   gcxone project  -> classic/build/gcxone
+#   gcsurge project -> classic/build/gcsurge
+# Setting it here would override the dashboard setting for BOTH projects.
 
 [vars]
 SANITY_PROJECT_ID = "fjjuacab"
