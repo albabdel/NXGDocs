@@ -22,6 +22,9 @@
     "build:multi:sequential": "cd classic && npm run build:multi:sequential",
     "build:gcxone": "cd classic && npm run build:gcxone",
     "build:gcsurge": "cd classic && npm run build:gcsurge",
+    "deploy:gcxone": "npm run build:gcxone && npx wrangler pages deploy classic/build/gcxone --project-name gcxone",
+    "deploy:gcsurge": "npm run build:gcsurge && npx wrangler pages deploy classic/build/gcsurge --project-name gcsurge",
+    "deploy:all": "npm run build:multi:sequential && npx wrangler pages deploy classic/build/gcxone --project-name gcxone && npx wrangler pages deploy classic/build/gcsurge --project-name gcsurge",
     "import:confluence:surge": "npx ts-node scripts/import-confluence-surge.ts"
   },
   "repository": {
