@@ -81,7 +81,7 @@ const quickStartSteps: QuickStartStep[] = [
         title: 'First Time Login',
         description: 'Access your account and set up authentication',
         icon: <Lock className="w-5 h-5" />,
-        link: '/docs/getting-started/first-time-login--access',
+        link: '/docs/getting-started/first-time-login-access',
         estimatedTime: '5 min',
     },
     {
