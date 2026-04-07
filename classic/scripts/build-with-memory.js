@@ -7,8 +7,11 @@
  */
 process.env.NODE_OPTIONS = '--max-old-space-size=4096';
 
-const { spawn } = require('child_process');
+const { execSync } = require('child_process');
 const path = require('path');
+const fs = require('fs');
+
+const SITE_DIR = path.join(__dirname, '..');
 
 async function main() {
   // Pre-fetch Sanity content if env vars are present
@@ -37,17 +40,17 @@ async function main() {
     console.warn(`[build] Warning: Failed to generate search index: ${err.message}`);
   }
 
-  // Run Docusaurus build
-  await new Promise((resolve, reject) => {
-    const child = spawn('npx', ['docusaurus', 'build'], {
-      stdio: 'inherit',
-      shell: true,
-    });
-    child.on('exit', (code) => {
-      if (code === 0) resolve();
-      else reject(new Error(`docusaurus build exited with code ${code}`));
-    });
-  });
+  // Run Docusaurus build — use local binary directly to avoid npx resolution
+  // issues on Windows (npx with shell:true can't resolve the local bin).
+  // .cmd files on Windows must be invoked via execSync (which uses cmd.exe internally).
+  const binSuffix = process.platform === 'win32' ? '.cmd' : '';
+  const docusaurusBin = path.join(SITE_DIR, 'node_modules', '.bin', `docusaurus${binSuffix}`);
+
+  if (!fs.existsSync(docusaurusBin)) {
+    throw new Error(`docusaurus binary not found at ${docusaurusBin} — did npm install run?`);
+  }
+
+  execSync(`"${docusaurusBin}" build`, { cwd: SITE_DIR, stdio: 'inherit' });
 }
 
 main().catch((err) => {
