@@ -22,7 +22,7 @@ return [
                 description: `Access your ${productName} account and set up authentication`,
                 type: StepType.ACTION,
                 roles: [UserRole.ADMIN, UserRole.OPERATOR, UserRole.INSTALLER, UserRole.MANAGER],
-                actionLink: '/docs/getting-started/first-time-login--access',
+                actionLink: '/docs/getting-started/first-time-login-access',
                 learningContent: {
                     videoId: 'I7dccOLTOsk',
                     title: 'First-Time Login & Setup',
@@ -136,7 +136,7 @@ return [
                 description: 'Set up sites and assign Talos units',
                 type: StepType.ACTION,
                 roles: [UserRole.ADMIN, UserRole.INSTALLER],
-                actionLink: '/docs/getting-started/organization--hierarchy-setup',
+                actionLink: '/docs/getting-started/organization-hierarchy-setup',
                 learningContent: {
                     description: 'Organize your deployment by sites and assign Talos units to each location.',
                     tips: ['Use clear naming conventions for sites (e.g., Building-Floor-Area)']
