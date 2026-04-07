@@ -46,7 +46,9 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:debug": "playwright test --debug",
-    "pdf:generate": "node scripts/generate-pdfs.js"
+    "pdf:generate": "node scripts/generate-pdfs.js",
+    "link:check": "node scripts/validate-links.js",
+    "link:check:fail": "node scripts/validate-links.js --fail"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.16.1",

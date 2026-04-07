@@ -220,6 +220,32 @@ export const docType = defineType({
     // ── Body ──────────────────────────────────────────────────────────────
     enhancedBodyField,
 
+    // ── Confluence Markdown Body (for externally-synced content) ──────────
+    defineField({
+      name: 'markdownBody',
+      title: 'Markdown Body (Confluence Sync)',
+      type: 'text',
+      rows: 20,
+      description: 'Raw Markdown content synced from Confluence. Used by the GC Surge build when workflowConfig.source is "confluence".',
+      hidden: ({document}) => document?.workflowConfig?.source !== 'confluence',
+    }),
+    defineField({
+      name: 'confluencePageId',
+      title: 'Confluence Page ID',
+      type: 'string',
+      description: 'The Confluence page ID this document was synced from. Used to avoid duplicates on re-sync.',
+      hidden: ({document}) => document?.workflowConfig?.source !== 'confluence',
+      readOnly: true,
+    }),
+    defineField({
+      name: 'confluenceSyncedAt',
+      title: 'Last Synced from Confluence',
+      type: 'datetime',
+      description: 'Timestamp of the last successful sync from Confluence.',
+      hidden: ({document}) => document?.workflowConfig?.source !== 'confluence',
+      readOnly: true,
+    }),
+
     // ── SEO & Meta ────────────────────────────────────────────────────────
     defineField({
       name: 'seo',
