@@ -11,15 +11,19 @@ import {
     Wrench,
     HelpCircle,
     PlayCircle,
-    ShieldCheck,
     Cpu,
     Wifi,
     Bell,
     Zap,
     Radio,
     ArrowUpRight,
-    Circle,
     Loader,
+    BookOpen,
+    FileText,
+    Network,
+    Users,
+    Settings,
+    ChevronRight,
 } from 'lucide-react';
 import FeatureCard from '../components/FeatureCard';
 import QuickLink from '../components/QuickLink';
@@ -30,9 +34,28 @@ import { useUserProfile } from '../hooks/useUserProfile';
 import { useProduct } from '@theme/Root';
 import styles from './index.module.css';
 import releasesData from '../data/sanity-releases.generated.json';
-import roadmapData from '../data/sanity-roadmap.generated.json';
+import newlyAddedData from '../data/sanity-newly-added.generated.json';
+// --- Types ---
 
-// --- Data ---
+type NewlyAddedDoc = {
+    _id: string;
+    title: string;
+    slug: string;
+    categoryTitle: string | null;
+    categorySlug: string | null;
+    description: string | null;
+    tags: string[];
+    createdAt: string | null;
+    lastUpdated: string | null;
+};
+
+type Release = {
+    _id: string;
+    displayTitle: string;
+    sprintId?: string;
+    slug: { current: string };
+    publishedAt: string;
+};
 
 type Resource = {
     title: string;
@@ -40,26 +63,6 @@ type Resource = {
     link: string;
     icon: React.ReactNode;
     badge?: string;
-};
-
-// Type for release data from Sanity
-type Release = {
-    _id: string;
-    displayTitle: string;
-    sprintId?: string;
-    slug: { current: string };
-    publishedAt: string;
-    summary?: string;
-    items: Array<{ _key: string; title: string }>;
-};
-
-type RoadmapItem = {
-    _id: string;
-    title: string;
-    status: 'Planned' | 'In Progress' | 'Shipped';
-    projectedRelease: string;
-    description: string;
-    changeType: string;
 };
 
 // Get product name for dynamic descriptions
@@ -131,67 +134,162 @@ const roleCards: Resource[] = [
     },
 ];
 
-const getUpcomingRoadmapItems = (): RoadmapItem[] => {
-    const items = roadmapData as RoadmapItem[];
-    return items.filter(item => item.status !== 'Shipped').slice(0, 3);
-};
+// --- Newly Added Component ---
 
-const upcomingRoadmapItems = getUpcomingRoadmapItems();
+function NewlyAddedSection({ docs }: { docs: NewlyAddedDoc[] }) {
+    const scrollRef = React.useRef<HTMLDivElement>(null);
 
-const featuredFeatures: Resource[] = [
-    {
-        title: 'Alarm Management',
-        description: 'Real-time alarm processing and automation',
-        link: '/alarm-management',
-        icon: <Bell className="w-6 h-6" />,
-        badge: 'Core',
-    },
-    {
-        title: 'User Management',
-        description: 'Role-based access control and permissions',
-        link: '/user-management',
-        icon: <ShieldCheck className="w-6 h-6" />,
-    },
-    {
-        title: 'Device Monitoring',
-        description: 'Monitor device health and connectivity',
-        link: '/device-monitoring',
-        icon: <Cpu className="w-6 h-6" />,
-    },
-    {
-        title: 'Towers',
-        description: 'Manage and configure mobile towers',
-        link: '/towers',
-        icon: <Radio className="w-6 h-6" />,
-    },
-];
+    const scroll = (dir: 'left' | 'right') => {
+        const el = scrollRef.current;
+        if (!el) return;
+        el.scrollBy({ left: dir === 'right' ? 320 : -320, behavior: 'smooth' });
+    };
 
-const helpResources: Resource[] = [
-    {
-        title: 'Help Center',
-        description: 'Submit tickets and find answers',
-        link: '#',
-        icon: <HelpCircle className="w-5 h-5" />,
-    },
-    {
-        title: 'Video Tutorials',
-        description: 'How-to videos for all user levels',
-        link: '/docs/knowledge-base/faq',
-        icon: <PlayCircle className="w-5 h-5" />,
-    },
-    {
-        title: 'Release Notes',
-        description: 'Latest updates and releases',
-        link: '#',
-        icon: <PlayCircle className="w-5 h-5" />,
-    },
-    {
-        title: 'Product Roadmap',
-        description: 'Preview of upcoming features and improvements',
-        link: '/roadmap',
-        icon: <Zap className="w-5 h-5" />,
-    },
-];
+    const formatDate = (iso: string | null) => {
+        if (!iso) return '';
+        return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    };
+
+    return (
+        <section className="mt-16">
+            <div className="flex items-end justify-between mb-6">
+                <div>
+                    <span className={styles.sectionBadge}>New</span>
+                    <h2 className="text-2xl font-bold mt-2" style={{ color: 'var(--ifm-color-content)' }}>
+                        Newly Added
+                    </h2>
+                    <p className="mt-0.5 text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
+                        Latest articles added to the documentation
+                    </p>
+                </div>
+                {/* Scroll controls */}
+                <div className="flex items-center gap-2 flex-shrink-0">
+                    <button
+                        onClick={() => scroll('left')}
+                        aria-label="Scroll left"
+                        className="flex items-center justify-center w-8 h-8 rounded-lg transition-colors"
+                        style={{ background: 'var(--ifm-background-surface-color)', border: '1px solid var(--ifm-color-emphasis-200)', color: 'var(--ifm-color-content-secondary)', cursor: 'pointer' }}
+                        onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(232,176,88,0.4)'; e.currentTarget.style.color = '#E8B058'; }}
+                        onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--ifm-color-emphasis-200)'; e.currentTarget.style.color = 'var(--ifm-color-content-secondary)'; }}
+                    >
+                        <ChevronRight className="w-4 h-4 rotate-180" />
+                    </button>
+                    <button
+                        onClick={() => scroll('right')}
+                        aria-label="Scroll right"
+                        className="flex items-center justify-center w-8 h-8 rounded-lg transition-colors"
+                        style={{ background: 'var(--ifm-background-surface-color)', border: '1px solid var(--ifm-color-emphasis-200)', color: 'var(--ifm-color-content-secondary)', cursor: 'pointer' }}
+                        onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(232,176,88,0.4)'; e.currentTarget.style.color = '#E8B058'; }}
+                        onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--ifm-color-emphasis-200)'; e.currentTarget.style.color = 'var(--ifm-color-content-secondary)'; }}
+                    >
+                        <ChevronRight className="w-4 h-4" />
+                    </button>
+                </div>
+            </div>
+
+            {/* Scrollable track */}
+            <div
+                ref={scrollRef}
+                style={{
+                    display: 'flex',
+                    gap: '12px',
+                    overflowX: 'auto',
+                    scrollSnapType: 'x mandatory',
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none',
+                    paddingBottom: '4px',
+                }}
+            >
+                {docs.map((doc) => (
+                    <Link
+                        key={doc._id}
+                        to={`/docs/${doc.slug}`}
+                        className="no-underline group flex-shrink-0"
+                        style={{
+                            width: '260px',
+                            scrollSnapAlign: 'start',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            background: 'var(--ifm-background-surface-color)',
+                            border: '1px solid var(--ifm-color-emphasis-200)',
+                            borderRadius: '12px',
+                            padding: '16px',
+                            transition: 'border-color 0.15s ease, transform 0.15s ease',
+                        }}
+                        onMouseEnter={e => {
+                            e.currentTarget.style.borderColor = 'rgba(232,176,88,0.4)';
+                            e.currentTarget.style.transform = 'translateY(-2px)';
+                        }}
+                        onMouseLeave={e => {
+                            e.currentTarget.style.borderColor = 'var(--ifm-color-emphasis-200)';
+                            e.currentTarget.style.transform = 'translateY(0)';
+                        }}
+                    >
+                        {/* Category + date row */}
+                        <div className="flex items-center justify-between gap-2 mb-3">
+                            {doc.categoryTitle ? (
+                                <span
+                                    className="text-xs font-semibold px-2 py-0.5 rounded-full truncate"
+                                    style={{
+                                        background: 'rgba(232,176,88,0.1)',
+                                        color: '#E8B058',
+                                        border: '1px solid rgba(232,176,88,0.2)',
+                                        maxWidth: '140px',
+                                    }}
+                                >
+                                    {doc.categoryTitle}
+                                </span>
+                            ) : (
+                                <span
+                                    className="text-xs font-semibold px-2 py-0.5 rounded-full"
+                                    style={{ background: 'rgba(232,176,88,0.08)', color: '#E8B058', border: '1px solid rgba(232,176,88,0.15)' }}
+                                >
+                                    Doc
+                                </span>
+                            )}
+                            {doc.createdAt && (
+                                <span className="text-xs flex-shrink-0" style={{ color: 'var(--ifm-color-content-secondary)', opacity: 0.6 }}>
+                                    {formatDate(doc.createdAt)}
+                                </span>
+                            )}
+                        </div>
+
+                        {/* Title */}
+                        <h3
+                            className="text-sm font-semibold leading-snug mb-2 group-hover:text-[#E8B058] transition-colors"
+                            style={{ color: 'var(--ifm-color-content)', margin: 0 }}
+                        >
+                            {doc.title}
+                        </h3>
+
+                        {/* Description */}
+                        {doc.description && (
+                            <p
+                                className="text-xs leading-relaxed flex-1"
+                                style={{
+                                    color: 'var(--ifm-color-content-secondary)',
+                                    margin: '0 0 12px 0',
+                                    display: '-webkit-box',
+                                    WebkitLineClamp: 3,
+                                    WebkitBoxOrient: 'vertical',
+                                    overflow: 'hidden',
+                                } as React.CSSProperties}
+                            >
+                                {doc.description}
+                            </p>
+                        )}
+
+                        {/* Footer */}
+                        <div className="flex items-center gap-1 mt-auto pt-2" style={{ borderTop: '1px solid var(--ifm-color-emphasis-100)' }}>
+                            <span className="text-xs font-medium" style={{ color: '#E8B058' }}>Read article</span>
+                            <ArrowUpRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" style={{ color: '#E8B058' }} />
+                        </div>
+                    </Link>
+                ))}
+            </div>
+        </section>
+    );
+}
 
 // --- Main Page Content ---
 
@@ -266,68 +364,93 @@ function HomePageContent(): React.JSX.Element {
                     {/* ── Continue Reading (for logged-in users) ───────────── */}
                     <ContinueReading maxItems={5} showWelcome={false} />
 
-                    {/* ── Quick Access Bar ────────────────────────────── */}
-                    <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-                        <Link
-                            to="/docs"
-                            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold no-underline"
-                            style={{
-                                background: 'linear-gradient(135deg, #E8B058 0%, #D4A047 100%)',
-                                color: '#000',
-                                boxShadow: '0 4px 16px rgba(232,176,88,0.35)',
-                            }}
-                        >
-                            <ArrowUpRight className="w-4 h-4" />
-                            Documentation Index
-                        </Link>
-                        <Link
-                            to="/updates"
-                            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium no-underline border"
-                            style={{
-                                borderColor: 'rgba(232,176,88,0.35)',
-                                color: '#E8B058',
-                                background: 'rgba(232,176,88,0.07)',
-                            }}
-                        >
-                            Updates Hub
-                        </Link>
-                        <Link
-                            to="/releases"
-                            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium no-underline border"
-                            style={{
-                                borderColor: 'rgba(232,176,88,0.35)',
-                                color: '#E8B058',
-                                background: 'rgba(232,176,88,0.07)',
-                            }}
-                        >
-                            Release Notes
-                        </Link>
-                        <Link
-                            to="/roadmap"
-                            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium no-underline border"
-                            style={{
-                                borderColor: 'rgba(232,176,88,0.35)',
-                                color: '#E8B058',
-                                background: 'rgba(232,176,88,0.07)',
-                            }}
-                        >
-                            Roadmap
-                        </Link>
-                        <Link
-                            to="/support"
-                            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium no-underline border"
-                            style={{
-                                borderColor: 'rgba(232,176,88,0.35)',
-                                color: '#E8B058',
-                                background: 'rgba(232,176,88,0.07)',
-                            }}
-                        >
-                            Support
-                        </Link>
-                    </div>
+                    {/* ── Quick Navigation Bar ────────────────────────── */}
+                    <nav className="mt-10" aria-label="Quick navigation">
+                        {/* Primary CTA row */}
+                        <div className="flex flex-wrap items-center justify-center gap-3 mb-3">
+                            <Link
+                                to="/docs"
+                                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold no-underline"
+                                style={{
+                                    background: 'linear-gradient(135deg, #E8B058 0%, #D4A047 100%)',
+                                    color: '#000',
+                                    boxShadow: '0 4px 16px rgba(232,176,88,0.35)',
+                                }}
+                            >
+                                <BookOpen className="w-4 h-4" />
+                                Browse All Docs
+                            </Link>
+                            <Link
+                                to="/updates"
+                                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium no-underline border"
+                                style={{
+                                    borderColor: 'rgba(232,176,88,0.35)',
+                                    color: '#E8B058',
+                                    background: 'rgba(232,176,88,0.07)',
+                                }}
+                            >
+                                Updates Hub
+                            </Link>
+                            <Link
+                                to="/support"
+                                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium no-underline border"
+                                style={{
+                                    borderColor: 'rgba(232,176,88,0.35)',
+                                    color: '#E8B058',
+                                    background: 'rgba(232,176,88,0.07)',
+                                }}
+                            >
+                                Support
+                            </Link>
+                        </div>
+                        {/* Helper hint + popular topics */}
+                        <div className="mt-3 flex flex-col items-center gap-2">
+                            <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs" style={{ color: 'var(--ifm-color-content-secondary)', opacity: 0.65 }}>
+                                <span>
+                                    <kbd style={{ padding: '1px 5px', borderRadius: 4, fontSize: '0.7rem', border: '1px solid rgba(232,176,88,0.3)', background: 'rgba(232,176,88,0.06)', color: '#E8B058' }}>Ctrl K</kbd>
+                                    {' '}to search — try:
+                                </span>
+                                {['alarm zones', 'device setup', 'user roles', 'API integration', 'tower config'].map((term) => (
+                                    <button
+                                        key={term}
+                                        style={{ color: '#E8B058', opacity: 0.8, background: 'none', border: 'none', cursor: 'pointer', fontSize: 'inherit', padding: '0 2px', textDecoration: 'underline', textDecorationStyle: 'dotted', textUnderlineOffset: '2px' }}
+                                        onClick={() => {
+                                            const event = new KeyboardEvent('keydown', { key: 'k', code: 'KeyK', ctrlKey: true, bubbles: true, cancelable: true });
+                                            document.dispatchEvent(event);
+                                            setTimeout(() => {
+                                                const input = document.querySelector('input[type="search"]') as HTMLInputElement;
+                                                if (input) { input.value = term; input.dispatchEvent(new Event('input', { bubbles: true })); }
+                                            }, 80);
+                                        }}
+                                    >
+                                        {term}
+                                    </button>
+                                ))}
+                            </div>
+                            {/* Latest release strip */}
+                            {(releasesData as Release[]).length > 0 && (() => {
+                                const latest = (releasesData as Release[])[0];
+                                return (
+                                    <Link
+                                        to={`/releases/${latest.slug.current}`}
+                                        className="inline-flex items-center gap-2 no-underline group"
+                                        style={{ color: 'var(--ifm-color-content-secondary)', opacity: 0.7, fontSize: '0.72rem' }}
+                                    >
+                                        <span
+                                            className="inline-block w-1.5 h-1.5 rounded-full flex-shrink-0"
+                                            style={{ background: '#22c55e' }}
+                                        />
+                                        Latest release: <span style={{ color: '#E8B058' }} className="group-hover:underline">{latest.displayTitle}</span>
+                                        {latest.sprintId && <span style={{ opacity: 0.55 }}>· {latest.sprintId}</span>}
+                                        <span style={{ opacity: 0.45 }}>→</span>
+                                    </Link>
+                                );
+                            })()}
+                        </div>
+                    </nav>
 
                     {/* ── Quick Start ─────────────────────────────────── */}
-                    <section className="mt-20">
+                    <section className="mt-16">
                         <div className="flex items-end justify-between mb-8">
                             <div>
                                 <span className={styles.sectionBadge}>Start Here</span>
@@ -353,6 +476,11 @@ function HomePageContent(): React.JSX.Element {
                             ))}
                         </div>
                     </section>
+
+                    {/* ── Newly Added ─────────────────────────────────── */}
+                    {(newlyAddedData as NewlyAddedDoc[]).length > 0 && (
+                        <NewlyAddedSection docs={newlyAddedData as NewlyAddedDoc[]} />
+                    )}
 
                     {/* ── Role-Based Recommendations ─────────────────────── */}
                     <RoleBasedContent allowedRoles={['operator']}>
@@ -393,149 +521,92 @@ function HomePageContent(): React.JSX.Element {
                         </div>
                     </section>
 
-                    {/* ── Releases ────────────────────────────────────── */}
+                    {/* ── Browse Documentation ────────────────────────── */}
                     <section className="mt-24">
                         <div className="flex items-end justify-between mb-8">
                             <div>
-                                <span className={styles.sectionBadge}>Changelog</span>
-                                <h2 className="text-3xl font-bold text-[#E8B058] mt-2">Releases</h2>
+                                <span className={styles.sectionBadge}>Documentation</span>
+                                <h2 className="text-3xl font-bold mt-2" style={{ color: 'var(--ifm-color-content)' }}>
+                                    Browse by Topic
+                                </h2>
                                 <p className="mt-1 text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                                    Latest updates and new features
+                                    Jump directly to any documentation area
                                 </p>
                             </div>
                             <Link
-                                to="/releases"
+                                to="/docs"
                                 className="inline-flex items-center gap-1.5 text-[#E8B058] hover:text-[#D4A047] transition-colors text-sm font-medium no-underline group"
                             >
-                                View All
+                                All Docs
                                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                             </Link>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            {(releasesData as Release[]).slice(0, 2).map((release, index) => (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            {[
+                                { title: 'Getting Started', description: 'Platform overview, quick start, and initial setup', link: '/docs/getting-started', icon: <Zap className="w-5 h-5" /> },
+                                { title: 'Alarm Management', description: 'Alarm processing, routing, and automation rules', link: '/docs/alarm-management', icon: <Bell className="w-5 h-5" /> },
+                                { title: 'Device Management', description: 'Connect, configure, and monitor IoT devices', link: '/docs/device-management', icon: <Cpu className="w-5 h-5" /> },
+                                { title: 'User & Access Control', description: 'Roles, permissions, and user administration', link: '/docs/user-management', icon: <Users className="w-5 h-5" /> },
+                                { title: 'Towers & Networks', description: 'Mobile tower setup and network configuration', link: '/docs/towers', icon: <Radio className="w-5 h-5" /> },
+                                { title: 'System Configuration', description: 'Server settings, integrations, and system setup', link: '/docs/configuration', icon: <Settings className="w-5 h-5" /> },
+                                { title: 'Integration Hub', description: 'Third-party integrations and API connections', link: '/integration-hub', icon: <Network className="w-5 h-5" /> },
+                                { title: 'Reference', description: 'Technical specifications and API documentation', link: '/docs/reference', icon: <FileText className="w-5 h-5" /> },
+                                { title: 'Knowledge Base', description: 'FAQs, troubleshooting guides, and how-tos', link: '/docs/knowledge-base', icon: <BookOpen className="w-5 h-5" /> },
+                            ].map((item) => (
                                 <Link
-                                    key={release._id}
-                                    to={`/releases/${release.slug.current}`}
-                                    className={`${styles.releaseCardNew} no-underline group`}
-                                >
-                                    <div className={styles.releaseCardTopBar} />
-                                    <div className={styles.releaseCardBody}>
-                                        <div className="flex items-start justify-between gap-3 mb-3">
-                                            <span className={styles.releaseMetaDate}>
-                                                {new Date(release.publishedAt).toLocaleDateString('en-US', {
-                                                    month: 'long',
-                                                    day: 'numeric',
-                                                    year: 'numeric',
-                                                })}
-                                                {release.sprintId && (
-                                                    <span className={styles.sprintId}> · {release.sprintId}</span>
-                                                )}
-                                            </span>
-                                            {index === 0 && (
-                                                <span className={styles.latestBadge}>Latest</span>
-                                            )}
-                                        </div>
-                                        <h4 className={`${styles.releaseTitleNew} group-hover:text-[#E8B058] transition-colors`}>
-                                            {release.displayTitle}
-                                        </h4>
-                                        <p className={styles.releaseDescNew}>
-                                            {release.summary || `${release.items.length} updates in this release`}
-                                        </p>
-                                        <span className={styles.releaseReadMore}>
-                                            Read release notes
-                                            <ArrowUpRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                                        </span>
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
-
-                        {/* Coming Soon / Roadmap preview */}
-                        <div className="mt-12">
-                            <div className="flex items-end justify-between mb-6">
-                                <div>
-                                    <h3 className="text-xl font-semibold mb-1" style={{ color: 'var(--ifm-color-content)' }}>
-                                        Coming Soon
-                                    </h3>
-                                    <p className="text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                                        Preview of upcoming features and improvements
-                                    </p>
-                                </div>
-                                <Link
-                                    to="/roadmap"
-                                    className="inline-flex items-center gap-1.5 text-[#E8B058] hover:text-[#D4A047] transition-colors text-sm font-medium no-underline group"
-                                >
-                                    View Roadmap
-                                    <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                                </Link>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                {upcomingRoadmapItems.map((item) => (
-                                    <div key={item._id} className={styles.roadmapCardNew}>
-                                        <div className={`${styles.roadmapCardStripe} ${item.status === 'In Progress' ? styles.roadmapStripeActive : ''}`} />
-                                        <div className={styles.roadmapCardContent}>
-                                            <div className="flex items-center justify-between mb-3">
-                                                <span className={`${styles.roadmapStatusBadge} ${item.status === 'In Progress' ? styles.roadmapStatusActive : ''}`}>
-                                                    <Circle className="w-1.5 h-1.5 fill-current" />
-                                                    {item.status}
-                                                </span>
-                                                <span className={styles.roadmapQuarterLabel}>{item.projectedRelease}</span>
-                                            </div>
-                                            <h4 className={styles.roadmapItemTitleNew}>{item.title}</h4>
-                                            <p className={styles.roadmapItemDescNew}>{item.description}</p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* ── Platform Features ───────────────────────────── */}
-                    <section className="mt-24">
-                        <div className="text-center mb-10">
-                            <span className={styles.sectionBadge}>Capabilities</span>
-                            <h2 className="text-3xl font-bold mt-2" style={{ color: 'var(--ifm-color-content)' }}>
-                                Platform Features
-                            </h2>
-                            <p className="mt-1 text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                                 Explore core capabilities of {productName}
-                             </p>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                            {featuredFeatures.map((item) => (
-                                <FeatureCard
                                     key={item.title}
-                                    title={item.title}
-                                    description={item.description}
-                                    icon={item.icon}
-                                    link={item.link}
-                                    badge={item.badge}
-                                />
+                                    to={item.link}
+                                    className="group flex items-center gap-4 p-4 rounded-xl no-underline transition-all duration-200"
+                                    style={{
+                                        background: 'var(--ifm-background-surface-color)',
+                                        border: '1px solid var(--ifm-color-emphasis-200)',
+                                    }}
+                                    onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(232,176,88,0.35)')}
+                                    onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--ifm-color-emphasis-200)')}
+                                >
+                                    <div
+                                        className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center transition-colors"
+                                        style={{ background: 'rgba(232,176,88,0.1)', color: '#E8B058' }}
+                                    >
+                                        {item.icon}
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-center gap-1">
+                                            <span className="text-sm font-semibold" style={{ color: 'var(--ifm-color-content)' }}>
+                                                {item.title}
+                                            </span>
+                                            <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-60 transition-opacity flex-shrink-0" style={{ color: '#E8B058' }} />
+                                        </div>
+                                        <p className="text-xs mt-0.5 leading-snug" style={{ color: 'var(--ifm-color-content-secondary)', margin: 0 }}>
+                                            {item.description}
+                                        </p>
+                                    </div>
+                                </Link>
                             ))}
                         </div>
                     </section>
 
                     {/* ── Help & Resources ────────────────────────────── */}
-                    <section className="mt-24">
-                        <div className="text-center mb-10">
+                    <section className="mt-20">
+                        <div className="text-center mb-8">
                             <span className={styles.sectionBadge}>Support</span>
                             <h2 className="text-3xl font-bold mt-2" style={{ color: 'var(--ifm-color-content)' }}>
                                 Need Help?
                             </h2>
-                            <p className="mt-1 text-sm" style={{ color: 'var(--ifm-color-content-secondary)' }}>
-                                Additional resources and support channels
-                            </p>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-4xl mx-auto">
-                            {helpResources.map((item) => (
-                                <QuickLink
-                                    key={item.title}
-                                    title={item.title}
-                                    description={item.description}
-                                    icon={item.icon}
-                                    href={item.link}
-                                />
-                            ))}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-3xl mx-auto">
+                            <QuickLink
+                                title="Help Center"
+                                description="Submit a ticket or find answers to common questions"
+                                icon={<HelpCircle className="w-5 h-5" />}
+                                href="/support"
+                            />
+                            <QuickLink
+                                title="Video Tutorials"
+                                description="Step-by-step how-to videos for all user levels"
+                                icon={<PlayCircle className="w-5 h-5" />}
+                                href="/docs/knowledge-base/faq"
+                            />
                         </div>
                     </section>
 

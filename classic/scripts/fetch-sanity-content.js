@@ -35,7 +35,7 @@ if (fs.existsSync(envLocalPath)) {
 }
 
 const SITE_DIR = path.join(__dirname, '..');
-const CACHE_ROOT = path.join(SITE_DIR, '.sanity-cache');
+const CACHE_ROOT = path.join(SITE_DIR, process.env.SANITY_CACHE_PATH || '.sanity-cache');
 const LANDING_PAGES_CACHE_DIR = path.join(SITE_DIR, '.sanity-landing-pages');
 const LANDING_PAGES_GENERATED_FILE = path.join(
   SITE_DIR,
@@ -73,6 +73,12 @@ const INTEGRATIONS_GENERATED_FILE = path.join(
   'data',
   'sanity-integrations.generated.json'
 );
+const NEWLY_ADDED_GENERATED_FILE = path.join(
+  SITE_DIR,
+  'src',
+  'data',
+  'sanity-newly-added.generated.json'
+);
 const BACKUP_ROOT = path.join(SITE_DIR, '.sanity-backups');
 const VERSION_HISTORY_DIR = path.join(SITE_DIR, '.sanity-version-history');
 const DEFAULT_BACKUP_KEEP = 10;
@@ -104,7 +110,7 @@ function getQueries(includeDrafts) {
     {
       type: 'doc',
       query: `*[_type == "doc" && ${filter} && ${productFilter}] | order(sidebarPosition asc) {
-        title, slug, category, sidebarPosition, sidebarLabel, hideFromSidebar, body, lastUpdated, description, tags, status, reviewedBy, product,
+        _id, _createdAt, title, slug, category, sidebarPosition, sidebarLabel, hideFromSidebar, body, lastUpdated, description, tags, status, reviewedBy, product,
         "categoryId": sidebarCategory->_id,
         "categorySlug": sidebarCategory->slug.current,
         "categoryTitle": sidebarCategory->title,
@@ -936,6 +942,9 @@ async function run() {
     }
   }
 
+  // Collect docs as we process them so we can write the "newly added" feed
+  const allFetchedDocs = [];
+
   for (const { type, query } of queries) {
     console.log(`[sanity-content] Fetching ${type} documents...`);
     let docs;
@@ -966,6 +975,21 @@ async function run() {
           writeTrackedFile(filePath, content, writtenFiles);
           stats.written.doc += 1;
           console.log(`[sanity-content] Wrote doc -> docs/${safeSlug}.md`);
+
+          // Collect for newly-added feed
+          if (doc._id && doc.title && !doc.hideFromSidebar) {
+            allFetchedDocs.push({
+              _id: doc._id,
+              title: doc.title,
+              slug: safeSlug,
+              categoryTitle: doc.categoryTitle || doc.category || null,
+              categorySlug: doc.categorySlug || null,
+              description: doc.description || null,
+              tags: Array.isArray(doc.tags) ? doc.tags : [],
+              createdAt: doc._createdAt || null,
+              lastUpdated: doc.lastUpdated || null,
+            });
+          }
         } else {
           const extra = {};
           if (type === 'article') {
@@ -987,6 +1011,14 @@ async function run() {
       }
     }
   }
+
+  // Write newly-added feed: top 12 docs sorted by creation date descending
+  const newlyAdded = allFetchedDocs
+    .filter(d => d.createdAt)
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .slice(0, 12);
+  writeTrackedFile(NEWLY_ADDED_GENERATED_FILE, JSON.stringify(newlyAdded, null, 2), writtenFiles);
+  console.log(`[sanity-content] Wrote ${newlyAdded.length} newly-added docs -> src/data/sanity-newly-added.generated.json`);
 
   // Ensure plugin-content-docs never fails on empty cache dirs.
   for (const dir of ALL_CACHE_DIRS) {
