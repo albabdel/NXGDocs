@@ -17,6 +17,7 @@ export interface ProductConfig {
   url: string;
   baseUrl: string;
   favicon: string;
+  docsPath: string;
   logo: {
     src: string;
     alt: string;
@@ -41,6 +42,7 @@ export const PRODUCT_CONFIGS: Record<string, ProductConfig> = {
     url: 'https://docs.gcxone.com',
     baseUrl: '/',
     favicon: 'img/favicon.png',
+    docsPath: '.sanity-cache/gcxone-docs',
     logo: {
       src: 'img/XoLogo.png',
       alt: 'GCXONE Logo',
@@ -63,6 +65,7 @@ export const PRODUCT_CONFIGS: Record<string, ProductConfig> = {
     url: 'https://docs.gcsurge.com',
     baseUrl: '/',
     favicon: 'img/favicon-gcsurge.png',
+    docsPath: '.sanity-cache/gcsurge-docs',
     logo: {
       src: 'img/gcsurge-logo.png',
       alt: 'GC Surge Logo',
@@ -76,6 +79,29 @@ export const PRODUCT_CONFIGS: Record<string, ProductConfig> = {
     metadata: {
       keywords: ['NXGEN', 'GC Surge', 'documentation', 'security', 'monitoring'],
       description: 'Documentation for NXGEN GC Surge platform',
+    },
+  },
+  nxgenapi: {
+    id: 'nxgenapi',
+    title: 'NXGEN Developer API',
+    tagline: 'REST API reference and integration guides for NXGEN Platform',
+    url: 'https://developers.nxgen.io',
+    baseUrl: '/',
+    favicon: 'img/favicon.png',
+    docsPath: '.sanity-cache/nxgenapi-docs',
+    logo: {
+      src: 'img/XoLogo.png',
+      alt: 'NXGEN Developer API',
+      href: '/',
+    },
+    theme: {
+      primaryColor: '#8B5CF6',
+      primaryColorDark: '#A78BFA',
+    },
+    socialCard: 'img/nxgen-social-card.jpg',
+    metadata: {
+      keywords: ['NXGEN', 'API', 'REST', 'developer', 'integration', 'webhook', 'SDK'],
+      description: 'NXGEN Platform REST API reference — authentication, endpoints, webhooks, and SDK guides.',
     },
   },
 };

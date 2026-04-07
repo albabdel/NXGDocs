@@ -19,7 +19,7 @@ const { createClient } = require('@sanity/client');
 
 const SANITY_PROJECT_ID = 'fjjuacab';
 const SANITY_DATASET = 'production';
-const SANITY_API_TOKEN = 'sk6UtQrIiszU0whyrdZeIcc2bQiyKivrm4FQVDCukFHw3PuHa8QLrqCaemoMuIqCkMYpi47P1j6Uoiceo3V3PBagrqAMm867RlT8hG0dLc17kIJPa89WAbxH394p2poRxCrcwFWoQmuNV80lC9zBp19sZp1gXngErxnYYZbEkQUeZe3Z4YZN';
+const SANITY_API_TOKEN = 'skrDjnhpDRzNNkD5IgIwEY1c9wiC3JEpfLRqz34aV2U4JQ1JTpHayqmau4LrZzmkig2ekdkfSoHzpJkAOkWVfjjBdmgE3FtPZPl2OchAHjU4pAL3Xe7jxcoAVnKUitg8zmiFgBeYqIoOMS7Ndv0pbwagOubDqRFXLh6LxCbdFqTcJ0yQkVpE';
 
 const DRY_RUN = !process.argv.includes('--commit');
 
@@ -80,6 +80,18 @@ const PRODUCT_ASSIGNMENTS = {
     updateDescription: false,
   },
   
+  // Auto-assigned by cron run 2026-04-07
+  '177e69c1-6a6e-423c-9570-549a7dbb6c03': {
+    product: 'gcxone',
+    reason: 'Auto Stream is a GCXONE video streaming feature',
+    updateDescription: false,
+  },
+  '7c0d3468-0a41-48b0-a773-196fe659c07b': {
+    product: 'gcxone',
+    reason: 'Live View Advanced Troubleshooting is a GCXONE monitoring feature',
+    updateDescription: false,
+  },
+
   // GC Surge documents
   'article-gc-surge': {
     product: 'gcsurge',

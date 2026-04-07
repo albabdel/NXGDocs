@@ -1,4 +1,4 @@
-/* DocItem Footer Wrapper Styles */
+/* DocItem Footer Wrapper Styles — includes PDF download button */
 
 .shareWrapper {
   margin-top: 3rem;
@@ -20,6 +20,36 @@
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
   }
+}
+
+/* PDF Download Button */
+.pdfDownload {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.pdfButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--ifm-color-emphasis-600);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.pdfButton:hover {
+  color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+  background: var(--ifm-color-primary-lightest);
+  text-decoration: none;
 }
 
 
