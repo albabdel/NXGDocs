@@ -1,5 +1,6 @@
 import {defineType, defineField} from 'sanity'
 import {enhancedBodyField} from './portableText-ultimate'
+import {productField} from './fields/product'
 
 export const gettingStartedPageType = defineType({
   name: 'gettingStartedPage',
@@ -10,8 +11,9 @@ export const gettingStartedPageType = defineType({
       title: 'title',
       status: 'status',
       slug: 'slug',
+      product: 'product',
     },
-    prepare({title, status, slug}) {
+    prepare({title, status, slug, product}) {
       const statusEmoji: Record<string, string> = {
         draft: '🔘',
         review: '🟡',
@@ -19,9 +21,10 @@ export const gettingStartedPageType = defineType({
         archived: '📦',
       }
       const emoji = statusEmoji[status as string] ?? '🔘'
+      const productLabel = product?.toUpperCase() || 'GCXONE'
       return {
         title: `${emoji} ${title ?? 'Untitled'}`,
-        subtitle: slug?.current ? `/${slug.current}` : 'No slug',
+        subtitle: `${productLabel} - ${slug?.current ? `/${slug.current}` : 'No slug'}`,
       }
     },
   },
@@ -57,6 +60,7 @@ export const gettingStartedPageType = defineType({
       rows: 2,
       description: 'SEO description (120-160 characters) - used in meta tags and search previews',
     }),
+    productField,
 
     defineField({
       name: 'heroSection',
