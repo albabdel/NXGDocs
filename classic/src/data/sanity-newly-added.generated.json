@@ -1,1 +1,134 @@
-[]
+[
+  {
+    "_id": "X9ORxzRbtqr9lSJFeKcZat",
+    "title": "Managing Sites & Devices",
+    "slug": "operator-guide/site-management",
+    "categoryTitle": null,
+    "categorySlug": null,
+    "description": "Managing sites, devices, and resources in GCXONE.",
+    "tags": [],
+    "createdAt": "2026-04-12T12:26:01Z",
+    "lastUpdated": null
+  },
+  {
+    "_id": "doc-platform-fundamentals-privilege-deep-dive",
+    "title": "Privilege Deep Dive",
+    "slug": "platform-fundamentals/privilege-deep-dive",
+    "categoryTitle": null,
+    "categorySlug": null,
+    "description": null,
+    "tags": [],
+    "createdAt": "2026-04-12T11:50:19Z",
+    "lastUpdated": null
+  },
+  {
+    "_id": "doc-features-video-monitoring-multi-monitor",
+    "title": "Multi Monitor",
+    "slug": "features/video-monitoring/multi-monitor",
+    "categoryTitle": null,
+    "categorySlug": null,
+    "description": null,
+    "tags": [],
+    "createdAt": "2026-04-12T11:50:19Z",
+    "lastUpdated": null
+  },
+  {
+    "_id": "doc-features-video-monitoring-edit-properties",
+    "title": "Edit Properties",
+    "slug": "features/video-monitoring/edit-properties",
+    "categoryTitle": null,
+    "categorySlug": null,
+    "description": null,
+    "tags": [],
+    "createdAt": "2026-04-12T11:50:19Z",
+    "lastUpdated": null
+  },
+  {
+    "_id": "doc-features-alarms-ai-alarm-mapping",
+    "title": "Alarm Mapping",
+    "slug": "features/alarms-ai/alarm-mapping",
+    "categoryTitle": null,
+    "categorySlug": null,
+    "description": null,
+    "tags": [],
+    "createdAt": "2026-04-12T11:50:19Z",
+    "lastUpdated": null
+  },
+  {
+    "_id": "doc-features-alarms-ai-workflows",
+    "title": "Workflows",
+    "slug": "features/alarms-ai/workflows",
+    "categoryTitle": null,
+    "categorySlug": null,
+    "description": null,
+    "tags": [],
+    "createdAt": "2026-04-12T11:50:19Z",
+    "lastUpdated": null
+  },
+  {
+    "_id": "doc-features-alarms-ai-dc09",
+    "title": "DC09",
+    "slug": "features/alarms-ai/dc09",
+    "categoryTitle": null,
+    "categorySlug": null,
+    "description": null,
+    "tags": [],
+    "createdAt": "2026-04-12T11:50:19Z",
+    "lastUpdated": null
+  },
+  {
+    "_id": "doc-features-alarms-ai-standard-vs-smart-alarm",
+    "title": "Standard Motion Alarm vs Smart Alarm",
+    "slug": "features/alarms-ai/standard-vs-smart-alarm",
+    "categoryTitle": null,
+    "categorySlug": null,
+    "description": null,
+    "tags": [],
+    "createdAt": "2026-04-12T11:50:19Z",
+    "lastUpdated": null
+  },
+  {
+    "_id": "doc-features-audio-speaker-on-help-desk",
+    "title": "Speaker on Help Desk",
+    "slug": "features/audio/speaker-on-help-desk",
+    "categoryTitle": null,
+    "categorySlug": null,
+    "description": null,
+    "tags": [],
+    "createdAt": "2026-04-12T11:50:19Z",
+    "lastUpdated": null
+  },
+  {
+    "_id": "doc-features-audio-audio-io",
+    "title": "Audio I/O",
+    "slug": "features/audio/audio-io",
+    "categoryTitle": null,
+    "categorySlug": null,
+    "description": null,
+    "tags": [],
+    "createdAt": "2026-04-12T11:50:19Z",
+    "lastUpdated": null
+  },
+  {
+    "_id": "doc-features-operational-tools-analytics",
+    "title": "Analytics",
+    "slug": "features/operational-tools/analytics",
+    "categoryTitle": null,
+    "categorySlug": null,
+    "description": null,
+    "tags": [],
+    "createdAt": "2026-04-12T11:50:19Z",
+    "lastUpdated": null
+  },
+  {
+    "_id": "doc-features-operational-tools-tags",
+    "title": "Tags",
+    "slug": "features/operational-tools/tags",
+    "categoryTitle": null,
+    "categorySlug": null,
+    "description": null,
+    "tags": [],
+    "createdAt": "2026-04-12T11:50:19Z",
+    "lastUpdated": null
+  }
+]
