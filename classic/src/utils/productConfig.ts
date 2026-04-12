@@ -14,13 +14,6 @@ export const PRODUCTS: Record<string, ProductConfig> = {
     tagline: 'Complete documentation for NXGEN GCXONE platform',
     domain: 'docs.gcxone.com',
   },
-  gcsurge: {
-    id: 'gcsurge',
-    name: 'GC Surge',
-    groupKey: 'gcsurge',
-    tagline: 'GC Surge Documentation',
-    domain: 'docs.gcsurge.com',
-  },
 };
 
 export const DEFAULT_PRODUCT: ProductConfig = {
@@ -30,17 +23,6 @@ export const DEFAULT_PRODUCT: ProductConfig = {
 };
 
 export function getProductConfig(): ProductConfig {
-  const productId =
-    typeof process !== 'undefined'
-      ? process.env.PRODUCT
-      : typeof import.meta !== 'undefined'
-        ? (import.meta as { env?: { PRODUCT?: string } }).env?.PRODUCT
-        : undefined;
-
-  if (productId && PRODUCTS[productId]) {
-    return PRODUCTS[productId];
-  }
-
   return PRODUCTS.gcxone;
 }
 

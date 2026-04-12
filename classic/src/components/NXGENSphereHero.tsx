@@ -35,7 +35,7 @@ interface Props {
 export default function NXGENSphereHero({ onOpenSearch }: Props): JSX.Element {
   const { colorMode } = useColorMode();
   const { productName, productId } = useProduct();
-  const logoSrc = productId === 'gcsurge' ? '/img/gcsurge-logo.png' : '/img/xo-logo.png';
+  const logoSrc = '/img/xo-logo.png';
   const isDark = colorMode === 'dark';
   const canvasRef = useRef<HTMLCanvasElement>(null);
 

@@ -21,16 +21,12 @@ const {
   codeBlockToSearchRecord,
 } = require('./extract-code-blocks');
 
-// Determine the docs cache path in a product-aware way to prevent cross-product
-// contamination (e.g. gcsurge content showing up in gcxone search and vice versa).
+// Determine the docs cache path.
 //
 // Resolution order:
-//   1. SANITY_CACHE_PATH env var (set by .cfpages.yaml / CI)      → <SANITY_CACHE_PATH>/docs
-//   2. PRODUCT env var (local dev multi-product builds)            → .sanity-cache/<PRODUCT>-docs/docs
-//   3. Fallback (legacy single-product local dev)                  → .sanity-cache/gcxone-docs/docs
-//
-// fetch-confluence-gcsurge.js historically wrote to .sanity-cache/docs (hardcoded), so
-// without an explicit product-scoped path the gcxone index would pick up gcsurge content.
+//   1. SANITY_CACHE_PATH env var (set by .cfpages.yaml / CI)   → <SANITY_CACHE_PATH>/docs
+//   2. PRODUCT env var (local dev builds)                       → .sanity-cache/<PRODUCT>-docs/docs
+//   3. Fallback                                                  → .sanity-cache/gcxone-docs/docs
 const _PRODUCT = process.env.PRODUCT || 'gcxone';
 const _CACHE_BASE = process.env.SANITY_CACHE_PATH || `.sanity-cache/${_PRODUCT}-docs`;
 

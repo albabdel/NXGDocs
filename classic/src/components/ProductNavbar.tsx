@@ -4,8 +4,8 @@ import styles from './ProductNavbar.module.css';
 declare const PRODUCT: string;
 const productId = typeof process !== 'undefined' ? (process.env.PRODUCT || 'gcxone') : 'gcxone';
 
-const PRODUCT_NAMES: Record<string, string> = { gcxone: 'GCXONE', gcsurge: 'GC Surge' };
-const PRODUCT_LOGOS: Record<string, string> = { gcxone: '/img/XoLogo.png', gcsurge: '/img/gcsurge-logo.png' };
+const PRODUCT_NAMES: Record<string, string> = { gcxone: 'GCXONE' };
+const PRODUCT_LOGOS: Record<string, string> = { gcxone: '/img/XoLogo.png' };
 
 export default function ProductNavbar(): JSX.Element {
   const name = PRODUCT_NAMES[productId] || PRODUCT_NAMES.gcxone;

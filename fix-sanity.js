@@ -11,7 +11,7 @@ const client = createClient({
   dataset: 'production',
   apiVersion: '2025-02-06',
   useCdn: false,
-  token: 'skFakzSk1BjAzMmjydzVvsxprLPWED7WM0oox1pr7zrtWN4IEOrB637MBypMHQ12yjgMeIxf4j0LXHDHO2ICfVbs8pPTsOoqbHeq7Vbofg53WAuj8rk2PHRblTUdYci2u2pYHPkSZTrvJwJ0sq2uabHF13vLYAHxD7xMCxyGLsZtANwHAhJi',
+token: 'skrDjnhpDRzNNkD5IgIwEY1c9wiC3JEpfLRqz34aV2U4JQ1JTpHayqmau4LrZzmkig2ekdkfSoHzpJkAOkWVfjjBdmgE3FtPZPl2OchAHjU4pAL3Xe7jxcoAVnKUitg8zmiFgBeYqIoOMS7Ndv0pbwagOubDqRFXLh6LxCbdFqTcJ0yQkVpE',
 });
 
 const VALID_PRODUCTS = ['gcxone', 'gcsurge', 'shared'];

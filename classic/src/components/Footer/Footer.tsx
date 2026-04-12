@@ -6,7 +6,7 @@ import styles from './Footer.module.css';
 
 declare const PRODUCT: string;
 const productId = typeof process !== 'undefined' ? (process.env.PRODUCT || 'gcxone') : 'gcxone';
-const PRODUCT_LOGOS: Record<string, string> = { gcxone: '/img/xo-logo.png', gcsurge: '/img/gcsurge-logo.png' };
+const PRODUCT_LOGOS: Record<string, string> = { gcxone: '/img/xo-logo.png' };
 
 interface FooterLinkSection {
   title: string;
@@ -35,27 +35,10 @@ const FOOTER_LINKS: Record<string, FooterLinkSection[]> = {
       { label: 'Terms of Service', href: 'https://nxgen.cloud/terms', external: true },
     ]},
   ],
-  gcsurge: [
-    { title: 'Documentation', links: [
-      { label: 'Overview', href: '/docs/overview' },
-      { label: 'Getting Started', href: '/docs/getting-started' },
-      { label: 'API Reference', href: '/docs/api' },
-    ]},
-    { title: 'Resources', links: [
-      { label: 'Support', href: 'https://nxgen.cloud/support', external: true },
-      { label: 'Updates Hub', href: '/updates' },
-      { label: 'Release Notes', href: '/releases' },
-    ]},
-    { title: 'Company', links: [
-      { label: 'About Us', href: 'https://nxgen.cloud/about', external: true },
-      { label: 'Contact', href: 'https://nxgen.cloud/contact', external: true },
-    ]},
-  ],
 };
 
 const PRODUCT_INFO: Record<string, { name: string; tagline: string; description: string }> = {
   gcxone: { name: 'GCXONE', tagline: 'Proactive Monitoring Operating System', description: 'GCXONE is the industry\'s most advanced security platform, redefining how organizations protect what matters most.' },
-  gcsurge: { name: 'GC Surge', tagline: 'Next-Generation Security Platform', description: 'GC Surge delivers powerful security capabilities with modern architecture.' },
 };
 
 export default function Footer(): JSX.Element {

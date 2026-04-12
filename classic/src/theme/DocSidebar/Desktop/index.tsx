@@ -290,7 +290,7 @@ function SidebarMenuItem({
 function DocSidebarDesktop(props: Props) {
   const location = useLocation();
   const { productName, productId } = useProduct();
-  const sidebarLogoSrc = productId === 'gcsurge' ? '/img/gcsurge-logo.png' : '/img/Xo.png';
+  const sidebarLogoSrc = '/img/Xo.png';
   const sidebar = props.sidebar || [];
   const [showSuccess, setShowSuccess] = useState(false);
   const [contextMenu, setContextMenu] = useState<ContextMenuState>({
