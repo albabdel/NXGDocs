@@ -28,14 +28,7 @@ async function buildProduct(product) {
     throw err;
   }
 
-  try {
-    console.log(`[${product}] Generating sidebar configuration...`);
-    delete require.cache[require.resolve(GENERATE_SIDEBAR_PATH)];
-    const { run: generateSidebars } = require(GENERATE_SIDEBAR_PATH);
-    await generateSidebars();
-  } catch (err) {
-    console.warn(`[${product}] Warning: Failed to generate sidebar: ${err.message}`);
-  }
+  // Sidebar is maintained manually in sidebars.ts — do not auto-generate.
 
   return new Promise((resolve, reject) => {
     const child = spawn('npm', ['run', 'docusaurus', '--', 'build', '--out-dir', `build/${product}`], {

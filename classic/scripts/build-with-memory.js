@@ -21,15 +21,7 @@ async function main() {
     const { run } = require('./fetch-sanity-content');
     await run();
 
-    // Then generate sidebars from Sanity configuration (validates against fetched files)
-    console.log('[build] Generating sidebar configuration from Sanity...');
-    try {
-      const { run: generateSidebars } = require(path.join(__dirname, '..', '..', 'scripts', 'generate-sidebars-from-sanity'));
-      await generateSidebars();
-    } catch (err) {
-      console.warn(`[build] Warning: Failed to generate sidebars from Sanity: ${err.message}`);
-      console.warn('[build] Falling back to existing sidebar files.');
-    }
+    // Sidebar is maintained manually in sidebars.ts — do not auto-generate.
   }
 
   // Generate client-side search index
