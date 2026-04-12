@@ -135,6 +135,10 @@ function collectDocIdsFromDocsDir(relativeDir) {
 }
 
 function collectAllDocIds() {
+  // Include product-specific cache path (e.g. .sanity-cache/gcxone-docs/docs)
+  const cachePathBase = process.env.SANITY_CACHE_PATH || null;
+  const productCacheDir = cachePathBase ? `${cachePathBase}/docs` : null;
+
   const docsDirs = [
     '.sanity-cache/docs',
     '.sanity-cache/docs-admin',
@@ -149,6 +153,10 @@ function collectAllDocIds() {
     'docs-operator-minimal',
     'docs-internal',
   ];
+
+  if (productCacheDir && !docsDirs.includes(productCacheDir)) {
+    docsDirs.push(productCacheDir);
+  }
   const allIds = new Set();
   
   for (const dir of docsDirs) {
