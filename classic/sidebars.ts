@@ -20,7 +20,7 @@ const sidebars: SidebarsConfig = {
         { type: 'doc', id: 'getting-started/what-is-gcxone',              label: 'What is GCXOne' },
         { type: 'doc', id: 'getting-started/pre-deployment-requirements',  label: 'Pre-Deployment Requirements' },
         { type: 'doc', id: 'getting-started/first-time-login-access',      label: 'First-Time Login & Access' },
-        { type: 'doc', id: 'getting-started/organization-setup',           label: 'Organization & Hierarchy Setup' },
+        { type: 'doc', id: 'getting-started/organization-hierarchy-setup',  label: 'Organization & Hierarchy Setup' },
         { type: 'doc', id: 'getting-started/user-management-setup',        label: 'User Management Setup' },
         { type: 'doc', id: 'features/alarm-management-system',             label: 'Alarm Management System' },
         { type: 'doc', id: 'getting-started/quick-start-checklist',        label: 'Quick Start Checklist' },
@@ -404,7 +404,7 @@ const sidebars: SidebarsConfig = {
       items: [
         { type: 'doc', id: 'admin-guide/overview',               label: 'Admin Overview' },
         { type: 'doc', id: 'operator-guide/site-management',   label: 'Managing Sites & Devices' },
-        { type: 'doc', id: 'getting-started/user-management',  label: 'User & Role Management' },
+        { type: 'doc', id: 'getting-started/user-management-setup',  label: 'User & Role Management' },
         { type: 'doc', id: 'admin-guide/alarm-configuration',  label: 'Alarm Configuration' },
         { type: 'doc', id: 'reporting/reporting-overview',     label: 'Reports & Audit' },
         { type: 'doc', id: 'features/system-health-monitoring', label: 'System Health & Alerts' },

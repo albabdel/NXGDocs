@@ -42,7 +42,7 @@ export const PRODUCT_CONFIGS: Record<string, ProductConfig> = {
     url: 'https://docs.gcxone.com',
     baseUrl: '/',
     favicon: 'img/favicon.png',
-    docsPath: '.sanity-cache/gcxone-docs',
+    docsPath: '.sanity-cache/gcxone-docs/docs',
     logo: {
       src: 'img/XoLogo.png',
       alt: 'GCXONE Logo',
