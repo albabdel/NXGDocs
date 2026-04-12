@@ -58,29 +58,6 @@ export const PRODUCT_CONFIGS: Record<string, ProductConfig> = {
       description: 'Complete documentation for NXGEN GCXONE platform - Proactive Monitoring Operating System',
     },
   },
-  gcsurge: {
-    id: 'gcsurge',
-    title: 'GC Surge Documentation',
-    tagline: 'Documentation for NXGEN GC Surge platform',
-    url: 'https://docs.gcsurge.com',
-    baseUrl: '/',
-    favicon: 'img/favicon-gcsurge.png',
-    docsPath: '.sanity-cache/gcsurge-docs',
-    logo: {
-      src: 'img/gcsurge-logo.png',
-      alt: 'GC Surge Logo',
-      href: '/',
-    },
-    theme: {
-      primaryColor: '#3B82F6',
-      primaryColorDark: '#60A5FA',
-    },
-    socialCard: 'img/gcsurge-social-card.jpg',
-    metadata: {
-      keywords: ['NXGEN', 'GC Surge', 'documentation', 'security', 'monitoring'],
-      description: 'Documentation for NXGEN GC Surge platform',
-    },
-  },
   nxgenapi: {
     id: 'nxgenapi',
     title: 'NXGEN Developer API',

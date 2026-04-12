@@ -7,7 +7,7 @@ import { OnboardingPhase, StepType, UserRole, SystemHealthItem, SystemHealthStat
 
 /**
  * Get onboarding phases with product-specific branding
- * @param productName - The product name to use in descriptions (e.g., 'GCXONE' or 'GC Surge')
+ * @param productName - The product name to use in descriptions (e.g., 'GCXONE')
  */
 export function getOnboardingPhases(productName: string): OnboardingPhase[] {
 return [

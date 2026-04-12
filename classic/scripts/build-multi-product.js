@@ -4,11 +4,10 @@
 const { spawn } = require('child_process');
 const path = require('path');
 
-const PRODUCTS = ['gcxone', 'gcsurge'];
+const PRODUCTS = ['gcxone'];
 
 const SITE_DIR = path.join(__dirname, '..');
 const FETCH_CONTENT_PATH = path.join(SITE_DIR, 'scripts', 'fetch-sanity-content.js');
-const FETCH_CONFLUENCE_PATH = path.join(SITE_DIR, 'scripts', 'fetch-confluence-gcsurge.js');
 const GENERATE_SIDEBAR_PATH = path.join(SITE_DIR, '..', 'scripts', 'generate-sidebar-from-sanity.js');
 
 async function buildProduct(product) {
@@ -16,39 +15,26 @@ async function buildProduct(product) {
   console.log(`[multi-build] Starting build for: ${product}`);
 
   process.env.PRODUCT = product;
+  process.env.SANITY_CACHE_PATH = `.sanity-cache/${product}-docs`;
 
-  if (product === 'gcsurge') {
-    // GC Surge uses Confluence as its content source (not Sanity)
-    delete require.cache[require.resolve(FETCH_CONFLUENCE_PATH)];
-    try {
-      console.log(`[${product}] Fetching Confluence content...`);
-      const { run: fetchConfluence } = require(FETCH_CONFLUENCE_PATH);
-      await fetchConfluence();
-    } catch (err) {
-      console.error(`[${product}] Failed to fetch Confluence content: ${err.message}`);
-      throw err;
-    }
-    // sidebars.ts is written by fetch-confluence-gcsurge.js — skip separate generation
-  } else {
-    delete require.cache[require.resolve(FETCH_CONTENT_PATH)];
+  delete require.cache[require.resolve(FETCH_CONTENT_PATH)];
+
+  try {
+    console.log(`[${product}] Fetching Sanity content...`);
+    const { run: fetchContent } = require(FETCH_CONTENT_PATH);
+    await fetchContent();
+  } catch (err) {
+    console.error(`[${product}] Failed to fetch Sanity content: ${err.message}`);
+    throw err;
+  }
+
+  try {
+    console.log(`[${product}] Generating sidebar configuration...`);
     delete require.cache[require.resolve(GENERATE_SIDEBAR_PATH)];
-
-    try {
-      console.log(`[${product}] Fetching Sanity content...`);
-      const { run: fetchContent } = require(FETCH_CONTENT_PATH);
-      await fetchContent();
-    } catch (err) {
-      console.error(`[${product}] Failed to fetch Sanity content: ${err.message}`);
-      throw err;
-    }
-
-    try {
-      console.log(`[${product}] Generating sidebar configuration...`);
-      const { run: generateSidebars } = require(GENERATE_SIDEBAR_PATH);
-      await generateSidebars();
-    } catch (err) {
-      console.warn(`[${product}] Warning: Failed to generate sidebar: ${err.message}`);
-    }
+    const { run: generateSidebars } = require(GENERATE_SIDEBAR_PATH);
+    await generateSidebars();
+  } catch (err) {
+    console.warn(`[${product}] Warning: Failed to generate sidebar: ${err.message}`);
   }
 
   return new Promise((resolve, reject) => {
@@ -84,25 +70,12 @@ async function buildAllProducts(products = PRODUCTS, parallel = true) {
   const results = [];
   const errors = [];
 
-  if (parallel && products.length > 1) {
-    const promises = products.map(async (product) => {
-      try {
-        const result = await buildProduct(product);
-        results.push(result);
-      } catch (err) {
-        errors.push({ product, error: err.message });
-      }
-    });
-
-    await Promise.all(promises);
-  } else {
-    for (const product of products) {
-      try {
-        const result = await buildProduct(product);
-        results.push(result);
-      } catch (err) {
-        errors.push({ product, error: err.message });
-      }
+  for (const product of products) {
+    try {
+      const result = await buildProduct(product);
+      results.push(result);
+    } catch (err) {
+      errors.push({ product, error: err.message });
     }
   }
 

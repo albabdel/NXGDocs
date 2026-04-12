@@ -68,7 +68,7 @@ function AnalyticsWrapper({ children }: { children: React.ReactNode }) {
 export default function Root({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (typeof document !== 'undefined') {
-      document.documentElement.classList.remove('theme-gcxone', 'theme-gcsurge');
+      document.documentElement.classList.remove('theme-gcxone');
       document.documentElement.classList.add('theme-' + productId);
       console.log('[Product Theme] Applied theme-' + productId);
     }

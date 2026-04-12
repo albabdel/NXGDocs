@@ -9,7 +9,6 @@
     "build:multi": "node scripts/build-multi-product.js",
     "build:multi:sequential": "node scripts/build-multi-product.js --sequential",
     "build:gcxone": "node scripts/build-multi-product.js gcxone",
-    "build:gcsurge": "node scripts/build-multi-product.js gcsurge",
     "build:pdf": "node scripts/build-with-memory.js && node scripts/generate-pdfs.js",
     "sanity:pull": "node scripts/fetch-sanity-content.js",
     "sanity:pull:strict": "node -e \"process.env.SANITY_FETCH_STRICT='true'; require('./scripts/fetch-sanity-content').run().catch((err)=>{console.error(err.message); process.exit(1);});\"",

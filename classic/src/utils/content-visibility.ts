@@ -25,7 +25,7 @@ export type VisibilityTier = 'public' | 'authenticated' | 'restricted';
  * Metadata for content visibility decisions.
  */
 export interface ContentMetadata {
-  /** Product this content belongs to (e.g., 'gcxone', 'gcsurge') */
+  /** Product this content belongs to (e.g., 'gcxone') */
   product: string;
   /** Visibility tier for access control */
   visibility: VisibilityTier;
@@ -64,7 +64,7 @@ export interface UserContext {
  *
  * @example
  *   // Restricted content - requires product access
- *   canViewContent({ product: 'gcsurge', visibility: 'restricted' }, { isAuthenticated: true, productAccess: ['gcsurge'] });
+ *   canViewContent({ product: 'gcxone', visibility: 'restricted' }, { isAuthenticated: true, productAccess: ['gcxone'] });
  *   // => true
  */
 export function canViewContent(

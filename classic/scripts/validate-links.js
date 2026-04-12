@@ -12,7 +12,6 @@
  *
  * Usage:
  *   node classic/scripts/validate-links.js              # Check all products
- *   node classic/scripts/validate-links.js --product gcsurge
  *   node classic/scripts/validate-links.js --fail       # Exit 1 on any broken link
  */
 

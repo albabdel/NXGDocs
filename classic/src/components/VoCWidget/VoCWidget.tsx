@@ -5,7 +5,7 @@ import { useProduct } from '@theme/Root';
 import VoCModal from './VoCModal';
 import styles from './VoCWidget.module.css';
 
-const PRODUCT_LOGOS: Record<string, string> = { gcxone: '/img/Xo.png', gcsurge: '/img/gcsurge-logo.png' };
+const PRODUCT_LOGOS: Record<string, string> = { gcxone: '/img/Xo.png' };
 
 export default function VoCWidget() {
     const [isOpen, setIsOpen] = useState(false);

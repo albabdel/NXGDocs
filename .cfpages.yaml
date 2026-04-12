@@ -4,3 +4,7 @@ build_output_dir: classic/build
 root_dir: .
 node_version: 20
 
+environment:
+  PRODUCT: gcxone
+  SANITY_CACHE_PATH: .sanity-cache/gcxone-docs
+
