@@ -85,7 +85,7 @@ const config: Config = {
       ],
     },
     colorMode: { defaultMode: 'dark', disableSwitch: false, respectPrefersColorScheme: false },
-    tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 4 },
+    tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 2 },
     docs: { sidebar: { hideable: true, autoCollapseCategories: true } },
   } satisfies Preset.ThemeConfig,
 };
