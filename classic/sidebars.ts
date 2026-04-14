@@ -241,7 +241,6 @@ const sidebars: SidebarsConfig = {
             { type: 'doc', id: 'features/video-monitoring/ptz-control/overview',          label: 'PTZ Control Overview' },
             { type: 'doc', id: 'features/video-monitoring/ptz-control/configuration',     label: 'PTZ Control Configuration' },
             { type: 'doc', id: 'features/video-monitoring/event-clips/overview',          label: 'Event Clips Overview' },
-            { type: 'doc', id: 'features/video-monitoring/autostream',          label: 'Auto Streaming' },
             { type: 'doc', id: 'features/video-monitoring/multi-monitor',     label: 'Multi Monitor' },
             { type: 'doc', id: 'alarm-management/arm-disarm-isolate',         label: 'Isolate' },
             { type: 'doc', id: 'features/video-monitoring/edit-properties',   label: 'Edit Properties' },
