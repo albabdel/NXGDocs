@@ -566,9 +566,10 @@ async function run() {
 
     /** @type {any[]} */
     const items = [];
+    let homeDocId = null;
 
     if (config.showHomeLink) {
-      const homeDocId = resolveHomeDocId(allowedDocIds);
+      homeDocId = resolveHomeDocId(allowedDocIds);
       if (homeDocId) {
         items.push({
           type: 'doc',
@@ -633,6 +634,8 @@ async function run() {
         console.warn(`[generate-sidebars] Skipping unmatched doc "${doc.slug}" - doc file not found on disk`);
         return false;
       }
+      // Skip docs already added as the home link to avoid duplicates in "Uncategorized"
+      if (homeDocId && doc.slug === homeDocId) return false;
       return true;
     });
 

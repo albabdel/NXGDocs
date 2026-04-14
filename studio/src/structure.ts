@@ -28,6 +28,11 @@ function buildCategoryWithDocs(S: any, categoryId: string, categoryTitle: string
     .title(categoryTitle)
     .items([
       S.listItem()
+        .title('Edit This Category')
+        .child(
+          S.document().schemaType('sidebarCategory').documentId(categoryId)
+        ),
+      S.listItem()
         .title('Documents in this Category')
         .child(
           S.documentList()
@@ -113,14 +118,11 @@ export const deskStructure = (S: any) =>
             .schemaType('sidebarCategory')
             .filter('_type == "sidebarCategory" && !defined(parent)')
             .defaultOrdering([{field: 'position', direction: 'asc'}])
-            .child((categoryId: string) =>
-              S.documentList()
-                .title('Documents in Category')
-                .schemaType('doc')
-                .filter('_type == "doc" && sidebarCategory._ref == $categoryId')
-                .params({categoryId})
-                .defaultOrdering([{field: 'sidebarPosition', direction: 'asc'}])
-            )
+            .child((categoryId: string, context: any) => {
+              const category = context?.document
+              const title = category?.title || 'Category'
+              return buildCategoryWithDocs(S, categoryId, title)
+            })
         ),
 
       S.listItem()
