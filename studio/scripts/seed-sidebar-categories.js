@@ -436,7 +436,6 @@ async function run() {
 
     if (cat.linkType && cat.linkType !== 'none') {
       doc.link = { type: cat.linkType };
-      if (cat.description) doc.link.description = cat.description;
     }
 
     if (cat.parent) {
