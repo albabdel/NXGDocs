@@ -143,7 +143,7 @@ const FeatureSection = ({
 };
 
 export default function TowersLandingPage() {
-    const towersDocLink = '/docs/devices';
+    const towersDocLink = '/docs/devices/add-a-device-to-gcxone';
 
     // All 36 steps from Towers.md organized by phase
     const steps = [

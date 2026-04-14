@@ -22,7 +22,7 @@ export default function ManagerLandingPage() {
                 <PageHeader 
                     breadcrumbs={[
                         { label: 'Home', href: '/' },
-                        { label: 'Learn by Role', href: '/#learn-by-role' },
+                        { label: 'Learn by Role', href: '/roles' },
                         { label: 'Manager' }
                     ]}
                 />

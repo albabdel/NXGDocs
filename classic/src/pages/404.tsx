@@ -27,7 +27,7 @@ export default function NotFound(): React.JSX.Element {
             title: 'Device Integration',
             description: 'Connect your devices to the platform',
             icon: <BookOpen className="w-5 h-5 text-primary-600 dark:text-primary-400" />,
-            href: '/docs/devices',
+            href: '/docs/devices-integrations',
         },
         {
             title: 'Help Center',

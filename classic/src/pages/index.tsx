@@ -450,7 +450,7 @@ function HomePageContent(): React.JSX.Element {
                     </nav>
 
                     {/* ── Quick Start ─────────────────────────────────── */}
-                    <section className="mt-16">
+                    <section id="quick-start" className="mt-16">
                         <div className="flex items-end justify-between mb-8">
                             <div>
                                 <span className={styles.sectionBadge}>Start Here</span>
@@ -497,7 +497,7 @@ function HomePageContent(): React.JSX.Element {
                     </RoleBasedContent>
 
                     {/* ── Roles ───────────────────────────────────────── */}
-                    <section className="mt-24">
+                    <section id="learn-by-role" className="mt-24">
                         <div className="text-center mb-10">
                             <span className={styles.sectionBadge}>Documentation</span>
                             <h2 className="text-3xl font-bold mt-2" style={{ color: 'var(--ifm-color-content)' }}>
@@ -544,14 +544,14 @@ function HomePageContent(): React.JSX.Element {
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                             {[
                                 { title: 'Getting Started', description: 'Platform overview, quick start, and initial setup', link: '/docs/getting-started', icon: <Zap className="w-5 h-5" /> },
-                                { title: 'Alarm Management', description: 'Alarm processing, routing, and automation rules', link: '/docs/alarm-management', icon: <Bell className="w-5 h-5" /> },
-                                { title: 'Device Management', description: 'Connect, configure, and monitor IoT devices', link: '/docs/device-management', icon: <Cpu className="w-5 h-5" /> },
-                                { title: 'User & Access Control', description: 'Roles, permissions, and user administration', link: '/docs/user-management', icon: <Users className="w-5 h-5" /> },
-                                { title: 'Towers & Networks', description: 'Mobile tower setup and network configuration', link: '/docs/towers', icon: <Radio className="w-5 h-5" /> },
-                                { title: 'System Configuration', description: 'Server settings, integrations, and system setup', link: '/docs/configuration', icon: <Settings className="w-5 h-5" /> },
+                                { title: 'Alarm Management', description: 'Alarm processing, routing, and automation rules', link: '/docs/alarm-management/alarm-codes', icon: <Bell className="w-5 h-5" /> },
+                                { title: 'Device Management', description: 'Connect, configure, and monitor IoT devices', link: '/docs/devices/add-a-device-to-gcxone', icon: <Cpu className="w-5 h-5" /> },
+                                { title: 'User & Access Control', description: 'Roles, permissions, and user administration', link: '/docs/getting-started/user-management-setup', icon: <Users className="w-5 h-5" /> },
+                                { title: 'Towers & Networks', description: 'Mobile tower setup and network configuration', link: '/towers', icon: <Radio className="w-5 h-5" /> },
+                                { title: 'System Configuration', description: 'Server settings, integrations, and system setup', link: '/docs/admin-guide/overview', icon: <Settings className="w-5 h-5" /> },
                                 { title: 'Integration Hub', description: 'Third-party integrations and API connections', link: '/integration-hub', icon: <Network className="w-5 h-5" /> },
-                                { title: 'Reference', description: 'Technical specifications and API documentation', link: '/docs/reference', icon: <FileText className="w-5 h-5" /> },
-                                { title: 'Knowledge Base', description: 'FAQs, troubleshooting guides, and how-tos', link: '/docs/knowledge-base', icon: <BookOpen className="w-5 h-5" /> },
+                                { title: 'Reference', description: 'Technical specifications and API documentation', link: '/docs/api-overview', icon: <FileText className="w-5 h-5" /> },
+                                { title: 'Knowledge Base', description: 'FAQs, troubleshooting guides, and how-tos', link: '/docs/knowledge-base/faq', icon: <BookOpen className="w-5 h-5" /> },
                             ].map((item) => (
                                 <Link
                                     key={item.title}

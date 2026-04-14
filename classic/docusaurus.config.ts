@@ -57,6 +57,18 @@ const config: Config = {
     './plugins/docusaurus-plugin-sanity-landing-pages',
     './plugins/docusaurus-plugin-release-pages',
     './plugins/docusaurus-plugin-last-update',
+    ['@docusaurus/plugin-client-redirects', {
+      redirects: [
+        { to: '/docs/devices-integrations', from: ['/docs/devices'] },
+        { to: '/docs/alarm-management/alarm-codes', from: ['/docs/alarm-management'] },
+        { to: '/docs/api-overview', from: ['/docs/api'] },
+        { to: '/docs/knowledge-base/faq', from: ['/docs/knowledge-base'] },
+        { to: '/docs/admin-guide/overview', from: ['/docs/configuration'] },
+        { to: '/docs/knowledge-base/compliance', from: ['/docs/security'] },
+        { to: '/docs/features/video-monitoring/live-view/overview', from: ['/docs/features/live-video'] },
+        { to: '/docs/devices/add-a-device-to-gcxone', from: ['/docs/devices/configuration'] },
+      ],
+    }],
     ['posthog-docusaurus', {
       apiKey: 'phc_tkcgBrQb37g5F7aiSTcuKWoUaSitBNd6JdcULN6xqrwS',
       appUrl: 'https://us.i.posthog.com',
@@ -68,7 +80,7 @@ const config: Config = {
       person_profiles: 'identified_only',
     }],
     ['@docusaurus/plugin-content-docs', { id: 'internal', path: 'docs-internal', routeBasePath: 'internal', sidebarPath: './sidebars-internal.ts', showLastUpdateTime: false, showLastUpdateAuthor: false, editUrl: undefined }],
-    ['@docusaurus/plugin-content-docs', { id: 'sanity-docs', path: productConfig.docsPath, routeBasePath: 'docs', sidebarPath: './sidebars.ts', showLastUpdateTime: false, showLastUpdateAuthor: false, editUrl: undefined, sidebarCollapsible: true, sidebarCollapsed: true, breadcrumbs: true }],
+    ['@docusaurus/plugin-content-docs', { id: 'sanity-docs', path: productConfig.docsPath, routeBasePath: 'docs', sidebarPath: './sidebars.generated.ts', showLastUpdateTime: false, showLastUpdateAuthor: false, editUrl: undefined, sidebarCollapsible: true, sidebarCollapsed: true, breadcrumbs: true }],
   ],
   themes: ['@docusaurus/theme-mermaid'],
   themeConfig: {

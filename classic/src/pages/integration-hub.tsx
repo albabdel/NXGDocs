@@ -492,7 +492,7 @@ export default function IntegrationHub() {
                         </p>
                         <div className="flex gap-4 justify-center flex-wrap">
                             <Link
-                                to="/docs/devices"
+                                to="/docs/devices/add-a-device-to-gcxone"
                                 className="inline-flex items-center gap-2 px-6 py-3 bg-[#E8B058] hover:bg-[#D4A047] text-black font-semibold rounded-xl transition-colors no-underline"
                             >
                                 <FileText className="w-5 h-5" />

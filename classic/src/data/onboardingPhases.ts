@@ -152,7 +152,7 @@ return [
                     [UserRole.INSTALLER]: 'Install and Connect Devices',
                     [UserRole.ADMIN]: 'Verify Device Connections'
                 },
-                actionLink: '/docs/devices',
+                actionLink: '/docs/devices/add-a-device-to-gcxone',
                 learningContent: {
                     description: `Connect cameras, alarm panels, and other devices to Talos and ${productName}.`,
                     tips: ['Test each device connection before proceeding'],
@@ -165,7 +165,7 @@ return [
                 description: 'Configure alarm routing and notifications',
                 type: StepType.ACTION,
                 roles: [UserRole.ADMIN, UserRole.INSTALLER],
-                actionLink: '/docs/alarm-management',
+                actionLink: '/docs/alarm-management/alarm-codes',
                 learningContent: {
                     description: 'Route alarms to appropriate operators and configure notification preferences.',
                     warnings: ['Test alarm forwarding before going live'],

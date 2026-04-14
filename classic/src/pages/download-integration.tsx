@@ -95,7 +95,7 @@ const deviceClients: DeviceClient[] = [
                 description: 'Test client for Dahua device integration validation'
             }
         ],
-        documentationLink: '/docs/devices'
+        documentationLink: '/docs/devices/add-a-device-to-gcxone'
     },
     {
         vendor: 'Axis',
@@ -113,7 +113,7 @@ const deviceClients: DeviceClient[] = [
                 description: 'Test tool for Axis camera and device integration'
             }
         ],
-        documentationLink: '/docs/devices/axis/configuration'
+        documentationLink: '/docs/devices/axis-ip-camera'
     },
     {
         vendor: 'Milestone',
@@ -148,7 +148,7 @@ const deviceClients: DeviceClient[] = [
                 description: 'Test client for Avigilon ACC WebAPI integration'
             }
         ],
-        documentationLink: '/docs/devices'
+        documentationLink: '/docs/devices/add-a-device-to-gcxone'
     },
     {
         vendor: 'Adpro',
@@ -183,7 +183,7 @@ const deviceClients: DeviceClient[] = [
                 description: 'Web-based API testing tool for Camect AI Box'
             }
         ],
-        documentationLink: '/docs/devices'
+        documentationLink: '/docs/devices/add-a-device-to-gcxone'
     },
     {
         vendor: 'Hanwha',
@@ -201,7 +201,7 @@ const deviceClients: DeviceClient[] = [
                 description: 'Test client for Hanwha Wisenet devices'
             }
         ],
-        documentationLink: '/docs/devices'
+        documentationLink: '/docs/devices/add-a-device-to-gcxone'
     },
 ];
 

@@ -33,14 +33,14 @@ export default function ResourcesSection({
       title: 'API Reference',
       description: 'REST and GraphQL API documentation for developers',
       icon: <Code className="w-5 h-5" />,
-      href: '/docs/api',
+      href: '/docs/api-overview',
       badge: 'Technical',
     },
     {
       title: 'Knowledge Base',
       description: 'FAQs, troubleshooting guides, and best practices',
       icon: <BookOpen className="w-5 h-5" />,
-      href: '/docs/knowledge-base',
+      href: '/docs/knowledge-base/faq',
     },
     {
       title: 'Release Notes',

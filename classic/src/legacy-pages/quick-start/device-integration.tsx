@@ -133,7 +133,7 @@ export default function DeviceIntegration() {
             description: 'Direct IP camera connection via ONVIF',
             duration: '10 min',
             difficulty: 'Beginner',
-            link: '/docs/devices',
+            link: '/docs/devices/add-a-device-to-gcxone',
             icon: <Camera className="w-6 h-6" />,
             steps: ['ONVIF setup', 'Stream configuration', 'Motion detection', 'Audio setup']
         },
@@ -142,7 +142,7 @@ export default function DeviceIntegration() {
             description: 'AI-powered edge analytics integration',
             duration: '20 min',
             difficulty: 'Intermediate',
-            link: '/docs/devices',
+            link: '/docs/devices/add-a-device-to-gcxone',
             icon: <Cpu className="w-6 h-6" />,
             steps: ['API configuration', 'Event mapping', 'AI model setup', 'Alert routing']
         },
@@ -151,7 +151,7 @@ export default function DeviceIntegration() {
             description: 'Wireless sensor network integration',
             duration: '25 min',
             difficulty: 'Advanced',
-            link: '/docs/devices',
+            link: '/docs/devices/add-a-device-to-gcxone',
             icon: <Radio className="w-6 h-6" />,
             steps: ['Hub configuration', 'Device pairing', 'Zone mapping', 'Alarm integration']
         }
@@ -206,7 +206,7 @@ export default function DeviceIntegration() {
                                 Home
                             </Link>
                             <ChevronRight className="w-4 h-4 text-slate-600" />
-                            <Link to="/#quick-start" className="text-slate-400 hover:text-white transition-colors no-underline">
+                            <Link to="/getting-started" className="text-slate-400 hover:text-white transition-colors no-underline">
                                 Quick Start
                             </Link>
                             <ChevronRight className="w-4 h-4 text-slate-600" />
@@ -606,7 +606,7 @@ export default function DeviceIntegration() {
                                     Browse All Devices
                                 </Link>
                                 <Link
-                                    to="/docs/devices"
+                                    to="/docs/devices/add-a-device-to-gcxone"
                                     className="inline-flex items-center gap-2 px-8 py-4 bg-[#202020] hover:bg-[#2a2a2a] border border-white/10 rounded-xl text-white hover:text-[#E8B058] transition-all no-underline"
                                 >
                                     <FileText className="w-5 h-5" />

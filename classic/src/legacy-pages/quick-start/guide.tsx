@@ -207,7 +207,7 @@ export default function QuickStartGuide() {
                                 Home
                             </Link>
                             <ChevronRight className="w-4 h-4 text-slate-600" />
-                            <Link to="/#quick-start" className="text-slate-400 hover:text-white transition-colors no-underline">
+                            <Link to="/getting-started" className="text-slate-400 hover:text-white transition-colors no-underline">
                                 Quick Start
                             </Link>
                             <ChevronRight className="w-4 h-4 text-slate-600" />

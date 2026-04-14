@@ -121,7 +121,7 @@ const quickStartSteps: QuickStartStep[] = [
         title: 'Process Alarms',
         description: 'Learn alarm handling workflows',
         icon: <Activity className="w-5 h-5" />,
-        link: '/docs/alarm-management',
+        link: '/alarm-management',
         estimatedTime: '15 min',
     },
 ];

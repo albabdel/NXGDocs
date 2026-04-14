@@ -18,7 +18,7 @@ const FOOTER_LINKS: Record<string, FooterLinkSection[]> = {
     { title: 'Documentation', links: [
       { label: 'Breakthroughs', href: '/docs/breakthroughs' },
       { label: 'Getting Started', href: '/docs/getting-started' },
-      { label: 'Devices', href: '/docs/devices' },
+      { label: 'Devices', href: '/docs/devices-integrations' },
       { label: 'Features', href: '/docs/features' },
     ]},
     { title: 'Resources', links: [

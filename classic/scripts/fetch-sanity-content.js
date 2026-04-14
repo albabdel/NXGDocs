@@ -87,7 +87,7 @@ const ALL_CACHE_DIRS = ['docs'];
 
 function statusFilterClause(includeDrafts) {
   if (includeDrafts) return 'defined(slug.current)';
-  return 'defined(slug.current) && (!defined(status) || status == "published")';
+  return 'defined(slug.current) && (!defined(status) || status == "published") && hiddenFromProduction != true';
 }
 
 function getProductFilter() {

@@ -16,7 +16,7 @@ const SITE_DIR = path.join(__dirname, '..');
 const OUTPUT_DIR = path.join(SITE_DIR, 'classic');
 
 const AUDIENCE_FILE_MAP = {
-  all: 'sidebars.ts',
+  all: 'sidebars.generated.ts',
   admin: 'sidebars-admin.ts',
   manager: 'sidebars-manager.ts',
   operator: 'sidebars-operator.ts',
@@ -50,6 +50,20 @@ function parseBooleanEnv(value, defaultValue) {
   if (['1', 'true', 'yes', 'on'].includes(normalized)) return true;
   if (['0', 'false', 'no', 'off'].includes(normalized)) return false;
   return defaultValue;
+}
+
+function getProductFilter() {
+  const product = process.env.PRODUCT || 'gcxone';
+  return `(product == "${product}" || product == "shared" || !defined(product))`;
+}
+
+function sanitizeText(value) {
+  if (!value) return '';
+  return String(value)
+    .replace(/[\u{1F300}-\u{1FAFF}]/gu, '')
+    .replace(/[^\x09\x0A\x0D\x20-\x7E]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 function normalizeSlug(value) {
@@ -216,6 +230,21 @@ function buildCategoryTree(categories) {
   return { categoryMap, roots };
 }
 
+function collectCategorySlugCounts(nodes, counts = new Map()) {
+  for (const node of nodes) {
+    const slug = toDocId(node.normalizedSlug || node.slug);
+    if (slug) {
+      counts.set(slug, (counts.get(slug) || 0) + 1);
+    }
+
+    if (Array.isArray(node.children) && node.children.length > 0) {
+      collectCategorySlugCounts(node.children, counts);
+    }
+  }
+
+  return counts;
+}
+
 function findBestCategoryBySlug(slug, categories) {
   const normalized = normalizeSlug(slug);
   if (!normalized) return null;
@@ -325,7 +354,7 @@ function buildCategoryItem(node, audience, options, depth = 0) {
     items.push({
       type: 'doc',
       id: doc.slug,
-      label: doc.sidebarLabel || doc.title,
+      label: sanitizeText(doc.sidebarLabel || doc.title),
     });
   }
 
@@ -336,9 +365,21 @@ function buildCategoryItem(node, audience, options, depth = 0) {
   let link = null;
   if (node.link?.type === 'generated-index') {
     link = { type: 'generated-index' };
-    if (node.description) link.description = node.description;
+    if (node.description) link.description = sanitizeText(node.description);
     const categorySlug = depth === 0 ? toCategoryLinkSlug(node.normalizedSlug || node.slug) : null;
-    if (categorySlug) link.slug = categorySlug;
+    const categoryDocId = depth === 0 ? toDocId(node.normalizedSlug || node.slug) : null;
+    const slugConflictsWithDoc =
+      Boolean(categoryDocId) && options.docIds && options.docIds.has(categoryDocId);
+    const slugConflictsWithCategory =
+      Boolean(categoryDocId) &&
+      options.categorySlugCounts &&
+      (options.categorySlugCounts.get(categoryDocId) || 0) > 1;
+
+    if (categorySlug && !slugConflictsWithDoc && !slugConflictsWithCategory) {
+      link.slug = categorySlug;
+    } else if (categoryDocId && (slugConflictsWithDoc || slugConflictsWithCategory)) {
+      link = null;
+    }
   } else if (node.link?.type === 'doc' && node.link?.docId) {
     link = { type: 'doc', id: toDocId(node.link.docId) };
   } else if (node.link?.type === 'external' && node.link?.url) {
@@ -349,7 +390,7 @@ function buildCategoryItem(node, audience, options, depth = 0) {
 
   return {
     type: 'category',
-    label: `${node.icon || ''} ${node.title}`.trim(),
+    label: sanitizeText(`${node.icon || ''} ${node.title}`),
     collapsible: node.collapsible !== false,
     collapsed: Boolean(node.collapsed),
     link,
@@ -401,6 +442,7 @@ async function run() {
 
   const dataset = process.env.SANITY_DATASET || 'production';
   const keepEmptyCategories = parseBooleanEnv(process.env.SANITY_SIDEBAR_KEEP_EMPTY_CATEGORIES, false);
+  const productFilter = getProductFilter();
 
   const { createClient } = require('@sanity/client');
   const client = createClient({
@@ -414,7 +456,7 @@ async function run() {
   console.log('[generate-sidebars] Fetching sidebar categories/config/docs from Sanity...');
 
   const categories = await client.fetch(`
-    *[_type == "sidebarCategory"] | order(position asc) {
+    *[_type == "sidebarCategory" && ${productFilter}] | order(position asc) {
       _id,
       title,
       "slug": slug.current,
@@ -450,7 +492,7 @@ async function run() {
   `);
 
   const docs = await client.fetch(`
-    *[_type == "doc" && defined(slug.current) && status == "published" && hiddenFromProduction != true] | order(sidebarPosition asc) {
+    *[_type == "doc" && defined(slug.current) && status == "published" && hiddenFromProduction != true && ${productFilter}] | order(sidebarPosition asc) {
       _id,
       title,
       "slug": slug.current,
@@ -494,6 +536,7 @@ async function run() {
   );
 
   const { categoryMap, roots } = buildCategoryTree(categories);
+  const categorySlugCounts = collectCategorySlugCounts(roots);
   const unmatchedDocs = assignDocsToCategories(dedupedDocs, categoryMap);
   if (unmatchedDocs.length > 0) {
     console.log(`[generate-sidebars] Docs without direct category link: ${unmatchedDocs.length} (will be auto-grouped or uncategorized)`);
@@ -517,6 +560,8 @@ async function run() {
       keepEmptyCategories,
       allowedDocIds,
       allExistingDocIds,
+      docIds: new Set(dedupedDocs.map((doc) => toDocId(doc.slug)).filter(Boolean)),
+      categorySlugCounts,
     };
 
     /** @type {any[]} */
@@ -528,7 +573,7 @@ async function run() {
         items.push({
           type: 'doc',
           id: homeDocId,
-          label: config.homeLinkLabel || 'Home',
+          label: sanitizeText(config.homeLinkLabel || 'Home'),
         });
       } else {
         console.warn(`[generate-sidebars] Skipping home link for audience "${audience}" (no compatible home doc id found).`);
@@ -542,7 +587,7 @@ async function run() {
         .map((item) => ({
           type: 'doc',
           id: toDocId(item.href),
-          label: item.label,
+          label: sanitizeText(item.label),
         }))
         .filter((item) => {
           if (!allExistingDocIds.has(item.id)) {
@@ -605,7 +650,7 @@ async function run() {
         items: unmatchedForAudience.map((doc) => ({
           type: 'doc',
           id: doc.slug,
-          label: doc.sidebarLabel || doc.title,
+          label: sanitizeText(doc.sidebarLabel || doc.title),
         })),
       });
     }

@@ -22,7 +22,7 @@ export default function AdminLandingPage() {
                 <PageHeader 
                     breadcrumbs={[
                         { label: 'Home', href: '/' },
-                        { label: 'Learn by Role', href: '/#learn-by-role' },
+                        { label: 'Learn by Role', href: '/roles' },
                         { label: 'Admin' }
                     ]}
                 />
@@ -92,7 +92,7 @@ export default function AdminLandingPage() {
                                     title: 'API Management',
                                     description: 'Learn about API authentication, tokens, and integration access',
                                     icon: <Lock className="w-8 h-8" />,
-                                    link: '/docs/getting-started/first-time-login--access',
+                                    link: '/docs/getting-started/first-time-login-access',
                                     badge: 'Developer',
                                     color: '#06B6D4'
                                 }
@@ -210,7 +210,7 @@ export default function AdminLandingPage() {
                                     title: 'API Authentication',
                                     description: 'Understand API tokens and integration access',
                                     icon: <Key className="w-6 h-6" />,
-                                    link: '/docs/getting-started/first-time-login--access'
+                                    link: '/docs/getting-started/first-time-login-access'
                                 }
                             ].map((action, idx) => (
                                 <motion.div

@@ -14,6 +14,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '1. Getting Started',
+      link: { type: 'generated-index', slug: '/getting-started', title: 'Getting Started', description: 'Everything you need to get up and running with GCXONE.' },
       collapsible: true,
       collapsed: false,
       items: [
@@ -87,6 +88,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '3. Devices & Integrations',
+      link: { type: 'generated-index', slug: '/devices', title: 'Devices & Integrations', description: 'Connect, configure, and monitor IoT devices and integrations.' },
       collapsible: true,
       collapsed: true,
       items: [
@@ -220,6 +222,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '4. Platform Features',
+      link: { type: 'generated-index', slug: '/features', title: 'Platform Features', description: 'Explore the full capabilities of the GCXONE platform.' },
       collapsible: true,
       collapsed: true,
       items: [

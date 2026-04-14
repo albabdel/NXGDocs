@@ -147,7 +147,7 @@ export default function PlatformOverview() {
                                 Home
                             </Link>
                             <ChevronRight className="w-4 h-4 text-slate-600" />
-                            <Link to="/#quick-start" className="text-slate-400 hover:text-white transition-colors no-underline">
+                            <Link to="/getting-started" className="text-slate-400 hover:text-white transition-colors no-underline">
                                 Quick Start
                             </Link>
                             <ChevronRight className="w-4 h-4 text-slate-600" />
@@ -1449,7 +1449,7 @@ export default function PlatformOverview() {
                                 {
                                     title: 'Device Integration',
                                     desc: 'Connect your security devices',
-                                    link: '/docs/devices',
+                                    link: '/docs/devices/add-a-device-to-gcxone',
                                     icon: <Camera className="w-6 h-6" />
                                 },
                                 {

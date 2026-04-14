@@ -50,7 +50,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Alarm Reception & Parsing',
         description: 'Automated reception and intelligent parsing of alarm signals from multiple protocols including Contact ID, SIA, and proprietary formats with real-time decoding.',
         category: 'Core Processing',
-        link: '/docs/alarm-management/reception-parsing',
+        link: '/docs/alarm-management/alarm-codes',
         icon: <Bell className="w-6 h-6" />,
         status: 'core'
     },
@@ -58,7 +58,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Priority Classification',
         description: 'Automatic priority assignment based on alarm type, customer tier, location risk, and historical patterns to ensure critical alarms receive immediate attention.',
         category: 'Core Processing',
-        link: '/docs/alarm-management/priority-classification',
+        link: '/docs/alarm-management/alarm-codes',
         icon: <Target className="w-6 h-6" />,
         status: 'core'
     },
@@ -66,7 +66,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Event Correlation',
         description: 'Intelligent correlation engine that links related alarms, identifies patterns, and groups events to reduce operator cognitive load and improve response efficiency.',
         category: 'Core Processing',
-        link: '/docs/alarm-management/event-correlation',
+        link: '/docs/alarm-management/alarm-codes',
         icon: <Layers className="w-6 h-6" />,
         status: 'core'
     },
@@ -74,7 +74,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Alarm Filtering',
         description: 'Configurable filtering rules to suppress known non-critical events, maintenance alerts, and scheduled test signals during specific time windows.',
         category: 'Core Processing',
-        link: '/docs/alarm-management/alarm-filtering',
+        link: '/docs/alarm-management/alarm-codes',
         icon: <Filter className="w-6 h-6" />,
         status: 'core'
     },
@@ -82,7 +82,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'False Alarm Reduction',
         description: 'Machine learning-powered false alarm detection that identifies and automatically resolves common false alarm scenarios before operator escalation.',
         category: 'Core Processing',
-        link: '/docs/alarm-management/false-alarm-reduction',
+        link: '/docs/alarm-management/alarm-codes',
         icon: <AlertCircle className="w-6 h-6" />,
         status: 'advanced'
     },
@@ -92,7 +92,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Intelligent Routing',
         description: 'Rule-based routing engine that directs alarms to appropriate operators based on skill sets, workload, geography, and customer assignments.',
         category: 'Routing & Escalation',
-        link: '/docs/alarm-management/intelligent-routing',
+        link: '/docs/features/alarms-ai/workflows',
         icon: <Route className="w-6 h-6" />,
         status: 'core'
     },
@@ -100,7 +100,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Escalation Chains',
         description: 'Multi-tier escalation workflows with configurable time thresholds, automatic supervisor notification, and customer contact protocols.',
         category: 'Routing & Escalation',
-        link: '/docs/alarm-management/escalation-chains',
+        link: '/docs/operator-guide/escalation-procedures',
         icon: <TrendingUp className="w-6 h-6" />,
         status: 'core'
     },
@@ -108,7 +108,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Overflow Management',
         description: 'Automatic workload balancing and overflow routing during peak periods to maintain response time SLAs and prevent operator burnout.',
         category: 'Routing & Escalation',
-        link: '/docs/alarm-management/overflow-management',
+        link: '/docs/alarm-management/event-overflow',
         icon: <Users className="w-6 h-6" />,
         status: 'advanced'
     },
@@ -116,7 +116,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Backup Routing',
         description: 'Redundant routing paths and failover mechanisms ensuring alarm delivery even during system outages or network disruptions.',
         category: 'Routing & Escalation',
-        link: '/docs/alarm-management/backup-routing',
+        link: '/docs/alarm-management/redundant-alarms',
         icon: <Shield className="w-6 h-6" />,
         status: 'core'
     },
@@ -126,7 +126,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Multi-Channel Notifications',
         description: 'Unified notification hub supporting email, SMS, voice calls, push notifications, and webhooks with delivery confirmation and retry logic.',
         category: 'Notifications & Integration',
-        link: '/docs/alarm-management/multi-channel-notifications',
+        link: '/docs/features/notifications-alerts',
         icon: <MessageSquare className="w-6 h-6" />,
         status: 'core'
     },
@@ -134,7 +134,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'SMS/Email/Voice',
         description: 'Integrated communication channels with templated messages, text-to-speech for voice calls, and two-way response handling.',
         category: 'Notifications & Integration',
-        link: '/docs/alarm-management/sms-email-voice',
+        link: '/docs/features/notifications-alerts',
         icon: <Volume2 className="w-6 h-6" />,
         status: 'core'
     },
@@ -142,7 +142,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Third-Party Integration',
         description: 'API integrations with PSIM platforms, CRM systems, access control, video management, and dispatch services for seamless workflow automation.',
         category: 'Notifications & Integration',
-        link: '/docs/alarm-management/third-party-integration',
+        link: '/docs/features/alarms-ai/dc09',
         icon: <Workflow className="w-6 h-6" />,
         status: 'advanced'
     },
@@ -150,7 +150,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Mobile Push',
         description: 'Real-time push notifications to mobile devices with actionable alerts, location awareness, and offline acknowledgment capabilities.',
         category: 'Notifications & Integration',
-        link: '/docs/alarm-management/mobile-push',
+        link: '/docs/features/notifications-alerts',
         icon: <Zap className="w-6 h-6" />,
         status: 'core'
     },
@@ -160,7 +160,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Alarm Statistics',
         description: 'Comprehensive dashboards showing alarm volumes, types, response times, and resolution rates with drill-down capabilities.',
         category: 'Analytics & Reporting',
-        link: '/docs/alarm-management/alarm-statistics',
+        link: '/docs/reporting/reporting-overview',
         icon: <BarChart3 className="w-6 h-6" />,
         status: 'core'
     },
@@ -168,7 +168,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Response Time Metrics',
         description: 'Detailed response time analytics from alarm receipt to resolution, identifying bottlenecks and improvement opportunities.',
         category: 'Analytics & Reporting',
-        link: '/docs/alarm-management/response-time-metrics',
+        link: '/docs/reporting/reporting-overview',
         icon: <Timer className="w-6 h-6" />,
         status: 'core'
     },
@@ -176,7 +176,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Operator Performance',
         description: 'Individual and team performance metrics including handling time, accuracy, customer satisfaction, and skill assessments.',
         category: 'Analytics & Reporting',
-        link: '/docs/alarm-management/operator-performance',
+        link: '/docs/features/operational-tools/analytics',
         icon: <UserCheck className="w-6 h-6" />,
         status: 'advanced'
     },
@@ -184,7 +184,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Trend Analysis',
         description: 'Historical trend analysis and predictive insights for alarm patterns, seasonal variations, and capacity planning.',
         category: 'Analytics & Reporting',
-        link: '/docs/alarm-management/trend-analysis',
+        link: '/docs/features/operational-tools/analytics',
         icon: <Activity className="w-6 h-6" />,
         status: 'advanced'
     },
@@ -194,7 +194,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Alarm Review Mode',
         description: 'Post-incident review tools for analyzing alarm handling decisions, identifying improvement areas, and updating best practices.',
         category: 'Optimization & Training',
-        link: '/docs/alarm-management/alarm-review-mode',
+        link: '/docs/operator-guide/training-guide',
         icon: <CheckSquare className="w-6 h-6" />,
         status: 'advanced'
     },
@@ -202,7 +202,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Training Simulator',
         description: 'Interactive training environment with simulated alarm scenarios for operator onboarding, skill development, and certification.',
         category: 'Optimization & Training',
-        link: '/docs/alarm-management/training-simulator',
+        link: '/docs/operator-guide/training-guide',
         icon: <Play className="w-6 h-6" />,
         status: 'advanced'
     },
@@ -210,7 +210,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Best Practices',
         description: 'Built-in best practice guidelines, decision trees, and SOP documentation integrated directly into the alarm handling workflow.',
         category: 'Optimization & Training',
-        link: '/docs/alarm-management/best-practices',
+        link: '/docs/operator-guide/training-guide',
         icon: <FileText className="w-6 h-6" />,
         status: 'core'
     },
@@ -220,7 +220,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'System Monitoring',
         description: 'Real-time monitoring of all system components, communication channels, and integration endpoints with alerting.',
         category: 'System Health & Performance',
-        link: '/docs/alarm-management/system-monitoring',
+        link: '/docs/features/system-health-monitoring',
         icon: <Activity className="w-6 h-6" />,
         status: 'core'
     },
@@ -228,7 +228,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Health Checks',
         description: 'Automated health check routines for receiver lines, database connections, and critical services with auto-recovery options.',
         category: 'System Health & Performance',
-        link: '/docs/alarm-management/health-checks',
+        link: '/docs/features/system-health-monitoring',
         icon: <CheckCircle2 className="w-6 h-6" />,
         status: 'core'
     },
@@ -236,7 +236,7 @@ const alarmFeatures: AlarmFeature[] = [
         title: 'Performance Metrics',
         description: 'System performance dashboards showing throughput, latency, queue depths, and resource utilization for capacity planning.',
         category: 'System Health & Performance',
-        link: '/docs/alarm-management/performance-metrics',
+        link: '/docs/features/operational-tools/analytics',
         icon: <BarChart3 className="w-6 h-6" />,
         status: 'advanced'
     }

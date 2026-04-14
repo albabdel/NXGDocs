@@ -9,7 +9,12 @@ const PRODUCTS = ['gcxone'];
 const SITE_DIR = path.join(__dirname, '..');
 const FETCH_CONTENT_PATH = path.join(SITE_DIR, 'scripts', 'fetch-sanity-content.js');
 const PRUNE_SIDEBAR_PATH = path.join(SITE_DIR, 'scripts', 'prune-sidebar-to-cache.js');
-const GENERATE_SIDEBAR_PATH = path.join(SITE_DIR, '..', 'scripts', 'generate-sidebar-from-sanity.js');
+const GENERATE_SIDEBAR_PATH = path.join(
+  SITE_DIR,
+  '..',
+  'scripts',
+  'generate-sidebars-from-sanity.js'
+);
 
 async function buildProduct(product) {
   const startTime = Date.now();
@@ -36,6 +41,17 @@ async function buildProduct(product) {
     pruneSidebar();
   } catch (err) {
     console.warn(`[${product}] Warning: sidebar prune step failed: ${err.message}`);
+  }
+
+  delete require.cache[require.resolve(GENERATE_SIDEBAR_PATH)];
+
+  try {
+    console.log(`[${product}] Generating sidebar from Sanity...`);
+    const { run: generateSidebars } = require(GENERATE_SIDEBAR_PATH);
+    await generateSidebars();
+  } catch (err) {
+    console.error(`[${product}] Failed to generate sidebar: ${err.message}`);
+    throw err;
   }
 
   return new Promise((resolve, reject) => {
@@ -83,17 +99,17 @@ async function buildAllProducts(products = PRODUCTS, parallel = true) {
   const duration = ((Date.now() - startTime) / 1000).toFixed(1);
 
   console.log('\n[multi-build] Build Summary:');
-  console.log('─'.repeat(50));
+  console.log('-'.repeat(50));
 
   for (const result of results) {
-    console.log(`  ✓ ${result.product}: ${result.duration}s`);
+    console.log(`  OK ${result.product}: ${result.duration}s`);
   }
 
   for (const error of errors) {
-    console.log(`  ✗ ${error.product}: ${error.error}`);
+    console.log(`  FAIL ${error.product}: ${error.error}`);
   }
 
-  console.log('─'.repeat(50));
+  console.log('-'.repeat(50));
   console.log(`[multi-build] All builds complete in ${duration}s`);
   console.log(`[multi-build] Success: ${results.length}/${products.length}`);
 
