@@ -8,6 +8,7 @@ const PRODUCTS = ['gcxone'];
 
 const SITE_DIR = path.join(__dirname, '..');
 const FETCH_CONTENT_PATH = path.join(SITE_DIR, 'scripts', 'fetch-sanity-content.js');
+const PRUNE_SIDEBAR_PATH = path.join(SITE_DIR, 'scripts', 'prune-sidebar-to-cache.js');
 const GENERATE_SIDEBAR_PATH = path.join(SITE_DIR, '..', 'scripts', 'generate-sidebar-from-sanity.js');
 
 async function buildProduct(product) {
@@ -28,7 +29,14 @@ async function buildProduct(product) {
     throw err;
   }
 
-  // Sidebar is maintained manually in sidebars.ts — do not auto-generate.
+  // Prune sidebars.ts to only include docs that were actually fetched.
+  // This prevents build failures when Sanity content changes without a sidebar update.
+  try {
+    const pruneSidebar = require(PRUNE_SIDEBAR_PATH);
+    pruneSidebar();
+  } catch (err) {
+    console.warn(`[${product}] Warning: sidebar prune step failed: ${err.message}`);
+  }
 
   return new Promise((resolve, reject) => {
     const child = spawn('npm', ['run', 'docusaurus', '--', 'build', '--out-dir', `build/${product}`], {
