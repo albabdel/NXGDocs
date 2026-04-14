@@ -80,7 +80,7 @@ const config: Config = {
       person_profiles: 'identified_only',
     }],
     ['@docusaurus/plugin-content-docs', { id: 'internal', path: 'docs-internal', routeBasePath: 'internal', sidebarPath: './sidebars-internal.ts', showLastUpdateTime: false, showLastUpdateAuthor: false, editUrl: undefined }],
-    ['@docusaurus/plugin-content-docs', { id: 'sanity-docs', path: productConfig.docsPath, routeBasePath: 'docs', sidebarPath: './sidebars.generated.ts', showLastUpdateTime: false, showLastUpdateAuthor: false, editUrl: undefined, sidebarCollapsible: true, sidebarCollapsed: true, breadcrumbs: true }],
+    ['@docusaurus/plugin-content-docs', { id: 'sanity-docs', path: productConfig.docsPath, routeBasePath: 'docs', sidebarPath: './sidebars.ts', showLastUpdateTime: false, showLastUpdateAuthor: false, editUrl: undefined, sidebarCollapsible: true, sidebarCollapsed: true, breadcrumbs: true }],
   ],
   themes: ['@docusaurus/theme-mermaid'],
   themeConfig: {

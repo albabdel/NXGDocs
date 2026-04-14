@@ -16,7 +16,7 @@ const SITE_DIR = path.join(__dirname, '..');
 const OUTPUT_DIR = path.join(SITE_DIR, 'classic');
 
 const AUDIENCE_FILE_MAP = {
-  all: 'sidebars.generated.ts',
+  all: 'sidebars.ts',
   admin: 'sidebars-admin.ts',
   manager: 'sidebars-manager.ts',
   operator: 'sidebars-operator.ts',
