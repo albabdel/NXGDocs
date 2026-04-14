@@ -11,10 +11,26 @@
  * It uses stable _id values derived from slugs so repeated runs
  * update rather than duplicate.
  */
-'use strict';
 
-require('dotenv').config();
-const { createClient } = require('@sanity/client');
+import { readFileSync } from 'fs';
+import { createClient } from '@sanity/client';
+
+// Load .env manually (no dotenv dependency needed)
+try {
+  const envPath = new URL('../../.env', import.meta.url).pathname.replace(/^\/([A-Z]:)/, '$1');
+  const lines = readFileSync(envPath, 'utf8').split('\n');
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const eq = trimmed.indexOf('=');
+    if (eq === -1) continue;
+    const key = trimmed.slice(0, eq).trim();
+    const val = trimmed.slice(eq + 1).trim().replace(/^["']|["']$/g, '');
+    if (!process.env[key]) process.env[key] = val;
+  }
+} catch {
+  // .env not found — rely on environment
+}
 
 const projectId =
   process.env.SANITY_PROJECT_ID || process.env.SANITY_STUDIO_PROJECT_ID;
